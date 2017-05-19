@@ -2,7 +2,8 @@
 #define BOOST_TEXT_TEXT_HPP
 
 #include <stdexcept>
-#include <stdlib>
+#include <stdlib.h>
+#include <string.h>
 
 
 namespace boost { namespace text {
