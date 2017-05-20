@@ -1,8 +1,11 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
+#include <boost/algorithm/searching/boyer_moore.hpp>
+
 #include <algorithm>
 #include <stdexcept>
+
 #include <assert.h>
 #include <limits.h>
 #include <stdlib.h>
@@ -16,7 +19,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        constexpr std::size_t strlen (char const * c_str) noexcept
+        inline constexpr std::size_t strlen (char const * c_str) noexcept
         {
             std::size_t retval = 0;
             while (c_str) {
@@ -32,8 +35,51 @@ namespace boost { namespace text {
     {
         using iterator = char const *;
         using const_iterator = char const *;
-        using reverse_iterator = char const *;
-        using const_reverse_iterator = char const *;
+
+        struct reverse_iterator
+        {
+            using value_type = char const;
+            using difference_type = int;
+            using pointer = char const *;
+            using reference = char const;
+            using iterator_category = std::random_access_iterator_tag;
+
+            constexpr reverse_iterator () noexcept : ptr_ (nullptr) {}
+            explicit constexpr reverse_iterator (char const * ptr) noexcept : ptr_ (ptr) {}
+
+            constexpr iterator base () const noexcept { return ptr_ + 1; }
+
+            constexpr reference operator* () const noexcept { return *ptr_; }
+            constexpr pointer operator->() const noexcept { return ptr_; }
+
+            constexpr value_type operator[] (difference_type n) const noexcept { return ptr_[n]; }
+
+            constexpr reverse_iterator operator++ () noexcept { ++ptr_; return *this; }
+            constexpr reverse_iterator operator++ (int) noexcept { reverse_iterator retval = *this; ++ptr_; return retval; }
+            constexpr reverse_iterator operator+= (int n) noexcept { ptr_ += n; return *this; }
+
+            constexpr reverse_iterator operator-- () noexcept { --ptr_; return *this; }
+            constexpr reverse_iterator operator-- (int) noexcept { reverse_iterator retval = *this; --ptr_; return retval; }
+            constexpr reverse_iterator operator-= (int n) noexcept { ptr_ += n; return *this; }
+
+            // TODO: operator<=> () const
+            friend constexpr bool operator== (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ == rhs.ptr_; }
+            friend constexpr bool operator!= (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ != rhs.ptr_; }
+            friend constexpr bool operator< (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ < rhs.ptr_; }
+            friend constexpr bool operator<= (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ <= rhs.ptr_; }
+            friend constexpr bool operator> (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ > rhs.ptr_; }
+            friend constexpr bool operator>= (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ >= rhs.ptr_; }
+
+            friend constexpr reverse_iterator operator+ (reverse_iterator lhs, int rhs) noexcept { return lhs += rhs; }
+            friend constexpr reverse_iterator operator+ (int lhs, reverse_iterator rhs) noexcept { return rhs += lhs; }
+            friend constexpr reverse_iterator operator- (reverse_iterator lhs, int rhs) noexcept { return lhs -= rhs; }
+            friend constexpr reverse_iterator operator- (int lhs, reverse_iterator rhs) noexcept { return rhs -= lhs; }
+
+        private:
+            char const * ptr_;
+        };
+
+        using const_reverse_iterator = reverse_iterator;
 
         constexpr text_view () noexcept :
             data_ (nullptr),
@@ -58,8 +104,8 @@ namespace boost { namespace text {
         constexpr const_iterator cbegin () const noexcept { return begin(); }
         constexpr const_iterator cend () const noexcept { return end(); }
 
-        constexpr const_reverse_iterator rbegin () const noexcept { return end() - 1; }
-        constexpr const_reverse_iterator rend () const noexcept { return begin() - 1; }
+        constexpr const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end() - 1); }
+        constexpr const_reverse_iterator rend () const noexcept { return reverse_iterator(begin() - 1); }
 
         constexpr const_reverse_iterator crbegin () const noexcept { return rbegin(); }
         constexpr const_reverse_iterator crend () const noexcept { return rend(); }
@@ -146,6 +192,11 @@ namespace boost { namespace text {
         int size_;
     };
 
+    struct rope_view
+    {
+        // TODO
+    };
+
     struct text
     {
         using iterator = char *;
@@ -213,10 +264,20 @@ namespace boost { namespace text {
         int cap_;
     };
 
-    constexpr text_view::text_view (text const & t) noexcept :
+    inline constexpr text_view::text_view (text const & t) noexcept :
         data_ (t.data()),
         size_ (t.size())
     {}
+
+    // TODO: Constrain.
+    template <typename Sequence, typename Pattern>
+    text_view find (Sequence const & sequence, Pattern const & pattern)
+    {
+        algorithm::boyer_moore<typename Pattern::const_iterator>
+            search(pattern.begin(), pattern.end());
+        auto const result = search(sequence.begin(), sequence.end());
+        return text_view(result.first, std::distance(result.first, result.second));
+    }
 
 } }
 

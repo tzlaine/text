@@ -1,6 +1,7 @@
 #include <boost/text/text.hpp>
 
-boost::text::text_view sv;
-
 int main ()
-{}
+{
+    boost::text::text_view sv;
+    find(sv, sv);
+}
