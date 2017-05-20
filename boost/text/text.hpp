@@ -1,7 +1,10 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
+#include <algorithm>
 #include <stdexcept>
+#include <assert.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -10,6 +13,20 @@ namespace boost { namespace text {
 
     struct text;
     struct text_view;
+
+    namespace detail {
+
+        constexpr std::size_t strlen (char const * c_str) noexcept
+        {
+            std::size_t retval = 0;
+            while (c_str) {
+                retval += 1;
+                ++c_str;
+            }
+            return retval;
+        }
+
+    }
 
     struct text_view
     {
@@ -25,8 +42,8 @@ namespace boost { namespace text {
 
         constexpr text_view (char const * c_str) noexcept :
             data_ (c_str),
-            size_ (strlen(c_str))
-        {}
+            size_ (detail::strlen(c_str))
+        { assert(detail::strlen(c_str) < INT_MAX); }
 
         constexpr text_view (char const * c_str, int len) noexcept :
             data_ (c_str),
@@ -75,7 +92,7 @@ namespace boost { namespace text {
         }
 
         constexpr int max_size () const noexcept
-        { return MAX_INT; }
+        { return INT_MAX; }
 
         // TODO: operator<=> () const
         constexpr int compare (text_view rhs) const noexcept
@@ -85,30 +102,30 @@ namespace boost { namespace text {
                 return 0;
             int retval = memcmp(data_, rhs.data_, size);
             if (retval == 0) {
-                if (size_ < retval.size_) return -1;
-                if (size_ == retval.size_) return 0;
+                if (size_ < rhs.size_) return -1;
+                if (size_ == rhs.size_) return 0;
                 return 1;
             }
             return retval;
         }
 
         constexpr bool operator== (text_view rhs) const noexcept
-        { compare(rhs) == 0; }
+        { return compare(rhs) == 0; }
 
         constexpr bool operator!= (text_view rhs) const noexcept
-        { compare(rhs) != 0; }
+        { return compare(rhs) != 0; }
 
         constexpr bool operator< (text_view rhs) const noexcept
-        { compare(rhs) < 0; }
+        { return compare(rhs) < 0; }
 
         constexpr bool operator<= (text_view rhs) const noexcept
-        { compare(rhs) <= 0; }
+        { return compare(rhs) <= 0; }
 
         constexpr bool operator> (text_view rhs) const noexcept
-        { compare(rhs) > 0; }
+        { return compare(rhs) > 0; }
 
         constexpr bool operator>= (text_view rhs) const noexcept
-        { compare(rhs) >= 0; }
+        { return compare(rhs) >= 0; }
 
         constexpr void swap (text_view & rhs) noexcept
         {
@@ -144,11 +161,14 @@ namespace boost { namespace text {
             cap_ (t.size())
         { memcpy(data_.get(), t.data(), t.size()); }
 
-        text & operator= (text const & t) :
-            data_ (new char[t.size()]),
-            size_ (t.size()),
-            cap_ (t.size())
-        { memcpy(data_.get(), t.data(), t.size()); }
+        text & operator= (text const & t)
+        {
+            data_.reset(new char[t.size()]);
+            size_ = t.size();
+            cap_ = t.size();
+            memcpy(data_.get(), t.data(), t.size());
+            return *this;
+        }
 
         text (text &&) = default;
         text & operator= (text &&) = default;
@@ -185,7 +205,7 @@ namespace boost { namespace text {
         { return size_; }
 
         char const * data() const
-        { return data_; }
+        { return data_.get(); }
 
     private:
         std::unique_ptr<char[]> data_;
@@ -193,7 +213,7 @@ namespace boost { namespace text {
         int cap_;
     };
 
-    text_view::text_view (text const & t) :
+    constexpr text_view::text_view (text const & t) noexcept :
         data_ (t.data()),
         size_ (t.size())
     {}

@@ -1,6 +1,6 @@
 #include <boost/text/text.hpp>
 
-string_view sv;
+boost::text::text_view sv;
 
 int main ()
 {}
