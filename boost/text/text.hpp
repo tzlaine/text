@@ -1,10 +1,8 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
-#include <boost/algorithm/searching/boyer_moore.hpp>
-
-#include <algorithm>
-#include <stdexcept>
+#include <iterator>
+#include <memory>
 
 #include <assert.h>
 #include <limits.h>
@@ -28,6 +26,22 @@ namespace boost { namespace text {
             }
             return retval;
         }
+
+        inline constexpr char const * strrchr (
+            char const * first,
+            char const * last,
+            char c
+        ) noexcept {
+            while (first != last) {
+                if (*--last == c)
+                    return last;
+            }
+            return nullptr;
+        }
+
+        template <typename T>
+        constexpr T min_ (T rhs, T lhs) noexcept
+        { return rhs < lhs ? rhs : lhs; }
 
         struct reverse_char_iterator
         {
@@ -111,6 +125,8 @@ namespace boost { namespace text {
             { return lhs -= rhs; }
             friend constexpr reverse_char_iterator operator- (int lhs, reverse_char_iterator rhs) noexcept
             { return rhs -= lhs; }
+            friend constexpr int operator- (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ - rhs.ptr_; }
 
         private:
             char * ptr_;
@@ -198,9 +214,21 @@ namespace boost { namespace text {
             { return lhs -= rhs; }
             friend constexpr const_reverse_char_iterator operator- (int lhs, const_reverse_char_iterator rhs) noexcept
             { return rhs -= lhs; }
+            friend constexpr int operator- (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ - rhs.ptr_; }
 
         private:
             char const * ptr_;
+        };
+
+        template <typename Iter>
+        struct iterator_range
+        {
+            Iter first;
+            Iter last;
+
+            friend Iter begin (iterator_range r) { return r.first; }
+            friend Iter end (iterator_range r) { return r.last; }
         };
 
     }
@@ -274,7 +302,7 @@ namespace boost { namespace text {
         // TODO: operator<=> () const
         constexpr int compare (text_view rhs) const noexcept
         {
-            int const size = (std::min)(size_, rhs.size_);
+            int const size = detail::min_(size_, rhs.size_);
             if (size == 0)
                 return 0;
             int retval = memcmp(data_, rhs.data_, size);
@@ -322,6 +350,19 @@ namespace boost { namespace text {
         { return v.begin(); }
         friend iterator end (text_view v)
         { return v.end(); }
+        friend iterator cbegin (text_view v)
+        { return v.cbegin(); }
+        friend iterator cend (text_view v)
+        { return v.cend(); }
+
+        friend reverse_iterator rbegin (text_view v)
+        { return v.rbegin(); }
+        friend reverse_iterator rend (text_view v)
+        { return v.rend(); }
+        friend reverse_iterator crbegin (text_view v)
+        { return v.crbegin(); }
+        friend reverse_iterator crend (text_view v)
+        { return v.crend(); }
 
     private:
         char const * data_;
@@ -415,34 +456,17 @@ namespace boost { namespace text {
         size_ (t.size())
     {}
 
-    // TODO: Constrain.
-    // TODO: constexpr noexcept.
-    template <typename CharRange, typename PatternCharRange>
-    text_view find (CharRange const & r, PatternCharRange const & p)
-    {
-        algorithm::boyer_moore<typename PatternCharRange::const_iterator> search(begin(p), end(p));
-        auto const result = search(begin(r), end(r));
-        return text_view(&*result.first, std::distance(result.first, result.second));
-    }
-
-    template <typename CharRange>
-    constexpr text_view substr (CharRange const & r, int start, int size) noexcept
-    {
-        assert(start + size < r.size());
-        return text_view(&*begin(r) + start, size);
-    }
-
     // TODO: Use this in text_view::compare().
     template <typename LCharRange, typename RCharRange>
     constexpr int compare (LCharRange const & l, RCharRange const & r) noexcept
     {
         auto const l_it = begin(l);
         auto const r_it = begin(r);
-        auto const l_size = std::distance(l_it, end(l));
-        auto const r_size = std::distance(r_it, end(r));
+        auto const l_size = end(l) - l_it;
+        auto const r_size = end(r) - r_it;
         assert(l_size <= INT_MAX);
         assert(r_size <= INT_MAX);
-        int const size = (int)(std::min)(l_size, r_size);
+        int const size = (int)detail::min_(l_size, r_size);
         if (size == 0)
             return 0;
         int retval = memcmp(&*l_it, &*r_it, size);
@@ -454,6 +478,90 @@ namespace boost { namespace text {
         return retval;
     }
 
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr text_view find (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * r_first = &*begin(r);
+        char const * p_first = &*begin(p);
+        char const * const r_last = &*end(r);
+        char const * const p_last = &*end(p);
+
+        if (r_first == r_last)
+            return text_view(&*r_last, 0);
+        if (p_first == p_last)
+            return text_view(&*r_first, 0);
+
+        char const p_head = *p_first;
+        int r_len = r_last - r_first;
+        int const p_len = p_last - p_first;
+        while (true) {
+            r_len = r_last - r_first;
+            if (r_len < p_len)
+                return text_view(&*r_last, 0);
+
+            r_first = strchr(r_first, p_head);
+            if (r_first == nullptr)
+                return text_view(&*r_last, 0);
+
+            text_view candidate(r_first, p_len);
+            if (compare(candidate, p) == 0)
+                return candidate;
+
+            ++r_first;
+        }
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr text_view rfind (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * p_first = &*begin(p);
+        char const * r_last = &*end(r);
+        char const * const p_last = &*end(p);
+
+        if (r_first == r_last)
+            return text_view(&*r_last, 0);
+        if (p_first == p_last)
+            return text_view(&*r_first, 0);
+
+        char const p_head = *p_first;
+        int r_len = r_last - r_first;
+        int const p_len = p_last - p_first;
+        while (true) {
+            r_len = r_last - r_first;
+            if (r_len < p_len)
+                return text_view(&*r_last, 0);
+
+            auto candidate_first = detail::strrchr(r_first, r_last, p_head);
+            if (candidate_first == nullptr)
+                return text_view(&*r_last, 0);
+
+            text_view candidate(candidate_first, p_len);
+            if (compare(candidate, p) == 0)
+                return candidate;
+
+            r_last = candidate_first;
+        }
+    }
+
+    template <typename CharRange>
+    constexpr text_view substr (CharRange const & r, int start, int size) noexcept
+    {
+        assert(start + size <= r.size());
+        return text_view(&*begin(r) + start, size);
+    }
+
 } }
+
+/* Rationale
+
+   1: use of int for sizes
+
+   2: begin and end free functions, but no others (you can make the others
+   from these)
+
+*/
 
 #endif
