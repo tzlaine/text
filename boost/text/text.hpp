@@ -373,6 +373,20 @@ namespace boost { namespace text {
         int size_;
     };
 
+    namespace literals {
+
+        constexpr text_view operator"" _tv (char const * str, std::size_t len) noexcept
+        {
+            assert(len < INT_MAX);
+            return text_view(str, len);
+        }
+
+        // TODO: constexpr text_view operator"" _tv (std::char16_t const * str, std::size_t len) noexcept
+        // TODO: constexpr text_view operator"" _tv (std::char32_t const * str, std::size_t len) noexcept
+        // TODO: constexpr text_view operator"" _tv (std::wchar_t const * str, std::size_t len) noexcept
+
+    }
+
     struct rope_view
     {
         // TODO

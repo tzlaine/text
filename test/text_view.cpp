@@ -5,21 +5,27 @@
 
 int main ()
 {
-    boost::text::text_view const sv;
+    boost::text::text_view const tv;
 
-    find(sv, sv);
-    find_view(sv, sv);
-    rfind(sv, sv);
-    rfind_view(sv, sv);
+    {
+        using namespace boost::text::literals;
+        boost::text::text_view const tv2 = ""_tv;
+        (void)tv2;
+    }
 
-    find_first_of(sv, sv);
-    find_first_not_of(sv, sv);
-    find_last_of(sv, sv);
-    find_last_not_of(sv, sv);
+    find(tv, tv);
+    find_view(tv, tv);
+    rfind(tv, tv);
+    rfind_view(tv, tv);
 
-    substr(sv, 0, 0);
+    find_first_of(tv, tv);
+    find_first_not_of(tv, tv);
+    find_last_of(tv, tv);
+    find_last_not_of(tv, tv);
 
-    compare(sv, sv);
+    substr(tv, 0, 0);
 
-    std::cout << "sv=\"" << sv << "\"";
+    compare(tv, tv);
+
+    std::cout << "tv=\"" << tv << "\"";
 }
