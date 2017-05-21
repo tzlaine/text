@@ -480,70 +480,118 @@ namespace boost { namespace text {
 
     // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr text_view find (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr int find (CharRange const & r, PatternCharRange const & p) noexcept
     {
-        char const * r_first = &*begin(r);
-        char const * p_first = &*begin(p);
+        char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
-        char const * const p_last = &*end(p);
 
         if (r_first == r_last)
-            return text_view(&*r_last, 0);
+            return -1;
+
+        char const * const p_last = &*end(p);
+        char const * const p_first = &*begin(p);
+
         if (p_first == p_last)
-            return text_view(&*r_first, 0);
+            return -1;
 
         char const p_head = *p_first;
-        int r_len = r_last - r_first;
         int const p_len = p_last - p_first;
+        const char * curr = r_first;
         while (true) {
-            r_len = r_last - r_first;
+            int const r_len = r_last - curr;
             if (r_len < p_len)
-                return text_view(&*r_last, 0);
+                return -1;
 
-            r_first = strchr(r_first, p_head);
-            if (r_first == nullptr)
-                return text_view(&*r_last, 0);
+            curr = strchr(curr, p_head);
+            if (curr == nullptr)
+                return -1;
 
-            text_view candidate(r_first, p_len);
+            text_view candidate(curr, p_len);
             if (compare(candidate, p) == 0)
-                return candidate;
+                return curr - r_first;
 
-            ++r_first;
+            ++curr;
         }
     }
 
     // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr text_view rfind (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr text_view find_view (CharRange const & r, PatternCharRange const & p) noexcept
     {
         char const * const r_first = &*begin(r);
-        char const * p_first = &*begin(p);
-        char const * r_last = &*end(r);
-        char const * const p_last = &*end(p);
+        char const * const r_last = &*end(r);
 
         if (r_first == r_last)
-            return text_view(&*r_last, 0);
+            return text_view(r_first, 0);
+
+        char const * const p_last = &*end(p);
+        char const * const p_first = &*begin(p);
+
         if (p_first == p_last)
-            return text_view(&*r_first, 0);
+            return text_view(r_first, 0);
+
+        int const n = find(r, p);
+        if (n < 0)
+            return text_view(r_last, 0);
+        return text_view(r_first + n, p_last - p_first);
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr int rfind (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * const r_last = &*end(r);
+
+        if (r_first == r_last)
+            return -1;
+
+        char const * const p_last = &*end(p);
+        char const * const p_first = &*begin(p);
+
+        if (p_first == p_last)
+            return -1;
 
         char const p_head = *p_first;
-        int r_len = r_last - r_first;
         int const p_len = p_last - p_first;
+        const char * curr_last = r_last;
         while (true) {
-            r_len = r_last - r_first;
+            int const r_len = curr_last - r_first;
             if (r_len < p_len)
-                return text_view(&*r_last, 0);
+                return -1;
 
-            auto candidate_first = detail::strrchr(r_first, r_last, p_head);
+            auto candidate_first = detail::strrchr(r_first, curr_last, p_head);
             if (candidate_first == nullptr)
-                return text_view(&*r_last, 0);
+                return -1;
 
             text_view candidate(candidate_first, p_len);
             if (compare(candidate, p) == 0)
-                return candidate;
+                return candidate_first - r_first;
 
-            r_last = candidate_first;
+            curr_last = candidate_first;
         }
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr text_view rfind_view (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * const r_last = &*end(r);
+
+        if (r_first == r_last)
+            return text_view(r_first, 0);
+
+        char const * const p_last = &*end(p);
+        char const * const p_first = &*begin(p);
+
+        if (p_first == p_last)
+            return text_view(r_first, 0);
+
+        int const n = rfind(r, p);
+        if (n < 0)
+            return text_view(r_last, 0);
+        return text_view(r_first + n, p_last - p_first);
     }
 
     template <typename CharRange>
