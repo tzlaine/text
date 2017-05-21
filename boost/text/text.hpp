@@ -416,6 +416,7 @@ namespace boost { namespace text {
     {}
 
     // TODO: Constrain.
+    // TODO: constexpr noexcept.
     template <typename CharRange, typename PatternCharRange>
     text_view find (CharRange const & r, PatternCharRange const & p)
     {
@@ -424,12 +425,33 @@ namespace boost { namespace text {
         return text_view(&*result.first, std::distance(result.first, result.second));
     }
 
-    // TODO: Constrain.
     template <typename CharRange>
-    text_view substr (CharRange const & r, int start, int size)
+    constexpr text_view substr (CharRange const & r, int start, int size) noexcept
     {
         assert(start + size < r.size());
         return text_view(&*begin(r) + start, size);
+    }
+
+    // TODO: Use this in text_view::compare().
+    template <typename LCharRange, typename RCharRange>
+    constexpr int compare (LCharRange const & l, RCharRange const & r) noexcept
+    {
+        auto const l_it = begin(l);
+        auto const r_it = begin(r);
+        auto const l_size = std::distance(l_it, end(l));
+        auto const r_size = std::distance(r_it, end(r));
+        assert(l_size <= INT_MAX);
+        assert(r_size <= INT_MAX);
+        int const size = (int)(std::min)(l_size, r_size);
+        if (size == 0)
+            return 0;
+        int retval = memcmp(&*l_it, &*r_it, size);
+        if (retval == 0) {
+            if (l_size < r_size) return -1;
+            if (l_size == r_size) return 0;
+            return 1;
+        }
+        return retval;
     }
 
 } }
