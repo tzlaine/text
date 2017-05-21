@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
+#include <ostream>
 #include <iterator>
 #include <memory>
 
@@ -364,6 +365,9 @@ namespace boost { namespace text {
         friend reverse_iterator crend (text_view v)
         { return v.crend(); }
 
+        friend std::ostream & operator<< (std::ostream & os, text_view view)
+        { return os.write(view.data(), view.size()); }
+
     private:
         char const * data_;
         int size_;
@@ -496,21 +500,21 @@ namespace boost { namespace text {
 
         char const p_head = *p_first;
         int const p_len = p_last - p_first;
-        const char * curr = r_first;
+        const char * it = r_first;
         while (true) {
-            int const r_len = r_last - curr;
+            int const r_len = r_last - it;
             if (r_len < p_len)
                 return -1;
 
-            curr = strchr(curr, p_head);
-            if (curr == nullptr)
+            it = strchr(it, p_head);
+            if (it == nullptr)
                 return -1;
 
-            text_view candidate(curr, p_len);
+            text_view candidate(it, p_len);
             if (compare(candidate, p) == 0)
-                return curr - r_first;
+                return it - r_first;
 
-            ++curr;
+            ++it;
         }
     }
 
@@ -538,6 +542,102 @@ namespace boost { namespace text {
 
     // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
+    constexpr int find_first_of (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * const r_last = &*end(r);
+
+        if (r_first == r_last)
+            return -1;
+
+        if (begin(p) == end(p))
+            return -1;
+
+        char const * it = r_first;
+        while (it != r_last) {
+            for (char const c : p) {
+                if (*it == c)
+                    return it - r_first;
+            }
+            ++it;
+        }
+        return -1;
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr int find_last_of (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * const r_last = &*end(r);
+
+        if (r_first == r_last)
+            return -1;
+
+        if (begin(p) == end(p))
+            return -1;
+
+        char const * it = r_last;
+        while (r_first != it) {
+            --it;
+            for (char const c : p) {
+                if (*it == c)
+                    return it - r_first;
+            }
+        }
+        return -1;
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr int find_first_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * const r_last = &*end(r);
+
+        if (r_first == r_last)
+            return -1;
+
+        if (begin(p) == end(p))
+            return -1;
+
+        char const * it = r_first;
+        while (it != r_last) {
+            for (char const c : p) {
+                if (*it != c)
+                    return it - r_first;
+            }
+            ++it;
+        }
+        return -1;
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
+    constexpr int find_last_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+    {
+        char const * const r_first = &*begin(r);
+        char const * const r_last = &*end(r);
+
+        if (r_first == r_last)
+            return -1;
+
+        if (begin(p) == end(p))
+            return -1;
+
+        char const * it = r_last;
+        while (r_first != it) {
+            --it;
+            for (char const c : p) {
+                if (*it != c)
+                    return it - r_first;
+            }
+        }
+        return -1;
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange, typename PatternCharRange>
     constexpr int rfind (CharRange const & r, PatternCharRange const & p) noexcept
     {
         char const * const r_first = &*begin(r);
@@ -554,13 +654,13 @@ namespace boost { namespace text {
 
         char const p_head = *p_first;
         int const p_len = p_last - p_first;
-        const char * curr_last = r_last;
+        const char * it = r_last;
         while (true) {
-            int const r_len = curr_last - r_first;
+            int const r_len = it - r_first;
             if (r_len < p_len)
                 return -1;
 
-            auto candidate_first = detail::strrchr(r_first, curr_last, p_head);
+            auto candidate_first = detail::strrchr(r_first, it, p_head);
             if (candidate_first == nullptr)
                 return -1;
 
@@ -568,7 +668,7 @@ namespace boost { namespace text {
             if (compare(candidate, p) == 0)
                 return candidate_first - r_first;
 
-            curr_last = candidate_first;
+            it = candidate_first;
         }
     }
 
