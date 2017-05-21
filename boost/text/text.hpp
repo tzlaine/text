@@ -29,14 +29,94 @@ namespace boost { namespace text {
             return retval;
         }
 
-    }
+        struct reverse_char_iterator
+        {
+            using value_type = char;
+            using difference_type = int;
+            using pointer = char *;
+            using reference = char &;
+            using iterator_category = std::random_access_iterator_tag;
 
-    struct text_view
-    {
-        using iterator = char const *;
-        using const_iterator = char const *;
+            constexpr reverse_char_iterator () noexcept :
+                ptr_ (nullptr)
+            {}
+            explicit constexpr reverse_char_iterator (char * ptr) noexcept :
+                ptr_ (ptr)
+            {}
 
-        struct reverse_iterator
+            constexpr char * base () const noexcept
+            { return ptr_ + 1; }
+
+            constexpr reference operator* () const noexcept
+            { return *ptr_; }
+            constexpr pointer operator->() const noexcept
+            { return ptr_; }
+
+            constexpr value_type operator[] (difference_type n) const noexcept
+            { return ptr_[n]; }
+
+            constexpr reverse_char_iterator operator++ () noexcept
+            {
+                ++ptr_;
+                return *this;
+            }
+            constexpr reverse_char_iterator operator++ (int) noexcept
+            {
+                reverse_char_iterator retval = *this;
+                ++ptr_;
+                return retval;
+            }
+            constexpr reverse_char_iterator operator+= (int n) noexcept
+            {
+                ptr_ += n;
+                return *this;
+            }
+
+            constexpr reverse_char_iterator operator-- () noexcept
+            {
+                --ptr_;
+                return *this;
+            }
+            constexpr reverse_char_iterator operator-- (int) noexcept
+            {
+                reverse_char_iterator retval = *this;
+                --ptr_;
+                return retval;
+            }
+            constexpr reverse_char_iterator operator-= (int n) noexcept
+            {
+                ptr_ += n;
+                return *this;
+            }
+
+            // TODO: operator<=> () const
+            friend constexpr bool operator== (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ == rhs.ptr_; }
+            friend constexpr bool operator!= (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ != rhs.ptr_; }
+            friend constexpr bool operator< (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ < rhs.ptr_; }
+            friend constexpr bool operator<= (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ <= rhs.ptr_; }
+            friend constexpr bool operator> (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ > rhs.ptr_; }
+            friend constexpr bool operator>= (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ >= rhs.ptr_; }
+
+            friend constexpr reverse_char_iterator operator+ (reverse_char_iterator lhs, int rhs) noexcept
+            { return lhs += rhs; }
+            friend constexpr reverse_char_iterator operator+ (int lhs, reverse_char_iterator rhs) noexcept
+            { return rhs += lhs; }
+            friend constexpr reverse_char_iterator operator- (reverse_char_iterator lhs, int rhs) noexcept
+            { return lhs -= rhs; }
+            friend constexpr reverse_char_iterator operator- (int lhs, reverse_char_iterator rhs) noexcept
+            { return rhs -= lhs; }
+
+        private:
+            char * ptr_;
+        };
+
+        struct const_reverse_char_iterator
         {
             using value_type = char const;
             using difference_type = int;
@@ -44,42 +124,93 @@ namespace boost { namespace text {
             using reference = char const;
             using iterator_category = std::random_access_iterator_tag;
 
-            constexpr reverse_iterator () noexcept : ptr_ (nullptr) {}
-            explicit constexpr reverse_iterator (char const * ptr) noexcept : ptr_ (ptr) {}
+            constexpr const_reverse_char_iterator () noexcept :
+                ptr_ (nullptr)
+            {}
+            explicit constexpr const_reverse_char_iterator (char const * ptr) noexcept :
+                ptr_ (ptr)
+            {}
 
-            constexpr iterator base () const noexcept { return ptr_ + 1; }
+            constexpr char const * base () const noexcept
+            { return ptr_ + 1; }
 
-            constexpr reference operator* () const noexcept { return *ptr_; }
-            constexpr pointer operator->() const noexcept { return ptr_; }
+            constexpr reference operator* () const noexcept
+            { return *ptr_; }
+            constexpr pointer operator->() const noexcept
+            { return ptr_; }
 
-            constexpr value_type operator[] (difference_type n) const noexcept { return ptr_[n]; }
+            constexpr value_type operator[] (difference_type n) const noexcept
+            { return ptr_[n]; }
 
-            constexpr reverse_iterator operator++ () noexcept { ++ptr_; return *this; }
-            constexpr reverse_iterator operator++ (int) noexcept { reverse_iterator retval = *this; ++ptr_; return retval; }
-            constexpr reverse_iterator operator+= (int n) noexcept { ptr_ += n; return *this; }
+            constexpr const_reverse_char_iterator operator++ () noexcept
+            {
+                ++ptr_;
+                return *this;
+            }
+            constexpr const_reverse_char_iterator operator++ (int) noexcept
+            {
+                const_reverse_char_iterator retval = *this;
+                ++ptr_;
+                return retval;
+            }
+            constexpr const_reverse_char_iterator operator+= (int n) noexcept
+            {
+                ptr_ += n;
+                return *this;
+            }
 
-            constexpr reverse_iterator operator-- () noexcept { --ptr_; return *this; }
-            constexpr reverse_iterator operator-- (int) noexcept { reverse_iterator retval = *this; --ptr_; return retval; }
-            constexpr reverse_iterator operator-= (int n) noexcept { ptr_ += n; return *this; }
+            constexpr const_reverse_char_iterator operator-- () noexcept
+            {
+                --ptr_;
+                return *this;
+            }
+            constexpr const_reverse_char_iterator operator-- (int) noexcept
+            {
+                const_reverse_char_iterator retval = *this;
+                --ptr_;
+                return retval;
+            }
+            constexpr const_reverse_char_iterator operator-= (int n) noexcept
+            {
+                ptr_ += n;
+                return *this;
+            }
 
             // TODO: operator<=> () const
-            friend constexpr bool operator== (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ == rhs.ptr_; }
-            friend constexpr bool operator!= (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ != rhs.ptr_; }
-            friend constexpr bool operator< (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ < rhs.ptr_; }
-            friend constexpr bool operator<= (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ <= rhs.ptr_; }
-            friend constexpr bool operator> (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ > rhs.ptr_; }
-            friend constexpr bool operator>= (reverse_iterator lhs, reverse_iterator rhs) noexcept { return lhs.ptr_ >= rhs.ptr_; }
+            friend constexpr bool operator== (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ == rhs.ptr_; }
+            friend constexpr bool operator!= (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ != rhs.ptr_; }
+            friend constexpr bool operator< (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ < rhs.ptr_; }
+            friend constexpr bool operator<= (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ <= rhs.ptr_; }
+            friend constexpr bool operator> (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ > rhs.ptr_; }
+            friend constexpr bool operator>= (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+            { return lhs.ptr_ >= rhs.ptr_; }
 
-            friend constexpr reverse_iterator operator+ (reverse_iterator lhs, int rhs) noexcept { return lhs += rhs; }
-            friend constexpr reverse_iterator operator+ (int lhs, reverse_iterator rhs) noexcept { return rhs += lhs; }
-            friend constexpr reverse_iterator operator- (reverse_iterator lhs, int rhs) noexcept { return lhs -= rhs; }
-            friend constexpr reverse_iterator operator- (int lhs, reverse_iterator rhs) noexcept { return rhs -= lhs; }
+            friend constexpr const_reverse_char_iterator operator+ (const_reverse_char_iterator lhs, int rhs) noexcept
+            { return lhs += rhs; }
+            friend constexpr const_reverse_char_iterator operator+ (int lhs, const_reverse_char_iterator rhs) noexcept
+            { return rhs += lhs; }
+            friend constexpr const_reverse_char_iterator operator- (const_reverse_char_iterator lhs, int rhs) noexcept
+            { return lhs -= rhs; }
+            friend constexpr const_reverse_char_iterator operator- (int lhs, const_reverse_char_iterator rhs) noexcept
+            { return rhs -= lhs; }
 
         private:
             char const * ptr_;
         };
 
-        using const_reverse_iterator = reverse_iterator;
+    }
+
+    struct text_view
+    {
+        using iterator = char const *;
+        using const_iterator = char const *;
+        using reverse_iterator = detail::const_reverse_char_iterator;
+        using const_reverse_iterator = detail::const_reverse_char_iterator;
 
         constexpr text_view () noexcept :
             data_ (nullptr),
@@ -187,6 +318,11 @@ namespace boost { namespace text {
             }
         }
 
+        friend iterator begin (text_view v)
+        { return v.begin(); }
+        friend iterator end (text_view v)
+        { return v.end(); }
+
     private:
         char const * data_;
         int size_;
@@ -201,8 +337,8 @@ namespace boost { namespace text {
     {
         using iterator = char *;
         using const_iterator = char const *;
-        using reverse_iterator = char const *;
-        using const_reverse_iterator = char const *;
+        using reverse_iterator = detail::reverse_char_iterator;
+        using const_reverse_iterator = detail::const_reverse_char_iterator;
 
         text () : data_ (nullptr), size_ (0), cap_ (0) {}
 
@@ -258,6 +394,16 @@ namespace boost { namespace text {
         char const * data() const
         { return data_.get(); }
 
+        friend iterator begin (text & t)
+        { return t.begin(); }
+        friend iterator end (text & t)
+        { return t.end(); }
+
+        friend const_iterator begin (text const & t)
+        { return t.begin(); }
+        friend const_iterator end (text const & t)
+        { return t.end(); }
+
     private:
         std::unique_ptr<char[]> data_;
         int size_;
@@ -270,13 +416,20 @@ namespace boost { namespace text {
     {}
 
     // TODO: Constrain.
-    template <typename Sequence, typename Pattern>
-    text_view find (Sequence const & sequence, Pattern const & pattern)
+    template <typename CharRange, typename PatternCharRange>
+    text_view find (CharRange const & r, PatternCharRange const & p)
     {
-        algorithm::boyer_moore<typename Pattern::const_iterator>
-            search(pattern.begin(), pattern.end());
-        auto const result = search(sequence.begin(), sequence.end());
-        return text_view(result.first, std::distance(result.first, result.second));
+        algorithm::boyer_moore<typename PatternCharRange::const_iterator> search(begin(p), end(p));
+        auto const result = search(begin(r), end(r));
+        return text_view(&*result.first, std::distance(result.first, result.second));
+    }
+
+    // TODO: Constrain.
+    template <typename CharRange>
+    text_view substr (CharRange const & r, int start, int size)
+    {
+        assert(start + size < r.size());
+        return text_view(&*begin(r) + start, size);
     }
 
 } }
