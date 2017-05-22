@@ -20,7 +20,7 @@ namespace boost { namespace text {
         using reverse_iterator = detail::reverse_char_iterator;
         using const_reverse_iterator = detail::const_reverse_char_iterator;
 
-        text () : data_ (nullptr), size_ (0), cap_ (0) {}
+        text () noexcept : data_ (nullptr), size_ (0), cap_ (0) {}
 
         text (text const & t) :
             data_ (new char[t.size()]),
@@ -37,8 +37,20 @@ namespace boost { namespace text {
             return *this;
         }
 
-        text (text &&) = default;
-        text & operator= (text &&) = default;
+        text (text && rhs) noexcept :
+            data_ (std::move(rhs.data_)),
+            size_ (rhs.size_),
+            cap_ (rhs.cap_)
+        {
+            rhs.size_ = 0;
+            rhs.cap_ = 0;
+        }
+
+        text & operator= (text && rhs) noexcept
+        {
+            swap(rhs);
+            return *this;
+        }
 
         text (char const * c_str) :
             data_ (nullptr),
@@ -55,31 +67,46 @@ namespace boost { namespace text {
 
         text (text_view view);
 
-        const_iterator begin () const { return data_.get(); }
-        const_iterator end () const { return data_.get() + size_; }
+        const_iterator begin () const noexcept { return data_.get(); }
+        const_iterator end () const noexcept { return data_.get() + size_; }
 
-        iterator begin () { return data_.get(); }
-        iterator end () { return data_.get() + size_; }
+        iterator begin () noexcept { return data_.get(); }
+        iterator end () noexcept { return data_.get() + size_; }
 
-        bool empty () const
+        bool empty () const noexcept
         { return size_ == 0; }
 
-        int size () const
+        int size () const noexcept
         { return size_; }
 
-        char const * data() const
+        char const * data() const noexcept
         { return data_.get(); }
+
+        void swap (text & rhs) noexcept
+        {
+            data_ = std::move(rhs.data_);
+            {
+                int const tmp = size_;
+                size_ = rhs.size_;
+                rhs.size_ = tmp;
+            }
+            {
+                int const tmp = cap_;
+                cap_ = rhs.cap_;
+                rhs.cap_ = tmp;
+            }
+        }
 
         // TODO
 
-        friend iterator begin (text & t)
+        friend iterator begin (text & t) noexcept
         { return t.begin(); }
-        friend iterator end (text & t)
+        friend iterator end (text & t) noexcept
         { return t.end(); }
 
-        friend const_iterator begin (text const & t)
+        friend const_iterator begin (text const & t) noexcept
         { return t.begin(); }
-        friend const_iterator end (text const & t)
+        friend const_iterator end (text const & t) noexcept
         { return t.end(); }
 
     private:

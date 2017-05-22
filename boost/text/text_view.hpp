@@ -37,14 +37,25 @@ namespace boost { namespace text {
 
         constexpr text_view (text const & t) noexcept;
 
+        constexpr text_view (text_view const & rhs) noexcept :
+            data_ (rhs.data_),
+            size_ (rhs.size_)
+        {}
+        constexpr text_view & operator= (text_view const & rhs) noexcept
+        {
+            data_ = rhs.data_;
+            size_ = rhs.size_;
+            return *this;
+        }
+
         constexpr const_iterator begin () const noexcept { return data_; }
         constexpr const_iterator end () const noexcept { return data_ + size_; }
 
         constexpr const_iterator cbegin () const noexcept { return begin(); }
         constexpr const_iterator cend () const noexcept { return end(); }
 
-        constexpr const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end() - 1); }
-        constexpr const_reverse_iterator rend () const noexcept { return reverse_iterator(begin() - 1); }
+        constexpr const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end()); }
+        constexpr const_reverse_iterator rend () const noexcept { return reverse_iterator(begin()); }
 
         constexpr const_reverse_iterator crbegin () const noexcept { return rbegin(); }
         constexpr const_reverse_iterator crend () const noexcept { return rend(); }
