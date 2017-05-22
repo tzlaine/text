@@ -17,3 +17,21 @@ macro(add_test_executable name)
 endmacro()
 
 add_test_executable(text_view)
+
+add_executable(
+    compile_tests
+    compile_tests_main.cpp
+    compile_include_text_view_1.cpp
+    compile_include_text_view_2.cpp
+    compile_include_text_view_3.cpp
+    compile_include_text_1.cpp
+    compile_include_text_2.cpp
+    compile_include_text_3.cpp
+    compile_include_algorithm_1.cpp
+    compile_include_algorithm_2.cpp
+)
+target_compile_options(compile_tests PRIVATE ${std_flag} -Wall)
+target_link_libraries(compile_tests text)
+if (clang_on_linux)
+    target_link_libraries(compile_tests c++)
+endif ()

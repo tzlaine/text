@@ -1,12 +1,17 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
-#include <boost/text/text_view.hpp>
+#include <boost/text/detail/iterator.hpp>
 
 #include <memory>
+#include <ostream>
+
+#include <cassert>
 
 
 namespace boost { namespace text {
+
+    struct text_view;
 
     struct text
     {
@@ -48,11 +53,7 @@ namespace boost { namespace text {
             size_ = (int)len;
         }
 
-        text (text_view view) :
-            data_ (new char[view.size()]),
-            size_ (view.size()),
-            cap_ (view.size())
-        { memcpy(data_.get(), view.data(), view.size()); }
+        text (text_view view);
 
         const_iterator begin () const { return data_.get(); }
         const_iterator end () const { return data_.get() + size_; }
@@ -86,6 +87,18 @@ namespace boost { namespace text {
         int size_;
         int cap_;
     };
+
+} }
+
+#include <boost/text/text_view.hpp>
+
+namespace boost { namespace text {
+
+    inline text::text (text_view view) :
+        data_ (new char[view.size()]),
+        size_ (view.size()),
+        cap_ (view.size())
+    { memcpy(data_.get(), view.data(), view.size()); }
 
 } }
 
