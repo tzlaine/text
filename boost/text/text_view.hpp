@@ -27,8 +27,8 @@ namespace boost { namespace text {
 
         constexpr text_view (char const * c_str) noexcept :
             data_ (c_str),
-            size_ (detail::strlen(c_str))
-        { assert(detail::strlen(c_str) < INT_MAX); }
+            size_ (detail::strlen(c_str) + 1)
+        { assert(size_ <= INT_MAX); }
 
         constexpr text_view (char const * c_str, int len) noexcept :
             data_ (c_str),

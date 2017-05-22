@@ -11,9 +11,10 @@ namespace boost { namespace text { namespace detail {
 
     inline constexpr std::size_t strlen (char const * c_str) noexcept
     {
+        assert(c_str);
         std::size_t retval = 0;
-        while (c_str) {
-            retval += 1;
+        while (*c_str) {
+            ++retval;
             ++c_str;
         }
         return retval;
@@ -43,15 +44,34 @@ namespace boost { namespace text { namespace detail {
         auto const r_size = r_last - r_first;
         assert(l_size <= INT_MAX);
         assert(r_size <= INT_MAX);
+
+        int retval = 0;
+
         int const size = (int)detail::min_(l_size, r_size);
-        if (size == 0)
-            return 0;
-        int retval = memcmp(l_first, r_first, size);
+        if (size != 0) {
+            char const * l_it = l_first;
+            char const * l_it_end = l_first + size;
+            char const * r_it = r_first;
+            while (l_it != l_it_end) {
+                char const l_c = *l_it;
+                char const r_c = *r_it;
+                if (l_c < r_c)
+                    return -1;
+                if (r_c < l_c)
+                    return 1;
+                ++l_it;
+                ++r_it;
+            }
+            // TODO: if constexpr (!constexpr)
+            // retval = memcmp(l_first, r_first, size);
+        }
+
         if (retval == 0) {
             if (l_size < r_size) return -1;
             if (l_size == r_size) return 0;
             return 1;
         }
+
         return retval;
     }
 

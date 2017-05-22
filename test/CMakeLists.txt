@@ -16,6 +16,7 @@ macro(add_test_executable name)
     endif ()
 endmacro()
 
+add_test_executable(detail_utility)
 add_test_executable(text_view)
 
 add_executable(
