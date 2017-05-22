@@ -6,27 +6,9 @@
 
 namespace boost { namespace text {
 
-    // TODO: Use this in text_view::compare().
     template <typename LCharRange, typename RCharRange>
     constexpr int compare (LCharRange const & l, RCharRange const & r) noexcept
-    {
-        auto const l_it = begin(l);
-        auto const r_it = begin(r);
-        auto const l_size = end(l) - l_it;
-        auto const r_size = end(r) - r_it;
-        assert(l_size <= INT_MAX);
-        assert(r_size <= INT_MAX);
-        int const size = (int)detail::min_(l_size, r_size);
-        if (size == 0)
-            return 0;
-        int retval = memcmp(&*l_it, &*r_it, size);
-        if (retval == 0) {
-            if (l_size < r_size) return -1;
-            if (l_size == r_size) return 0;
-            return 1;
-        }
-        return retval;
-    }
+    { return detail::compare_impl(&*begin(l), &*end(l), &*begin(r), &*end(r)); }
 
     // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>

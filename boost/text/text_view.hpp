@@ -81,18 +81,7 @@ namespace boost { namespace text {
 
         // TODO: operator<=> () const
         constexpr int compare (text_view rhs) const noexcept
-        {
-            int const size = detail::min_(size_, rhs.size_);
-            if (size == 0)
-                return 0;
-            int retval = memcmp(data_, rhs.data_, size);
-            if (retval == 0) {
-                if (size_ < rhs.size_) return -1;
-                if (size_ == rhs.size_) return 0;
-                return 1;
-            }
-            return retval;
-        }
+        { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 
         constexpr bool operator== (text_view rhs) const noexcept
         { return compare(rhs) == 0; }
