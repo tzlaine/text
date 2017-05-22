@@ -184,16 +184,6 @@ namespace boost { namespace text { namespace detail {
         char const * ptr_;
     };
 
-    template <typename Iter>
-    struct iterator_range
-    {
-        Iter first;
-        Iter last;
-
-        friend Iter begin (iterator_range r) { return r.first; }
-        friend Iter end (iterator_range r) { return r.last; }
-    };
-
 } } }
 
 #endif
