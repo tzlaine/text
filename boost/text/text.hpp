@@ -69,6 +69,8 @@ namespace boost { namespace text {
         char const * data() const
         { return data_.get(); }
 
+        // TODO
+
         friend iterator begin (text & t)
         { return t.begin(); }
         friend iterator end (text & t)
