@@ -157,7 +157,7 @@ namespace boost { namespace text {
         constexpr text_view operator"" _tv (char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);
-            return text_view(str, len);
+            return text_view(str, len + 1);
         }
 
         // TODO: constexpr text_view operator"" _tv (std::char16_t const * str, std::size_t len) noexcept
