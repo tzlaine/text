@@ -225,6 +225,10 @@ namespace boost { namespace text {
     template <typename CharRange>
     constexpr text_view substr (CharRange const & r, int start, int size) noexcept
     {
+        if (size < 0) {
+            assert(start <= r.size());
+            size = r.size() - start;
+        }
         assert(start + size <= r.size());
         return text_view(&*begin(r) + start, size);
     }

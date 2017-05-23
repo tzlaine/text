@@ -126,22 +126,22 @@ namespace boost { namespace text {
             }
         }
 
-        friend iterator begin (text_view v)
+        friend constexpr iterator begin (text_view v) noexcept
         { return v.begin(); }
-        friend iterator end (text_view v)
+        friend constexpr iterator end (text_view v) noexcept
         { return v.end(); }
-        friend iterator cbegin (text_view v)
+        friend constexpr iterator cbegin (text_view v) noexcept
         { return v.cbegin(); }
-        friend iterator cend (text_view v)
+        friend constexpr iterator cend (text_view v) noexcept
         { return v.cend(); }
 
-        friend reverse_iterator rbegin (text_view v)
+        friend constexpr reverse_iterator rbegin (text_view v) noexcept
         { return v.rbegin(); }
-        friend reverse_iterator rend (text_view v)
+        friend constexpr reverse_iterator rend (text_view v) noexcept
         { return v.rend(); }
-        friend reverse_iterator crbegin (text_view v)
+        friend constexpr reverse_iterator crbegin (text_view v) noexcept
         { return v.crbegin(); }
-        friend reverse_iterator crend (text_view v)
+        friend constexpr reverse_iterator crend (text_view v) noexcept
         { return v.crend(); }
 
         friend std::ostream & operator<< (std::ostream & os, text_view view)
