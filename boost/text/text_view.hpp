@@ -183,8 +183,7 @@ namespace boost { namespace text {
 
    1: use of int for sizes
 
-   2: begin and end free functions, but no others (you can make the others
-   from these)
+   2: including null terminator in string_views
 
 */
 
