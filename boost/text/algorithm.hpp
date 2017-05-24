@@ -12,11 +12,20 @@ namespace boost { namespace text {
         using void_t = void;
 
         template <typename T>
-        struct remove_cv_ref : std::remove_cv<std::remove_reference_t<T>>
-        {};
+        struct fixup_ptr
+        { using type = T; };
 
         template <typename T>
-        using remove_cv_ref_t = typename remove_cv_ref<T>::type;
+        using remove_v_t = typename std::remove_volatile<T>::type;
+
+        template <typename T>
+        struct fixup_ptr<T *>
+        {
+            using type = remove_v_t<T> const *;
+        };
+
+        template <typename T>
+        using fixup_ptr_t = typename fixup_ptr<T>::type;
 
         struct nonesuch {};
 
@@ -52,24 +61,24 @@ namespace boost { namespace text {
         using detected_or = typename detector<Default, void, Template, Args...>::type;
 
         template <typename T>
-        using has_member_begin = decltype(*std::declval<T>().begin());
+        using has_member_begin = decltype(&*std::declval<T>().begin());
         template <typename T>
-        using has_free_unqualified_begin = decltype(*begin(std::declval<T>()));
+        using has_free_unqualified_begin = decltype(&*begin(std::declval<T>()));
         template <typename T>
-        using has_free_std_begin = decltype(*std::begin(std::declval<T>()));
+        using has_free_std_begin = decltype(&*std::begin(std::declval<T>()));
 
         template <typename T>
-        using has_member_end = decltype(*std::declval<T>().end());
+        using has_member_end = decltype(&*std::declval<T>().end());
         template <typename T>
-        using has_free_unqualified_end = decltype(*end(std::declval<T>()));
+        using has_free_unqualified_end = decltype(&*end(std::declval<T>()));
         template <typename T>
-        using has_free_std_end = decltype(*std::end(std::declval<T>()));
+        using has_free_std_end = decltype(&*std::end(std::declval<T>()));
 
         template <typename T>
         using is_char_range = std::integral_constant<
             bool,
             std::is_same<
-                remove_cv_ref_t<
+                fixup_ptr_t<
                     detected_or<
                         detected_or<
                             detected_t<has_free_std_begin, T>,
@@ -78,10 +87,10 @@ namespace boost { namespace text {
                         has_member_begin, T
                     >
                 >,
-                char
+                char const *
             >::value &&
             std::is_same<
-                remove_cv_ref_t<
+                fixup_ptr_t<
                     detected_or<
                         detected_or<
                             detected_t<has_free_std_end, T>,
@@ -90,7 +99,7 @@ namespace boost { namespace text {
                         has_member_end, T
                     >
                 >,
-                char
+                char const *
             >::value
         >;
 
