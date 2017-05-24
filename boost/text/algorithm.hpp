@@ -36,7 +36,7 @@ namespace boost { namespace text {
         inline constexpr int find_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return -1;
 
@@ -91,7 +91,7 @@ namespace boost { namespace text {
         inline constexpr text_view find_view_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return text_view(r_first, 0);
 
@@ -133,7 +133,7 @@ namespace boost { namespace text {
         inline constexpr int find_first_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return -1;
 
@@ -183,7 +183,7 @@ namespace boost { namespace text {
         inline constexpr int find_last_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return -1;
 
@@ -232,7 +232,7 @@ namespace boost { namespace text {
         inline constexpr int find_first_not_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return -1;
 
@@ -282,7 +282,7 @@ namespace boost { namespace text {
         inline constexpr int find_last_not_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return -1;
 
@@ -331,7 +331,7 @@ namespace boost { namespace text {
         inline constexpr int rfind_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return -1;
 
@@ -387,7 +387,7 @@ namespace boost { namespace text {
         inline constexpr text_view rfind_view_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
-        ) {
+        ) noexcept {
             if (r_first == r_last)
                 return text_view(r_first, 0);
 
@@ -424,27 +424,30 @@ namespace boost { namespace text {
 
     // substr ()
 
+    namespace detail {
+
+        constexpr auto substr_impl (
+            char const * r_first, char const * r_last,
+            int start, int size
+        ) noexcept {
+            int const r_size = r_last - r_first;
+            if (size < 0) {
+                assert(start <= r_size);
+                size = r_size - start;
+            }
+            assert(start + size <= r_size);
+            return text_view(r_first + start, size);
+        }
+
+    }
+
     template <typename CharRange>
     constexpr auto substr (CharRange const & r, int start, int size) noexcept
         -> detail::rng_alg_ret_t<text_view, CharRange>
-    {
-        if (size < 0) {
-            assert(start <= r.size());
-            size = r.size() - start;
-        }
-        assert(start + size <= r.size());
-        return text_view(&*begin(r) + start, size);
-    }
+    { return detail::substr_impl(&*begin(r), &*end(r), start, size); }
 
     inline constexpr auto substr (text_view r, int start, int size) noexcept
-    {
-        if (size < 0) {
-            assert(start <= r.size());
-            size = r.size() - start;
-        }
-        assert(start + size <= r.size());
-        return text_view(begin(r) + start, size);
-    }
+    { return detail::substr_impl(begin(r), end(r), start, size); }
 
 } }
 
