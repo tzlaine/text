@@ -51,7 +51,7 @@ TEST(text_view, test_empty)
     {
         using namespace text::literals;
         constexpr text::text_view tv2 = ""_tv;
-        EXPECT_TRUE(tv < tv2);
+        EXPECT_TRUE(tv == tv2);
     }
 }
 
@@ -115,7 +115,7 @@ TEST(text_view, test_empty_constexpr)
     {
         using namespace text::literals;
         constexpr text::text_view tv2 = ""_tv;
-        static_assert(tv < tv2, "");
+        static_assert(tv == tv2, "");
     }
 }
 
@@ -140,19 +140,18 @@ TEST(text_view, test_non_empty)
     EXPECT_EQ(tv_ab.rend(), tv_ab.crend());
 
     EXPECT_FALSE(tv_a.empty());
-    EXPECT_EQ(tv_a.size(), 2);
+    EXPECT_EQ(tv_a.size(), 1);
     EXPECT_NE(tv_a.data(), nullptr);
 
     EXPECT_FALSE(tv_ab.empty());
-    EXPECT_EQ(tv_ab.size(), 3);
+    EXPECT_EQ(tv_ab.size(), 2);
     EXPECT_NE(tv_ab.data(), nullptr);
 
     EXPECT_EQ(tv_a.front(), 'a');
-    EXPECT_EQ(tv_a.back(), '\0');
-    EXPECT_EQ(tv_a[1], '\0');
+    EXPECT_EQ(tv_a.back(), 'a');
 
     EXPECT_EQ(tv_ab.front(), 'a');
-    EXPECT_EQ(tv_ab.back(), '\0');
+    EXPECT_EQ(tv_ab.back(), 'b');
     EXPECT_EQ(tv_ab[1], 'b');
 
     EXPECT_EQ(tv_a.max_size(), INT_MAX);
@@ -210,19 +209,18 @@ TEST(text_view, test_non_empty_constexpr)
     static_assert(tv_ab.rend() == tv_ab.crend(), "");
 
     static_assert(!tv_a.empty(), "");
-    static_assert(tv_a.size() == 2, "");
+    static_assert(tv_a.size() == 1, "");
     static_assert(tv_a.data() != nullptr, "");
 
     static_assert(!tv_ab.empty(), "");
-    static_assert(tv_ab.size() == 3, "");
+    static_assert(tv_ab.size() == 2, "");
     static_assert(tv_ab.data() != nullptr, "");
 
     static_assert(tv_a.front() == 'a', "");
-    static_assert(tv_a.back() == '\0', "");
-    static_assert(tv_a[1] == '\0', "");
+    static_assert(tv_a.back() == 'a', "");
 
     static_assert(tv_ab.front() == 'a', "");
-    static_assert(tv_ab.back() == '\0', "");
+    static_assert(tv_ab.back() == 'b', "");
     static_assert(tv_ab[1] == 'b', "");
 
     static_assert(tv_a.max_size() == INT_MAX, "");

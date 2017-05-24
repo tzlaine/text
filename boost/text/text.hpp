@@ -57,11 +57,11 @@ namespace boost { namespace text {
             size_ (0),
             cap_ (0)
         {
-            auto len = strlen(c_str) + 1;
-            if (INT_MAX < len)
+            auto const len = strlen(c_str);
+            if (INT_MAX < len + 1)
                 throw std::bad_alloc();
-            data_.reset(new char[len]);
-            memcpy(data_.get(), c_str, len);
+            data_.reset(new char[len + 1]);
+            memcpy(data_.get(), c_str, len + 1);
             size_ = (int)len;
         }
 
@@ -122,10 +122,13 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     inline text::text (text_view view) :
-        data_ (new char[view.size()]),
-        size_ (view.size()),
+        data_ (new char[view.size() + 1]),
+        size_ (view.size() + 1),
         cap_ (view.size())
-    { memcpy(data_.get(), view.data(), view.size()); }
+    {
+        memcpy(data_.get(), view.data(), view.size());
+        data_[size_] = '\0';
+    }
 
 } }
 

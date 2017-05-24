@@ -140,17 +140,16 @@ TEST(algorithm, test_view_view_substr)
     EXPECT_EQ(substr(tv_empty, 0, 0), tv_empty);
     EXPECT_EQ(substr(tv_empty, 0, -1), tv_empty);
 
-    EXPECT_EQ(substr(tv_a, 0, 2), tv_a);
+    EXPECT_EQ(substr(tv_a, 0, 1), tv_a);
     EXPECT_EQ(substr(tv_a, 0, -2), tv_a);
 
-    EXPECT_EQ(substr(tv_abc, 0, 8), tv_abc);
+    EXPECT_EQ(substr(tv_abc, 0, 7), tv_abc);
     EXPECT_EQ(substr(tv_abc, 0, -1), tv_abc);
 
-    EXPECT_EQ(substr(tv_a, 0, 1), text::text_view("a", 1));
-    EXPECT_EQ(substr(tv_a, 1, 1), "");
+    EXPECT_EQ(substr(tv_a, 0, 1), text::text_view("a"));
 
-    EXPECT_EQ(substr(tv_abc, 0, 7), text::text_view("abcdefg", 7));
-    EXPECT_EQ(substr(tv_abc, 2, 3), text::text_view("cde", 3));
+    EXPECT_EQ(substr(tv_abc, 0, 7), text::text_view("abcdefg"));
+    EXPECT_EQ(substr(tv_abc, 2, 3), text::text_view("cde"));
 }
 
 TEST(algorithm, test_view_view_substr_constexpr)
@@ -162,15 +161,14 @@ TEST(algorithm, test_view_view_substr_constexpr)
     static_assert(substr(tv_empty, 0, 0) == tv_empty, "");
     static_assert(substr(tv_empty, 0, -1) == tv_empty, "");
 
-    static_assert(substr(tv_a, 0, 2) == tv_a, "");
+    static_assert(substr(tv_a, 0, 1) == tv_a, "");
     static_assert(substr(tv_a, 0, -2) == tv_a, "");
 
-    static_assert(substr(tv_abc, 0, 8) == tv_abc, "");
+    static_assert(substr(tv_abc, 0, 7) == tv_abc, "");
     static_assert(substr(tv_abc, 0, -1) == tv_abc, "");
 
-    static_assert(substr(tv_a, 0, 1) == text::text_view("a", 1), "");
-    static_assert(substr(tv_a, 1, 1) == "", "");
+    static_assert(substr(tv_a, 0, 1) == text::text_view("a"), "");
 
-    static_assert(substr(tv_abc, 0, 7) == text::text_view("abcdefg", 7), "");
-    static_assert(substr(tv_abc, 2, 3) == text::text_view("cde", 3), "");
+    static_assert(substr(tv_abc, 0, 7) == text::text_view("abcdefg"), "");
+    static_assert(substr(tv_abc, 2, 3) == text::text_view("cde"), "");
 }

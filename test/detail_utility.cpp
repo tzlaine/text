@@ -37,7 +37,6 @@ TEST(utility, test_strrchr)
         EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 'x'), nullptr);
         EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 't'), str_1 + 7);
         EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 'n'), str_1);
-        EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, '\0'), str_1_end - 1);
     }
 
     {
@@ -47,7 +46,6 @@ TEST(utility, test_strrchr)
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 'x') == nullptr, "");
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 't') == str_1.begin() + 7, "");
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 'n') == str_1.begin(), "");
-        static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), '\0') == str_1.end() - 1, "");
     }
 
     {

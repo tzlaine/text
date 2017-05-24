@@ -155,9 +155,6 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
         text::text_view tv_empty("");
         text::detail::const_reverse_char_iterator it = tv_empty.rbegin();
 
-        EXPECT_EQ(*it, '\0');
-        EXPECT_EQ(it[0], '\0');
-
         EXPECT_TRUE(it == it);
         EXPECT_FALSE(it != it);
         EXPECT_FALSE(it < it);
@@ -272,9 +269,6 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
     {
         constexpr text::text_view tv_empty("");
         constexpr text::detail::const_reverse_char_iterator it = tv_empty.rbegin();
-
-        static_assert(*it == '\0', "");
-        static_assert(it[0] == '\0', "");
 
         static_assert(it == it, "");
         static_assert(!(it != it), "");
