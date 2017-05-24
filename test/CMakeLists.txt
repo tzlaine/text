@@ -32,6 +32,7 @@ add_executable(
     compile_include_text_3.cpp
     compile_include_algorithm_1.cpp
     compile_include_algorithm_2.cpp
+    compile_detail_is_char_range.cpp
 )
 target_compile_options(compile_tests PRIVATE ${std_flag} -Wall)
 target_link_libraries(compile_tests text)

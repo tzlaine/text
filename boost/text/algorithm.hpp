@@ -6,13 +6,134 @@
 
 namespace boost { namespace text {
 
+    namespace detail {
+
+        template <class ...>
+        using void_t = void;
+
+        template <typename T>
+        struct remove_cv_ref : std::remove_cv<std::remove_reference_t<T>>
+        {};
+
+        template <typename T>
+        using remove_cv_ref_t = typename remove_cv_ref<T>::type;
+
+        struct nonesuch {};
+
+        template <
+            typename Default,
+            typename AlwaysVoid,
+            template <class ...> typename Template,
+            typename ...Args
+        >
+        struct detector
+        {
+            using value_t = std::false_type;
+            using type = Default;
+        };
+ 
+        template <
+            typename Default,
+            template <class ...> typename Template,
+            typename ...Args
+        >
+        struct detector<Default, std::void_t<Template<Args...>>, Template, Args...> {
+            using value_t = std::true_type;
+            using type = Template<Args...>;
+        };
+ 
+        template <template<class ...> class Template, class ...Args>
+        using is_detected = typename detector<nonesuch, void, Template, Args...>::value_t;
+
+        template <template<class ...> class Template, class ...Args>
+        using detected_t = typename detector<nonesuch, void, Template, Args...>::type;
+
+        template <typename Default, template<class ...> class Template, class ...Args>
+        using detected_or = typename detector<Default, void, Template, Args...>::type;
+
+        template <typename T>
+        using has_member_begin = decltype(*std::declval<T>().begin());
+        template <typename T>
+        using has_free_unqualified_begin = decltype(*begin(std::declval<T>()));
+        template <typename T>
+        using has_free_std_begin = decltype(*std::begin(std::declval<T>()));
+
+        template <typename T>
+        using has_member_end = decltype(*std::declval<T>().end());
+        template <typename T>
+        using has_free_unqualified_end = decltype(*end(std::declval<T>()));
+        template <typename T>
+        using has_free_std_end = decltype(*std::end(std::declval<T>()));
+
+        template <typename T>
+        using is_char_range = std::integral_constant<
+            bool,
+            std::is_same<
+                remove_cv_ref_t<
+                    detected_or<
+                        detected_or<
+                            detected_t<has_free_std_begin, T>,
+                            has_free_unqualified_begin, T
+                        >,
+                        has_member_begin, T
+                    >
+                >,
+                char
+            >::value &&
+            std::is_same<
+                remove_cv_ref_t<
+                    detected_or<
+                        detected_or<
+                            detected_t<has_free_std_end, T>,
+                            has_free_unqualified_end, T
+                        >,
+                        has_member_end, T
+                    >
+                >,
+                char
+            >::value
+        >;
+
+        template <
+            typename T,
+            typename R1,
+            bool R1IsCharRange = is_char_range<R1>{}
+        >
+        struct rng_alg_ret {};
+
+        template <typename T, typename R1>
+        struct rng_alg_ret<T, R1, true>
+        { using type = T; };
+
+        template <typename T, typename R1>
+        using rng_alg_ret_t = typename rng_alg_ret<T, R1>::type;
+
+        template <
+            typename T,
+            typename R1,
+            typename R2,
+            bool R1IsCharRange = is_char_range<R1>{},
+            bool R2IsCharRange = is_char_range<R2>{}
+        >
+        struct rngs_alg_ret {};
+
+        template <typename T, typename R1, typename R2>
+        struct rngs_alg_ret<T, R1, R2, true, true>
+        { using type = T; };
+
+        template <typename T, typename R1, typename R2>
+        using rngs_alg_ret_t = typename rngs_alg_ret<T, R1, R2>::type;
+
+    }
+
     template <typename LCharRange, typename RCharRange>
-    constexpr int compare (LCharRange const & l, RCharRange const & r) noexcept
+    constexpr auto compare (LCharRange const & l, RCharRange const & r) noexcept
+        -> detail::rngs_alg_ret_t<int, LCharRange, RCharRange>
     { return detail::compare_impl(&*begin(l), &*end(l), &*begin(r), &*end(r)); }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr int find (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto find (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -46,9 +167,9 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr text_view find_view (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto find_view (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -68,9 +189,9 @@ namespace boost { namespace text {
         return text_view(r_first + n, p_last - p_first);
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr int find_first_of (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto find_first_of (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -92,9 +213,9 @@ namespace boost { namespace text {
         return -1;
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr int find_last_of (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto find_last_of (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -116,9 +237,9 @@ namespace boost { namespace text {
         return -1;
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr int find_first_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto find_first_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -140,9 +261,9 @@ namespace boost { namespace text {
         return -1;
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr int find_last_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto find_last_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -164,9 +285,9 @@ namespace boost { namespace text {
         return -1;
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr int rfind (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto rfind (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -200,9 +321,9 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Constrain.
     template <typename CharRange, typename PatternCharRange>
-    constexpr text_view rfind_view (CharRange const & r, PatternCharRange const & p) noexcept
+    constexpr auto rfind_view (CharRange const & r, PatternCharRange const & p) noexcept
+        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     {
         char const * const r_first = &*begin(r);
         char const * const r_last = &*end(r);
@@ -223,7 +344,8 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange>
-    constexpr text_view substr (CharRange const & r, int start, int size) noexcept
+    constexpr auto substr (CharRange const & r, int start, int size) noexcept
+        -> detail::rng_alg_ret_t<text_view, CharRange>
     {
         if (size < 0) {
             assert(start <= r.size());
