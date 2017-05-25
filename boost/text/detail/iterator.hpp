@@ -32,7 +32,7 @@ namespace boost { namespace text { namespace detail {
         constexpr value_type operator[] (difference_type n) const noexcept
         { return ptr_[-n]; }
 
-        constexpr reverse_char_iterator operator++ () noexcept
+        constexpr reverse_char_iterator & operator++ () noexcept
         {
             --ptr_;
             return *this;
@@ -43,13 +43,13 @@ namespace boost { namespace text { namespace detail {
             --ptr_;
             return retval;
         }
-        constexpr reverse_char_iterator operator+= (int n) noexcept
+        constexpr reverse_char_iterator & operator+= (difference_type n) noexcept
         {
             ptr_ -= n;
             return *this;
         }
 
-        constexpr reverse_char_iterator operator-- () noexcept
+        constexpr reverse_char_iterator & operator-- () noexcept
         {
             ++ptr_;
             return *this;
@@ -60,7 +60,7 @@ namespace boost { namespace text { namespace detail {
             ++ptr_;
             return retval;
         }
-        constexpr reverse_char_iterator operator-= (int n) noexcept
+        constexpr reverse_char_iterator & operator-= (difference_type n) noexcept
         {
             ptr_ += n;
             return *this;
@@ -80,15 +80,15 @@ namespace boost { namespace text { namespace detail {
         friend constexpr bool operator>= (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
         { return lhs.ptr_ <= rhs.ptr_; }
 
-        friend constexpr reverse_char_iterator operator+ (reverse_char_iterator lhs, int rhs) noexcept
+        friend constexpr reverse_char_iterator operator+ (reverse_char_iterator lhs, difference_type rhs) noexcept
         { return lhs += rhs; }
-        friend constexpr reverse_char_iterator operator+ (int lhs, reverse_char_iterator rhs) noexcept
+        friend constexpr reverse_char_iterator operator+ (difference_type lhs, reverse_char_iterator rhs) noexcept
         { return rhs += lhs; }
-        friend constexpr reverse_char_iterator operator- (reverse_char_iterator lhs, int rhs) noexcept
+        friend constexpr reverse_char_iterator operator- (reverse_char_iterator lhs, difference_type rhs) noexcept
         { return lhs -= rhs; }
-        friend constexpr reverse_char_iterator operator- (int lhs, reverse_char_iterator rhs) noexcept
+        friend constexpr reverse_char_iterator operator- (difference_type lhs, reverse_char_iterator rhs) noexcept
         { return rhs -= lhs; }
-        friend constexpr int operator- (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        friend constexpr difference_type operator- (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
         { return rhs.ptr_ - lhs.ptr_; }
 
         friend struct const_reverse_char_iterator;
@@ -124,7 +124,7 @@ namespace boost { namespace text { namespace detail {
         constexpr value_type operator[] (difference_type n) const noexcept
         { return ptr_[-n - 1]; }
 
-        constexpr const_reverse_char_iterator operator++ () noexcept
+        constexpr const_reverse_char_iterator & operator++ () noexcept
         {
             --ptr_;
             return *this;
@@ -135,13 +135,13 @@ namespace boost { namespace text { namespace detail {
             --ptr_;
             return retval;
         }
-        constexpr const_reverse_char_iterator operator+= (int n) noexcept
+        constexpr const_reverse_char_iterator & operator+= (difference_type n) noexcept
         {
             ptr_ -= n;
             return *this;
         }
 
-        constexpr const_reverse_char_iterator operator-- () noexcept
+        constexpr const_reverse_char_iterator & operator-- () noexcept
         {
             ++ptr_;
             return *this;
@@ -152,7 +152,7 @@ namespace boost { namespace text { namespace detail {
             ++ptr_;
             return retval;
         }
-        constexpr const_reverse_char_iterator operator-= (int n) noexcept
+        constexpr const_reverse_char_iterator & operator-= (difference_type n) noexcept
         {
             ptr_ += n;
             return *this;
@@ -198,19 +198,163 @@ namespace boost { namespace text { namespace detail {
         friend constexpr bool operator>= (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
         { return lhs.ptr_ <= rhs.ptr_ - 1; }
 
-        friend constexpr const_reverse_char_iterator operator+ (const_reverse_char_iterator lhs, int rhs) noexcept
+        friend constexpr const_reverse_char_iterator operator+ (const_reverse_char_iterator lhs, difference_type rhs) noexcept
         { return lhs += rhs; }
-        friend constexpr const_reverse_char_iterator operator+ (int lhs, const_reverse_char_iterator rhs) noexcept
+        friend constexpr const_reverse_char_iterator operator+ (difference_type lhs, const_reverse_char_iterator rhs) noexcept
         { return rhs += lhs; }
-        friend constexpr const_reverse_char_iterator operator- (const_reverse_char_iterator lhs, int rhs) noexcept
+        friend constexpr const_reverse_char_iterator operator- (const_reverse_char_iterator lhs, difference_type rhs) noexcept
         { return lhs -= rhs; }
-        friend constexpr const_reverse_char_iterator operator- (int lhs, const_reverse_char_iterator rhs) noexcept
+        friend constexpr const_reverse_char_iterator operator- (difference_type lhs, const_reverse_char_iterator rhs) noexcept
         { return rhs -= lhs; }
-        friend constexpr int operator- (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        friend constexpr difference_type operator- (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
         { return rhs.ptr_ - lhs.ptr_; }
 
     private:
         char const * ptr_;
+    };
+
+    struct const_repeated_chars_iterator
+    {
+        using value_type = char const;
+        using difference_type = std::ptrdiff_t;
+        using pointer = char const *;
+        using reference = char const;
+        using iterator_category = std::random_access_iterator_tag;
+
+        constexpr const_repeated_chars_iterator () noexcept :
+            first_ (nullptr),
+            curr_ (nullptr),
+            last_ (nullptr),
+            count_ (0)
+        {}
+        explicit constexpr const_repeated_chars_iterator (
+            char const * first, char const * last,
+            difference_type count
+        ) noexcept :
+            first_ (first),
+            curr_ (first),
+            last_ (last),
+            count_ (count)
+        {}
+
+        constexpr reference operator* () const noexcept
+        { return *curr_; }
+
+        constexpr value_type operator[] (difference_type n) const noexcept
+        {
+            auto it = *this;
+            it += n;
+            return *it;
+        }
+
+        constexpr const_repeated_chars_iterator & operator++ () noexcept
+        {
+            if (++curr_ == last_) {
+                curr_ = first_;
+                --count_;
+            }
+            return *this;
+        }
+        constexpr const_repeated_chars_iterator operator++ (int) noexcept
+        {
+            const_repeated_chars_iterator retval = *this;
+            ++*this;
+            return retval;
+        }
+        constexpr const_repeated_chars_iterator & operator+= (difference_type n) noexcept
+        {
+            difference_type const remaining = last_ - curr_;
+            if (n < remaining) {
+                curr_ += n;
+            } else {
+                n -= remaining;
+                curr_ = first_;
+                difference_type const size = last_ - first_;
+                assert(0 < size);
+                assert(n / size < count_);
+                n = n % size;
+                curr_ += n;
+            }
+            return *this;
+        }
+
+        constexpr const_repeated_chars_iterator & operator-- () noexcept
+        {
+            if (curr_ == first_) {
+                curr_ = last_;
+                ++count_;
+            }
+            --curr_;
+            return *this;
+        }
+        constexpr const_repeated_chars_iterator operator-- (int) noexcept
+        {
+            const_repeated_chars_iterator retval = *this;
+            --*this;
+            return retval;
+        }
+        constexpr const_repeated_chars_iterator & operator-= (difference_type n) noexcept
+        {
+            difference_type const remaining = curr_ - first_;
+            if (n <= remaining) {
+                curr_ -= n;
+            } else {
+                n -= remaining;
+                curr_ = last_;
+                difference_type const size = last_ - first_;
+                assert(0 < size);
+                n = n % size;
+                curr_ -= n;
+            }
+            return *this;
+        }
+
+        // TODO: operator<=> () const
+        friend constexpr bool operator== (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        { return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ && lhs.count_ == rhs.count_ && lhs.curr_ == rhs.curr_; }
+        friend constexpr bool operator!= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        { return !(lhs == rhs); }
+        // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
+        friend constexpr bool operator< (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        {
+            return
+                lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
+                (lhs.count_ > rhs.count_ || (lhs.count_ == rhs.count_ && lhs.curr_ < rhs.curr_));
+        }
+        friend constexpr bool operator<= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        { return lhs == rhs || lhs < rhs; }
+        friend constexpr bool operator> (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        { return rhs < lhs; }
+        friend constexpr bool operator>= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        { return lhs <= rhs; }
+
+        friend constexpr const_repeated_chars_iterator operator+ (const_repeated_chars_iterator lhs, difference_type rhs) noexcept
+        { return lhs += rhs; }
+        friend constexpr const_repeated_chars_iterator operator+ (difference_type lhs, const_repeated_chars_iterator rhs) noexcept
+        { return rhs += lhs; }
+        friend constexpr const_repeated_chars_iterator operator- (const_repeated_chars_iterator lhs, difference_type rhs) noexcept
+        { return lhs -= rhs; }
+        friend constexpr const_repeated_chars_iterator operator- (difference_type lhs, const_repeated_chars_iterator rhs) noexcept
+        { return rhs -= lhs; }
+        friend constexpr difference_type operator- (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
+        {
+            // TODO: Document this precondition!
+            assert(lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_);
+            difference_type const l_offset = lhs.curr_ - lhs.first_;
+            difference_type const r_offset = rhs.curr_ - rhs.first_;
+            difference_type retval = r_offset - l_offset;
+            if (lhs.count_ != rhs.count_) {
+                difference_type const size = lhs.last_ - lhs.first_;
+                retval += size * (lhs.count_ - rhs.count_);
+            }
+            return retval;
+        }
+
+    private:
+        char const * first_;
+        char const * curr_;
+        char const * last_;
+        difference_type count_; // counts down to 0
     };
 
 } } }
