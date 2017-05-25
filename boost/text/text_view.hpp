@@ -154,7 +154,7 @@ namespace boost { namespace text {
 
     namespace literals {
 
-        constexpr text_view operator"" _tv (char const * str, std::size_t len) noexcept
+        inline constexpr text_view operator"" _tv (char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);
             return text_view(str, len);
@@ -184,6 +184,8 @@ namespace boost { namespace text {
    1: use of int for sizes
 
    2: including null terminator in string_views
+
+   3: TODO: Remove data(), front(), back()
 
 */
 

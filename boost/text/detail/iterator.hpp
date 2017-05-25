@@ -6,6 +6,8 @@
 
 namespace boost { namespace text { namespace detail {
 
+    struct const_reverse_char_iterator;
+
     struct reverse_char_iterator
     {
         using value_type = char;
@@ -89,6 +91,8 @@ namespace boost { namespace text { namespace detail {
         friend constexpr int operator- (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
         { return rhs.ptr_ - lhs.ptr_; }
 
+        friend struct const_reverse_char_iterator;
+
     private:
         char * ptr_;
     };
@@ -106,6 +110,9 @@ namespace boost { namespace text { namespace detail {
         {}
         explicit constexpr const_reverse_char_iterator (char const * ptr) noexcept :
             ptr_ (ptr)
+        {}
+        constexpr const_reverse_char_iterator (reverse_char_iterator rhs) noexcept :
+            ptr_ (rhs.ptr_ + 1)
         {}
 
         constexpr char const * base () const noexcept
@@ -164,6 +171,32 @@ namespace boost { namespace text { namespace detail {
         { return lhs.ptr_ < rhs.ptr_; }
         friend constexpr bool operator>= (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
         { return lhs.ptr_ <= rhs.ptr_; }
+
+        friend constexpr bool operator== (reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ == rhs.ptr_ - 1; }
+        friend constexpr bool operator!= (reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ != rhs.ptr_ - 1; }
+        friend constexpr bool operator< (reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        { return rhs.ptr_ - 1 < lhs.ptr_; }
+        friend constexpr bool operator<= (reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        { return rhs.ptr_ - 1 <= lhs.ptr_; }
+        friend constexpr bool operator> (reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ < rhs.ptr_ - 1; }
+        friend constexpr bool operator>= (reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ <= rhs.ptr_ - 1; }
+
+        friend constexpr bool operator== (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ == rhs.ptr_ - 1; }
+        friend constexpr bool operator!= (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ != rhs.ptr_ - 1; }
+        friend constexpr bool operator< (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        { return rhs.ptr_ - 1 < lhs.ptr_; }
+        friend constexpr bool operator<= (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        { return rhs.ptr_ - 1 <= lhs.ptr_; }
+        friend constexpr bool operator> (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ < rhs.ptr_ - 1; }
+        friend constexpr bool operator>= (const_reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
+        { return lhs.ptr_ <= rhs.ptr_ - 1; }
 
         friend constexpr const_reverse_char_iterator operator+ (const_reverse_char_iterator lhs, int rhs) noexcept
         { return lhs += rhs; }
