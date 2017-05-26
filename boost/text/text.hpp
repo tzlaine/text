@@ -1,8 +1,9 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
-#include <boost/text/detail/utility.hpp>
+#include <boost/text/detail/algorithm.hpp>
 #include <boost/text/detail/iterator.hpp>
+#include <boost/text/detail/utility.hpp>
 
 #include <memory>
 #include <ostream>
@@ -283,12 +284,12 @@ namespace boost { namespace text {
         cap_ (view.size())
     {
         if (!view.empty()) {
-            if (view.back() == '\0')
+            if (detail::back_impl(view.begin(), view.end()) == '\0')
                 --size_;
             else
                 ++cap_;
             data_.reset(new char[cap_]);
-            memcpy(data_.get(), view.data(), view.size());
+            memcpy(data_.get(), view.begin(), view.size());
             data_[size_] = '\0';
         }
     }

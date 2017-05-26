@@ -44,27 +44,6 @@ namespace boost { namespace text {
             return retval;
         }
 
-        constexpr char front () const noexcept
-        {
-            assert(!empty());
-            switch (segments_[0].which()) {
-            case 0: return get<text_view>(segments_[0]).front();
-            case 1: return get<rope_ptr_t>(segments_[0])->front();
-            default: assert(!"Unhandled case in rope."); return '\0';
-            }
-        }
-
-        constexpr char back () const noexcept
-        {
-            assert(!empty());
-            auto const i = segments_.size() - 1;
-            switch (segments_[i].which()) {
-            case 0: return get<text_view>(segments_[i]).back();
-            case 1: return get<rope_ptr_t>(segments_[i])->back();
-            default: assert(!"Unhandled case in rope."); return '\0';
-            }
-        }
-
         constexpr char operator[] (std::ptrdiff_t n) const noexcept
         {
             assert(!empty());

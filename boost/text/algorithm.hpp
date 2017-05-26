@@ -449,6 +449,38 @@ namespace boost { namespace text {
     inline constexpr auto substr (text_view r, int start, int size) noexcept
     { return detail::substr_impl(begin(r), end(r), start, size); }
 
+
+
+    // front(), back()
+
+    namespace detail {
+
+        constexpr char front_impl (char const * first, char const * last) noexcept
+        {
+            assert(first != last);
+            return *first;
+        }
+
+        // back_impl() is in detail/algorithm.hpp to break a dependency.
+
+    }
+
+    template <typename CharRange>
+    constexpr auto front (CharRange const & r) noexcept
+        -> detail::rng_alg_ret_t<text_view, CharRange>
+    { return detail::front_impl(&*begin(r), &*end(r)); }
+
+    inline constexpr auto front (text_view r) noexcept
+    { return detail::front_impl(begin(r), end(r)); }
+
+    template <typename CharRange>
+    constexpr auto back (CharRange const & r) noexcept
+        -> detail::rng_alg_ret_t<text_view, CharRange>
+    { return detail::back_impl(&*begin(r), &*end(r)); }
+
+    inline constexpr auto back (text_view r) noexcept
+    { return detail::back_impl(begin(r), end(r)); }
+
 } }
 
 #endif

@@ -51,35 +51,14 @@ namespace boost { namespace text {
         constexpr const_iterator begin () const noexcept { return data_; }
         constexpr const_iterator end () const noexcept { return data_ + size_; }
 
-        constexpr const_iterator cbegin () const noexcept { return begin(); }
-        constexpr const_iterator cend () const noexcept { return end(); }
-
         constexpr const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end()); }
         constexpr const_reverse_iterator rend () const noexcept { return reverse_iterator(begin()); }
-
-        constexpr const_reverse_iterator crbegin () const noexcept { return rbegin(); }
-        constexpr const_reverse_iterator crend () const noexcept { return rend(); }
 
         constexpr bool empty () const noexcept
         { return size_ == 0; }
 
         constexpr int size () const noexcept
         { return size_; }
-
-        constexpr char const * data() const noexcept
-        { return data_; }
-
-        constexpr char front () const noexcept
-        {
-            assert(!empty());
-            return *data_;
-        }
-
-        constexpr char back () const noexcept
-        {
-            assert(!empty());
-            return data_[size_ - 1];
-        }
 
         constexpr char operator[] (int i) const noexcept
         {
@@ -130,22 +109,14 @@ namespace boost { namespace text {
         { return v.begin(); }
         friend constexpr iterator end (text_view v) noexcept
         { return v.end(); }
-        friend constexpr iterator cbegin (text_view v) noexcept
-        { return v.cbegin(); }
-        friend constexpr iterator cend (text_view v) noexcept
-        { return v.cend(); }
 
         friend constexpr reverse_iterator rbegin (text_view v) noexcept
         { return v.rbegin(); }
         friend constexpr reverse_iterator rend (text_view v) noexcept
         { return v.rend(); }
-        friend constexpr reverse_iterator crbegin (text_view v) noexcept
-        { return v.crbegin(); }
-        friend constexpr reverse_iterator crend (text_view v) noexcept
-        { return v.crend(); }
 
         friend std::ostream & operator<< (std::ostream & os, text_view view)
-        { return os.write(view.data(), view.size()); }
+        { return os.write(view.begin(), view.size()); }
 
     private:
         char const * data_;

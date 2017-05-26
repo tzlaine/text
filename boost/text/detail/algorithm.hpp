@@ -4,6 +4,8 @@
 #include <iterator>
 #include <type_traits>
 
+#include <cassert>
+
 
 namespace boost { namespace text { namespace detail {
 
@@ -131,6 +133,12 @@ namespace boost { namespace text { namespace detail {
 
     template <typename T, typename R1, typename R2>
     using rngs_alg_ret_t = typename rngs_alg_ret<T, R1, R2>::type;
+
+    constexpr char back_impl (char const * first, char const * last) noexcept
+    {
+        assert(first != last);
+        return *(last - 1);
+    }
 
 } } }
 

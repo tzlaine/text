@@ -9,7 +9,7 @@ using namespace boost;
 TEST(algorithm, test_empty_view)
 {
     text::text_view const tv;
-    EXPECT_EQ(tv.data(), nullptr);
+    EXPECT_EQ(tv.begin(), nullptr);
     EXPECT_EQ(tv.size(), 0);
 
     int find_index = find(tv, tv);
@@ -42,7 +42,7 @@ TEST(algorithm, test_empty_view)
 TEST(algorithm, test_empty_view_constexpr)
 {
     constexpr text::text_view tv;
-    static_assert(tv.data() == nullptr, "");
+    static_assert(tv.begin() == nullptr, "");
     static_assert(tv.size() == 0, "");
 
     constexpr int find_index = find(tv, tv);
