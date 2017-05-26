@@ -227,14 +227,24 @@ namespace boost { namespace text { namespace detail {
             last_ (nullptr),
             count_ (0)
         {}
-        explicit constexpr const_repeated_chars_iterator (
+        // ctor for begin iterators
+        constexpr const_repeated_chars_iterator (
             char const * first, char const * last,
             difference_type count
         ) noexcept :
             first_ (first),
             curr_ (first),
             last_ (last),
-            count_ (count)
+            count_ (-count)
+        {}
+        // ctor for end iterators
+        constexpr const_repeated_chars_iterator (
+            char const * first, char const * last
+        ) noexcept :
+            first_ (first),
+            curr_ (last),
+            last_ (last),
+            count_ (0)
         {}
 
         constexpr reference operator* () const noexcept
@@ -243,7 +253,10 @@ namespace boost { namespace text { namespace detail {
         constexpr value_type operator[] (difference_type n) const noexcept
         {
             auto it = *this;
-            it += n;
+            if (0 <= n)
+                it += n;
+            else
+                it -= -n;
             return *it;
         }
 
@@ -251,7 +264,8 @@ namespace boost { namespace text { namespace detail {
         {
             if (++curr_ == last_) {
                 curr_ = first_;
-                --count_;
+                if (!++count_)
+                    curr_ = last_;
             }
             return *this;
         }
@@ -263,18 +277,19 @@ namespace boost { namespace text { namespace detail {
         }
         constexpr const_repeated_chars_iterator & operator+= (difference_type n) noexcept
         {
+            difference_type const size = last_ - first_;
+            difference_type const repetitions = n / size;
+            count_ += repetitions;
+            n = n % size;
             difference_type const remaining = last_ - curr_;
             if (n < remaining) {
                 curr_ += n;
             } else {
-                n -= remaining;
-                curr_ = first_;
-                difference_type const size = last_ - first_;
-                assert(0 < size);
-                assert(n / size < count_);
-                n = n % size;
-                curr_ += n;
+                curr_ = first_ + n - remaining;
+                ++count_;
             }
+            if (!count_ && curr_ == first_)
+                curr_ = last_;
             return *this;
         }
 
@@ -282,7 +297,7 @@ namespace boost { namespace text { namespace detail {
         {
             if (curr_ == first_) {
                 curr_ = last_;
-                ++count_;
+                --count_;
             }
             --curr_;
             return *this;
@@ -295,16 +310,18 @@ namespace boost { namespace text { namespace detail {
         }
         constexpr const_repeated_chars_iterator & operator-= (difference_type n) noexcept
         {
+            difference_type const size = last_ - first_;
+            difference_type const repetitions = n / size;
+            count_ -= repetitions;
+            n = n % size;
             difference_type const remaining = curr_ - first_;
-            if (n <= remaining) {
+            if (!n && curr_ == last_) {
+                curr_ = first_;
+            } else if (n <= remaining) {
                 curr_ -= n;
             } else {
-                n -= remaining;
-                curr_ = last_;
-                difference_type const size = last_ - first_;
-                assert(0 < size);
-                n = n % size;
-                curr_ -= n;
+                curr_ = last_ - (n - remaining);
+                --count_;
             }
             return *this;
         }
@@ -319,7 +336,7 @@ namespace boost { namespace text { namespace detail {
         {
             return
                 lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
-                (lhs.count_ > rhs.count_ || (lhs.count_ == rhs.count_ && lhs.curr_ < rhs.curr_));
+                (lhs.count_ < rhs.count_ || (lhs.count_ == rhs.count_ && lhs.curr_ < rhs.curr_));
         }
         friend constexpr bool operator<= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
         { return lhs == rhs || lhs < rhs; }
@@ -342,11 +359,13 @@ namespace boost { namespace text { namespace detail {
             assert(lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_);
             difference_type const l_offset = lhs.curr_ - lhs.first_;
             difference_type const r_offset = rhs.curr_ - rhs.first_;
-            difference_type retval = r_offset - l_offset;
-            if (lhs.count_ != rhs.count_) {
-                difference_type const size = lhs.last_ - lhs.first_;
-                retval += size * (lhs.count_ - rhs.count_);
-            }
+            difference_type retval = l_offset - r_offset;
+            difference_type const size = lhs.last_ - lhs.first_;
+            retval += size * (lhs.count_ - rhs.count_);
+            if (lhs.curr_ == lhs.last_)
+                retval -= size;
+            if (rhs.curr_ == rhs.last_)
+                retval += size;
             return retval;
         }
 
@@ -354,7 +373,7 @@ namespace boost { namespace text { namespace detail {
         char const * first_;
         char const * curr_;
         char const * last_;
-        difference_type count_; // counts down to 0
+        difference_type count_;
     };
 
 } } }
