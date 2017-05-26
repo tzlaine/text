@@ -137,6 +137,52 @@ namespace boost { namespace text {
 
     }
 
+    struct repeated_text_view
+    {
+        using iterator = detail::const_repeated_chars_iterator;
+        using const_iterator = detail::const_repeated_chars_iterator;
+
+        constexpr repeated_text_view () noexcept : count_ (0) {}
+
+        constexpr repeated_text_view (text_view view, std::ptrdiff_t count) noexcept :
+            view_ (view),
+            count_ (count)
+        {}
+
+        constexpr text_view view () const noexcept
+        { return view_; }
+        constexpr std::ptrdiff_t count () const noexcept
+        { return count_; }
+
+        constexpr std::ptrdiff_t size () const noexcept
+        { return count_ * view_.size(); }
+
+        constexpr const_iterator begin () const noexcept
+        { return const_iterator(view_.begin(), view_.end(), count_); }
+        constexpr const_iterator end () const noexcept
+        { return const_iterator(view_.begin(), view_.end()); }
+
+        friend constexpr iterator begin (repeated_text_view v) noexcept
+        { return v.begin(); }
+        friend constexpr iterator end (repeated_text_view v) noexcept
+        { return v.end(); }
+
+        friend std::ostream & operator<< (std::ostream & os, repeated_text_view rv)
+        {
+            for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
+                os.write(rv.view().begin(), rv.view().size());
+            }
+            return os;
+        }
+
+    private:
+        text_view view_;
+        std::ptrdiff_t count_;
+    };
+
+    constexpr repeated_text_view repeat (text_view view, std::ptrdiff_t count)
+    { return repeated_text_view(view, count); }
+
 } }
 
 #include <boost/text/text.hpp>
