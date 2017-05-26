@@ -206,7 +206,11 @@ namespace boost { namespace text {
 
 */
 
-// TODO: (Not rationale) Do text_view == using address + size to short-circuit
-// string compares.
+// Not rationale:
+
+// TODO: Do text_view == using address + size to short-circuit string
+// compares.
+
+// TODO: throw when constructing a text_view or text from non UTF-8.
 
 #endif
