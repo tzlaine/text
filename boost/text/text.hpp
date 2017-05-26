@@ -14,6 +14,7 @@
 namespace boost { namespace text {
 
     struct text_view;
+    struct repeated_text_view;
 
     struct text
     {
@@ -28,16 +29,7 @@ namespace boost { namespace text {
             data_ (new char[t.cap_]),
             size_ (t.size_),
             cap_ (t.cap_)
-        { memcpy(data_.get(), t.data(), t.cap_); }
-
-        text & operator= (text const & t)
-        {
-            data_.reset(new char[t.cap_]);
-            size_ = t.size_;
-            cap_ = t.cap_;
-            memcpy(data_.get(), t.data(), t.cap_);
-            return *this;
-        }
+        { memcpy(data_.get(), t.begin(), t.cap_); }
 
         text (text && rhs) noexcept :
             data_ (std::move(rhs.data_)),
@@ -46,12 +38,6 @@ namespace boost { namespace text {
         {
             rhs.size_ = 0;
             rhs.cap_ = 0;
-        }
-
-        text & operator= (text && rhs) noexcept
-        {
-            swap(rhs);
-            return *this;
         }
 
         text (char const * c_str) :
@@ -70,6 +56,25 @@ namespace boost { namespace text {
         }
 
         explicit text (text_view view);
+        explicit text (repeated_text_view view);
+
+        text & operator= (text const & t)
+        {
+            data_.reset(new char[t.cap_]);
+            size_ = t.size_;
+            cap_ = t.cap_;
+            memcpy(data_.get(), t.begin(), t.cap_);
+            return *this;
+        }
+
+        text & operator= (text && rhs) noexcept
+        {
+            swap(rhs);
+            return *this;
+        }
+
+        text & operator= (text_view view);
+        text & operator= (repeated_text_view view);
 
 #if 0
         template <typename InputIter>
@@ -106,21 +111,6 @@ namespace boost { namespace text {
         int capacity () const noexcept
         { return cap_; }
 
-        char const * data() const noexcept
-        { return data_.get(); }
-
-        char front () const noexcept
-        {
-            assert(!empty());
-            return *data_.get();
-        }
-
-        char back () const noexcept
-        {
-            assert(!empty());
-            return data_[size_ - 1];
-        }
-
         char operator[] (int i) const noexcept
         {
             assert(i < size_);
@@ -154,33 +144,30 @@ namespace boost { namespace text {
         bool operator>= (text const & rhs) const noexcept
         { return compare(rhs) >= 0; }
 
+        void clear ()
+        { size_ = 0; }
+
 #if 0
         // TODO
 
-        clear ();
-        assign ();
         insert ();
         erase ();
 
-        append (); // ???
+        // TODO: Free function in terms of operator+=() --> append ()
 
         replace ();
 #endif
 
-        char * data() noexcept
-        { return data_.get(); }
-
-        char & front () noexcept
+        template <typename CharRange>
+        auto operator+= (CharRange const & r) noexcept
+            -> detail::rng_alg_ret_t<text_view, CharRange>
         {
-            assert(!empty());
-            return *data_.get();
+            // TODO
+            return *this;
         }
 
-        char & back () noexcept
-        {
-            assert(!empty());
-            return data_[size_ - 1];
-        }
+        text & operator+= (text_view view);
+        text & operator+= (repeated_text_view rv);
 
         char & operator[] (int i) noexcept
         {
@@ -188,14 +175,15 @@ namespace boost { namespace text {
             return data_[i];
         }
 
-        void reserve (int cap)
+        void reserve (int new_size)
         {
-            if (cap <= cap_)
+            int const new_cap = new_size + 1;
+            if (new_cap <= cap_)
                 return;
-            std::unique_ptr<char[]> new_data(new char[cap]);
+            std::unique_ptr<char[]> new_data(new char[new_cap]);
             memcpy(new_data.get(), data_.get(), cap_);
             data_.swap(new_data);
-            cap_ = cap;
+            cap_ = new_cap;
         }
 
         void shrink_to_fit ()
@@ -250,7 +238,7 @@ namespace boost { namespace text {
         { return t.crend(); }
 
         friend std::ostream & operator<< (std::ostream & os, text const & t)
-        { return os.write(t.data(), t.size()); }
+        { return os.write(t.begin(), t.size()); }
 
     private:
         std::unique_ptr<char[]> data_;
@@ -294,12 +282,61 @@ namespace boost { namespace text {
         }
     }
 
+    inline text::text (repeated_text_view rv) :
+        data_ (),
+        size_ (rv.size()),
+        cap_ (rv.size())
+    {
+        reserve(rv.size());
+        *this += rv;
+        data_[size_] = '\0';
+    }
+
+    inline text & text::operator= (text_view view)
+    {
+        if (view.size() <= size()) {
+            clear();
+            *this += view;
+        } else {
+            text tmp(view);
+            swap(tmp);
+        }
+        return *this;
+    }
+
+    inline text & text::operator= (repeated_text_view rv)
+    {
+        if (rv.size() <= size()) {
+            clear();
+            *this += rv;
+        } else {
+            text tmp(rv);
+            swap(tmp);
+        }
+        return *this;
+    }
+
     inline text::operator text_view () const noexcept
     {
         if (empty())
             return text_view();
         return text_view(data_.get(), size_);
     }
+
+    inline text & text::operator+= (text_view view)
+    {
+        // TODO
+        return *this;
+    }
+
+    inline text & text::operator+= (repeated_text_view rv)
+    {
+        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
+            *this += rv.view();
+        }
+        return *this;
+    }
+
 } }
 
 #endif

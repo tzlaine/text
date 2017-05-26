@@ -147,7 +147,7 @@ namespace boost { namespace text {
         constexpr repeated_text_view (text_view view, std::ptrdiff_t count) noexcept :
             view_ (view),
             count_ (count)
-        {}
+        { assert(view.empty() || view.end()[-1] != '\0'); }
 
         constexpr text_view view () const noexcept
         { return view_; }
@@ -190,7 +190,7 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     inline constexpr text_view::text_view (text const & t) noexcept :
-        data_ (t.data()),
+        data_ (t.begin()),
         size_ (t.size())
     {}
 
@@ -198,12 +198,15 @@ namespace boost { namespace text {
 
 /* Rationale
 
-   1: use of int for sizes
+   1: use of signed types >= sizeof(int) for sizes
 
-   2: including null terminator in string_views
+   2: including null terminator in strings
 
-   3: TODO: Remove data(), front(), back()
+   3: Removal of data(), front(), back(), assign()
 
 */
+
+// TODO: (Not rationale) Do text_view == using address + size to short-circuit
+// string compares.
 
 #endif
