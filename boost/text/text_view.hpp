@@ -205,6 +205,9 @@ namespace boost { namespace text {
         constexpr std::ptrdiff_t count () const noexcept
         { return count_; }
 
+        constexpr bool empty () const noexcept
+        { return view_.empty(); }
+
         constexpr std::ptrdiff_t size () const noexcept
         { return count_ * view_.size(); }
 
