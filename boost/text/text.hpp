@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
+#include <boost/text/utf8.hpp>
+
 #include <boost/text/detail/algorithm.hpp>
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
@@ -15,8 +17,6 @@ namespace boost { namespace text {
 
     struct text_view;
     struct repeated_text_view;
-
-    // TODO: Guarantee always valid UTF-8.
 
     namespace detail {
 
@@ -59,9 +59,9 @@ namespace boost { namespace text {
         text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
-        text (char const * c_str);//u8
+        text (char const * c_str);
 
-        template <typename CharRange>//u8
+        template <typename CharRange>
         explicit text (
             CharRange const & r,
             detail::rng_alg_ret_t<int *, CharRange> enable = 0
@@ -196,19 +196,23 @@ namespace boost { namespace text {
         text_view operator() (int lo, int hi) noexcept;
         text_view operator() (int lo) noexcept;
 
-        template <typename CharRange>//u8
+        template <typename CharRange>
         auto insert (int at, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        inline text & insert (int at, text_view view);//u8
-        inline text & insert (int at, repeated_text_view rv);//u8
+        inline text & insert (int at, text_view view);
+        inline text & insert (int at, repeated_text_view rv);
 
         inline text & erase (text_view view);
         inline text & replace (text_view old_substr, text_view new_substr);
 
-        void resize (int new_size, char c)//u8
+        void resize (int new_size, char c)
         {
             assert(0 <= new_size);
+
+            if (c & 0x80)
+                throw std::invalid_argument("Given character is not a valid UTF-8 code point");
+
             int const prev_size = size_;
             int const delta = new_size - prev_size;
             int const available = cap_ - 1 - size_;
@@ -217,10 +221,14 @@ namespace boost { namespace text {
                 std::copy(begin(), begin() + prev_size, new_data.get());
                 new_data.swap(data_);
             } else {
+                if (!utf8::ends_encoded(cbegin(), cbegin() + new_size))
+                    throw std::invalid_argument("Given character is not a valid UTF-8 code point");
                 size_ = new_size;
             }
+
             if (0 < delta)
                 std::fill(begin() + prev_size, end(), c);
+
             data_[size_] = '\0';
         }
 
@@ -308,6 +316,20 @@ namespace boost { namespace text {
         int cap_;
     };
 
+    inline text const & checked_encoding (text const & t)
+    {
+        if (!utf8::encoded(t.begin(), t.end()))
+            throw std::invalid_argument("Invalid UTF-8 encoding");
+        return t;
+    }
+
+    inline text && checked_encoding (text && t)
+    {
+        if (!utf8::encoded(t.begin(), t.end()))
+            throw std::invalid_argument("Invalid UTF-8 encoding");
+        return std::move(t);
+    }
+
 } }
 
 #include <boost/text/text_view.hpp>
@@ -328,7 +350,7 @@ namespace boost { namespace text {
 
     }
 
-    inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)//u8
+    inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)
     { insert(0, c_str); }
 
     inline text::text (text_view view) : data_ (), size_ (0), cap_ (0)
@@ -390,9 +412,12 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<text &, CharRange>
     { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
 
-    inline text & text::insert (int at, text_view view)//u8
+    inline text & text::insert (int at, text_view view)
     {
         assert(0 <= at && at <= size_);
+
+        if (!utf8::starts_encoded(cbegin() + at, cend()))
+            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
 
         bool const view_null_terminated = !view.empty() && view.end()[-1] == '\0';
         if (view_null_terminated)
@@ -419,9 +444,12 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::insert (int at, repeated_text_view rv)//u8
+    inline text & text::insert (int at, repeated_text_view rv)
     {
         assert(0 <= at && at <= size_);
+
+        if (!utf8::starts_encoded(cbegin() + at, cend()))
+            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
 
         bool const view_null_terminated = !rv.view().empty() && rv.view().end()[-1] == '\0';
         if (view_null_terminated)
