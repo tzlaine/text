@@ -17,8 +17,9 @@ namespace boost { namespace text {
     struct repeated_text_view;
 
     // TODO: Strong exception safety guarantee.
-    // TODO: Guarantee always 0-terminated.
     // TODO: Guarantee always valid UTF-8.
+    // TODO: Fix iterators in the empty() == true case; probably with an
+    //       ODR-safe in-header global.
 
     struct text
     {
@@ -30,19 +31,16 @@ namespace boost { namespace text {
         text () noexcept : data_ (nullptr), size_ (0), cap_ (0) {}
 
         text (text const & t) :
-            data_ (new char[t.cap_]),
-            size_ (t.size_),
-            cap_ (t.cap_)
-        { std::copy(t.begin(), t.end(), begin()); }
+            data_ (),
+            size_ (0),
+            cap_ (0)
+        { insert(0, t); }
 
         text (text && rhs) noexcept :
-            data_ (std::move(rhs.data_)),
-            size_ (rhs.size_),
-            cap_ (rhs.cap_)
-        {
-            rhs.size_ = 0;
-            rhs.cap_ = 0;
-        }
+            data_ (),
+            size_ (0),
+            cap_ (0)
+        { swap(rhs); }
 
         text (char const * c_str);
 
@@ -108,6 +106,8 @@ namespace boost { namespace text {
             return data_[i];
         }
 
+        text_view operator() (int lo, int hi) const noexcept;
+
         int max_size () const noexcept
         { return INT_MAX; }
 
@@ -136,7 +136,10 @@ namespace boost { namespace text {
         { return compare(rhs) >= 0; }
 
         void clear ()
-        { size_ = 0; }
+        {
+            size_ = 0;
+            data_[0] = '\0';
+        }
 
         // TODO: Update the char-range contraints to require random access iterators.
 
@@ -145,6 +148,8 @@ namespace boost { namespace text {
             assert(i < size_);
             return data_[i];
         }
+
+        text_view operator() (int lo, int hi) noexcept;
 
         template <typename CharRange>
         auto insert (int at, CharRange const & r)
@@ -162,11 +167,10 @@ namespace boost { namespace text {
             int const available = cap_ - 1 - size_;
             if (available < delta) {
                 std::unique_ptr<char []> new_data = get_new_data(delta - available);
-                char * buf = new_data.get();
-                buf = std::copy(begin(), end(), buf);
-                *buf = '\0';
+                *std::copy(begin(), end(), new_data.get()) = '\0';
                 new_data.swap(data_);
             } else {
+                std::fill(end(), begin() + new_size, c);
                 size_ = new_size;
                 data_[size_] = '\0';
             }
@@ -179,7 +183,7 @@ namespace boost { namespace text {
             if (new_cap <= cap_)
                 return;
             std::unique_ptr<char []> new_data(new char[new_cap]);
-            std::copy(cbegin(), cend() + 1, new_data.get());
+            *std::copy(cbegin(), cend(), new_data.get()) = '\0';
             data_.swap(new_data);
             cap_ = new_cap;
         }
@@ -189,7 +193,7 @@ namespace boost { namespace text {
             if (cap_ == 0 || cap_ == size_ + 1)
                 return;
             std::unique_ptr<char []> new_data(new char[size_ + 1]);
-            std::copy(cbegin(), cend() + 1, new_data.get());
+            *std::copy(cbegin(), cend(), new_data.get()) = '\0';
             data_.swap(new_data);
             cap_ = size_ + 1;
         }
@@ -233,7 +237,7 @@ namespace boost { namespace text {
     private:
         int grow_size (int min_new_size) const
         {
-            int retval = size_;
+            int retval = (std::max)(8, size_);
             while (retval < min_new_size) {
                 retval = retval / 2 * 3;
             }
@@ -242,7 +246,7 @@ namespace boost { namespace text {
 
         std::unique_ptr<char []> get_new_data (int resize_amount)
         {
-            int new_size = grow_size(size_ + resize_amount);
+            int const new_size = grow_size(size_ + resize_amount);
             std::unique_ptr<char []> retval(new char [new_size + 1]);
             size_ = new_size;
             cap_ = size_ + 1;
@@ -284,20 +288,7 @@ namespace boost { namespace text {
         data_ (),
         size_ (0),
         cap_ (0)
-    {
-        insert(0, view);
-#if 0 // TODO
-        if (!view.empty()) {
-            if (detail::back_impl(view.begin(), view.end()) == '\0')
-                --size_;
-            else
-                ++cap_;
-            data_.reset(new char[cap_]);
-            memcpy(data_.get(), view.begin(), view.size());
-            data_[size_] = '\0';
-        }
-#endif
-    }
+    { insert(0, view); }
 
     inline text::text (repeated_text_view rv) :
         data_ (),
@@ -334,12 +325,18 @@ namespace boost { namespace text {
         return *this;
     }
 
+    inline text_view text::operator() (int lo, int hi) const noexcept
+    { return text_view(*this)(lo, hi); }
+
     inline text::operator text_view () const noexcept
     {
         if (empty())
             return text_view();
         return text_view(data_.get(), size_);
     }
+
+    inline text_view text::operator() (int lo, int hi) noexcept
+    { return text_view(*this)(lo, hi); }
 
     template <typename CharRange>
     auto text::insert (int at, CharRange const & r)
@@ -348,6 +345,10 @@ namespace boost { namespace text {
 
     inline text & text::insert (int at, text_view view)
     {
+        bool const view_null_terminated = !view.empty() && view.end()[-1] == '\0';
+        if (view_null_terminated)
+            view = view(0, -1);
+
         int const delta = view.size();
         int const available = cap_ - 1 - size_;
         if (available < delta) {
@@ -365,11 +366,16 @@ namespace boost { namespace text {
             buf = std::copy(view.begin(), view.end(), buf);
             data_[size_] = '\0';
         }
+
         return *this;
     }
 
     inline text & text::insert (int at, repeated_text_view rv)
     {
+        bool const view_null_terminated = !rv.view().empty() && rv.view().end()[-1] == '\0';
+        if (view_null_terminated)
+            rv = repeat(rv.view()(0, -1), rv.count());
+
         int const delta = rv.size();
         int const available = cap_ - 1 - size_;
         if (available < delta) {
@@ -391,6 +397,7 @@ namespace boost { namespace text {
             }
             data_[size_] = '\0';
         }
+
         return *this;
     }
 
@@ -405,9 +412,20 @@ namespace boost { namespace text {
         return *this;
     }
 
+    // TODO: Range and repeated_text_view versions of replace().
     inline text & text::replace (text_view old_substr, text_view new_substr)
     {
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
+
+        bool const old_substr_null_terminated =
+            !old_substr.empty() && old_substr.end()[-1] == '\0';
+        if (old_substr_null_terminated)
+            old_substr = old_substr(0, -1);
+
+        bool const new_substr_null_terminated =
+            !new_substr.empty() && new_substr.end()[-1] == '\0';
+        if (new_substr_null_terminated)
+            new_substr = new_substr(0, -1);
 
         int const delta = new_substr.size() - old_substr.size();
         int const available = cap_ - 1 - size_;
