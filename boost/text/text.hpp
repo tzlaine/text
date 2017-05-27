@@ -17,8 +17,8 @@ namespace boost { namespace text {
     struct repeated_text_view;
 
     // TODO: Strong exception safety guarantee.
+    // TODO: Guarantee always 0-terminated.
     // TODO: Guarantee always valid UTF-8.
-    // TODO: Throw bad_alloc when cap exceeds INT_MAX.
     // TODO: Externalize +=.
 
     struct text
@@ -183,11 +183,10 @@ namespace boost { namespace text {
 
         void reserve (int new_size)
         {
+            assert(0 < new_size);
             int const new_cap = new_size + 1;
             if (new_cap <= cap_)
                 return;
-            if (INT_MAX < new_cap)
-                throw std::bad_alloc();
             std::unique_ptr<char []> new_data(new char[new_cap]);
             std::copy(cbegin(), cend() + 1, new_data.get());
             data_.swap(new_data);
@@ -252,7 +251,7 @@ namespace boost { namespace text {
 
         std::unique_ptr<char []> get_new_data (int resize_amount)
         {
-            int const new_size = grow_size(size_ + resize_amount);
+            int new_size = grow_size(size_ + resize_amount);
             std::unique_ptr<char []> retval(new char [new_size + 1]);
             size_ = new_size;
             cap_ = size_ + 1;
@@ -292,8 +291,8 @@ namespace boost { namespace text {
 
     inline text::text (text_view view) :
         data_ (),
-        size_ (view.size()),
-        cap_ (view.size() + 1)
+        size_ (0),
+        cap_ (0)
     {
         *this += view;
 #if 0 // TODO
