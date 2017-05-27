@@ -15,8 +15,6 @@ namespace boost { namespace text {
 
     struct text;
 
-    // TODO: Guarantee always valid UTF-8.
-
     struct text_view
     {
         using iterator = char const *;
@@ -34,8 +32,10 @@ namespace boost { namespace text {
             size_ (detail::strlen(c_str))
         {
             assert(detail::strlen(c_str) <= INT_MAX);
-            if (!utf8::encoded(begin(), end()))
-                throw std::invalid_argument("Invalid UTF-8 encoding");
+            if (!utf8::starts_encoded(begin(), end()))
+                throw std::invalid_argument("The start of the given string is not valid UTF-8.");
+            if (!utf8::ends_encoded(begin(), end()))
+                throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
         constexpr text_view (char const * c_str, int len) noexcept :
@@ -43,16 +43,16 @@ namespace boost { namespace text {
             size_ (len)
         {
             assert(0 <= len);
-            if (!utf8::encoded(begin(), end()))
-                throw std::invalid_argument("Invalid UTF-8 encoding");
+            if (!utf8::starts_encoded(begin(), end()))
+                throw std::invalid_argument("The start of the given string is not valid UTF-8.");
+            if (!utf8::ends_encoded(begin(), end()))
+                throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
         constexpr text_view (char const * c_str, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (detail::strlen(c_str))
-        {
-            assert(detail::strlen(c_str) <= INT_MAX);
-        }
+        { assert(detail::strlen(c_str) <= INT_MAX); }
 
         constexpr text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
             data_ (c_str),
@@ -99,7 +99,7 @@ namespace boost { namespace text {
             assert(0 <= lo && lo <= size_);
             assert(0 <= hi && hi <= size_);
             assert(lo <= hi);
-            return text_view(data_ + lo, hi - lo);
+            return text_view(data_ + lo, hi - lo);//u8
         }
 
         constexpr text_view operator() (int lo) const noexcept
@@ -107,7 +107,7 @@ namespace boost { namespace text {
             if (lo < 0)
                 lo += size_;
             assert(0 <= lo && lo <= size_);
-            return text_view(data_ + lo, size_ - lo);
+            return text_view(data_ + lo, size_ - lo);//u8
         }
 
         constexpr int max_size () const noexcept
@@ -179,6 +179,13 @@ namespace boost { namespace text {
         // TODO: constexpr text_view operator"" _tv (std::char32_t const * str, std::size_t len) noexcept
         // TODO: constexpr text_view operator"" _tv (std::wchar_t const * str, std::size_t len) noexcept
 
+    }
+
+    constexpr text_view encoding_checked (text_view view) noexcept
+    {
+        if (!utf8::encoded(view.begin(), view.end()))
+            throw std::invalid_argument("Invalid UTF-8 encoding");
+        return view;
     }
 
     struct repeated_text_view
@@ -258,9 +265,12 @@ namespace boost { namespace text {
    7: operator+(text & t, char c) does not exist, since a single char is no
    longer a single code point.
 
-   8: Checked UTF-8 might be a bad default for the char* ctors, since everyone
-   pretty much uses it.  It may be better to invert this, so that there is no
-   unchecked_t ctor, but a checked_t ctor instead.
+   8: First and last code point are checked in a text_view constructed from a
+   UTF-8 C string.  This is to prevent slicing CPs.
+
+   9: checked_encoding() is provided as a free function, since it does extra
+   work (as opposed to the unchecked_t ctors which doe less that the vanilla
+   ones).  This also reduces compile times.
 
 */
 

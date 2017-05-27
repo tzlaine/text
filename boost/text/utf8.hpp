@@ -48,6 +48,9 @@ namespace boost { namespace text { namespace utf8 {
 
     constexpr bool starts_encoded (char const * first, char const * last) noexcept
     {
+        if (first == last)
+            return true;
+
         int const cp_bytes = code_point_bytes(*first);
         if (cp_bytes == -1)
             return false;
@@ -60,6 +63,19 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         return true;
+    }
+
+    constexpr bool ends_encoded (char const * first, char const * last) noexcept
+    {
+        if (first == last)
+            return true;
+
+        int n = 1;
+        while (first != --last && continuation(*last)) {
+            ++n;
+        }
+
+        return code_point_bytes(*last) == n;
     }
 
 } } }

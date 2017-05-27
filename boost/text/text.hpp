@@ -89,7 +89,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        template <typename CharRange>//u8
+        template <typename CharRange>
         auto operator= (CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
@@ -196,17 +196,17 @@ namespace boost { namespace text {
         text_view operator() (int lo, int hi) noexcept;
         text_view operator() (int lo) noexcept;
 
-        template <typename CharRange>
+        template <typename CharRange>//u8
         auto insert (int at, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        inline text & insert (int at, text_view view);
-        inline text & insert (int at, repeated_text_view rv);
+        inline text & insert (int at, text_view view);//u8
+        inline text & insert (int at, repeated_text_view rv);//u8
 
         inline text & erase (text_view view);
         inline text & replace (text_view old_substr, text_view new_substr);
 
-        void resize (int new_size, char c)
+        void resize (int new_size, char c)//u8
         {
             assert(0 <= new_size);
             int const prev_size = size_;
@@ -328,7 +328,7 @@ namespace boost { namespace text {
 
     }
 
-    inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)
+    inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)//u8
     { insert(0, c_str); }
 
     inline text::text (text_view view) : data_ (), size_ (0), cap_ (0)
@@ -380,17 +380,17 @@ namespace boost { namespace text {
     }
 
     inline text_view text::operator() (int lo, int hi) noexcept
-    { return text_view(*this)(lo, hi); }
+    { return const_cast<text const &>(*this)(lo, hi); }
 
     inline text_view text::operator() (int lo) noexcept
-    { return text_view(*this)(lo); }
+    { return const_cast<text const &>(*this)(lo); }
 
     template <typename CharRange>
     auto text::insert (int at, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
 
-    inline text & text::insert (int at, text_view view)
+    inline text & text::insert (int at, text_view view)//u8
     {
         assert(0 <= at && at <= size_);
 
@@ -419,7 +419,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::insert (int at, repeated_text_view rv)
+    inline text & text::insert (int at, repeated_text_view rv)//u8
     {
         assert(0 <= at && at <= size_);
 
