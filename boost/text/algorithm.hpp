@@ -422,35 +422,6 @@ namespace boost { namespace text {
 
 
 
-    // substr ()
-
-    namespace detail {
-
-        constexpr auto substr_impl (
-            char const * r_first, char const * r_last,
-            int start, int size
-        ) noexcept {
-            int const r_size = r_last - r_first;
-            if (size < 0) {
-                assert(start <= r_size);
-                size = r_size - start;
-            }
-            assert(start + size <= r_size);
-            return text_view(r_first + start, size);
-        }
-
-    }
-
-    template <typename CharRange>
-    constexpr auto substr (CharRange const & r, int start, int size) noexcept
-        -> detail::rng_alg_ret_t<text_view, CharRange>
-    { return detail::substr_impl(&*begin(r), &*end(r), start, size); }
-
-    inline constexpr auto substr (text_view r, int start, int size) noexcept
-    { return detail::substr_impl(begin(r), end(r), start, size); }
-
-
-
     // front(), back()
 
     namespace detail {

@@ -32,7 +32,7 @@ TEST(algorithm, test_empty_view)
     int find_last_not_of_index = find_last_not_of(tv, tv);
     EXPECT_EQ(find_last_not_of_index, -1);
 
-    text::text_view substr_view = substr(tv, 0, 0);
+    text::text_view substr_view = tv(0, 0);
     EXPECT_EQ(substr_view, tv);
 
     bool compare_result = compare(tv, tv);
@@ -65,7 +65,7 @@ TEST(algorithm, test_empty_view_constexpr)
     constexpr int find_last_not_of_index = find_last_not_of(tv, tv);
     static_assert(find_last_not_of_index == -1, "");
 
-    constexpr text::text_view substr_view = substr(tv, 0, 0);
+    constexpr text::text_view substr_view = tv(0, 0);
     static_assert(substr_view == tv, "");
 
     constexpr int compare_result = compare(tv, tv);
@@ -130,45 +130,3 @@ TEST(algorithm, test_view_view_compare_constexpr)
 // TODO: find_last_not_of()
 // TODO: rfind()
 // TODO: rfind_view()
-
-TEST(algorithm, test_view_view_substr)
-{
-    text::text_view tv_empty;
-    text::text_view tv_a("a");
-    text::text_view tv_abc("abcdefg");
-
-    EXPECT_EQ(substr(tv_empty, 0, 0), tv_empty);
-    EXPECT_EQ(substr(tv_empty, 0, -1), tv_empty);
-
-    EXPECT_EQ(substr(tv_a, 0, 1), tv_a);
-    EXPECT_EQ(substr(tv_a, 0, -2), tv_a);
-
-    EXPECT_EQ(substr(tv_abc, 0, 7), tv_abc);
-    EXPECT_EQ(substr(tv_abc, 0, -1), tv_abc);
-
-    EXPECT_EQ(substr(tv_a, 0, 1), text::text_view("a"));
-
-    EXPECT_EQ(substr(tv_abc, 0, 7), text::text_view("abcdefg"));
-    EXPECT_EQ(substr(tv_abc, 2, 3), text::text_view("cde"));
-}
-
-TEST(algorithm, test_view_view_substr_constexpr)
-{
-    constexpr text::text_view tv_empty;
-    constexpr text::text_view tv_a("a");
-    constexpr text::text_view tv_abc("abcdefg");
-
-    static_assert(substr(tv_empty, 0, 0) == tv_empty, "");
-    static_assert(substr(tv_empty, 0, -1) == tv_empty, "");
-
-    static_assert(substr(tv_a, 0, 1) == tv_a, "");
-    static_assert(substr(tv_a, 0, -2) == tv_a, "");
-
-    static_assert(substr(tv_abc, 0, 7) == tv_abc, "");
-    static_assert(substr(tv_abc, 0, -1) == tv_abc, "");
-
-    static_assert(substr(tv_a, 0, 1) == text::text_view("a"), "");
-
-    static_assert(substr(tv_abc, 0, 7) == text::text_view("abcdefg"), "");
-    static_assert(substr(tv_abc, 2, 3) == text::text_view("cde"), "");
-}

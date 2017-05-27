@@ -150,6 +150,7 @@ namespace boost { namespace text {
         }
 
         text_view operator() (int lo, int hi) const noexcept;
+        text_view operator() (int lo) const noexcept;
 
         int max_size () const noexcept
         { return INT_MAX; }
@@ -193,6 +194,7 @@ namespace boost { namespace text {
         }
 
         text_view operator() (int lo, int hi) noexcept;
+        text_view operator() (int lo) noexcept;
 
         template <typename CharRange>
         auto insert (int at, CharRange const & r)
@@ -367,6 +369,9 @@ namespace boost { namespace text {
     inline text_view text::operator() (int lo, int hi) const noexcept
     { return text_view(*this)(lo, hi); }
 
+    inline text_view text::operator() (int lo) const noexcept
+    { return text_view(*this)(lo); }
+
     inline text::operator text_view () const noexcept
     {
         if (!data_)
@@ -376,6 +381,9 @@ namespace boost { namespace text {
 
     inline text_view text::operator() (int lo, int hi) noexcept
     { return text_view(*this)(lo, hi); }
+
+    inline text_view text::operator() (int lo) noexcept
+    { return text_view(*this)(lo); }
 
     template <typename CharRange>
     auto text::insert (int at, CharRange const & r)
