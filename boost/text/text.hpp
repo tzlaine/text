@@ -17,8 +17,32 @@ namespace boost { namespace text {
     struct repeated_text_view;
 
     // TODO: Guarantee always valid UTF-8.
-    // TODO: Fix iterators in the !data_ case; probably with an
-    //       ODR-safe in-header global.
+
+    namespace detail {
+
+        template <typename T>
+        struct static_const
+        { static constexpr T value {}; };
+
+        template <typename T>
+        constexpr T static_const<T>::value;
+
+        struct get_empty_str_fn
+        {
+            constexpr get_empty_str_fn () : c_ ('\0') {}
+
+            constexpr char const * operator() () const noexcept
+            { return &c_; }
+
+            char c_;
+        };
+
+    }
+
+    // TODO: inline const c = '\0';
+    inline namespace {
+        constexpr auto & get_empty_str = detail::static_const<detail::get_empty_str_fn>::value;
+    }
 
     struct text
     {
@@ -72,14 +96,34 @@ namespace boost { namespace text {
         inline text & operator= (text_view view);
         inline text & operator= (repeated_text_view view);
 
-        iterator begin () noexcept { return data_.get(); }
-        iterator end () noexcept { return data_.get() + size_; }
+        iterator begin () noexcept
+        {
+            if (!data_)
+                return const_cast<char *>(get_empty_str());
+            return data_.get();
+        }
+        iterator end () noexcept
+        {
+            if (!data_)
+                return const_cast<char *>(get_empty_str());
+            return data_.get() + size_;
+        }
 
-        const_iterator begin () const noexcept { return data_.get(); }
-        const_iterator end () const noexcept { return data_.get() + size_; }
+        const_iterator begin () const noexcept
+        {
+            if (!data_)
+                return get_empty_str();
+            return data_.get();
+        }
+        const_iterator end () const noexcept
+        {
+            if (!data_)
+                return get_empty_str();
+            return data_.get() + size_;
+        }
 
-        const_iterator cbegin () const noexcept { return data_.get(); }
-        const_iterator cend () const noexcept { return data_.get() + size_; }
+        const_iterator cbegin () const noexcept { return begin(); }
+        const_iterator cend () const noexcept { return end(); }
 
         reverse_iterator rbegin () noexcept { return reverse_iterator(end() - 1); }
         reverse_iterator rend () noexcept { return reverse_iterator(begin() - 1); }
@@ -160,7 +204,6 @@ namespace boost { namespace text {
         inline text & erase (text_view view);
         inline text & replace (text_view old_substr, text_view new_substr);
 
-        // TODO: Fix for !data_ case.
         void resize (int new_size, char c)
         {
             assert(0 <= new_size);
@@ -327,7 +370,7 @@ namespace boost { namespace text {
     inline text::operator text_view () const noexcept
     {
         if (!data_)
-            return text_view();
+            return text_view(get_empty_str(), 0);
         return text_view(data_.get(), size_);
     }
 
