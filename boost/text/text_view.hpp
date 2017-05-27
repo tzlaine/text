@@ -27,7 +27,7 @@ namespace boost { namespace text {
             size_ (0)
         {}
 
-        constexpr text_view (char const * c_str) noexcept :
+        constexpr text_view (char const * c_str) :
             data_ (c_str),
             size_ (detail::strlen(c_str))
         {
@@ -38,7 +38,7 @@ namespace boost { namespace text {
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
-        constexpr text_view (char const * c_str, int len) noexcept :
+        constexpr text_view (char const * c_str, int len) :
             data_ (c_str),
             size_ (len)
         {
@@ -99,7 +99,7 @@ namespace boost { namespace text {
             assert(0 <= lo && lo <= size_);
             assert(0 <= hi && hi <= size_);
             assert(lo <= hi);
-            return text_view(data_ + lo, hi - lo);//u8
+            return text_view(data_ + lo, hi - lo);
         }
 
         constexpr text_view operator() (int lo) const noexcept
@@ -107,7 +107,7 @@ namespace boost { namespace text {
             if (lo < 0)
                 lo += size_;
             assert(0 <= lo && lo <= size_);
-            return text_view(data_ + lo, size_ - lo);//u8
+            return text_view(data_ + lo, size_ - lo);
         }
 
         constexpr int max_size () const noexcept
@@ -181,7 +181,7 @@ namespace boost { namespace text {
 
     }
 
-    constexpr text_view encoding_checked (text_view view) noexcept
+    constexpr text_view encoding_checked (text_view view)
     {
         if (!utf8::encoded(view.begin(), view.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");
