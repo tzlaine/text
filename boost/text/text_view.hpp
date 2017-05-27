@@ -13,6 +13,8 @@ namespace boost { namespace text {
 
     struct text;
 
+    // TODO: Guarantee always valid UTF-8.
+
     struct text_view
     {
         using iterator = char const *;
@@ -203,6 +205,9 @@ namespace boost { namespace text {
    2: including null terminator in strings
 
    3: Removal of data(), front(), back(), assign()
+
+   4: text{,_view}::iterator is a char const *, and that's fine -- don't use
+   the bare iterators unless you know what you're doing.
 
 */
 

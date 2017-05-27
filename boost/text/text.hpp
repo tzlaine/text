@@ -16,6 +16,11 @@ namespace boost { namespace text {
     struct text_view;
     struct repeated_text_view;
 
+    // TODO: Strong exception safety guarantee.
+    // TODO: Guarantee always valid UTF-8.
+    // TODO: Throw bad_alloc when cap exceeds INT_MAX.
+    // TODO: Externalize +=.
+
     struct text
     {
         using iterator = char *;
@@ -29,7 +34,7 @@ namespace boost { namespace text {
             data_ (new char[t.cap_]),
             size_ (t.size_),
             cap_ (t.cap_)
-        { memcpy(data_.get(), t.begin(), t.cap_); }
+        { std::copy(t.begin(), t.end(), begin()); }
 
         text (text && rhs) noexcept :
             data_ (std::move(rhs.data_)),
@@ -40,31 +45,22 @@ namespace boost { namespace text {
             rhs.cap_ = 0;
         }
 
-        text (char const * c_str) :
-            data_ (nullptr),
-            size_ (0),
-            cap_ (0)
-        {
-            auto const len = strlen(c_str);
-            auto const cap = len + 1;
-            if (INT_MAX < cap)
-                throw std::bad_alloc();
-            data_.reset(new char[cap]);
-            memcpy(data_.get(), c_str, cap);
-            size_ = (int)len;
-            cap_ = cap;
-        }
+        text (char const * c_str);
 
-        explicit text (text_view view);
-        explicit text (repeated_text_view view);
+        template <typename CharRange>
+        explicit text (
+            CharRange const & r,
+            detail::rng_alg_ret_t<int *, CharRange> enable = 0
+        )
+        { *this += r; }
+
+        inline explicit text (text_view view);
+        inline explicit text (repeated_text_view view);
 
         text & operator= (text const & t)
         {
-            data_.reset(new char[t.cap_]);
-            size_ = t.size_;
-            cap_ = t.cap_;
-            memcpy(data_.get(), t.begin(), t.cap_);
-            return *this;
+            clear();
+            return *this += t;
         }
 
         text & operator= (text && rhs) noexcept
@@ -73,16 +69,12 @@ namespace boost { namespace text {
             return *this;
         }
 
-        text & operator= (text_view view);
-        text & operator= (repeated_text_view view);
+        template <typename CharRange>
+        auto operator= (CharRange const & r)
+            -> detail::rng_alg_ret_t<text &, CharRange>;
 
-#if 0
-        template <typename InputIter>
-        text (InputIter first, InputIter last)
-        {
-            // TODO
-        }
-#endif
+        inline text & operator= (text_view view);
+        inline text & operator= (repeated_text_view view);
 
         iterator begin () noexcept { return data_.get(); }
         iterator end () noexcept { return data_.get() + size_; }
@@ -147,27 +139,8 @@ namespace boost { namespace text {
         void clear ()
         { size_ = 0; }
 
-#if 0
-        // TODO
-
-        insert ();
-        erase ();
-
         // TODO: Free function in terms of operator+=() --> append ()
-
-        replace ();
-#endif
-
-        template <typename CharRange>
-        auto operator+= (CharRange const & r) noexcept
-            -> detail::rng_alg_ret_t<text_view, CharRange>
-        {
-            // TODO
-            return *this;
-        }
-
-        text & operator+= (text_view view);
-        text & operator+= (repeated_text_view rv);
+        // TODO: Update the char-range contraints to require random access iterators.
 
         char & operator[] (int i) noexcept
         {
@@ -175,13 +148,48 @@ namespace boost { namespace text {
             return data_[i];
         }
 
+        template <typename CharRange>
+        auto operator+= (CharRange const & r)
+            -> detail::rng_alg_ret_t<text &, CharRange>;
+
+        inline text & operator+= (text_view view);
+        inline text & operator+= (repeated_text_view rv);
+
+        template <typename CharRange>
+        auto insert (int at, CharRange const & r)
+            -> detail::rng_alg_ret_t<text &, CharRange>;
+
+        inline text & insert (int at, text_view view);
+        inline text & insert (int at, repeated_text_view rv);
+
+        inline text & erase (text_view view);
+        inline text & replace (text_view old_substr, text_view new_substr);
+
+        void resize (int new_size, char c)
+        {
+            int const delta = new_size - size_;
+            int const available = cap_ - 1 - size_;
+            if (available < delta) {
+                std::unique_ptr<char []> new_data = get_new_data(delta - available);
+                char * buf = new_data.get();
+                buf = std::copy(begin(), end(), buf);
+                *buf = '\0';
+                new_data.swap(data_);
+            } else {
+                size_ = new_size;
+                data_[size_] = '\0';
+            }
+        }
+
         void reserve (int new_size)
         {
             int const new_cap = new_size + 1;
             if (new_cap <= cap_)
                 return;
-            std::unique_ptr<char[]> new_data(new char[new_cap]);
-            memcpy(new_data.get(), data_.get(), cap_);
+            if (INT_MAX < new_cap)
+                throw std::bad_alloc();
+            std::unique_ptr<char []> new_data(new char[new_cap]);
+            std::copy(cbegin(), cend() + 1, new_data.get());
             data_.swap(new_data);
             cap_ = new_cap;
         }
@@ -190,25 +198,17 @@ namespace boost { namespace text {
         {
             if (cap_ == 0 || cap_ == size_ + 1)
                 return;
-            std::unique_ptr<char[]> new_data(new char[size_ + 1]);
-            memcpy(new_data.get(), data_.get(), size_ + 1);
+            std::unique_ptr<char []> new_data(new char[size_ + 1]);
+            std::copy(cbegin(), cend() + 1, new_data.get());
             data_.swap(new_data);
             cap_ = size_ + 1;
         }
 
         void swap (text & rhs) noexcept
         {
-            data_ = std::move(rhs.data_);
-            {
-                int const tmp = size_;
-                size_ = rhs.size_;
-                rhs.size_ = tmp;
-            }
-            {
-                int const tmp = cap_;
-                cap_ = rhs.cap_;
-                rhs.cap_ = tmp;
-            }
+            data_.swap(rhs.data_);
+            std::swap(size_, rhs.size_);
+            std::swap(cap_, rhs.cap_);
         }
 
         friend iterator begin (text & t) noexcept
@@ -241,7 +241,25 @@ namespace boost { namespace text {
         { return os.write(t.begin(), t.size()); }
 
     private:
-        std::unique_ptr<char[]> data_;
+        int grow_size (int min_new_size) const
+        {
+            int retval = size_;
+            while (retval < min_new_size) {
+                retval = retval / 2 * 3;
+            }
+            return retval;
+        }
+
+        std::unique_ptr<char []> get_new_data (int resize_amount)
+        {
+            int const new_size = grow_size(size_ + resize_amount);
+            std::unique_ptr<char []> retval(new char [new_size + 1]);
+            size_ = new_size;
+            cap_ = size_ + 1;
+            return retval;
+        }
+
+        std::unique_ptr<char []> data_;
         int size_;
         int cap_;
     };
@@ -266,11 +284,19 @@ namespace boost { namespace text {
 
     }
 
+    inline text::text (char const * c_str) :
+        data_ (),
+        size_ (0),
+        cap_ (0)
+    { *this += c_str; }
+
     inline text::text (text_view view) :
         data_ (),
         size_ (view.size()),
-        cap_ (view.size())
+        cap_ (view.size() + 1)
     {
+        *this += view;
+#if 0 // TODO
         if (!view.empty()) {
             if (detail::back_impl(view.begin(), view.end()) == '\0')
                 --size_;
@@ -280,17 +306,19 @@ namespace boost { namespace text {
             memcpy(data_.get(), view.begin(), view.size());
             data_[size_] = '\0';
         }
+#endif
     }
 
     inline text::text (repeated_text_view rv) :
         data_ (),
-        size_ (rv.size()),
-        cap_ (rv.size())
-    {
-        reserve(rv.size());
-        *this += rv;
-        data_[size_] = '\0';
-    }
+        size_ (0),
+        cap_ (0)
+    { *this += rv; }
+
+    template <typename CharRange>
+    auto text::operator= (CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
 
     inline text & text::operator= (text_view view)
     {
@@ -323,17 +351,117 @@ namespace boost { namespace text {
         return text_view(data_.get(), size_);
     }
 
+    template <typename CharRange>
+    auto text::operator+= (CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return *this += text_view(&*r.begin(), r.end() - r.begin()); }
+
     inline text & text::operator+= (text_view view)
-    {
-        // TODO
-        return *this;
-    }
+    { return insert(size_, view); }
 
     inline text & text::operator+= (repeated_text_view rv)
     {
+        reserve(size_ + rv.size());
         for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
             *this += rv.view();
         }
+        return *this;
+    }
+
+    template <typename CharRange>
+    auto text::insert (int at, CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
+
+    inline text & text::insert (int at, text_view view)
+    {
+        int const delta = view.size();
+        int const available = cap_ - 1 - size_;
+        if (available < delta) {
+            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            char * buf = new_data.get();
+            buf = std::copy(cbegin(), cbegin() + at, buf);
+            buf = std::copy(view.begin(), view.end(), buf);
+            buf = std::copy(cbegin() + at, cend(), buf);
+            *buf = '\0';
+            new_data.swap(data_);
+        } else {
+            if (0 < delta)
+                std::copy_backward(cbegin() + at, cend(), end() + delta);
+            char * buf = begin() + at;
+            buf = std::copy(view.begin(), view.end(), buf);
+            data_[size_] = '\0';
+        }
+        return *this;
+    }
+
+    inline text & text::insert (int at, repeated_text_view rv)
+    {
+        int const delta = rv.size();
+        int const available = cap_ - 1 - size_;
+        if (available < delta) {
+            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            char * buf = new_data.get();
+            buf = std::copy(cbegin(), cbegin() + at, buf);
+            for (int i = 0; i < rv.count(); ++i) {
+                buf = std::copy(rv.view().begin(), rv.view().end(), buf);
+            }
+            buf = std::copy(cbegin() + at, cend(), buf);
+            *buf = '\0';
+            new_data.swap(data_);
+        } else {
+            if (0 < delta)
+                std::copy_backward(cbegin() + at, cend(), end() + delta);
+            char * buf = begin() + at;
+            for (int i = 0; i < rv.count(); ++i) {
+                buf = std::copy(rv.view().begin(), rv.view().end(), buf);
+            }
+            data_[size_] = '\0';
+        }
+        return *this;
+    }
+
+    inline text & text::erase (text_view view)
+    {
+        assert(begin() <= view.begin() && view.end() <= end());
+        *std::copy(
+            view.end(), cend(),
+            const_cast<char *>(view.begin())
+        ) = '\0';
+        size_ -= view.size();
+        return *this;
+    }
+
+    inline text & text::replace (text_view old_substr, text_view new_substr)
+    {
+        assert(begin() <= old_substr.begin() && old_substr.end() <= end());
+
+        int const delta = new_substr.size() - old_substr.size();
+        int const available = cap_ - 1 - size_;
+        if (available < delta) {
+            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            char * buf = new_data.get();
+            buf = std::copy(cbegin(), old_substr.begin(), buf);
+            buf = std::copy(new_substr.begin(), new_substr.end(), buf);
+            buf = std::copy(old_substr.end(), cend(), buf);
+            *buf = '\0';
+            new_data.swap(data_);
+        } else {
+            if (0 < delta) {
+                *std::copy_backward(
+                    old_substr.end(), cend(),
+                    end() + delta
+                ) = '\0';
+            } else if (delta < 0) {
+                *std::copy(
+                    old_substr.end(), cend(),
+                    const_cast<char *>(old_substr.end()) + delta
+                ) = '\0';
+            }
+            char * buf = const_cast<char *>(old_substr.begin());
+            std::copy(new_substr.begin(), new_substr.end(), buf);
+        }
+
         return *this;
     }
 
