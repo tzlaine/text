@@ -47,6 +47,18 @@ namespace boost { namespace text {
                 throw std::invalid_argument("Invalid UTF-8 encoding");
         }
 
+        constexpr text_view (char const * c_str, utf8::unchecked_t) noexcept :
+            data_ (c_str),
+            size_ (detail::strlen(c_str))
+        {
+            assert(detail::strlen(c_str) <= INT_MAX);
+        }
+
+        constexpr text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
+            data_ (c_str),
+            size_ (len)
+        { assert(0 <= len); }
+
         constexpr text_view (text const & t) noexcept;
 
         constexpr text_view (text_view const & rhs) noexcept :

@@ -4,6 +4,14 @@
 
 namespace boost { namespace text { namespace utf8 {
 
+    struct unchecked_t {};
+
+    namespace {
+
+        constexpr unchecked_t unchecked;
+
+    }
+
     constexpr int code_point_bytes (char first) noexcept
     {
         if ((first & 0b10000000) == 0)
