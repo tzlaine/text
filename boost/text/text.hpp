@@ -204,7 +204,13 @@ namespace boost { namespace text {
         inline text & insert (int at, repeated_text_view rv);
 
         inline text & erase (text_view view);
+
+        template <typename CharRange>
+        auto replace (text_view old_substr, CharRange const & r)
+            -> detail::rng_alg_ret_t<text &, CharRange>;
+
         inline text & replace (text_view old_substr, text_view new_substr);
+        inline text & replace (text_view old_substr, repeated_text_view new_substr);
 
         void resize (int new_size, char c)
         {
@@ -497,7 +503,11 @@ namespace boost { namespace text {
         return *this;
     }
 
-    // TODO: Range and repeated_text_view versions of replace().
+    template <typename CharRange>
+    auto text::replace (text_view old_substr, CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return replace(old_substr, text_view(&*r.begin(), r.end() - r.begin())); }
+
     inline text & text::replace (text_view old_substr, text_view new_substr)
     {
         bool const old_substr_null_terminated =
@@ -536,6 +546,53 @@ namespace boost { namespace text {
             }
             char * buf = const_cast<char *>(old_substr.begin());
             std::copy(new_substr.begin(), new_substr.end(), buf);
+        }
+
+        return *this;
+    }
+
+    inline text & text::replace (text_view old_substr, repeated_text_view new_substr)
+    {
+        bool const old_substr_null_terminated =
+            !old_substr.empty() && old_substr.end()[-1] == '\0';
+        if (old_substr_null_terminated)
+            old_substr = old_substr(0, -1);
+
+        bool const new_substr_null_terminated =
+            !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';
+        if (new_substr_null_terminated)
+            new_substr = repeat(new_substr.view()(0, -1), new_substr.count());
+
+        assert(begin() <= old_substr.begin() && old_substr.end() <= end());
+
+        int const delta = new_substr.size() - old_substr.size();
+        int const available = cap_ - 1 - size_;
+        if (available < delta) {
+            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            char * buf = new_data.get();
+            buf = std::copy(cbegin(), old_substr.begin(), buf);
+            for (int i = 0; i < new_substr.count(); ++i) {
+                buf = std::copy(new_substr.view().begin(), new_substr.view().end(), buf);
+            }
+            buf = std::copy(old_substr.end(), cend(), buf);
+            *buf = '\0';
+            new_data.swap(data_);
+        } else {
+            if (0 < delta) {
+                *std::copy_backward(
+                    old_substr.end(), cend(),
+                    end() + delta
+                ) = '\0';
+            } else if (delta < 0) {
+                *std::copy(
+                    old_substr.end(), cend(),
+                    const_cast<char *>(old_substr.end()) + delta
+                ) = '\0';
+            }
+            char * buf = const_cast<char *>(old_substr.begin());
+            for (int i = 0; i < new_substr.count(); ++i) {
+                buf = std::copy(new_substr.view().begin(), new_substr.view().end(), buf);
+            }
         }
 
         return *this;
