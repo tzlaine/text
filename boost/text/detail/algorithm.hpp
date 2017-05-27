@@ -33,7 +33,7 @@ namespace boost { namespace text { namespace detail {
     template <
         typename Default,
         typename AlwaysVoid,
-        template <class ...> typename Template,
+        template <typename ...> class Template,
         typename ...Args
     >
     struct detector
@@ -44,10 +44,10 @@ namespace boost { namespace text { namespace detail {
 
     template <
         typename Default,
-        template <class ...> typename Template,
+        template <typename ...> class Template,
         typename ...Args
     >
-    struct detector<Default, std::void_t<Template<Args...>>, Template, Args...> {
+    struct detector<Default, void_t<Template<Args...>>, Template, Args...> {
         using value_t = std::true_type;
         using type = Template<Args...>;
     };
