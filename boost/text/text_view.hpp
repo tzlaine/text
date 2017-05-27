@@ -258,6 +258,10 @@ namespace boost { namespace text {
    7: operator+(text & t, char c) does not exist, since a single char is no
    longer a single code point.
 
+   8: Checked UTF-8 might be a bad default for the char* ctors, since everyone
+   pretty much uses it.  It may be better to invert this, so that there is no
+   unchecked_t ctor, but a checked_t ctor instead.
+
 */
 
 // Not rationale:
