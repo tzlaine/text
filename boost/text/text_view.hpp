@@ -68,6 +68,18 @@ namespace boost { namespace text {
             return data_[i];
         }
 
+        constexpr text_view operator() (int lo, int hi) const noexcept
+        {
+            if (lo < 0)
+                lo += size_;
+            if (hi < 0)
+                hi += size_;
+            assert(lo < size_);
+            assert(hi < size_);
+            assert(lo <= hi);
+            return text_view(data_ + lo, hi - lo);
+        }
+
         constexpr int max_size () const noexcept
         { return INT_MAX; }
 
