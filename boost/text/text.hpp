@@ -462,6 +462,8 @@ namespace boost { namespace text {
         return *this;
     }
 
+
+
     inline text & operator+= (text & t, text_view view)
     { return t.insert(t.size(), view); }
 
@@ -479,7 +481,48 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<text &, CharRange>
     { return t.insert(t.size(), text_view(&*r.begin(), r.end() - r.begin())); }
 
-    // TODO: operator+
+
+
+    inline text & operator+= (text && t, text_view view)
+    { return t.insert(t.size(), view); }
+
+    inline text & operator+= (text && t, repeated_text_view rv)
+    {
+        t.reserve(t.size() + rv.size());
+        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
+            t.insert(t.size(), rv.view());
+        }
+        return t;
+    }
+
+    template <typename CharRange>
+    auto operator+= (text && t, CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return t.insert(t.size(), text_view(&*r.begin(), r.end() - r.begin())); }
+
+
+
+    inline text operator+ (text t, text_view view)
+    { return t += view; }
+
+    inline text operator+ (text t, repeated_text_view rv)
+    { return t += rv; }
+
+    template <typename CharRange>
+    auto operator+ (text t, CharRange const & r)
+        -> detail::rng_alg_ret_t<text, CharRange>
+    { return t += r; }
+
+    inline text operator+ (text_view view, text const & t)
+    { return (text() += view) += t; }
+
+    inline text operator+ (repeated_text_view rv, text const & t)
+    { return (text() += rv) += t; }
+
+    template <typename CharRange>
+    auto operator+ (CharRange const & r, text const & t)
+        -> detail::rng_alg_ret_t<text, CharRange>
+    { return (text() += r) += t; }
 
 } }
 
