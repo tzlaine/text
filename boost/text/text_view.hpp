@@ -204,10 +204,17 @@ namespace boost { namespace text {
 
    2: including null terminator in strings
 
-   3: Removal of data(), front(), back(), assign()
+   3: removal of data(), front(), back(), assign()
 
    4: text{,_view}::iterator is a char const *, and that's fine -- don't use
    the bare iterators unless you know what you're doing.
+
+   5: text{,_view} guarantee they are UTF-8 encoded.
+
+   6: text is strongly exception-safe, always 0-terminated.
+
+   7: operator+(text & t, char c) does not exist, since a single char is no
+   longer a single code point.
 
 */
 

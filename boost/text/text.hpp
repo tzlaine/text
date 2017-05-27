@@ -19,7 +19,6 @@ namespace boost { namespace text {
     // TODO: Strong exception safety guarantee.
     // TODO: Guarantee always 0-terminated.
     // TODO: Guarantee always valid UTF-8.
-    // TODO: Externalize +=.
 
     struct text
     {
@@ -52,7 +51,7 @@ namespace boost { namespace text {
             CharRange const & r,
             detail::rng_alg_ret_t<int *, CharRange> enable = 0
         )
-        { *this += r; }
+        { insert(0, r); }
 
         inline explicit text (text_view view);
         inline explicit text (repeated_text_view view);
@@ -60,7 +59,7 @@ namespace boost { namespace text {
         text & operator= (text const & t)
         {
             clear();
-            return *this += t;
+            return insert(0, t);
         }
 
         text & operator= (text && rhs) noexcept
@@ -139,7 +138,6 @@ namespace boost { namespace text {
         void clear ()
         { size_ = 0; }
 
-        // TODO: Free function in terms of operator+=() --> append ()
         // TODO: Update the char-range contraints to require random access iterators.
 
         char & operator[] (int i) noexcept
@@ -147,13 +145,6 @@ namespace boost { namespace text {
             assert(i < size_);
             return data_[i];
         }
-
-        template <typename CharRange>
-        auto operator+= (CharRange const & r)
-            -> detail::rng_alg_ret_t<text &, CharRange>;
-
-        inline text & operator+= (text_view view);
-        inline text & operator+= (repeated_text_view rv);
 
         template <typename CharRange>
         auto insert (int at, CharRange const & r)
@@ -287,14 +278,14 @@ namespace boost { namespace text {
         data_ (),
         size_ (0),
         cap_ (0)
-    { *this += c_str; }
+    { insert(0, c_str); }
 
     inline text::text (text_view view) :
         data_ (),
         size_ (0),
         cap_ (0)
     {
-        *this += view;
+        insert(0, view);
 #if 0 // TODO
         if (!view.empty()) {
             if (detail::back_impl(view.begin(), view.end()) == '\0')
@@ -312,7 +303,7 @@ namespace boost { namespace text {
         data_ (),
         size_ (0),
         cap_ (0)
-    { *this += rv; }
+    { insert(0, rv); }
 
     template <typename CharRange>
     auto text::operator= (CharRange const & r)
@@ -323,7 +314,7 @@ namespace boost { namespace text {
     {
         if (view.size() <= size()) {
             clear();
-            *this += view;
+            insert(0, view);
         } else {
             text tmp(view);
             swap(tmp);
@@ -335,7 +326,7 @@ namespace boost { namespace text {
     {
         if (rv.size() <= size()) {
             clear();
-            *this += rv;
+            insert(0, rv);
         } else {
             text tmp(rv);
             swap(tmp);
@@ -348,23 +339,6 @@ namespace boost { namespace text {
         if (empty())
             return text_view();
         return text_view(data_.get(), size_);
-    }
-
-    template <typename CharRange>
-    auto text::operator+= (CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
-    { return *this += text_view(&*r.begin(), r.end() - r.begin()); }
-
-    inline text & text::operator+= (text_view view)
-    { return insert(size_, view); }
-
-    inline text & text::operator+= (repeated_text_view rv)
-    {
-        reserve(size_ + rv.size());
-        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
-            *this += rv.view();
-        }
-        return *this;
     }
 
     template <typename CharRange>
@@ -463,6 +437,25 @@ namespace boost { namespace text {
 
         return *this;
     }
+
+    inline text & operator+= (text & t, text_view view)
+    { return t.insert(t.size(), view); }
+
+    inline text & operator+= (text & t, repeated_text_view rv)
+    {
+        t.reserve(t.size() + rv.size());
+        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
+            t.insert(t.size(), rv.view());
+        }
+        return t;
+    }
+
+    template <typename CharRange>
+    auto operator+= (text & t, CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return t.insert(t.size(), text_view(&*r.begin(), r.end() - r.begin())); }
+
+    // TODO: operator+
 
 } }
 
