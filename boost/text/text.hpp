@@ -59,9 +59,9 @@ namespace boost { namespace text {
         text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
-        text (char const * c_str);
+        text (char const * c_str);//u8
 
-        template <typename CharRange>
+        template <typename CharRange>//u8
         explicit text (
             CharRange const & r,
             detail::rng_alg_ret_t<int *, CharRange> enable = 0
@@ -89,7 +89,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        template <typename CharRange>
+        template <typename CharRange>//u8
         auto operator= (CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 

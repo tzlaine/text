@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_TEXT_VIEW_HPP
 #define BOOST_TEXT_TEXT_VIEW_HPP
 
+#include <boost/text/utf8.hpp>
+
 #include <boost/text/detail/utility.hpp>
 #include <boost/text/detail/iterator.hpp>
 
@@ -30,12 +32,20 @@ namespace boost { namespace text {
         constexpr text_view (char const * c_str) noexcept :
             data_ (c_str),
             size_ (detail::strlen(c_str))
-        { assert(size_ <= INT_MAX); }
+        {
+            assert(detail::strlen(c_str) <= INT_MAX);
+            if (!utf8::encoded(begin(), end()))
+                throw std::invalid_argument("Invalid UTF-8 encoding");
+        }
 
         constexpr text_view (char const * c_str, int len) noexcept :
             data_ (c_str),
             size_ (len)
-        { assert(0 <= len); }
+        {
+            assert(0 <= len);
+            if (!utf8::encoded(begin(), end()))
+                throw std::invalid_argument("Invalid UTF-8 encoding");
+        }
 
         constexpr text_view (text const & t) noexcept;
 
