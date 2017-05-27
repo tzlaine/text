@@ -29,16 +29,10 @@ namespace boost { namespace text {
 
         text () noexcept : data_ (nullptr), size_ (0), cap_ (0) {}
 
-        text (text const & t) :
-            data_ (),
-            size_ (0),
-            cap_ (0)
+        text (text const & t) : data_ (), size_ (0), cap_ (0)
         { insert(0, t); }
 
-        text (text && rhs) noexcept :
-            data_ (),
-            size_ (0),
-            cap_ (0)
+        text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
         text (char const * c_str);
@@ -289,22 +283,13 @@ namespace boost { namespace text {
 
     }
 
-    inline text::text (char const * c_str) :
-        data_ (),
-        size_ (0),
-        cap_ (0)
+    inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)
     { insert(0, c_str); }
 
-    inline text::text (text_view view) :
-        data_ (),
-        size_ (0),
-        cap_ (0)
+    inline text::text (text_view view) : data_ (), size_ (0), cap_ (0)
     { insert(0, view); }
 
-    inline text::text (repeated_text_view rv) :
-        data_ (),
-        size_ (0),
-        cap_ (0)
+    inline text::text (repeated_text_view rv) : data_ (), size_ (0), cap_ (0)
     { insert(0, rv); }
 
     template <typename CharRange>
