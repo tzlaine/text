@@ -6,6 +6,9 @@
 #include <stdexcept>
 
 
+// TODO: Improve the error messages in exceptions.
+// TODO: Stick with std::logic_error?  Maybe std::out_of_bounds instead?
+
 namespace boost { namespace text { namespace utf8 {
 
     struct unchecked_t {};
@@ -80,6 +83,28 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         return code_point_bytes(*last) == n;
+    }
+
+    constexpr bool surrogate (uint32_t c) noexcept
+    {
+        uint32_t const high_surrogate_min = 0xd800;
+        uint32_t const low_surrogate_max = 0xdfff;
+        return high_surrogate_min <= c && c <= low_surrogate_max;
+    }
+
+    constexpr bool valid_code_point (uint32_t c) noexcept
+    { return c <= 0x10ffff && !surrogate(c) && c != 0xfffe && c != 0xffff; }
+
+    constexpr bool overlong_sequence (uint32_t c, int utf8_chars) noexcept
+    {
+        if (c < 0x80 && utf8_chars != 1)
+            return true;
+        else if (c < 0x800 && utf8_chars != 2)
+            return true;
+        else if (c < 0x10000 && utf8_chars != 3)
+            return true;
+        else
+            return false;
     }
 
     template <typename Iter>
@@ -182,7 +207,7 @@ namespace boost { namespace text { namespace utf8 {
         constexpr int read_into_buf () const
         {
             uint32_t const c = static_cast<uint32_t>(*it_);
-            if (0x10ffff < c)
+            if (!valid_code_point(c))
                 throw std::logic_error("Invalid UTF-32 code point.");
             index_ = 0;
             if (c < 0x80) {
@@ -287,26 +312,37 @@ namespace boost { namespace text { namespace utf8 {
         constexpr reference get_value () const
         {
             uint32_t retval = 0;
+
             next_ = it_;
+            int chars = 0;
             if ((*next_ & 0b10000000) == 0) {
                 retval += *next_++ & 0b01111111;
+                chars = 1;
             } else if ((*next_ & 0b11100000) == 0b11000000) {
                 retval += *next_++ & 0b00011111;
                 retval += *next_++ & 0b00111111;
+                chars = 2;
             } else if ((*next_ & 0b11110000) == 0b11100000) {
                 retval += *next_++ & 0x7f;
                 retval += *next_++ & 0b00001111;
                 retval += *next_++ & 0b00111111;
+                chars = 3;
             } else if ((*next_ & 0b11111000) == 0b11110000) {
                 retval += *next_++ & 0x7f;
                 retval += *next_++ & 0b00000111;
                 retval += *next_++ & 0b00111111;
                 retval += *next_++ & 0b00111111;
+                chars = 4;
             } else {
                 throw std::logic_error("Invalid UTF-8 sequence.");
             }
-            if (0x10ffff < retval)
+
+            if (!valid_code_point(retval))
                 throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+
+            if (overlong_sequence(retval, chars))
+                throw std::logic_error("Overlong UTF-8 sequence.");
+
             return retval;
         }
 
@@ -420,9 +456,6 @@ namespace boost { namespace text { namespace utf8 {
         constexpr bool low_surrogate (uint32_t c) const noexcept
         { return low_surrogate_min <= c && c <= low_surrogate_max; }
 
-        constexpr bool surrogate (uint32_t c) const noexcept
-        { return high_surrogate(c) || low_surrogate(c); }
-
         constexpr int read_into_buf (uint32_t first, uint32_t second) const
         {
             uint32_t c = first;
@@ -437,7 +470,7 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-16 sequence.");
             }
 
-            if (0x10ffff < c)
+            if (!valid_code_point(c))
                 throw std::logic_error("Invalid UTF-32 code point.");
 
             index_ = 0;
@@ -591,30 +624,36 @@ namespace boost { namespace text { namespace utf8 {
             uint32_t value = 0;
 
             next_ = it_;
+            int chars = 0;
             if ((*next_ & 0b10000000) == 0) {
                 value += *next_++ & 0b01111111;
+                chars = 1;
             } else if ((*next_ & 0b11100000) == 0b11000000) {
                 value += *next_++ & 0b00011111;
                 value += *next_++ & 0b00111111;
+                chars = 2;
             } else if ((*next_ & 0b11110000) == 0b11100000) {
                 value += *next_++ & 0x7f;
                 value += *next_++ & 0b00001111;
                 value += *next_++ & 0b00111111;
+                chars = 3;
             } else if ((*next_ & 0b11111000) == 0b11110000) {
                 value += *next_++ & 0x7f;
                 value += *next_++ & 0b00000111;
                 value += *next_++ & 0b00111111;
                 value += *next_++ & 0b00111111;
+                chars = 4;
             } else {
                 throw std::logic_error("Invalid UTF-8 sequence.");
             }
 
-            if (0x10ffff < value)
+            if (!valid_code_point(value))
                 throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
 
+            if (overlong_sequence(value, chars))
+                throw std::logic_error("Overlong UTF-8 sequence.");
+
             if (value < 0x10000) {
-                if ((value & 0xFFFFF800) == 0xd800) // surrogate check
-                    throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
                 buf_[0] = static_cast<uint16_t>(value);
                 buf_[1] = 0;
             } else {
