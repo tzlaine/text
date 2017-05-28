@@ -491,14 +491,146 @@ namespace boost { namespace text { namespace utf8 {
         mutable int index_;
         mutable char buf_[5];
 
-        static uint32_t const high_surrogate_min = 0xd800u;
-        static uint32_t const high_surrogate_max = 0xdbffu;
+        static uint32_t const high_surrogate_min = 0xd800;
+        static uint32_t const high_surrogate_max = 0xdbff;
 
-        static uint32_t const low_surrogate_min = 0xdc00u;
-        static uint32_t const low_surrogate_max = 0xdfffu;
+        static uint32_t const low_surrogate_min = 0xdc00;
+        static uint32_t const low_surrogate_max = 0xdfff;
 
         static uint32_t const surrogate_offset =
             0x10000 - (high_surrogate_min << 10) - low_surrogate_min;
+    };
+
+    struct to_utf16_iterator
+    {
+        using value_type = uint16_t;
+        using difference_type = int;
+        using pointer = uint16_t *;
+        using reference = uint16_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr to_utf16_iterator () noexcept :
+            it_ (),
+            next_ (),
+            index_ (2),
+            buf_ ()
+        {}
+        explicit constexpr to_utf16_iterator (char const * it) noexcept :
+            it_ (it),
+            next_ (it),
+            index_ (2),
+            buf_ ()
+        {}
+
+        constexpr reference operator* () const
+        {
+            if (buf_empty())
+                read_into_buf();
+            return buf_[index_];
+        }
+
+        constexpr to_utf16_iterator & operator++ ()
+        {
+            if (buf_empty())
+                read_into_buf();
+            ++index_;
+            if (at_buf_end()) {
+                it_ = next_;
+                index_ = 2;
+            }
+            return *this;
+        }
+        constexpr to_utf16_iterator operator++ (int)
+        {
+            to_utf16_iterator retval = *this;
+            ++*this;
+            return retval;
+        }
+
+        constexpr to_utf16_iterator & operator-- ()
+        {
+            if (index_ == 0 || buf_empty()) {
+                int n = 1;
+                while (continuation(*--it_)) {
+                    ++n;
+                }
+                if (code_point_bytes(*it_) != n)
+                    throw std::logic_error("Invalid UTF-8 sequence.");
+                next_ = it_;
+            } else {
+                --index_;
+            }
+            return *this;
+        }
+        constexpr to_utf16_iterator operator-- (int)
+        {
+            to_utf16_iterator retval = *this;
+            --*this;
+            return retval;
+        }
+
+        // TODO: operator<=> () const
+        friend constexpr bool operator== (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept
+        {
+            if (lhs.it_ != rhs.it_)
+                return false;
+            return lhs.index_ == rhs.index_ || (lhs.index_ != 1 && rhs.index_ != 1);
+        }
+        friend constexpr bool operator!= (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept
+        { return !(lhs.it_ == rhs.it_); }
+
+    private:
+        bool buf_empty () const
+        { return index_ == 2; }
+
+        bool at_buf_end () const
+        { return buf_[index_] == 0; }
+
+        constexpr void read_into_buf () const
+        {
+            uint32_t value = 0;
+
+            next_ = it_;
+            if ((*next_ & 0b10000000) == 0) {
+                value += *next_++ & 0b01111111;
+            } else if ((*next_ & 0b11100000) == 0b11000000) {
+                value += *next_++ & 0b00011111;
+                value += *next_++ & 0b00111111;
+            } else if ((*next_ & 0b11110000) == 0b11100000) {
+                value += *next_++ & 0x7f;
+                value += *next_++ & 0b00001111;
+                value += *next_++ & 0b00111111;
+            } else if ((*next_ & 0b11111000) == 0b11110000) {
+                value += *next_++ & 0x7f;
+                value += *next_++ & 0b00000111;
+                value += *next_++ & 0b00111111;
+                value += *next_++ & 0b00111111;
+            } else {
+                throw std::logic_error("Invalid UTF-8 sequence.");
+            }
+
+            if (0x10ffff < value)
+                throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+
+            if (value < 0x10000) {
+                if ((value & 0xFFFFF800) == 0xd800) // surrogate check
+                    throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+                buf_[0] = static_cast<uint16_t>(value);
+                buf_[1] = 0;
+            } else {
+                buf_[0] = static_cast<uint16_t>(value >> 10) + high_surrogate_base;
+                buf_[1] = static_cast<uint16_t>(value & 0x3ff) + low_surrogate_base;
+                buf_[2] = 0;
+            }
+        }
+
+        char const * it_;
+        mutable char const * next_;
+        mutable int index_;
+        mutable uint16_t buf_[3];
+
+        static uint16_t const high_surrogate_base = 0xd7c0;
+        static uint16_t const low_surrogate_base = 0xdc00;
     };
 
 } } }
