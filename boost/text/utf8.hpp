@@ -92,8 +92,18 @@ namespace boost { namespace text { namespace utf8 {
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
+    // Unicode 9, 3.4/D14
+    constexpr bool reserved_noncharacter (uint32_t c) noexcept
+    {
+        return
+            (0x00fffe <= c && c <= 0x10fffe) ||
+            (0x00ffff <= c && c <= 0x10ffff) ||
+            (0xfdd0 <= c && c <= 0xfdef);
+    }
+
+    // Unicode 9, 3.9/D90
     constexpr bool valid_code_point (uint32_t c) noexcept
-    { return c <= 0x10ffff && !surrogate(c) && c != 0xfffe && c != 0xffff; }
+    { return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c); }
 
     constexpr bool overlong_sequence (uint32_t c, int utf8_chars) noexcept
     {
@@ -523,6 +533,8 @@ namespace boost { namespace text { namespace utf8 {
         Iter it_;
         mutable int index_;
         mutable char buf_[5];
+
+        // Unicode 9, 3.8/D71-D74
 
         static uint32_t const high_surrogate_min = 0xd800;
         static uint32_t const high_surrogate_max = 0xdbff;

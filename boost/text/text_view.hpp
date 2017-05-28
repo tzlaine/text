@@ -271,6 +271,8 @@ namespace boost { namespace text {
    work (as opposed to the unchecked_t ctors which doe less that the vanilla
    ones).  This also reduces compile times.
 
+   10: Unicode 9 is used.  No other versions are supported.
+
 */
 
 // Not rationale:
