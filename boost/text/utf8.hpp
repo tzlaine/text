@@ -173,10 +173,10 @@ namespace boost { namespace text { namespace utf8 {
         { return !(lhs.it_ == rhs.it_); }
 
     private:
-        bool buf_empty ()
+        bool buf_empty () const
         { return index_ == 4; }
 
-        bool at_buf_end ()
+        bool at_buf_end () const
         { return buf_[index_] == '\0'; }
 
         constexpr int read_into_buf () const
@@ -254,7 +254,7 @@ namespace boost { namespace text { namespace utf8 {
         constexpr reference operator* () const
         {
             if (buf_empty())
-                read_into_buf();
+                incr_read_into_buf();
             return buf_[index_];
         }
 
@@ -306,19 +306,19 @@ namespace boost { namespace text { namespace utf8 {
         { return !(lhs.it_ == rhs.it_); }
 
     private:
-        constexpr bool buf_empty () noexcept
+        constexpr bool buf_empty () const noexcept
         { return index_ == 4; }
 
-        constexpr bool at_buf_end () noexcept
+        constexpr bool at_buf_end () const noexcept
         { return buf_[index_] == '\0'; }
 
-        constexpr bool high_surrogate (uint32_t c) noexcept
+        constexpr bool high_surrogate (uint32_t c) const noexcept
         { return high_surrogate_min <= c && c <= high_surrogate_max; }
 
-        constexpr bool low_surrogate (uint32_t c) noexcept
+        constexpr bool low_surrogate (uint32_t c) const noexcept
         { return low_surrogate_min <= c && c <= low_surrogate_max; }
 
-        constexpr bool surrogate (uint32_t c) noexcept
+        constexpr bool surrogate (uint32_t c) const noexcept
         { return high_surrogate(c) || low_surrogate(c); }
 
         constexpr int read_into_buf (uint32_t first, uint32_t second) const
@@ -365,22 +365,22 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        constexpr void incr_read_into_buf ()
+        constexpr void incr_read_into_buf () const
         {
             uint32_t const first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
             if (high_surrogate(first))
-                second = static_cast<uint32_t>(*++it_);
+                second = static_cast<uint32_t>(*++const_cast<Iter &>(it_));
             read_into_buf(first, second);
         }
 
-        constexpr void decr_read_into_buf ()
+        constexpr void decr_read_into_buf () const
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
             if (low_surrogate(first)) {
                 second = first;
-                first = static_cast<uint32_t>(*--it_);
+                first = static_cast<uint32_t>(*--const_cast<Iter &>(it_));
             }
             read_into_buf(first, second);
         }

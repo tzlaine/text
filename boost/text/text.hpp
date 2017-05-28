@@ -71,6 +71,10 @@ namespace boost { namespace text {
         inline explicit text (text_view view);
         inline explicit text (repeated_text_view view);
 
+        template <typename Iter>
+        text (Iter first, Iter last)
+        { insert(0, first, last); }
+
         text & operator= (text const & t)
         {
             if (t.size() <= size()) {
@@ -203,6 +207,38 @@ namespace boost { namespace text {
         inline text & insert (int at, text_view view);
         inline text & insert (int at, repeated_text_view rv);
 
+        template <typename Iter>
+        text & insert (int at, Iter first, Iter last)
+        {
+            assert(0 <= at && at <= size_);
+
+            if (first == last)
+                return *this;
+
+            if (!utf8::starts_encoded(cbegin() + at, cend()))
+                throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+
+            std::unique_ptr<char []> initial_data;
+            int const initial_size = size_;
+            int const initial_cap = cap_;
+            try {
+                while (first != last) {
+                    push_char(*first, initial_data);
+                    ++first;
+                }
+            } catch (std::bad_alloc const &) {
+                data_.swap(initial_data);
+                size_ = initial_size;
+                cap_ = initial_cap;
+                throw;
+            }
+
+            std::rotate(begin() + at, begin() + initial_size, end());
+            data_[size_] = '\0';
+
+            return *this;
+        }
+
         inline text & erase (text_view view);
 
         template <typename CharRange>
@@ -211,6 +247,9 @@ namespace boost { namespace text {
 
         inline text & replace (text_view old_substr, text_view new_substr);
         inline text & replace (text_view old_substr, repeated_text_view new_substr);
+
+        template <typename Iter>
+        text & replace (text_view old_substr, Iter first, Iter last);
 
         void resize (int new_size, char c)
         {
@@ -317,6 +356,24 @@ namespace boost { namespace text {
             return retval;
         }
 
+        void push_char (char c, std::unique_ptr<char []> & initial_data)
+        {
+            int const available = cap_ - 1 - size_;
+            if (available < 1) {
+                std::unique_ptr<char []> new_data = get_new_data(1 - available);
+                std::copy(cbegin(), cend(), new_data.get());
+                if (!initial_data) {
+                    initial_data = std::move(data_);
+                    data_ = std::move(new_data);
+                } else {
+                    new_data.swap(data_);
+                }
+            } else {
+                data_[size_] = c;
+                ++size_;
+            }
+        }
+
         std::unique_ptr<char []> data_;
         int size_;
         int cap_;
@@ -354,10 +411,8 @@ namespace boost { namespace text {
         {
             assert(len < INT_MAX / 2);
             return text(
-#if 0
                 utf8::from_utf16_iterator<char16_t const *>(str),
                 utf8::from_utf16_iterator<char16_t const *>(str + len)
-#endif
             );
         }
 
@@ -365,10 +420,8 @@ namespace boost { namespace text {
         {
             assert(len < INT_MAX / 4);
             return text(
-#if 0
-                utf8::from_utf16_iterator<char32_t const *>(str),
-                utf8::from_utf16_iterator<char32_t const *>(str + len)
-#endif
+                utf8::from_utf32_iterator<char32_t const *>(str),
+                utf8::from_utf32_iterator<char32_t const *>(str + len)
             );
         }
 
@@ -391,12 +444,7 @@ namespace boost { namespace text {
         {
             assert(len < INT_MAX / sizeof(wchar_t));
             using iterator = typename detail::wchar_to_utf8_iterator<wchar_t>::type;
-            return text(
-#if 0
-                iterator<wchar_t const *>(str),
-                iterator<wchar_t const *>(str + len)
-#endif
-            );
+            return text(iterator(str), iterator(str + len));
         }
 
     }
@@ -639,6 +687,55 @@ namespace boost { namespace text {
                 buf = std::copy(new_substr.view().begin(), new_substr.view().end(), buf);
             }
         }
+
+        return *this;
+    }
+
+    template <typename Iter>
+    text & text::replace (text_view old_substr, Iter first, Iter last)
+    {
+        bool const old_substr_null_terminated =
+            !old_substr.empty() && old_substr.end()[-1] == '\0';
+        if (old_substr_null_terminated)
+            old_substr = old_substr(0, -1);
+
+        assert(begin() <= old_substr.begin() && old_substr.end() <= end());
+
+        std::unique_ptr<char []> initial_data;
+        int const initial_size = size_;
+        int const initial_cap = cap_;
+        int chars_pushed = 0;
+        try {
+            while (first != last) {
+                push_char(*first, initial_data);
+                ++first;
+                ++chars_pushed;
+            }
+        } catch (std::bad_alloc const &) {
+            data_.swap(initial_data);
+            size_ = initial_size;
+            cap_ = initial_cap;
+            throw;
+        }
+
+        int const delta = chars_pushed - old_substr.size();
+        if (0 < delta) {
+            std::rotate(const_cast<char *>(old_substr.end()), begin() + initial_size, end());
+            std::copy(old_substr.end(), cend(), const_cast<char *>(old_substr.begin()));
+        } else {
+            if (delta != 0) {
+                std::copy(
+                    old_substr.end(), cbegin() + initial_size,
+                    const_cast<char *>(old_substr.end()) + delta
+                );
+            }
+            std::copy(
+                cbegin() + initial_size, cend(),
+                begin() + initial_size + delta
+            );
+        }
+
+        data_[size_] = '\0';
 
         return *this;
     }
