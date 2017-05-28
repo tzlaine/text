@@ -175,10 +175,6 @@ namespace boost { namespace text {
             return text_view(str, len);
         }
 
-        // TODO: constexpr text_view operator"" _tv (std::char16_t const * str, std::size_t len) noexcept
-        // TODO: constexpr text_view operator"" _tv (std::char32_t const * str, std::size_t len) noexcept
-        // TODO: constexpr text_view operator"" _tv (std::wchar_t const * str, std::size_t len) noexcept
-
     }
 
     constexpr text_view encoding_checked (text_view view)
@@ -281,7 +277,5 @@ namespace boost { namespace text {
 
 // TODO: Do text_view == using address + size to short-circuit string
 // compares.
-
-// TODO: throw when constructing a text_view or text from non UTF-8.
 
 #endif

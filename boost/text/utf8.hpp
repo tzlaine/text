@@ -95,8 +95,12 @@ namespace boost { namespace text { namespace utf8 {
             std::is_same<
                 typename std::iterator_traits<Iter>::iterator_category,
                 std::bidirectional_iterator_tag
+            >::value ||
+            std::is_same<
+                typename std::iterator_traits<Iter>::iterator_category,
+                std::random_access_iterator_tag
             >::value,
-            "from_utf32_iterator requires its Iter parameter to produce a 4-byte value_type."
+            "from_utf32_iterator requires its Iter parameter to be at least bidirectional."
         );
         static_assert(
             sizeof(typename std::iterator_traits<Iter>::value_type) == 4,
@@ -224,8 +228,12 @@ namespace boost { namespace text { namespace utf8 {
             std::is_same<
                 typename std::iterator_traits<Iter>::iterator_category,
                 std::bidirectional_iterator_tag
+            >::value ||
+            std::is_same<
+                typename std::iterator_traits<Iter>::iterator_category,
+                std::random_access_iterator_tag
             >::value,
-            "from_utf16_iterator requires its Iter parameter to produce a 4-byte value_type."
+            "from_utf16_iterator requires its Iter parameter to be at least bidirectional."
         );
         static_assert(
             sizeof(typename std::iterator_traits<Iter>::value_type) == 2,
