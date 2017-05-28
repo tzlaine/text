@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <stdexcept>
 
+#include <cassert>
+
 
 // TODO: Improve the error messages in exceptions.
 // TODO: Stick with std::logic_error?  Maybe std::out_of_bounds instead?
@@ -12,12 +14,15 @@
 namespace boost { namespace text { namespace utf8 {
 
     struct unchecked_t {};
+    struct throw_on_encoding_error {};
 
     namespace {
-
         constexpr unchecked_t unchecked;
-
     }
+
+    // Unicode 9, 3.2/C10
+    constexpr uint32_t replacement_character () noexcept
+    { return 0xfffd; }
 
     constexpr int code_point_bytes (char first) noexcept
     {
@@ -117,14 +122,20 @@ namespace boost { namespace text { namespace utf8 {
             return false;
     }
 
-    template <typename Iter>
-    struct from_utf32_iterator
+
+
+    // from_utf32_iterator
+
+    template <typename Iter, typename Throw = void>
+    struct from_utf32_iterator_t
     {
         using value_type = char;
         using difference_type = int;
         using pointer = char *;
         using reference = char;
         using iterator_category = std::bidirectional_iterator_tag;
+
+        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
 
         static_assert(
             std::is_same<
@@ -142,25 +153,25 @@ namespace boost { namespace text { namespace utf8 {
             "from_utf32_iterator requires its Iter parameter to produce a 4-byte value_type."
         );
 
-        constexpr from_utf32_iterator () noexcept :
+        constexpr from_utf32_iterator_t () noexcept :
             it_ (),
             index_ (4),
             buf_ ()
         {}
-        explicit constexpr from_utf32_iterator (Iter it) noexcept :
+        explicit constexpr from_utf32_iterator_t (Iter it) noexcept :
             it_ (it),
             index_ (4),
             buf_ ()
         {}
 
-        constexpr reference operator* () const
+        constexpr reference operator* () const noexcept(!throw_on_error)
         {
             if (buf_empty())
                 read_into_buf();
             return buf_[index_];
         }
 
-        constexpr from_utf32_iterator & operator++ ()
+        constexpr from_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (buf_empty())
                 read_into_buf();
@@ -171,14 +182,14 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        constexpr from_utf32_iterator operator++ (int)
+        constexpr from_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
-            from_utf32_iterator retval = *this;
+            from_utf32_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        constexpr from_utf32_iterator & operator-- ()
+        constexpr from_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (index_ == 0 || buf_empty()) {
                 --it_;
@@ -188,15 +199,15 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        constexpr from_utf32_iterator operator-- (int)
+        constexpr from_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
-            from_utf32_iterator retval = *this;
+            from_utf32_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
         // TODO: operator<=> () const
-        friend constexpr bool operator== (from_utf32_iterator<Iter> lhs, from_utf32_iterator<Iter> rhs) noexcept
+        friend constexpr bool operator== (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
                 return false;
@@ -204,21 +215,24 @@ namespace boost { namespace text { namespace utf8 {
                 lhs.index_ == rhs.index_ ||
                 ((lhs.index_ == 0 || lhs.index_ == 4) && (rhs.index_ == 0 || rhs.index_ == 4));
         }
-        friend constexpr bool operator!= (from_utf32_iterator<Iter> lhs, from_utf32_iterator<Iter> rhs) noexcept
+        friend constexpr bool operator!= (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
         { return !(lhs.it_ == rhs.it_); }
 
     private:
-        bool buf_empty () const
+        constexpr bool buf_empty () const noexcept
         { return index_ == 4; }
 
-        bool at_buf_end () const
+        constexpr bool at_buf_end () const noexcept
         { return buf_[index_] == '\0'; }
 
-        constexpr int read_into_buf () const
+        constexpr int read_into_buf () const noexcept(!throw_on_error)
         {
-            uint32_t const c = static_cast<uint32_t>(*it_);
-            if (!valid_code_point(c))
-                throw std::logic_error("Invalid UTF-32 code point.");
+            uint32_t c = static_cast<uint32_t>(*it_);
+            if (!valid_code_point(c)) {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-32 code point.");
+                c = replacement_character();
+            }
             index_ = 0;
             if (c < 0x80) {
                 buf_[0] = static_cast<char>(c);
@@ -250,7 +264,18 @@ namespace boost { namespace text { namespace utf8 {
         mutable char buf_[5];
     };
 
-    struct to_utf32_iterator
+    template <typename Iter>
+    using from_utf32_iterator = from_utf32_iterator_t<Iter>;
+
+    template <typename Iter>
+    using from_utf32_iterator_throwing = from_utf32_iterator_t<Iter, throw_on_encoding_error>;
+
+
+
+    // to_utf32_iterator
+
+    template <typename Throw = void>
+    struct to_utf32_iterator_t
     {
         using value_type = uint32_t;
         using difference_type = int;
@@ -258,25 +283,27 @@ namespace boost { namespace text { namespace utf8 {
         using reference = uint32_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        constexpr to_utf32_iterator () noexcept :
+        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
+
+        constexpr to_utf32_iterator_t () noexcept :
             it_ (),
             next_ (),
             value_ (no_value)
         {}
-        explicit constexpr to_utf32_iterator (char const * it) noexcept :
+        explicit constexpr to_utf32_iterator_t (char const * it) noexcept :
             it_ (it),
             next_ (it),
             value_ (no_value)
         {}
 
-        constexpr reference operator* () const
+        constexpr reference operator* () const noexcept(!throw_on_error)
         {
             if (value_ == no_value)
                 value_ = get_value();
             return value_;
         }
 
-        constexpr to_utf32_iterator & operator++ ()
+        constexpr to_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (it_ != next_) {
                 it_ = next_;
@@ -287,39 +314,52 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        constexpr to_utf32_iterator operator++ (int)
+        constexpr to_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
-            to_utf32_iterator retval = *this;
+            to_utf32_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        constexpr to_utf32_iterator & operator-- ()
+        constexpr to_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             int n = 1;
             while (continuation(*--it_)) {
                 ++n;
             }
-            if (code_point_bytes(*it_) != n)
-                throw std::logic_error("Invalid UTF-8 sequence.");
+            if (code_point_bytes(*it_) != n) {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-8 sequence.");
+            }
             next_ = it_;
             return *this;
         }
-        constexpr to_utf32_iterator operator-- (int)
+        constexpr to_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
-            to_utf32_iterator retval = *this;
+            to_utf32_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
         // TODO: operator<=> () const
-        friend constexpr bool operator== (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept
+        friend constexpr bool operator== (to_utf32_iterator_t lhs, to_utf32_iterator_t rhs) noexcept
         { return lhs.it_ == rhs.it_; }
-        friend constexpr bool operator!= (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept
+        friend constexpr bool operator!= (to_utf32_iterator_t lhs, to_utf32_iterator_t rhs) noexcept
         { return lhs.it_ != rhs.it_; }
 
     private:
-        constexpr reference get_value () const
+        constexpr bool is_continuation (char c) const noexcept(!throw_on_error)
+        {
+            if (continuation(c)) {
+                return true;
+            } else {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-8 sequence.");
+                return false;
+            }
+        }
+
+        constexpr reference get_value () const noexcept(!throw_on_error)
         {
             uint32_t retval = 0;
 
@@ -330,28 +370,48 @@ namespace boost { namespace text { namespace utf8 {
                 chars = 1;
             } else if ((*next_ & 0b11100000) == 0b11000000) {
                 retval += *next_++ & 0b00011111;
+                if (!is_continuation(*next_))
+                    return replacement_character();
                 retval += *next_++ & 0b00111111;
                 chars = 2;
             } else if ((*next_ & 0b11110000) == 0b11100000) {
                 retval += *next_++ & 0x7f;
+                if (!is_continuation(*next_))
+                    return replacement_character();
                 retval += *next_++ & 0b00001111;
+                if (!is_continuation(*next_))
+                    return replacement_character();
                 retval += *next_++ & 0b00111111;
                 chars = 3;
             } else if ((*next_ & 0b11111000) == 0b11110000) {
                 retval += *next_++ & 0x7f;
+                if (!is_continuation(*next_))
+                    return replacement_character();
                 retval += *next_++ & 0b00000111;
+                if (!is_continuation(*next_))
+                    return replacement_character();
                 retval += *next_++ & 0b00111111;
+                if (!is_continuation(*next_))
+                    return replacement_character();
                 retval += *next_++ & 0b00111111;
                 chars = 4;
             } else {
-                throw std::logic_error("Invalid UTF-8 sequence.");
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-8 sequence.");
+                return replacement_character();
             }
 
-            if (!valid_code_point(retval))
-                throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+            if (!valid_code_point(retval)) {
+                if (throw_on_error)
+                    throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+                retval = replacement_character();
+            }
 
-            if (overlong_sequence(retval, chars))
-                throw std::logic_error("Overlong UTF-8 sequence.");
+            if (overlong_sequence(retval, chars)) {
+                if (throw_on_error)
+                    throw std::logic_error("Overlong UTF-8 sequence.");
+                retval = replacement_character();
+            }
 
             return retval;
         }
@@ -363,14 +423,25 @@ namespace boost { namespace text { namespace utf8 {
         static uint32_t const no_value = 0xffffffff;
     };
 
+    using to_utf32_iterator = to_utf32_iterator_t<>;
+
     template <typename Iter>
-    struct from_utf16_iterator
+    using to_utf32_iterator_throwing = to_utf32_iterator_t<throw_on_encoding_error>;
+
+
+
+    // from_utf16_iterator
+
+    template <typename Iter, typename Throw = void>
+    struct from_utf16_iterator_t
     {
         using value_type = char;
         using difference_type = int;
         using pointer = char *;
         using reference = char;
         using iterator_category = std::bidirectional_iterator_tag;
+
+        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
 
         static_assert(
             std::is_same<
@@ -388,25 +459,25 @@ namespace boost { namespace text { namespace utf8 {
             "from_utf16_iterator requires its Iter parameter to produce a 2-byte value_type."
         );
 
-        constexpr from_utf16_iterator () noexcept :
+        constexpr from_utf16_iterator_t () noexcept :
             it_ (),
             index_ (4),
             buf_ ()
         {}
-        explicit constexpr from_utf16_iterator (Iter it) noexcept :
+        explicit constexpr from_utf16_iterator_t (Iter it) noexcept :
             it_ (it),
             index_ (4),
             buf_ ()
         {}
 
-        constexpr reference operator* () const
+        constexpr reference operator* () const noexcept(!throw_on_error)
         {
             if (buf_empty())
                 incr_read_into_buf();
             return buf_[index_];
         }
 
-        constexpr from_utf16_iterator & operator++ ()
+        constexpr from_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (buf_empty())
                 incr_read_into_buf();
@@ -417,14 +488,14 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        constexpr from_utf16_iterator operator++ (int)
+        constexpr from_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
-            from_utf16_iterator retval = *this;
+            from_utf16_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        constexpr from_utf16_iterator & operator-- ()
+        constexpr from_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (index_ == 0 || buf_empty()) {
                 --it_;
@@ -434,15 +505,15 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        constexpr from_utf16_iterator operator-- (int)
+        constexpr from_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
-            from_utf16_iterator retval = *this;
+            from_utf16_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
         // TODO: operator<=> () const
-        friend constexpr bool operator== (from_utf16_iterator<Iter> lhs, from_utf16_iterator<Iter> rhs) noexcept
+        friend constexpr bool operator== (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
                 return false;
@@ -450,7 +521,7 @@ namespace boost { namespace text { namespace utf8 {
                 lhs.index_ == rhs.index_ ||
                 ((lhs.index_ == 0 || lhs.index_ == 4) && (rhs.index_ == 0 || rhs.index_ == 4));
         }
-        friend constexpr bool operator!= (from_utf16_iterator<Iter> lhs, from_utf16_iterator<Iter> rhs) noexcept
+        friend constexpr bool operator!= (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
         { return !(lhs.it_ == rhs.it_); }
 
     private:
@@ -466,22 +537,20 @@ namespace boost { namespace text { namespace utf8 {
         constexpr bool low_surrogate (uint32_t c) const noexcept
         { return low_surrogate_min <= c && c <= low_surrogate_max; }
 
-        constexpr int read_into_buf (uint32_t first, uint32_t second) const
+        constexpr int read_into_buf (uint32_t first, uint32_t second) const noexcept(!throw_on_error)
         {
             uint32_t c = first;
 
-            if (surrogate(first)) {
-                if (!high_surrogate(first))
-                    throw std::logic_error("Invalid UTF-16 sequence.");
-
-                if (!low_surrogate(second))
-                    c = (c << 10) + second + surrogate_offset;
-                else
-                    throw std::logic_error("Invalid UTF-16 sequence.");
+            if (high_surrogate(first)) {
+                assert(low_surrogate(second));
+                c = (c << 10) + second + surrogate_offset;
             }
 
-            if (!valid_code_point(c))
-                throw std::logic_error("Invalid UTF-32 code point.");
+            if (!valid_code_point(c)) {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-32 code point.");
+                c = replacement_character();
+            }
 
             index_ = 0;
 
@@ -510,22 +579,31 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        constexpr void incr_read_into_buf () const
+        constexpr void incr_read_into_buf () const noexcept(!throw_on_error)
         {
-            uint32_t const first = static_cast<uint32_t>(*it_);
+            uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
-            if (high_surrogate(first))
+            if (high_surrogate(first)) {
                 second = static_cast<uint32_t>(*++const_cast<Iter &>(it_));
+            } else if (surrogate(first)) {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-16 sequence.");
+                first = replacement_character();
+            }
             read_into_buf(first, second);
         }
 
-        constexpr void decr_read_into_buf () const
+        constexpr void decr_read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
             if (low_surrogate(first)) {
                 second = first;
                 first = static_cast<uint32_t>(*--const_cast<Iter &>(it_));
+            } else if (surrogate(first)) {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-16 sequence.");
+                first = replacement_character();
             }
             read_into_buf(first, second);
         }
@@ -546,7 +624,18 @@ namespace boost { namespace text { namespace utf8 {
             0x10000 - (high_surrogate_min << 10) - low_surrogate_min;
     };
 
-    struct to_utf16_iterator
+    template <typename Iter>
+    using from_utf16_iterator = from_utf16_iterator_t<Iter>;
+
+    template <typename Iter>
+    using from_utf16_iterator_throwing = from_utf16_iterator_t<Iter, throw_on_encoding_error>;
+
+
+
+    // to_utf16_iterator
+
+    template <typename Throw = void>
+    struct to_utf16_iterator_t
     {
         using value_type = uint16_t;
         using difference_type = int;
@@ -554,27 +643,29 @@ namespace boost { namespace text { namespace utf8 {
         using reference = uint16_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        constexpr to_utf16_iterator () noexcept :
+        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
+
+        constexpr to_utf16_iterator_t () noexcept :
             it_ (),
             next_ (),
             index_ (2),
             buf_ ()
         {}
-        explicit constexpr to_utf16_iterator (char const * it) noexcept :
+        explicit constexpr to_utf16_iterator_t (char const * it) noexcept :
             it_ (it),
             next_ (it),
             index_ (2),
             buf_ ()
         {}
 
-        constexpr reference operator* () const
+        constexpr reference operator* () const noexcept(!throw_on_error)
         {
             if (buf_empty())
                 read_into_buf();
             return buf_[index_];
         }
 
-        constexpr to_utf16_iterator & operator++ ()
+        constexpr to_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (buf_empty())
                 read_into_buf();
@@ -585,85 +676,128 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        constexpr to_utf16_iterator operator++ (int)
+        constexpr to_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
-            to_utf16_iterator retval = *this;
+            to_utf16_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        constexpr to_utf16_iterator & operator-- ()
+        constexpr to_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (index_ == 0 || buf_empty()) {
                 int n = 1;
                 while (continuation(*--it_)) {
                     ++n;
                 }
-                if (code_point_bytes(*it_) != n)
-                    throw std::logic_error("Invalid UTF-8 sequence.");
+                if (code_point_bytes(*it_) != n) {
+                    if (throw_on_error)
+                        throw std::logic_error("Invalid UTF-8 sequence.");
+                }
                 next_ = it_;
             } else {
                 --index_;
             }
             return *this;
         }
-        constexpr to_utf16_iterator operator-- (int)
+        constexpr to_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
-            to_utf16_iterator retval = *this;
+            to_utf16_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
         // TODO: operator<=> () const
-        friend constexpr bool operator== (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept
+        friend constexpr bool operator== (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
                 return false;
             return lhs.index_ == rhs.index_ || (lhs.index_ != 1 && rhs.index_ != 1);
         }
-        friend constexpr bool operator!= (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept
+        friend constexpr bool operator!= (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
         { return !(lhs.it_ == rhs.it_); }
 
     private:
-        bool buf_empty () const
+        constexpr bool buf_empty () const noexcept
         { return index_ == 2; }
 
-        bool at_buf_end () const
+        constexpr bool at_buf_end () const noexcept
         { return buf_[index_] == 0; }
 
-        constexpr void read_into_buf () const
+        constexpr void pack_replacement_character () const noexcept
+        {
+            buf_[0] = replacement_character();
+            buf_[1] = 0;
+        }
+
+        constexpr bool is_continuation (char c) const noexcept(!throw_on_error)
+        {
+            if (continuation(c)) {
+                return true;
+            } else {
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-8 sequence.");
+                pack_replacement_character();
+                return false;
+            }
+        }
+
+        constexpr void read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t value = 0;
 
             next_ = it_;
             int chars = 0;
             if ((*next_ & 0b10000000) == 0) {
-                value += *next_++ & 0b01111111;
                 chars = 1;
+                value += *next_++ & 0b01111111;
             } else if ((*next_ & 0b11100000) == 0b11000000) {
-                value += *next_++ & 0b00011111;
-                value += *next_++ & 0b00111111;
                 chars = 2;
+                value += *next_++ & 0b00011111;
+                if (!is_continuation(*next_))
+                    return;
+                value += *next_++ & 0b00111111;
             } else if ((*next_ & 0b11110000) == 0b11100000) {
-                value += *next_++ & 0x7f;
-                value += *next_++ & 0b00001111;
-                value += *next_++ & 0b00111111;
                 chars = 3;
-            } else if ((*next_ & 0b11111000) == 0b11110000) {
                 value += *next_++ & 0x7f;
-                value += *next_++ & 0b00000111;
+                if (!is_continuation(*next_))
+                    return;
+                value += *next_++ & 0b00001111;
+                if (!is_continuation(*next_))
+                    return;
                 value += *next_++ & 0b00111111;
-                value += *next_++ & 0b00111111;
+            } else if ((*next_ & 0b11111000) == 0b11110000) {
                 chars = 4;
+                value += *next_++ & 0x7f;
+                if (!is_continuation(*next_))
+                    return;
+                value += *next_++ & 0b00000111;
+                if (!is_continuation(*next_))
+                    return;
+                value += *next_++ & 0b00111111;
+                if (!is_continuation(*next_))
+                    return;
+                value += *next_++ & 0b00111111;
             } else {
-                throw std::logic_error("Invalid UTF-8 sequence.");
+                if (throw_on_error)
+                    throw std::logic_error("Invalid UTF-8 sequence.");
+                pack_replacement_character();
+                return;
             }
 
-            if (!valid_code_point(value))
-                throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+            if (!valid_code_point(value)) {
+                if (throw_on_error)
+                    throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+                pack_replacement_character();
+                return;
+            }
 
-            if (overlong_sequence(value, chars))
-                throw std::logic_error("Overlong UTF-8 sequence.");
+            if (overlong_sequence(value, chars)) {
+                if (throw_on_error)
+                    throw std::logic_error("Overlong UTF-8 sequence.");
+                pack_replacement_character();
+                return;
+            }
 
             if (value < 0x10000) {
                 buf_[0] = static_cast<uint16_t>(value);
@@ -683,6 +817,11 @@ namespace boost { namespace text { namespace utf8 {
         static uint16_t const high_surrogate_base = 0xd7c0;
         static uint16_t const low_surrogate_base = 0xdc00;
     };
+
+    using to_utf16_iterator = to_utf16_iterator_t<>;
+
+    template <typename Iter>
+    using to_utf16_iterator_throwing = to_utf16_iterator_t<throw_on_encoding_error>;
 
 } } }
 
