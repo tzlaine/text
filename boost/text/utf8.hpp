@@ -215,6 +215,108 @@ namespace boost { namespace text { namespace utf8 {
         mutable char buf_[5];
     };
 
+    struct to_utf32_iterator
+    {
+        using value_type = uint32_t;
+        using difference_type = int;
+        using pointer = uint32_t *;
+        using reference = uint32_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr to_utf32_iterator () noexcept :
+            it_ (),
+            next_ (),
+            value_ (no_value)
+        {}
+        explicit constexpr to_utf32_iterator (char const * it) noexcept :
+            it_ (it),
+            next_ (it),
+            value_ (no_value)
+        {}
+
+        constexpr reference operator* () const
+        {
+            if (value_ == no_value)
+                value_ = get_value();
+            return value_;
+        }
+
+        constexpr to_utf32_iterator & operator++ ()
+        {
+            if (it_ != next_) {
+                it_ = next_;
+                value_ = no_value;
+            } else {
+                value_ = get_value();
+                it_ = next_;
+            }
+            return *this;
+        }
+        constexpr to_utf32_iterator operator++ (int)
+        {
+            to_utf32_iterator retval = *this;
+            ++*this;
+            return retval;
+        }
+
+        constexpr to_utf32_iterator & operator-- ()
+        {
+            int n = 1;
+            while (continuation(*--it_)) {
+                ++n;
+            }
+            if (code_point_bytes(*it_) != n)
+                throw std::logic_error("Invalid UTF-8 sequence.");
+            next_ = it_;
+            return *this;
+        }
+        constexpr to_utf32_iterator operator-- (int)
+        {
+            to_utf32_iterator retval = *this;
+            --*this;
+            return retval;
+        }
+
+        // TODO: operator<=> () const
+        friend constexpr bool operator== (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept
+        { return lhs.it_ == rhs.it_; }
+        friend constexpr bool operator!= (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept
+        { return lhs.it_ != rhs.it_; }
+
+    private:
+        constexpr reference get_value () const
+        {
+            uint32_t retval = 0;
+            next_ = it_;
+            if ((*next_ & 0b10000000) == 0) {
+                retval += *next_++ & 0b01111111;
+            } else if ((*next_ & 0b11100000) == 0b11000000) {
+                retval += *next_++ & 0b00011111;
+                retval += *next_++ & 0b00111111;
+            } else if ((*next_ & 0b11110000) == 0b11100000) {
+                retval += *next_++ & 0x7f;
+                retval += *next_++ & 0b00001111;
+                retval += *next_++ & 0b00111111;
+            } else if ((*next_ & 0b11111000) == 0b11110000) {
+                retval += *next_++ & 0x7f;
+                retval += *next_++ & 0b00000111;
+                retval += *next_++ & 0b00111111;
+                retval += *next_++ & 0b00111111;
+            } else {
+                throw std::logic_error("Invalid UTF-8 sequence.");
+            }
+            if (0x10ffff < retval)
+                throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
+            return retval;
+        }
+
+        char const * it_;
+        mutable char const * next_;
+        mutable uint32_t value_;
+
+        static uint32_t const no_value = 0xffffffff;
+    };
+
     template <typename Iter>
     struct from_utf16_iterator
     {
