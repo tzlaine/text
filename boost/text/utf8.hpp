@@ -761,7 +761,7 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        constexpr void incr_read_into_buf () const noexcept(!throw_on_error)
+        constexpr int incr_read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
@@ -772,10 +772,10 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-16 sequence.");
                 first = replacement_character();
             }
-            read_into_buf(first, second);
+            return read_into_buf(first, second);
         }
 
-        constexpr void decr_read_into_buf () const noexcept(!throw_on_error)
+        constexpr int decr_read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
@@ -787,7 +787,7 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-16 sequence.");
                 first = replacement_character();
             }
-            read_into_buf(first, second);
+            return read_into_buf(first, second);
         }
 
         Iter it_;
@@ -912,9 +912,12 @@ namespace boost { namespace text { namespace utf8 {
             buf_[1] = 0;
         }
 
-        constexpr bool check_continuation (char c) const noexcept(!throw_on_error)
-        {
-            if (continuation(c)) {
+        constexpr bool check_continuation (
+            unsigned char c,
+            unsigned char lo = 0x80,
+            unsigned char hi = 0xbf
+        ) const noexcept(!throw_on_error) {
+            if (continuation(c, lo, hi)) {
                 return true;
             } else {
                 if (throw_on_error)
@@ -928,43 +931,129 @@ namespace boost { namespace text { namespace utf8 {
         {
             uint32_t value = 0;
 
-            // TODO: Update logic to match Table 3-7!
+            int chars = 0;
 
             next_ = it_;
-            int chars = 0;
-            if ((*next_ & 0b10000000) == 0) {
+            unsigned char curr_c = *next_;
+
+            using detail::in;
+
+            // One-byte
+            if (curr_c <= 0x7f) {
+                value = curr_c;
+                ++next_;
                 chars = 1;
-                value += *next_++ & 0b01111111;
-            } else if ((*next_ & 0b11100000) == 0b11000000) {
+            // Two-byte
+            } else if (in(0xc2, curr_c, 0xdf)) {
+                value = curr_c & 0b00011111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 2;
-                value += *next_++ & 0b00011111;
-                if (!check_continuation(*next_))
+            // Three-byte
+            } else if (curr_c == 0xe0) {
+                value = curr_c & 0b00001111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c, 0xa0, 0xbf))
                     return;
-                value += *next_++ & 0b00111111;
-            } else if ((*next_ & 0b11110000) == 0b11100000) {
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 3;
-                value += *next_++ & 0x7f;
-                if (!check_continuation(*next_))
+            } else if (in(0xe1, curr_c, 0xec)) {
+                value = curr_c & 0b00001111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
                     return;
-                value += *next_++ & 0b00001111;
-                if (!check_continuation(*next_))
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
                     return;
-                value += *next_++ & 0b00111111;
-            } else if ((*next_ & 0b11111000) == 0b11110000) {
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
+                chars = 3;
+            } else if (curr_c == 0xed) {
+                value = curr_c & 0b00001111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c, 0x80, 0x9f))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
+                chars = 3;
+            } else if (in(0xed, curr_c, 0xef)) {
+                value = curr_c & 0b00001111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
+                chars = 3;
+            // Four-byte
+            } else if (curr_c == 0xf0) {
+                value = curr_c & 0b00000111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c, 0x90, 0xbf))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 4;
-                value += *next_++ & 0x7f;
-                if (!check_continuation(*next_))
+            } else if (in(0xf1, curr_c, 0xf3)) {
+                value = curr_c & 0b00000111;
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
                     return;
-                value += *next_++ & 0b00000111;
-                if (!check_continuation(*next_))
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
                     return;
-                value += *next_++ & 0b00111111;
-                if (!check_continuation(*next_))
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
                     return;
-                value += *next_++ & 0b00111111;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
+                chars = 4;
+            } else if (curr_c == 0xf4) {
+                value = curr_c & 0b00000111;
+                curr_c = *++next_;
+                if (curr_c <= 0x80 || 0x8f <= curr_c)
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                curr_c = *++next_;
+                if (!check_continuation(curr_c))
+                    return;
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next_;
+                chars = 4;
             } else {
                 if (throw_on_error)
                     throw std::logic_error("Invalid UTF-8 sequence.");
+                ++next_;
                 pack_replacement_character();
                 return;
             }
