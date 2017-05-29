@@ -24,6 +24,8 @@ namespace boost { namespace text { namespace utf8 {
     constexpr uint32_t replacement_character () noexcept
     { return 0xfffd; }
 
+    // TODO: Update based on table 3-7.  In fact, audit the rest of the code
+    // for these kinds of changes.
     constexpr int code_point_bytes (char first) noexcept
     {
         if ((first & 0b10000000) == 0)
@@ -37,8 +39,11 @@ namespace boost { namespace text { namespace utf8 {
         return -1;
     }
 
-    constexpr bool continuation (char first) noexcept
-    { return (first & 0xc0) == 0x80; }
+    constexpr bool continuation (char c_) noexcept
+    {
+        unsigned const char c = c_;
+        return 0x80 <= c && c <= 0xbfu;
+    }
 
     constexpr bool encoded (char const * first, char const * last) noexcept
     {
@@ -100,27 +105,18 @@ namespace boost { namespace text { namespace utf8 {
     // Unicode 9, 3.4/D14
     constexpr bool reserved_noncharacter (uint32_t c) noexcept
     {
+        bool const byte01_reserved =
+            (c & 0xffff) == 0xffff || (c & 0xffff) == 0xfffe;
+        bool const byte2_at_most_0x10 =
+            ((c & 0xff0000u) >> 16) <= 0x10;
         return
-            (0x00fffe <= c && c <= 0x10fffe) ||
-            (0x00ffff <= c && c <= 0x10ffff) ||
+            (byte01_reserved && byte2_at_most_0x10) ||
             (0xfdd0 <= c && c <= 0xfdef);
     }
 
     // Unicode 9, 3.9/D90
     constexpr bool valid_code_point (uint32_t c) noexcept
     { return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c); }
-
-    constexpr bool overlong_sequence (uint32_t c, int utf8_chars) noexcept
-    {
-        if (c < 0x80 && utf8_chars != 1)
-            return true;
-        else if (c < 0x800 && utf8_chars != 2)
-            return true;
-        else if (c < 0x10000 && utf8_chars != 3)
-            return true;
-        else
-            return false;
-    }
 
 
 
@@ -287,29 +283,22 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf32_iterator_t () noexcept :
             it_ (),
-            next_ (),
-            value_ (no_value)
+            next_ ()
         {}
         explicit constexpr to_utf32_iterator_t (char const * it) noexcept :
             it_ (it),
-            next_ (it),
-            value_ (no_value)
+            next_ (it)
         {}
 
         constexpr reference operator* () const noexcept(!throw_on_error)
-        {
-            if (value_ == no_value)
-                value_ = get_value();
-            return value_;
-        }
+        { return get_value(); }
 
         constexpr to_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (it_ != next_) {
                 it_ = next_;
-                value_ = no_value;
             } else {
-                value_ = get_value();
+                get_value();
                 it_ = next_;
             }
             return *this;
@@ -323,15 +312,18 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
+            // TODO: Need something more robust, that catches errors at each
+            // char as we go backward.
+            char const * const initial_it = it_;
             int n = 1;
             while (continuation(*--it_)) {
                 ++n;
             }
-            if (code_point_bytes(*it_) != n) {
-                if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-8 sequence.");
-            }
-            next_ = it_;
+            // Use get_value() to check for errors.
+            if (get_value() != replacement_character())
+                next_ = initial_it;
+            else
+                next_ = it_;
             return *this;
         }
         constexpr to_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
@@ -348,9 +340,12 @@ namespace boost { namespace text { namespace utf8 {
         { return lhs.it_ != rhs.it_; }
 
     private:
-        constexpr bool is_continuation (char c) const noexcept(!throw_on_error)
-        {
-            if (continuation(c)) {
+        constexpr bool check_continuation (
+            unsigned char c,
+            unsigned char lo = 0x80,
+            unsigned char hi = 0xbf
+        ) const noexcept(!throw_on_error) {
+            if (lo <= c && c <= hi) {
                 return true;
             } else {
                 if (throw_on_error)
@@ -363,37 +358,131 @@ namespace boost { namespace text { namespace utf8 {
         {
             uint32_t retval = 0;
 
-            next_ = it_;
+            // TODO: Update the logic of starts_encoded() and ends_encoded too!
+            /*
+                Unicode 9, 3.9/D92
+                Table 3-7. Well-Formed UTF-8 Byte Sequences
+
+                Code Points          First Byte  Second Byte  Third Byte  Fourth Byte
+                ===========          ==========  ===========  ==========  ===========
+                U+0000..U+007F       00..7F                               
+                U+0080..U+07FF       C2..DF      80..BF                   
+                U+0800..U+0FFF       E0          A0..BF       80..BF      
+                U+1000..U+CFFF       E1..EC      80..BF       80..BF      
+                U+D000..U+D7FF       ED          80..9F       80..BF      
+                U+E000..U+FFFF       EE..EF      80..BF       80..BF      
+                U+10000..U+3FFFF     F0          90..BF       80..BF      80..BF
+                U+40000..U+FFFFF     F1..F3      80..BF       80..BF      80..BF
+                U+100000..U+10FFFF   F4          80..8F       80..BF      80..BF
+            */
+
             int chars = 0;
-            if ((*next_ & 0b10000000) == 0) {
-                retval += *next_++ & 0b01111111;
+
+            next_ = it_;
+            unsigned char curr_c = *next_++;
+
+            // One-byte
+            if (curr_c <= 0x7f) {
+                retval = curr_c;
                 chars = 1;
-            } else if ((*next_ & 0b11100000) == 0b11000000) {
-                retval += *next_++ & 0b00011111;
-                if (!is_continuation(*next_))
+            // Two-byte
+            } else if (0xc2 <= curr_c && curr_c <= 0xdf) {
+                retval = curr_c & 0b00011111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
                     return replacement_character();
-                retval += *next_++ & 0b00111111;
+                retval = (retval << 6) + (curr_c & 0b00111111);
                 chars = 2;
-            } else if ((*next_ & 0b11110000) == 0b11100000) {
-                retval += *next_++ & 0x7f;
-                if (!is_continuation(*next_))
+            // Three-byte
+            } else if (curr_c == 0xe0) {
+                retval = curr_c & 0b00001111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c, 0xa0, 0xbf))
                     return replacement_character();
-                retval += *next_++ & 0b00001111;
-                if (!is_continuation(*next_))
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
                     return replacement_character();
-                retval += *next_++ & 0b00111111;
+                retval = (retval << 6) + (curr_c & 0b00111111);
                 chars = 3;
-            } else if ((*next_ & 0b11111000) == 0b11110000) {
-                retval += *next_++ & 0x7f;
-                if (!is_continuation(*next_))
+            } else if (0xe1 <= curr_c && curr_c <= 0xec) {
+                retval = curr_c & 0b00001111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
                     return replacement_character();
-                retval += *next_++ & 0b00000111;
-                if (!is_continuation(*next_))
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
                     return replacement_character();
-                retval += *next_++ & 0b00111111;
-                if (!is_continuation(*next_))
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                chars = 3;
+            } else if (curr_c == 0xed) {
+                retval = curr_c & 0b00001111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c, 0x80, 0x9f))
                     return replacement_character();
-                retval += *next_++ & 0b00111111;
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                chars = 3;
+            } else if (curr_c == 0xed || curr_c == 0xef) {
+                retval = curr_c & 0b00001111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                chars = 3;
+            // Four-byte
+            } else if (curr_c == 0xf0) {
+                retval = curr_c & 0b00000111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c, 0x90, 0xbf))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                chars = 4;
+            } else if (0xf1 <= curr_c && curr_c <= 0xf3) {
+                retval = curr_c & 0b00000111;
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                chars = 4;
+            } else if (curr_c == 0xf4) {
+                retval = curr_c & 0b00000111;
+                curr_c = *next_++;
+                if (curr_c <= 0x80 || 0x8f <= curr_c)
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
+                curr_c = *next_++;
+                if (!check_continuation(curr_c))
+                    return replacement_character();
+                retval = (retval << 6) + (curr_c & 0b00111111);
                 chars = 4;
             } else {
                 if (throw_on_error)
@@ -407,20 +496,11 @@ namespace boost { namespace text { namespace utf8 {
                 retval = replacement_character();
             }
 
-            if (overlong_sequence(retval, chars)) {
-                if (throw_on_error)
-                    throw std::logic_error("Overlong UTF-8 sequence.");
-                retval = replacement_character();
-            }
-
             return retval;
         }
 
         char const * it_;
         mutable char const * next_;
-        mutable uint32_t value_;
-
-        static uint32_t const no_value = 0xffffffff;
     };
 
     using to_utf32_iterator = to_utf32_iterator_t<>;
@@ -730,7 +810,7 @@ namespace boost { namespace text { namespace utf8 {
             buf_[1] = 0;
         }
 
-        constexpr bool is_continuation (char c) const noexcept(!throw_on_error)
+        constexpr bool check_continuation (char c) const noexcept(!throw_on_error)
         {
             if (continuation(c)) {
                 return true;
@@ -746,6 +826,8 @@ namespace boost { namespace text { namespace utf8 {
         {
             uint32_t value = 0;
 
+            // TODO: Update logic to match Table 3-7!
+
             next_ = it_;
             int chars = 0;
             if ((*next_ & 0b10000000) == 0) {
@@ -754,28 +836,28 @@ namespace boost { namespace text { namespace utf8 {
             } else if ((*next_ & 0b11100000) == 0b11000000) {
                 chars = 2;
                 value += *next_++ & 0b00011111;
-                if (!is_continuation(*next_))
+                if (!check_continuation(*next_))
                     return;
                 value += *next_++ & 0b00111111;
             } else if ((*next_ & 0b11110000) == 0b11100000) {
                 chars = 3;
                 value += *next_++ & 0x7f;
-                if (!is_continuation(*next_))
+                if (!check_continuation(*next_))
                     return;
                 value += *next_++ & 0b00001111;
-                if (!is_continuation(*next_))
+                if (!check_continuation(*next_))
                     return;
                 value += *next_++ & 0b00111111;
             } else if ((*next_ & 0b11111000) == 0b11110000) {
                 chars = 4;
                 value += *next_++ & 0x7f;
-                if (!is_continuation(*next_))
+                if (!check_continuation(*next_))
                     return;
                 value += *next_++ & 0b00000111;
-                if (!is_continuation(*next_))
+                if (!check_continuation(*next_))
                     return;
                 value += *next_++ & 0b00111111;
-                if (!is_continuation(*next_))
+                if (!check_continuation(*next_))
                     return;
                 value += *next_++ & 0b00111111;
             } else {
@@ -788,13 +870,6 @@ namespace boost { namespace text { namespace utf8 {
             if (!valid_code_point(value)) {
                 if (throw_on_error)
                     throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
-                pack_replacement_character();
-                return;
-            }
-
-            if (overlong_sequence(value, chars)) {
-                if (throw_on_error)
-                    throw std::logic_error("Overlong UTF-8 sequence.");
                 pack_replacement_character();
                 return;
             }

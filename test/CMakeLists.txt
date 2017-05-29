@@ -18,6 +18,7 @@ endmacro()
 
 add_test_executable(detail_utility)
 add_test_executable(detail_iterator)
+add_test_executable(utf8)
 add_test_executable(text_view)
 #TODO add_test_executable(text_)
 add_test_executable(rope)
