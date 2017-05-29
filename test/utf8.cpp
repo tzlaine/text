@@ -120,7 +120,6 @@ TEST(utf_8, test_0xfffd)
 
     it = text::utf8::to_utf32_iterator(bad_utf8 + 13);
 
-#if 0
     EXPECT_EQ(*--it, expected[9]);
     EXPECT_EQ(*--it, expected[8]);
     EXPECT_EQ(*--it, expected[7]);
@@ -131,7 +130,6 @@ TEST(utf_8, test_0xfffd)
     EXPECT_EQ(*--it, expected[2]);
     EXPECT_EQ(*--it, expected[1]);
     EXPECT_EQ(*--it, expected[0]);
-#endif
 }
 
 

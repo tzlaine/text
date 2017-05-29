@@ -20,105 +20,6 @@ namespace boost { namespace text { namespace utf8 {
 
     }
 
-    constexpr bool continuation (
-        unsigned char c,
-        unsigned char lo = 0x80,
-        unsigned char hi = 0xbf
-    ) noexcept {
-        return detail::in(lo, c, hi);
-    }
-
-    namespace detail {
-
-        // Follow Table 3-7 in Unicode 9, 3.9/D92
-        constexpr bool valid_utf8 (char const * it) noexcept
-        {
-            assert(!continuation(*it));
-
-            if (*it <= 0x7f)
-                return true;
-
-            if (detail::in(0xc2, *it, 0xdf)) {
-                if (!continuation(*(it + 1)))
-                    return false;
-                return true;
-            }
-
-            if (detail::in(0xe0, *it, 0xe0)) {
-                if (!continuation(*(it + 1), 0xa0, 0xbf))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                return true;
-            }
-            if (detail::in(0xe1, *it, 0xec)) {
-                if (!continuation(*(it + 1)))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                return true;
-            }
-            if (detail::in(0xed, *it, 0xed)) {
-                if (!continuation(*(it + 1), 0x80, 0x9f))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                return true;
-            }
-            if (detail::in(0xee, *it, 0xef)) {
-                if (!continuation(*(it + 1)))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                return true;
-            }
-
-            if (detail::in(0xf0, *it, 0xf0)) {
-                if (!continuation(*(it + 1), 0x90, 0xbf))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                if (!continuation(*(it + 3)))
-                    return false;
-                return true;
-            }
-            if (detail::in(0xf1, *it, 0xf3)) {
-                if (!continuation(*(it + 1)))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                if (!continuation(*(it + 3)))
-                    return false;
-                return true;
-            }
-            if (detail::in(0xf4, *it, 0xf4)) {
-                if (!continuation(*(it + 1), 0x80, 0x8f))
-                    return false;
-                if (!continuation(*(it + 2)))
-                    return false;
-                if (!continuation(*(it + 3)))
-                    return false;
-                return true;
-            }
-
-            return false;
-        }
-
-        constexpr char const * decrement (char const * it) noexcept
-        {
-            char const * retval = it;
-
-            while (continuation(*--retval))
-                ;
-
-            if (!valid_utf8(retval))
-                return it - 1;
-
-            return retval;
-        }
-
-    }
-
     struct unchecked_t {};
     struct throw_on_encoding_error {};
 
@@ -132,32 +33,145 @@ namespace boost { namespace text { namespace utf8 {
 
     constexpr int code_point_bytes (unsigned char first) noexcept
     {
+        using detail::in;
         if (first <= 0x7f)
             return 1;
-        if (0xc2 <= first && first <= 0xdf)
+        if (in(0xc2, first, 0xdf))
             return 2;
-        if (0xe0 <= first && first <= 0xef)
+        if (in(0xe0, first, 0xef))
             return 3;
-        if (0xf0 <= first && first <= 0xf4)
+        if (in(0xf0, first, 0xf4))
             return 4;
         return -1;
     }
 
-    constexpr bool encoded (char const * first, char const * last) noexcept
+    constexpr bool continuation (
+        unsigned char c,
+        unsigned char lo = 0x80,
+        unsigned char hi = 0xbf
+    ) noexcept {
+        return detail::in(lo, c, hi);
+    }
+
+    namespace detail {
+
+        // Follow Table 3-7 in Unicode 9, 3.9/D92
+        constexpr char const * end_of_invalid_utf8 (char const * it) noexcept
+        {
+            assert(!continuation(*it));
+
+            using detail::in;
+
+            if (*it <= 0x7f)
+                return nullptr;
+
+            if (in(0xc2, *it, 0xdf)) {
+                if (!continuation(*(it + 1)))
+                    return it + 1;
+                return nullptr;
+            }
+
+            if (in(0xe0, *it, 0xe0)) {
+                if (!continuation(*(it + 1), 0xa0, 0xbf))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                return nullptr;
+            }
+            if (in(0xe1, *it, 0xec)) {
+                if (!continuation(*(it + 1)))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                return nullptr;
+            }
+            if (in(0xed, *it, 0xed)) {
+                if (!continuation(*(it + 1), 0x80, 0x9f))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                return nullptr;
+            }
+            if (in(0xee, *it, 0xef)) {
+                if (!continuation(*(it + 1)))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                return nullptr;
+            }
+
+            if (in(0xf0, *it, 0xf0)) {
+                if (!continuation(*(it + 1), 0x90, 0xbf))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                if (!continuation(*(it + 3)))
+                    return it - 3;
+                return nullptr;
+            }
+            if (in(0xf1, *it, 0xf3)) {
+                if (!continuation(*(it + 1)))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                if (!continuation(*(it + 3)))
+                    return it - 3;
+                return nullptr;
+            }
+            if (in(0xf4, *it, 0xf4)) {
+                if (!continuation(*(it + 1), 0x80, 0x8f))
+                    return it - 1;
+                if (!continuation(*(it + 2)))
+                    return it - 2;
+                if (!continuation(*(it + 3)))
+                    return it - 3;
+                return nullptr;
+            }
+
+            return it;
+        }
+
+        constexpr char const * decrement (char const * it) noexcept
+        {
+            char const * retval = it;
+
+            while (continuation(*--retval))
+                ;
+
+            int const backup = it - retval;
+
+            char const * const first_invalid = end_of_invalid_utf8(retval);
+            if (first_invalid) {
+                retval = first_invalid;
+            } else if (1 < backup) {
+                int const cp_bytes = code_point_bytes(*retval);
+                if (cp_bytes < backup)
+                    retval = it - 1;
+            }
+
+            return retval;
+        }
+
+    }
+
+    constexpr char const * find_invalid_encoding (char const * first, char const * last) noexcept
     {
         while (first != last) {
             int const cp_bytes = code_point_bytes(*first);
             if (cp_bytes == -1 || last - first < cp_bytes)
-                return false;
+                return first;
 
-            if (!detail::valid_utf8(first))
-                return false;
+            if (detail::end_of_invalid_utf8(first))
+                return first;
 
             first += cp_bytes;
         }
 
-        return true;
+        return last;
     }
+
+    constexpr bool encoded (char const * first, char const * last) noexcept
+    { return find_invalid_encoding(first, last) == last; }
 
     constexpr bool starts_encoded (char const * first, char const * last) noexcept
     {
@@ -168,7 +182,7 @@ namespace boost { namespace text { namespace utf8 {
         if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
-        return detail::valid_utf8(first);
+        return detail::end_of_invalid_utf8(first) == nullptr;
     }
 
     constexpr bool ends_encoded (char const * first, char const * last) noexcept
@@ -457,13 +471,15 @@ namespace boost { namespace text { namespace utf8 {
             next_ = it_;
             unsigned char curr_c = *next_;
 
+            using detail::in;
+
             // One-byte
             if (curr_c <= 0x7f) {
                 retval = curr_c;
                 ++next_;
                 chars = 1;
             // Two-byte
-            } else if (0xc2 <= curr_c && curr_c <= 0xdf) {
+            } else if (in(0xc2, curr_c, 0xdf)) {
                 retval = curr_c & 0b00011111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
@@ -484,7 +500,7 @@ namespace boost { namespace text { namespace utf8 {
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 3;
-            } else if (0xe1 <= curr_c && curr_c <= 0xec) {
+            } else if (in(0xe1, curr_c, 0xec)) {
                 retval = curr_c & 0b00001111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
@@ -508,7 +524,7 @@ namespace boost { namespace text { namespace utf8 {
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 3;
-            } else if (curr_c == 0xed || curr_c == 0xef) {
+            } else if (in(0xed, curr_c, 0xef)) {
                 retval = curr_c & 0b00001111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
@@ -537,7 +553,7 @@ namespace boost { namespace text { namespace utf8 {
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 4;
-            } else if (0xf1 <= curr_c && curr_c <= 0xf3) {
+            } else if (in(0xf1, curr_c, 0xf3)) {
                 retval = curr_c & 0b00000111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
