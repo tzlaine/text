@@ -455,115 +455,125 @@ namespace boost { namespace text { namespace utf8 {
             int chars = 0;
 
             next_ = it_;
-            unsigned char curr_c = *next_++;
+            unsigned char curr_c = *next_;
 
             // One-byte
             if (curr_c <= 0x7f) {
                 retval = curr_c;
+                ++next_;
                 chars = 1;
             // Two-byte
             } else if (0xc2 <= curr_c && curr_c <= 0xdf) {
                 retval = curr_c & 0b00011111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 2;
             // Three-byte
             } else if (curr_c == 0xe0) {
                 retval = curr_c & 0b00001111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c, 0xa0, 0xbf))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 3;
             } else if (0xe1 <= curr_c && curr_c <= 0xec) {
                 retval = curr_c & 0b00001111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 3;
             } else if (curr_c == 0xed) {
                 retval = curr_c & 0b00001111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c, 0x80, 0x9f))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 3;
             } else if (curr_c == 0xed || curr_c == 0xef) {
                 retval = curr_c & 0b00001111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 3;
             // Four-byte
             } else if (curr_c == 0xf0) {
                 retval = curr_c & 0b00000111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c, 0x90, 0xbf))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 4;
             } else if (0xf1 <= curr_c && curr_c <= 0xf3) {
                 retval = curr_c & 0b00000111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 4;
             } else if (curr_c == 0xf4) {
                 retval = curr_c & 0b00000111;
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (curr_c <= 0x80 || 0x8f <= curr_c)
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *next_++;
+                curr_c = *++next_;
                 if (!check_continuation(curr_c))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
+                ++next_;
                 chars = 4;
             } else {
                 if (throw_on_error)
                     throw std::logic_error("Invalid UTF-8 sequence.");
-                return replacement_character();
+                retval = replacement_character();
+                ++next_;
             }
 
             if (!valid_code_point(retval)) {

@@ -5,14 +5,14 @@
 
 using namespace boost;
 
-// Unicode 9, 3.9/D90-D92
-uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
-char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
-
 
 TEST(utf_8, test_consecutive)
 {
+    // Unicode 9, 3.9/D90-D92
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
+
     // UTF-8 -> UTF-32
     {
         auto it = text::utf8::to_utf32_iterator(utf8);
@@ -105,7 +105,33 @@ TEST(utf_8, test_0xfffd)
     char const bad_utf8[] = {0x61, char(0xf1), char(0x80), char(0x80), char(0xe1), char(0x80), char(0xc2), 0x62, char(0x80), 0x63, char(0x80), char(0xbf), 0x64};
     uint32_t const expected[] = {0x0061, 0xfffd, 0xfffd, 0xfffd, 0x0062, 0xfffd, 0x0063, 0xfffd, 0xfffd, 0x0064};
 
-    // TODO
+    auto it = text::utf8::to_utf32_iterator(bad_utf8);
+
+    EXPECT_EQ(*it++, expected[0]);
+    EXPECT_EQ(*it++, expected[1]);
+    EXPECT_EQ(*it++, expected[2]);
+    EXPECT_EQ(*it++, expected[3]);
+    EXPECT_EQ(*it++, expected[4]);
+    EXPECT_EQ(*it++, expected[5]);
+    EXPECT_EQ(*it++, expected[6]);
+    EXPECT_EQ(*it++, expected[7]);
+    EXPECT_EQ(*it++, expected[8]);
+    EXPECT_EQ(*it++, expected[9]);
+
+    it = text::utf8::to_utf32_iterator(bad_utf8 + 13);
+
+#if 0
+    EXPECT_EQ(*--it, expected[9]);
+    EXPECT_EQ(*--it, expected[8]);
+    EXPECT_EQ(*--it, expected[7]);
+    EXPECT_EQ(*--it, expected[6]);
+    EXPECT_EQ(*--it, expected[5]);
+    EXPECT_EQ(*--it, expected[4]);
+    EXPECT_EQ(*--it, expected[3]);
+    EXPECT_EQ(*--it, expected[2]);
+    EXPECT_EQ(*--it, expected[1]);
+    EXPECT_EQ(*--it, expected[0]);
+#endif
 }
 
 
