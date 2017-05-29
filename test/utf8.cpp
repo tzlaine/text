@@ -91,7 +91,6 @@ TEST(utf_8, test_consecutive)
         EXPECT_EQ(*it++, utf8[9]);
     }
 
-#if 0
     // UTF-8 -> UTF-16
     {
         auto it = text::utf8::to_utf16_iterator(utf8);
@@ -122,7 +121,6 @@ TEST(utf_8, test_consecutive)
         EXPECT_EQ(*it++, utf16[3]);
         EXPECT_EQ(*it++, utf16[4]);
     }
-#endif
 
     // UTF-16 -> UTF-8
     {

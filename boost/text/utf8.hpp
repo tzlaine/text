@@ -868,15 +868,8 @@ namespace boost { namespace text { namespace utf8 {
         constexpr to_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (index_ == 0 || buf_empty()) {
-                int n = 1;
-                while (continuation(*--it_)) {
-                    ++n;
-                }
-                if (code_point_bytes(*it_) != n) {
-                    if (throw_on_error)
-                        throw std::logic_error("Invalid UTF-8 sequence.");
-                }
-                next_ = it_;
+                it_ = detail::decrement(it_);
+                index_ = read_into_buf();
             } else {
                 --index_;
             }
@@ -927,7 +920,7 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        constexpr void read_into_buf () const noexcept(!throw_on_error)
+        constexpr int read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t value = 0;
 
@@ -948,7 +941,7 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00011111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 2;
@@ -957,11 +950,11 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c, 0xa0, 0xbf))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 3;
@@ -969,11 +962,11 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 3;
@@ -981,11 +974,11 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c, 0x80, 0x9f))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 3;
@@ -993,11 +986,11 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 3;
@@ -1006,15 +999,15 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00000111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c, 0x90, 0xbf))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 4;
@@ -1022,15 +1015,15 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00000111;
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 4;
@@ -1038,15 +1031,15 @@ namespace boost { namespace text { namespace utf8 {
                 value = curr_c & 0b00000111;
                 curr_c = *++next_;
                 if (curr_c <= 0x80 || 0x8f <= curr_c)
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
                 if (!check_continuation(curr_c))
-                    return;
+                    return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
                 chars = 4;
@@ -1055,23 +1048,27 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-8 sequence.");
                 ++next_;
                 pack_replacement_character();
-                return;
+                return 0;
             }
 
             if (!valid_code_point(value)) {
                 if (throw_on_error)
                     throw std::logic_error("UTF-8 sequence results in invalid UTF-32 code point.");
                 pack_replacement_character();
-                return;
+                return 0;
             }
+
+            index_ = 0;
 
             if (value < 0x10000) {
                 buf_[0] = static_cast<uint16_t>(value);
                 buf_[1] = 0;
+                return 0;
             } else {
                 buf_[0] = static_cast<uint16_t>(value >> 10) + high_surrogate_base;
                 buf_[1] = static_cast<uint16_t>(value & 0x3ff) + low_surrogate_base;
                 buf_[2] = 0;
+                return 1;
             }
         }
 
