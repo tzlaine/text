@@ -13,6 +13,112 @@
 
 namespace boost { namespace text { namespace utf8 {
 
+    namespace detail {
+
+        constexpr bool in (unsigned char lo, unsigned char c, unsigned char hi) noexcept
+        { return lo <= c && c <= hi; }
+
+    }
+
+    constexpr bool continuation (
+        unsigned char c,
+        unsigned char lo = 0x80,
+        unsigned char hi = 0xbf
+    ) noexcept {
+        return detail::in(lo, c, hi);
+    }
+
+    namespace detail {
+
+        // Follow Table 3-7 in Unicode 9, 3.9/D92
+        constexpr bool valid_utf8 (char const * it) noexcept
+        {
+            assert(!continuation(*it));
+
+            if (*it <= 0x7f)
+                return true;
+
+            if (detail::in(0xc2, *it, 0xdf)) {
+                if (!continuation(*(it + 1)))
+                    return false;
+                return true;
+            }
+
+            if (detail::in(0xe0, *it, 0xe0)) {
+                if (!continuation(*(it + 1), 0xa0, 0xbf))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                return true;
+            }
+            if (detail::in(0xe1, *it, 0xec)) {
+                if (!continuation(*(it + 1)))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                return true;
+            }
+            if (detail::in(0xed, *it, 0xed)) {
+                if (!continuation(*(it + 1), 0x80, 0x9f))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                return true;
+            }
+            if (detail::in(0xee, *it, 0xef)) {
+                if (!continuation(*(it + 1)))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                return true;
+            }
+
+            if (detail::in(0xf0, *it, 0xf0)) {
+                if (!continuation(*(it + 1), 0x90, 0xbf))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                if (!continuation(*(it + 3)))
+                    return false;
+                return true;
+            }
+            if (detail::in(0xf1, *it, 0xf3)) {
+                if (!continuation(*(it + 1)))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                if (!continuation(*(it + 3)))
+                    return false;
+                return true;
+            }
+            if (detail::in(0xf4, *it, 0xf4)) {
+                if (!continuation(*(it + 1), 0x80, 0x8f))
+                    return false;
+                if (!continuation(*(it + 2)))
+                    return false;
+                if (!continuation(*(it + 3)))
+                    return false;
+                return true;
+            }
+
+            return false;
+        }
+
+        constexpr char const * decrement (char const * it) noexcept
+        {
+            char const * retval = it;
+
+            while (continuation(*--retval))
+                ;
+
+            if (!valid_utf8(retval))
+                return it - 1;
+
+            return retval;
+        }
+
+    }
+
     struct unchecked_t {};
     struct throw_on_encoding_error {};
 
@@ -24,40 +130,30 @@ namespace boost { namespace text { namespace utf8 {
     constexpr uint32_t replacement_character () noexcept
     { return 0xfffd; }
 
-    // TODO: Update based on table 3-7.  In fact, audit the rest of the code
-    // for these kinds of changes.
-    constexpr int code_point_bytes (char first) noexcept
+    constexpr int code_point_bytes (unsigned char first) noexcept
     {
-        if ((first & 0b10000000) == 0)
+        if (first <= 0x7f)
             return 1;
-        if ((first & 0b11100000) == 0b11000000)
+        if (0xc2 <= first && first <= 0xdf)
             return 2;
-        if ((first & 0b11110000) == 0b11100000)
+        if (0xe0 <= first && first <= 0xef)
             return 3;
-        if ((first & 0b11111000) == 0b11110000)
+        if (0xf0 <= first && first <= 0xf4)
             return 4;
         return -1;
-    }
-
-    constexpr bool continuation (char c_) noexcept
-    {
-        unsigned const char c = c_;
-        return 0x80 <= c && c <= 0xbfu;
     }
 
     constexpr bool encoded (char const * first, char const * last) noexcept
     {
         while (first != last) {
             int const cp_bytes = code_point_bytes(*first);
-            if (cp_bytes == -1)
+            if (cp_bytes == -1 || last - first < cp_bytes)
                 return false;
 
-            ++first;
+            if (!detail::valid_utf8(first))
+                return false;
 
-            for (int i = 1; i < cp_bytes; ++i, ++first) {
-                if (first == last || !continuation(*first))
-                    return false;
-            }
+            first += cp_bytes;
         }
 
         return true;
@@ -69,17 +165,10 @@ namespace boost { namespace text { namespace utf8 {
             return true;
 
         int const cp_bytes = code_point_bytes(*first);
-        if (cp_bytes == -1)
+        if (cp_bytes == -1 || last - first < cp_bytes)
             return false;
 
-        ++first;
-
-        for (int i = 1; i < cp_bytes; ++i, ++first) {
-            if (first == last || !continuation(*first))
-                return false;
-        }
-
-        return true;
+        return detail::valid_utf8(first);
     }
 
     constexpr bool ends_encoded (char const * first, char const * last) noexcept
@@ -87,12 +176,11 @@ namespace boost { namespace text { namespace utf8 {
         if (first == last)
             return true;
 
-        int n = 1;
-        while (first != --last && continuation(*last)) {
-            ++n;
-        }
+        auto it = last;
+        while (first != --it && continuation(*it))
+            ;
 
-        return code_point_bytes(*last) == n;
+        return starts_encoded(it, last);
     }
 
     constexpr bool surrogate (uint32_t c) noexcept
@@ -312,18 +400,7 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
-            // TODO: Need something more robust, that catches errors at each
-            // char as we go backward.
-            char const * const initial_it = it_;
-            int n = 1;
-            while (continuation(*--it_)) {
-                ++n;
-            }
-            // Use get_value() to check for errors.
-            if (get_value() != replacement_character())
-                next_ = initial_it;
-            else
-                next_ = it_;
+            it_ = detail::decrement(it_);
             return *this;
         }
         constexpr to_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
@@ -345,7 +422,7 @@ namespace boost { namespace text { namespace utf8 {
             unsigned char lo = 0x80,
             unsigned char hi = 0xbf
         ) const noexcept(!throw_on_error) {
-            if (lo <= c && c <= hi) {
+            if (continuation(c, lo, hi)) {
                 return true;
             } else {
                 if (throw_on_error)
@@ -358,7 +435,6 @@ namespace boost { namespace text { namespace utf8 {
         {
             uint32_t retval = 0;
 
-            // TODO: Update the logic of starts_encoded() and ends_encoded too!
             /*
                 Unicode 9, 3.9/D92
                 Table 3-7. Well-Formed UTF-8 Byte Sequences
