@@ -44,6 +44,8 @@ namespace boost { namespace text {
         constexpr auto & get_empty_str = detail::static_const<detail::get_empty_str_fn>::value;
     }
 
+    // TODO: text should use the more efficient versions of the
+    // constexpr-friendly-but-slower operations that text_view does.
     struct text
     {
         using iterator = char *;
