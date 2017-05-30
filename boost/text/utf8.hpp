@@ -572,7 +572,7 @@ namespace boost { namespace text { namespace utf8 {
             } else if (curr_c == 0xf4) {
                 retval = curr_c & 0b00000111;
                 curr_c = *++next_;
-                if (curr_c <= 0x80 || 0x8f <= curr_c)
+                if (!check_continuation(curr_c, 0x80, 0x8f))
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
@@ -1030,7 +1030,7 @@ namespace boost { namespace text { namespace utf8 {
             } else if (curr_c == 0xf4) {
                 value = curr_c & 0b00000111;
                 curr_c = *++next_;
-                if (curr_c <= 0x80 || 0x8f <= curr_c)
+                if (!check_continuation(curr_c, 0x80, 0x8f))
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 curr_c = *++next_;
