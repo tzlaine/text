@@ -21,7 +21,7 @@ TEST(text, test_empty)
 
     EXPECT_TRUE(t.empty());
     EXPECT_EQ(t.size(), 0);
-    EXPECT_EQ(t.data(), nullptr);
+    EXPECT_EQ(t.begin(), t.end());
 
     EXPECT_EQ(t.max_size(), INT_MAX);
 
@@ -51,7 +51,7 @@ TEST(text, test_empty)
     {
         using namespace text::literals;
         text::text t2 = ""_t;
-        EXPECT_TRUE(t == t2); // TODO: This crashes!
+        EXPECT_TRUE(t == t2);
     }
 }
 
@@ -77,17 +77,12 @@ TEST(text, test_non_empty_const_interface)
 
     EXPECT_FALSE(t_a.empty());
     EXPECT_EQ(t_a.size(), 1);
-    EXPECT_NE(t_a.data(), nullptr);
+    EXPECT_NE(t_a.begin(), nullptr);
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.size(), 2);
-    EXPECT_NE(t_ab.data(), nullptr);
+    EXPECT_NE(t_ab.begin(), nullptr);
 
-    EXPECT_EQ(t_a.front(), 'a');
-    EXPECT_EQ(t_a.back(), 'a');
-
-    EXPECT_EQ(t_ab.front(), 'a');
-    EXPECT_EQ(t_ab.back(), 'b');
     EXPECT_EQ(t_ab[1], 'b');
 
     EXPECT_EQ(t_a.max_size(), INT_MAX);

@@ -256,10 +256,13 @@ namespace boost { namespace text {
             assert(0 <= new_size);
 
             if (c & 0x80)
-                throw std::invalid_argument("Given character is not a valid UTF-8 code point");
+                throw std::invalid_argument("Given character is not a valid UTF-8 1-character code point");
 
             int const prev_size = size_;
             int const delta = new_size - prev_size;
+            if (!delta)
+                return;
+
             int const available = cap_ - 1 - size_;
             if (available < delta) {
                 std::unique_ptr<char []> new_data = get_new_data(delta - available);
@@ -268,8 +271,9 @@ namespace boost { namespace text {
             } else {
                 if (!utf8::ends_encoded(cbegin(), cbegin() + new_size))
                     throw std::invalid_argument("Given character is not a valid UTF-8 code point");
-                size_ = new_size;
             }
+
+            size_ = new_size;
 
             if (0 < delta)
                 std::fill(begin() + prev_size, end(), c);
@@ -351,8 +355,7 @@ namespace boost { namespace text {
             assert(0 < resize_amount);
             int const new_size = grow_size(size_ + resize_amount);
             std::unique_ptr<char []> retval(new char [new_size + 1]);
-            size_ = new_size;
-            cap_ = size_ + 1;
+            cap_ = new_size + 1;
             return retval;
         }
 
@@ -370,8 +373,8 @@ namespace boost { namespace text {
                 }
             } else {
                 data_[size_] = c;
-                ++size_;
             }
+            ++size_;
         }
 
         std::unique_ptr<char []> data_;
@@ -465,6 +468,7 @@ namespace boost { namespace text {
 
     inline text & text::operator= (text_view view)
     {
+        assert(0 <= view.size());
         if (view.size() <= size()) {
             clear();
             insert(0, view);
@@ -477,6 +481,7 @@ namespace boost { namespace text {
 
     inline text & text::operator= (repeated_text_view rv)
     {
+        assert(0 <= rv.size());
         if (rv.size() <= size()) {
             clear();
             insert(0, rv);
@@ -500,12 +505,6 @@ namespace boost { namespace text {
         return text_view(data_.get(), size_);
     }
 
-    inline text_view text::operator() (int lo, int hi) noexcept
-    { return const_cast<text const &>(*this)(lo, hi); }
-
-    inline text_view text::operator() (int lo) noexcept
-    { return const_cast<text const &>(*this)(lo); }
-
     template <typename CharRange>
     auto text::insert (int at, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
@@ -514,6 +513,7 @@ namespace boost { namespace text {
     inline text & text::insert (int at, text_view view)
     {
         assert(0 <= at && at <= size_);
+        assert(0 <= view.size());
 
         if (!utf8::starts_encoded(cbegin() + at, cend()))
             throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
@@ -523,6 +523,9 @@ namespace boost { namespace text {
             view = view(0, -1);
 
         int const delta = view.size();
+        if (!delta)
+            return *this;
+
         int const available = cap_ - 1 - size_;
         if (available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
@@ -530,15 +533,15 @@ namespace boost { namespace text {
             buf = std::copy(cbegin(), cbegin() + at, buf);
             buf = std::copy(view.begin(), view.end(), buf);
             buf = std::copy(cbegin() + at, cend(), buf);
-            *buf = '\0';
             new_data.swap(data_);
         } else {
-            if (0 < delta)
-                std::copy_backward(cbegin() + at, cend(), end() + delta);
+            std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
-            buf = std::copy(view.begin(), view.end(), buf);
-            data_[size_] = '\0';
+            std::copy(view.begin(), view.end(), buf);
         }
+
+        size_ += delta;
+        data_[size_] = '\0';
 
         return *this;
     }
@@ -546,6 +549,7 @@ namespace boost { namespace text {
     inline text & text::insert (int at, repeated_text_view rv)
     {
         assert(0 <= at && at <= size_);
+        assert(0 <= rv.size());
 
         if (!utf8::starts_encoded(cbegin() + at, cend()))
             throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
@@ -555,6 +559,9 @@ namespace boost { namespace text {
             rv = repeat(rv.view()(0, -1), rv.count());
 
         int const delta = rv.size();
+        if (!delta)
+            return *this;
+
         int const available = cap_ - 1 - size_;
         if (available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
@@ -563,24 +570,26 @@ namespace boost { namespace text {
             for (int i = 0; i < rv.count(); ++i) {
                 buf = std::copy(rv.view().begin(), rv.view().end(), buf);
             }
-            buf = std::copy(cbegin() + at, cend(), buf);
-            *buf = '\0';
+            std::copy(cbegin() + at, cend(), buf);
             new_data.swap(data_);
         } else {
-            if (0 < delta)
-                std::copy_backward(cbegin() + at, cend(), end() + delta);
+            std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
             for (int i = 0; i < rv.count(); ++i) {
                 buf = std::copy(rv.view().begin(), rv.view().end(), buf);
             }
-            data_[size_] = '\0';
         }
+
+        size_ += delta;
+        data_[size_] = '\0';
 
         return *this;
     }
 
     inline text & text::erase (text_view view)
     {
+        assert(0 <= view.size());
+
         bool const view_null_terminated = !view.empty() && view.end()[-1] == '\0';
         if (view_null_terminated)
             view = view(0, -1);
@@ -603,6 +612,9 @@ namespace boost { namespace text {
 
     inline text & text::replace (text_view old_substr, text_view new_substr)
     {
+        assert(0 <= old_substr.size());
+        assert(0 <= new_substr.size());
+
         bool const old_substr_null_terminated =
             !old_substr.empty() && old_substr.end()[-1] == '\0';
         if (old_substr_null_terminated)
@@ -616,36 +628,44 @@ namespace boost { namespace text {
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
         int const delta = new_substr.size() - old_substr.size();
+        if (!delta)
+            return *this;
+
         int const available = cap_ - 1 - size_;
         if (available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
             buf = std::copy(new_substr.begin(), new_substr.end(), buf);
-            buf = std::copy(old_substr.end(), cend(), buf);
-            *buf = '\0';
+            std::copy(old_substr.end(), cend(), buf);
             new_data.swap(data_);
         } else {
             if (0 < delta) {
-                *std::copy_backward(
+                std::copy_backward(
                     old_substr.end(), cend(),
                     end() + delta
-                ) = '\0';
+                );
             } else if (delta < 0) {
-                *std::copy(
+                std::copy(
                     old_substr.end(), cend(),
                     const_cast<char *>(old_substr.end()) + delta
-                ) = '\0';
+                );
             }
             char * buf = const_cast<char *>(old_substr.begin());
             std::copy(new_substr.begin(), new_substr.end(), buf);
         }
+
+        size_ += delta;
+        data_[size_] = '\0';
 
         return *this;
     }
 
     inline text & text::replace (text_view old_substr, repeated_text_view new_substr)
     {
+        assert(0 <= old_substr.size());
+        assert(0 <= new_substr.size());
+
         bool const old_substr_null_terminated =
             !old_substr.empty() && old_substr.end()[-1] == '\0';
         if (old_substr_null_terminated)
@@ -659,6 +679,9 @@ namespace boost { namespace text {
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
         int const delta = new_substr.size() - old_substr.size();
+        if (!delta)
+            return *this;
+
         int const available = cap_ - 1 - size_;
         if (available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
@@ -667,20 +690,19 @@ namespace boost { namespace text {
             for (int i = 0; i < new_substr.count(); ++i) {
                 buf = std::copy(new_substr.view().begin(), new_substr.view().end(), buf);
             }
-            buf = std::copy(old_substr.end(), cend(), buf);
-            *buf = '\0';
+            std::copy(old_substr.end(), cend(), buf);
             new_data.swap(data_);
         } else {
             if (0 < delta) {
-                *std::copy_backward(
+                std::copy_backward(
                     old_substr.end(), cend(),
                     end() + delta
-                ) = '\0';
+                );
             } else if (delta < 0) {
-                *std::copy(
+                std::copy(
                     old_substr.end(), cend(),
                     const_cast<char *>(old_substr.end()) + delta
-                ) = '\0';
+                );
             }
             char * buf = const_cast<char *>(old_substr.begin());
             for (int i = 0; i < new_substr.count(); ++i) {
@@ -688,12 +710,17 @@ namespace boost { namespace text {
             }
         }
 
+        size_ += delta;
+        data_[size_] = '\0';
+
         return *this;
     }
 
     template <typename Iter>
     text & text::replace (text_view old_substr, Iter first, Iter last)
     {
+        assert(0 <= old_substr.size());
+
         bool const old_substr_null_terminated =
             !old_substr.empty() && old_substr.end()[-1] == '\0';
         if (old_substr_null_terminated)
@@ -747,6 +774,7 @@ namespace boost { namespace text {
 
     inline text & operator+= (text & t, repeated_text_view rv)
     {
+        assert(0 <= rv.size());
         t.reserve(t.size() + rv.size());
         for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
             t.insert(t.size(), rv.view());
@@ -766,6 +794,7 @@ namespace boost { namespace text {
 
     inline text & operator+= (text && t, repeated_text_view rv)
     {
+        assert(0 <= rv.size());
         t.reserve(t.size() + rv.size());
         for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
             t.insert(t.size(), rv.view());
