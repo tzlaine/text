@@ -53,7 +53,7 @@ namespace boost { namespace text {
         using reverse_iterator = detail::reverse_char_iterator;
         using const_reverse_iterator = detail::const_reverse_char_iterator;
 
-        text () noexcept : data_ (nullptr), size_ (0), cap_ (0) {}
+        text () noexcept : data_ (), size_ (0), cap_ (0) {}
 
         text (text const & t) : data_ (), size_ (0), cap_ (0)
         { insert(0, t); }
@@ -67,14 +67,14 @@ namespace boost { namespace text {
         explicit text (
             CharRange const & r,
             detail::rng_alg_ret_t<int *, CharRange> enable = 0
-        )
+        ) : data_ (), size_ (0), cap_ (0)
         { insert(0, r); }
 
         inline explicit text (text_view view);
         inline explicit text (repeated_text_view view);
 
         template <typename Iter>
-        text (Iter first, Iter last)
+        text (Iter first, Iter last) : data_ (), size_ (0), cap_ (0)
         { insert(0, first, last); }
 
         text & operator= (text const & t)
