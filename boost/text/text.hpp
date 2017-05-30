@@ -18,32 +18,6 @@ namespace boost { namespace text {
     struct text_view;
     struct repeated_text_view;
 
-    namespace detail {
-
-        template <typename T>
-        struct static_const
-        { static constexpr T value {}; };
-
-        template <typename T>
-        constexpr T static_const<T>::value;
-
-        struct get_empty_str_fn
-        {
-            constexpr get_empty_str_fn () : c_ ('\0') {}
-
-            constexpr char const * operator() () const noexcept
-            { return &c_; }
-
-            char c_;
-        };
-
-    }
-
-    // TODO: inline const c = '\0';
-    inline namespace {
-        constexpr auto & get_empty_str = detail::static_const<detail::get_empty_str_fn>::value;
-    }
-
     // TODO: text should use the more efficient versions of the
     // constexpr-friendly-but-slower operations that text_view does.
     struct text
@@ -105,26 +79,26 @@ namespace boost { namespace text {
         iterator begin () noexcept
         {
             if (!data_)
-                return const_cast<char *>(get_empty_str());
+                return reinterpret_cast<char *>(&cap_);
             return data_.get();
         }
         iterator end () noexcept
         {
             if (!data_)
-                return const_cast<char *>(get_empty_str());
+                return reinterpret_cast<char *>(&cap_);
             return data_.get() + size_;
         }
 
         const_iterator begin () const noexcept
         {
             if (!data_)
-                return get_empty_str();
+                return reinterpret_cast<char const *>(&cap_);
             return data_.get();
         }
         const_iterator end () const noexcept
         {
             if (!data_)
-                return get_empty_str();
+                return reinterpret_cast<char const *>(&cap_);
             return data_.get() + size_;
         }
 
@@ -482,7 +456,7 @@ namespace boost { namespace text {
     inline text::operator text_view () const noexcept
     {
         if (!data_)
-            return text_view(get_empty_str(), 0);
+            return reinterpret_cast<char const *>(&cap_);
         return text_view(data_.get(), size_);
     }
 
