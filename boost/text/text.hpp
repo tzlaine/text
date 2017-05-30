@@ -430,28 +430,6 @@ namespace boost { namespace text {
             );
         }
 
-        namespace detail {
-
-            template <typename Char, int CharSize = sizeof(Char)>
-            struct wchar_to_utf8_iterator;
-
-            template <typename Char>
-            struct wchar_to_utf8_iterator<Char, 2>
-            { using type = utf8::from_utf16_iterator<Char const *>; };
-
-            template <typename Char>
-            struct wchar_to_utf8_iterator<Char, 4>
-            { using type = utf8::from_utf32_iterator<Char const *>; };
-
-        }
-
-        inline text operator"" _t (wchar_t const * str, std::size_t len)
-        {
-            assert(len < INT_MAX / sizeof(wchar_t));
-            using iterator = typename detail::wchar_to_utf8_iterator<wchar_t>::type;
-            return text(iterator(str), iterator(str + len));
-        }
-
     }
 
     inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)
