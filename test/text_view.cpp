@@ -39,8 +39,12 @@ TEST(text_view, test_empty)
 
     {
         using namespace text::literals;
+
         constexpr text::text_view tv2 = ""_tv;
         EXPECT_TRUE(tv == tv2);
+
+        constexpr text::text_view tv3 = u8""_tv;
+        EXPECT_TRUE(tv == tv3);
     }
 }
 
@@ -141,7 +145,7 @@ TEST(text_view, test_non_empty)
     {
         using namespace text::literals;
         EXPECT_EQ(tv_a, "a"_tv);
-        EXPECT_EQ(tv_ab, "ab"_tv);
+        EXPECT_EQ(tv_ab, u8"ab"_tv);
     }
 }
 
@@ -188,7 +192,7 @@ TEST(text_view, test_non_empty_constexpr)
 
     {
         using namespace text::literals;
-        static_assert(tv_a == "a"_tv, "");
+        static_assert(tv_a == u8"a"_tv, "");
         static_assert(tv_ab == "ab"_tv, "");
     }
 }

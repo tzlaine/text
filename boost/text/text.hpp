@@ -188,7 +188,8 @@ namespace boost { namespace text {
         void clear ()
         {
             size_ = 0;
-            data_[0] = '\0';
+            if (data_)
+                data_[0] = '\0';
         }
 
         // TODO: Update the char-range contraints to require random access iterators.

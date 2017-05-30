@@ -46,12 +46,25 @@ TEST(text, test_empty)
     EXPECT_EQ(t.crbegin(), crbegin(t));
     EXPECT_EQ(t.crend(), crend(t));
 
+    t.clear();
+    t.resize(0, 'c');
+    t.shrink_to_fit();
+
     std::cout << "t=\"" << t << "\"\n";
 
     {
         using namespace text::literals;
         text::text t2 = ""_t;
         EXPECT_TRUE(t == t2);
+
+        text::text t3 = u8""_t;
+        EXPECT_TRUE(t == t3);
+
+        text::text t4 = u""_t;
+        EXPECT_TRUE(t == t4);
+
+        text::text t5 = U""_t;
+        EXPECT_TRUE(t == t5);
     }
 }
 
