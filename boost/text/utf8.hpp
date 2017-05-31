@@ -385,24 +385,28 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf32_iterator_t () noexcept :
             it_ (),
-            next_ ()
+            next_ (),
+            partial_decrement_ (false)
         {}
         explicit constexpr to_utf32_iterator_t (char const * it) noexcept :
             it_ (it),
-            next_ (it)
+            next_ (it),
+            partial_decrement_ (false)
         {}
 
         constexpr reference operator* () const noexcept(!throw_on_error)
-        { return get_value(); }
+        {
+            if (partial_decrement_)
+                const_cast<char const *&>(it_) = detail::decrement(it_ + 1);
+            partial_decrement_ = false;
+            return get_value();
+        }
 
         constexpr to_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
-            if (it_ != next_) {
-                it_ = next_;
-            } else {
+            if (it_ == next_)
                 get_value();
-                it_ = next_;
-            }
+            it_ = next_;
             return *this;
         }
         constexpr to_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
@@ -414,7 +418,10 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
-            it_ = detail::decrement(it_);
+            if (partial_decrement_)
+                it_ = detail::decrement(it_ + 1);
+            --it_;
+            partial_decrement_ = true;
             return *this;
         }
         constexpr to_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
@@ -603,6 +610,7 @@ namespace boost { namespace text { namespace utf8 {
 
         char const * it_;
         mutable char const * next_;
+        mutable bool partial_decrement_;
     };
 
     using to_utf32_iterator = to_utf32_iterator_t<>;
