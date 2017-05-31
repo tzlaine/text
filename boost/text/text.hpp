@@ -228,7 +228,7 @@ namespace boost { namespace text {
                 new_data.swap(data_);
             } else {
                 if (!utf8::ends_encoded(cbegin(), cbegin() + new_size))
-                    throw std::invalid_argument("Given character is not a valid UTF-8 code point");
+                    throw std::invalid_argument("Resizing to the given size breaks UTF-8 encoding.");
             }
 
             size_ = new_size;
