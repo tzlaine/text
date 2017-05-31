@@ -195,7 +195,7 @@ namespace boost { namespace text {
         constexpr repeated_text_view (text_view view, std::ptrdiff_t count) noexcept :
             view_ (view),
             count_ (count)
-        { assert(view.empty() || view.end()[-1] != '\0'); }
+        { assert(0 <= view.size()); }
 
         constexpr text_view view () const noexcept
         { return view_; }
