@@ -90,11 +90,27 @@ TEST(text, test_non_empty_const_interface)
 
     EXPECT_FALSE(t_a.empty());
     EXPECT_EQ(t_a.size(), 1);
+    EXPECT_GT(t_a.capacity(), t_a.size());
     EXPECT_NE(t_a.begin(), nullptr);
+
+    text::text_view tv_a = t_a;
+    EXPECT_EQ(tv_a, t_a);
+
+    EXPECT_EQ(t_a, t_a(0, 1));
+    EXPECT_EQ(t_a, t_a(0));
+
+    EXPECT_EQ("", t_a(1, 1));
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.size(), 2);
+    EXPECT_GT(t_ab.capacity(), t_ab.size());
     EXPECT_NE(t_ab.begin(), nullptr);
+
+    text::text_view tv_ab = t_ab;
+    EXPECT_EQ(tv_ab, t_ab);
+
+    EXPECT_EQ(t_ab, t_ab(0, 2));
+    EXPECT_EQ(t_ab, t_ab(0));
 
     EXPECT_EQ(t_ab[1], 'b');
 
@@ -108,6 +124,34 @@ TEST(text, test_non_empty_const_interface)
     EXPECT_TRUE(t_a <= t_ab);
     EXPECT_FALSE(t_a > t_ab);
     EXPECT_FALSE(t_a >= t_ab);
+
+    EXPECT_FALSE(t_a == t_ab(0));
+    EXPECT_TRUE(t_a != t_ab(0));
+    EXPECT_TRUE(t_a < t_ab(0));
+    EXPECT_TRUE(t_a <= t_ab(0));
+    EXPECT_FALSE(t_a > t_ab(0));
+    EXPECT_FALSE(t_a >= t_ab(0));
+
+    EXPECT_FALSE(t_a(0) == t_ab);
+    EXPECT_TRUE(t_a(0) != t_ab);
+    EXPECT_TRUE(t_a(0) < t_ab);
+    EXPECT_TRUE(t_a(0) <= t_ab);
+    EXPECT_FALSE(t_a(0) > t_ab);
+    EXPECT_FALSE(t_a(0) >= t_ab);
+
+    EXPECT_FALSE(t_a == "ab");
+    EXPECT_TRUE(t_a != "ab");
+    EXPECT_TRUE(t_a < "ab");
+    EXPECT_TRUE(t_a <= "ab");
+    EXPECT_FALSE(t_a > "ab");
+    EXPECT_FALSE(t_a >= "ab");
+
+    EXPECT_FALSE("a" == t_ab);
+    EXPECT_TRUE("a" != t_ab);
+    EXPECT_TRUE("a" < t_ab);
+    EXPECT_TRUE("a" <= t_ab);
+    EXPECT_FALSE("a" > t_ab);
+    EXPECT_FALSE("a" >= t_ab);
 
     EXPECT_EQ(t_a.compare("ab"), -1);
     EXPECT_EQ(t_a, "a");

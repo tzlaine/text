@@ -117,23 +117,24 @@ namespace boost { namespace text {
         constexpr int compare (text_view rhs) const noexcept
         { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 
-        constexpr bool operator== (text_view rhs) const noexcept
-        { return compare(rhs) == 0; }
+        friend constexpr bool operator== (text_view lhs, text_view rhs) noexcept
+        { return lhs.compare(rhs) == 0; }
 
-        constexpr bool operator!= (text_view rhs) const noexcept
-        { return compare(rhs) != 0; }
+        friend constexpr bool operator!= (text_view lhs, text_view rhs) noexcept
+        { return lhs.compare(rhs) != 0; }
 
-        constexpr bool operator< (text_view rhs) const noexcept
-        { return compare(rhs) < 0; }
+        friend constexpr bool operator< (text_view lhs, text_view rhs) noexcept
+        { return lhs.compare(rhs) < 0; }
 
-        constexpr bool operator<= (text_view rhs) const noexcept
-        { return compare(rhs) <= 0; }
+        friend constexpr bool operator<= (text_view lhs, text_view rhs) noexcept
+        { return lhs.compare(rhs) <= 0; }
 
-        constexpr bool operator> (text_view rhs) const noexcept
-        { return compare(rhs) > 0; }
+        friend constexpr bool operator> (text_view lhs, text_view rhs) noexcept
+        { return lhs.compare(rhs) > 0; }
 
-        constexpr bool operator>= (text_view rhs) const noexcept
-        { return compare(rhs) >= 0; }
+        friend constexpr bool operator>= (text_view lhs, text_view rhs) noexcept
+        { return lhs.compare(rhs) >= 0; }
+
 
         constexpr void swap (text_view & rhs) noexcept
         {

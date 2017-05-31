@@ -178,6 +178,20 @@ TEST(text_view, test_non_empty_constexpr)
     static_assert(!(tv_a > tv_ab), "");
     static_assert(!(tv_a >= tv_ab), "");
 
+    static_assert(!(tv_a == "ab"), "");
+    static_assert(tv_a != "ab", "");
+    static_assert(tv_a < "ab", "");
+    static_assert(tv_a <= "ab", "");
+    static_assert(!(tv_a > "ab"), "");
+    static_assert(!(tv_a >= "ab"), "");
+
+    static_assert(!("a" == tv_ab), "");
+    static_assert("a" != tv_ab, "");
+    static_assert("a" < tv_ab, "");
+    static_assert("a" <= tv_ab, "");
+    static_assert(!("a" > tv_ab), "");
+    static_assert(!("a" >= tv_ab), "");
+
     static_assert(tv_a.compare("ab") == -1, "");
     static_assert(tv_a == "a", "");
 

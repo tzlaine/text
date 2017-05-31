@@ -35,7 +35,7 @@ namespace boost { namespace text {
         text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
-        text (char const * c_str);
+        explicit text (char const * c_str);
 
         template <typename CharRange>
         explicit text (
@@ -135,29 +135,15 @@ namespace boost { namespace text {
         int max_size () const noexcept
         { return INT_MAX; }
 
-        operator text_view () const noexcept;
-
         // TODO: operator<=> () const
-        int compare (text const & rhs) const noexcept
-        { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
+        int compare (text_view rhs) const noexcept;
 
-        bool operator== (text const & rhs) const noexcept
-        { return compare(rhs) == 0; }
-
-        bool operator!= (text const & rhs) const noexcept
-        { return compare(rhs) != 0; }
-
-        bool operator< (text const & rhs) const noexcept
-        { return compare(rhs) < 0; }
-
-        bool operator<= (text const & rhs) const noexcept
-        { return compare(rhs) <= 0; }
-
-        bool operator> (text const & rhs) const noexcept
-        { return compare(rhs) > 0; }
-
-        bool operator>= (text const & rhs) const noexcept
-        { return compare(rhs) >= 0; }
+        bool operator== (text_view rhs) const noexcept;
+        bool operator!= (text_view rhs) const noexcept;
+        bool operator< (text_view rhs) const noexcept;
+        bool operator<= (text_view rhs) const noexcept;
+        bool operator> (text_view rhs) const noexcept;
+        bool operator>= (text_view rhs) const noexcept;
 
         void clear ()
         {
@@ -450,12 +436,26 @@ namespace boost { namespace text {
     inline text_view text::operator() (int lo) const noexcept
     { return text_view(*this)(lo); }
 
-    inline text::operator text_view () const noexcept
-    {
-        if (!data_)
-            return reinterpret_cast<char const *>(&cap_);
-        return text_view(data_.get(), size_);
-    }
+    inline int text::compare (text_view rhs) const noexcept
+    { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
+
+    inline bool text::operator== (text_view rhs) const noexcept
+    { return compare(rhs) == 0; }
+
+    inline bool text::operator!= (text_view rhs) const noexcept
+    { return compare(rhs) != 0; }
+
+    inline bool text::operator< (text_view rhs) const noexcept
+    { return compare(rhs) < 0; }
+
+    inline bool text::operator<= (text_view rhs) const noexcept
+    { return compare(rhs) <= 0; }
+
+    inline bool text::operator> (text_view rhs) const noexcept
+    { return compare(rhs) > 0; }
+
+    inline bool text::operator>= (text_view rhs) const noexcept
+    { return compare(rhs) >= 0; }
 
     template <typename CharRange>
     auto text::insert (int at, CharRange const & r)
@@ -718,6 +718,26 @@ namespace boost { namespace text {
 
         return *this;
     }
+
+
+
+    inline bool operator== (char const * lhs, text const & rhs) noexcept
+    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) == 0; }
+
+    inline bool operator!= (char const * lhs, text const & rhs) noexcept
+    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) != 0; }
+
+    inline bool operator< (char const * lhs, text const & rhs) noexcept
+    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) < 0; }
+
+    inline bool operator<= (char const * lhs, text const & rhs) noexcept
+    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) <= 0; }
+
+    inline bool operator> (char const * lhs, text const & rhs) noexcept
+    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) > 0; }
+
+    inline bool operator>= (char const * lhs, text const & rhs) noexcept
+    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0; }
 
 
 
