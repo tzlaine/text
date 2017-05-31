@@ -333,21 +333,215 @@ TEST(text, test_assignment)
     }
 }
 
-TEST(text, test_iterators)
+TEST(text, test_iterators_and_index)
 {
+    text::text empty;
+    int size = 0;
+    for (auto c : empty) {
+        (void)c;
+        ++size;
+    }
+    EXPECT_EQ(size, 0);
+
+    {
+        text::text::iterator first = empty.begin();
+        text::text::iterator last = empty.end();
+        while (first != last) {
+            ++size;
+            ++first;
+        }
+        EXPECT_EQ(size, 0);
+    }
+
+    {
+        text::text::const_iterator first = empty.cbegin();
+        text::text::const_iterator last = empty.cend();
+        while (first != last) {
+            ++size;
+            ++first;
+        }
+        EXPECT_EQ(size, 0);
+    }
+
+    EXPECT_EQ(empty.begin(), empty.cbegin());
+    EXPECT_EQ(empty.end(), empty.cend());
+
+    {
+        text::text::reverse_iterator first = empty.rbegin();
+        text::text::reverse_iterator last = empty.rend();
+        while (first != last) {
+            ++size;
+            ++first;
+        }
+        EXPECT_EQ(size, 0);
+    }
+
+    {
+        text::text::const_reverse_iterator first = empty.crbegin();
+        text::text::const_reverse_iterator last = empty.crend();
+        while (first != last) {
+            ++size;
+            ++first;
+        }
+        EXPECT_EQ(size, 0);
+    }
+
+    EXPECT_EQ(empty.rbegin(), empty.crbegin());
+    EXPECT_EQ(empty.rend(), empty.crend());
+
+    text::text non_empty("non-empty");
+
+    {
+        text::text::iterator it = non_empty.begin();
+        text::text::const_iterator c_it = non_empty.cbegin();
+
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'n');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'o');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'n');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, '-');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'e');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'm');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'p');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 't');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'y');
+        ++it; ++c_it;
+
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(it, non_empty.end());
+        EXPECT_EQ(c_it, non_empty.cend());
+    }
+
+    {
+        text::text::reverse_iterator it = non_empty.rbegin();
+        text::text::const_reverse_iterator c_it = non_empty.crbegin();
+
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'y');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 't');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'p');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'm');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'e');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, '-');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'n');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'o');
+        ++it; ++c_it;
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(*it, 'n');
+        ++it; ++c_it;
+
+        EXPECT_EQ(it, c_it);
+        EXPECT_EQ(it, non_empty.rend());
+        EXPECT_EQ(c_it, non_empty.crend());
+    }
+
+
+    {
+        std::vector<char> vec;
+
+        text::text::reverse_iterator const r_it_begin = non_empty.rbegin();
+        text::text::reverse_iterator const r_it_end = non_empty.rend();
+
+        text::text::reverse_iterator r_it = r_it_begin;
+        while (r_it != r_it_end) {
+            vec.push_back(*r_it);
+            ++r_it;
+        }
+
+        std::reverse(vec.begin(), vec.end());
+        EXPECT_TRUE(std::equal(r_it_end.base(), r_it_begin.base(), vec.begin(), vec.end()));
+     }
 }
 
 TEST(text, test_misc)
 {
-    /*
-        clear()
-        []
-        resize()
-        reserve()
-        shrink_to_fit()
-        swap()
-    */
+    {
+        text::text t("some text");
+        int const cap = t.capacity();
+        t.clear();
+        EXPECT_EQ(t.size(), 0);
+        EXPECT_EQ(t.capacity(), cap);
+    }
+
+    {
+        text::text t("some text");
+        int const cap = t.capacity();
+        t.resize(0, 'c');
+        EXPECT_EQ(t.size(), 0);
+        EXPECT_EQ(t.capacity(), cap);
+    }
+
+    {
+        text::text t("some text");
+        int const cap = t.capacity();
+        t.resize(4, 'c');
+        EXPECT_EQ(t.size(), 4);
+        EXPECT_EQ(t.capacity(), cap);
+    }
+
+    {
+        text::text t("some text");
+        t.resize(12, 'c');
+        EXPECT_EQ(t.size(), 12);
+        EXPECT_EQ(t, "some textccc");
+    }
+
+    {
+        text::text t("some text");
+        t.reserve(153);
+        EXPECT_EQ(t.capacity(), 153);
+        EXPECT_EQ(t, "some text");
+    }
+
+    {
+        text::text t("some text");
+        t.reserve(153);
+        EXPECT_EQ(t.capacity(), 153);
+        EXPECT_EQ(t, "some text");
+        t.shrink_to_fit();
+        EXPECT_EQ(t.capacity(), 9);
+        EXPECT_EQ(t, "some text");
+    }
+
+    {
+        text::text t1("some");
+        text::text t2("text");
+        t1.swap(t2);
+        EXPECT_EQ(t1, "text");
+        EXPECT_EQ(t2, "some");
+    }
 }
+
 
 TEST(text, test_insert)
 {
