@@ -145,7 +145,7 @@ namespace boost { namespace text {
         bool operator> (text_view rhs) const noexcept;
         bool operator>= (text_view rhs) const noexcept;
 
-        void clear ()
+        void clear () noexcept
         {
             size_ = 0;
             if (data_)
