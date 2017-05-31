@@ -301,9 +301,16 @@ namespace boost { namespace text {
         int grow_size (int min_new_size) const
         {
             assert(0 < min_new_size);
-            int retval = (std::max)(8, size_);
+            int retval = (std::max)(7, size_);
             while (retval < min_new_size) {
                 retval = retval / 2 * 3;
+            }
+            // Leave very short strings very short (8 bytes -- even though
+            // this is not portably achievable), but have the rest end on a
+            // 16-byte bundary.
+            if (7 < retval) {
+                int const rem = (retval + 16) % 16;
+                retval += 16 - rem;
             }
             return retval;
         }
