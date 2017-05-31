@@ -644,29 +644,35 @@ namespace boost { namespace text { namespace utf8 {
         constexpr from_utf16_iterator_t () noexcept :
             it_ (),
             index_ (4),
-            buf_ ()
+            buf_ (),
+            partial_decrement_ (false)
         {}
         explicit constexpr from_utf16_iterator_t (Iter it) noexcept :
             it_ (it),
             index_ (4),
-            buf_ ()
+            buf_ (),
+            partial_decrement_ (false)
         {}
 
         constexpr reference operator* () const noexcept(!throw_on_error)
         {
-            if (buf_empty())
-                incr_read_into_buf();
+            if (buf_empty()) {
+                if (partial_decrement_)
+                    index_ = decr_read_into_buf();
+                else
+                    index_ = incr_read_into_buf();
+            }
             return buf_[index_];
         }
 
         constexpr from_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (buf_empty())
-                incr_read_into_buf();
+                index_ = incr_read_into_buf();
             ++index_;
             if (at_buf_end()) {
                 ++it_;
-                incr_read_into_buf();
+                index_ = 4;
             }
             return *this;
         }
@@ -679,9 +685,12 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr from_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
+            if (partial_decrement_)
+                index_ = decr_read_into_buf();
             if (index_ == 0 || buf_empty()) {
                 --it_;
-                index_ = decr_read_into_buf();
+                index_ = 4;
+                partial_decrement_ = true;
             } else {
                 --index_;
             }
@@ -734,8 +743,6 @@ namespace boost { namespace text { namespace utf8 {
                 c = replacement_character();
             }
 
-            index_ = 0;
-
             if (c < 0x80) {
                 buf_[0] = static_cast<char>(c);
                 buf_[1] = '\0';
@@ -772,7 +779,8 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-16 sequence.");
                 first = replacement_character();
             }
-            return read_into_buf(first, second);
+            read_into_buf(first, second);
+            return 0;
         }
 
         constexpr int decr_read_into_buf () const noexcept(!throw_on_error)
@@ -787,12 +795,14 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-16 sequence.");
                 first = replacement_character();
             }
+            partial_decrement_ = false;
             return read_into_buf(first, second);
         }
 
         Iter it_;
         mutable int index_;
         mutable char buf_[5];
+        mutable bool partial_decrement_;
 
         // Unicode 9, 3.8/D71-D74
 
