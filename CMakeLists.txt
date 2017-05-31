@@ -20,7 +20,10 @@ endif()
 add_library(text INTERFACE)
 target_include_directories(text INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(text INTERFACE boost)
-target_link_libraries(text INTERFACE ${link_flags})
+if (link_flags)
+    target_link_libraries(text INTERFACE ${link_flags})
+    target_compile_options(text INTERFACE ${link_flags})
+endif ()
 
 include(dependencies)
 
