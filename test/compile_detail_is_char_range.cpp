@@ -4,6 +4,7 @@
 #include <boost/range/iterator_range_core.hpp>
 
 #include <array>
+#include <list>
 #include <string>
 #include <vector>
 
@@ -23,8 +24,8 @@ static_assert(text::detail::is_char_range<iterator_range<char *>>{}, "");
 static_assert(text::detail::is_char_range<iterator_range<char const *>>{}, "");
 static_assert(text::detail::is_char_range<iterator_range<std::vector<char>::iterator>>{}, "");
 static_assert(text::detail::is_char_range<iterator_range<std::vector<char>::iterator const>>{}, "");
-// TODO: Fix this! static_assert(text::detail::is_char_range<char[5]>{}, "");
 
+static_assert(!text::detail::is_char_range<std::list<char>>{}, "");
 static_assert(!text::detail::is_char_range<std::vector<wchar_t>>{}, "");
 static_assert(!text::detail::is_char_range<std::vector<int>>{}, "");
 static_assert(!text::detail::is_char_range<std::array<float, 5>>{}, "");
@@ -34,3 +35,7 @@ static_assert(!text::detail::is_char_range<iterator_range<wchar_t *>>{}, "");
 static_assert(!text::detail::is_char_range<iterator_range<std::vector<int>::iterator>>{}, "");
 static_assert(!text::detail::is_char_range<wchar_t[5]>{}, "");
 static_assert(!text::detail::is_char_range<int[5]>{}, "");
+
+// This may look wrong, but we don't care, because this decays to a char *
+// anyway!
+static_assert(!text::detail::is_char_range<char[5]>{}, "");

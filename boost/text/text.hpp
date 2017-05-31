@@ -152,8 +152,6 @@ namespace boost { namespace text {
                 data_[0] = '\0';
         }
 
-        // TODO: Update the char-range contraints to require random access iterators.
-
         char & operator[] (int i) noexcept
         {
             assert(0 <= i && i < size_);

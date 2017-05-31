@@ -76,6 +76,10 @@ namespace boost { namespace text { namespace detail {
     using has_free_std_end = decltype(&*std::end(std::declval<T>()));
 
     template <typename T>
+    using iterator_category_ =
+        typename std::iterator_traits<typename T::iterator>::iterator_category;
+
+    template <typename T>
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<
@@ -101,6 +105,10 @@ namespace boost { namespace text { namespace detail {
                 >
             >,
             char const *
+        >::value &&
+        std::is_same<
+            detected_t<iterator_category_, T>,
+            std::random_access_iterator_tag
         >::value
     >;
 
