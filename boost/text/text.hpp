@@ -121,7 +121,7 @@ namespace boost { namespace text {
         { return size_; }
 
         int capacity () const noexcept
-        { return cap_; }
+        { return cap_ - 1; }
 
         char operator[] (int i) const noexcept
         {
