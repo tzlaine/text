@@ -182,7 +182,6 @@ TEST(text, test_non_empty_const_interface)
     }
 }
 
-
 TEST(text, test_ctors)
 {
     text::text t;
@@ -222,4 +221,142 @@ TEST(text, test_ctors)
     text::text t8(char_list.begin(), char_list.end());
     EXPECT_EQ(t8, "a list");
     EXPECT_EQ("a list", t8);
+}
+
+TEST(text, test_assignment)
+{
+    {
+        text::text t;
+        EXPECT_EQ(t, "");
+        text::text t2("A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+
+        t = t2;
+        EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+    }
+
+    {
+        text::text t;
+        EXPECT_EQ(t, "");
+        text::text t2("A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+
+        t2 = t;
+        EXPECT_EQ(t, "");
+        EXPECT_EQ(t2, "");
+    }
+
+    {
+        text::text t("small");
+        EXPECT_EQ(t, "small");
+        text::text t2("A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+
+        t = t2;
+        EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+    }
+
+    {
+        text::text t("small");
+        EXPECT_EQ(t, "small");
+        text::text t2("A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+
+        t2 = t;
+        EXPECT_EQ(t, "small");
+        EXPECT_EQ(t2, "small");
+    }
+
+    {
+        text::text t;
+        EXPECT_EQ(t, "");
+        text::text t2;
+        EXPECT_EQ(t2, "");
+
+        t = t2;
+        EXPECT_EQ(t, "");
+        EXPECT_EQ(t2, "");
+    }
+
+    {
+        text::text t;
+        EXPECT_EQ(t, "");
+        text::text t2;
+        EXPECT_EQ(t2, "");
+
+        t2 = t;
+        EXPECT_EQ(t, "");
+        EXPECT_EQ(t2, "");
+    }
+
+    {
+        text::text t;
+        EXPECT_EQ(t, "");
+        text::text t2("A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+
+        t = std::move(t2);
+        EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t2, "");
+    }
+
+    {
+        text::text t;
+        EXPECT_EQ(t, "");
+        text::text t2("A nonemtpy string");
+        EXPECT_EQ(t2, "A nonemtpy string");
+
+        t2 = std::move(t);
+        EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t2, "");
+    }
+
+    {
+        std::string const s("An old-school string");
+        text::text t;
+        t = s;
+        EXPECT_EQ(t, "An old-school string");
+    }
+
+    {
+        text::text_view const tv("a view ");
+        text::text t;
+        t = tv;
+        EXPECT_EQ(t, "a view ");
+
+        text::repeated_text_view const rtv(tv, 3);
+        text::text t2;
+        t2 = rtv;
+        EXPECT_EQ(t2, "a view a view a view ");
+    }
+}
+
+TEST(text, test_iterators)
+{
+}
+
+TEST(text, test_misc)
+{
+    /*
+        clear()
+        []
+        resize()
+        reserve()
+        shrink_to_fit()
+        swap()
+    */
+}
+
+TEST(text, test_insert)
+{
+}
+
+TEST(text, test_erase)
+{
+}
+
+TEST(text, test_replace)
+{
 }
