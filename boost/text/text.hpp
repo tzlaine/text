@@ -174,9 +174,6 @@ namespace boost { namespace text {
             return data_[i];
         }
 
-        text_view operator() (int lo, int hi) noexcept;
-        text_view operator() (int lo) noexcept;
-
         template <typename CharRange>
         auto insert (int at, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
