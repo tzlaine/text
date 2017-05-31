@@ -197,7 +197,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        inline text & erase (text_view view);
+        inline text & erase (text_view view) noexcept;
 
         template <typename CharRange>
         auto replace (text_view old_substr, CharRange const & r)
@@ -542,7 +542,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::erase (text_view view)
+    inline text & text::erase (text_view view) noexcept
     {
         assert(0 <= view.size());
 
@@ -552,11 +552,12 @@ namespace boost { namespace text {
 
         assert(begin() <= view.begin() && view.end() <= end());
 
-        *std::copy(
+        std::copy(
             view.end(), cend(),
             const_cast<char *>(view.begin())
-        ) = '\0';
+        );
         size_ -= view.size();
+        data_[size_] = '\0';
 
         return *this;
     }
