@@ -336,9 +336,8 @@ namespace boost { namespace text {
                 } else {
                     new_data.swap(data_);
                 }
-            } else {
-                data_[size_] = c;
             }
+            data_[size_] = c;
             ++size_;
         }
 

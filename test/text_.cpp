@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <list>
+
 
 using namespace boost;
 
@@ -178,4 +180,46 @@ TEST(text, test_non_empty_const_interface)
         EXPECT_EQ(t_a, "a"_t);
         EXPECT_EQ(t_ab, "ab"_t);
     }
+}
+
+
+TEST(text, test_ctors)
+{
+    text::text t;
+    EXPECT_EQ(t, "");
+    EXPECT_EQ("", t);
+
+    text::text t2("A nonemtpy string");
+    EXPECT_EQ(t2, "A nonemtpy string");
+    EXPECT_EQ("A nonemtpy string", t2);
+
+    text::text t3(t2);
+    EXPECT_EQ(t3, "A nonemtpy string");
+    EXPECT_EQ("A nonemtpy string", t3);
+
+    text::text t4(std::move(t2));
+    EXPECT_EQ(t4, "A nonemtpy string");
+    EXPECT_EQ("A nonemtpy string", t4);
+    EXPECT_EQ(t2, "");
+    EXPECT_EQ("", t2);
+
+    std::string const s("An old-school string");
+    text::text t5(s);
+    EXPECT_EQ(t5, "An old-school string");
+    EXPECT_EQ("An old-school string", t5);
+
+    text::text_view const tv("a view ");
+    text::text t6(tv);
+    EXPECT_EQ(t6, "a view ");
+    EXPECT_EQ("a view ", t6);
+
+    text::repeated_text_view const rtv(tv, 3);
+    text::text t7(rtv);
+    EXPECT_EQ(t7, "a view a view a view ");
+    EXPECT_EQ("a view a view a view ", t7);
+
+    std::list<char> const char_list = {'a', ' ', 'l', 'i', 's', 't'};
+    text::text t8(char_list.begin(), char_list.end());
+    EXPECT_EQ(t8, "a list");
+    EXPECT_EQ("a list", t8);
 }
