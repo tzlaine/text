@@ -673,6 +673,7 @@ namespace boost { namespace text {
         return *this;
     }
 
+    // TODO: Constrain Iter, here and elsewhere.
     template <typename Iter>
     text & text::replace (text_view old_substr, Iter first, Iter last)
     {
