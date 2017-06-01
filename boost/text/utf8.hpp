@@ -671,12 +671,14 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr from_utf16_iterator_t () noexcept :
             it_ (),
+            next_ (),
             index_ (4),
             buf_ (),
             partial_decrement_ (false)
         {}
         explicit constexpr from_utf16_iterator_t (Iter it) noexcept :
             it_ (it),
+            next_ (it),
             index_ (4),
             buf_ (),
             partial_decrement_ (false)
@@ -703,7 +705,9 @@ namespace boost { namespace text { namespace utf8 {
                     index_ = incr_read_into_buf();
                 ++index_;
                 if (at_buf_end()) {
-                    ++it_;
+                    if (it_ == next_)
+                        incr_read_into_buf();
+                    it_ = next_;
                     index_ = 4;
                 }
             }
@@ -728,6 +732,7 @@ namespace boost { namespace text { namespace utf8 {
             } else {
                 --index_;
             }
+            next_ = it_;
             return *this;
         }
         constexpr from_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
@@ -806,8 +811,11 @@ namespace boost { namespace text { namespace utf8 {
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
+            next_ = it_;
+            ++next_;
             if (high_surrogate(first)) {
-                second = static_cast<uint32_t>(*++const_cast<Iter &>(it_));
+                second = static_cast<uint32_t>(*next_);
+                ++next_;
             } else if (surrogate(first)) {
                 if (throw_on_error)
                     throw std::logic_error("Invalid UTF-16 sequence.");
@@ -833,6 +841,7 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         Iter it_;
+        mutable Iter next_;
         mutable int index_;
         mutable char buf_[5];
         mutable bool partial_decrement_;
