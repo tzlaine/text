@@ -545,6 +545,180 @@ TEST(text, test_misc)
 
 TEST(text, test_insert)
 {
+    text::text_view const tv("a view ");
+    text::repeated_text_view const rtv(tv, 3);
+
+    {
+        text::text const ct("string");
+
+        text::text t0 = ct;
+        EXPECT_EQ(t0.capacity(), 7);
+        t0.insert(0, tv);
+        EXPECT_EQ(t0, "a view string");
+
+        text::text t1 = ct;
+        EXPECT_EQ(t1.capacity(), 7);
+        t1.insert(1, tv);
+        EXPECT_EQ(t1, "sa view tring");
+
+        text::text t2 = ct;
+        EXPECT_EQ(t2.capacity(), 7);
+        t2.insert(2, tv);
+        EXPECT_EQ(t2, "sta view ring");
+
+        text::text t3 = ct;
+        EXPECT_EQ(t3.capacity(), 7);
+        t3.insert(3, tv);
+        EXPECT_EQ(t3, "stra view ing");
+
+        text::text t4 = ct;
+        EXPECT_EQ(t4.capacity(), 7);
+        t4.insert(4, tv);
+        EXPECT_EQ(t4, "stria view ng");
+
+        text::text t5 = ct;
+        EXPECT_EQ(t5.capacity(), 7);
+        t5.insert(5, tv);
+        EXPECT_EQ(t5, "strina view g");
+
+        text::text t6 = ct;
+        EXPECT_EQ(t6.capacity(), 7);
+        t6.insert(6, tv);
+        EXPECT_EQ(t6, "stringa view ");
+    }
+
+    {
+        text::text const ct("string");
+
+        text::text t0 = ct;
+        EXPECT_EQ(t0.capacity(), 7);
+        t0.insert(0, rtv);
+        EXPECT_EQ(t0, "a view a view a view string");
+
+        text::text t1 = ct;
+        EXPECT_EQ(t1.capacity(), 7);
+        t1.insert(1, rtv);
+        EXPECT_EQ(t1, "sa view a view a view tring");
+
+        text::text t2 = ct;
+        EXPECT_EQ(t2.capacity(), 7);
+        t2.insert(2, rtv);
+        EXPECT_EQ(t2, "sta view a view a view ring");
+
+        text::text t3 = ct;
+        EXPECT_EQ(t3.capacity(), 7);
+        t3.insert(3, rtv);
+        EXPECT_EQ(t3, "stra view a view a view ing");
+
+        text::text t4 = ct;
+        EXPECT_EQ(t4.capacity(), 7);
+        t4.insert(4, rtv);
+        EXPECT_EQ(t4, "stria view a view a view ng");
+
+        text::text t5 = ct;
+        EXPECT_EQ(t5.capacity(), 7);
+        t5.insert(5, rtv);
+        EXPECT_EQ(t5, "strina view a view a view g");
+
+        text::text t6 = ct;
+        EXPECT_EQ(t6.capacity(), 7);
+        t6.insert(6, rtv);
+        EXPECT_EQ(t6, "stringa view a view a view ");
+    }
+
+    // Unicode 9, 3.9/D90
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+
+    {
+        text::text const ct("string");
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+
+        text::text t0 = ct;
+        EXPECT_EQ(t0.capacity(), 7);
+        t0.insert(0, first, last);
+        EXPECT_EQ(t0, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82string");
+
+        text::text t1 = ct;
+        EXPECT_EQ(t1.capacity(), 7);
+        t1.insert(1, first, last);
+        EXPECT_EQ(t1, "s\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82tring");
+
+        text::text t2 = ct;
+        EXPECT_EQ(t2.capacity(), 7);
+        t2.insert(2, first, last);
+        EXPECT_EQ(t2, "st\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ring");
+
+        text::text t3 = ct;
+        EXPECT_EQ(t3.capacity(), 7);
+        t3.insert(3, first, last);
+        EXPECT_EQ(t3, "str\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ing");
+
+        text::text t4 = ct;
+        EXPECT_EQ(t4.capacity(), 7);
+        t4.insert(4, first, last);
+        EXPECT_EQ(t4, "stri\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ng");
+
+        text::text t5 = ct;
+        EXPECT_EQ(t5.capacity(), 7);
+        t5.insert(5, first, last);
+        EXPECT_EQ(t5, "strin\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82g");
+
+        text::text t6 = ct;
+        EXPECT_EQ(t6.capacity(), 7);
+        t6.insert(6, first, last);
+        EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
+    }
+
+    {
+        char const * str = "";
+        text::text_view const tv(str, 1); // explicitly null-terminated
+        text::repeated_text_view const rtv(tv, 3);
+
+        {
+            text::text t("text");
+            t.insert(2, tv);
+            EXPECT_EQ(t, "text"); // no null
+        }
+
+        {
+            text::text t("text");
+            t.insert(2, rtv);
+            EXPECT_EQ(t, "text"); // no null
+        }
+    }
+
+    {
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        text::text const ct(first, last);
+        EXPECT_EQ(ct.size(), 4);
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.insert(0, "something"));
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.insert(1, "something"), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.insert(2, "something"), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.insert(3, "something"), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.insert(4, "something"));
+        }
+    }
 }
 
 TEST(text, test_erase)
