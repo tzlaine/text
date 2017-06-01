@@ -174,6 +174,106 @@ TEST(utf_8, test_consecutive)
     }
 }
 
+TEST(utf_8, test_back_and_forth)
+{
+    // Unicode 9, 3.9/D90-D92
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    uint16_t const utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
+
+    // UTF-8 -> UTF-32
+    for (int iterations = 1; iterations <= 4; ++iterations) {
+        auto it = text::utf8::to_utf32_iterator(utf8);
+        for (int i = 0; i < iterations; ++i) {
+            EXPECT_EQ(*it++, utf32[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        for (int i = iterations; i --> 0;) {
+            EXPECT_EQ(*--it, utf32[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    for (int iterations = 0; iterations < 4; ++iterations) {
+        auto it = text::utf8::to_utf32_iterator(utf8 + 10);
+        int i = 4;
+        for (; i --> iterations;) {
+            EXPECT_EQ(*--it, utf32[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        ++i;
+        for (; i < 4; ++i) {
+            EXPECT_EQ(*it++, utf32[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    // UTF-32 -> UTF-8
+    for (int iterations = 1; iterations <= 10; ++iterations) {
+        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        for (int i = 0; i < iterations; ++i) {
+            EXPECT_EQ(*it++, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        for (int i = iterations; i --> 0;) {
+            EXPECT_EQ(*--it, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    for (int iterations = 0; iterations < 10; ++iterations) {
+        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        int i = 10;
+        for (; i --> iterations;) {
+            EXPECT_EQ(*--it, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        ++i;
+        for (; i < 10; ++i) {
+            EXPECT_EQ(*it++, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    // UTF-8 -> UTF-16
+    for (int iterations = 1; iterations <= 5; ++iterations) {
+        auto it = text::utf8::to_utf16_iterator(utf8);
+        for (int i = 0; i < iterations; ++i) {
+            EXPECT_EQ(*it++, utf16[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        for (int i = iterations; i --> 0;) {
+            EXPECT_EQ(*--it, utf16[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    for (int iterations = 0; iterations < 5; ++iterations) {
+        auto it = text::utf8::to_utf16_iterator(utf8 + 10);
+        int i = 5;
+        for (; i --> iterations;) {
+            EXPECT_EQ(*--it, utf16[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        ++i;
+        for (; i < 5; ++i) {
+            EXPECT_EQ(*it++, utf16[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    // UTF-16 -> UTF-8
+    for (int iterations = 1; iterations <= 10; ++iterations) {
+        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(utf16);
+        for (int i = 0; i < iterations; ++i) {
+            EXPECT_EQ(*it++, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        for (int i = iterations; i --> 0;) {
+            EXPECT_EQ(*--it, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+
+    for (int iterations = 0; iterations < 10; ++iterations) {
+        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(utf16 + 5);
+        int i = 10;
+        for (; i --> iterations;) {
+            EXPECT_EQ(*--it, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+        ++i;
+        for (; i < 10; ++i) {
+            EXPECT_EQ(*it++, utf8[i]) << "iterations=" << iterations << " i=" << i;
+        }
+    }
+}
+
 // The tests using this struct cover the boundaries of all the cases in Table
 // 3-7 in Unicode 9, 3.9/D92
 template <int EncodingLength>
