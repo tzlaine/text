@@ -254,30 +254,43 @@ namespace boost { namespace text { namespace utf8 {
         constexpr from_utf32_iterator_t () noexcept :
             it_ (),
             index_ (4),
-            buf_ ()
+            buf_ (),
+            partial_decrement_ (false)
         {}
         explicit constexpr from_utf32_iterator_t (Iter it) noexcept :
             it_ (it),
             index_ (4),
-            buf_ ()
+            buf_ (),
+            partial_decrement_ (false)
         {}
 
         constexpr reference operator* () const noexcept(!throw_on_error)
         {
-            if (buf_empty())
-                read_into_buf();
+            if (buf_empty()) {
+                index_ = read_into_buf();
+                if (!partial_decrement_)
+                    index_ = 0;
+            }
+            partial_decrement_ = false;
             return buf_[index_];
         }
 
         constexpr from_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
-            if (buf_empty())
-                read_into_buf();
-            ++index_;
-            if (at_buf_end()) {
+            if (partial_decrement_) {
                 ++it_;
-                index_ = 4;
+            } else {
+                if (buf_empty()) {
+                    read_into_buf();
+                    index_ = 0;
+                }
+                ++index_;
+                if (at_buf_end()) {
+                    ++it_;
+                    index_ = 4;
+                }
             }
+            partial_decrement_ = false;
             return *this;
         }
         constexpr from_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
@@ -291,7 +304,8 @@ namespace boost { namespace text { namespace utf8 {
         {
             if (index_ == 0 || buf_empty()) {
                 --it_;
-                index_ = read_into_buf();
+                index_ = 4;
+                partial_decrement_ = true;
             } else {
                 --index_;
             }
@@ -360,6 +374,7 @@ namespace boost { namespace text { namespace utf8 {
         Iter it_;
         mutable int index_;
         mutable char buf_[5];
+        mutable bool partial_decrement_;
     };
 
     template <typename Iter>
@@ -404,9 +419,14 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
-            if (it_ == next_)
-                get_value();
-            it_ = next_;
+            if (partial_decrement_) {
+                ++it_;
+            } else {
+                if (it_ == next_)
+                    get_value();
+                it_ = next_;
+            }
+            partial_decrement_ = false;
             return *this;
         }
         constexpr to_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
@@ -670,18 +690,24 @@ namespace boost { namespace text { namespace utf8 {
                 else
                     index_ = incr_read_into_buf();
             }
+            partial_decrement_ = false;
             return buf_[index_];
         }
 
         constexpr from_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
-            if (buf_empty())
-                index_ = incr_read_into_buf();
-            ++index_;
-            if (at_buf_end()) {
+            if (partial_decrement_) {
                 ++it_;
-                index_ = 4;
+            } else {
+                if (buf_empty())
+                    index_ = incr_read_into_buf();
+                ++index_;
+                if (at_buf_end()) {
+                    ++it_;
+                    index_ = 4;
+                }
             }
+            partial_decrement_ = false;
             return *this;
         }
         constexpr from_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
@@ -803,7 +829,6 @@ namespace boost { namespace text { namespace utf8 {
                     throw std::logic_error("Invalid UTF-16 sequence.");
                 first = replacement_character();
             }
-            partial_decrement_ = false;
             return read_into_buf(first, second);
         }
 
@@ -849,31 +874,46 @@ namespace boost { namespace text { namespace utf8 {
             it_ (),
             next_ (),
             index_ (2),
-            buf_ ()
+            buf_ (),
+            partial_decrement_ (false)
         {}
         explicit constexpr to_utf16_iterator_t (char const * it) noexcept :
             it_ (it),
             next_ (it),
             index_ (2),
-            buf_ ()
+            buf_ (),
+            partial_decrement_ (false)
         {}
 
         constexpr reference operator* () const noexcept(!throw_on_error)
         {
-            if (buf_empty())
-                read_into_buf();
+            if (buf_empty()) {
+                if (partial_decrement_)
+                    const_cast<char const *&>(it_) = detail::decrement(it_ + 1);
+                index_ = read_into_buf();
+                if (!partial_decrement_)
+                    index_ = 0;
+            }
+            partial_decrement_ = false;
             return buf_[index_];
         }
 
         constexpr to_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
-            if (buf_empty())
-                read_into_buf();
-            ++index_;
-            if (at_buf_end()) {
-                it_ = next_;
-                index_ = 2;
+            if (partial_decrement_) {
+                ++it_;
+            } else {
+                if (buf_empty()) {
+                    read_into_buf();
+                    index_ = 0;
+                }
+                ++index_;
+                if (at_buf_end()) {
+                    it_ = next_;
+                    index_ = 2;
+                }
             }
+            partial_decrement_ = false;
             return *this;
         }
         constexpr to_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
@@ -885,9 +925,12 @@ namespace boost { namespace text { namespace utf8 {
 
         constexpr to_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
+            if (partial_decrement_)
+                it_ = detail::decrement(it_ + 1);
             if (index_ == 0 || buf_empty()) {
-                it_ = detail::decrement(it_);
-                index_ = read_into_buf();
+                --it_;
+                index_ = 2;
+                partial_decrement_ = true;
             } else {
                 --index_;
             }
@@ -1094,6 +1137,7 @@ namespace boost { namespace text { namespace utf8 {
         mutable char const * next_;
         mutable int index_;
         mutable uint16_t buf_[3];
+        mutable bool partial_decrement_;
 
         static uint16_t const high_surrogate_base = 0xd7c0;
         static uint16_t const low_surrogate_base = 0xdc00;
