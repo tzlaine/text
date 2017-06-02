@@ -302,17 +302,17 @@ namespace boost { namespace text {
         { return os.write(t.begin(), t.size()); }
 
     private:
-        int grow_size (int min_new_size) const
+        int grow_cap (int min_new_cap) const
         {
-            assert(0 < min_new_size);
-            int retval = (std::max)(7, size_);
-            while (retval < min_new_size) {
+            assert(0 < min_new_cap);
+            int retval = (std::max)(8, cap_);
+            while (retval < min_new_cap) {
                 retval = retval / 2 * 3;
             }
             // Leave very short strings very short (8 bytes -- even though
             // this is not portably achievable), but have the rest end on a
             // 16-byte bundary.
-            if (7 < retval) {
+            if (8 < retval) {
                 int const rem = (retval + 16) % 16;
                 retval += 16 - rem;
             }
@@ -322,9 +322,9 @@ namespace boost { namespace text {
         std::unique_ptr<char []> get_new_data (int resize_amount)
         {
             assert(0 < resize_amount);
-            int const new_size = grow_size(size_ + resize_amount);
-            std::unique_ptr<char []> retval(new char [new_size + 1]);
-            cap_ = new_size + 1;
+            int const new_cap = grow_cap(cap_ + resize_amount);
+            std::unique_ptr<char []> retval(new char [new_cap]);
+            cap_ = new_cap;
             return retval;
         }
 
