@@ -789,6 +789,30 @@ TEST(text, test_insert)
 
 TEST(text, test_erase)
 {
+    {
+        text::text t("string");
+        text::text_view const ctv(t.begin(), t.size() + 1); // Explicitly null-terminated.
+
+        t.erase(ctv);
+    }
+
+    text::text const ct("string");
+
+    for (int j = 0; j <= ct.size(); ++j) {
+        for (int i = 0; i <= j; ++i) {
+            text::text t = ct;
+            text::text_view const before = t(0, i);
+            text::text_view const substr = t(i, j);
+            text::text_view const after = t(j);
+
+            text::text expected(before);
+            expected += after;
+
+            t.erase(substr);
+            EXPECT_EQ(t[t.size()], '\0') << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+        }
+    }
 }
 
 TEST(text, test_replace)
