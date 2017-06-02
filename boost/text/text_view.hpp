@@ -90,7 +90,7 @@ namespace boost { namespace text {
             return data_[i];
         }
 
-        constexpr text_view operator() (int lo, int hi) const noexcept
+        constexpr text_view operator() (int lo, int hi) const
         {
             if (lo < 0)
                 lo += size_;
@@ -102,7 +102,7 @@ namespace boost { namespace text {
             return text_view(data_ + lo, hi - lo);
         }
 
-        constexpr text_view operator() (int lo) const noexcept
+        constexpr text_view operator() (int lo) const
         {
             if (lo < 0)
                 lo += size_;

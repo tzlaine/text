@@ -131,8 +131,8 @@ namespace boost { namespace text {
             return data_[i];
         }
 
-        text_view operator() (int lo, int hi) const noexcept;
-        text_view operator() (int lo) const noexcept;
+        text_view operator() (int lo, int hi) const;
+        text_view operator() (int lo) const;
 
         int max_size () const noexcept
         { return INT_MAX; }
@@ -438,10 +438,10 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text_view text::operator() (int lo, int hi) const noexcept
+    inline text_view text::operator() (int lo, int hi) const
     { return text_view(*this)(lo, hi); }
 
-    inline text_view text::operator() (int lo) const noexcept
+    inline text_view text::operator() (int lo) const
     { return text_view(*this)(lo); }
 
     inline int text::compare (text_view rhs) const noexcept
