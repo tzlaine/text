@@ -1,3 +1,4 @@
+#define BOOST_TEXT_TESTING
 #include <boost/text/text.hpp>
 
 #include <gtest/gtest.h>
@@ -191,36 +192,43 @@ TEST(text, test_ctors)
     text::text t2("A nonemtpy string");
     EXPECT_EQ(t2, "A nonemtpy string");
     EXPECT_EQ("A nonemtpy string", t2);
+    EXPECT_EQ(t2[t2.size()], '\0');
 
     text::text t3(t2);
     EXPECT_EQ(t3, "A nonemtpy string");
     EXPECT_EQ("A nonemtpy string", t3);
+    EXPECT_EQ(t3[t3.size()], '\0');
 
     text::text t4(std::move(t2));
     EXPECT_EQ(t4, "A nonemtpy string");
     EXPECT_EQ("A nonemtpy string", t4);
     EXPECT_EQ(t2, "");
     EXPECT_EQ("", t2);
+    EXPECT_EQ(t4[t4.size()], '\0');
 
     std::string const s("An old-school string");
     text::text t5(s);
     EXPECT_EQ(t5, "An old-school string");
     EXPECT_EQ("An old-school string", t5);
+    EXPECT_EQ(t5[t5.size()], '\0');
 
     text::text_view const tv("a view ");
     text::text t6(tv);
     EXPECT_EQ(t6, "a view ");
     EXPECT_EQ("a view ", t6);
+    EXPECT_EQ(t6[t6.size()], '\0');
 
     text::repeated_text_view const rtv(tv, 3);
     text::text t7(rtv);
     EXPECT_EQ(t7, "a view a view a view ");
     EXPECT_EQ("a view a view a view ", t7);
+    EXPECT_EQ(t7[t7.size()], '\0');
 
     std::list<char> const char_list = {'a', ' ', 'l', 'i', 's', 't'};
     text::text t8(char_list.begin(), char_list.end());
     EXPECT_EQ(t8, "a list");
     EXPECT_EQ("a list", t8);
+    EXPECT_EQ(t8[t8.size()], '\0');
 }
 
 TEST(text, test_assignment)
@@ -230,10 +238,13 @@ TEST(text, test_assignment)
         EXPECT_EQ(t, "");
         text::text t2("A nonemtpy string");
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         t = t2;
         EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t[t.size()], '\0');
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t[t2.size()], '\0');
     }
 
     {
@@ -241,6 +252,7 @@ TEST(text, test_assignment)
         EXPECT_EQ(t, "");
         text::text t2("A nonemtpy string");
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         t2 = t;
         EXPECT_EQ(t, "");
@@ -252,21 +264,28 @@ TEST(text, test_assignment)
         EXPECT_EQ(t, "small");
         text::text t2("A nonemtpy string");
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         t = t2;
         EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t[t.size()], '\0');
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
     }
 
     {
         text::text t("small");
         EXPECT_EQ(t, "small");
+        EXPECT_EQ(t[t.size()], '\0');
         text::text t2("A nonemtpy string");
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         t2 = t;
         EXPECT_EQ(t, "small");
+        EXPECT_EQ(t[t.size()], '\0');
         EXPECT_EQ(t2, "small");
+        EXPECT_EQ(t2[t2.size()], '\0');
     }
 
     {
@@ -296,10 +315,12 @@ TEST(text, test_assignment)
         EXPECT_EQ(t, "");
         text::text t2("A nonemtpy string");
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         t = std::move(t2);
         EXPECT_EQ(t, "A nonemtpy string");
         EXPECT_EQ(t2, "");
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     {
@@ -307,9 +328,11 @@ TEST(text, test_assignment)
         EXPECT_EQ(t, "");
         text::text t2("A nonemtpy string");
         EXPECT_EQ(t2, "A nonemtpy string");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         t2 = std::move(t);
         EXPECT_EQ(t, "A nonemtpy string");
+        EXPECT_EQ(t[t.size()], '\0');
         EXPECT_EQ(t2, "");
     }
 
@@ -318,6 +341,7 @@ TEST(text, test_assignment)
         text::text t;
         t = s;
         EXPECT_EQ(t, "An old-school string");
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     {
@@ -325,11 +349,13 @@ TEST(text, test_assignment)
         text::text t;
         t = tv;
         EXPECT_EQ(t, "a view ");
+        EXPECT_EQ(t[t.size()], '\0');
 
         text::repeated_text_view const rtv(tv, 3);
         text::text t2;
         t2 = rtv;
         EXPECT_EQ(t2, "a view a view a view ");
+        EXPECT_EQ(t2[t2.size()], '\0');
     }
 }
 
@@ -487,6 +513,7 @@ TEST(text, test_misc)
 {
     {
         text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
         int const cap = t.capacity();
         t.clear();
         EXPECT_EQ(t.size(), 0);
@@ -495,6 +522,7 @@ TEST(text, test_misc)
 
     {
         text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
         int const cap = t.capacity();
         t.resize(0, 'c');
         EXPECT_EQ(t.size(), 0);
@@ -503,42 +531,55 @@ TEST(text, test_misc)
 
     {
         text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
         int const cap = t.capacity();
         t.resize(4, 'c');
         EXPECT_EQ(t.size(), 4);
         EXPECT_EQ(t.capacity(), cap);
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     {
         text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
         t.resize(12, 'c');
         EXPECT_EQ(t.size(), 12);
         EXPECT_EQ(t, "some textccc");
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     {
         text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
         t.reserve(153);
         EXPECT_EQ(t.capacity(), 153);
         EXPECT_EQ(t, "some text");
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     {
         text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
         t.reserve(153);
         EXPECT_EQ(t.capacity(), 153);
         EXPECT_EQ(t, "some text");
+        EXPECT_EQ(t[t.size()], '\0');
         t.shrink_to_fit();
         EXPECT_EQ(t.capacity(), 9);
         EXPECT_EQ(t, "some text");
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     {
         text::text t1("some");
+        EXPECT_EQ(t1[t1.size()], '\0');
         text::text t2("text");
+        EXPECT_EQ(t2[t2.size()], '\0');
         t1.swap(t2);
         EXPECT_EQ(t1, "text");
+        EXPECT_EQ(t1[t1.size()], '\0');
         EXPECT_EQ(t2, "some");
+        EXPECT_EQ(t2[t2.size()], '\0');
     }
 }
 
@@ -555,36 +596,43 @@ TEST(text, test_insert)
         EXPECT_EQ(t0.capacity(), 7);
         t0.insert(0, tv);
         EXPECT_EQ(t0, "a view string");
+        EXPECT_EQ(t0[t0.size()], '\0');
 
         text::text t1 = ct;
         EXPECT_EQ(t1.capacity(), 7);
         t1.insert(1, tv);
         EXPECT_EQ(t1, "sa view tring");
+        EXPECT_EQ(t1[t1.size()], '\0');
 
         text::text t2 = ct;
         EXPECT_EQ(t2.capacity(), 7);
         t2.insert(2, tv);
         EXPECT_EQ(t2, "sta view ring");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         text::text t3 = ct;
         EXPECT_EQ(t3.capacity(), 7);
         t3.insert(3, tv);
         EXPECT_EQ(t3, "stra view ing");
+        EXPECT_EQ(t3[t3.size()], '\0');
 
         text::text t4 = ct;
         EXPECT_EQ(t4.capacity(), 7);
         t4.insert(4, tv);
         EXPECT_EQ(t4, "stria view ng");
+        EXPECT_EQ(t4[t4.size()], '\0');
 
         text::text t5 = ct;
         EXPECT_EQ(t5.capacity(), 7);
         t5.insert(5, tv);
         EXPECT_EQ(t5, "strina view g");
+        EXPECT_EQ(t5[t5.size()], '\0');
 
         text::text t6 = ct;
         EXPECT_EQ(t6.capacity(), 7);
         t6.insert(6, tv);
         EXPECT_EQ(t6, "stringa view ");
+        EXPECT_EQ(t6[t6.size()], '\0');
     }
 
     {
@@ -594,36 +642,43 @@ TEST(text, test_insert)
         EXPECT_EQ(t0.capacity(), 7);
         t0.insert(0, rtv);
         EXPECT_EQ(t0, "a view a view a view string");
+        EXPECT_EQ(t0[t0.size()], '\0');
 
         text::text t1 = ct;
         EXPECT_EQ(t1.capacity(), 7);
         t1.insert(1, rtv);
         EXPECT_EQ(t1, "sa view a view a view tring");
+        EXPECT_EQ(t1[t1.size()], '\0');
 
         text::text t2 = ct;
         EXPECT_EQ(t2.capacity(), 7);
         t2.insert(2, rtv);
         EXPECT_EQ(t2, "sta view a view a view ring");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         text::text t3 = ct;
         EXPECT_EQ(t3.capacity(), 7);
         t3.insert(3, rtv);
         EXPECT_EQ(t3, "stra view a view a view ing");
+        EXPECT_EQ(t3[t3.size()], '\0');
 
         text::text t4 = ct;
         EXPECT_EQ(t4.capacity(), 7);
         t4.insert(4, rtv);
         EXPECT_EQ(t4, "stria view a view a view ng");
+        EXPECT_EQ(t4[t4.size()], '\0');
 
         text::text t5 = ct;
         EXPECT_EQ(t5.capacity(), 7);
         t5.insert(5, rtv);
         EXPECT_EQ(t5, "strina view a view a view g");
+        EXPECT_EQ(t5[t5.size()], '\0');
 
         text::text t6 = ct;
         EXPECT_EQ(t6.capacity(), 7);
         t6.insert(6, rtv);
         EXPECT_EQ(t6, "stringa view a view a view ");
+        EXPECT_EQ(t6[t6.size()], '\0');
     }
 
     // Unicode 9, 3.9/D90
@@ -638,36 +693,43 @@ TEST(text, test_insert)
         EXPECT_EQ(t0.capacity(), 7);
         t0.insert(0, first, last);
         EXPECT_EQ(t0, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82string");
+        EXPECT_EQ(t0[t0.size()], '\0');
 
         text::text t1 = ct;
         EXPECT_EQ(t1.capacity(), 7);
         t1.insert(1, first, last);
         EXPECT_EQ(t1, "s\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82tring");
+        EXPECT_EQ(t1[t1.size()], '\0');
 
         text::text t2 = ct;
         EXPECT_EQ(t2.capacity(), 7);
         t2.insert(2, first, last);
         EXPECT_EQ(t2, "st\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ring");
+        EXPECT_EQ(t2[t2.size()], '\0');
 
         text::text t3 = ct;
         EXPECT_EQ(t3.capacity(), 7);
         t3.insert(3, first, last);
         EXPECT_EQ(t3, "str\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ing");
+        EXPECT_EQ(t3[t3.size()], '\0');
 
         text::text t4 = ct;
         EXPECT_EQ(t4.capacity(), 7);
         t4.insert(4, first, last);
         EXPECT_EQ(t4, "stri\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ng");
+        EXPECT_EQ(t4[t4.size()], '\0');
 
         text::text t5 = ct;
         EXPECT_EQ(t5.capacity(), 7);
         t5.insert(5, first, last);
         EXPECT_EQ(t5, "strin\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82g");
+        EXPECT_EQ(t5[t5.size()], '\0');
 
         text::text t6 = ct;
         EXPECT_EQ(t6.capacity(), 7);
         t6.insert(6, first, last);
         EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
+        EXPECT_EQ(t6[t6.size()], '\0');
     }
 
     {
@@ -678,13 +740,15 @@ TEST(text, test_insert)
         {
             text::text t("text");
             t.insert(2, tv);
-            EXPECT_EQ(t, "text"); // no null
+            EXPECT_EQ(t, "text"); // no null in the middle
+            EXPECT_EQ(t[t.size()], '\0');
         }
 
         {
             text::text t("text");
             t.insert(2, rtv);
-            EXPECT_EQ(t, "text"); // no null
+            EXPECT_EQ(t, "text"); // no nulls in the middle
+            EXPECT_EQ(t[t.size()], '\0');
         }
     }
 
@@ -697,6 +761,7 @@ TEST(text, test_insert)
         {
             text::text t = ct;
             EXPECT_NO_THROW(t.insert(0, "something"));
+            EXPECT_EQ(t[t.size()], '\0');
         }
 
         {
@@ -717,6 +782,7 @@ TEST(text, test_insert)
         {
             text::text t = ct;
             EXPECT_NO_THROW(t.insert(4, "something"));
+            EXPECT_EQ(t[t.size()], '\0');
         }
     }
 }

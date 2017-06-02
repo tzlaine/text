@@ -125,7 +125,9 @@ namespace boost { namespace text {
 
         char operator[] (int i) const noexcept
         {
+#ifndef BOOST_TEXT_TESTING
             assert(0 <= 0 && i < size_);
+#endif
             return data_[i];
         }
 
@@ -154,7 +156,9 @@ namespace boost { namespace text {
 
         char & operator[] (int i) noexcept
         {
-            assert(0 <= i && i < size_);
+#ifndef BOOST_TEXT_TESTING
+            assert(0 <= 0 && i < size_);
+#endif
             return data_[i];
         }
 
