@@ -491,7 +491,6 @@ TEST(text, test_iterators_and_index)
         EXPECT_EQ(c_it, non_empty.crend());
     }
 
-
     {
         std::vector<char> vec;
 
@@ -792,8 +791,9 @@ TEST(text, test_erase)
     {
         text::text t("string");
         text::text_view const ctv(t.begin(), t.size() + 1); // Explicitly null-terminated.
-
         t.erase(ctv);
+        EXPECT_EQ(t, "");
+        EXPECT_EQ(t[t.size()], '\0');
     }
 
     text::text const ct("string");
@@ -813,8 +813,76 @@ TEST(text, test_erase)
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
         }
     }
+
+    // TODO: Test breaking the encoding.
 }
 
 TEST(text, test_replace)
 {
+    text::text_view const replacement("REP");
+    // Explicitly null-terminated.
+    text::text_view const replacement_with_null(replacement.begin(), replacement.size() + 1);
+
+    {
+        text::text t("string");
+        text::text_view const ctv(t.begin(), t.size() + 1); // Explicitly null-terminated.
+        t.replace(ctv, replacement_with_null);
+        EXPECT_EQ(t, "REP");
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    {
+        text::text t("string");
+        text::text_view const ctv(t.begin(), t.size() + 1); // Explicitly null-terminated.
+        t.replace(ctv, replacement);
+        EXPECT_EQ(t, "REP");
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    {
+        text::text t("string");
+        t.replace(t, replacement);
+        EXPECT_EQ(t, "REP");
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    text::text const ct("string");
+
+    for (int j = 0; j <= ct.size(); ++j) {
+        for (int i = 0; i <= j; ++i) {
+            text::text t = ct;
+            text::text_view const before = t(0, i);
+            text::text_view const substr = t(i, j);
+            text::text_view const after = t(j);
+
+            text::text expected(before);
+            expected += replacement;
+            expected += after;
+
+            t.replace(substr, replacement);
+            EXPECT_EQ(t[t.size()], '\0') << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+        }
+    }
+
+    text::repeated_text_view const really_long_replacement(replacement, 10);
+
+    for (int j = 0; j <= ct.size(); ++j) {
+        for (int i = 0; i <= j; ++i) {
+            text::text t = ct;
+            text::text_view const before = t(0, i);
+            text::text_view const substr = t(i, j);
+            text::text_view const after = t(j);
+
+            text::text expected(before);
+            expected += really_long_replacement;
+            expected += after;
+
+            t.replace(substr, really_long_replacement);
+            EXPECT_EQ(t[t.size()], '\0') << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+        }
+    }
+
+    // TODO: Test breaking the encoding.
 }
