@@ -814,7 +814,76 @@ TEST(text, test_erase)
         }
     }
 
-    // TODO: Test breaking the encoding.
+    {
+        // Unicode 9, 3.9/D90
+        uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        text::text const ct(first, last);
+        EXPECT_EQ(ct.size(), 4);
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.erase(t));
+            EXPECT_EQ(t[t.size()], '\0');
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.erase(t(0, 0)));
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.erase(t(1, 1)));
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.erase(t(2, 2)));
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.erase(t(3, 3)));
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_NO_THROW(t.erase(t(4, 4)));
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.erase(t(0, -1)), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.erase(t(0, -2)), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.erase(t(0, -3)), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.erase(t(1)), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.erase(t(2)), std::invalid_argument);
+        }
+
+        {
+            text::text t = ct;
+            EXPECT_THROW(t.erase(t(3)), std::invalid_argument);
+        }
+    }
 }
 
 TEST(text, test_replace)
