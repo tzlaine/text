@@ -249,7 +249,8 @@ namespace boost { namespace text {
 
 /* Rationale
 
-   1: use of signed types >= sizeof(int) for sizes
+   1: use of signed types >= sizeof(int) for sizes -- better code gen;
+   negative indexing
 
    2: including null terminator in strings
 
@@ -273,6 +274,14 @@ namespace boost { namespace text {
    ones).  This also reduces compile times.
 
    10: Unicode 9 is used.  No other versions are supported.
+
+   11: text API leaves explicit null terminators out of inserts/replaces from
+   {repeated_,}text_view, but the lower-level, less-safe Iter interface can be
+   used to accomplish this (or a text_view("\0") hack).
+
+   12: Negative indexing should be allowed on all random access ranges.  The
+   disparity with builtin arrays shouldn't matter, as builtin arrays are
+   incongruous for many other reasons.
 
 */
 
