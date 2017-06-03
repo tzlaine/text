@@ -318,7 +318,6 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
@@ -451,7 +450,6 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (to_utf32_iterator_t lhs, to_utf32_iterator_t rhs) noexcept
         { return lhs.it_ == rhs.it_; }
         friend constexpr bool operator!= (to_utf32_iterator_t lhs, to_utf32_iterator_t rhs) noexcept
@@ -742,7 +740,6 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
@@ -952,7 +949,6 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)

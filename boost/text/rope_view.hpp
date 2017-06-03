@@ -93,7 +93,6 @@ namespace boost { namespace text {
         { return PTRDIFF_MAX; }
 
 #if 0
-        // TODO: operator<=> () const
         constexpr int compare (rope_view rhs) const noexcept
         { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 

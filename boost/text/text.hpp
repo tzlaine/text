@@ -137,7 +137,6 @@ namespace boost { namespace text {
         int max_size () const noexcept
         { return INT_MAX; }
 
-        // TODO: operator<=> () const
         int compare (text_view rhs) const noexcept;
 
         bool operator== (text_view rhs) const noexcept;

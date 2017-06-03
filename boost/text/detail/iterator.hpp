@@ -66,7 +66,6 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
         { return lhs.ptr_ == rhs.ptr_; }
         friend constexpr bool operator!= (reverse_char_iterator lhs, reverse_char_iterator rhs) noexcept
@@ -158,7 +157,6 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
         { return lhs.ptr_ == rhs.ptr_; }
         friend constexpr bool operator!= (const_reverse_char_iterator lhs, const_reverse_char_iterator rhs) noexcept
@@ -326,7 +324,6 @@ namespace boost { namespace text { namespace detail {
             return *this;
         }
 
-        // TODO: operator<=> () const
         friend constexpr bool operator== (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
         { return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ && lhs.count_ == rhs.count_ && lhs.curr_ == rhs.curr_; }
         friend constexpr bool operator!= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept

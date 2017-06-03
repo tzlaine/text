@@ -113,7 +113,6 @@ namespace boost { namespace text {
         constexpr int max_size () const noexcept
         { return INT_MAX; }
 
-        // TODO: operator<=> () const
         constexpr int compare (text_view rhs) const noexcept
         { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 
