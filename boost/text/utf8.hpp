@@ -9,7 +9,6 @@
 
 
 // TODO: Improve the error messages in exceptions.
-// TODO: Stick with std::logic_error?  Maybe std::out_of_bounds instead?
 
 namespace boost { namespace text { namespace utf8 {
 

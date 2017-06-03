@@ -76,8 +76,17 @@ namespace boost { namespace text { namespace detail {
     using has_free_std_end = decltype(&*std::end(std::declval<T>()));
 
     template <typename T>
+    using value_type_ = typename std::remove_cv<
+        typename std::remove_reference<
+            typename std::iterator_traits<T>::value_type
+        >::type
+    >::type;
+
+    template <typename T>
     using iterator_category_ =
         typename std::iterator_traits<typename T::iterator>::iterator_category;
+
+
 
     template <typename T>
     using is_char_range = std::integral_constant<
@@ -112,6 +121,8 @@ namespace boost { namespace text { namespace detail {
         >::value
     >;
 
+
+
     template <
         typename T,
         typename R1,
@@ -141,6 +152,30 @@ namespace boost { namespace text { namespace detail {
 
     template <typename T, typename R1, typename R2>
     using rngs_alg_ret_t = typename rngs_alg_ret<T, R1, R2>::type;
+
+
+
+    template <typename T>
+    using is_char_iter = std::integral_constant<
+        bool,
+        std::is_same<detected_t<value_type_, T>, char>::value
+    >;
+
+    template <
+        typename T,
+        typename R1,
+        bool R1IsCharRange = is_char_iter<R1>{}
+    >
+    struct char_iter_ret {};
+
+    template <typename T, typename R1>
+    struct char_iter_ret<T, R1, true>
+    { using type = T; };
+
+    template <typename T, typename R1>
+    using char_iter_ret_t = typename char_iter_ret<T, R1>::type;
+
+
 
     constexpr char back_impl (char const * first, char const * last) noexcept
     {

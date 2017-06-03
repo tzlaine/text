@@ -41,7 +41,7 @@ namespace boost { namespace text {
         template <typename CharRange>
         explicit text (
             CharRange const & r,
-            detail::rng_alg_ret_t<int *, CharRange> enable = 0
+            detail::rng_alg_ret_t<int *, CharRange> = 0
         ) : data_ (), size_ (0), cap_ (0)
         { insert(0, r); }
 
@@ -49,7 +49,10 @@ namespace boost { namespace text {
         inline explicit text (repeated_text_view view);
 
         template <typename Iter>
-        text (Iter first, Iter last) : data_ (), size_ (0), cap_ (0)
+        text (
+            Iter first, Iter last,
+            detail::char_iter_ret_t<void *, Iter> = 0
+        ) : data_ (), size_ (0), cap_ (0)
         { insert(0, first, last); }
 
         text & operator= (text const & t)
@@ -174,7 +177,8 @@ namespace boost { namespace text {
         // interface.  (To once again make it safe, use one of the conerting
         // iterators.)
         template <typename Iter>
-        text & insert (int at, Iter first, Iter last)
+        auto insert (int at, Iter first, Iter last)
+            -> detail::char_iter_ret_t<text &, Iter>
         {
             assert(0 <= at && at <= size_);
 
@@ -188,7 +192,8 @@ namespace boost { namespace text {
         }
 
         template <typename Iter>
-        text & insert (iterator at, Iter first, Iter last)
+        auto insert (iterator at, Iter first, Iter last)
+            -> detail::char_iter_ret_t<text &, Iter>
         {
             assert(begin() <= at && at <= end());
 
@@ -220,12 +225,14 @@ namespace boost { namespace text {
         inline text & replace (text_view old_substr, repeated_text_view new_substr);
 
         template <typename Iter>
-        text & replace (text_view old_substr, Iter first, Iter last);
+        auto replace (text_view old_substr, Iter first, Iter last)
+            -> detail::char_iter_ret_t<text &, Iter>;
 
         // TODO: Perf test replace(Iter) against insert(Iter), and replace the
         // insert(Iter) implementation if that is warranted.
         template <typename Iter>
-        text & replace (iterator old_first, iterator old_last, Iter new_first, Iter new_last)
+        auto replace (iterator old_first, iterator old_last, Iter new_first, Iter new_last)
+            -> detail::char_iter_ret_t<text &, Iter>
         {
             assert(begin() <= old_first && old_last <= end());
 
@@ -391,7 +398,8 @@ namespace boost { namespace text {
         }
 
         template <typename Iter>
-        text & insert_iter_impl (int at, Iter first, Iter last)
+        auto insert_iter_impl (int at, Iter first, Iter last)
+            -> detail::char_iter_ret_t<text &, Iter>
         {
             std::unique_ptr<char []> initial_data;
             int const initial_size = size_;
@@ -782,10 +790,10 @@ namespace boost { namespace text {
         return *this;
     }
 
-    // TODO: Constrain Iter, here and elsewhere.
     // TODO: Add a noncontiguous random_access Iter overload, here and elsewhere.
     template <typename Iter>
-    text & text::replace (text_view old_substr, Iter first, Iter last)
+    auto text::replace (text_view old_substr, Iter first, Iter last)
+        -> detail::char_iter_ret_t<text &, Iter>
     {
         assert(0 <= old_substr.size());
 

@@ -1211,22 +1211,25 @@ TEST(text, test_replace_iter_large_insertions)
 {
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+
     std::vector<uint32_t> utf32_repeated;
     for (int i = 0; i < 5000; ++i) {
         utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
     }
+    auto const first = text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(utf32_repeated.begin());
+    auto const last = text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(utf32_repeated.end());
 
     {
         text::text t("string");
-        t.replace(t, utf32_repeated.begin(), utf32_repeated.end());
-        text::text const expected(utf32_repeated.begin(), utf32_repeated.end());
+        t.replace(t, first, last);
+        text::text const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 
     {
         text::text t;
-        t.replace(t, utf32_repeated.begin(), utf32_repeated.end());
-        text::text const expected(utf32_repeated.begin(), utf32_repeated.end());
+        t.replace(t, first, last);
+        text::text const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 }
