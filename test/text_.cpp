@@ -1207,5 +1207,29 @@ TEST(text, test_replace_iter)
     }
 }
 
+TEST(text, test_replace_iter_large_insertions)
+{
+    // Unicode 9, 3.9/D90
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    std::vector<uint32_t> utf32_repeated;
+    for (int i = 0; i < 5000; ++i) {
+        utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
+    }
+
+    {
+        text::text t("string");
+        t.replace(t, utf32_repeated.begin(), utf32_repeated.end());
+        text::text const expected(utf32_repeated.begin(), utf32_repeated.end());
+        EXPECT_EQ(t, expected);
+    }
+
+    {
+        text::text t;
+        t.replace(t, utf32_repeated.begin(), utf32_repeated.end());
+        text::text const expected(utf32_repeated.begin(), utf32_repeated.end());
+        EXPECT_EQ(t, expected);
+    }
+}
+
 // TODO: Add out-of-memory tests (in another file).  These should especially
 // test the Iter interfaces.
