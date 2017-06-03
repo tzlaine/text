@@ -7,6 +7,7 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
+#include <list>
 #include <memory>
 #include <ostream>
 
@@ -183,29 +184,33 @@ namespace boost { namespace text {
             if (!utf8::starts_encoded(cbegin() + at, cend()))
                 throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
 
-            std::unique_ptr<char []> initial_data;
-            int const initial_size = size_;
-            int const initial_cap = cap_;
-            try {
-                while (first != last) {
-                    push_char(*first, initial_data);
-                    ++first;
-                }
-            } catch (std::bad_alloc const &) {
-                data_.swap(initial_data);
-                size_ = initial_size;
-                cap_ = initial_cap;
-                throw;
-            }
+            return insert_iter_impl(at, first, last);
+        }
 
-            std::rotate(begin() + at, begin() + initial_size, end());
+        template <typename Iter>
+        text & insert (iterator at, Iter first, Iter last)
+        {
+            assert(begin() <= at && at <= end());
+
+            if (first == last)
+                return *this;
+
+            return insert_iter_impl(at - begin(), first, last);
+        }
+
+        inline text & erase (text_view view) noexcept;
+
+        text & erase (iterator first, iterator last) noexcept
+        {
+            assert(first <= last);
+            assert(begin() <= first && last <= end());
+
+            std::copy(last, end(), first);
+            size_ -= last - first;
             data_[size_] = '\0';
 
             return *this;
         }
-
-        // TODO: Add unsafe iterator overload of erase.
-        inline text & erase (text_view view) noexcept;
 
         template <typename CharRange>
         auto replace (text_view old_substr, CharRange const & r)
@@ -214,9 +219,44 @@ namespace boost { namespace text {
         inline text & replace (text_view old_substr, text_view new_substr);
         inline text & replace (text_view old_substr, repeated_text_view new_substr);
 
-        // TODO: Add unsafe iterator overload of replace.
         template <typename Iter>
         text & replace (text_view old_substr, Iter first, Iter last);
+
+        // TODO: Perf test replace(Iter) against insert(Iter), and replace the
+        // insert(Iter) implementation if that is warranted.
+        template <typename Iter>
+        text & replace (iterator old_first, iterator old_last, Iter new_first, Iter new_last)
+        {
+            assert(begin() <= old_first && old_last <= end());
+
+            char stack_buf[1024];
+            std::list<text> heap_bufs;
+            int const chars_pushed =
+                read_iters(stack_buf, sizeof(stack_buf), heap_bufs, new_first, new_last);
+            int const stack_buf_bytes = (std::min)(chars_pushed, (int)sizeof(stack_buf));
+
+            int const delta = chars_pushed - (old_last - old_first);
+            int const available = cap_ - 1 - size_;
+            if (available < delta) {
+                std::unique_ptr<char []> new_data = get_new_data(delta - available);
+                char * buf = new_data.get();
+                buf = std::copy(begin(), old_first, buf);
+                buf = copy_bufs(stack_buf, stack_buf_bytes, heap_bufs, buf);
+                std::copy(old_last, end(), buf);
+                new_data.swap(data_);
+            } else {
+                if (0 < delta)
+                    std::copy_backward(old_last, end(), end() + delta);
+                else if (delta < 0)
+                    std::copy(old_last, end(), old_last + delta);
+                copy_bufs(stack_buf, stack_buf_bytes, heap_bufs, old_first);
+            }
+
+            size_ += delta;
+            data_[size_] = '\0';
+
+            return *this;
+        }
 
         void resize (int new_size, char c)
         {
@@ -348,6 +388,80 @@ namespace boost { namespace text {
             }
             data_[size_] = c;
             ++size_;
+        }
+
+        template <typename Iter>
+        text & insert_iter_impl (int at, Iter first, Iter last)
+        {
+            std::unique_ptr<char []> initial_data;
+            int const initial_size = size_;
+            int const initial_cap = cap_;
+            try {
+                while (first != last) {
+                    push_char(*first, initial_data);
+                    ++first;
+                }
+            } catch (std::bad_alloc const &) {
+                data_.swap(initial_data);
+                size_ = initial_size;
+                cap_ = initial_cap;
+                throw;
+            }
+
+            std::rotate(begin() + at, begin() + initial_size, end());
+            data_[size_] = '\0';
+
+            return *this;
+        }
+
+        template <typename Iter>
+        struct buf_ptr_iterator
+        {
+            char * buf_;
+            Iter it_;
+        };
+
+        template <typename Iter>
+        buf_ptr_iterator<Iter> fill_buf (char * buf, int size, Iter first, Iter last)
+        {
+            char * const buf_end = buf + size;
+            while (first != last && buf != buf_end) {
+                *buf = *first;
+                ++buf;
+                ++first;
+            }
+            return {buf, first};
+        }
+
+        char * copy_bufs (char * buf, int size, std::list<text> const & bufs, char * it)
+        {
+            it = std::copy_n(buf, size, it);
+            for (text const & t : bufs) {
+                it = std::copy_n(t.data_.get(), t.size_, it);
+            }
+            return it;
+        }
+
+        template <typename Iter>
+        int read_iters (char * buf, int size, std::list<text> & bufs, Iter first, Iter last)
+        {
+            buf_ptr_iterator<Iter> buf_first = fill_buf(buf, size, first, last);
+
+            int chars_pushed = buf_first.buf_ - buf;
+            int buf_size = size;
+
+            while (buf_first.it_ != last) {
+                buf_size *= 2;
+                bufs.push_back(text());
+                text & temp = bufs.back();
+                temp.data_.reset(new char[buf_size]);
+                temp.cap_ = buf_size;
+                buf_first = fill_buf(temp.data_.get(), buf_size, buf_first.it_, last);
+                temp.size_ = buf_first.buf_ - temp.data_.get();
+                chars_pushed += temp.size_;
+            }
+
+            return chars_pushed;
         }
 
         std::unique_ptr<char []> data_;
@@ -559,16 +673,8 @@ namespace boost { namespace text {
         if (view_null_terminated)
             view = view(0, -1);
 
-        assert(begin() <= view.begin() && view.end() <= end());
-
-        std::copy(
-            view.end(), cend(),
-            const_cast<char *>(view.begin())
-        );
-        size_ -= view.size();
-        data_[size_] = '\0';
-
-        return *this;
+        char * first = const_cast<char *>(view.begin());
+        return erase(first, first + view.size());
     }
 
     template <typename CharRange>
@@ -688,45 +794,8 @@ namespace boost { namespace text {
         if (old_substr_null_terminated)
             old_substr = old_substr(0, -1);
 
-        assert(begin() <= old_substr.begin() && old_substr.end() <= end());
-
-        std::unique_ptr<char []> initial_data;
-        int const initial_size = size_;
-        int const initial_cap = cap_;
-        int chars_pushed = 0;
-        try {
-            while (first != last) {
-                push_char(*first, initial_data);
-                ++first;
-                ++chars_pushed;
-            }
-        } catch (std::bad_alloc const &) {
-            data_.swap(initial_data);
-            size_ = initial_size;
-            cap_ = initial_cap;
-            throw;
-        }
-
-        int const delta = chars_pushed - old_substr.size();
-        if (0 < delta) {
-            std::rotate(const_cast<char *>(old_substr.end()), begin() + initial_size, end());
-            std::copy(old_substr.end(), cend(), const_cast<char *>(old_substr.begin()));
-        } else {
-            if (delta != 0) {
-                std::copy(
-                    old_substr.end(), cbegin() + initial_size,
-                    const_cast<char *>(old_substr.end()) + delta
-                );
-            }
-            std::copy(
-                cbegin() + initial_size, cend(),
-                begin() + initial_size + delta
-            );
-        }
-
-        data_[size_] = '\0';
-
-        return *this;
+        char * old_first = const_cast<char *>(old_substr.begin());
+        return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
 

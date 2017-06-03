@@ -102,6 +102,7 @@ namespace boost { namespace text {
             return text_view(data_ + lo, hi - lo);
         }
 
+        // TODO: Change this to mean prefix and suffix.
         constexpr text_view operator() (int lo) const
         {
             if (lo < 0)
