@@ -259,7 +259,8 @@ namespace boost { namespace text {
    4: text{,_view}::iterator is a char const *, and that's fine -- don't use
    the bare iterators unless you know what you're doing.
 
-   5: text{,_view} guarantee they are UTF-8 encoded.
+   5: text{,_view} guarantee they are UTF-8 encoded, as long as one only uses
+   the safe interfaces.
 
    6: text is strongly exception-safe, always 0-terminated.
 
@@ -275,11 +276,15 @@ namespace boost { namespace text {
 
    10: Unicode 9 is used.  No other versions are supported.
 
-   11: text API leaves explicit null terminators out of inserts/replaces from
+   11: The direct use of iterators in an interface is a signal that the
+   interface is unsafe.  All others are safe.  An unsafe iterator interface
+   can be made safe again by using a converting iterator.
+
+   12: text API leaves explicit null terminators out of inserts/replaces from
    {repeated_,}text_view, but the lower-level, less-safe Iter interface can be
    used to accomplish this (or a text_view("\0") hack).
 
-   12: Negative indexing should be allowed on all random access ranges.  The
+   13: Negative indexing should be allowed on all random access ranges.  The
    disparity with builtin arrays shouldn't matter, as builtin arrays are
    incongruous for many other reasons.
 

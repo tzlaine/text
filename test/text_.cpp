@@ -731,6 +731,9 @@ TEST(text, test_insert)
         EXPECT_EQ(t6[t6.size()], '\0');
     }
 
+    // TODO: Test encoding breakages for the Iter overload too (they should
+    // *not* throw).
+
     {
         char const * str = "";
         text::text_view const tv(str, 1); // explicitly null-terminated
@@ -954,4 +957,12 @@ TEST(text, test_replace)
     }
 
     // TODO: Test breaking the encoding.
+
+    // TODO: Test Iter interface.
+
+    // TODO: Test breaking the encoding via the Iter interface.  This should
+    // *not* throw.
 }
+
+// TODO: Add out-of-memory tests (in another file).  These should especially
+// test the Iter interfaces.

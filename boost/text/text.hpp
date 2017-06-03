@@ -169,6 +169,10 @@ namespace boost { namespace text {
         inline text & insert (int at, text_view view);
         inline text & insert (int at, repeated_text_view rv);
 
+        // TODO: Document that the inserted/replaced sequence need not be
+        // UTF-8 encoded, since direct use of iterators is the unsafe
+        // interface.  (To once again make it safe, use one of the conerting
+        // iterators.)
         template <typename Iter>
         text & insert (int at, Iter first, Iter last)
         {
@@ -201,6 +205,7 @@ namespace boost { namespace text {
             return *this;
         }
 
+        // TODO: Add unsafe iterator overload of erase.
         inline text & erase (text_view view) noexcept;
 
         template <typename CharRange>
@@ -210,6 +215,7 @@ namespace boost { namespace text {
         inline text & replace (text_view old_substr, text_view new_substr);
         inline text & replace (text_view old_substr, repeated_text_view new_substr);
 
+        // TODO: Add unsafe iterator overload of replace.
         template <typename Iter>
         text & replace (text_view old_substr, Iter first, Iter last);
 
@@ -678,6 +684,7 @@ namespace boost { namespace text {
     }
 
     // TODO: Constrain Iter, here and elsewhere.
+    // TODO: Add a noncontiguous random_access Iter overload, here and elsewhere.
     template <typename Iter>
     text & text::replace (text_view old_substr, Iter first, Iter last)
     {
