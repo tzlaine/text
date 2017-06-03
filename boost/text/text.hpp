@@ -594,9 +594,6 @@ namespace boost { namespace text {
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
         int const delta = new_substr.size() - old_substr.size();
-        if (!delta)
-            return *this;
-
         int const available = cap_ - 1 - size_;
         if (available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
@@ -645,9 +642,6 @@ namespace boost { namespace text {
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
         int const delta = new_substr.size() - old_substr.size();
-        if (!delta)
-            return *this;
-
         int const available = cap_ - 1 - size_;
         if (available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
