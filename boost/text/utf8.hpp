@@ -8,8 +8,6 @@
 #include <cassert>
 
 
-// TODO: Improve the error messages in exceptions.
-
 namespace boost { namespace text { namespace utf8 {
 
     namespace detail {
@@ -463,8 +461,11 @@ namespace boost { namespace text { namespace utf8 {
             if (continuation(c, lo, hi)) {
                 return true;
             } else {
-                if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-8 sequence.");
+                if (throw_on_error) {
+                    throw std::logic_error(
+                        "Invalid UTF-8 sequence; an expected continuation character is missing."
+                    );
+                }
                 return false;
             }
         }
@@ -611,7 +612,7 @@ namespace boost { namespace text { namespace utf8 {
                 chars = 4;
             } else {
                 if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-8 sequence.");
+                    throw std::logic_error("Invalid initial UTF-8 character.");
                 retval = replacement_character();
                 ++next_;
             }
@@ -774,7 +775,7 @@ namespace boost { namespace text { namespace utf8 {
 
             if (!valid_code_point(c)) {
                 if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-32 code point.");
+                    throw std::logic_error("UTF-16 sequence results in invalid UTF-32 code point.");
                 c = replacement_character();
             }
 
@@ -814,7 +815,7 @@ namespace boost { namespace text { namespace utf8 {
                 ++next_;
             } else if (surrogate(first)) {
                 if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-16 sequence.");
+                    throw std::logic_error("Invalid initial UTF-16 character.");
                 first = replacement_character();
             }
             read_into_buf(first, second);
@@ -830,7 +831,7 @@ namespace boost { namespace text { namespace utf8 {
                 first = static_cast<uint32_t>(*--const_cast<Iter &>(it_));
             } else if (surrogate(first)) {
                 if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-16 sequence.");
+                    throw std::logic_error("Invalid following UTF-16 sequence.");
                 first = replacement_character();
             }
             return read_into_buf(first, second);
@@ -978,8 +979,9 @@ namespace boost { namespace text { namespace utf8 {
             if (continuation(c, lo, hi)) {
                 return true;
             } else {
-                if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-8 sequence.");
+                throw std::logic_error(
+                    "Invalid UTF-8 sequence; an expected continuation character is missing."
+                );
                 pack_replacement_character();
                 return false;
             }
@@ -1110,7 +1112,7 @@ namespace boost { namespace text { namespace utf8 {
                 chars = 4;
             } else {
                 if (throw_on_error)
-                    throw std::logic_error("Invalid UTF-8 sequence.");
+                    throw std::logic_error("Invalid initial UTF-8 character.");
                 ++next_;
                 pack_replacement_character();
                 return 0;
