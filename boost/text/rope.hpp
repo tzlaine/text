@@ -5,6 +5,7 @@
 #include <boost/text/text.hpp>
 
 #include <boost/smart_ptr/intrusive_ptr.hpp>
+#include <boost/container/static_vector.hpp>
 
 #include <vector>
 
@@ -19,10 +20,7 @@ namespace boost { namespace text {
 
         struct concatenation
         {
-            concatenation (
-                node_ptr const & left,
-                node_ptr const & right
-            ) noexcept :
+            concatenation (node_ptr left, node_ptr right) noexcept :
                 left_ (left),
                 right_ (right)
             {}
@@ -31,15 +29,25 @@ namespace boost { namespace text {
             node_ptr right_;
         };
 
+        struct reference
+        {
+            reference (node_ptr text_node, text_view ref) noexcept;
+
+            node_ptr text_;
+            text_view ref_;
+        };
+
         constexpr int node_buf_size () noexcept
         {
             int alignment = alignof(text);
             alignment = alignment < alignof(text_view) ? alignof(text_view) : alignment;
             alignment = alignment < alignof(repeated_text_view) ? alignof(repeated_text_view) : alignment;
+            alignment = alignment < alignof(reference) ? alignof(reference) : alignment;
             alignment = alignment < alignof(concatenation) ? alignof(concatenation) : alignment;
             int size = sizeof(text);
             size = size < sizeof(text_view) ? alignof(text_view) : size;
             size = size < sizeof(repeated_text_view) ? alignof(repeated_text_view) : size;
+            size = size < sizeof(reference) ? alignof(reference) : size;
             size = size < sizeof(concatenation) ? alignof(concatenation) : size;
             return alignment + size;
         }
@@ -54,9 +62,16 @@ namespace boost { namespace text {
 
         struct node
         {
-            enum class which : char { t, tv, rtv, cat };
+            enum class which : char { t, tv, rtv, ref, cat };
 
-            node () : buf_ptr_ (nullptr) {}
+            node () :
+                buf_ptr_ (nullptr),
+                size_ (0),
+                parent_ (nullptr),
+                refs_ (0),
+                depth_ (0)
+            {}
+
             ~node ()
             {
                 if (!buf_ptr_)
@@ -66,6 +81,7 @@ namespace boost { namespace text {
                 case which::t: static_cast<text *>(buf_ptr_)->~text(); break;
                 case which::tv: static_cast<text_view *>(buf_ptr_)->~text_view (); break;
                 case which::rtv: static_cast<repeated_text_view *>(buf_ptr_)->~repeated_text_view(); break;
+                case which::ref: static_cast<reference *>(buf_ptr_)->~reference(); break;
                 case which::cat: static_cast<concatenation *>(buf_ptr_)->~concatenation(); break;
                 default: assert(!"unhandled rope node case"); break;
                 }
@@ -74,6 +90,7 @@ namespace boost { namespace text {
             char buf_[node_buf_size()];
             void * buf_ptr_;
             std::ptrdiff_t size_;
+            node const * parent_;
             int refs_;
             char depth_;
             which which_;
@@ -85,6 +102,14 @@ namespace boost { namespace text {
         {
             if (!--node->refs_)
                 delete node;
+        }
+
+        inline reference::reference (node_ptr text_node, text_view ref) noexcept :
+            text_ (text_node),
+            ref_ (ref)
+        {
+            assert(text_node);
+            assert(text_node->which_ == node::which::t);
         }
 
         constexpr int max_depth = 91;
@@ -120,9 +145,8 @@ namespace boost { namespace text {
         {
             node_ptr retval(new node);
             retval->size_ = t.size();
-            retval->depth_ = 0;
-            retval->which_ = detail::node::which::t;
-            auto at = detail::placement_address<text>(retval->buf_, sizeof(retval->buf_));
+            retval->which_ = node::which::t;
+            auto at = placement_address<text>(retval->buf_, sizeof(retval->buf_));
             assert(at);
             retval->buf_ptr_ = new (at) text(t);
             return retval;
@@ -132,9 +156,8 @@ namespace boost { namespace text {
         {
             node_ptr retval(new node);
             retval->size_ = t.size();
-            retval->depth_ = 0;
-            retval->which_ = detail::node::which::t;
-            auto at = detail::placement_address<text>(retval->buf_, sizeof(retval->buf_));
+            retval->which_ = node::which::t;
+            auto at = placement_address<text>(retval->buf_, sizeof(retval->buf_));
             assert(at);
             retval->buf_ptr_ = new (at) text(std::move(t));
             return retval;
@@ -144,9 +167,8 @@ namespace boost { namespace text {
         {
             node_ptr retval(new node);
             retval->size_ = tv.size();
-            retval->depth_ = 0;
-            retval->which_ = detail::node::which::tv;
-            auto at = detail::placement_address<text_view>(retval->buf_, sizeof(retval->buf_));
+            retval->which_ = node::which::tv;
+            auto at = placement_address<text_view>(retval->buf_, sizeof(retval->buf_));
             assert(at);
             retval->buf_ptr_ = new (at) text_view(tv);
             return retval;
@@ -156,11 +178,24 @@ namespace boost { namespace text {
         {
             node_ptr retval(new node);
             retval->size_ = rtv.size();
-            retval->depth_ = 0;
-            retval->which_ = detail::node::which::rtv;
-            auto at = detail::placement_address<repeated_text_view>(retval->buf_, sizeof(retval->buf_));
+            retval->which_ = node::which::rtv;
+            auto at = placement_address<repeated_text_view>(retval->buf_, sizeof(retval->buf_));
             assert(at);
             retval->buf_ptr_ = new (at) repeated_text_view(rtv);
+            return retval;
+        }
+
+        inline node_ptr make_ref (node_ptr t, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        {
+            assert(t->which_ == node::which::t);
+            text_view const tv = (*static_cast<text *>(t->buf_ptr_))(lo, hi);
+
+            node_ptr retval(new node);
+            retval->size_ = hi = lo;
+            retval->which_ = node::which::ref;
+            auto at = placement_address<reference>(retval->buf_, sizeof(retval->buf_));
+            assert(at);
+            retval->buf_ptr_ = new (at) reference(t, tv);
             return retval;
         }
 
@@ -169,11 +204,132 @@ namespace boost { namespace text {
             node_ptr retval(new node);
             retval->size_ = lhs->size_ + rhs->size_;
             retval->depth_ = (std::max)(lhs->depth_, rhs->depth_) + 1;
-            retval->which_ = detail::node::which::cat;
-            auto at = detail::placement_address<detail::concatenation>(retval->buf_, sizeof(retval->buf_));
+            retval->which_ = node::which::cat;
+            auto at = placement_address<concatenation>(retval->buf_, sizeof(retval->buf_));
             assert(at);
-            retval->buf_ptr_ = new (at) detail::concatenation(lhs, rhs);
+            retval->buf_ptr_ = new (at) concatenation(lhs, rhs);
+            if (lhs)
+                lhs->parent_ = retval.get();
+            if (rhs)
+                rhs->parent_ = retval.get();
             return retval;
+        }
+
+        struct found_char
+        {
+            node_ptr node_;
+            std::ptrdiff_t offset_;
+            char c_;
+        };
+
+        inline found_char find_char (node_ptr node, std::ptrdiff_t n)
+        {
+            assert(node);
+            if (node->which_ == node::which::cat) {
+                concatenation * cat = static_cast<concatenation *>(node->buf_ptr_);
+                if (n < cat->left_->size_)
+                    return find_char(cat->left_, n);
+                else
+                    return find_char(cat->right_, n - cat->left_->size_);
+            } else if (n < node->size_) {
+                char c = '\0';
+                switch (node->which_) {
+                case node::which::t:
+                    c = *(static_cast<text *>(node->buf_ptr_)->cbegin() + n);
+                    break;
+                case node::which::tv:
+                    c = *(static_cast<text_view *>(node->buf_ptr_)->begin() + n);
+                    break;
+                case node::which::rtv:
+                    c = *(static_cast<repeated_text_view *>(node->buf_ptr_)->begin() + n);
+                    break;
+                case node::which::ref:
+                    c = *(static_cast<reference *>(node->buf_ptr_)->ref_.begin() + n);
+                    break;
+                case node::which::cat:
+                default: assert(!"unhandled rope node case"); break;
+                }
+                return found_char{node, n, c};
+            } else {
+                return found_char{nullptr, -1, '\0'};
+            }
+        }
+
+        inline node_ptr slice_leaf (node_ptr node, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        {
+            assert(lo <= hi);
+
+            if (lo == 0 && hi == node->size_)
+                return node;
+
+            switch (node->which_) {
+            case detail::node::which::t:
+                return make_ref(node, lo, hi);
+            case detail::node::which::tv:
+                return make_node((*static_cast<text_view *>(node->buf_ptr_))(lo, hi));
+            case detail::node::which::rtv: {
+                repeated_text_view const & rtv =
+                    *static_cast<repeated_text_view *>(node->buf_ptr_);
+                std::ptrdiff_t const lo_segment = lo / rtv.view().size();
+                std::ptrdiff_t const hi_segment = hi / rtv.view().size();
+                if (lo_segment == hi_segment) {
+                    return make_node(rtv.view()(lo % rtv.view().size(), hi % rtv.view().size()));
+                } else {
+                    node_ptr prefix = make_node(rtv.view()(lo % rtv.view().size(), rtv.view().size()));
+                    node_ptr suffix = make_node(rtv.view()(0, hi % rtv.view().size()));
+                    if (2 < hi_segment - lo_segment) {
+                        node_ptr middle =
+                            make_node(repeated_text_view(rtv.view(), hi_segment - lo_segment - 1));
+                        return make_cat(make_cat(prefix, middle), suffix);
+                    } else if (hi_segment - lo_segment == 2) {
+                        node_ptr middle = make_node(rtv.view());
+                        return make_cat(make_cat(prefix, middle), suffix);
+                    } else {
+                        return make_cat(prefix, suffix);
+                    }
+                }
+                break;
+            }
+            case detail::node::which::ref:
+                return make_node(static_cast<detail::reference *>(node->buf_ptr_)->ref_(lo, hi));
+            case detail::node::which::cat:
+            default: assert(!"unhandled rope node case"); break;
+            }
+            return nullptr; // This should never execute.
+        }
+
+        inline node_ptr common_ancestor (node_ptr lhs, node_ptr rhs)
+        {
+            assert(lhs);
+            assert(rhs);
+
+            if (lhs == rhs)
+                return lhs;
+
+            container::static_vector<node const *, max_depth + 1> lhs_ancestors;
+            node const * ptr = lhs.get();
+            lhs_ancestors.push_back(ptr);
+            while (ptr->parent_) {
+                if (ptr == rhs)
+                    return rhs;
+                lhs_ancestors.push_back(ptr->parent_);
+                ptr = ptr->parent_;
+            }
+
+            std::sort(lhs_ancestors.begin(), lhs_ancestors.end());
+
+            ptr = rhs.get();
+            while (ptr->parent_) {
+                auto const it = std::lower_bound(
+                    lhs_ancestors.begin(), lhs_ancestors.end(),
+                    ptr->parent_
+                );
+                if (it != lhs_ancestors.end())
+                    return const_cast<node *>(*it);
+                ptr = ptr->parent_;
+            }
+
+            return nullptr;
         }
 
         template <typename Text>
@@ -186,12 +342,6 @@ namespace boost { namespace text {
                         return make_cat(node, make_node(static_cast<Text &&>(rhs)));
                     text * t = static_cast<text *>(node->buf_ptr_);
                     bool const space_available = rhs.size() < t->capacity() - t->size();
-#if 0
-                    bool const rhs_is_text = std::is_same<
-                        typename std::remove_cv<typename std::remove_reference<T>::type>::type,
-                        text
-                    >::value;
-#endif
                     if (space_available || t->size() + rhs.size() <= text_max_size) {
                         *t += rhs;
                         return node;
@@ -201,6 +351,7 @@ namespace boost { namespace text {
                 }
                 case node::which::tv:
                 case node::which::rtv:
+                case node::which::ref:
                     // TODO: Collapse where possible, instead of making new nodes.
                     node = make_cat(node, make_node(static_cast<Text &&>(rhs)));
                     return node;
@@ -213,7 +364,9 @@ namespace boost { namespace text {
                         new_right = append(cat->right_, static_cast<Text &&>(rhs));
                     else
                         new_right = make_cat(cat->right_, make_node(static_cast<Text &&>(rhs)));
+                    cat->right_->parent_ = node.get();
                     cat->right_ = new_right;
+                    return node;
                 }
                 default: assert(!"unhandled rope node case"); break;
                 }
@@ -323,17 +476,17 @@ namespace boost { namespace text {
             return *this;
         }
 #if 0
-        constexpr const_iterator begin () const noexcept { return data_; }
-        constexpr const_iterator end () const noexcept { return data_ + size_; }
+        const_iterator begin () const noexcept { return data_; }
+        const_iterator end () const noexcept { return data_ + size_; }
 
-        constexpr const_iterator cbegin () const noexcept { return begin(); }
-        constexpr const_iterator cend () const noexcept { return end(); }
+        const_iterator cbegin () const noexcept { return begin(); }
+        const_iterator cend () const noexcept { return end(); }
 
-        constexpr const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end()); }
-        constexpr const_reverse_iterator rend () const noexcept { return reverse_iterator(begin()); }
+        const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end()); }
+        const_reverse_iterator rend () const noexcept { return reverse_iterator(begin()); }
 
-        constexpr const_reverse_iterator crbegin () const noexcept { return rbegin(); }
-        constexpr const_reverse_iterator crend () const noexcept { return rend(); }
+        const_reverse_iterator crbegin () const noexcept { return rbegin(); }
+        const_reverse_iterator crend () const noexcept { return rend(); }
 #endif
 
         bool empty () const noexcept
@@ -344,54 +497,88 @@ namespace boost { namespace text {
 
         char operator[] (std::ptrdiff_t n) const noexcept
         {
-            // TODO
-            return 'c';
+            assert(ptr_);
+            assert(n < size());
+            detail::found_char found = find_char(ptr_, n);
+            return found.c_;
         }
 
         constexpr std::ptrdiff_t max_size () const noexcept
         { return PTRDIFF_MAX; }
 
-#if 0
-        constexpr int compare (rope rhs) const noexcept
-        { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
+        rope substr (std::ptrdiff_t lo, std::ptrdiff_t hi) const
+        {
+            assert(ptr_);
+            assert(0 <= lo && lo <= size());
+            assert(0 <= hi && hi <= size());
+            assert(lo <= hi);
 
-        constexpr bool operator== (rope rhs) const noexcept
+            detail::found_char const found_lo = find_char(ptr_, lo);
+            if (found_lo.offset_ + (hi - lo) < found_lo.node_->size_) {
+                rope retval;
+                retval.ptr_ = slice_leaf(found_lo.node_, found_lo.offset_, found_lo.offset_ + hi - lo);
+                return retval;
+            } else {
+                detail::found_char const found_hi = find_char(ptr_, hi);
+                // TODO
+                return rope();
+            }
+        }
+
+        rope substr (std::ptrdiff_t cut) const
+        {
+            int lo = 0;
+            int hi = cut;
+            if (cut < 0) {
+                lo = cut + size();
+                hi = size();
+            }
+            assert(0 <= lo && lo <= size());
+            assert(0 <= hi && hi <= size());
+            return substr(lo, hi);
+        }
+
+#if 0
+        int compare (rope rhs) const noexcept
+        { return TODO; }
+
+        bool operator== (rope rhs) const noexcept
         { return compare(rhs) == 0; }
 
-        constexpr bool operator!= (rope rhs) const noexcept
+        bool operator!= (rope rhs) const noexcept
         { return compare(rhs) != 0; }
 
-        constexpr bool operator< (rope rhs) const noexcept
+        bool operator< (rope rhs) const noexcept
         { return compare(rhs) < 0; }
 
-        constexpr bool operator<= (rope rhs) const noexcept
+        bool operator<= (rope rhs) const noexcept
         { return compare(rhs) <= 0; }
 
-        constexpr bool operator> (rope rhs) const noexcept
+        bool operator> (rope rhs) const noexcept
         { return compare(rhs) > 0; }
 
-        constexpr bool operator>= (rope rhs) const noexcept
+        bool operator>= (rope rhs) const noexcept
         { return compare(rhs) >= 0; }
 
-        friend constexpr iterator begin (rope r) noexcept
+        friend iterator begin (rope const & r) noexcept
         { return v.begin(); }
-        friend constexpr iterator end (rope r) noexcept
+        friend iterator end (rope const & r) noexcept
         { return v.end(); }
-        friend constexpr iterator cbegin (rope r) noexcept
+        friend iterator cbegin (rope const & r) noexcept
         { return v.cbegin(); }
-        friend constexpr iterator cend (rope r) noexcept
+        friend iterator cend (rope const & r) noexcept
         { return v.cend(); }
 
-        friend constexpr reverse_iterator rbegin (rope r) noexcept
+        friend reverse_iterator rbegin (rope const & r) noexcept
         { return v.rbegin(); }
-        friend constexpr reverse_iterator rend (rope r) noexcept
+        friend reverse_iterator rend (rope const & r) noexcept
         { return v.rend(); }
-        friend constexpr reverse_iterator crbegin (rope r) noexcept
+        friend reverse_iterator crbegin (rope const & r) noexcept
         { return v.crbegin(); }
-        friend constexpr reverse_iterator crend (rope r) noexcept
+        friend reverse_iterator crend (rope const & r) noexcept
         { return v.crend(); }
 
-        friend std::ostream & operator<< (std::ostream & os, rope r)
+        friend std::ostream & operator<< (std::ostream & os, rope const & r)
         { TODO; }
 #endif
 
@@ -454,7 +641,7 @@ namespace boost { namespace text {
             if (empty() || ptr_->which_ == detail::node::which::t)
                 return;
 
-            ptr_t forest[detail::max_depth + 1] = {
+            detail::node_ptr forest[detail::max_depth + 1] = {
                 0,0,0,0,0, 0,0,0,0,0,
                 0,0,0,0,0, 0,0,0,0,0,
                 0,0,0,0,0, 0,0,0,0,0,
@@ -478,19 +665,7 @@ namespace boost { namespace text {
         }
 
     private:
-        using ptr_t = detail::node_ptr;
-
-        void concatenate_forest (ptr_t * forest, int total_size)
-        {
-            int i = 0;
-            while (size() != total_size) {
-                if (forest[i])
-                    prepend(forest[i]);
-                ++i;
-            }
-        }
-
-        void prepend (ptr_t const & node)
+        void prepend (detail::node_ptr node)
         {
             if (empty())
                 ptr_ = node;
@@ -498,7 +673,7 @@ namespace boost { namespace text {
                 ptr_ = detail::make_cat(node, ptr_);
         }
 
-        ptr_t ptr_;
+        detail::node_ptr ptr_;
     };
 
 } }
