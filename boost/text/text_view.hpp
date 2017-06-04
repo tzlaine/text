@@ -106,7 +106,7 @@ namespace boost { namespace text {
         {
             int lo = 0;
             int hi = cut;
-            if (cut < 0){ 
+            if (cut < 0) {
                 lo = cut + size_;
                 hi = size_;
             }
