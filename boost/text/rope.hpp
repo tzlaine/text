@@ -63,11 +63,11 @@ namespace boost { namespace text {
                     return;
 
                 switch (which_) {
-                case which::t: static_cast<text *>(buf_ptr_)->~text();
-                case which::tv: static_cast<text_view *>(buf_ptr_)->~text_view ();
-                case which::rtv: static_cast<repeated_text_view *>(buf_ptr_)->~repeated_text_view();
-                case which::cat: static_cast<concatenation *>(buf_ptr_)->~concatenation();
-                default: break;
+                case which::t: static_cast<text *>(buf_ptr_)->~text(); break;
+                case which::tv: static_cast<text_view *>(buf_ptr_)->~text_view (); break;
+                case which::rtv: static_cast<repeated_text_view *>(buf_ptr_)->~repeated_text_view(); break;
+                case which::cat: static_cast<concatenation *>(buf_ptr_)->~concatenation(); break;
+                default: assert(!"unhandled rope node case"); break;
                 }
             }
 
@@ -88,6 +88,7 @@ namespace boost { namespace text {
         }
 
         constexpr int max_depth = 91;
+        constexpr int text_max_size = 512;
 
         constexpr std::ptrdiff_t min_size_of_balanced_tree (int depth) noexcept
         {
@@ -115,16 +116,109 @@ namespace boost { namespace text {
             return min_sizes[depth];
         }
 
+        inline node_ptr make_node (text const & t)
+        {
+            node_ptr retval(new node);
+            retval->size_ = t.size();
+            retval->depth_ = 0;
+            retval->which_ = detail::node::which::t;
+            auto at = detail::placement_address<text>(retval->buf_, sizeof(retval->buf_));
+            assert(at);
+            retval->buf_ptr_ = new (at) text(t);
+            return retval;
+        }
+
+        inline node_ptr make_node (text && t)
+        {
+            node_ptr retval(new node);
+            retval->size_ = t.size();
+            retval->depth_ = 0;
+            retval->which_ = detail::node::which::t;
+            auto at = detail::placement_address<text>(retval->buf_, sizeof(retval->buf_));
+            assert(at);
+            retval->buf_ptr_ = new (at) text(std::move(t));
+            return retval;
+        }
+
+        inline node_ptr make_node (text_view tv)
+        {
+            node_ptr retval(new node);
+            retval->size_ = tv.size();
+            retval->depth_ = 0;
+            retval->which_ = detail::node::which::tv;
+            auto at = detail::placement_address<text_view>(retval->buf_, sizeof(retval->buf_));
+            assert(at);
+            retval->buf_ptr_ = new (at) text_view(tv);
+            return retval;
+        }
+
+        inline node_ptr make_node (repeated_text_view rtv)
+        {
+            node_ptr retval(new node);
+            retval->size_ = rtv.size();
+            retval->depth_ = 0;
+            retval->which_ = detail::node::which::rtv;
+            auto at = detail::placement_address<repeated_text_view>(retval->buf_, sizeof(retval->buf_));
+            assert(at);
+            retval->buf_ptr_ = new (at) repeated_text_view(rtv);
+            return retval;
+        }
+
         inline node_ptr make_cat (node_ptr lhs, node_ptr rhs)
         {
             node_ptr retval(new node);
             retval->size_ = lhs->size_ + rhs->size_;
-            retval->depth_ = (std::max)(lhs->depth_, rhs->depth_);
+            retval->depth_ = (std::max)(lhs->depth_, rhs->depth_) + 1;
             retval->which_ = detail::node::which::cat;
             auto at = detail::placement_address<detail::concatenation>(retval->buf_, sizeof(retval->buf_));
             assert(at);
             retval->buf_ptr_ = new (at) detail::concatenation(lhs, rhs);
             return retval;
+        }
+
+        template <typename Text>
+        node_ptr append (node_ptr node, Text && rhs)
+        {
+            if (node) {
+                switch (node->which_) {
+                case node::which::t: {
+                    if (1 < node->refs_)
+                        return make_cat(node, make_node(static_cast<Text &&>(rhs)));
+                    text * t = static_cast<text *>(node->buf_ptr_);
+                    bool const space_available = rhs.size() < t->capacity() - t->size();
+#if 0
+                    bool const rhs_is_text = std::is_same<
+                        typename std::remove_cv<typename std::remove_reference<T>::type>::type,
+                        text
+                    >::value;
+#endif
+                    if (space_available || t->size() + rhs.size() <= text_max_size) {
+                        *t += rhs;
+                        return node;
+                    } else {
+                        return make_cat(node, make_node(static_cast<Text &&>(rhs)));
+                    }
+                }
+                case node::which::tv:
+                case node::which::rtv:
+                    // TODO: Collapse where possible, instead of making new nodes.
+                    node = make_cat(node, make_node(static_cast<Text &&>(rhs)));
+                    return node;
+                case node::which::cat: {
+                    if (1 < node->refs_)
+                        return make_cat(node, make_node(static_cast<Text &&>(rhs)));
+                    concatenation * cat = static_cast<concatenation *>(node->buf_ptr_);
+                    node_ptr new_right = nullptr;
+                    if (cat->right_ && cat->right_->which_ == node::which::t)
+                        new_right = append(cat->right_, static_cast<Text &&>(rhs));
+                    else
+                        new_right = make_cat(cat->right_, make_node(static_cast<Text &&>(rhs)));
+                    cat->right_ = new_right;
+                }
+                default: assert(!"unhandled rope node case"); break;
+                }
+            }
+            return make_node(static_cast<Text &&>(rhs));
         }
 
         inline node_ptr concatenate (node_ptr lhs, node_ptr rhs)
@@ -196,45 +290,10 @@ namespace boost { namespace text {
     {
         rope () : ptr_ (nullptr) {}
 
-        rope (text const & t) : ptr_ (new detail::node)
-        {
-            ptr_->size_ = t.size();
-            ptr_->depth_ = 0;
-            ptr_->which_ = detail::node::which::t;
-            auto at = detail::placement_address<text>(ptr_->buf_, sizeof(ptr_->buf_));
-            assert(at);
-            ptr_->buf_ptr_ = new (at) text(t);
-        }
-
-        rope (text && t) : ptr_ (new detail::node)
-        {
-            ptr_->size_ = t.size();
-            ptr_->depth_ = 0;
-            ptr_->which_ = detail::node::which::t;
-            auto at = detail::placement_address<text>(ptr_->buf_, sizeof(ptr_->buf_));
-            assert(at);
-            ptr_->buf_ptr_ = new (at) text(std::move(t));
-        }
-
-        rope (text_view tv) : ptr_ (new detail::node)
-        {
-            ptr_->size_ = tv.size();
-            ptr_->depth_ = 0;
-            ptr_->which_ = detail::node::which::tv;
-            auto at = detail::placement_address<text_view>(ptr_->buf_, sizeof(ptr_->buf_));
-            assert(at);
-            ptr_->buf_ptr_ = new (at) text_view(tv);
-        }
-
-        rope (repeated_text_view rtv) : ptr_ (new detail::node)
-        {
-            ptr_->size_ = rtv.size();
-            ptr_->depth_ = 0;
-            ptr_->which_ = detail::node::which::rtv;
-            auto at = detail::placement_address<repeated_text_view>(ptr_->buf_, sizeof(ptr_->buf_));
-            assert(at);
-            ptr_->buf_ptr_ = new (at) repeated_text_view(rtv);
-        }
+        rope (text const & t) : ptr_ (detail::make_node(t)) {}
+        rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
+        rope (text_view tv) : ptr_ (detail::make_node(tv)) {}
+        rope (repeated_text_view rtv) : ptr_ (detail::make_node(rtv)) {}
 
         rope & operator= (text const & t)
         {
@@ -278,7 +337,7 @@ namespace boost { namespace text {
 #endif
 
         bool empty () const noexcept
-        { return size() == 0; }
+        { return !ptr_; }
 
         std::ptrdiff_t size () const noexcept
         { return ptr_ ? ptr_->size_ : 0; }
@@ -339,6 +398,54 @@ namespace boost { namespace text {
         void clear ()
         { ptr_ = nullptr; }
 
+        rope & append (rope const & r)
+        {
+            if (r.empty())
+                return *this;
+            if (empty()) {
+                ptr_ = r.ptr_;
+                return *this;
+            }
+                
+            ptr_ = detail::make_cat(ptr_, r.ptr_);
+            if (detail::max_depth <= ptr_->depth_)
+                rebalance();
+
+            return *this;
+        }
+
+        rope & append (text_view tv)
+        {
+            ptr_ = detail::append(ptr_, tv);
+            if (detail::max_depth <= ptr_->depth_)
+                rebalance();
+            return *this;
+        }
+
+        rope & append (repeated_text_view rtv)
+        {
+            ptr_ = detail::append(ptr_, rtv);
+            if (detail::max_depth <= ptr_->depth_)
+                rebalance();
+            return *this;
+        }
+
+        rope & append (text const & t)
+        {
+            ptr_ = detail::append(ptr_, t);
+            if (detail::max_depth <= ptr_->depth_)
+                rebalance();
+            return *this;
+        }
+
+        rope & append (text && t)
+        {
+            ptr_ = detail::append(ptr_, std::move(t));
+            if (detail::max_depth <= ptr_->depth_)
+                rebalance();
+            return *this;
+        }
+
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
 
@@ -388,7 +495,7 @@ namespace boost { namespace text {
             if (empty())
                 ptr_ = node;
             else
-                ptr_ = make_cat(node, ptr_);
+                ptr_ = detail::make_cat(node, ptr_);
         }
 
         ptr_t ptr_;
