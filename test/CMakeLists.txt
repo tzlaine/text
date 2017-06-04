@@ -33,6 +33,7 @@ add_executable(
     compile_include_text_1.cpp
     compile_include_text_2.cpp
     compile_include_text_3.cpp
+    compile_include_rope.cpp
     compile_include_algorithm_1.cpp
     compile_include_algorithm_2.cpp
     compile_detail_is_char_iter.cpp
