@@ -100,7 +100,8 @@ TEST(text, test_non_empty_const_interface)
     EXPECT_EQ(tv_a, t_a);
 
     EXPECT_EQ(t_a, t_a(0, 1));
-    EXPECT_EQ(t_a, t_a(0));
+    EXPECT_EQ(t_a, t_a(1));
+    EXPECT_EQ(t_a, t_a(-1));
 
     EXPECT_EQ("", t_a(1, 1));
 
@@ -113,7 +114,8 @@ TEST(text, test_non_empty_const_interface)
     EXPECT_EQ(tv_ab, t_ab);
 
     EXPECT_EQ(t_ab, t_ab(0, 2));
-    EXPECT_EQ(t_ab, t_ab(0));
+    EXPECT_EQ(t_ab, t_ab(2));
+    EXPECT_EQ(t_ab, t_ab(-2));
 
     EXPECT_EQ(t_ab[1], 'b');
 
@@ -128,19 +130,19 @@ TEST(text, test_non_empty_const_interface)
     EXPECT_FALSE(t_a > t_ab);
     EXPECT_FALSE(t_a >= t_ab);
 
-    EXPECT_FALSE(t_a == t_ab(0));
-    EXPECT_TRUE(t_a != t_ab(0));
-    EXPECT_TRUE(t_a < t_ab(0));
-    EXPECT_TRUE(t_a <= t_ab(0));
-    EXPECT_FALSE(t_a > t_ab(0));
-    EXPECT_FALSE(t_a >= t_ab(0));
+    EXPECT_FALSE(t_a == t_ab(2));
+    EXPECT_TRUE(t_a != t_ab(2));
+    EXPECT_TRUE(t_a < t_ab(2));
+    EXPECT_TRUE(t_a <= t_ab(2));
+    EXPECT_FALSE(t_a > t_ab(2));
+    EXPECT_FALSE(t_a >= t_ab(2));
 
-    EXPECT_FALSE(t_a(0) == t_ab);
-    EXPECT_TRUE(t_a(0) != t_ab);
-    EXPECT_TRUE(t_a(0) < t_ab);
-    EXPECT_TRUE(t_a(0) <= t_ab);
-    EXPECT_FALSE(t_a(0) > t_ab);
-    EXPECT_FALSE(t_a(0) >= t_ab);
+    EXPECT_FALSE(t_a(1) == t_ab);
+    EXPECT_TRUE(t_a(1) != t_ab);
+    EXPECT_TRUE(t_a(1) < t_ab);
+    EXPECT_TRUE(t_a(1) <= t_ab);
+    EXPECT_FALSE(t_a(1) > t_ab);
+    EXPECT_FALSE(t_a(1) >= t_ab);
 
     EXPECT_FALSE(t_a == "ab");
     EXPECT_TRUE(t_a != "ab");
@@ -827,7 +829,7 @@ TEST(text, test_erase)
             text::text t = ct;
             text::text_view const before = t(0, i);
             text::text_view const substr = t(i, j);
-            text::text_view const after = t(j);
+            text::text_view const after = t(j, t.size());
 
             text::text expected(before);
             expected += after;
@@ -880,17 +882,17 @@ TEST(text, test_erase)
 
         {
             text::text t = ct;
-            EXPECT_THROW(t.erase(t(0, -1)), std::invalid_argument);
+            EXPECT_THROW(t.erase(t(-1)), std::invalid_argument);
         }
 
         {
             text::text t = ct;
-            EXPECT_THROW(t.erase(t(0, -2)), std::invalid_argument);
+            EXPECT_THROW(t.erase(t(-2)), std::invalid_argument);
         }
 
         {
             text::text t = ct;
-            EXPECT_THROW(t.erase(t(0, -3)), std::invalid_argument);
+            EXPECT_THROW(t.erase(t(-3)), std::invalid_argument);
         }
 
         {
@@ -952,7 +954,7 @@ TEST(text, test_replace)
             text::text t = ct;
             text::text_view const before = t(0, i);
             text::text_view const substr = t(i, j);
-            text::text_view const after = t(j);
+            text::text_view const after = t(j, t.size());
 
             text::text expected(before);
             expected += replacement;
@@ -971,7 +973,7 @@ TEST(text, test_replace)
             text::text t = ct;
             text::text_view const before = t(0, i);
             text::text_view const substr = t(i, j);
-            text::text_view const after = t(j);
+            text::text_view const after = t(j, t.size());
 
             text::text expected(before);
             expected += really_long_replacement;
@@ -1093,7 +1095,7 @@ TEST(text, test_replace_iter)
                 text::text t = ct_string;
                 text::text_view const before = t(0, i);
                 text::text_view const substr = t(i, j);
-                text::text_view const after = t(j);
+                text::text_view const after = t(j, t.size());
 
                 text::text expected(before);
                 expected.insert(expected.size(), final_cp, last);
@@ -1108,7 +1110,7 @@ TEST(text, test_replace_iter)
                 text::text t = ct_string;
                 text::text_view const before = t(0, i);
                 text::text_view const substr = t(i, j);
-                text::text_view const after = t(j);
+                text::text_view const after = t(j, t.size());
 
                 text::text expected(before);
                 expected.insert(expected.size(), first, last);

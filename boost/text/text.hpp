@@ -136,7 +136,7 @@ namespace boost { namespace text {
         }
 
         text_view operator() (int lo, int hi) const;
-        text_view operator() (int lo) const;
+        text_view operator() (int cut) const;
 
         int max_size () const noexcept
         { return INT_MAX; }
@@ -568,8 +568,8 @@ namespace boost { namespace text {
     inline text_view text::operator() (int lo, int hi) const
     { return text_view(*this)(lo, hi); }
 
-    inline text_view text::operator() (int lo) const
-    { return text_view(*this)(lo); }
+    inline text_view text::operator() (int cut) const
+    { return text_view(*this)(cut); }
 
     inline int text::compare (text_view rhs) const noexcept
     { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }

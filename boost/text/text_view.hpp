@@ -102,13 +102,17 @@ namespace boost { namespace text {
             return text_view(data_ + lo, hi - lo);
         }
 
-        // TODO: Change this to mean prefix and suffix.
-        constexpr text_view operator() (int lo) const
+        constexpr text_view operator() (int cut) const
         {
-            if (lo < 0)
-                lo += size_;
+            int lo = 0;
+            int hi = cut;
+            if (cut < 0){ 
+                lo = cut + size_;
+                hi = size_;
+            }
             assert(0 <= lo && lo <= size_);
-            return text_view(data_ + lo, size_ - lo);
+            assert(0 <= hi && hi <= size_);
+            return text_view(data_ + lo, hi - lo);
         }
 
         constexpr int max_size () const noexcept

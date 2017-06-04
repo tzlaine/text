@@ -220,11 +220,19 @@ TEST(text_view, test_substr)
     EXPECT_EQ(tv_empty(0, 0), tv_empty);
 
     EXPECT_EQ(tv_a(0, 1), tv_a);
-    EXPECT_EQ(tv_a(0), tv_a);
+    EXPECT_EQ(tv_a(0), "");
+    EXPECT_EQ(tv_a(1), tv_a);
+    EXPECT_EQ(tv_a(-1), tv_a);
     EXPECT_EQ(tv_a(0, -1), tv_empty);
 
     EXPECT_EQ(tv_abc(0, 7), tv_abc);
-    EXPECT_EQ(tv_abc(0), tv_abc);
+    EXPECT_EQ(tv_abc(0), "");
+    EXPECT_EQ(tv_abc(1), "a");
+    EXPECT_EQ(tv_abc(2), "ab");
+    EXPECT_EQ(tv_abc(3), "abc");
+    EXPECT_EQ(tv_abc(-1), "g");
+    EXPECT_EQ(tv_abc(-2), "fg");
+    EXPECT_EQ(tv_abc(-3), "efg");
     EXPECT_EQ(tv_abc(0, -1), text::text_view("abcdef"));
 
     EXPECT_EQ(tv_a(0, 1), text::text_view("a"));
@@ -242,11 +250,19 @@ TEST(text_view, test_substr_constexpr)
     static_assert(tv_empty(0, 0) == tv_empty, "");
 
     static_assert(tv_a(0, 1) == tv_a, "");
-    static_assert(tv_a(0) == tv_a, "");
+    static_assert(tv_a(0) == "", "");
+    static_assert(tv_a(1) == tv_a, "");
+    static_assert(tv_a(-1) == tv_a, "");
     static_assert(tv_a(0, -1) == tv_empty, "");
 
     static_assert(tv_abc(0, 7) == tv_abc, "");
-    static_assert(tv_abc(0) == tv_abc, "");
+    static_assert(tv_abc(0) == "", "");
+    static_assert(tv_abc(1) == "a", "");
+    static_assert(tv_abc(2) == "ab", "");
+    static_assert(tv_abc(3) == "abc", "");
+    static_assert(tv_abc(-1) == "g", "");
+    static_assert(tv_abc(-2) == "fg", "");
+    static_assert(tv_abc(-3) == "efg", "");
     static_assert(tv_abc(0, -1) == text::text_view("abcdef"), "");
 
     static_assert(tv_a(0, 1) == text::text_view("a"), "");
