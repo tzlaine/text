@@ -460,6 +460,8 @@ namespace boost { namespace text {
             }
         }
 
+        struct const_rope_iterator;
+
     }
 
     struct rope
@@ -712,7 +714,197 @@ namespace boost { namespace text {
         }
 
         detail::node_ptr ptr_;
+
+        friend struct detail::const_rope_iterator;
+
     };
+
+    namespace detail {
+
+    struct const_rope_iterator
+    {
+        using value_type = char const;
+        using difference_type = std::ptrdiff_t;
+        using pointer = char const *;
+        using reference = char const;
+        using iterator_category = std::random_access_iterator_tag;
+
+        const_rope_iterator () noexcept :
+            rope_ (nullptr),
+            n_ (-1),
+            leaf_ (nullptr),
+            char_iter_ (false)
+        {}
+
+        const_rope_iterator (rope const & r, std::ptrdiff_t n) noexcept :
+            rope_ (&r),
+            n_ (n),
+            leaf_ (nullptr),
+            char_iter_ (false)
+        {}
+
+        reference operator* () const noexcept
+        {
+            if (!leaf_) {
+                found_char const found = find_char(rope_->ptr_, n_);
+                switch (found.node_->which_) {
+                case node::which::t: {
+                    text const * t = static_cast<text *>(found.node_->buf_ptr_);
+                    first_.char_it_ = t->begin();
+                    it_.char_it_ = first_.char_it_;
+                    last_.char_it_ = t->end();
+                    char_iter_ = true;
+                    break;
+                }
+                case node::which::tv: {
+                    text_view const * tv = static_cast<text_view *>(found.node_->buf_ptr_);
+                    first_.char_it_ = tv->begin();
+                    it_.char_it_ = first_.char_it_;
+                    last_.char_it_ = tv->end();
+                    char_iter_ = true;
+                    break;
+                }
+                case node::which::rtv: {
+                    repeated_text_view const * rtv = static_cast<repeated_text_view *>(found.node_->buf_ptr_);
+                    first_.repeated_it_ = rtv->begin();
+                    it_.repeated_it_ = first_.repeated_it_;
+                    last_.repeated_it_ = rtv->end();
+                    char_iter_ = true;
+                    break;
+                }
+                case node::which::ref: {
+                    detail::reference const * ref = static_cast<detail::reference *>(found.node_->buf_ptr_);
+                    first_.char_it_ = ref->ref_.begin();
+                    it_.char_it_ = first_.char_it_;
+                    last_.char_it_ = ref->ref_.end();
+                    char_iter_ = false;
+                    break;
+                }
+                case node::which::cat:
+                default: assert(!"unhandled rope node case"); break;
+                }
+                return found.c_;
+            }
+            if (char_iter_)
+                return *it_.char_it_;
+            else
+                return *it_.repeated_it_;
+        }
+
+        value_type operator[] (difference_type n) const noexcept
+        {
+            auto it = *this;
+            if (0 <= n)
+                it += n;
+            else
+                it -= -n;
+            return *it;
+        }
+
+        const_rope_iterator & operator++ () noexcept
+        {
+            ++n_;
+            if (leaf_) {
+                if (char_iter_) {
+                    if (++it_.char_it_ == last_.char_it_)
+                        leaf_ = nullptr; // TODO: Go to next leaf.
+                } else {
+                    if (++it_.repeated_it_ == last_.repeated_it_)
+                        leaf_ = nullptr;
+                }
+            }
+            return *this;
+        }
+        const_rope_iterator operator++ (int) noexcept
+        {
+            const_rope_iterator retval = *this;
+            ++*this;
+            return retval;
+        }
+        const_rope_iterator & operator+= (difference_type n) noexcept
+        {
+            // TODO
+            return *this;
+        }
+
+        const_rope_iterator & operator-- () noexcept
+        {
+            --n_;
+            if (leaf_) {
+                if (char_iter_) {
+                    if (it_.char_it_ == first_.char_it_)
+                        leaf_ = nullptr; // TODO: Go to next leaf.
+                    else
+                        --it_.char_it_;
+                } else {
+                    if (it_.repeated_it_ == first_.repeated_it_)
+                        leaf_ = nullptr;
+                    else
+                        --it_.repeated_it_;
+                }
+            }
+            return *this;
+        }
+        const_rope_iterator operator-- (int) noexcept
+        {
+            const_rope_iterator retval = *this;
+            --*this;
+            return retval;
+        }
+        const_rope_iterator & operator-= (difference_type n) noexcept
+        {
+            // TODO
+            return *this;
+        }
+
+        friend bool operator== (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        { return lhs.rope_ == rhs.rope_ && lhs.n_ == rhs.n_; }
+        friend bool operator!= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        { return !(lhs == rhs); }
+        // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
+        friend bool operator< (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        { return lhs.rope_ == rhs.rope_ && lhs.n_ < rhs.n_; }
+        friend bool operator<= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        { return lhs == rhs || lhs < rhs; }
+        friend bool operator> (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        { return rhs < lhs; }
+        friend bool operator>= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        { return lhs <= rhs; }
+
+        friend const_rope_iterator operator+ (const_rope_iterator lhs, difference_type rhs) noexcept
+        { return lhs += rhs; }
+        friend const_rope_iterator operator+ (difference_type lhs, const_rope_iterator rhs) noexcept
+        { return rhs += lhs; }
+        friend const_rope_iterator operator- (const_rope_iterator lhs, difference_type rhs) noexcept
+        { return lhs -= rhs; }
+        friend const_rope_iterator operator- (difference_type lhs, const_rope_iterator rhs) noexcept
+        { return rhs -= lhs; }
+        friend difference_type operator- (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+        {
+            // TODO: Document this precondition!
+            assert(lhs.rope_ == rhs.rope_);
+            return rhs.n_ - lhs.n_;
+        }
+
+    private:
+        union iter_t
+        {
+            iter_t () {}
+
+            char const * char_it_;
+            const_repeated_chars_iterator repeated_it_;
+        };
+
+        rope const * rope_;
+        difference_type n_;
+        mutable node const * leaf_;
+        mutable iter_t first_;
+        mutable iter_t it_;
+        mutable iter_t last_;
+        mutable bool char_iter_;
+    };
+
+    }
 
 } }
 
