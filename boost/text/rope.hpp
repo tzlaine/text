@@ -23,7 +23,10 @@ namespace boost { namespace text {
             concatenation (node_ptr left, node_ptr right) noexcept :
                 left_ (left),
                 right_ (right)
-            {}
+            {
+                assert(left_);
+                assert(right_);
+            }
 
             node_ptr left_;
             node_ptr right_;
@@ -189,9 +192,8 @@ namespace boost { namespace text {
         {
             assert(t->which_ == node::which::t);
             text_view const tv = (*static_cast<text *>(t->buf_ptr_))(lo, hi);
-
             node_ptr retval(new node);
-            retval->size_ = hi = lo;
+            retval->size_ = tv.size();
             retval->which_ = node::which::ref;
             auto at = placement_address<reference>(retval->buf_, sizeof(retval->buf_));
             assert(at);
@@ -324,13 +326,34 @@ namespace boost { namespace text {
                     lhs_ancestors.begin(), lhs_ancestors.end(),
                     ptr->parent_
                 );
-                if (it != lhs_ancestors.end())
+                if (it != lhs_ancestors.end() && *it == ptr->parent_)
                     return const_cast<node *>(*it);
                 ptr = ptr->parent_;
             }
 
             return nullptr;
         }
+
+        inline node_ptr copy_tree_replace_nodes (
+            node_ptr root,
+            node_ptr replacee_1, node_ptr replacer_1,
+            node_ptr replacee_2, node_ptr replacer_2
+        ) {
+            if (root->which_ != node::which::cat) {
+                if (root == replacee_1)
+                    return replacer_1;
+                if (root == replacee_2)
+                    return replacer_2;
+                return root;
+            } else  {
+                concatenation const * const cat = static_cast<concatenation *>(root->buf_ptr_);
+                return make_cat(
+                    copy_tree_replace_nodes(cat->left_, replacee_1, replacer_1, replacee_2, replacer_2),
+                    copy_tree_replace_nodes(cat->right_, replacee_1, replacer_1, replacee_2, replacer_2)
+                );
+            }
+        }
+
 
         template <typename Text>
         node_ptr append (node_ptr node, Text && rhs)
@@ -520,8 +543,23 @@ namespace boost { namespace text {
                 return retval;
             } else {
                 detail::found_char const found_hi = find_char(ptr_, hi);
-                // TODO
-                return rope();
+
+                detail::node_ptr root = common_ancestor(found_lo.node_, found_hi.node_);
+
+                detail::node_ptr const lo_slice =
+                    slice_leaf(found_lo.node_, found_lo.offset_, found_lo.node_->size_);
+                detail::node_ptr const hi_slice =
+                    slice_leaf(found_hi.node_, 0, found_hi.offset_);
+
+                detail::node_ptr ptr = copy_tree_replace_nodes(
+                    root,
+                    found_lo.node_, lo_slice,
+                    found_hi.node_, hi_slice
+                );
+
+                rope retval;
+                retval.ptr_ = ptr;
+                return retval;
             }
         }
 
