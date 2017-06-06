@@ -189,6 +189,8 @@ namespace boost { namespace text {
         return view;
     }
 
+    // TODO: Reverse iterator.
+    // TODO: Comparisons.
     struct repeated_text_view
     {
         using iterator = detail::const_repeated_chars_iterator;
