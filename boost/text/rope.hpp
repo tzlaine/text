@@ -578,14 +578,8 @@ namespace boost { namespace text {
         const_iterator begin () const noexcept;
         const_iterator end () const noexcept;
 
-        const_iterator cbegin () const noexcept;
-        const_iterator cend () const noexcept;
-
         const_reverse_iterator rbegin () const noexcept;
         const_reverse_iterator rend () const noexcept;
-
-        const_reverse_iterator crbegin () const noexcept;
-        const_reverse_iterator crend () const noexcept;
 
         bool empty () const noexcept
         { return !ptr_; }
@@ -673,13 +667,9 @@ namespace boost { namespace text {
 
         friend const_iterator begin (rope const & r) noexcept;
         friend const_iterator end (rope const & r) noexcept;
-        friend const_iterator cbegin (rope const & r) noexcept;
-        friend const_iterator cend (rope const & r) noexcept;
 
         friend const_reverse_iterator rbegin (rope const & r) noexcept;
         friend const_reverse_iterator rend (rope const & r) noexcept;
-        friend const_reverse_iterator crbegin (rope const & r) noexcept;
-        friend const_reverse_iterator crend (rope const & r) noexcept;
 
         friend std::ostream & operator<< (std::ostream & os, rope const & r)
         {
@@ -1052,17 +1042,27 @@ namespace boost { namespace text {
             const_reverse_rope_iterator () noexcept : base_ () {}
             const_reverse_rope_iterator (const_rope_iterator it) noexcept : base_ (it) {}
 
-            const_rope_iterator base () const { return base_; }
+            const_rope_iterator base () const { return base_ + 1; }
 
             reference operator* () const noexcept { return *base_; }
             value_type operator[] (difference_type n) const noexcept { return base_[n]; }
 
             const_reverse_rope_iterator & operator++ () noexcept { --base_; return *this; }
-            const_reverse_rope_iterator operator++ (int) noexcept { base_--; return *this; }
+            const_reverse_rope_iterator operator++ (int) noexcept
+            {
+                const_reverse_rope_iterator retval = *this;
+                --base_;
+                return retval;
+            }
             const_reverse_rope_iterator & operator+= (difference_type n) noexcept { base_ -= n; return *this; }
 
             const_reverse_rope_iterator & operator-- () noexcept { ++base_; return *this; }
-            const_reverse_rope_iterator operator-- (int) noexcept { base_++; return *this; }
+            const_reverse_rope_iterator operator-- (int) noexcept
+            {
+                const_reverse_rope_iterator retval = *this;
+                ++base_;
+                return retval;
+            }
             const_reverse_rope_iterator & operator-= (difference_type n) noexcept { base_ += n; return *this; }
 
             friend bool operator== (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
@@ -1121,34 +1121,20 @@ namespace boost { namespace text {
     rope::const_iterator rope::end () const noexcept
     { return const_iterator(*this, size()); }
 
-    rope::const_iterator rope::cbegin () const noexcept { return begin(); }
-    rope::const_iterator rope::cend () const noexcept { return end(); }
-
     rope::const_reverse_iterator rope::rbegin () const noexcept
     { return const_reverse_iterator(const_iterator(*this, size() - 1)); }
     rope::const_reverse_iterator rope::rend () const noexcept
     { return const_reverse_iterator(const_iterator(*this, -1)); }
 
-    rope::const_reverse_iterator rope::crbegin () const noexcept { return rbegin(); }
-    rope::const_reverse_iterator rope::crend () const noexcept { return rend(); }
-
     rope::const_iterator begin (rope const & r) noexcept
     { return r.begin(); }
     rope::const_iterator end (rope const & r) noexcept
     { return r.end(); }
-    rope::const_iterator cbegin (rope const & r) noexcept
-    { return r.cbegin(); }
-    rope::const_iterator cend (rope const & r) noexcept
-    { return r.cend(); }
 
     rope::const_reverse_iterator rbegin (rope const & r) noexcept
     { return r.rbegin(); }
     rope::const_reverse_iterator rend (rope const & r) noexcept
     { return r.rend(); }
-    rope::const_reverse_iterator crbegin (rope const & r) noexcept
-    { return r.crbegin(); }
-    rope::const_reverse_iterator crend (rope const & r) noexcept
-    { return r.crend(); }
 
 } }
 

@@ -189,12 +189,12 @@ namespace boost { namespace text {
         return view;
     }
 
-    // TODO: Reverse iterator.
-    // TODO: Comparisons.
     struct repeated_text_view
     {
         using iterator = detail::const_repeated_chars_iterator;
         using const_iterator = detail::const_repeated_chars_iterator;
+        using reverse_iterator = detail::const_reverse_repeated_chars_iterator;
+        using const_reverse_iterator = detail::const_reverse_repeated_chars_iterator;
 
         constexpr repeated_text_view () noexcept : count_ (0) {}
 
@@ -214,15 +214,77 @@ namespace boost { namespace text {
         constexpr std::ptrdiff_t size () const noexcept
         { return count_ * view_.size(); }
 
+
+        // TODO: Test.
+        constexpr int compare (repeated_text_view rhs) const noexcept
+        {
+            if (view_ == rhs.view_) {
+                if (count_ < rhs.count_)
+                    return -1;
+                else if (count_ == rhs.count_)
+                    return 0;
+                else
+                    return 1;
+            } else {
+                return view_.compare(rhs.view_);
+            }
+        }
+
+        friend constexpr bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        { return lhs.compare(rhs) == 0; }
+
+        friend constexpr bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        { return lhs.compare(rhs) != 0; }
+
+        friend constexpr bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        { return lhs.compare(rhs) < 0; }
+
+        friend constexpr bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        { return lhs.compare(rhs) <= 0; }
+
+        friend constexpr bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        { return lhs.compare(rhs) > 0; }
+
+        friend constexpr bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        { return lhs.compare(rhs) >= 0; }
+
+
+        // TODO: Test.
+        constexpr void swap (repeated_text_view & rhs) noexcept
+        {
+            {
+                text_view tmp = view_;
+                view_ = rhs.view_;
+                rhs.view_ = tmp;
+            }
+            {
+                std::ptrdiff_t tmp = count_;
+                count_ = rhs.count_;
+                rhs.count_ = tmp;
+            }
+        }
+
+
         constexpr const_iterator begin () const noexcept
         { return const_iterator(view_.begin(), view_.end(), count_); }
         constexpr const_iterator end () const noexcept
         { return const_iterator(view_.begin(), view_.end()); }
 
+        constexpr const_reverse_iterator rbegin () const noexcept
+        { return const_reverse_iterator(end()); }
+        constexpr const_reverse_iterator rend () const noexcept
+        { return const_reverse_iterator(begin()); }
+
         friend constexpr iterator begin (repeated_text_view v) noexcept
         { return v.begin(); }
         friend constexpr iterator end (repeated_text_view v) noexcept
         { return v.end(); }
+
+        friend constexpr reverse_iterator rbegin (repeated_text_view v) noexcept
+        { return v.rbegin(); }
+        friend constexpr reverse_iterator rend (repeated_text_view v) noexcept
+        { return v.rend(); }
+
 
         friend std::ostream & operator<< (std::ostream & os, repeated_text_view rv)
         {

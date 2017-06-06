@@ -373,6 +373,81 @@ namespace boost { namespace text { namespace detail {
         difference_type count_;
     };
 
+    // TODO: Test this one.
+    struct const_reverse_repeated_chars_iterator
+    {
+        using value_type = char const;
+        using difference_type = std::ptrdiff_t;
+        using pointer = char const *;
+        using reference = char const;
+        using iterator_category = std::random_access_iterator_tag;
+
+        constexpr const_reverse_repeated_chars_iterator () noexcept :
+            base_ ()
+        {}
+        constexpr const_reverse_repeated_chars_iterator (const_repeated_chars_iterator it) noexcept :
+            base_ (it)
+        {}
+
+        constexpr const_repeated_chars_iterator base () const
+        { return base_; }
+
+        constexpr reference operator* () const noexcept
+        { return *(base_ - 1); }
+        constexpr value_type operator[] (difference_type n) const noexcept
+        { return base_[-n - 1]; }
+
+        constexpr const_reverse_repeated_chars_iterator & operator++ () noexcept
+        { --base_; return *this; }
+        constexpr const_reverse_repeated_chars_iterator operator++ (int) noexcept
+        {
+            const_reverse_repeated_chars_iterator retval = *this;
+            --base_;
+            return retval;
+        }
+        constexpr const_reverse_repeated_chars_iterator & operator+= (difference_type n) noexcept
+        { base_ -= n; return *this; }
+
+        constexpr const_reverse_repeated_chars_iterator & operator-- () noexcept
+        { ++base_; return *this; }
+        constexpr const_reverse_repeated_chars_iterator operator-- (int) noexcept
+        {
+            const_reverse_repeated_chars_iterator retval = *this;
+            ++base_;
+            return retval;
+        }
+        constexpr const_reverse_repeated_chars_iterator & operator-= (difference_type n) noexcept
+        { base_ += n; return *this; }
+
+        friend constexpr bool operator== (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return lhs.base_ == rhs.base_; }
+        friend constexpr bool operator!= (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return !(lhs == rhs); }
+        // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
+        friend constexpr bool operator< (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return rhs.base_ < lhs.base_; }
+        friend constexpr bool operator<= (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return rhs.base_ <= lhs.base_; }
+        friend constexpr bool operator> (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return rhs.base_ > lhs.base_; }
+        friend constexpr bool operator>= (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return rhs.base_ >= lhs.base_; }
+
+        friend constexpr const_reverse_repeated_chars_iterator operator+ (const_reverse_repeated_chars_iterator lhs, difference_type rhs) noexcept
+        { return lhs += rhs; }
+        friend constexpr const_reverse_repeated_chars_iterator operator+ (difference_type lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return rhs += lhs; }
+        friend constexpr const_reverse_repeated_chars_iterator operator- (const_reverse_repeated_chars_iterator lhs, difference_type rhs) noexcept
+        { return lhs -= rhs; }
+        friend constexpr const_reverse_repeated_chars_iterator operator- (difference_type lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return rhs -= lhs; }
+        friend constexpr difference_type operator- (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
+        { return lhs.base_ - rhs.base_; }
+
+    private:
+        const_repeated_chars_iterator base_;
+    };
+
 } } }
 
 #endif
