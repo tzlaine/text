@@ -215,7 +215,6 @@ namespace boost { namespace text {
         { return count_ * view_.size(); }
 
 
-        // TODO: Test.
         constexpr int compare (repeated_text_view rhs) const noexcept
         {
             if (view_ == rhs.view_) {
@@ -226,7 +225,35 @@ namespace boost { namespace text {
                 else
                     return 1;
             } else {
-                return view_.compare(rhs.view_);
+                repeated_text_view shorter = view().size() < rhs.view().size() ? *this : rhs;
+                repeated_text_view longer = view().size() < rhs.view().size() ? rhs : *this;
+                if (shorter.view() == longer.view()(shorter.view().size())) {
+                    // If one is a prefix of the other, the prefix might be
+                    // repeated within the other an arbitrary number of times,
+                    // so we need to do this the hard way...
+                    const_iterator lhs_first = begin();
+                    const_iterator const lhs_last = end();
+                    const_iterator rhs_first = rhs.begin();
+                    const_iterator const rhs_last = rhs.end();
+                    while (lhs_first != lhs_last && rhs_first != rhs_last) {
+                        if (*lhs_first < *rhs_first)
+                            return -1;
+                        else if (*lhs_first > *rhs_first)
+                            return 1;
+                        ++lhs_first;
+                        ++rhs_first;
+                    }
+                    if (lhs_first == lhs_last) {
+                        if (rhs_first == rhs_last)
+                            return 0;
+                        else
+                            return -1;
+                    } else {
+                        return 1;
+                    }
+                } else {
+                    return view_.compare(rhs.view_);
+                }
             }
         }
 
@@ -249,7 +276,6 @@ namespace boost { namespace text {
         { return lhs.compare(rhs) >= 0; }
 
 
-        // TODO: Test.
         constexpr void swap (repeated_text_view & rhs) noexcept
         {
             {

@@ -270,3 +270,52 @@ TEST(text_view, test_substr_constexpr)
     static_assert(tv_abc(0, 7) == text::text_view("abcdefg"), "");
     static_assert(tv_abc(2, 5) == text::text_view("cde"), "");
 }
+
+struct repeated_text_views
+{
+    text::repeated_text_view left;
+    text::repeated_text_view right;
+};
+
+constexpr repeated_text_views swapped (text::repeated_text_view lhs, text::repeated_text_view rhs)
+{
+    lhs.swap(rhs);
+    return repeated_text_views{lhs, rhs};
+}
+
+TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
+{
+    constexpr text::text_view tv_a("a");
+    constexpr text::text_view tv_ab("ab");
+    constexpr text::text_view tv_abab("abab");
+
+    constexpr text::repeated_text_view tv_a_3(tv_a, 3);
+    constexpr text::repeated_text_view tv_ab_1(tv_ab, 1);
+    constexpr text::repeated_text_view tv_ab_2(tv_ab, 2);
+    constexpr text::repeated_text_view tv_ab_3(tv_ab, 3);
+    constexpr text::repeated_text_view tv_abab_1(tv_abab, 1);
+
+    {
+        static_assert(swapped(tv_a_3, tv_ab_2).left.view() == tv_ab_2.view(), "");
+        static_assert(swapped(tv_a_3, tv_ab_2).left.count() == tv_ab_2.count(), "");
+        static_assert(swapped(tv_a_3, tv_ab_2).right.view() == tv_a_3.view(), "");
+        static_assert(swapped(tv_a_3, tv_ab_2).right.count() == tv_a_3.count(), "");
+    }
+
+    static_assert(tv_ab_2 == tv_ab_2, "");
+
+    static_assert(tv_a_3 < tv_ab_2, "");
+    static_assert(tv_a_3 < tv_ab_3, "");
+
+    static_assert(tv_ab_2 < tv_ab_3, "");
+    static_assert(tv_ab_3 > tv_ab_2, "");
+
+    static_assert(tv_ab_1 < tv_abab_1, "");
+    static_assert(tv_abab_1 > tv_ab_1, "");
+
+    static_assert(tv_ab_2 == tv_abab_1, "");
+    static_assert(tv_abab_1 == tv_ab_2, "");
+
+    static_assert(tv_ab_3 > tv_abab_1, "");
+    static_assert(tv_abab_1 < tv_ab_3, "");
+}
