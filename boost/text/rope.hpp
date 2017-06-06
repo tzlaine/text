@@ -460,12 +460,86 @@ namespace boost { namespace text {
             }
         }
 
+        inline node const * next_leaf (node const * leaf)
+        {
+            node const * parent = leaf->parent_;
+
+            if (!parent)
+                return nullptr;
+
+            while (parent) {
+                assert(parent->which_ == node::which::cat);
+                concatenation * cat = static_cast<concatenation *>(parent->buf_ptr_);
+                if (cat->right_ == leaf) {
+                    leaf = parent;
+                    parent = leaf->parent_;
+                } else {
+                    break;
+                }
+            }
+
+            if (!parent)
+                return nullptr;
+
+            assert(parent->which_ == node::which::cat);
+            concatenation * cat = static_cast<concatenation *>(parent->buf_ptr_);
+
+            leaf = cat->right_.get();
+
+            while (leaf->which_ == node::which::cat) {
+                concatenation * cat = static_cast<concatenation *>(leaf->buf_ptr_);
+                leaf = cat->left_.get();
+            }
+
+            return leaf;
+        }
+
+        inline node const * prev_leaf (node const * leaf)
+        {
+            node const * parent = leaf->parent_;
+
+            if (!parent)
+                return nullptr;
+
+            while (parent) {
+                assert(parent->which_ == node::which::cat);
+                concatenation * cat = static_cast<concatenation *>(parent->buf_ptr_);
+                if (cat->left_ == leaf) {
+                    leaf = parent;
+                    parent = leaf->parent_;
+                } else {
+                    break;
+                }
+            }
+
+            if (!parent)
+                return nullptr;
+
+            assert(parent->which_ == node::which::cat);
+            concatenation * cat = static_cast<concatenation *>(parent->buf_ptr_);
+
+            leaf = cat->left_.get();
+
+            while (leaf->which_ == node::which::cat) {
+                concatenation * cat = static_cast<concatenation *>(leaf->buf_ptr_);
+                leaf = cat->right_.get();
+            }
+
+            return leaf;
+        }
+
         struct const_rope_iterator;
+        struct const_reverse_rope_iterator;
 
     }
 
     struct rope
     {
+        using iterator = detail::const_rope_iterator;
+        using const_iterator = detail::const_rope_iterator;
+        using reverse_iterator = detail::const_reverse_rope_iterator;
+        using const_reverse_iterator = detail::const_reverse_rope_iterator;
+
         rope () : ptr_ (nullptr) {}
 
         rope (text const & t) : ptr_ (detail::make_node(t)) {}
@@ -500,19 +574,18 @@ namespace boost { namespace text {
             swap(temp);
             return *this;
         }
-#if 0
-        const_iterator begin () const noexcept { return data_; }
-        const_iterator end () const noexcept { return data_ + size_; }
 
-        const_iterator cbegin () const noexcept { return begin(); }
-        const_iterator cend () const noexcept { return end(); }
+        const_iterator begin () const noexcept;
+        const_iterator end () const noexcept;
 
-        const_reverse_iterator rbegin () const noexcept { return reverse_iterator(end()); }
-        const_reverse_iterator rend () const noexcept { return reverse_iterator(begin()); }
+        const_iterator cbegin () const noexcept;
+        const_iterator cend () const noexcept;
 
-        const_reverse_iterator crbegin () const noexcept { return rbegin(); }
-        const_reverse_iterator crend () const noexcept { return rend(); }
-#endif
+        const_reverse_iterator rbegin () const noexcept;
+        const_reverse_iterator rend () const noexcept;
+
+        const_reverse_iterator crbegin () const noexcept;
+        const_reverse_iterator crend () const noexcept;
 
         bool empty () const noexcept
         { return !ptr_; }
@@ -578,9 +651,7 @@ namespace boost { namespace text {
             return substr(lo, hi);
         }
 
-#if 0
-        int compare (rope rhs) const noexcept
-        { return TODO; }
+        int compare (rope rhs) const noexcept;
 
         bool operator== (rope rhs) const noexcept
         { return compare(rhs) == 0; }
@@ -600,27 +671,51 @@ namespace boost { namespace text {
         bool operator>= (rope rhs) const noexcept
         { return compare(rhs) >= 0; }
 
-        friend iterator begin (rope const & r) noexcept
-        { return v.begin(); }
-        friend iterator end (rope const & r) noexcept
-        { return v.end(); }
-        friend iterator cbegin (rope const & r) noexcept
-        { return v.cbegin(); }
-        friend iterator cend (rope const & r) noexcept
-        { return v.cend(); }
+        friend const_iterator begin (rope const & r) noexcept;
+        friend const_iterator end (rope const & r) noexcept;
+        friend const_iterator cbegin (rope const & r) noexcept;
+        friend const_iterator cend (rope const & r) noexcept;
 
-        friend reverse_iterator rbegin (rope const & r) noexcept
-        { return v.rbegin(); }
-        friend reverse_iterator rend (rope const & r) noexcept
-        { return v.rend(); }
-        friend reverse_iterator crbegin (rope const & r) noexcept
-        { return v.crbegin(); }
-        friend reverse_iterator crend (rope const & r) noexcept
-        { return v.crend(); }
+        friend const_reverse_iterator rbegin (rope const & r) noexcept;
+        friend const_reverse_iterator rend (rope const & r) noexcept;
+        friend const_reverse_iterator crbegin (rope const & r) noexcept;
+        friend const_reverse_iterator crend (rope const & r) noexcept;
 
         friend std::ostream & operator<< (std::ostream & os, rope const & r)
-        { TODO; }
-#endif
+        {
+            detail::node const * leaf = r.ptr_.get();
+
+            if (!leaf)
+                return os;
+
+            while (leaf->which_ == detail::node::which::cat) {
+                detail::concatenation * cat = static_cast<detail::concatenation *>(leaf->buf_ptr_);
+                leaf = cat->left_.get();
+            }
+
+            do {
+                switch (leaf->which_) {
+                case detail::node::which::t:
+                    os << *static_cast<text *>(leaf->buf_ptr_);
+                    break;
+                case detail::node::which::tv:
+                    os << *static_cast<text_view *>(leaf->buf_ptr_);
+                    break;
+                case detail::node::which::rtv:
+                    os << *static_cast<repeated_text_view *>(leaf->buf_ptr_);
+                    break;
+                case detail::node::which::ref:
+                    os << static_cast<detail::reference *>(leaf->buf_ptr_)->ref_;
+                    break;
+                case detail::node::which::cat:
+                default: assert(!"unhandled rope node case"); break;
+                }
+
+                leaf = next_leaf(leaf);
+            } while (leaf);
+
+            return os;
+        }
 
         void clear ()
         { ptr_ = nullptr; }
@@ -721,61 +816,213 @@ namespace boost { namespace text {
 
     namespace detail {
 
-    struct const_rope_iterator
-    {
-        using value_type = char const;
-        using difference_type = std::ptrdiff_t;
-        using pointer = char const *;
-        using reference = char const;
-        using iterator_category = std::random_access_iterator_tag;
-
-        const_rope_iterator () noexcept :
-            rope_ (nullptr),
-            n_ (-1),
-            leaf_ (nullptr),
-            char_iter_ (false)
-        {}
-
-        const_rope_iterator (rope const & r, std::ptrdiff_t n) noexcept :
-            rope_ (&r),
-            n_ (n),
-            leaf_ (nullptr),
-            char_iter_ (false)
-        {}
-
-        reference operator* () const noexcept
+        struct const_rope_iterator
         {
-            if (!leaf_) {
-                found_char const found = find_char(rope_->ptr_, n_);
-                switch (found.node_->which_) {
+            using value_type = char const;
+            using difference_type = std::ptrdiff_t;
+            using pointer = char const *;
+            using reference = char const;
+            using iterator_category = std::random_access_iterator_tag;
+
+            const_rope_iterator () noexcept :
+                rope_ (nullptr),
+                n_ (-1),
+                leaf_ (nullptr),
+                char_iter_ (false)
+            {}
+
+            const_rope_iterator (rope const & r, std::ptrdiff_t n) noexcept :
+                rope_ (&r),
+                n_ (n),
+                leaf_ (nullptr),
+                char_iter_ (false)
+            {}
+
+            reference operator* () const noexcept
+            {
+                if (!leaf_) {
+                    found_char const found = find_char(rope_->ptr_, n_);
+                    set_leaf(found.node_.get(), found.offset_);
+                    return found.c_;
+                }
+                if (char_iter_)
+                    return *it_.char_it_;
+                else
+                    return *it_.repeated_it_;
+            }
+
+            value_type operator[] (difference_type n) const noexcept
+            {
+                auto it = *this;
+                if (0 <= n)
+                    it += n;
+                else
+                    it -= -n;
+                return *it;
+            }
+
+            const_rope_iterator & operator++ () noexcept
+            {
+                ++n_;
+                if (leaf_) {
+                    bool need_next_leaf = false;
+                    if (char_iter_) {
+                        if (++it_.char_it_ == last_.char_it_)
+                            need_next_leaf = true;
+                    } else {
+                        if (++it_.repeated_it_ == last_.repeated_it_)
+                            need_next_leaf = true;
+                    }
+                    if (need_next_leaf) {
+                        leaf_ = next_leaf(leaf_);
+                        if (leaf_)
+                            set_leaf(leaf_, 0);
+                    }
+                }
+                return *this;
+            }
+            const_rope_iterator operator++ (int) noexcept
+            {
+                const_rope_iterator retval = *this;
+                ++*this;
+                return retval;
+            }
+            const_rope_iterator & operator+= (difference_type n) noexcept
+            {
+                if (leaf_ && n < distance(it_, last_)) {
+                    if (char_iter_)
+                        it_.char_it_ += n;
+                    else
+                        it_.repeated_it_ += n;
+                } else {
+                    leaf_ = nullptr;
+                    n_ += n;
+                }
+                return *this;
+            }
+
+            const_rope_iterator & operator-- () noexcept
+            {
+                --n_;
+                if (leaf_) {
+                    bool need_prev_leaf = false;
+                    if (char_iter_) {
+                        if (it_.char_it_ == last_.char_it_)
+                            need_prev_leaf = true;
+                        else
+                            --it_.char_it_;
+                    } else {
+                        if (it_.repeated_it_ == last_.repeated_it_)
+                            need_prev_leaf = true;
+                        else
+                            --it_.repeated_it_;
+                    }
+                    if (need_prev_leaf) {
+                        leaf_ = prev_leaf(leaf_);
+                        if (leaf_)
+                            set_leaf(leaf_, leaf_->size_ - 1);
+                    }
+                }
+                return *this;
+            }
+            const_rope_iterator operator-- (int) noexcept
+            {
+                const_rope_iterator retval = *this;
+                --*this;
+                return retval;
+            }
+            const_rope_iterator & operator-= (difference_type n) noexcept
+            {
+                if (leaf_ && n < distance(first_, it_)) {
+                    if (char_iter_)
+                        it_.char_it_ -= n;
+                    else
+                        it_.repeated_it_ -= n;
+                } else {
+                    leaf_ = nullptr;
+                    n_ -= n;
+                }
+                return *this;
+            }
+
+            friend bool operator== (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            { return lhs.rope_ == rhs.rope_ && lhs.n_ == rhs.n_; }
+            friend bool operator!= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            { return !(lhs == rhs); }
+            // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
+            friend bool operator< (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            { return lhs.rope_ == rhs.rope_ && lhs.n_ < rhs.n_; }
+            friend bool operator<= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            { return lhs == rhs || lhs < rhs; }
+            friend bool operator> (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            { return rhs < lhs; }
+            friend bool operator>= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            { return lhs <= rhs; }
+
+            friend const_rope_iterator operator+ (const_rope_iterator lhs, difference_type rhs) noexcept
+            { return lhs += rhs; }
+            friend const_rope_iterator operator+ (difference_type lhs, const_rope_iterator rhs) noexcept
+            { return rhs += lhs; }
+            friend const_rope_iterator operator- (const_rope_iterator lhs, difference_type rhs) noexcept
+            { return lhs -= rhs; }
+            friend const_rope_iterator operator- (difference_type lhs, const_rope_iterator rhs) noexcept
+            { return rhs -= lhs; }
+            friend difference_type operator- (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
+            {
+                // TODO: Document this precondition!
+                assert(lhs.rope_ == rhs.rope_);
+                return rhs.n_ - lhs.n_;
+            }
+
+        private:
+            union iter_t
+            {
+                iter_t () {}
+
+                char const * char_it_;
+                const_repeated_chars_iterator repeated_it_;
+            };
+
+            difference_type distance (iter_t const & lhs, iter_t const & rhs) const
+            {
+                if (char_iter_)
+                    return rhs.char_it_ - lhs.char_it_;
+                else
+                    return rhs.repeated_it_ - lhs.repeated_it_;
+            }
+
+            void set_leaf (node const * node, difference_type offset) const
+            {
+                leaf_ = node;
+                switch (node->which_) {
                 case node::which::t: {
-                    text const * t = static_cast<text *>(found.node_->buf_ptr_);
+                    text const * t = static_cast<text *>(node->buf_ptr_);
                     first_.char_it_ = t->begin();
-                    it_.char_it_ = first_.char_it_;
+                    it_.char_it_ = first_.char_it_ + offset;
                     last_.char_it_ = t->end();
                     char_iter_ = true;
                     break;
                 }
                 case node::which::tv: {
-                    text_view const * tv = static_cast<text_view *>(found.node_->buf_ptr_);
+                    text_view const * tv = static_cast<text_view *>(node->buf_ptr_);
                     first_.char_it_ = tv->begin();
-                    it_.char_it_ = first_.char_it_;
+                    it_.char_it_ = first_.char_it_ + offset;
                     last_.char_it_ = tv->end();
                     char_iter_ = true;
                     break;
                 }
                 case node::which::rtv: {
-                    repeated_text_view const * rtv = static_cast<repeated_text_view *>(found.node_->buf_ptr_);
+                    repeated_text_view const * rtv = static_cast<repeated_text_view *>(node->buf_ptr_);
                     first_.repeated_it_ = rtv->begin();
-                    it_.repeated_it_ = first_.repeated_it_;
+                    it_.repeated_it_ = first_.repeated_it_ + offset;
                     last_.repeated_it_ = rtv->end();
                     char_iter_ = true;
                     break;
                 }
                 case node::which::ref: {
-                    detail::reference const * ref = static_cast<detail::reference *>(found.node_->buf_ptr_);
+                    detail::reference const * ref = static_cast<detail::reference *>(node->buf_ptr_);
                     first_.char_it_ = ref->ref_.begin();
-                    it_.char_it_ = first_.char_it_;
+                    it_.char_it_ = first_.char_it_ + offset;
                     last_.char_it_ = ref->ref_.end();
                     char_iter_ = false;
                     break;
@@ -783,128 +1030,125 @@ namespace boost { namespace text {
                 case node::which::cat:
                 default: assert(!"unhandled rope node case"); break;
                 }
-                return found.c_;
             }
-            if (char_iter_)
-                return *it_.char_it_;
-            else
-                return *it_.repeated_it_;
-        }
 
-        value_type operator[] (difference_type n) const noexcept
-        {
-            auto it = *this;
-            if (0 <= n)
-                it += n;
-            else
-                it -= -n;
-            return *it;
-        }
-
-        const_rope_iterator & operator++ () noexcept
-        {
-            ++n_;
-            if (leaf_) {
-                if (char_iter_) {
-                    if (++it_.char_it_ == last_.char_it_)
-                        leaf_ = nullptr; // TODO: Go to next leaf.
-                } else {
-                    if (++it_.repeated_it_ == last_.repeated_it_)
-                        leaf_ = nullptr;
-                }
-            }
-            return *this;
-        }
-        const_rope_iterator operator++ (int) noexcept
-        {
-            const_rope_iterator retval = *this;
-            ++*this;
-            return retval;
-        }
-        const_rope_iterator & operator+= (difference_type n) noexcept
-        {
-            // TODO
-            return *this;
-        }
-
-        const_rope_iterator & operator-- () noexcept
-        {
-            --n_;
-            if (leaf_) {
-                if (char_iter_) {
-                    if (it_.char_it_ == first_.char_it_)
-                        leaf_ = nullptr; // TODO: Go to next leaf.
-                    else
-                        --it_.char_it_;
-                } else {
-                    if (it_.repeated_it_ == first_.repeated_it_)
-                        leaf_ = nullptr;
-                    else
-                        --it_.repeated_it_;
-                }
-            }
-            return *this;
-        }
-        const_rope_iterator operator-- (int) noexcept
-        {
-            const_rope_iterator retval = *this;
-            --*this;
-            return retval;
-        }
-        const_rope_iterator & operator-= (difference_type n) noexcept
-        {
-            // TODO
-            return *this;
-        }
-
-        friend bool operator== (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return lhs.rope_ == rhs.rope_ && lhs.n_ == rhs.n_; }
-        friend bool operator!= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return !(lhs == rhs); }
-        // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
-        friend bool operator< (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return lhs.rope_ == rhs.rope_ && lhs.n_ < rhs.n_; }
-        friend bool operator<= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return lhs == rhs || lhs < rhs; }
-        friend bool operator> (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return rhs < lhs; }
-        friend bool operator>= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return lhs <= rhs; }
-
-        friend const_rope_iterator operator+ (const_rope_iterator lhs, difference_type rhs) noexcept
-        { return lhs += rhs; }
-        friend const_rope_iterator operator+ (difference_type lhs, const_rope_iterator rhs) noexcept
-        { return rhs += lhs; }
-        friend const_rope_iterator operator- (const_rope_iterator lhs, difference_type rhs) noexcept
-        { return lhs -= rhs; }
-        friend const_rope_iterator operator- (difference_type lhs, const_rope_iterator rhs) noexcept
-        { return rhs -= lhs; }
-        friend difference_type operator- (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        {
-            // TODO: Document this precondition!
-            assert(lhs.rope_ == rhs.rope_);
-            return rhs.n_ - lhs.n_;
-        }
-
-    private:
-        union iter_t
-        {
-            iter_t () {}
-
-            char const * char_it_;
-            const_repeated_chars_iterator repeated_it_;
+            rope const * rope_;
+            difference_type n_;
+            mutable node const * leaf_;
+            mutable iter_t first_;
+            mutable iter_t it_;
+            mutable iter_t last_;
+            mutable bool char_iter_;
         };
 
-        rope const * rope_;
-        difference_type n_;
-        mutable node const * leaf_;
-        mutable iter_t first_;
-        mutable iter_t it_;
-        mutable iter_t last_;
-        mutable bool char_iter_;
-    };
+        struct const_reverse_rope_iterator
+        {
+            using value_type = char const;
+            using difference_type = std::ptrdiff_t;
+            using pointer = char const *;
+            using reference = char const;
+            using iterator_category = std::random_access_iterator_tag;
+
+            const_reverse_rope_iterator () noexcept : base_ () {}
+            const_reverse_rope_iterator (const_rope_iterator it) noexcept : base_ (it) {}
+
+            const_rope_iterator base () const { return base_; }
+
+            reference operator* () const noexcept { return *base_; }
+            value_type operator[] (difference_type n) const noexcept { return base_[n]; }
+
+            const_reverse_rope_iterator & operator++ () noexcept { --base_; return *this; }
+            const_reverse_rope_iterator operator++ (int) noexcept { base_--; return *this; }
+            const_reverse_rope_iterator & operator+= (difference_type n) noexcept { base_ -= n; return *this; }
+
+            const_reverse_rope_iterator & operator-- () noexcept { ++base_; return *this; }
+            const_reverse_rope_iterator operator-- (int) noexcept { base_++; return *this; }
+            const_reverse_rope_iterator & operator-= (difference_type n) noexcept { base_ += n; return *this; }
+
+            friend bool operator== (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return lhs.base_ == rhs.base_; }
+            friend bool operator!= (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return !(lhs == rhs); }
+            friend bool operator< (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return rhs.base_ < lhs.base_; }
+            friend bool operator<= (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return rhs.base_ <= lhs.base_; }
+            friend bool operator> (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return rhs.base_ > lhs.base_; }
+            friend bool operator>= (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return rhs.base_ >= lhs.base_; }
+
+            friend const_reverse_rope_iterator operator+ (const_reverse_rope_iterator lhs, difference_type rhs) noexcept
+            { return lhs += rhs; }
+            friend const_reverse_rope_iterator operator+ (difference_type lhs, const_reverse_rope_iterator rhs) noexcept
+            { return rhs += lhs; }
+            friend const_reverse_rope_iterator operator- (const_reverse_rope_iterator lhs, difference_type rhs) noexcept
+            { return lhs -= rhs; }
+            friend const_reverse_rope_iterator operator- (difference_type lhs, const_reverse_rope_iterator rhs) noexcept
+            { return rhs -= lhs; }
+            friend difference_type operator- (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
+            { return lhs.base_ - rhs.base_; }
+
+        private:
+            const_rope_iterator base_;
+        };
 
     }
+
+    int rope::compare (rope rhs) const noexcept
+    {
+        // TODO: This could probably be optimized quite a bit by doing
+        // something equivalent to mismatch, segment-wise.
+        auto const iters = std::mismatch(begin(), end(), rhs.begin(), rhs.end());
+        if (iters.first == end()) {
+            if (iters.second == rhs.end())
+                return 0;
+            else
+                return -1;
+        } else if (iters.second == rhs.end()) {
+            return 1;
+        } else if (*iters.first == *iters.second) {
+            return 0;
+        } else if (*iters.first < *iters.second) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    rope::const_iterator rope::begin () const noexcept
+    { return const_iterator(*this, 0); }
+    rope::const_iterator rope::end () const noexcept
+    { return const_iterator(*this, size()); }
+
+    rope::const_iterator rope::cbegin () const noexcept { return begin(); }
+    rope::const_iterator rope::cend () const noexcept { return end(); }
+
+    rope::const_reverse_iterator rope::rbegin () const noexcept
+    { return const_reverse_iterator(const_iterator(*this, size() - 1)); }
+    rope::const_reverse_iterator rope::rend () const noexcept
+    { return const_reverse_iterator(const_iterator(*this, -1)); }
+
+    rope::const_reverse_iterator rope::crbegin () const noexcept { return rbegin(); }
+    rope::const_reverse_iterator rope::crend () const noexcept { return rend(); }
+
+    rope::const_iterator begin (rope const & r) noexcept
+    { return r.begin(); }
+    rope::const_iterator end (rope const & r) noexcept
+    { return r.end(); }
+    rope::const_iterator cbegin (rope const & r) noexcept
+    { return r.cbegin(); }
+    rope::const_iterator cend (rope const & r) noexcept
+    { return r.cend(); }
+
+    rope::const_reverse_iterator rbegin (rope const & r) noexcept
+    { return r.rbegin(); }
+    rope::const_reverse_iterator rend (rope const & r) noexcept
+    { return r.rend(); }
+    rope::const_reverse_iterator crbegin (rope const & r) noexcept
+    { return r.crbegin(); }
+    rope::const_reverse_iterator crend (rope const & r) noexcept
+    { return r.crend(); }
 
 } }
 
