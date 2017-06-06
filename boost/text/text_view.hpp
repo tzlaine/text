@@ -266,9 +266,9 @@ namespace boost { namespace text {
 
 
         constexpr const_iterator begin () const noexcept
-        { return const_iterator(view_.begin(), view_.end(), count_); }
+        { return const_iterator(view_.begin(), view_.size(), 0); }
         constexpr const_iterator end () const noexcept
-        { return const_iterator(view_.begin(), view_.end()); }
+        { return const_iterator(view_.begin(), view_.size(), size()); }
 
         constexpr const_reverse_iterator rbegin () const noexcept
         { return const_reverse_iterator(end()); }

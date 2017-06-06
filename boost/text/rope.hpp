@@ -1040,7 +1040,7 @@ namespace boost { namespace text {
             using iterator_category = std::random_access_iterator_tag;
 
             const_reverse_rope_iterator () noexcept : base_ () {}
-            const_reverse_rope_iterator (const_rope_iterator it) noexcept : base_ (it) {}
+            explicit const_reverse_rope_iterator (const_rope_iterator it) noexcept : base_ (it) {}
 
             const_rope_iterator base () const { return base_ + 1; }
 
