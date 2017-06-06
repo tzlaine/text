@@ -366,6 +366,10 @@ namespace boost { namespace text {
                     text * t = static_cast<text *>(node->buf_ptr_);
                     bool const space_available = rhs.size() < t->capacity() - t->size();
                     if (space_available || t->size() + rhs.size() <= text_max_size) {
+                        // TODO: If we want to fit the new test in here, and
+                        // there's no capacity for it, make a new string in a
+                        // new node.  This ensures the COW behavior we need
+                        // for ref to behave properly.
                         *t += rhs;
                         return node;
                     } else {
