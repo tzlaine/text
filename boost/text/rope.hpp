@@ -100,7 +100,7 @@ namespace boost { namespace text {
             { return children_.size() == max_children; }
 
             // TODO: experiment with alignas(64)
-            boost::container::static_vector<std::ptrdiff_t, max_children> child_sizes_;
+            boost::container::static_vector<std::ptrdiff_t, max_children> keys_;
             boost::container::static_vector<node_ptr, max_children> children_;
         };
 
@@ -120,12 +120,60 @@ namespace boost { namespace text {
                     return;
 
                 switch (which_) {
-                case which::t: static_cast<text *>(buf_ptr_)->~text(); break;
-                case which::tv: static_cast<text_view *>(buf_ptr_)->~text_view (); break;
-                case which::rtv: static_cast<repeated_text_view *>(buf_ptr_)->~repeated_text_view(); break;
-                case which::ref: static_cast<reference *>(buf_ptr_)->~reference(); break;
+                case which::t: as_text().~text(); break;
+                case which::tv: as_text_view().~text_view (); break;
+                case which::rtv: as_repeated_text_view().~repeated_text_view(); break;
+                case which::ref: as_reference().~reference(); break;
                 default: assert(!"unhandled rope node case"); break;
                 }
+            }
+
+            text const & as_text () const
+            {
+                assert(which_ == which::t);
+                return *static_cast<text *>(buf_ptr_);
+            }
+
+            text_view const & as_text_view () const
+            {
+                assert(which_ == which::tv);
+                return *static_cast<text_view *>(buf_ptr_);
+            }
+
+            repeated_text_view const & as_repeated_text_view () const
+            {
+                assert(which_ == which::rtv);
+                return *static_cast<repeated_text_view *>(buf_ptr_);
+            }
+
+            reference const & as_reference () const
+            {
+                assert(which_ == which::ref);
+                return *static_cast<reference *>(buf_ptr_);
+            }
+
+            text & as_text ()
+            {
+                assert(which_ == which::t);
+                return *static_cast<text *>(buf_ptr_);
+            }
+
+            text_view & as_text_view ()
+            {
+                assert(which_ == which::tv);
+                return *static_cast<text_view *>(buf_ptr_);
+            }
+
+            repeated_text_view & as_repeated_text_view ()
+            {
+                assert(which_ == which::rtv);
+                return *static_cast<repeated_text_view *>(buf_ptr_);
+            }
+
+            reference & as_reference ()
+            {
+                assert(which_ == which::ref);
+                return *static_cast<reference *>(buf_ptr_);
             }
 
             char buf_[node_buf_size()];
@@ -182,7 +230,7 @@ namespace boost { namespace text {
             if (node->leaf_)
                 return node.as_leaf()->size_;
             else
-                return node.as_interior()->child_sizes_.back();
+                return node.as_interior()->keys_.back();
         }
 
         struct found_leaf
@@ -195,8 +243,8 @@ namespace boost { namespace text {
         inline std::ptrdiff_t find_child (interior_node_t const * node, std::ptrdiff_t n)
         {
             int i = 0;
-            int const sizes = node->child_sizes_.size();
-            while (i < sizes && node->child_sizes_[i] <= n) {
+            int const sizes = node->keys_.size();
+            while (i < sizes && node->keys_[i] <= n) {
                 ++i;
             }
             assert(i < sizes);
@@ -217,7 +265,7 @@ namespace boost { namespace text {
 
             node_ptr next_node = int_node->children_[i];
             if (0 < i)
-                n -= int_node->child_sizes_[i - 1];
+                n -= int_node->keys_[i - 1];
 
             retval.path_.push_back(const_cast<interior_node_t *>(int_node));
 
@@ -239,16 +287,16 @@ namespace boost { namespace text {
             char c = '\0';
             switch (leaf->which_) {
             case node_t::which::t:
-                c = *(static_cast<text *>(leaf->buf_ptr_)->cbegin() + n);
+                c = *(leaf->as_text().cbegin() + n);
                 break;
             case node_t::which::tv:
-                c = *(static_cast<text_view *>(leaf->buf_ptr_)->begin() + n);
+                c = *(leaf->as_text_view().begin() + n);
                 break;
             case node_t::which::rtv:
-                c = *(static_cast<repeated_text_view *>(leaf->buf_ptr_)->begin() + n);
+                c = *(leaf->as_repeated_text_view().begin() + n);
                 break;
             case node_t::which::ref:
-                c = *(static_cast<reference *>(leaf->buf_ptr_)->ref_.begin() + n);
+                c = *(leaf->as_reference().ref_.begin() + n);
                 break;
             default: assert(!"unhandled rope node case"); break;
             }
@@ -315,7 +363,7 @@ namespace boost { namespace text {
         inline node_ptr make_ref (leaf_node_t * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
         {
             assert(t->which_ == node_t::which::t);
-            text_view const tv = (*static_cast<text *>(t->buf_ptr_))(lo, hi);
+            text_view const tv = t->as_text()(lo, hi);
 
             leaf_node_t * leaf = nullptr;
             node_ptr retval(leaf = new leaf_node_t);
@@ -327,41 +375,11 @@ namespace boost { namespace text {
             return retval;
         }
 
-        inline node_ptr make_ref (reference * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        inline node_ptr make_ref (reference & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
         {
-            leaf_node_t * t_leaf = const_cast<leaf_node_t *>(t->text_.as_leaf());
-            int const offset = t->ref_.begin() - static_cast<text *>(t_leaf->buf_ptr_)->begin();
+            leaf_node_t * t_leaf = const_cast<leaf_node_t *>(t.text_.as_leaf());
+            int const offset = t.ref_.begin() - t_leaf->as_text().begin();
             return make_ref(t_leaf, lo + offset, hi + offset);
-        }
-
-        inline node_ptr slice_leaf (leaf_node_t * node, std::ptrdiff_t lo, std::ptrdiff_t hi)
-        {
-            assert(lo <= hi);
-
-            if (lo == 0 && hi == node->size_)
-                return node;
-
-            switch (node->which_) {
-            case node_t::which::t:
-                return make_ref(node, lo, hi);
-            case node_t::which::tv:
-                return make_node((*static_cast<text_view *>(node->buf_ptr_))(lo, hi));
-            case node_t::which::rtv: {
-                repeated_text_view const & rtv =
-                    *static_cast<repeated_text_view *>(node->buf_ptr_);
-                std::ptrdiff_t const lo_segment = lo / rtv.view().size();
-                std::ptrdiff_t const hi_segment = hi / rtv.view().size();
-                if (lo_segment == hi_segment)
-                    return make_node(rtv.view()(lo % rtv.view().size(), hi % rtv.view().size()));
-                else
-                    return make_node(text(rtv.begin() + lo, rtv.begin() + hi));
-                break;
-            }
-            case node_t::which::ref:
-                return make_ref(static_cast<reference *>(node->buf_ptr_), lo, hi);
-            default: assert(!"unhandled rope node case"); break;
-            }
-            return nullptr; // This should never execute.
         }
 
         struct const_rope_iterator;
@@ -392,10 +410,10 @@ namespace boost { namespace text {
                     int_child->children_.begin() + min_children, int_child->children_.end(),
                     new_node->children_.begin()
                 );
-                new_node->child_sizes_.resize(min_children - 1);
+                new_node->keys_.resize(min_children - 1);
                 std::copy(
-                    int_child->child_sizes_.begin() + min_children, int_child->child_sizes_.end(),
-                    new_node->child_sizes_.begin()
+                    int_child->keys_.begin() + min_children, int_child->keys_.end(),
+                    new_node->keys_.begin()
                 );
             }
 
@@ -410,14 +428,86 @@ namespace boost { namespace text {
                 interior_node_t * int_parent = const_cast<interior_node_t *>(child.as_interior());
                 interior_node_t * int_child = const_cast<interior_node_t *>(child.as_interior());
                 int_parent->children_.insert(int_parent->children_.begin() + i + 1, new_node);
-                int_parent->child_sizes_.insert(
-                    int_parent->child_sizes_.begin() + i,
-                    int_child->child_sizes_[min_children]
+                int_parent->keys_.insert(
+                    int_parent->keys_.begin() + i,
+                    int_child->keys_[min_children]
                 );
                 int_child->children_.resize(min_children);
             }
 
             return parent;
+        }
+
+        inline void btree_split_leaf (node_ptr parent, int i, std::ptrdiff_t at)
+        {
+            bool const child_mutable = parent.as_interior()->children_[i]->refs_ == 1;
+            node_ptr child = parent.as_interior()->children_[i];
+            leaf_node_t * leaf_child = const_cast<leaf_node_t *>(parent.as_leaf());
+
+            std::ptrdiff_t const child_size = child.as_leaf()->size_;
+            std::ptrdiff_t const offset_at_i = parent.as_interior()->keys_[i] - child_size;
+            int const cut = static_cast<int>(at - offset_at_i);
+
+            node_ptr left = nullptr;
+            node_ptr right = nullptr;
+            switch (child.as_leaf()->which_) {
+            case node_t::which::t:
+                right = make_ref(leaf_child, cut, child_size);
+                left = make_ref(leaf_child, 0, cut);
+                break;
+            case node_t::which::tv: {
+                text_view & tv = leaf_child->as_text_view();
+                right = make_node(tv(cut, child_size));
+                if (child_mutable) {
+                    tv = tv(0, cut);
+                    left = child;
+                } else {
+                    left = make_node(tv(0, cut));
+                }
+                break;
+            }
+            case node_t::which::rtv: {
+                repeated_text_view & rtv = leaf_child->as_repeated_text_view();
+                if (cut % rtv.view().size() == 0) {
+                    int const left_count = cut / rtv.view().size();
+                    right = make_node(repeated_text_view(rtv.view(), rtv.count() - left_count));
+                    if (child_mutable) {
+                        rtv = repeated_text_view(rtv.view(), left_count);
+                        left = child;
+                    } else {
+                        left = make_node(repeated_text_view(rtv.view(), left_count));
+                    }
+                } else {
+                    right = make_node(text(rtv.begin() + cut, rtv.end()));
+                    left = make_node(text(rtv.begin(), rtv.begin() + cut));
+                }
+                break;
+            }
+            case node_t::which::ref: {
+                reference & ref = leaf_child->as_reference();
+                right = make_ref(ref, cut, child_size);
+                if (child_mutable) {
+                    ref.ref_ = ref.ref_(0, cut);
+                    left = child;
+                } else {
+                    left = make_ref(ref, 0, cut);
+                }
+                break;
+            }
+            default: assert(!"unhandled rope node case"); break;
+            }
+
+            interior_node_t * int_parent =
+                const_cast<interior_node_t *>(parent.as_interior());
+            int_parent->children_[i] = left;
+            int_parent->children_.insert(
+                int_parent->children_.begin() + i + 1,
+                right
+            );
+            int_parent->keys_.insert(
+                int_parent->keys_.begin() + i,
+                offset_at_i + cut
+            );
         }
 
         inline node_ptr btree_insert_nonfull (
@@ -430,26 +520,32 @@ namespace boost { namespace text {
 
             int i = find_child(parent.as_interior(), at);
             if (parent.as_interior()->children_[i]->leaf_) {
+                btree_split_leaf(parent, i, at);
+                if (parent.as_interior()->keys_[i] < at)
+                    ++i;
+
+                std::ptrdiff_t const offset_at_i =
+                    parent.as_interior()->keys_[i] -
+                    parent.as_interior()->children_[i].as_leaf()->size_;
+
                 interior_node_t * int_parent =
                     const_cast<interior_node_t *>(parent.as_interior());
+                auto it = int_parent->keys_.begin() + i;
+                auto const last = int_parent->keys_.end();
+
                 int_parent->children_.insert(
                     int_parent->children_.begin() + i,
                     node
                 );
-                std::ptrdiff_t size = node.as_leaf()->size_;
-                auto it = int_parent->child_sizes_.begin() + i;
-                auto const end = int_parent->child_sizes_.end();
-                if (0 < i)
-                    size += *(it - 1);
-                int_parent->child_sizes_.insert(it++, size);
-                std::ptrdiff_t delta = size - *it;
-                while (it != end) {
-                    *it++ += delta;
+                int_parent->keys_.insert(it, offset_at_i);
+                std::ptrdiff_t const node_size = node.as_leaf()->size_;
+                while (it != last) {
+                    *it++ += node_size;
                 }
             } else {
                 if (parent.as_interior()->children_[i].as_interior()->full()) {
                     parent = btree_split_child(parent, i);
-                    if (parent.as_interior()->child_sizes_[i] < at)
+                    if (parent.as_interior()->keys_[i] < at)
                         ++i;
                 }
                 interior_node_t * int_parent =
@@ -467,7 +563,7 @@ namespace boost { namespace text {
                 interior_node_t * new_root = nullptr;
                 node_ptr new_root_ptr(new_root = new interior_node_t);
                 new_root->children_.push_back(root);
-                new_root->child_sizes_.push_back(root.as_interior()->child_sizes_.back());
+                new_root->keys_.push_back(root.as_interior()->keys_.back());
                 btree_split_child(new_root_ptr, 0);
                 return btree_insert_nonfull(new_root_ptr, at, node);
             } else {
@@ -621,16 +717,16 @@ namespace boost { namespace text {
             while (leaf) {
                 switch (leaf->which_) {
                 case detail::node_t::which::t:
-                    os << *static_cast<text *>(leaf->buf_ptr_);
+                    os << leaf->as_text();
                     break;
                 case detail::node_t::which::tv:
-                    os << *static_cast<text_view *>(leaf->buf_ptr_);
+                    os << leaf->as_text_view();
                     break;
                 case detail::node_t::which::rtv:
-                    os << *static_cast<repeated_text_view *>(leaf->buf_ptr_);
+                    os << leaf->as_repeated_text_view();
                     break;
                 case detail::node_t::which::ref:
-                    os << static_cast<detail::reference *>(leaf->buf_ptr_)->ref_;
+                    os << leaf->as_reference().ref_;
                     break;
                 default: assert(!"unhandled rope node case"); break;
                 }
@@ -727,11 +823,11 @@ namespace boost { namespace text {
             }
 
             if (found.leaf_->which_ == detail::node_t::which::t) {
-                text * t = static_cast<text *>(found.leaf_->buf_ptr_);
-                if (t->capacity() - t->size() < size)
-                    return t;
-                else if (insertion_would_allocate && t->size() + size < detail::text_insert_max)
-                    return t;
+                text & t = found.leaf_->as_text();
+                if (t.capacity() - t.size() < size)
+                    return &t;
+                else if (insertion_would_allocate && t.size() + size < detail::text_insert_max)
+                    return &t;
             }
 
             return nullptr;
