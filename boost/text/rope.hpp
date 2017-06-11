@@ -16,16 +16,37 @@ namespace boost { namespace text {
     namespace detail {
 
         // TODO: Encoding breakage checks.
+        // TODO: Leaf link fixups when erasing.
 
         struct node_t;
         struct leaf_node_t;
         struct interior_node_t;
         struct node_ptr;
 
+        struct mutable_node_ptr
+        {
+            ~mutable_node_ptr ();
+
+            explicit operator bool () const
+            { return ptr_; }
+
+            node_t * operator-> ()
+            { return ptr_; }
+
+            leaf_node_t * as_leaf ();
+            interior_node_t * as_interior ();
+
+        private:
+            mutable_node_ptr (node_ptr & np, node_t * ptr) : node_ptr_ (np), ptr_ (ptr) {}
+            node_ptr & node_ptr_;
+            node_t * ptr_;
+            friend node_ptr;
+        };
+
         struct node_ptr
         {
             node_ptr () {}
-            node_ptr (node_t * node) : ptr_ (node) {}
+            node_ptr (node_t const * node) : ptr_ (node) {}
 
             explicit operator bool () const
             { return ptr_.get(); }
@@ -36,18 +57,17 @@ namespace boost { namespace text {
             leaf_node_t const * as_leaf () const;
             interior_node_t const * as_interior () const;
 
-            node_t * get () const
+            node_t const * get () const
             { return ptr_.get(); }
 
-            leaf_node_t * as_mutable_leaf ();
-            interior_node_t * as_mutable_interior ();
-            node_ptr write (); // TODO: This should return a totally different type with a mutable interface.
+            mutable_node_ptr write () const;
 
             void swap (node_ptr & rhs)
             { ptr_.swap(rhs.ptr_); }
 
         private:
-            boost::intrusive_ptr<node_t> ptr_;
+            boost::intrusive_ptr<node_t const> ptr_;
+            friend mutable_node_ptr;
         };
 
         struct reference
@@ -87,7 +107,7 @@ namespace boost { namespace text {
             node_t (node_t const & rhs) : refs_ (0), leaf_ (rhs.leaf_) {}
             node_t & operator= (node_t const & rhs) = delete;
 
-            int refs_;
+            mutable int refs_;
             bool leaf_;
         };
 
@@ -96,6 +116,9 @@ namespace boost { namespace text {
         constexpr int text_insert_max = 512;
 
         inline std::ptrdiff_t size (node_t const * node);
+
+        using keys_t = boost::container::static_vector<std::ptrdiff_t, max_children>;
+        using children_t = boost::container::static_vector<node_ptr, max_children>;
 
         struct interior_node_t : node_t
         {
@@ -113,8 +136,8 @@ namespace boost { namespace text {
                 return keys_[i - 1];
             }
 
-            alignas(64) boost::container::static_vector<std::ptrdiff_t, max_children> keys_;
-            boost::container::static_vector<node_ptr, max_children> children_;
+            alignas(64) keys_t keys_;
+            children_t children_;
         };
 
         struct leaf_node_t : node_t
@@ -191,11 +214,28 @@ namespace boost { namespace text {
 
             char buf_[node_buf_size()];
             void * buf_ptr_;
-            leaf_node_t * prev_; // TODO
+            leaf_node_t * prev_;
             leaf_node_t * next_;
             int size_;
             which which_;
         };
+
+        mutable_node_ptr::~mutable_node_ptr ()
+        { node_ptr_.ptr_ = ptr_; }
+
+        leaf_node_t * mutable_node_ptr::as_leaf ()
+        {
+            assert(ptr_);
+            assert(ptr_->leaf_);
+            return static_cast<leaf_node_t *>(ptr_);
+        }
+
+        interior_node_t * mutable_node_ptr::as_interior ()
+        {
+            assert(ptr_);
+            assert(!ptr_->leaf_);
+            return static_cast<interior_node_t *>(ptr_);
+        }
 
         leaf_node_t const * node_ptr::as_leaf () const
         {
@@ -211,31 +251,26 @@ namespace boost { namespace text {
             return static_cast<interior_node_t const *>(ptr_.get());
         }
 
-        leaf_node_t * node_ptr::as_mutable_leaf ()
-        { return const_cast<leaf_node_t *>(as_leaf()); }
-
-        interior_node_t * node_ptr::as_mutable_interior ()
-        { return const_cast<interior_node_t *>(as_interior()); }
-
-        node_ptr node_ptr::write ()
+        mutable_node_ptr node_ptr::write () const
         {
+            auto this_ref = const_cast<node_ptr &>(*this);
             if (ptr_->refs_ == 1)
-                return *this;
+                return mutable_node_ptr(this_ref, const_cast<node_t *>(ptr_.get()));
             if (ptr_->leaf_)
-                return node_ptr(new leaf_node_t(*as_leaf()));
+                return mutable_node_ptr(this_ref, new leaf_node_t(*as_leaf()));
             else
-                return node_ptr(new interior_node_t(*as_interior()));
+                return mutable_node_ptr(this_ref, new interior_node_t(*as_interior()));
         }
 
-        inline void intrusive_ptr_add_ref (node_t * node)
+        inline void intrusive_ptr_add_ref (node_t const * node)
         { ++node->refs_; }
-        inline void intrusive_ptr_release (node_t * node)
+        inline void intrusive_ptr_release (node_t const * node)
         {
             if (!--node->refs_) {
                 if (node->leaf_)
-                    delete static_cast<leaf_node_t *>(node);
+                    delete static_cast<leaf_node_t const *>(node);
                 else
-                    delete static_cast<interior_node_t *>(node);
+                    delete static_cast<interior_node_t const *>(node);
             }
         }
 
@@ -247,6 +282,30 @@ namespace boost { namespace text {
             else
                 return static_cast<interior_node_t const *>(node)->keys_.back();
         }
+
+        inline children_t const & children (node_ptr const & node)
+        { return node.as_interior()->children_; }
+
+        inline children_t & children (mutable_node_ptr & node)
+        { return node.as_interior()->children_; }
+
+        inline keys_t const & keys (node_ptr const & node)
+        { return node.as_interior()->keys_; }
+
+        inline keys_t & keys (mutable_node_ptr & node)
+        { return node.as_interior()->keys_; }
+
+        inline int num_children (node_ptr const & node)
+        { return static_cast<int>(children(node).size()); }
+
+        inline int num_children (mutable_node_ptr & node)
+        { return static_cast<int>(children(node).size()); }
+
+        inline int num_keys (node_ptr const & node)
+        { return static_cast<int>(keys(node).size()); }
+
+        inline int num_keys (mutable_node_ptr & node)
+        { return static_cast<int>(keys(node).size()); }
 
         inline std::ptrdiff_t find_child (interior_node_t const * node, std::ptrdiff_t n)
         {
@@ -274,13 +333,17 @@ namespace boost { namespace text {
             assert(node);
             assert(n <= size(node.get()));
             if (node->leaf_) {
-                retval.leaf_ = node.as_mutable_leaf();
+                auto mut_node = node.write();
+                retval.leaf_ = mut_node.as_leaf();
                 retval.offset_ = n;
                 return;
             }
             auto const i = find_child(node.as_interior(), n);
             node_ptr next_node = node.as_interior()->children_[i];
-            retval.path_.push_back(node.as_mutable_interior());
+            {
+                auto mut_node = node.write();
+                retval.path_.push_back(mut_node.as_interior());
+            }
             auto const offset = node.as_interior()->offset(i);
             find_leaf(next_node, n - offset, retval);
         }
@@ -373,7 +436,7 @@ namespace boost { namespace text {
             return retval;
         }
 
-        inline node_ptr make_ref (leaf_node_t * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        inline node_ptr make_ref (leaf_node_t const * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
         {
             assert(t->which_ == node_t::which::t);
             text_view const tv = t->as_text()(lo, hi);
@@ -388,11 +451,11 @@ namespace boost { namespace text {
             return retval;
         }
 
-        inline node_ptr make_ref (reference & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        inline node_ptr make_ref (reference const & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
         {
-            leaf_node_t * t_leaf = t.text_.as_mutable_leaf();
-            auto const offset = t.ref_.begin() - t_leaf->as_text().begin();
-            return make_ref(t_leaf, lo + offset, hi + offset);
+            auto const offset = t.ref_.begin() - t.text_.as_leaf()->as_text().begin();
+            node_ptr retval = make_ref(t.text_.as_leaf(), lo + offset, hi + offset);
+            return retval;
         }
 
         struct const_rope_iterator;
@@ -515,20 +578,20 @@ namespace boost { namespace text {
                 }
             }
 
-            // .write() clones the node only if refs_ > 1
-            parent = parent.write();
             child = parent.as_interior()->children_[i];
-            child = child.write();
 
             {
-                interior_node_t * int_parent = child.as_mutable_interior();
-                interior_node_t * int_child = child.as_mutable_interior();
-                int_parent->children_.insert(int_parent->children_.begin() + i + 1, new_node);
-                int_parent->keys_.insert(
-                    int_parent->keys_.begin() + i,
-                    int_child->keys_[min_children]
+                auto mut_parent = parent.write();
+                auto mut_child = child.write();
+                mut_parent.as_interior()->children_.insert(
+                    mut_parent.as_interior()->children_.begin() + i + 1,
+                    new_node
                 );
-                int_child->children_.resize(min_children);
+                mut_parent.as_interior()->keys_.insert(
+                    mut_parent.as_interior()->keys_.begin() + i,
+                    mut_child.as_interior()->keys_[min_children]
+                );
+                mut_child.as_interior()->children_.resize(min_children);
             }
 
             return parent;
@@ -536,35 +599,42 @@ namespace boost { namespace text {
 
         inline void btree_split_leaf (node_ptr parent, int i, std::ptrdiff_t at)
         {
-            node_ptr child = parent.as_interior()->children_[i];
-            leaf_node_t * leaf_child = child.as_mutable_leaf();
+            node_ptr const & child = parent.as_interior()->children_[i];
 
             auto const child_size = child.as_leaf()->size_;
             auto const offset_at_i = parent.as_interior()->offset(i);
             auto const cut = static_cast<int>(at - offset_at_i);
 
-            node_ptr right = slice_leaf(leaf_child, cut, child_size, true);
-            node_ptr left = slice_leaf(leaf_child, 0, cut, child.as_leaf()->which_ == node_t::which::t);
+            node_ptr right;
+            node_ptr left;
 
-            leaf_node_t * leaf_left = left.as_mutable_leaf();
-            leaf_node_t * leaf_right = right.as_mutable_leaf();
-            if (leaf_child->prev_)
-                leaf_child->prev_->next_ = leaf_left;
-            leaf_left->prev_ = leaf_child->prev_;
-            leaf_left->next_ = leaf_right;
-            leaf_right->prev_ = leaf_left;
-            leaf_right->next_ = leaf_child->next_;
-            if (leaf_child->next_)
-                leaf_child->next_->prev_ = leaf_right;
+            {
+                auto mut_child = parent.as_interior()->children_[i].write();
 
-            interior_node_t * int_parent = parent.as_mutable_interior();
-            int_parent->children_[i] = left;
-            int_parent->children_.insert(
-                int_parent->children_.begin() + i + 1,
+                right = slice_leaf(mut_child.as_leaf(), cut, child_size, true);
+                left = slice_leaf(mut_child.as_leaf(), 0, cut, child.as_leaf()->which_ == node_t::which::t);
+
+                auto mut_left = left.write();
+                auto mut_right = right.write();
+
+                if (mut_child.as_leaf()->prev_)
+                    mut_child.as_leaf()->prev_->next_ = mut_left.as_leaf();
+                mut_left.as_leaf()->prev_ = mut_child.as_leaf()->prev_;
+                mut_left.as_leaf()->next_ = mut_right.as_leaf();
+                mut_right.as_leaf()->prev_ = mut_left.as_leaf();
+                mut_right.as_leaf()->next_ = mut_child.as_leaf()->next_;
+                if (mut_child.as_leaf()->next_)
+                    mut_child.as_leaf()->next_->prev_ = mut_right.as_leaf();
+            }
+
+            auto mut_parent = parent.write();
+            mut_parent.as_interior()->children_[i] = left;
+            mut_parent.as_interior()->children_.insert(
+                mut_parent.as_interior()->children_.begin() + i + 1,
                 right
             );
-            int_parent->keys_.insert(
-                int_parent->keys_.begin() + i,
+            mut_parent.as_interior()->keys_.insert(
+                mut_parent.as_interior()->keys_.begin() + i,
                 offset_at_i + cut
             );
         }
@@ -576,35 +646,40 @@ namespace boost { namespace text {
         ) {
             assert(at <= size(parent.get()));
 
-            parent = parent.write();
-
             int i = find_child(parent.as_interior(), at);
             if (parent.as_interior()->children_[i]->leaf_) {
                 btree_split_leaf(parent, i, at);
                 if (parent.as_interior()->keys_[i] < at)
                     ++i;
 
-                node_ptr child = parent.as_mutable_interior()->children_[i].write();
-                leaf_node_t * leaf_child = child.as_mutable_leaf();
-                leaf_node_t * leaf_node = node.as_mutable_leaf();
-                if (leaf_child->prev_)
-                    leaf_child->prev_->next_ = leaf_node;
-                leaf_node->prev_ = leaf_child->prev_;
-                leaf_node->next_ = leaf_child;
-                leaf_child->prev_ = leaf_node;
+                {
+                    auto mut_child = parent.as_interior()->children_[i].write();
+                    auto mut_node = node.write();
+                    if (mut_child.as_leaf()->prev_)
+                        mut_child.as_leaf()->prev_->next_ = mut_node.as_leaf();
+                    mut_node.as_leaf()->prev_ = mut_child.as_leaf()->prev_;
+                    mut_node.as_leaf()->next_ = mut_child.as_leaf();
+                    mut_child.as_leaf()->prev_ = mut_node.as_leaf();
+                }
 
-                insert_child(parent.as_mutable_interior(), i, node);
+                auto mut_parent = parent.write();
+                insert_child(mut_parent.as_interior(), i, node);
             } else {
                 if (parent.as_interior()->children_[i].as_interior()->full()) {
                     parent = btree_split_child(parent, i);
                     if (parent.as_interior()->keys_[i] < at)
                         ++i;
                 }
-                interior_node_t * int_parent = parent.as_mutable_interior();
+                auto mut_parent = parent.write();
+                interior_node_t * int_parent = mut_parent.as_interior();
+                auto delta = -size(int_parent->children_[i].get());
                 node_ptr new_child =
                     btree_insert_nonfull(int_parent->children_[i], at - int_parent->offset(i), node);
-                // TODO: Update parent's keys?
+                delta += size(new_child.get());
                 int_parent->children_[i] = new_child;
+                for (int j = i, size = (int)int_parent->keys_.size(); j < size; ++j) {
+                    int_parent->keys_[j] += delta;
+                }
             }
             return parent;
         }
@@ -670,7 +745,8 @@ namespace boost { namespace text {
 
         // TODO: node_ptrs must be const refs (or converted to raw pointers)
         // to avoid spurious multiple refs.
-        // TODO: This interfae in particular must take interior_node_t * node.
+        // TODO: This interface in particular must take interior_node_t *
+        // node.  Still true with mutable_node_ptr?
         inline node_ptr btree_erase (node_ptr node, std::ptrdiff_t at, leaf_node_t * leaf)
         {
             assert(node);
@@ -683,27 +759,28 @@ namespace boost { namespace text {
 
                 assert(node.as_interior()->children_[child_index].as_leaf() == leaf);
 
-                node = node.write();
-                erase_child(node.as_mutable_interior(), child_index);
+                {
+                    auto mut_node = node.write();
+                    erase_child(mut_node.as_interior(), child_index);
+                }
 
                 return node;
             }
 
-            node_ptr next_node = nullptr; // TODO: Should be a pointer type.
-            std::ptrdiff_t offset = 0;
+            node_ptr new_child = nullptr;
 
             auto const child_index = find_child(node.as_interior(), at);
-            interior_node_t * child =
-                node.as_mutable_interior()->children_[child_index].as_mutable_interior();
-            if (child->children_.size() == min_children) {
-                node_ptr child_left_sib =
+
+            node_ptr const & child = node.as_interior()->children_[child_index];
+            if (child.as_interior()->children_.size() == min_children) {
+                node_ptr const & child_left_sib =
                     child_index == 0 ?
                     nullptr :
-                    node.as_mutable_interior()->children_[child_index - 1].write();
-                node_ptr child_right_sib =
+                    node.as_interior()->children_[child_index - 1];
+                node_ptr const & child_right_sib =
                     child_index == (int)node.as_interior()->children_.size() - 1 ?
                     nullptr :
-                    node.as_mutable_interior()->children_[child_index + 1].write();
+                    node.as_interior()->children_[child_index + 1];
 
                 assert(child_left_sib || child_right_sib);
 
@@ -713,59 +790,72 @@ namespace boost { namespace text {
                     // Remove last EF element of left sibling.
                     // Prepend EF onto child.
                     // Update node.
+                    // new_child = btree_erase(next_node, at - offset, leaf);
                 } else if (child_right_sib &&
                            min_children + 1 <= (int)child_right_sib.as_interior()->children_.size()) {
                     // Left-rotate.
                     // Remove first E0 element of right sibling.
                     // Append child with E0.
                     // Update node.
+                    // new_child = btree_erase(next_node, at - offset, leaf);
                 } else {
-                    interior_node_t * left =
-                        (child_right_sib ? child : child_left_sib).as_mutable_interior();
-                    interior_node_t * right =
-                        (child_right_sib ? child_right_sib : child).as_mutable_interior();
                     auto const right_index = child_right_sib ? child_index + 1 : child_index;
                     auto const left_index = right_index - 1;
 
-                    left->children_.insert(
-                        left->children_.end(),
-                        right->children_.begin(),
-                        right->children_.end()
-                    );
-                    auto const old_left_size = left->keys_.back();
-                    int const old_chldren = static_cast<int>(left->keys_.size());
-                    left->keys_.insert(
-                        left->keys_.end(),
-                        right->keys_.begin(),
-                        right->keys_.end()
-                    );
-                    for (int i = old_chldren, size = (int)left->keys_.size(); i < size; ++i) {
-                        left->keys_[i] += old_left_size;
+                    node_ptr const & left = child_right_sib ? child : child_left_sib;
+                    node_ptr const & right = child_right_sib ? child_right_sib : child;
+
+                    {
+                        auto mut_left = left.write();
+                        auto mut_right = right.write();
+
+                        // TODO: Employ children() and keys() in more places.
+                        children_t & left_children = children(mut_left);
+                        children_t & right_children = children(mut_right);
+
+                        left_children.insert(
+                            left_children.end(),
+                            right_children.begin(),
+                            right_children.end()
+                        );
+
+                        keys_t & left_keys = keys(mut_left);
+                        keys_t & right_keys = keys(mut_right);
+
+                        auto const old_left_size = left_keys.back();
+                        int const old_children = static_cast<int>(left_keys.size());
+
+                        left_keys.insert(
+                            left_keys.end(),
+                            right_keys.begin(),
+                            right_keys.end()
+                        );
+                        for (int i = old_children, size = num_keys(mut_left); i < size; ++i) {
+                            left_keys[i] += old_left_size;
+                        }
                     }
 
-                    next_node = left;
-                    offset = node.as_interior()->offset(left_index);
+                    std::ptrdiff_t const offset = node.as_interior()->offset(left_index);
 
-                    erase_child(node.as_mutable_interior(), right_index, dont_adjust_keys);
+                    new_child = btree_erase(left, at - offset, leaf);
+                    if (children(node).size() == 2)
+                        return new_child;
+
+                    auto mut_node = node.write();
+                    erase_child(mut_node.as_interior(), right_index, dont_adjust_keys);
                 }
             } else {
-                offset = node.as_interior()->offset(child_index);
-                next_node = node.as_interior()->children_[child_index];
+                std::ptrdiff_t const offset = node.as_interior()->offset(child_index);
+                new_child = btree_erase(node.as_interior()->children_[child_index], at - offset, leaf);
             }
 
-            if (node.as_interior()->children_.size() != 1)
-                node = node.write();
-
-            node_ptr new_child = btree_erase(next_node, at - offset, leaf);
-
-            if (node.as_interior()->children_.size() == 1)
-                return new_child;
-
-            interior_node_t * int_node = node.as_mutable_interior();
-            int_node->children_[child_index] = new_child;
-            auto const size_delta = leaf->size_;
-            for (int i = child_index, size = (int)int_node->keys_.size(); i < size; ++i) {
-                int_node->keys_[i] -= size_delta;
+            {
+                auto mut_node = node.write();
+                mut_node.as_interior()->children_[child_index] = new_child;
+                auto const size_delta = leaf->size_;
+                for (int i = child_index, size = (int)mut_node.as_interior()->keys_.size(); i < size; ++i) {
+                    mut_node.as_interior()->keys_[i] -= size_delta;
+                }
             }
 
             return node;
@@ -776,7 +866,11 @@ namespace boost { namespace text {
             assert(root);
 
             if (root->leaf_) {
-                leaf_slices slices = erase_leaf(root.as_mutable_leaf(), lo, hi);
+                leaf_slices slices;
+                {
+                    auto mut_root = root.write();
+                    slices = erase_leaf(mut_root.as_leaf(), lo, hi);
+                }
                 if (!slices.other_slice) {
                     return slices.slice;
                 } else {
