@@ -17,7 +17,8 @@ namespace boost { namespace text {
 
         // TODO: Encoding breakage checks.
         // TODO: Leaf link fixups when erasing.
-        // TOOD: Evaluate exception guarantee.
+        // TODO: Evaluate exception guarantee.
+        // TODO: Audit spurious refs (e.g. from node_ptrs on the stack).
 
         struct node_t;
         struct leaf_node_t;
@@ -73,7 +74,7 @@ namespace boost { namespace text {
 
         struct reference
         {
-            reference (node_ptr text_node, text_view ref) noexcept;
+            reference (node_ptr const & text_node, text_view ref) noexcept;
 
             node_ptr text_;
             text_view ref_;
@@ -355,7 +356,7 @@ namespace boost { namespace text {
             char c_;
         };
 
-        inline void find_char (node_ptr node, std::ptrdiff_t n, found_char & retval)
+        inline void find_char (node_ptr const & node, std::ptrdiff_t n, found_char & retval)
         {
             assert(node);
             find_leaf(node, n, retval.leaf_);
@@ -380,7 +381,7 @@ namespace boost { namespace text {
             retval.c_ = c;
         }
 
-        inline reference::reference (node_ptr text_node, text_view ref) noexcept :
+        inline reference::reference (node_ptr const & text_node, text_view ref) noexcept :
             text_ (text_node),
             ref_ (ref)
         {
@@ -552,7 +553,7 @@ namespace boost { namespace text {
             return nullptr; // This should never execute.
         }
 
-        inline node_ptr btree_split_child (node_ptr parent, int i)
+        inline node_ptr btree_split_child (node_ptr const & parent, int i)
         {
             assert(parent.as_interior()->full());
 
@@ -598,7 +599,7 @@ namespace boost { namespace text {
             return parent;
         }
 
-        inline void btree_split_leaf (node_ptr parent, int i, std::ptrdiff_t at)
+        inline void btree_split_leaf (node_ptr const & parent, int i, std::ptrdiff_t at)
         {
             node_ptr const & child = children(parent)[i];
 
@@ -641,7 +642,7 @@ namespace boost { namespace text {
         }
 
         inline node_ptr btree_insert_nonfull (
-            node_ptr parent,
+            node_ptr & parent,
             std::ptrdiff_t at,
             node_ptr node
         ) {
@@ -687,7 +688,7 @@ namespace boost { namespace text {
             return parent;
         }
 
-        inline node_ptr btree_insert (node_ptr root, std::ptrdiff_t at, node_ptr node)
+        inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr const & node)
         {
             assert(root);
             assert(node->leaf_);
@@ -746,11 +747,7 @@ namespace boost { namespace text {
             return retval;
         }
 
-        // TODO: node_ptrs must be const refs (or converted to raw pointers)
-        // to avoid spurious multiple refs.
-        // TODO: This interface in particular must take interior_node_t *
-        // node.  Still true with mutable_node_ptr?
-        inline node_ptr btree_erase (node_ptr node, std::ptrdiff_t at, leaf_node_t * leaf)
+        inline node_ptr btree_erase (node_ptr const & node, std::ptrdiff_t at, leaf_node_t * leaf)
         {
             assert(node);
 
@@ -812,7 +809,6 @@ namespace boost { namespace text {
                         auto mut_left = left.write();
                         auto mut_right = right.write();
 
-                        // TODO: Employ children() and keys() in more places.
                         children_t & left_children = children(mut_left);
                         children_t & right_children = children(mut_right);
 
@@ -864,7 +860,7 @@ namespace boost { namespace text {
             return node;
         }
 
-        inline node_ptr btree_erase (node_ptr root, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        inline node_ptr btree_erase (node_ptr & root, std::ptrdiff_t lo, std::ptrdiff_t hi)
         {
             assert(root);
 
