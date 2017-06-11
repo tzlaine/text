@@ -1019,7 +1019,6 @@ namespace boost { namespace text {
         constexpr size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
-#if 0
         rope substr (size_type lo, size_type hi) const
         {
             assert(ptr_);
@@ -1027,20 +1026,21 @@ namespace boost { namespace text {
             assert(0 <= hi && hi <= size());
             assert(lo <= hi);
 
-            // TODO:
+            // If the entire substring falls within a single segment, slice
+            // off the appropriate part of that segment.
+            detail::found_leaf found;
+            detail::find_leaf(ptr_, lo, found);
+            if (found.offset_ + hi - lo <= found.leaf_->size_)
+                return rope(slice_leaf(found.leaf_, found.offset_, found.offset_ + hi - lo, true));
 
             // Take an extra ref to the root, which will force all a clone of
-            // all the nodes to teh insertion point.
-            node_ptr extra_ref = ptr_;
+            // all the interior nodes.
+            detail::node_ptr new_root = ptr_;
 
-            // TODO: insert slice at leftmost substr leaf.
-            // TODO: Go back through nodes exterior to (left of) path to leaf
-            // and remove them.
-            // TODO: Same thing on the right.
+            new_root = detail::btree_erase(new_root, hi, size());
+            new_root = detail::btree_erase(new_root, 0, lo);
 
-            rope retval;
-            retval.ptr_ = new_root;
-            return retval;
+            return rope(new_root);
         }
 
         rope substr (size_type cut) const
@@ -1055,7 +1055,6 @@ namespace boost { namespace text {
             assert(0 <= hi && hi <= size());
             return substr(lo, hi);
         }
-#endif
 
         int compare (rope rhs) const noexcept;
 
@@ -1170,6 +1169,8 @@ namespace boost { namespace text {
         { ptr_.swap(rhs.ptr_); }
 
     private:
+        explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
+
         text * mutable_insertion_leaf (size_type at, size_type size, bool insertion_would_allocate)
         {
             detail::found_leaf found;
