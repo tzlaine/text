@@ -922,20 +922,26 @@ namespace boost { namespace text {
                     return new_root;
                 }
             } else {
-                detail::found_leaf found_lo;
-                detail::find_leaf(root, lo, found_lo);
-                if (found_lo.offset_ != 0) {
-                    // TODO: Insert prefix that's not being erased right
-                    // before found_lo.leaf_.
-                    // TODO: lo += prefix.size_;
-                    // TODO: hi += prefix.size_;
-                }
-
+                // Right after the hi-segment, insert the suffix of the
+                // hi-segment that's not being erased (if there is one).
                 detail::found_leaf found_hi;
                 detail::find_leaf(root, hi, found_hi);
                 if (found_hi.offset_ != found_hi.leaf_->size_) {
-                    // TODO: Insert suffix that's not being erased right
-                    // after found_hi.leaf_.
+                    node_ptr suffix =
+                        slice_leaf(found_hi.leaf_, found_hi.offset_, found_hi.leaf_->size_, false);
+                    root = btree_insert(root, hi - found_hi.offset_ + found_hi.leaf_->size_, suffix);
+                }
+
+                // Right before the lo-segment, insert the prefix of the
+                // lo-segment that's not being erased (if there is one).
+                detail::found_leaf found_lo;
+                detail::find_leaf(root, lo, found_lo);
+                if (found_lo.offset_ != 0) {
+                    node_ptr prefix =
+                        slice_leaf(found_lo.leaf_, 0, found_lo.offset_, false);
+                    root = btree_insert(root, lo - found_lo.offset_, prefix);
+                    lo += found_lo.offset_;
+                    hi += found_lo.offset_;
                 }
 
                 leaf_node_t * leaf = found_lo.leaf_;
