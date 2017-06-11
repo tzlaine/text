@@ -786,18 +786,58 @@ namespace boost { namespace text {
 
                 if (child_left_sib &&
                     min_children + 1 <= num_children(child_left_sib)) {
-                    // Right-rotate.
-                    // Remove last EF element of left sibling.
-                    // Prepend EF onto child.
+                    // Remove last element of left sibling.
+                    node_ptr moved_node = children(child_left_sib).back();
+
+                    {
+                        auto mut_left = child_left_sib.write();
+                        erase_child(mut_left.as_interior(), num_children(mut_left) - 1);
+                    }
+
+                    // Prepend last element onto child.
+                    {
+                        auto mut_child = child.write();
+                        insert_child(mut_child.as_interior(), 0, moved_node);
+                    }
+
                     // Update node.
-                    // new_child = btree_erase(next_node, at - offset, leaf);
+                    {
+                        auto mut_node = node.write();
+                        keys(mut_node)[child_index - 1] -= size(moved_node.get());
+                        keys(mut_node)[child_index] += size(moved_node.get());
+                    }
+
+                    moved_node = nullptr;
+
+                    std::ptrdiff_t const offset = node.as_interior()->offset(child_index);
+                    new_child = btree_erase(child, at - offset, leaf);
                 } else if (child_right_sib &&
                            min_children + 1 <= num_children(child_right_sib)) {
-                    // Left-rotate.
-                    // Remove first E0 element of right sibling.
-                    // Append child with E0.
+                    // Remove first element of right sibling.
+                    node_ptr moved_node = children(child_right_sib).front();
+
+                    {
+                        auto mut_right = child_right_sib.write();
+                        erase_child(mut_right.as_interior(), 0);
+                    }
+
+                    // Append first element onto child.
+                    {
+                        auto mut_child = child.write();
+                        insert_child(mut_child.as_interior(), num_children(mut_child), moved_node);
+                    }
+
                     // Update node.
-                    // new_child = btree_erase(next_node, at - offset, leaf);
+                    {
+                        auto mut_node = node.write();
+                        keys(mut_node)[child_index] += size(moved_node.get());
+                        keys(mut_node)[child_index + 1] -= size(moved_node.get());
+                    }
+
+                    moved_node = nullptr;
+
+                    std::ptrdiff_t const offset = node.as_interior()->offset(child_index);
+                    new_child = btree_erase(child, at - offset, leaf);
                 } else {
                     auto const right_index = child_right_sib ? child_index + 1 : child_index;
                     auto const left_index = right_index - 1;
