@@ -36,10 +36,12 @@ namespace boost { namespace text {
             leaf_node_t const * as_leaf () const;
             interior_node_t const * as_interior () const;
 
+            node_t * get () const
+            { return ptr_.get(); }
+
             leaf_node_t * as_mutable_leaf ();
             interior_node_t * as_mutable_interior ();
-            node_ptr clone ();
-            node_ptr write ();
+            node_ptr write (); // TODO: This should return a totally different type with a mutable interface.
 
             void swap (node_ptr & rhs)
             { ptr_.swap(rhs.ptr_); }
@@ -93,7 +95,7 @@ namespace boost { namespace text {
         constexpr int max_children = 8;
         constexpr int text_insert_max = 512;
 
-        inline std::ptrdiff_t size (node_ptr node);
+        inline std::ptrdiff_t size (node_t const * node);
 
         struct interior_node_t : node_t
         {
@@ -215,19 +217,14 @@ namespace boost { namespace text {
         interior_node_t * node_ptr::as_mutable_interior ()
         { return const_cast<interior_node_t *>(as_interior()); }
 
-        node_ptr node_ptr::clone ()
-        {
-            if (ptr_->leaf_)
-                return node_ptr(new leaf_node_t(*as_leaf()));
-            else
-                return node_ptr(new interior_node_t(*as_interior()));
-        }
-
         node_ptr node_ptr::write ()
         {
             if (ptr_->refs_ == 1)
                 return *this;
-            return clone();
+            if (ptr_->leaf_)
+                return node_ptr(new leaf_node_t(*as_leaf()));
+            else
+                return node_ptr(new interior_node_t(*as_interior()));
         }
 
         inline void intrusive_ptr_add_ref (node_t * node)
@@ -242,12 +239,13 @@ namespace boost { namespace text {
             }
         }
 
-        inline std::ptrdiff_t size (node_ptr node)
+        inline std::ptrdiff_t size (node_t const * node)
         {
+            assert(node);
             if (node->leaf_)
-                return node.as_leaf()->size_;
+                return static_cast<leaf_node_t const *>(node)->size_;
             else
-                return node.as_interior()->keys_.back();
+                return static_cast<interior_node_t const *>(node)->keys_.back();
         }
 
         inline std::ptrdiff_t find_child (interior_node_t const * node, std::ptrdiff_t n)
@@ -274,7 +272,7 @@ namespace boost { namespace text {
             found_leaf & retval
         ) {
             assert(node);
-            assert(n <= size(node));
+            assert(n <= size(node.get()));
             if (node->leaf_) {
                 retval.leaf_ = node.as_mutable_leaf();
                 retval.offset_ = n;
@@ -408,6 +406,30 @@ namespace boost { namespace text {
             );
         }
 
+        inline void insert_child (interior_node_t * node, int at, node_ptr child)
+        {
+            auto const child_size = size(child.get());
+            node->children_.insert(node->children_.begin() + at, child);
+            node->keys_.insert(node->keys_.begin() + at, node->offset(at));
+            for (int i = at, size = (int)node->keys_.size(); i < size; ++i) {
+                node->keys_[i] += child_size;
+            }
+        }
+
+        enum erasure_adjustments { adjust_keys, dont_adjust_keys };
+
+        inline void erase_child (interior_node_t * node, int at, erasure_adjustments adj = adjust_keys)
+        {
+            auto const child_size = size(node->children_[at].get());
+            node->children_.erase(node->children_.begin() + at);
+            node->keys_.erase(node->keys_.begin() + at);
+            if (adj == adjust_keys) {
+                for (int i = at, size = (int)node->keys_.size(); i < size; ++i) {
+                    node->keys_[i] -= child_size;
+                }
+            }
+        }
+
         inline node_ptr slice_leaf (leaf_node_t * leaf, std::ptrdiff_t lo, std::ptrdiff_t hi, bool immutable)
         {
             assert(leaf);
@@ -487,7 +509,7 @@ namespace boost { namespace text {
                 auto it = new_node->children_.begin();
                 std::ptrdiff_t sum = 0;
                 for (auto & key : new_node->keys_) {
-                    sum += size(*it);
+                    sum += size(it->get());
                     key = sum;
                     ++it;
                 }
@@ -552,7 +574,7 @@ namespace boost { namespace text {
             std::ptrdiff_t at,
             node_ptr node
         ) {
-            assert(at <= size(parent));
+            assert(at <= size(parent.get()));
 
             parent = parent.write();
 
@@ -562,13 +584,7 @@ namespace boost { namespace text {
                 if (parent.as_interior()->keys_[i] < at)
                     ++i;
 
-                auto const offset_at_i = parent.as_interior()->offset(i);
-
-                interior_node_t * int_parent = parent.as_mutable_interior();
-                auto it = int_parent->keys_.begin() + i;
-                auto const last = int_parent->keys_.end();
-
-                node_ptr child = parent.as_interior()->children_[i];
+                node_ptr child = parent.as_mutable_interior()->children_[i].write();
                 leaf_node_t * leaf_child = child.as_mutable_leaf();
                 leaf_node_t * leaf_node = node.as_mutable_leaf();
                 if (leaf_child->prev_)
@@ -577,15 +593,7 @@ namespace boost { namespace text {
                 leaf_node->next_ = leaf_child;
                 leaf_child->prev_ = leaf_node;
 
-                int_parent->children_.insert(
-                    int_parent->children_.begin() + i,
-                    node
-                );
-                int_parent->keys_.insert(it, offset_at_i);
-                auto const node_size = node.as_leaf()->size_;
-                while (it != last) {
-                    *it++ += node_size;
-                }
+                insert_child(parent.as_mutable_interior(), i, node);
             } else {
                 if (parent.as_interior()->children_[i].as_interior()->full()) {
                     parent = btree_split_child(parent, i);
@@ -674,21 +682,14 @@ namespace boost { namespace text {
                     return node.as_interior()->children_[child_index ? 0 : 1];
 
                 assert(node.as_interior()->children_[child_index].as_leaf() == leaf);
-                auto const leaf_size = leaf->size_;
 
                 node = node.write();
-
-                interior_node_t * int_node = node.as_mutable_interior();
-                int_node->children_.erase(int_node->children_.begin() + child_index);
-                int_node->keys_.erase(int_node->keys_.begin() + child_index);
-                for (int i = child_index, size = (int)int_node->keys_.size(); i < size; ++i) {
-                    int_node->keys_[i] -= leaf_size;
-                }
+                erase_child(node.as_mutable_interior(), child_index);
 
                 return node;
             }
 
-            node_ptr next_node = nullptr; // TODO
+            node_ptr next_node = nullptr; // TODO: Should be a pointer type.
             std::ptrdiff_t offset = 0;
 
             auto const child_index = find_child(node.as_interior(), at);
@@ -708,16 +709,23 @@ namespace boost { namespace text {
 
                 if (child_left_sib &&
                     min_children + 1 <= (int)child_left_sib.as_interior()->children_.size()) {
-                    // TODO: 3a
+                    // Right-rotate.
+                    // Remove last EF element of left sibling.
+                    // Prepend EF onto child.
+                    // Update node.
                 } else if (child_right_sib &&
                            min_children + 1 <= (int)child_right_sib.as_interior()->children_.size()) {
-                    // TODO: 3a
+                    // Left-rotate.
+                    // Remove first E0 element of right sibling.
+                    // Append child with E0.
+                    // Update node.
                 } else {
                     interior_node_t * left =
                         (child_right_sib ? child : child_left_sib).as_mutable_interior();
                     interior_node_t * right =
                         (child_right_sib ? child_right_sib : child).as_mutable_interior();
                     auto const right_index = child_right_sib ? child_index + 1 : child_index;
+                    auto const left_index = right_index - 1;
 
                     left->children_.insert(
                         left->children_.end(),
@@ -736,11 +744,9 @@ namespace boost { namespace text {
                     }
 
                     next_node = left;
-                    offset = node.as_interior()->offset(child_right_sib ? child_index : child_index - 1);
+                    offset = node.as_interior()->offset(left_index);
 
-                    interior_node_t * int_node = node.as_mutable_interior();
-                    int_node->children_.erase(int_node->children_.begin() + right_index + 1);
-                    int_node->keys_.erase(int_node->keys_.begin() + right_index + 1);
+                    erase_child(node.as_mutable_interior(), right_index, dont_adjust_keys);
                 }
             } else {
                 offset = node.as_interior()->offset(child_index);
@@ -777,9 +783,9 @@ namespace boost { namespace text {
                     interior_node_t * new_root = nullptr;
                     node_ptr new_root_ptr(new_root = new interior_node_t);
                     new_root->children_.push_back(slices.slice);
-                    new_root->keys_.push_back(size(slices.slice));
+                    new_root->keys_.push_back(size(slices.slice.get()));
                     new_root->children_.push_back(slices.other_slice);
-                    new_root->keys_.push_back(size(slices.other_slice));
+                    new_root->keys_.push_back(size(slices.other_slice.get()));
                     return new_root;
                 }
             } else {
@@ -866,7 +872,7 @@ namespace boost { namespace text {
         { return size() == 0; }
 
         size_type size () const noexcept
-        { return detail::size(ptr_); }
+        { return detail::size(ptr_.get()); }
 
         char operator[] (size_type n) const noexcept
         {
