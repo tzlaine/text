@@ -553,6 +553,7 @@ namespace boost { namespace text {
             return nullptr; // This should never execute.
         }
 
+        // Follows CLRS.
         inline node_ptr btree_split_child (node_ptr const & parent, int i)
         {
             assert(parent.as_interior()->full());
@@ -599,6 +600,7 @@ namespace boost { namespace text {
             return parent;
         }
 
+        // Follows CLRS.
         inline void btree_split_leaf (node_ptr const & parent, int i, std::ptrdiff_t at)
         {
             node_ptr const & child = children(parent)[i];
@@ -641,6 +643,7 @@ namespace boost { namespace text {
             );
         }
 
+        // Follows CLRS.
         inline node_ptr btree_insert_nonfull (
             node_ptr & parent,
             std::ptrdiff_t at,
@@ -688,6 +691,7 @@ namespace boost { namespace text {
             return parent;
         }
 
+        // Follows CLRS.
         inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr const & node)
         {
             assert(root);
@@ -747,6 +751,10 @@ namespace boost { namespace text {
             return retval;
         }
 
+        // Recursing top-to-bottom, pull nodes down the tree as necessary to
+        // ensure that each node has min_children + 1 nodes in before
+        // recursing into it.  This enables the erasure to happen in a single
+        // downward pass, with no bakctracking.
         inline node_ptr btree_erase (node_ptr const & node, std::ptrdiff_t at, leaf_node_t * leaf)
         {
             assert(node);
