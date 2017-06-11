@@ -17,6 +17,7 @@ namespace boost { namespace text {
 
         // TODO: Encoding breakage checks.
         // TODO: Leaf link fixups when erasing.
+        // TOOD: Evaluate exception guarantee.
 
         struct node_t;
         struct leaf_node_t;
