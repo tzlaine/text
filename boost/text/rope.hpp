@@ -221,38 +221,38 @@ namespace boost { namespace text {
             which which_;
         };
 
-        mutable_node_ptr::~mutable_node_ptr ()
+        inline mutable_node_ptr::~mutable_node_ptr ()
         { node_ptr_.ptr_ = ptr_; }
 
-        leaf_node_t * mutable_node_ptr::as_leaf ()
+        inline leaf_node_t * mutable_node_ptr::as_leaf ()
         {
             assert(ptr_);
             assert(ptr_->leaf_);
             return static_cast<leaf_node_t *>(ptr_);
         }
 
-        interior_node_t * mutable_node_ptr::as_interior ()
+        inline interior_node_t * mutable_node_ptr::as_interior ()
         {
             assert(ptr_);
             assert(!ptr_->leaf_);
             return static_cast<interior_node_t *>(ptr_);
         }
 
-        leaf_node_t const * node_ptr::as_leaf () const
+        inline leaf_node_t const * node_ptr::as_leaf () const
         {
             assert(ptr_);
             assert(ptr_->leaf_);
             return static_cast<leaf_node_t const *>(ptr_.get());
         }
 
-        interior_node_t const * node_ptr::as_interior () const
+        inline interior_node_t const * node_ptr::as_interior () const
         {
             assert(ptr_);
             assert(!ptr_->leaf_);
             return static_cast<interior_node_t const *>(ptr_.get());
         }
 
-        mutable_node_ptr node_ptr::write () const
+        inline mutable_node_ptr node_ptr::write () const
         {
             auto this_ref = const_cast<node_ptr &>(*this);
             if (ptr_->refs_ == 1)
