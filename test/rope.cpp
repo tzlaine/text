@@ -6,7 +6,7 @@
 using namespace boost;
 
 #if 0
-TEST(algorithm, test_rope)
+TEST(rope, test_rope)
 {
     text::text_view const tv;
     EXPECT_EQ(tv.data(), nullptr);
@@ -39,7 +39,7 @@ TEST(algorithm, test_rope)
     EXPECT_EQ(compare_result, 0);
 }
 
-TEST(algorithm, test_empty_view_constexpr)
+TEST(rope, test_empty_view_constexpr)
 {
     constexpr text::text_view tv;
     static_assert(tv.data() == nullptr, "");
@@ -72,7 +72,7 @@ TEST(algorithm, test_empty_view_constexpr)
     static_assert(compare_result == 0, "");
 }
 
-TEST(algorithm, test_view_view_compare)
+TEST(rope, test_view_view_compare)
 {
     text::text_view tv_empty;
     text::text_view tv_a("a");
@@ -97,7 +97,7 @@ TEST(algorithm, test_view_view_compare)
     EXPECT_EQ(compare_b_a, 1);
 }
 
-TEST(algorithm, test_view_view_compare_constexpr)
+TEST(rope, test_view_view_compare_constexpr)
 {
     constexpr text::text_view tv_empty;
     constexpr text::text_view tv_a("a");
@@ -131,7 +131,7 @@ TEST(algorithm, test_view_view_compare_constexpr)
 // TODO: rfind()
 // TODO: rfind_view()
 
-TEST(algorithm, test_view_view_substr)
+TEST(rope, test_view_view_substr)
 {
     text::text_view tv_empty;
     text::text_view tv_a("a");
@@ -152,7 +152,7 @@ TEST(algorithm, test_view_view_substr)
     EXPECT_EQ(substr(tv_abc, 2, 3), text::text_view("cde"));
 }
 
-TEST(algorithm, test_view_view_substr_constexpr)
+TEST(rope, test_view_view_substr_constexpr)
 {
     constexpr text::text_view tv_empty;
     constexpr text::text_view tv_a("a");
