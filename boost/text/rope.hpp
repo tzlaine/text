@@ -16,7 +16,6 @@ namespace boost { namespace text {
     namespace detail {
 
         // TODO: Encoding breakage checks.
-        // TODO: Leaf link fixups when erasing.
         // TODO: Evaluate exception guarantee.
         // TODO: Audit spurious refs (e.g. from node_ptrs on the stack).
 
@@ -754,7 +753,9 @@ namespace boost { namespace text {
         // Recursing top-to-bottom, pull nodes down the tree as necessary to
         // ensure that each node has min_children + 1 nodes in before
         // recursing into it.  This enables the erasure to happen in a single
-        // downward pass, with no bakctracking.
+        // downward pass, with no bakctracking.  This function only erases
+        // entire segments; the segments must have been split appropriately
+        // before this function is ever called.
         inline node_ptr btree_erase (node_ptr const & node, std::ptrdiff_t at, leaf_node_t * leaf)
         {
             assert(node);
@@ -762,14 +763,29 @@ namespace boost { namespace text {
             if (children(node)[0]->leaf_) {
                 auto const child_index = find_child(node.as_interior(), at);
 
-                if (num_children(node) == 2)
-                    return children(node)[child_index ? 0 : 1];
+                if (num_children(node) == 2) {
+                    node_ptr retval = children(node)[child_index ? 0 : 1];
+                    auto mut_retval = retval.write();
+                    mut_retval.as_leaf()->next_ = nullptr;
+                    mut_retval.as_leaf()->prev_ = nullptr;
+                    return retval;
+                }
 
                 assert(children(node)[child_index].as_leaf() == leaf);
+                leaf_node_t * child_prev = leaf->prev_;
 
                 {
                     auto mut_node = node.write();
                     erase_child(mut_node.as_interior(), child_index);
+                }
+
+                if (child_index < num_children(node)) {
+                    auto mut_child = children(node)[child_index].write();
+                    mut_child.as_leaf()->prev_ = child_prev;
+                    if (child_prev)
+                        child_prev->next_ = mut_child.as_leaf();
+                } else if (child_prev) {
+                    child_prev->next_ = nullptr;
                 }
 
                 return node;
