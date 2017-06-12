@@ -459,9 +459,6 @@ namespace boost { namespace text {
             return retval;
         }
 
-        struct const_rope_iterator;
-        struct const_reverse_rope_iterator;
-
         template <typename Container>
         auto reverse (Container const & c)
         {
@@ -550,6 +547,43 @@ namespace boost { namespace text {
             default: assert(!"unhandled rope node case"); break;
             }
             return nullptr; // This should never execute.
+        }
+
+        struct leaf_slices
+        {
+            node_ptr slice;
+            node_ptr other_slice;
+        };
+
+        inline leaf_slices erase_leaf (leaf_node_t * leaf, std::ptrdiff_t lo, std::ptrdiff_t hi)
+        {
+            assert(leaf);
+            assert(lo < leaf->size_);
+            assert(hi < leaf->size_);
+            assert(lo < hi);
+
+            bool const leaf_mutable = leaf->refs_ == 1;
+
+            leaf_slices retval;
+
+            if (leaf_mutable && leaf->which_ == node_t::which::t) {
+                text & t = leaf->as_text();
+                t.erase(t(lo, hi));
+                retval.slice = leaf;
+                return retval;
+            }
+
+            auto const leaf_size = leaf->size_;
+
+            if (hi != leaf_size)
+                retval.other_slice = slice_leaf(leaf, hi, leaf_size, true);
+            if (lo != 0)
+                retval.slice = slice_leaf(leaf, 0, lo, false);
+
+            if (!retval.slice)
+                retval.slice.swap(retval.other_slice);
+
+            return retval;
         }
 
         // Follows CLRS.
@@ -711,43 +745,6 @@ namespace boost { namespace text {
             } else {
                 return btree_insert_nonfull(root, at, node);
             }
-        }
-
-        struct leaf_slices
-        {
-            node_ptr slice;
-            node_ptr other_slice;
-        };
-
-        inline leaf_slices erase_leaf (leaf_node_t * leaf, std::ptrdiff_t lo, std::ptrdiff_t hi)
-        {
-            assert(leaf);
-            assert(lo < leaf->size_);
-            assert(hi < leaf->size_);
-            assert(lo < hi);
-
-            bool const leaf_mutable = leaf->refs_ == 1;
-
-            leaf_slices retval;
-
-            if (leaf_mutable && leaf->which_ == node_t::which::t) {
-                text & t = leaf->as_text();
-                t.erase(t(lo, hi));
-                retval.slice = leaf;
-                return retval;
-            }
-
-            auto const leaf_size = leaf->size_;
-
-            if (hi != leaf_size)
-                retval.other_slice = slice_leaf(leaf, hi, leaf_size, true);
-            if (lo != 0)
-                retval.slice = slice_leaf(leaf, 0, lo, false);
-
-            if (!retval.slice)
-                retval.slice.swap(retval.other_slice);
-
-            return retval;
         }
 
         // Recursing top-to-bottom, pull nodes down the tree as necessary to
@@ -978,6 +975,9 @@ namespace boost { namespace text {
 
             return root;
         }
+
+        struct const_rope_iterator;
+        struct const_reverse_rope_iterator;
 
     }
 
