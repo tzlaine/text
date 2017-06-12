@@ -116,11 +116,151 @@ TEST(rope_detail, test_make_node)
             EXPECT_EQ(p_ref0->refs_, 1);
             EXPECT_EQ(p_ref1->refs_, 1);
         }
+
+        EXPECT_EQ(p_text->refs_, 1);
     }
 }
 
-// TODO: mutable_node_ptr
-// TODO: find_child, find_leaf, find_char
-// TODO: insert_child, erase_child
+TEST(rope_detail, test_mutable_node_ptr)
+{
+    {
+        text t("some text");
+        node_ptr p_text = make_node(t);
+
+        auto mut_p_text = p_text.write();
+
+        EXPECT_EQ(p_text->refs_, 1);
+        EXPECT_EQ(mut_p_text.as_leaf(), p_text.as_leaf());
+
+        mut_p_text.as_leaf()->as_text() += ".";
+
+        EXPECT_EQ(p_text.as_leaf()->as_text(), "some text.");
+        EXPECT_EQ(mut_p_text.as_leaf()->as_text(), "some text.");
+    }
+
+    text t("some text");
+    node_ptr p0 = make_node(t);
+    node_ptr p1 = p0;
+
+    {
+        auto mut_p0 = p0.write();
+
+        EXPECT_EQ(p0->refs_, 2);
+        EXPECT_NE(mut_p0.as_leaf(), p0.as_leaf());
+
+        mut_p0.as_leaf()->as_text() += " --";
+
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(mut_p0.as_leaf()->as_text(), "some text --");
+    }
+
+    EXPECT_EQ(p0.as_leaf()->as_text(), "some text --");
+}
+
+TEST(rope_detail, test_find)
+{
+    interior_node_t parent;
+    parent.children_.push_back(make_node(text_view("some")));
+    parent.children_.push_back(make_node(text_view(" ")));
+    parent.children_.push_back(make_node(text_view("text")));
+    parent.keys_.push_back(4);
+    parent.keys_.push_back(5);
+    parent.keys_.push_back(9);
+
+    EXPECT_EQ(parent.offset(0), 0);
+    EXPECT_EQ(parent.offset(1), 4);
+    EXPECT_EQ(parent.offset(2), 5);
+
+    EXPECT_EQ(find_child(&parent, 0), 0);
+    EXPECT_EQ(find_child(&parent, 1), 0);
+    EXPECT_EQ(find_child(&parent, 2), 0);
+    EXPECT_EQ(find_child(&parent, 3), 0);
+    EXPECT_EQ(find_child(&parent, 4), 0);
+    EXPECT_EQ(find_child(&parent, 5), 1);
+    EXPECT_EQ(find_child(&parent, 6), 2);
+    EXPECT_EQ(find_child(&parent, 7), 2);
+    EXPECT_EQ(find_child(&parent, 8), 2);
+    EXPECT_EQ(find_child(&parent, 9), 2);
+
+    // TODO: find_leaf, find_char
+}
+
+void fill_interior_node (interior_node_t & parent)
+{
+    parent.children_.push_back(make_node(text_view("some")));
+    parent.children_.push_back(make_node(text_view(" ")));
+    parent.children_.push_back(make_node(text_view("text")));
+    parent.keys_.push_back(4);
+    parent.keys_.push_back(5);
+    parent.keys_.push_back(9);
+}
+
+TEST(rope_detail, test_insert_erase_child)
+{
+    {
+        interior_node_t parent;
+        fill_interior_node(parent);
+        insert_child(&parent, 0, make_node("X"));
+        EXPECT_EQ(parent.children_[0].as_leaf()->as_text_view(), "X");
+        EXPECT_EQ(parent.keys_[0], 1);
+        EXPECT_EQ(parent.keys_[1], 5);
+        EXPECT_EQ(parent.keys_[2], 6);
+        EXPECT_EQ(parent.keys_[3], 10);
+    }
+
+    {
+        interior_node_t parent;
+        fill_interior_node(parent);
+        insert_child(&parent, 2, make_node("X"));
+        EXPECT_EQ(parent.children_[2].as_leaf()->as_text_view(), "X");
+        EXPECT_EQ(parent.keys_[0], 4);
+        EXPECT_EQ(parent.keys_[1], 5);
+        EXPECT_EQ(parent.keys_[2], 6);
+        EXPECT_EQ(parent.keys_[3], 10);
+    }
+
+
+    {
+        interior_node_t parent;
+        fill_interior_node(parent);
+        insert_child(&parent, 3, make_node("X"));
+        EXPECT_EQ(parent.children_[3].as_leaf()->as_text_view(), "X");
+        EXPECT_EQ(parent.keys_[0], 4);
+        EXPECT_EQ(parent.keys_[1], 5);
+        EXPECT_EQ(parent.keys_[2], 9);
+        EXPECT_EQ(parent.keys_[3], 10);
+    }
+
+    {
+        interior_node_t parent;
+        fill_interior_node(parent);
+        erase_child(&parent, 0, dont_adjust_keys);
+        EXPECT_EQ(parent.children_[0].as_leaf()->as_text_view(), " ");
+        EXPECT_EQ(parent.children_[1].as_leaf()->as_text_view(), "text");
+        EXPECT_EQ(parent.keys_[0], 5);
+        EXPECT_EQ(parent.keys_[1], 9);
+    }
+
+    {
+        interior_node_t parent;
+        fill_interior_node(parent);
+        erase_child(&parent, 1);
+        EXPECT_EQ(parent.children_[0].as_leaf()->as_text_view(), "some");
+        EXPECT_EQ(parent.children_[1].as_leaf()->as_text_view(), "text");
+        EXPECT_EQ(parent.keys_[0], 4);
+        EXPECT_EQ(parent.keys_[1], 8);
+    }
+
+    {
+        interior_node_t parent;
+        fill_interior_node(parent);
+        erase_child(&parent, 2);
+        EXPECT_EQ(parent.children_[0].as_leaf()->as_text_view(), "some");
+        EXPECT_EQ(parent.children_[1].as_leaf()->as_text_view(), " ");
+        EXPECT_EQ(parent.keys_[0], 4);
+        EXPECT_EQ(parent.keys_[1], 5);
+    }
+}
+
 // TODO: slice_leaf
 // TODO: erase_leaf

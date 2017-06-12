@@ -193,6 +193,46 @@ namespace boost { namespace text {
                 buf_ptr_ = new (at) repeated_text_view(rtv);
             }
 
+            leaf_node_t (leaf_node_t const & rhs) :
+                node_t (true),
+                buf_ptr_ (rhs.buf_ptr_),
+                prev_ (rhs.prev_),
+                next_ (rhs.next_),
+                which_ (rhs.which_)
+            {
+                switch (which_) {
+                case which::t: {
+                    auto at = placement_address<text>(buf_, sizeof(buf_));
+                    assert(at);
+                    buf_ptr_ = new (at) text(rhs.as_text());
+                    break;
+                }
+                case which::tv: {
+                    auto at = placement_address<text_view>(buf_, sizeof(buf_));
+                    assert(at);
+                    buf_ptr_ = new (at) text_view(rhs.as_text_view());
+                    break;
+                }
+                case which::rtv: {
+                    auto at = placement_address<repeated_text_view>(buf_, sizeof(buf_));
+                    assert(at);
+                    buf_ptr_ = new (at) repeated_text_view(rhs.as_repeated_text_view());
+                    break;
+                }
+                case which::ref: {
+                    auto at = placement_address<reference>(buf_, sizeof(buf_));
+                    assert(at);
+                    buf_ptr_ = new (at) reference(rhs.as_reference());
+                    break;
+                }
+                default: assert(!"unhandled rope node case"); break;
+                }
+            }
+
+            leaf_node_t & operator= (leaf_node_t const &) = delete;
+            leaf_node_t (leaf_node_t &&) = delete;
+            leaf_node_t & operator= (leaf_node_t &&) = delete;
+
             ~leaf_node_t ()
             {
                 if (!buf_ptr_)
@@ -307,7 +347,7 @@ namespace boost { namespace text {
 
         inline mutable_node_ptr node_ptr::write () const
         {
-            auto this_ref = const_cast<node_ptr &>(*this);
+            auto & this_ref = const_cast<node_ptr &>(*this);
             if (ptr_->refs_ == 1)
                 return mutable_node_ptr(this_ref, const_cast<node_t *>(ptr_.get()));
             if (ptr_->leaf_)
@@ -369,7 +409,7 @@ namespace boost { namespace text {
         {
             int i = 0;
             auto const sizes = static_cast<int>(node->keys_.size());
-            while (i < sizes && node->keys_[i] <= n) {
+            while (i < sizes && node->keys_[i] < n) {
                 ++i;
             }
             assert(i < sizes);
