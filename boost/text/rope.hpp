@@ -628,8 +628,12 @@ namespace boost { namespace text {
             assert(lo < hi);
 
             bool const leaf_mutable = node.as_leaf()->refs_ == 1;
+            auto const leaf_size = size(node.get());
 
             leaf_slices retval;
+
+            if (lo == 0 && hi == leaf_size)
+                return retval;
 
             if (leaf_mutable && node.as_leaf()->which_ == node_t::which::t) {
                 {
@@ -640,8 +644,6 @@ namespace boost { namespace text {
                 retval.slice = node;
                 return retval;
             }
-
-            auto const leaf_size = size(node.get());
 
             if (hi != leaf_size)
                 retval.other_slice = slice_leaf(node, hi, leaf_size, true);

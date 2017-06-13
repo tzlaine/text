@@ -385,4 +385,77 @@ TEST(rope_detail, test_slice_leaf)
     }
 }
 
-// TODO: erase_leaf
+TEST(rope_detail, test_erase_leaf)
+{
+    // text
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        leaf_slices slices = erase_leaf(p0, 0, 9);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(slices.slice.get(), nullptr);
+        EXPECT_EQ(slices.other_slice.get(), nullptr);
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        leaf_slices slices = erase_leaf(p0, 1, 9);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "s");
+        EXPECT_EQ(slices.slice.as_leaf()->as_text(), "s");
+        EXPECT_EQ(slices.other_slice.get(), nullptr);
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = p0;
+        leaf_slices slices = erase_leaf(p0, 1, 9);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(slices.slice.as_leaf()->as_reference().ref_, "s");
+        EXPECT_EQ(slices.other_slice.get(), nullptr);
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = p0;
+        leaf_slices slices = erase_leaf(p0, 0, 8);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(slices.slice.as_leaf()->as_reference().ref_, "t");
+        EXPECT_EQ(slices.other_slice.get(), nullptr);
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = p0;
+        leaf_slices slices = erase_leaf(p0, 1, 8);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(slices.slice.as_leaf()->as_reference().ref_, "s");
+        EXPECT_EQ(slices.other_slice.as_leaf()->as_reference().ref_, "t");
+    }
+
+
+    // text_view
+
+    {
+        text_view t("some text");
+        node_ptr p0 = make_node(t);
+        leaf_slices slices = erase_leaf(p0, 1, 8);
+        EXPECT_EQ(p0.as_leaf()->as_text_view(), "s");
+        EXPECT_EQ(slices.slice.as_leaf()->as_text_view(), "s");
+        EXPECT_EQ(slices.other_slice.as_leaf()->as_text_view(), "t");
+    }
+
+    {
+        text_view t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = p0;
+        leaf_slices slices = erase_leaf(p0, 1, 8);
+        EXPECT_EQ(p0.as_leaf()->as_text_view(), "some text");
+        EXPECT_EQ(slices.slice.as_leaf()->as_text_view(), "s");
+        EXPECT_EQ(slices.other_slice.as_leaf()->as_text_view(), "t");
+    }
+}
