@@ -354,6 +354,8 @@ namespace boost { namespace text {
         { return os.write(t.begin(), t.size()); }
 
     private:
+        bool self_reference (text_view view) const;
+
         int grow_cap (int min_new_cap) const
         {
             assert(0 < min_new_cap);
@@ -373,8 +375,8 @@ namespace boost { namespace text {
 
         std::unique_ptr<char []> get_new_data (int resize_amount)
         {
-            assert(0 < resize_amount);
-            int const new_cap = grow_cap(cap_ + resize_amount);
+            int const new_cap =
+                0 < resize_amount ? grow_cap(cap_ + resize_amount) : cap_;
             std::unique_ptr<char []> retval(new char [new_cap]);
             cap_ = new_cap;
             return retval;
@@ -542,7 +544,11 @@ namespace boost { namespace text {
     inline text & text::operator= (text_view view)
     {
         assert(0 <= view.size());
-        if (view.size() <= size()) {
+        bool const self_ref = self_reference(view);
+        if (self_ref) {
+            erase(text_view(view.end(), end() - view.end()));
+            erase(text_view(begin(), view.begin() - begin()));
+        } else if (view.size() <= size()) {
             clear();
             insert(0, view);
         } else {
@@ -555,7 +561,8 @@ namespace boost { namespace text {
     inline text & text::operator= (repeated_text_view rv)
     {
         assert(0 <= rv.size());
-        if (rv.size() <= size()) {
+        bool const self_ref = self_reference(rv.view());
+        if (!self_ref && rv.size() <= size()) {
             clear();
             insert(0, rv);
         } else {
@@ -613,8 +620,10 @@ namespace boost { namespace text {
         if (!delta)
             return *this;
 
+        bool const late_self_ref =
+            self_reference(view) && at < view.end() - begin();
         int const available = cap_ - 1 - size_;
-        if (available < delta) {
+        if (late_self_ref || available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
@@ -649,8 +658,10 @@ namespace boost { namespace text {
         if (!delta)
             return *this;
 
+        bool const late_self_ref =
+            self_reference(rv.view()) && at < rv.view().end() - begin();
         int const available = cap_ - 1 - size_;
-        if (available < delta) {
+        if (late_self_ref || available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
@@ -700,6 +711,8 @@ namespace boost { namespace text {
         if (old_substr_null_terminated)
             old_substr = old_substr(0, -1);
 
+        assert(self_reference(old_substr));
+
         bool const new_substr_null_terminated =
             !new_substr.empty() && new_substr.end()[-1] == '\0';
         if (new_substr_null_terminated)
@@ -707,9 +720,11 @@ namespace boost { namespace text {
 
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
+        bool const late_self_ref =
+            self_reference(new_substr) && old_substr.begin() < new_substr.end();
         int const delta = new_substr.size() - old_substr.size();
         int const available = cap_ - 1 - size_;
-        if (available < delta) {
+        if (late_self_ref || available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
@@ -748,6 +763,8 @@ namespace boost { namespace text {
         if (old_substr_null_terminated)
             old_substr = old_substr(0, -1);
 
+        assert(self_reference(old_substr));
+
         bool const new_substr_null_terminated =
             !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';
         if (new_substr_null_terminated)
@@ -755,9 +772,11 @@ namespace boost { namespace text {
 
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
+        bool const late_self_ref =
+            self_reference(new_substr.view()) && old_substr.begin() < new_substr.view().end();
         int const delta = new_substr.size() - old_substr.size();
         int const available = cap_ - 1 - size_;
-        if (available < delta) {
+        if (late_self_ref || available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
@@ -806,6 +825,12 @@ namespace boost { namespace text {
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
+    inline bool text::self_reference (text_view view) const
+    {
+        using less_t = std::less<char const *>;
+        less_t less;
+        return !less(view.begin(), begin()) && !less(end(), view.end());
+    }
 
 
     inline bool operator== (char const * lhs, text const & rhs) noexcept

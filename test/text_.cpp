@@ -359,6 +359,38 @@ TEST(text, test_assignment)
         EXPECT_EQ(t2, "a view a view a view ");
         EXPECT_EQ(t2[t2.size()], '\0');
     }
+
+    {
+        text::text t("small");
+        EXPECT_EQ(t, "small");
+
+        t = t(0, t.size());
+        EXPECT_EQ(t, "small");
+    }
+
+    {
+        text::text t("small");
+        EXPECT_EQ(t, "small");
+
+        t = t(2, t.size());
+        EXPECT_EQ(t, "all");
+    }
+
+    {
+        text::text t("small");
+        EXPECT_EQ(t, "small");
+
+        t = t(0, t.size() - 2);
+        EXPECT_EQ(t, "sma");
+    }
+
+    {
+        text::text t("small");
+        EXPECT_EQ(t, "small");
+
+        t = t(1, t.size() - 1);
+        EXPECT_EQ(t, "mal");
+    }
 }
 
 TEST(text, test_iterators_and_index)
@@ -634,6 +666,24 @@ TEST(text, test_insert)
         t6.insert(6, tv);
         EXPECT_EQ(t6, "stringa view ");
         EXPECT_EQ(t6[t6.size()], '\0');
+
+        text::text t7 = ct;
+        EXPECT_EQ(t7.capacity(), 7);
+        t7.insert(6, t7(0, 3));
+        EXPECT_EQ(t7, "stringstr");
+        EXPECT_EQ(t7[t7.size()], '\0');
+
+        text::text t8 = ct;
+        EXPECT_EQ(t8.capacity(), 7);
+        t8.insert(2, t8(0, 3));
+        EXPECT_EQ(t8, "ststrring");
+        EXPECT_EQ(t8[t8.size()], '\0');
+
+        text::text t9 = ct;
+        EXPECT_EQ(t9.capacity(), 7);
+        t9.insert(6, t9(3, 6));
+        EXPECT_EQ(t9, "stringing");
+        EXPECT_EQ(t9[t9.size()], '\0');
     }
 
     {
@@ -680,6 +730,24 @@ TEST(text, test_insert)
         t6.insert(6, rtv);
         EXPECT_EQ(t6, "stringa view a view a view ");
         EXPECT_EQ(t6[t6.size()], '\0');
+
+        text::text t7 = ct;
+        EXPECT_EQ(t7.capacity(), 7);
+        t7.insert(6, text::repeated_text_view(t7(0, 3), 2));
+        EXPECT_EQ(t7, "stringstrstr");
+        EXPECT_EQ(t7[t7.size()], '\0');
+
+        text::text t8 = ct;
+        EXPECT_EQ(t8.capacity(), 7);
+        t8.insert(2, text::repeated_text_view(t8(0, 3), 2));
+        EXPECT_EQ(t8, "ststrstrring");
+        EXPECT_EQ(t8[t8.size()], '\0');
+
+        text::text t9 = ct;
+        EXPECT_EQ(t9.capacity(), 7);
+        t9.insert(6, text::repeated_text_view(t9(3, 6), 2));
+        EXPECT_EQ(t9, "stringinging");
+        EXPECT_EQ(t9[t9.size()], '\0');
     }
 
     // Unicode 9, 3.9/D90
@@ -944,6 +1012,20 @@ TEST(text, test_replace)
         text::text t("string");
         t.replace(t, replacement);
         EXPECT_EQ(t, "REP");
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    {
+        text::text t("string");
+        t.replace(t(0, 3), t(2, 6));
+        EXPECT_EQ(t, "ringing");
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    {
+        text::text t("string");
+        t.replace(t(3, 6), t(0, 3));
+        EXPECT_EQ(t, "strstr");
         EXPECT_EQ(t[t.size()], '\0');
     }
 
