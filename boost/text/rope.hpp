@@ -412,7 +412,7 @@ namespace boost { namespace text {
         {
             int i = 0;
             auto const sizes = static_cast<int>(node->keys_.size());
-            while (i < sizes && node->keys_[i] < n) {
+            while (i < sizes - 1 && node->keys_[i] <= n) {
                 ++i;
             }
             assert(i < sizes);
@@ -440,11 +440,11 @@ namespace boost { namespace text {
                 retval.offset_ = n;
                 return;
             }
-            auto const i = find_child(node.as_interior(), n);
-            node_ptr next_node = children(node)[i];
             retval.path_.push_back(node.as_interior());
+            auto const i = find_child(node.as_interior(), n);
+            node_ptr const & child = children(node)[i];
             auto const offset = node.as_interior()->offset(i);
-            find_leaf(next_node, n - offset, retval);
+            find_leaf(child, n - offset, retval);
         }
 
         struct found_char
@@ -462,16 +462,16 @@ namespace boost { namespace text {
             char c = '\0';
             switch (leaf->which_) {
             case node_t::which::t:
-                c = *(leaf->as_text().cbegin() + n);
+                c = *(leaf->as_text().cbegin() + retval.leaf_.offset_);
                 break;
             case node_t::which::tv:
-                c = *(leaf->as_text_view().begin() + n);
+                c = *(leaf->as_text_view().begin() + retval.leaf_.offset_);
                 break;
             case node_t::which::rtv:
-                c = *(leaf->as_repeated_text_view().begin() + n);
+                c = *(leaf->as_repeated_text_view().begin() + retval.leaf_.offset_);
                 break;
             case node_t::which::ref:
-                c = *(leaf->as_reference().ref_.begin() + n);
+                c = *(leaf->as_reference().ref_.begin() + retval.leaf_.offset_);
                 break;
             default: assert(!"unhandled rope node case"); break;
             }

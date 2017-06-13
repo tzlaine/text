@@ -157,32 +157,252 @@ TEST(rope_detail, test_mutable_node_ptr)
     EXPECT_EQ(p0.as_leaf()->as_text(), "some text --");
 }
 
+node_ptr make_tree ()
+{
+    interior_node_t * int_root = nullptr;
+    node_ptr root(int_root = new interior_node_t);
+
+    interior_node_t * int_left = nullptr;
+    node_ptr left(int_left = new interior_node_t);
+    int_left->children_.push_back(make_node("left left"));
+    int_left->keys_.push_back(size(int_left->children_[0].get()));
+    int_left->children_.push_back(make_node("left right"));
+    int_left->keys_.push_back(int_left->keys_[0] + size(int_left->children_[1].get()));
+
+    auto leaf_0 = const_cast<leaf_node_t *>(int_left->children_[0].as_leaf());
+    auto leaf_1 = const_cast<leaf_node_t *>(int_left->children_[1].as_leaf());
+
+    int_root->children_.push_back(left);
+    int_root->keys_.push_back(size(left.get()));
+
+    interior_node_t * int_right = nullptr;
+    node_ptr right(int_right = new interior_node_t);
+    int_right->children_.push_back(make_node("right left"));
+    int_right->keys_.push_back(size(int_right->children_[0].get()));
+    int_right->children_.push_back(make_node("right right"));
+    int_right->keys_.push_back(int_right->keys_[0] + size(int_right->children_[1].get()));
+
+    int_root->children_.push_back(right);
+    int_root->keys_.push_back(int_root->keys_[0] + size(right.get()));
+
+    auto leaf_2 = const_cast<leaf_node_t *>(int_right->children_[0].as_leaf());
+    auto leaf_3 = const_cast<leaf_node_t *>(int_right->children_[1].as_leaf());
+
+    leaf_0->next_ = leaf_1;
+
+    leaf_1->prev_ = leaf_0;
+    leaf_1->next_ = leaf_2;
+
+    leaf_2->prev_ = leaf_1;
+    leaf_2->next_ = leaf_3;
+
+    leaf_3->prev_ = leaf_2;
+
+    return root;
+}
+
 TEST(rope_detail, test_find)
 {
-    interior_node_t parent;
-    parent.children_.push_back(make_node(text_view("some")));
-    parent.children_.push_back(make_node(text_view(" ")));
-    parent.children_.push_back(make_node(text_view("text")));
-    parent.keys_.push_back(4);
-    parent.keys_.push_back(5);
-    parent.keys_.push_back(9);
+    // find_child
 
-    EXPECT_EQ(parent.offset(0), 0);
-    EXPECT_EQ(parent.offset(1), 4);
-    EXPECT_EQ(parent.offset(2), 5);
+    {
+        interior_node_t parent;
+        parent.children_.push_back(make_node(text_view("some")));
+        parent.children_.push_back(make_node(text_view(" ")));
+        parent.children_.push_back(make_node(text_view("text")));
+        parent.keys_.push_back(4);
+        parent.keys_.push_back(5);
+        parent.keys_.push_back(9);
 
-    EXPECT_EQ(find_child(&parent, 0), 0);
-    EXPECT_EQ(find_child(&parent, 1), 0);
-    EXPECT_EQ(find_child(&parent, 2), 0);
-    EXPECT_EQ(find_child(&parent, 3), 0);
-    EXPECT_EQ(find_child(&parent, 4), 0);
-    EXPECT_EQ(find_child(&parent, 5), 1);
-    EXPECT_EQ(find_child(&parent, 6), 2);
-    EXPECT_EQ(find_child(&parent, 7), 2);
-    EXPECT_EQ(find_child(&parent, 8), 2);
-    EXPECT_EQ(find_child(&parent, 9), 2);
+        EXPECT_EQ(parent.offset(0), 0);
+        EXPECT_EQ(parent.offset(1), 4);
+        EXPECT_EQ(parent.offset(2), 5);
 
-    // TODO: find_leaf, find_char
+        EXPECT_EQ(find_child(&parent, 0), 0);
+        EXPECT_EQ(find_child(&parent, 1), 0);
+        EXPECT_EQ(find_child(&parent, 2), 0);
+        EXPECT_EQ(find_child(&parent, 3), 0);
+        EXPECT_EQ(find_child(&parent, 4), 1);
+        EXPECT_EQ(find_child(&parent, 5), 2);
+        EXPECT_EQ(find_child(&parent, 6), 2);
+        EXPECT_EQ(find_child(&parent, 7), 2);
+        EXPECT_EQ(find_child(&parent, 8), 2);
+        EXPECT_EQ(find_child(&parent, 9), 2);
+    }
+
+    // find_leaf
+
+    {
+        node_ptr root = make_node("test");
+        found_leaf found;
+
+        find_leaf(root, 0, found);
+        EXPECT_EQ(found.leaf_, &root);
+        EXPECT_EQ(found.offset_, 0);
+        EXPECT_TRUE(found.path_.empty());
+
+        find_leaf(root, 2, found);
+        EXPECT_EQ(found.leaf_, &root);
+        EXPECT_EQ(found.offset_, 2);
+        EXPECT_TRUE(found.path_.empty());
+
+        find_leaf(root, 4, found);
+        EXPECT_EQ(found.leaf_, &root);
+        EXPECT_EQ(found.offset_, 4);
+        EXPECT_TRUE(found.path_.empty());
+    }
+
+
+    {
+        interior_node_t * int_root = nullptr;
+        node_ptr root(int_root = new interior_node_t);
+
+        interior_node_t * int_left = nullptr;
+        node_ptr left(int_left = new interior_node_t);
+        int_left->children_.push_back(make_node("left left"));
+        int_left->keys_.push_back(size(int_left->children_[0].get()));
+        int_left->children_.push_back(make_node("left right"));
+        int_left->keys_.push_back(int_left->keys_[0] + size(int_left->children_[1].get()));
+
+        int_root->children_.push_back(left);
+        int_root->keys_.push_back(size(left.get()));
+
+        interior_node_t * int_right = nullptr;
+        node_ptr right(int_right = new interior_node_t);
+        int_right->children_.push_back(make_node("right left"));
+        int_right->keys_.push_back(size(int_right->children_[0].get()));
+        int_right->children_.push_back(make_node("right right"));
+        int_right->keys_.push_back(int_right->keys_[0] + size(int_right->children_[1].get()));
+
+        int_root->children_.push_back(right);
+        int_root->keys_.push_back(int_root->keys_[0] + size(right.get()));
+
+        {
+            found_leaf found;
+            find_leaf(root, 0, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "left left");
+            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_left);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 8, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "left left");
+            EXPECT_EQ(found.offset_, 8);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_left);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 9, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "left right");
+            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_left);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 10, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "left right");
+            EXPECT_EQ(found.offset_, 1);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_left);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 13, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "left right");
+            EXPECT_EQ(found.offset_, 4);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_left);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 18, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "left right");
+            EXPECT_EQ(found.offset_, 9);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_left);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 19, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "right left");
+            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_right);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 28, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "right left");
+            EXPECT_EQ(found.offset_, 9);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_right);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 29, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "right right");
+            EXPECT_EQ(found.offset_, 0);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_right);
+        }
+
+        {
+            found_leaf found;
+            find_leaf(root, 40, found);
+            EXPECT_EQ(found.leaf_->as_leaf()->as_text_view(), "right right");
+            EXPECT_EQ(found.offset_, 11);
+            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_[0], int_root);
+            EXPECT_EQ(found.path_[1], int_right);
+        }
+    }
+
+    // find_char
+
+    {
+        node_ptr root = make_tree();
+        found_char found;
+
+        find_char(root, 0, found);
+        EXPECT_EQ(found.c_, 'l');
+        find_char(root, 8, found);
+        EXPECT_EQ(found.c_, 't');
+        find_char(root, 9, found);
+        EXPECT_EQ(found.c_, 'l');
+        find_char(root, 10, found);
+        EXPECT_EQ(found.c_, 'e');
+        find_char(root, 13, found);
+        EXPECT_EQ(found.c_, ' ');
+        find_char(root, 18, found);
+        EXPECT_EQ(found.c_, 't');
+        find_char(root, 19, found);
+        EXPECT_EQ(found.c_, 'r');
+        find_char(root, 28, found);
+        EXPECT_EQ(found.c_, 't');
+        find_char(root, 29, found);
+        EXPECT_EQ(found.c_, 'r');
+    }
 }
 
 void fill_interior_node (interior_node_t & parent)
