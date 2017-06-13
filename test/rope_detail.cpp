@@ -262,5 +262,127 @@ TEST(rope_detail, test_insert_erase_child)
     }
 }
 
-// TODO: slice_leaf
+TEST(rope_detail, test_slice_leaf)
+{
+    // text
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), true);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(p1.as_leaf()->as_reference().ref_, "some text");
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), false);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(p1.as_leaf()->as_text(), "some text");
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        slice_leaf(p0, 1, t.size() - 1, false);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "ome tex");
+    }
+
+    {
+        text t("some text");
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = p0;
+        node_ptr p2 = slice_leaf(p0, 1, t.size() - 1, false);
+        EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
+        EXPECT_EQ(p2.as_leaf()->as_reference().ref_, "ome tex");
+    }
+
+    // text_view
+
+    {
+        text_view tv("some text");
+        node_ptr p0 = make_node(tv);
+        node_ptr p1 = slice_leaf(p0, 0, tv.size(), true);
+        EXPECT_EQ(p0.as_leaf()->as_text_view(), "some text");
+        EXPECT_EQ(p1.as_leaf()->as_text_view(), "some text");
+    }
+
+    {
+        text_view tv("some text");
+        node_ptr p0 = make_node(tv);
+        slice_leaf(p0, 1, tv.size() - 1, false);
+        EXPECT_EQ(p0.as_leaf()->as_text_view(), "ome tex");
+    }
+
+    {
+        text_view tv("some text");
+        node_ptr p0 = make_node(tv);
+        node_ptr p1 = p0;
+        node_ptr p2 = slice_leaf(p0, 1, tv.size() - 1, false);
+        EXPECT_EQ(p0.as_leaf()->as_text_view(), "some text");
+        EXPECT_EQ(p2.as_leaf()->as_text_view(), "ome tex");
+    }
+
+    // repeated_text_view
+
+    {
+        repeated_text_view rtv("text", 3);
+        node_ptr p0 = make_node(rtv);
+        node_ptr p1 = slice_leaf(p0, 0, rtv.size(), true);
+        EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), "texttexttext");
+        EXPECT_EQ(text(p1.as_leaf()->as_repeated_text_view()), "texttexttext");
+        EXPECT_EQ(p0->refs_, 1);
+        EXPECT_EQ(p1->refs_, 1);
+    }
+
+    {
+        repeated_text_view rtv("text", 3);
+        node_ptr p0 = make_node(rtv);
+        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() * 2, false);
+        EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), "text");
+        EXPECT_EQ(text(p1.as_leaf()->as_repeated_text_view()), "text");
+    }
+
+    {
+        repeated_text_view rtv("text", 3);
+        node_ptr p0 = make_node(rtv);
+        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() + 1, false);
+        EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), "texttexttext");
+        EXPECT_EQ(text(p1.as_leaf()->as_text()), "t");
+    }
+
+    // reference
+
+    {
+        text t("some text");
+        node_ptr pt = make_node(t);
+
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), true);
+        EXPECT_EQ(p0.as_leaf()->as_reference().ref_, "some text");
+        EXPECT_EQ(p1.as_leaf()->as_reference().ref_, "some text");
+    }
+
+    {
+        text t("some text");
+        node_ptr pt = make_node(t);
+
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true);
+        slice_leaf(p0, 1, t.size() - 1, false);
+        EXPECT_EQ(p0.as_leaf()->as_reference().ref_, "ome tex");
+    }
+
+    {
+        text t("some text");
+        node_ptr pt = make_node(t);
+
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true);
+        node_ptr p1 = p0;
+        node_ptr p2 = slice_leaf(p0, 1, t.size() - 1, false);
+        EXPECT_EQ(p0.as_leaf()->as_reference().ref_, "some text");
+        EXPECT_EQ(p2.as_leaf()->as_reference().ref_, "ome tex");
+    }
+}
+
 // TODO: erase_leaf
