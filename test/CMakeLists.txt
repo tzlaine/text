@@ -22,6 +22,7 @@ add_test_executable(utf8)
 add_test_executable(text_view)
 add_test_executable(text_)
 add_test_executable(rope_detail)
+add_test_executable(rope_btree)
 add_test_executable(rope)
 add_test_executable(algorithm)
 

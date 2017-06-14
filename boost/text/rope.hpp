@@ -659,22 +659,23 @@ namespace boost { namespace text {
         // Follows CLRS.
         inline node_ptr btree_split_child (node_ptr const & parent, int i)
         {
-            assert(parent.as_interior()->full());
+            assert(0 <= i && i < num_children(parent));
+            assert(!parent.as_interior()->full());
+            assert(children(parent)[i].as_interior()->full());
 
             interior_node_t * new_node = nullptr;
             node_ptr new_node_ptr(new_node = new interior_node_t);
 
             assert(!children(parent)[i]->leaf_);
-            node_ptr child = children(parent)[i];
+            node_ptr const & child = children(parent)[i];
 
             {
-                interior_node_t const * int_child = child.as_interior();
-                new_node->children_.resize(min_children - 1);
+                new_node->children_.resize(min_children);
                 std::copy(
-                    int_child->children_.begin() + min_children, int_child->children_.end(),
+                    children(child).begin() + min_children, children(child).end(),
                     new_node->children_.begin()
                 );
-                new_node->keys_.resize(min_children - 1);
+                new_node->keys_.resize(min_children);
                 auto it = new_node->children_.begin();
                 std::ptrdiff_t sum = 0;
                 for (auto & key : new_node->keys_) {
@@ -684,33 +685,44 @@ namespace boost { namespace text {
                 }
             }
 
-            child = children(parent)[i];
-
             {
                 auto mut_parent = parent.write();
-                auto mut_child = child.write();
                 children(mut_parent).insert(
                     children(mut_parent).begin() + i + 1,
                     new_node
                 );
+            }
+
+            {
+                auto mut_child = children(parent)[i].write();
+                children(mut_child).resize(min_children);
+                keys(mut_child).resize(min_children);
+
+                auto mut_parent = parent.write();
                 keys(mut_parent).insert(
                     keys(mut_parent).begin() + i,
-                    keys(mut_child)[min_children]
+                    keys(mut_child).back()
                 );
-                keys(mut_child).resize(min_children);
             }
 
             return parent;
         }
 
-        // Follows CLRS.
+        // Analogous to btree_split_child(), for leaf nodes.
         inline void btree_split_leaf (node_ptr const & parent, int i, std::ptrdiff_t at)
         {
-            node_ptr & child = const_cast<node_ptr &>(children(parent)[i]);
+            assert(0 <= i && i < num_children(parent));
+            assert(0 <= at && at <= size(parent.get()));
+            assert(!parent.as_interior()->full());
+
+            node_ptr const & child = const_cast<node_ptr &>(children(parent)[i]);
 
             auto const child_size = child.as_leaf()->size();
             auto const offset_at_i = parent.as_interior()->offset(i);
             auto const cut = static_cast<int>(at - offset_at_i);
+
+            if (cut == 0)
+                return;
 
             node_ptr right;
             node_ptr left;
@@ -751,7 +763,7 @@ namespace boost { namespace text {
             std::ptrdiff_t at,
             node_ptr node
         ) {
-            assert(at <= size(parent.get()));
+            assert(0 <= at && at <= size(parent.get()));
 
             int i = find_child(parent.as_interior(), at);
             if (children(parent)[i]->leaf_) {
