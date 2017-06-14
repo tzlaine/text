@@ -767,6 +767,8 @@ namespace boost { namespace text {
 
             int i = find_child(parent.as_interior(), at);
             if (children(parent)[i]->leaf_) {
+                // Note that this split may add a node to parent, for a
+                // maximum of two added nodes in the leaf code path.
                 btree_split_leaf(parent, i, at);
                 if (keys(parent)[i] < at)
                     ++i;
@@ -784,10 +786,17 @@ namespace boost { namespace text {
                 auto mut_parent = parent.write();
                 insert_child(mut_parent.as_interior(), i, node);
             } else {
-                if (children(parent)[i].as_interior()->full()) {
-                    parent = btree_split_child(parent, i);
-                    if (keys(parent)[i] < at)
-                        ++i;
+                {
+                    node_ptr const & child = children(parent)[i];
+                    bool const child_i_needs_split =
+                        child.as_interior()->full() ||
+                        (children(child)[0]->leaf_ &&
+                         num_children(child) == max_children - 1);
+                    if (child_i_needs_split) {
+                        parent = btree_split_child(parent, i);
+                        if (keys(parent)[i] < at)
+                            ++i;
+                    }
                 }
                 auto mut_parent = parent.write();
                 auto delta = -size(children(mut_parent)[i].get());
@@ -802,6 +811,7 @@ namespace boost { namespace text {
                     keys(mut_parent)[j] += delta;
                 }
             }
+
             return parent;
         }
 
