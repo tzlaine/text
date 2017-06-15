@@ -214,9 +214,8 @@ TEST(rope_detail, test_find)
         parent.keys_.push_back(5);
         parent.keys_.push_back(9);
 
-        EXPECT_EQ(parent.offset(0), 0);
-        EXPECT_EQ(parent.offset(1), 4);
-        EXPECT_EQ(parent.offset(2), 5);
+        EXPECT_EQ(parent.keys_[0], 4);
+        EXPECT_EQ(parent.keys_[1], 5);
 
         EXPECT_EQ(find_child(&parent, 0), 0);
         EXPECT_EQ(find_child(&parent, 1), 0);

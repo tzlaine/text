@@ -44,7 +44,7 @@ node_ptr make_tree_left_max ()
     int_root->children_.push_back(left);
     int_root->keys_.push_back(size(left.get()));
 
-    node_ptr right = make_interior_with_leaves("right", max_children);
+    node_ptr right = make_interior_with_leaves("right", max_children - 1);
 
     int_root->children_.push_back(right);
     int_root->keys_.push_back(int_root->keys_.back() + size(right.get()));
@@ -66,7 +66,7 @@ node_ptr make_tree_left_min ()
     int_root->children_.push_back(left);
     int_root->keys_.push_back(size(left.get()));
 
-    node_ptr right = make_interior_with_leaves("right", max_children);
+    node_ptr right = make_interior_with_leaves("right", max_children - 1);
 
     int_root->children_.push_back(right);
     int_root->keys_.push_back(int_root->keys_.back() + size(right.get()));
@@ -90,7 +90,7 @@ TEST(rope_btree, test_btree_split_child)
     EXPECT_EQ(children(root).size(), 3);
     EXPECT_EQ(keys(root)[0], 16);
     EXPECT_EQ(keys(root)[1], 32);
-    EXPECT_EQ(keys(root)[2], 72);
+    EXPECT_EQ(keys(root)[2], 67);
 
     EXPECT_EQ(children(children(root)[0]).size(), 4);
     EXPECT_EQ(keys(children(root)[0]).size(), 4);
@@ -152,14 +152,398 @@ TEST(rope_btree, test_btree_split_leaf)
             EXPECT_EQ(child, first_left_child);
         }
     }
+
+    {
+        node_ptr root = make_tree_left_min();
+        node_ptr left = children(root)[0];
+
+        // Take an extra reference to the child begin split.
+        node_ptr left_1 = children(left)[1];
+
+        btree_split_leaf(left, 1, 5);
+
+        EXPECT_EQ(num_children(left), 5);
+
+        EXPECT_EQ(keys(left)[0], 4);
+        EXPECT_EQ(size(children(left)[1].get()), 1);
+        EXPECT_EQ(keys(left)[1], 5);
+        EXPECT_EQ(size(children(left)[2].get()), 3);
+        EXPECT_EQ(keys(left)[2], 8);
+        EXPECT_EQ(keys(left)[3], 12);
+        EXPECT_EQ(keys(left)[4], 16);
+
+        EXPECT_EQ(size(left_1.get()), 4);
+
+        auto const first_left_child = children(left)[0].as_leaf();
+        auto const last_left_child = children(left)[4].as_leaf();
+
+        {
+            auto child = first_left_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_left_child);
+        }
+
+        {
+            auto child = last_left_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_left_child);
+        }
+    }
 }
 
 TEST(rope_btree, test_btree_insert_nonfull)
 {
+    // Insert into half-full interior child, then between existing leaves.
+    {
+        node_ptr root = make_tree_left_min();
+
+        node_ptr const & left = children(root)[0];
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(left), min_children);
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 4, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), min_children + 1);
+
+        EXPECT_EQ(keys(left)[0], 4);
+        EXPECT_EQ(size(children(left)[1].get()), 8);
+        EXPECT_EQ(keys(left)[1], 12);
+        EXPECT_EQ(size(children(left)[2].get()), 4);
+        EXPECT_EQ(keys(left)[2], 16);
+        EXPECT_EQ(size(children(left)[3].get()), 4);
+        EXPECT_EQ(keys(left)[3], 20);
+        EXPECT_EQ(keys(left)[4], 24);
+
+        auto const first_left_child = children(left)[0].as_leaf();
+        auto const last_left_child = children(left)[4].as_leaf();
+
+        {
+            auto child = first_left_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_left_child);
+        }
+
+        {
+            auto child = last_left_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_left_child);
+        }
+    }
+
+    // Insert into half-full interior child, then into the middle of an
+    // existing leaf.
+    {
+        node_ptr root = make_tree_left_min();
+        node_ptr new_node = make_node("new node");
+
+        node_ptr const & left = children(root)[0];
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(left), min_children);
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 5, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), min_children + 2);
+
+        EXPECT_EQ(keys(left)[0], 4);
+        EXPECT_EQ(size(children(left)[1].get()), 1);
+        EXPECT_EQ(keys(left)[1], 5);
+        EXPECT_EQ(size(children(left)[2].get()), 8);
+        EXPECT_EQ(keys(left)[2], 13);
+        EXPECT_EQ(size(children(left)[3].get()), 3);
+        EXPECT_EQ(keys(left)[3], 16);
+        EXPECT_EQ(keys(left)[4], 20);
+        EXPECT_EQ(keys(left)[5], 24);
+
+        auto const first_left_child = children(left)[0].as_leaf();
+        auto const last_left_child = children(left)[5].as_leaf();
+
+        {
+            auto child = first_left_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_left_child);
+        }
+
+        {
+            auto child = last_left_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_left_child);
+        }
+    }
+
+    // Insert into full interior child, then between existing leaves.
+    {
+        node_ptr root = make_tree_left_max();
+
+        node_ptr const & left = children(root)[0];
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(left), max_children);
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 4, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 3);
+        EXPECT_EQ(num_children(left), min_children + 1);
+
+        EXPECT_EQ(keys(left)[0], 4);
+        EXPECT_EQ(size(children(left)[1].get()), 8);
+        EXPECT_EQ(keys(left)[1], 12);
+        EXPECT_EQ(size(children(left)[2].get()), 4);
+        EXPECT_EQ(keys(left)[2], 16);
+        EXPECT_EQ(size(children(left)[3].get()), 4);
+        EXPECT_EQ(keys(left)[3], 20);
+        EXPECT_EQ(keys(left)[4], 24);
+
+        auto const first_left_child = children(left)[0].as_leaf();
+        auto const last_left_child = children(left)[4].as_leaf();
+
+        {
+            auto child = first_left_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_left_child);
+        }
+
+        {
+            auto child = last_left_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_left_child);
+        }
+    }
+
+    // Insert into almost-full interior child, then between existing leaves.
+    {
+        node_ptr root = make_tree_left_max();
+
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 62, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 3);
+
+        node_ptr const & new_right = children(root)[2];
+        EXPECT_EQ(num_children(new_right), min_children);
+
+        EXPECT_EQ(size(children(new_right)[0].get()), 5);
+        EXPECT_EQ(keys(new_right)[0], 5);
+        EXPECT_EQ(size(children(new_right)[1].get()), 5);
+        EXPECT_EQ(keys(new_right)[1], 10);
+        EXPECT_EQ(size(children(new_right)[2].get()), 8);
+        EXPECT_EQ(keys(new_right)[2], 18);
+        EXPECT_EQ(size(children(new_right)[3].get()), 5);
+        EXPECT_EQ(keys(new_right)[3], 23);
+
+        auto const first_right_child = children(new_right)[0].as_leaf();
+        auto const last_right_child = children(new_right)[3].as_leaf();
+
+        {
+            auto child = first_right_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_right_child);
+        }
+
+        {
+            auto child = last_right_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_right_child);
+        }
+    }
+
+    // Insert into almost-full interior child, then into the middle of an
+    // existing leaf.
+    {
+        node_ptr root = make_tree_left_max();
+
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 65, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 3);
+
+        node_ptr const & new_right = children(root)[2];
+        EXPECT_EQ(num_children(new_right), min_children + 1);
+
+        EXPECT_EQ(size(children(new_right)[0].get()), 5);
+        EXPECT_EQ(keys(new_right)[0], 5);
+        EXPECT_EQ(size(children(new_right)[1].get()), 5);
+        EXPECT_EQ(keys(new_right)[1], 10);
+        EXPECT_EQ(size(children(new_right)[2].get()), 3);
+        EXPECT_EQ(keys(new_right)[2], 13);
+        EXPECT_EQ(size(children(new_right)[3].get()), 8);
+        EXPECT_EQ(keys(new_right)[3], 21);
+        EXPECT_EQ(size(children(new_right)[4].get()), 2);
+        EXPECT_EQ(keys(new_right)[4], 23);
+
+        auto const first_right_child = children(new_right)[0].as_leaf();
+        auto const last_right_child = children(new_right)[4].as_leaf();
+
+        {
+            auto child = first_right_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_right_child);
+        }
+
+        {
+            auto child = last_right_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_right_child);
+        }
+    }
+
+
+    // Insert into almost-full interior child, then after the last leaf.
+    {
+        node_ptr root = make_tree_left_max();
+
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 67, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 3);
+
+        node_ptr const & new_right = children(root)[2];
+        EXPECT_EQ(num_children(new_right), min_children);
+
+        EXPECT_EQ(size(children(new_right)[0].get()), 5);
+        EXPECT_EQ(keys(new_right)[0], 5);
+        EXPECT_EQ(size(children(new_right)[1].get()), 5);
+        EXPECT_EQ(keys(new_right)[1], 10);
+        EXPECT_EQ(size(children(new_right)[2].get()), 5);
+        EXPECT_EQ(keys(new_right)[2], 15);
+        EXPECT_EQ(size(children(new_right)[3].get()), 8);
+        EXPECT_EQ(keys(new_right)[3], 23);
+
+        auto const first_right_child = children(new_right)[0].as_leaf();
+        auto const last_right_child = children(new_right)[3].as_leaf();
+
+        {
+            auto child = first_right_child;
+            child = child->next_;
+            child = child->next_;
+            child = child->next_;
+            EXPECT_EQ(child, last_right_child);
+        }
+
+        {
+            auto child = last_right_child;
+            child = child->prev_;
+            child = child->prev_;
+            child = child->prev_;
+            EXPECT_EQ(child, first_right_child);
+        }
+    }
+
+    // Copy vs. mutation coverage.
+
+    // No nodes copied.
+    {
+        node_ptr root = make_tree_left_min();
+
+        node_ptr const & left = children(root)[0];
+
+        EXPECT_EQ(num_children(left), min_children);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 4, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), min_children + 1);
+        EXPECT_EQ(root.as_interior(), new_root.as_interior());
+    }
+
+    // Root copied.
+    {
+        node_ptr root = make_tree_left_min();
+        node_ptr root_2 = root;
+
+        node_ptr const & left = children(root)[0];
+
+        EXPECT_EQ(num_children(left), min_children);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 4, make_node("new node"));
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), min_children);
+        EXPECT_EQ(root.as_interior(), new_root.as_interior());
+        EXPECT_NE(root.as_interior(), root_2.as_interior());
+    }
+
+    // Interior node copied.
+    {
+        node_ptr root = make_tree_left_min();
+
+        node_ptr left = children(root)[0];
+
+        EXPECT_EQ(num_children(left), min_children);
+
+        node_ptr new_root =
+            btree_insert_nonfull(root, 4, make_node("new node"));
+
+        node_ptr const & new_left = children(root)[0];
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), min_children);
+        EXPECT_EQ(num_children(new_left), min_children + 1);
+    }
 }
 
 TEST(rope_btree, test_btree_insert)
 {
+    // TODO: Check that every leaf is at the same depth.
 }
 
 TEST(rope_btree, test_btree_erase_impl)
