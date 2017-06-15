@@ -21,14 +21,14 @@ leaf_node_t * link_leafs (leaf_node_t * prev, interior_node_t const * node)
     return prev;
 }
 
-node_ptr make_interior_with_leaves (char const * name, int leaves)
+node_ptr make_interior_with_leaves (char const * leaf_name, int leaves)
 {
     interior_node_t * int_node = nullptr;
     node_ptr node(int_node = new interior_node_t);
-    int_node->children_.push_back(make_node(name));
+    int_node->children_.push_back(make_node(leaf_name));
     int_node->keys_.push_back(size(int_node->children_[0].get()));
     for (int i = 1; i < leaves; ++i) {
-        int_node->children_.push_back(make_node(name));
+        int_node->children_.push_back(make_node(leaf_name));
         int_node->keys_.push_back(int_node->keys_.back() + size(int_node->children_[i].get()));
     }
     return node;
@@ -92,15 +92,15 @@ TEST(rope_btree, test_btree_split_child)
     EXPECT_EQ(keys(root)[1], 32);
     EXPECT_EQ(keys(root)[2], 67);
 
-    EXPECT_EQ(children(children(root)[0]).size(), 4);
-    EXPECT_EQ(keys(children(root)[0]).size(), 4);
+    EXPECT_EQ(num_children(children(root)[0]), min_children);
+    EXPECT_EQ(keys(children(root)[0]).size(), min_children);
     EXPECT_EQ(keys(children(root)[0])[0], 4);
     EXPECT_EQ(keys(children(root)[0])[1], 8);
     EXPECT_EQ(keys(children(root)[0])[2], 12);
     EXPECT_EQ(keys(children(root)[0])[3], 16);
 
-    EXPECT_EQ(children(children(root)[1]).size(), 4);
-    EXPECT_EQ(keys(children(root)[1]).size(), 4);
+    EXPECT_EQ(num_children(children(root)[1]), min_children);
+    EXPECT_EQ(keys(children(root)[1]).size(), min_children);
     EXPECT_EQ(keys(children(root)[1])[0], 4);
     EXPECT_EQ(keys(children(root)[1])[1], 8);
     EXPECT_EQ(keys(children(root)[1])[2], 12);
@@ -541,15 +541,99 @@ TEST(rope_btree, test_btree_insert_nonfull)
     }
 }
 
+int height_at (node_ptr const & node, std::ptrdiff_t at)
+{
+    found_leaf found;
+    find_leaf(node, at, found);
+    return (int)found.path_.size();
+}
+
+void check_leaf_heights (node_ptr const & node)
+{
+    found_leaf found;
+    find_leaf(node, 0, found);
+    int const first_leaf_height = (int)found.path_.size();
+    leaf_node_t const * leaf = found.leaf_->as_leaf();
+    std::ptrdiff_t offset = 0;
+    while (leaf) {
+        EXPECT_EQ(height_at(node, offset), first_leaf_height);
+        offset += leaf->size();
+        leaf = leaf->next_;
+    }
+}
+
 TEST(rope_btree, test_btree_insert)
 {
-    // TODO: Check that every leaf is at the same depth.
+    {
+        node_ptr root = make_node("root");
+        root = btree_insert(root, 0, make_node("new"));
+
+        EXPECT_FALSE(root->leaf_);
+        EXPECT_EQ(num_children(root), 2);
+
+        check_leaf_heights(root);
+    }
+
+    {
+        node_ptr root = make_node("root");
+        root = btree_insert(root, 4, make_node("new"));
+
+        EXPECT_FALSE(root->leaf_);
+        EXPECT_EQ(num_children(root), 2);
+
+        check_leaf_heights(root);
+    }
+
+    {
+        node_ptr root = make_node("root");
+        root = btree_insert(root, 2, make_node("new"));
+
+        EXPECT_FALSE(root->leaf_);
+        EXPECT_EQ(num_children(root), 3);
+
+        check_leaf_heights(root);
+    }
+
+    {
+        node_ptr root = make_interior_with_leaves("child", max_children - 1);
+        root = btree_insert(root, 2, make_node("new 1"));
+
+        EXPECT_EQ(num_children(root), 2);
+
+        check_leaf_heights(root);
+    }
+
+    {
+        node_ptr root = make_interior_with_leaves("child", max_children);
+        root = btree_insert(root, 2, make_node("new 1"));
+
+        EXPECT_EQ(num_children(root), 2);
+
+        check_leaf_heights(root);
+    }
+
+    // Check that many inserts maintains balance.
+    {
+        node_ptr root = make_node("node");
+
+        int const N = 100000;
+        for (int i = 0; i < N; ++i) {
+            root = btree_insert(root, 2, make_node("new node"));
+        }
+
+        check_leaf_heights(root);
+
+        std::cout << "N=" << N << " leaves gives a tree of height "
+                  << height_at(root, 0) << "\n";
+    }
 }
 
 TEST(rope_btree, test_btree_erase_impl)
 {
+    // TODO
 }
 
 TEST(rope_btree, test_btree_erase)
 {
+    // TODO
 }

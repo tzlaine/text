@@ -113,6 +113,7 @@ namespace boost { namespace text {
             bool leaf_;
         };
 
+        // TODO: Experiment with min=8/max=16.
         constexpr int min_children = 4;
         constexpr int max_children = 8;
         constexpr int text_insert_max = 512;
@@ -403,6 +404,9 @@ namespace boost { namespace text {
         inline bool almost_full (node_ptr const & node)
         { return num_children(node) == max_children - 1; }
 
+        inline bool leaf_children (node_ptr const & node)
+        { return children(node)[0]->leaf_; }
+
         inline std::ptrdiff_t offset (interior_node_t const * node, int i)
         {
             assert(0 <= i);
@@ -678,7 +682,7 @@ namespace boost { namespace text {
             interior_node_t * new_node = nullptr;
             node_ptr new_node_ptr(new_node = new interior_node_t);
 
-            assert(!children(parent)[i]->leaf_);
+            assert(!leaf_children(parent));
             node_ptr const & child = children(parent)[i];
 
             {
@@ -780,7 +784,7 @@ namespace boost { namespace text {
             assert(node->leaf_);
 
             int i = find_child(parent.as_interior(), at);
-            if (children(parent)[i]->leaf_) {
+            if (leaf_children(parent)) {
                 // Note that this split may add a node to parent, for a
                 // maximum of two added nodes in the leaf code path.
                 btree_split_leaf(parent, i, at);
@@ -809,9 +813,7 @@ namespace boost { namespace text {
                 {
                     node_ptr const & child = children(parent)[i];
                     bool const child_i_needs_split =
-                        full(child) ||
-                        (children(child)[0]->leaf_ &&
-                         num_children(child) == max_children - 1);
+                        full(child) || (leaf_children(child) && almost_full(child));
                     if (child_i_needs_split) {
                         parent = btree_split_child(parent, i);
                         if (keys(parent)[i] <= at)
@@ -839,14 +841,16 @@ namespace boost { namespace text {
         inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr const & node)
         {
             assert(root);
+            assert(0 <= at && at <= size(root.get()));
             assert(node->leaf_);
+
             if (root->leaf_) {
                 interior_node_t * new_root = nullptr;
                 node_ptr new_root_ptr(new_root = new interior_node_t);
                 new_root->children_.push_back(root);
                 new_root->keys_.push_back(root.as_leaf()->size());
                 return btree_insert_nonfull(new_root_ptr, at, node);
-            } else if (full(root)) {
+            } else if (full(root) || (leaf_children(root) && almost_full(root))) {
                 interior_node_t * new_root = nullptr;
                 node_ptr new_root_ptr(new_root = new interior_node_t);
                 new_root->children_.push_back(root);
@@ -859,16 +863,16 @@ namespace boost { namespace text {
         }
 
         // Recursing top-to-bottom, pull nodes down the tree as necessary to
-        // ensure that each node has min_children + 1 nodes in before
+        // ensure that each node has min_children + 1 nodes in it *before*
         // recursing into it.  This enables the erasure to happen in a single
-        // downward pass, with no bakctracking.  This function only erases
+        // downward pass, with no backtracking.  This function only erases
         // entire segments; the segments must have been split appropriately
         // before this function is ever called.
         inline node_ptr btree_erase (node_ptr const & node, std::ptrdiff_t at, leaf_node_t const * leaf)
         {
             assert(node);
 
-            if (children(node)[0]->leaf_) {
+            if (leaf_children(node)) {
                 auto const child_index = find_child(node.as_interior(), at);
 
                 if (num_children(node) == 2) {
