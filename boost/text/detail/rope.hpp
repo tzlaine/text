@@ -11,9 +11,6 @@
 
 namespace boost { namespace text { namespace detail {
 
-    // TODO: Evaluate exception guarantee.
-    // TODO: Audit spurious refs (e.g. from node_ptrs on the stack).
-
     struct node_t;
     struct leaf_node_t;
     struct interior_node_t;

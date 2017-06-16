@@ -6,8 +6,8 @@
 
 namespace boost { namespace text {
 
-    // TODO: Encoding breakage checks.
     // TODO: Remove null terminators on insert, erase.
+    // TODO: Header inclusion tests for rope.hpp and rope_view.hpp.
 
     namespace detail {
 
@@ -190,6 +190,8 @@ namespace boost { namespace text {
         void clear ()
         { ptr_ = detail::node_ptr(); }
 
+        // TODO: Document that every insert() and erase() overloads have only
+        // the basic guarantee.
         rope & insert (size_type at, rope const & r)
         {
             if (r.empty())
@@ -225,6 +227,8 @@ namespace boost { namespace text {
         rope & insert (size_type at, repeated_text_view rtv)
         { return insert_impl(at, rtv, false); }
 
+        // TODO: Verify that this checks for encoding breakage somewhere down
+        // the call stack.
         rope & erase (size_type lo, size_type hi)
         {
             assert(0 <= lo && lo <= size());
