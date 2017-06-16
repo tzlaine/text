@@ -6,8 +6,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: Remove null terminators on insert, erase.
-
     struct rope_view;
 
     namespace detail {
@@ -32,8 +30,12 @@ namespace boost { namespace text {
         explicit rope (rope_view rv);
         explicit rope (text const & t) : ptr_ (detail::make_node(t)) {}
         explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
-        explicit rope (text_view tv) : ptr_ (detail::make_node(tv)) {}
-        explicit rope (repeated_text_view rtv) : ptr_ (detail::make_node(rtv)) {}
+
+        explicit rope (text_view tv) : ptr_ (nullptr)
+        { insert(0, tv); }
+
+        explicit rope (repeated_text_view rtv) : ptr_ (nullptr)
+        { insert(0, rtv); }
 
         rope & operator= (rope const & rhs) = default;
         rope & operator= (rope && rhs) noexcept = default;
@@ -219,10 +221,21 @@ namespace boost { namespace text {
         { return insert_impl(at, std::move(t), false); }
 
         rope & insert (size_type at, text_view tv)
-        { return insert_impl(at, tv, false); }
+        {
+            bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
+            if (tv_null_terminated)
+                tv = tv(0, -1);
+            return insert_impl(at, tv, false);
+        }
 
         rope & insert (size_type at, repeated_text_view rtv)
-        { return insert_impl(at, rtv, false); }
+        {
+            bool const rtv_null_terminated =
+                !rtv.view().empty() && rtv.view().end()[-1] == '\0';
+            if (rtv_null_terminated)
+                rtv = repeat(rtv.view()(0, -1), rtv.count());
+            return insert_impl(at, rtv, false);
+        }
 
         rope & erase (rope_view rv);
 
@@ -315,6 +328,10 @@ namespace boost { namespace text {
         if (rv.empty())
             return *this;
 
+        bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
+        if (rv_null_terminated)
+            rv = rv(0, -1);
+
         detail::found_leaf found_lo;
         find_leaf(rv.r_->ptr_, rv.lo_, found_lo);
         detail::leaf_node_t const * leaf = found_lo.leaf_->as_leaf();
@@ -370,6 +387,10 @@ namespace boost { namespace text {
 
         if (rv.lo_ == rv.hi_)
             return *this;
+
+        bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
+        if (rv_null_terminated)
+            rv = rv(0, -1);
 
         ptr_ = btree_erase(ptr_, rv.lo_, rv.hi_);
 
