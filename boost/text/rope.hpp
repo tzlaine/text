@@ -113,9 +113,8 @@ namespace boost { namespace text {
             bool leaf_;
         };
 
-        // TODO: Experiment with min=8/max=16.
-        constexpr int min_children = 4;
-        constexpr int max_children = 8;
+        constexpr int min_children = 8;
+        constexpr int max_children = 16;
         constexpr int text_insert_max = 512;
 
         inline std::ptrdiff_t size (node_t const * node);
@@ -123,8 +122,8 @@ namespace boost { namespace text {
         using keys_t = boost::container::static_vector<std::ptrdiff_t, max_children>;
         using children_t = boost::container::static_vector<node_ptr, max_children>;
 
-        static_assert(sizeof(std::ptrdiff_t) * max_children <= 64, "");
-        static_assert(sizeof(node_ptr) * max_children <= 64, "");
+        static_assert(sizeof(std::ptrdiff_t) * 8 <= 64, "");
+        static_assert(sizeof(node_ptr) * 8 <= 64, "");
 
         struct interior_node_t : node_t
         {
