@@ -98,8 +98,10 @@ namespace boost { namespace text {
             // off the appropriate part of that segment.
             detail::found_leaf found;
             detail::find_leaf(ptr_, lo, found);
-            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get()))
+            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
+                detail::node_ptr extra_ref(*found.leaf_);
                 return rope(slice_leaf(*found.leaf_, found.offset_, found.offset_ + hi - lo, true));
+            }
 
             // Take an extra ref to the root, which will force all a clone of
             // all the interior nodes.

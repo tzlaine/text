@@ -559,6 +559,7 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
+    // TODO: Test that this throws when breaking encoding.
     inline node_ptr slice_leaf (
         node_ptr const & node,
         std::ptrdiff_t lo,
@@ -594,7 +595,15 @@ namespace boost { namespace text { namespace detail {
         }
         case node_t::which::rtv: {
             repeated_text_view const & crtv = node.as_leaf()->as_repeated_text_view();
-            if (lo % crtv.view().size() != 0 || hi % crtv.view().size() != 0) {
+            int const mod_lo = lo % crtv.view().size();
+            int const mod_hi = hi % crtv.view().size();
+            if (mod_lo != 0 || mod_hi != 0) {
+                // Check for encoding breakage.
+                text_view const tv = crtv.view()(
+                    (std::min)(mod_lo, mod_hi),
+                    (std::max)(mod_lo, mod_hi)
+                );
+                (void)tv;
                 return make_node(text(crtv.begin() + lo, crtv.begin() + hi));
             } else {
                 auto const count = (hi - lo) / crtv.view().size();
