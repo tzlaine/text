@@ -9,11 +9,11 @@ namespace boost { namespace text {
     // TODO: Remove null terminators on insert, erase.
     // TODO: Header inclusion tests for rope.hpp and rope_view.hpp.
 
-    namespace detail {
+    struct rope_view;
 
+    namespace detail {
         struct const_rope_iterator;
         struct const_reverse_rope_iterator;
-
     }
 
     struct rope
@@ -25,12 +25,19 @@ namespace boost { namespace text {
 
         using size_type = std::ptrdiff_t;
 
-        rope () : ptr_ (nullptr) {}
+        rope () noexcept : ptr_ (nullptr) {}
 
-        rope (text const & t) : ptr_ (detail::make_node(t)) {}
-        rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
-        rope (text_view tv) : ptr_ (detail::make_node(tv)) {}
-        rope (repeated_text_view rtv) : ptr_ (detail::make_node(rtv)) {}
+        rope (rope const & rhs) = default;
+        rope (rope && rhs) noexcept = default;
+
+        explicit rope (rope_view rv);
+        explicit rope (text const & t) : ptr_ (detail::make_node(t)) {}
+        explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
+        explicit rope (text_view tv) : ptr_ (detail::make_node(tv)) {}
+        explicit rope (repeated_text_view rtv) : ptr_ (detail::make_node(rtv)) {}
+
+        rope & operator= (rope const & rhs) = default;
+        rope & operator= (rope && rhs) noexcept = default;
 
         rope & operator= (text const & t)
         {
@@ -38,6 +45,8 @@ namespace boost { namespace text {
             swap(temp);
             return *this;
         }
+
+        rope & operator= (rope_view rv);
 
         rope & operator= (text && t)
         {
@@ -81,6 +90,9 @@ namespace boost { namespace text {
             return found.c_;
         }
 
+        rope_view operator() (int lo, int hi) const;
+        rope_view operator() (int cut) const;
+
         constexpr size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
@@ -98,10 +110,8 @@ namespace boost { namespace text {
             // off the appropriate part of that segment.
             detail::found_leaf found;
             detail::find_leaf(ptr_, lo, found);
-            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
-                detail::node_ptr extra_ref(*found.leaf_);
+            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get()))
                 return rope(slice_leaf(*found.leaf_, found.offset_, found.offset_ + hi - lo, true));
-            }
 
             // Take an extra ref to the root, which will force all a clone of
             // all the interior nodes.
@@ -175,25 +185,15 @@ namespace boost { namespace text {
         bool operator>= (rope rhs) const noexcept
         { return compare(rhs) >= 0; }
 
-        friend const_iterator begin (rope const & r) noexcept;
-        friend const_iterator end (rope const & r) noexcept;
-
-        friend const_reverse_iterator rbegin (rope const & r) noexcept;
-        friend const_reverse_iterator rend (rope const & r) noexcept;
-
-        friend std::ostream & operator<< (std::ostream & os, rope const & r)
-        {
-            r.foreach_segment([&os](auto const & segment) { os << segment; });
-            return os;
-        }
-
         void clear ()
         { ptr_ = detail::node_ptr(); }
 
-        // TODO: Document that every insert() and erase() overloads have only
-        // the basic guarantee.
+        // TODO: Document that each insert(), erase(), and replace() overload
+        // has only the basic guarantee.
         rope & insert (size_type at, rope const & r)
         {
+            assert(0 <= at && at <= size());
+
             if (r.empty())
                 return *this;
 
@@ -202,18 +202,16 @@ namespace boost { namespace text {
 
             detail::leaf_node_t const * leaf = found.leaf_->as_leaf();
 
-            if (!ptr_) {
-                ptr_ = detail::node_ptr(leaf);
-                leaf = leaf->next_;
-            }
-
             while (leaf) {
                 ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
+                at += detail::size(leaf);
                 leaf = leaf->next_;
             }
 
             return *this;
         }
+
+        rope & insert (size_type at, rope_view rv);
 
         rope & insert (size_type at, text const & t)
         { return insert_impl(at, t, true); }
@@ -227,36 +225,27 @@ namespace boost { namespace text {
         rope & insert (size_type at, repeated_text_view rtv)
         { return insert_impl(at, rtv, false); }
 
-        // TODO: Verify that this checks for encoding breakage somewhere down
-        // the call stack.
-        rope & erase (size_type lo, size_type hi)
-        {
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            assert(lo <= hi);
+        rope & erase (rope_view rv);
 
-            if (lo == hi)
-                return *this;
-
-            ptr_ = btree_erase(ptr_, lo, hi);
-
-            return *this;
-        }
-
-        rope & replace (size_type lo, size_type hi, text const & t)
-        { return erase(lo, hi).insert(lo, t); }
-
-        rope & replace (size_type lo, size_type hi, text && t)
-        { return erase(lo, hi).insert(lo, std::move(t)); }
-
-        rope & replace (size_type lo, size_type hi, text_view tv)
-        { return erase(lo, hi).insert(lo, tv); }
-
-        rope & replace (size_type lo, size_type hi, repeated_text_view rtv)
-        { return erase(lo, hi).insert(lo, rtv); }
+        rope & replace (rope_view rv, text const & t);
+        rope & replace (rope_view rv, text && t);
+        rope & replace (rope_view rv, text_view tv);
+        rope & replace (rope_view rv, repeated_text_view rtv);
 
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
+
+        friend const_iterator begin (rope const & r) noexcept;
+        friend const_iterator end (rope const & r) noexcept;
+
+        friend const_reverse_iterator rbegin (rope const & r) noexcept;
+        friend const_reverse_iterator rend (rope const & r) noexcept;
+
+        friend std::ostream & operator<< (std::ostream & os, rope const & r)
+        {
+            r.foreach_segment([&os](auto const & segment) { os << segment; });
+            return os;
+        }
 
     private:
         explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
@@ -289,9 +278,7 @@ namespace boost { namespace text {
             if (t.empty())
                 return *this;
 
-            if (!ptr_)
-                ptr_ = detail::make_node(std::forward<T &&>(t));
-            else if (text * leaf_t = mutable_insertion_leaf(at, t.size(), insertion_would_allocate))
+            if (text * leaf_t = mutable_insertion_leaf(at, t.size(), insertion_would_allocate))
                 leaf_t->insert(leaf_t->size(), t);
             else
                 ptr_ = detail::btree_insert(ptr_, at, detail::make_node(std::forward<T &&>(t)));
@@ -304,6 +291,7 @@ namespace boost { namespace text {
         friend struct detail::const_rope_iterator;
     };
 
+    // TODO: Consider adding an implicit ctor from text_view.
     struct rope_view
     {
         using iterator = rope::iterator;
@@ -380,6 +368,8 @@ namespace boost { namespace text {
         constexpr size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
+        // TODO: foreach_segment() ?
+
         int compare (rope_view rhs) const noexcept;
 
         friend bool operator== (rope_view lhs, rope_view rhs) noexcept
@@ -416,6 +406,8 @@ namespace boost { namespace text {
         rope const * r_;
         int lo_;
         int hi_;
+
+        friend struct rope;
     };
 
 } }
@@ -426,8 +418,96 @@ namespace boost { namespace text {
 
     // rope
 
+    rope::rope (rope_view rv) : ptr_ (nullptr)
+    { insert(0, rv); }
+
+    rope & rope::operator= (rope_view rv)
+    {
+        rope temp(rv);
+        swap(temp);
+        return *this;
+    }
+
     int rope::compare (rope rhs) const noexcept
     { return rope_view(*this).compare(rhs); }
+
+    rope & rope::insert (size_type at, rope_view rv)
+    {
+        if (rv.empty())
+            return *this;
+
+        detail::found_leaf found_lo;
+        find_leaf(rv.r_->ptr_, rv.lo_, found_lo);
+        detail::leaf_node_t const * leaf = found_lo.leaf_->as_leaf();
+
+        // If the entire rope_view lies within a single segment, slice off
+        // the appropriate part of that segment.
+        if (found_lo.offset_ + rv.size() <= detail::size(leaf)) {
+            ptr_ = detail::btree_insert(
+                ptr_,
+                at,
+                slice_leaf(*found_lo.leaf_, found_lo.offset_, found_lo.offset_ + rv.size(), true)
+            );
+            return *this;
+        }
+
+        {
+            detail::node_ptr node;
+            if (found_lo.offset_ != 0)
+                node = slice_leaf(*found_lo.leaf_, found_lo.offset_, detail::size(leaf), true);
+            else
+                node = detail::node_ptr(leaf);
+            ptr_ = detail::btree_insert(ptr_, at, node);
+        }
+        at += detail::size(leaf);
+        leaf = leaf->next_;
+
+        detail::found_leaf found_hi;
+        find_leaf(rv.r_->ptr_, rv.hi_, found_hi);
+        detail::leaf_node_t const * const leaf_hi = found_hi.leaf_->as_leaf();
+
+        while (leaf != leaf_hi) {
+            ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
+            at += detail::size(leaf);
+            leaf = leaf->next_;
+        }
+
+        if (found_hi.offset_ != 0) {
+            ptr_ = detail::btree_insert(
+                ptr_,
+                at,
+                slice_leaf(*found_hi.leaf_, 0, found_hi.offset_, true)
+            );
+        }
+
+        return *this;
+    }
+
+    rope & rope::erase (rope_view rv)
+    {
+        assert(0 <= rv.lo_ && rv.lo_ <= size());
+        assert(0 <= rv.hi_ && rv.hi_ <= size());
+        assert(rv.lo_ <= rv.hi_);
+
+        if (rv.lo_ == rv.hi_)
+            return *this;
+
+        ptr_ = btree_erase(ptr_, rv.lo_, rv.hi_);
+
+        return *this;
+    }
+
+    rope & rope::replace (rope_view rv, text const & t)
+    { return erase(rv).insert(rv.lo_, t); }
+
+    rope & rope::replace (rope_view rv, text && t)
+    { return erase(rv).insert(rv.lo_, std::move(t)); }
+
+    rope & rope::replace (rope_view rv, text_view tv)
+    { return erase(rv).insert(rv.lo_, tv); }
+
+    rope & rope::replace (rope_view rv, repeated_text_view rtv)
+    { return erase(rv).insert(rv.lo_, rtv); }
 
     rope::const_iterator rope::begin () const noexcept
     { return const_iterator(*this, 0); }
@@ -438,6 +518,31 @@ namespace boost { namespace text {
     { return const_reverse_iterator(const_iterator(*this, size() - 1)); }
     rope::const_reverse_iterator rope::rend () const noexcept
     { return const_reverse_iterator(const_iterator(*this, -1)); }
+
+    rope_view rope::operator() (int lo, int hi) const
+    {
+        if (lo < 0)
+            lo += size();
+        if (hi < 0)
+            hi += size();
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        assert(lo <= hi);
+        return rope_view(*this, lo, hi);
+    }
+
+    rope_view rope::operator() (int cut) const
+    {
+        int lo = 0;
+        int hi = cut;
+        if (cut < 0) {
+            lo = cut + size();
+            hi = size();
+        }
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        return rope_view(*this, lo, hi);
+    }
 
     rope::const_iterator begin (rope const & r) noexcept
     { return r.begin(); }

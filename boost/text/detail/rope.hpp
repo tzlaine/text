@@ -837,11 +837,12 @@ namespace boost { namespace text { namespace detail {
     // Follows CLRS.
     inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr const & node)
     {
-        assert(root);
         assert(0 <= at && at <= size(root.get()));
         assert(node->leaf_);
 
-        if (root->leaf_) {
+        if (!root) {
+            return node;
+        } else if (root->leaf_) {
             interior_node_t * new_root = nullptr;
             node_ptr new_root_ptr(new_root = new interior_node_t);
             new_root->children_.push_back(root);
