@@ -164,6 +164,7 @@ namespace boost { namespace text {
         friend constexpr reverse_iterator rend (text_view v) noexcept
         { return v.rend(); }
 
+        // TODO: Honor current width setting here and elsewhere.
         friend std::ostream & operator<< (std::ostream & os, text_view view)
         { return os.write(view.begin(), view.size()); }
 
