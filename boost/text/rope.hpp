@@ -126,6 +126,35 @@ namespace boost { namespace text {
             return substr(lo, hi);
         }
 
+        template <typename Fn>
+        void foreach_segment (Fn && f) const
+        {
+            if (!ptr_)
+                return;
+
+            detail::found_leaf found;
+            detail::find_leaf(ptr_, 0, found);
+            detail::leaf_node_t const * leaf = found.leaf_->as_leaf();
+            while (leaf) {
+                switch (leaf->which_) {
+                case detail::node_t::which::t:
+                    f(leaf->as_text());
+                    break;
+                case detail::node_t::which::tv:
+                    f(leaf->as_text_view());
+                    break;
+                case detail::node_t::which::rtv:
+                    f(leaf->as_repeated_text_view());
+                    break;
+                case detail::node_t::which::ref:
+                    f(leaf->as_reference().ref_);
+                    break;
+                default: assert(!"unhandled rope node case"); break;
+                }
+                leaf = leaf->next_;
+            }
+        }
+
         int compare (rope rhs) const noexcept;
 
         bool operator== (rope rhs) const noexcept
