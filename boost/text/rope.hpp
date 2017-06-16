@@ -542,28 +542,26 @@ namespace boost { namespace text {
             );
         }
 
-        // TODO: at -> i
-        inline void insert_child (interior_node_t * node, int at, node_ptr child)
+        inline void insert_child (interior_node_t * node, int i, node_ptr child)
         {
             auto const child_size = size(child.get());
-            node->children_.insert(node->children_.begin() + at, child);
-            node->keys_.insert(node->keys_.begin() + at, offset(node, at));
-            for (int i = at, size = (int)node->keys_.size(); i < size; ++i) {
-                node->keys_[i] += child_size;
+            node->children_.insert(node->children_.begin() + i, child);
+            node->keys_.insert(node->keys_.begin() + i, offset(node, i));
+            for (int j = i, size = (int)node->keys_.size(); j < size; ++j) {
+                node->keys_[j] += child_size;
             }
         }
 
         enum erasure_adjustments { adjust_keys, dont_adjust_keys };
 
-        // TODO: at -> i
-        inline void erase_child (interior_node_t * node, int at, erasure_adjustments adj = adjust_keys)
+        inline void erase_child (interior_node_t * node, int i, erasure_adjustments adj = adjust_keys)
         {
-            auto const child_size = size(node->children_[at].get());
-            node->children_.erase(node->children_.begin() + at);
-            node->keys_.erase(node->keys_.begin() + at);
+            auto const child_size = size(node->children_[i].get());
+            node->children_.erase(node->children_.begin() + i);
+            node->keys_.erase(node->keys_.begin() + i);
             if (adj == adjust_keys) {
-                for (int i = at, size = (int)node->keys_.size(); i < size; ++i) {
-                    node->keys_[i] -= child_size;
+                for (int j = i, size = (int)node->keys_.size(); j < size; ++j) {
+                    node->keys_[j] -= child_size;
                 }
             }
         }
