@@ -183,32 +183,7 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<< (std::ostream & os, rope const & r)
         {
-            if (!r.ptr_)
-                return os;
-
-            detail::found_leaf found;
-            detail::find_leaf(r.ptr_, 0, found);
-
-            detail::leaf_node_t const * leaf = found.leaf_->as_leaf();
-            while (leaf) {
-                switch (leaf->which_) {
-                case detail::node_t::which::t:
-                    os << leaf->as_text();
-                    break;
-                case detail::node_t::which::tv:
-                    os << leaf->as_text_view();
-                    break;
-                case detail::node_t::which::rtv:
-                    os << leaf->as_repeated_text_view();
-                    break;
-                case detail::node_t::which::ref:
-                    os << leaf->as_reference().ref_;
-                    break;
-                default: assert(!"unhandled rope node case"); break;
-                }
-                leaf = leaf->next_;
-            }
-
+            r.foreach_segment([&os](auto const & segment) { os << segment; });
             return os;
         }
 
