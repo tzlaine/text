@@ -194,6 +194,39 @@ namespace boost { namespace text { namespace utf8 {
         return starts_encoded(it, last);
     }
 
+    template <typename Iter>
+    bool starts_encoded (Iter first, Iter last) noexcept
+    {
+        if (first == last)
+            return true;
+
+        int const cp_bytes = code_point_bytes(*first);
+        if (cp_bytes == -1 || last - first < cp_bytes)
+            return false;
+
+        char buf[5] = {0};
+        for (int i = 0; i < sizeof(buf); ++i) {
+            buf[i] = *first;
+            if (++first == last)
+                break;
+        }
+
+        return detail::end_of_invalid_utf8(buf) == nullptr;
+    }
+
+    template <typename Iter>
+    bool ends_encoded (Iter first, Iter last) noexcept
+    {
+        if (first == last)
+            return true;
+
+        auto it = last;
+        while (first != --it && continuation(*it))
+            ;
+
+        return starts_encoded(it, last);
+    }
+
     constexpr bool surrogate (uint32_t c) noexcept
     {
         uint32_t const high_surrogate_min = 0xd800;
