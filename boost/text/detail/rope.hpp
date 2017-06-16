@@ -11,6 +11,9 @@
 
 namespace boost { namespace text { namespace detail {
 
+    // TODO: Experiment with collapsing adjacent text_views, references, etc.,
+    // when inserting, erasing, etc.
+
     struct node_t;
     struct leaf_node_t;
     struct interior_node_t;
