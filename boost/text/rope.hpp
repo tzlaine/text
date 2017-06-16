@@ -239,6 +239,18 @@ namespace boost { namespace text {
             return *this;
         }
 
+        rope & replace (size_type lo, size_type hi, text const & t)
+        { return erase(lo, hi).insert(lo, t); }
+
+        rope & replace (size_type lo, size_type hi, text && t)
+        { return erase(lo, hi).insert(lo, std::move(t)); }
+
+        rope & replace (size_type lo, size_type hi, text_view tv)
+        { return erase(lo, hi).insert(lo, tv); }
+
+        rope & replace (size_type lo, size_type hi, repeated_text_view rtv)
+        { return erase(lo, hi).insert(lo, rtv); }
+
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
 
