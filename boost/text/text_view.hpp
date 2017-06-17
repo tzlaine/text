@@ -383,6 +383,9 @@ namespace boost { namespace text {
    disparity with builtin arrays shouldn't matter, as builtin arrays are
    incongruous for many other reasons.
 
+   14: rope should *always* be passed by value.  If this is *always* done,
+   rope is threadsafe.
+
 */
 
 // Not rationale:

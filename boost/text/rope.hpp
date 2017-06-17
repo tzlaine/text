@@ -191,7 +191,7 @@ namespace boost { namespace text {
 
         // TODO: Document that each insert(), erase(), and replace() overload
         // has only the basic guarantee.
-        rope & insert (size_type at, rope const & r)
+        rope & insert (size_type at, rope r)
         {
             assert(0 <= at && at <= size());
 
@@ -247,13 +247,13 @@ namespace boost { namespace text {
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
 
-        friend const_iterator begin (rope const & r) noexcept;
-        friend const_iterator end (rope const & r) noexcept;
+        friend const_iterator begin (rope r) noexcept;
+        friend const_iterator end (rope r) noexcept;
 
-        friend const_reverse_iterator rbegin (rope const & r) noexcept;
-        friend const_reverse_iterator rend (rope const & r) noexcept;
+        friend const_reverse_iterator rbegin (rope r) noexcept;
+        friend const_reverse_iterator rend (rope r) noexcept;
 
-        friend std::ostream & operator<< (std::ostream & os, rope const & r)
+        friend std::ostream & operator<< (std::ostream & os, rope r)
         {
             r.foreach_segment([&os](auto const & segment) { os << segment; });
             return os;
@@ -444,14 +444,14 @@ namespace boost { namespace text {
         return rope_view(*this, lo, hi);
     }
 
-    inline rope::const_iterator begin (rope const & r) noexcept
+    inline rope::const_iterator begin (rope r) noexcept
     { return r.begin(); }
-    inline rope::const_iterator end (rope const & r) noexcept
+    inline rope::const_iterator end (rope r) noexcept
     { return r.end(); }
 
-    inline rope::const_reverse_iterator rbegin (rope const & r) noexcept
+    inline rope::const_reverse_iterator rbegin (rope r) noexcept
     { return r.rbegin(); }
-    inline rope::const_reverse_iterator rend (rope const & r) noexcept
+    inline rope::const_reverse_iterator rend (rope r) noexcept
     { return r.rend(); }
 
 } }
