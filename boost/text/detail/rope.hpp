@@ -14,10 +14,14 @@ namespace boost { namespace text { namespace detail {
     // TODO: Experiment with collapsing adjacent text_views, references, etc.,
     // when inserting, erasing, etc.
 
+    // TODO: Remove leaf links, as they are inappropriate for heavy sharing.
+
     struct node_t;
     struct leaf_node_t;
     struct interior_node_t;
     struct node_ptr;
+
+    void dump_tree (node_ptr const & root, int key = -1, int indent = 0);
 
     struct mutable_node_ptr
     {
@@ -356,8 +360,9 @@ namespace boost { namespace text { namespace detail {
 
     inline std::ptrdiff_t size (node_t const * node)
     {
-        assert(node);
-        if (node->leaf_) {
+        if (!node) {
+            return 0;
+        } else if (node->leaf_) {
             return static_cast<leaf_node_t const *>(node)->size();
         } else {
             auto int_node = static_cast<interior_node_t const *>(node);
@@ -535,10 +540,10 @@ namespace boost { namespace text { namespace detail {
         );
     }
 
-    inline void insert_child (interior_node_t * node, int i, node_ptr child)
+    inline void insert_child (interior_node_t * node, int i, node_ptr && child)
     {
         auto const child_size = size(child.get());
-        node->children_.insert(node->children_.begin() + i, child);
+        node->children_.insert(node->children_.begin() + i, std::move(child));
         node->keys_.insert(node->keys_.begin() + i, offset(node, i));
         for (int j = i, size = (int)node->keys_.size(); j < size; ++j) {
             node->keys_[j] += child_size;
@@ -777,7 +782,7 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr btree_insert_nonfull (
         node_ptr & parent,
         std::ptrdiff_t at,
-        node_ptr node
+        node_ptr && node
     ) {
         assert(!parent->leaf_);
         assert(0 <= at && at <= size(parent.get()));
@@ -793,7 +798,7 @@ namespace boost { namespace text { namespace detail {
 
             {
                 auto mut_parent = parent.write();
-                insert_child(mut_parent.as_interior(), i, node);
+                insert_child(mut_parent.as_interior(), i, std::move(node));
             }
 
             if (i < num_children(parent) - 1) {
@@ -825,7 +830,7 @@ namespace boost { namespace text { namespace detail {
             node_ptr new_child = btree_insert_nonfull(
                 children(mut_parent)[i],
                 at - offset(mut_parent, i),
-                node
+                std::move(node)
             );
             delta += size(new_child.get());
             children(mut_parent)[i] = new_child;
@@ -838,7 +843,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr const & node)
+    inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr && node)
     {
         assert(0 <= at && at <= size(root.get()));
         assert(node->leaf_);
@@ -848,18 +853,20 @@ namespace boost { namespace text { namespace detail {
         } else if (root->leaf_) {
             interior_node_t * new_root = nullptr;
             node_ptr new_root_ptr(new_root = new interior_node_t);
-            new_root->children_.push_back(root);
-            new_root->keys_.push_back(root.as_leaf()->size());
-            return btree_insert_nonfull(new_root_ptr, at, node);
+            auto const root_size = size(root.get());
+            new_root->children_.push_back(std::move(root));
+            new_root->keys_.push_back(root_size);
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
         } else if (full(root) || (leaf_children(root) && almost_full(root))) {
             interior_node_t * new_root = nullptr;
             node_ptr new_root_ptr(new_root = new interior_node_t);
-            new_root->children_.push_back(root);
-            new_root->keys_.push_back(keys(root).back());
+            auto const root_size = size(root.get());
+            new_root->children_.push_back(std::move(root));
+            new_root->keys_.push_back(root_size);
             new_root_ptr = btree_split_child(new_root_ptr, 0);
-            return btree_insert_nonfull(new_root_ptr, at, node);
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
         } else {
-            return btree_insert_nonfull(root, at, node);
+            return btree_insert_nonfull(root, at, std::move(node));
         }
     }
 
@@ -925,6 +932,7 @@ namespace boost { namespace text { namespace detail {
                 min_children + 1 <= num_children(child_left_sib)) {
                 // Remove last element of left sibling.
                 node_ptr moved_node = children(child_left_sib).back();
+                auto const moved_node_size = size(moved_node.get());
 
                 {
                     auto mut_left = child_left_sib.write();
@@ -934,17 +942,15 @@ namespace boost { namespace text { namespace detail {
                 // Prepend last element onto child.
                 {
                     auto mut_child = child.write();
-                    insert_child(mut_child.as_interior(), 0, moved_node);
+                    insert_child(mut_child.as_interior(), 0, std::move(moved_node));
                 }
 
                 // Update node.
                 {
                     auto mut_node = node.write();
-                    keys(mut_node)[child_index - 1] -= size(moved_node.get());
-                    keys(mut_node)[child_index] += size(moved_node.get());
+                    keys(mut_node)[child_index - 1] -= moved_node_size;
+                    keys(mut_node)[child_index] += moved_node_size;
                 }
-
-                moved_node = node_ptr();
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
                 new_child = btree_erase(child, at - offset_, leaf);
@@ -952,6 +958,7 @@ namespace boost { namespace text { namespace detail {
                        min_children + 1 <= num_children(child_right_sib)) {
                 // Remove first element of right sibling.
                 node_ptr moved_node = children(child_right_sib).front();
+                auto const moved_node_size = size(moved_node.get());
 
                 {
                     auto mut_right = child_right_sib.write();
@@ -961,17 +968,15 @@ namespace boost { namespace text { namespace detail {
                 // Append first element onto child.
                 {
                     auto mut_child = child.write();
-                    insert_child(mut_child.as_interior(), num_children(mut_child), moved_node);
+                    insert_child(mut_child.as_interior(), num_children(mut_child), std::move(moved_node));
                 }
 
                 // Update node.
                 {
                     auto mut_node = node.write();
-                    keys(mut_node)[child_index] += size(moved_node.get());
-                    keys(mut_node)[child_index + 1] -= size(moved_node.get());
+                    keys(mut_node)[child_index] += moved_node_size;
+                    keys(mut_node)[child_index + 1] -= moved_node_size;
                 }
-
-                moved_node = node_ptr();
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
                 new_child = btree_erase(child, at - offset_, leaf);
@@ -1069,7 +1074,7 @@ namespace boost { namespace text { namespace detail {
             if (found_hi.offset_ != leaf_size) {
                 node_ptr suffix =
                     slice_leaf(*found_hi.leaf_, found_hi.offset_, leaf_size, false);
-                root = btree_insert(root, hi - found_hi.offset_ + leaf_size, suffix);
+                root = btree_insert(root, hi - found_hi.offset_ + leaf_size, std::move(suffix));
             }
 
             // Right before the lo-segment, insert the prefix of the
@@ -1079,7 +1084,7 @@ namespace boost { namespace text { namespace detail {
             if (found_lo.offset_ != 0) {
                 node_ptr prefix =
                     slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, false);
-                root = btree_insert(root, lo - found_lo.offset_, prefix);
+                root = btree_insert(root, lo - found_lo.offset_, std::move(prefix));
                 lo += found_lo.offset_;
                 hi += found_lo.offset_;
             }

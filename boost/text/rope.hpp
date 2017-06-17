@@ -3,6 +3,10 @@
 
 #include <boost/text/detail/rope.hpp>
 
+#ifdef BOOST_TEXT_TESTING
+#include <iostream>
+#endif
+
 
 namespace boost { namespace text {
 
@@ -259,29 +263,51 @@ namespace boost { namespace text {
             return os;
         }
 
+#ifdef BOOST_TEXT_TESTING
+        friend void dump_tree (rope const & r)
+        {
+            if (r.empty())
+                std::cout << "[EMPTY]\n";
+            else
+                detail::dump_tree(r.ptr_);
+        }
+#endif
+
     private:
         explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
 
-        text * mutable_insertion_leaf (size_type at, size_type size, bool insertion_would_allocate)
+        struct text_insertion
         {
+            explicit operator bool () const
+            { return text_ != nullptr; }
+
+            text * text_;
+            std::ptrdiff_t offset_;
+        };
+
+        text_insertion mutable_insertion_leaf (size_type at, size_type size, bool insertion_would_allocate)
+        {
+            if (!ptr_)
+                return text_insertion{nullptr};
+
             detail::found_leaf found;
             find_leaf(ptr_, at, found);
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
-                    return nullptr;
+                    return text_insertion{nullptr};
             }
 
             if (found.leaf_->as_leaf()->which_ == detail::node_t::which::t) {
                 text & t = const_cast<text &>(found.leaf_->as_leaf()->as_text());
                 auto const inserted_size = t.size() + size;
                 if (inserted_size <= t.capacity())
-                    return &t;
+                    return text_insertion{&t, found.offset_};
                 else if (insertion_would_allocate && inserted_size <= detail::text_insert_max)
-                    return &t;
+                    return text_insertion{&t, found.offset_};
             }
 
-            return nullptr;
+            return text_insertion{nullptr};
         }
 
         template <typename T>
@@ -290,8 +316,8 @@ namespace boost { namespace text {
             if (t.empty())
                 return *this;
 
-            if (text * leaf_t = mutable_insertion_leaf(at, t.size(), insertion_would_allocate))
-                leaf_t->insert(leaf_t->size(), t);
+            if (text_insertion insertion = mutable_insertion_leaf(at, t.size(), insertion_would_allocate))
+                insertion.text_->insert(insertion.offset_, t);
             else
                 ptr_ = detail::btree_insert(ptr_, at, detail::make_node(std::forward<T &&>(t)));
 
@@ -302,6 +328,11 @@ namespace boost { namespace text {
 
         friend struct detail::const_rope_iterator;
     };
+
+    // TODO: inline rope const & checked_encoding (rope const & t)
+    // TODO: inline rope && checked_encoding (rope && t)
+    // TODO: operator+= ()
+    // TODO: operator+ ()
 
 } }
 
@@ -353,7 +384,7 @@ namespace boost { namespace text {
                 node = slice_leaf(*found_lo.leaf_, found_lo.offset_, detail::size(leaf), true);
             else
                 node = detail::node_ptr(leaf);
-            ptr_ = detail::btree_insert(ptr_, at, node);
+            ptr_ = detail::btree_insert(ptr_, at, std::move(node));
         }
         at += detail::size(leaf);
         leaf = leaf->next_;
@@ -453,6 +484,27 @@ namespace boost { namespace text {
     { return r.rbegin(); }
     inline rope::const_reverse_iterator rend (rope r) noexcept
     { return r.rend(); }
+
+    namespace detail {
+
+#ifdef BOOST_TEXT_TESTING
+        inline void dump_tree (node_ptr const & root, int key, int indent)
+        {
+            std::cout << repeated_text_view("    ", indent)
+                      << (root->leaf_ ? "LEAF" : "INTR")
+                      << " @0x" << std::hex << root.get();
+            if (key != -1)
+                std::cout << " < " << key;
+            std::cout << " (" << root->refs_ << " refs)\n";
+            if (!root->leaf_) {
+                int i = 0;
+                for (auto const & child : children(root)) {
+                    dump_tree(child, keys(root)[i++], indent + 1);
+                }
+            }
+        }
+#endif
+    }
 
 } }
 

@@ -54,7 +54,7 @@ namespace boost { namespace text { namespace detail {
         const_rope_iterator & operator++ () noexcept
         {
             ++n_;
-            if (leaf_ && leaf_start_ + n_ == leaf_->size()) {
+            if (leaf_ && n_ == leaf_start_ + leaf_->size()) {
                 leaf_ = leaf_->next_;
                 leaf_start_ = n_;
             }
@@ -77,7 +77,10 @@ namespace boost { namespace text { namespace detail {
         {
             if (leaf_ && n_ == leaf_start_) {
                 leaf_ = leaf_->prev_;
-                leaf_start_ -= leaf_->size();
+                if (leaf_)
+                    leaf_start_ -= leaf_->size();
+                else
+                    leaf_start_ = 0;
             }
             --n_;
             return *this;
@@ -107,7 +110,7 @@ namespace boost { namespace text { namespace detail {
         friend bool operator> (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
         { return rhs < lhs; }
         friend bool operator>= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
-        { return lhs <= rhs; }
+        { return rhs <= lhs; }
 
         friend const_rope_iterator operator+ (const_rope_iterator lhs, difference_type rhs) noexcept
         { return lhs += rhs; }
@@ -121,7 +124,7 @@ namespace boost { namespace text { namespace detail {
         {
             // TODO: Document this precondition!
             assert(lhs.rope_ == rhs.rope_);
-            return rhs.n_ - lhs.n_;
+            return lhs.n_ - rhs.n_;
         }
 
     private:
@@ -169,7 +172,7 @@ namespace boost { namespace text { namespace detail {
         const_rope_iterator base () const { return base_ + 1; }
 
         reference operator* () const noexcept { return *base_; }
-        value_type operator[] (difference_type n) const noexcept { return base_[n]; }
+        value_type operator[] (difference_type n) const noexcept { return base_[-n]; }
 
         const_reverse_rope_iterator & operator++ () noexcept { --base_; return *this; }
         const_reverse_rope_iterator operator++ (int) noexcept
@@ -211,7 +214,7 @@ namespace boost { namespace text { namespace detail {
         friend const_reverse_rope_iterator operator- (difference_type lhs, const_reverse_rope_iterator rhs) noexcept
         { return rhs -= lhs; }
         friend difference_type operator- (const_reverse_rope_iterator lhs, const_reverse_rope_iterator rhs) noexcept
-        { return lhs.base_ - rhs.base_; }
+        { return rhs.base_ - lhs.base_; }
 
     private:
         const_rope_iterator base_;
