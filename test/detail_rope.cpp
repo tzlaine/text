@@ -40,8 +40,6 @@ TEST(rope_detail, test_node_ptr)
 
         EXPECT_EQ(p0.as_leaf()->refs_, 2);
         EXPECT_EQ(p0.as_leaf()->leaf_, true);
-        EXPECT_EQ(p0.as_leaf()->prev_, nullptr);
-        EXPECT_EQ(p0.as_leaf()->next_, nullptr);
         EXPECT_EQ(p0.as_leaf()->size(), 0);
 
         EXPECT_EQ(size(p0.get()), 0);
@@ -169,9 +167,6 @@ node_ptr make_tree ()
     int_left->children_.push_back(make_node("left right"));
     int_left->keys_.push_back(int_left->keys_[0] + size(int_left->children_[1].get()));
 
-    auto leaf_0 = const_cast<leaf_node_t *>(int_left->children_[0].as_leaf());
-    auto leaf_1 = const_cast<leaf_node_t *>(int_left->children_[1].as_leaf());
-
     int_root->children_.push_back(left);
     int_root->keys_.push_back(size(left.get()));
 
@@ -184,19 +179,6 @@ node_ptr make_tree ()
 
     int_root->children_.push_back(right);
     int_root->keys_.push_back(int_root->keys_[0] + size(right.get()));
-
-    auto leaf_2 = const_cast<leaf_node_t *>(int_right->children_[0].as_leaf());
-    auto leaf_3 = const_cast<leaf_node_t *>(int_right->children_[1].as_leaf());
-
-    leaf_0->next_ = leaf_1;
-
-    leaf_1->prev_ = leaf_0;
-    leaf_1->next_ = leaf_2;
-
-    leaf_2->prev_ = leaf_1;
-    leaf_2->next_ = leaf_3;
-
-    leaf_3->prev_ = leaf_2;
 
     return root;
 }

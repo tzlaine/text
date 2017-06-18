@@ -138,8 +138,6 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (text const & t) :
             node_t (true),
             buf_ptr_ (nullptr),
-            prev_ (nullptr),
-            next_ (nullptr),
             which_ (which::t)
         {
             auto at = placement_address<text>(buf_, sizeof(buf_));
@@ -150,8 +148,6 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (text && t) :
             node_t (true),
             buf_ptr_ (nullptr),
-            prev_ (nullptr),
-            next_ (nullptr),
             which_ (which::t)
         {
             auto at = placement_address<text>(buf_, sizeof(buf_));
@@ -162,8 +158,6 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (text_view tv) :
             node_t (true),
             buf_ptr_ (nullptr),
-            prev_ (nullptr),
-            next_ (nullptr),
             which_ (which::tv)
         {
             auto at = placement_address<text_view>(buf_, sizeof(buf_));
@@ -174,8 +168,6 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (repeated_text_view rtv) :
             node_t (true),
             buf_ptr_ (nullptr),
-            prev_ (nullptr),
-            next_ (nullptr),
             which_ (which::rtv)
         {
             auto at = placement_address<repeated_text_view>(buf_, sizeof(buf_));
@@ -186,8 +178,6 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (leaf_node_t const & rhs) :
             node_t (true),
             buf_ptr_ (rhs.buf_ptr_),
-            prev_ (rhs.prev_),
-            next_ (rhs.next_),
             which_ (rhs.which_)
         {
             switch (which_) {
@@ -299,8 +289,6 @@ namespace boost { namespace text { namespace detail {
 
         char buf_[node_buf_size()];
         void * buf_ptr_;
-        leaf_node_t * prev_;
-        leaf_node_t * next_;
         which which_;
     };
 
@@ -532,6 +520,26 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
+    template <typename Fn>
+    void foreach_leaf (node_ptr const & root, Fn && f)
+    {
+        if (!root)
+            return;
+
+        std::ptrdiff_t offset = 0;
+        while (true) {
+            found_leaf found;
+            find_leaf(root, offset, found);
+            leaf_node_t const * leaf = found.leaf_->as_leaf();
+
+            if (!f(leaf))
+                break;
+
+            if ((offset += size(leaf)) == size(root.get()))
+                break;
+        }
+    }
+
     template <typename Container>
     auto reverse (Container const & c)
     {
@@ -746,25 +754,8 @@ namespace boost { namespace text { namespace detail {
         if (cut == 0 || cut == child_size)
             return;
 
-        node_ptr right;
-        node_ptr left;
-
-        {
-            right = slice_leaf(child, cut, child_size, true);
-            left = slice_leaf(child, 0, cut, child.as_leaf()->which_ == node_t::which::t);
-
-            auto mut_left = left.write();
-            auto mut_right = right.write();
-
-            if (child.as_leaf()->prev_)
-                child.as_leaf()->prev_->next_ = mut_left.as_leaf();
-            mut_left.as_leaf()->prev_ = child.as_leaf()->prev_;
-            mut_left.as_leaf()->next_ = mut_right.as_leaf();
-            mut_right.as_leaf()->prev_ = mut_left.as_leaf();
-            mut_right.as_leaf()->next_ = child.as_leaf()->next_;
-            if (child.as_leaf()->next_)
-                child.as_leaf()->next_->prev_ = mut_right.as_leaf();
-        }
+        node_ptr right = slice_leaf(child, cut, child_size, true);
+        node_ptr left = slice_leaf(child, 0, cut, child.as_leaf()->which_ == node_t::which::t);
 
         auto mut_parent = parent.write();
         children(mut_parent)[i] = left;
@@ -796,24 +787,8 @@ namespace boost { namespace text { namespace detail {
             if (keys(parent)[i] <= at)
                 ++i;
 
-            {
-                auto mut_parent = parent.write();
-                insert_child(mut_parent.as_interior(), i, std::move(node));
-            }
-
-            if (i < num_children(parent) - 1) {
-                auto mut_next = children(parent)[i + 1].write();
-                auto mut_curr = children(parent)[i].write();
-                mut_curr.as_leaf()->next_ = mut_next.as_leaf();
-                mut_next.as_leaf()->prev_ = mut_curr.as_leaf();
-            }
-
-            if (i) {
-                auto mut_prev = children(parent)[i - 1].write();
-                auto mut_curr = children(parent)[i].write();
-                mut_curr.as_leaf()->prev_ = mut_prev.as_leaf();
-                mut_prev.as_leaf()->next_ = mut_curr.as_leaf();
-            }
+            auto mut_parent = parent.write();
+            insert_child(mut_parent.as_interior(), i, std::move(node));
         } else {
             {
                 node_ptr const & child = children(parent)[i];
@@ -883,30 +858,13 @@ namespace boost { namespace text { namespace detail {
         if (leaf_children(node)) {
             auto const child_index = find_child(node.as_interior(), at);
 
-            if (num_children(node) == 2) {
-                node_ptr retval = children(node)[child_index ? 0 : 1];
-                auto mut_retval = retval.write();
-                mut_retval.as_leaf()->next_ = nullptr;
-                mut_retval.as_leaf()->prev_ = nullptr;
-                return retval;
-            }
+            if (num_children(node) == 2)
+                return children(node)[child_index ? 0 : 1];
 
             assert(children(node)[child_index].as_leaf() == leaf);
-            leaf_node_t * child_prev = leaf->prev_;
 
-            {
-                auto mut_node = node.write();
-                erase_child(mut_node.as_interior(), child_index);
-            }
-
-            if (child_index < num_children(node)) {
-                auto mut_child = children(node)[child_index].write();
-                mut_child.as_leaf()->prev_ = child_prev;
-                if (child_prev)
-                    child_prev->next_ = mut_child.as_leaf();
-            } else if (child_prev) {
-                child_prev->next_ = nullptr;
-            }
+            auto mut_node = node.write();
+            erase_child(mut_node.as_interior(), child_index);
 
             return node;
         }
@@ -1089,12 +1047,18 @@ namespace boost { namespace text { namespace detail {
                 hi += found_lo.offset_;
             }
 
-            leaf_node_t const * leaf = found_lo.leaf_->as_leaf();
-            while (leaf != found_hi.leaf_->as_leaf()) {
-                leaf_node_t const * next = leaf->next_;
+            bool before_lo = true;
+            leaf_node_t const * leaf_lo = found_lo.leaf_->as_leaf();
+            leaf_node_t const * leaf_hi = found_hi.leaf_->as_leaf();
+            foreach_leaf(root, [&](leaf_node_t const * leaf) {
+                if (before_lo && leaf != leaf_lo)
+                    return true; // continue
+                before_lo = false;
+                if (leaf == leaf_hi)
+                    return false; // break
                 root = btree_erase(root, lo, leaf);
-                leaf = next;
-            }
+                return true;
+            });
         }
 
         return root;

@@ -54,10 +54,8 @@ namespace boost { namespace text { namespace detail {
         const_rope_iterator & operator++ () noexcept
         {
             ++n_;
-            if (leaf_ && n_ == leaf_start_ + leaf_->size()) {
-                leaf_ = leaf_->next_;
-                leaf_start_ = n_;
-            }
+            if (leaf_ && n_ == leaf_start_ + leaf_->size())
+                leaf_ = nullptr;
             return *this;
         }
         const_rope_iterator operator++ (int) noexcept
@@ -75,13 +73,8 @@ namespace boost { namespace text { namespace detail {
 
         const_rope_iterator & operator-- () noexcept
         {
-            if (leaf_ && n_ == leaf_start_) {
-                leaf_ = leaf_->prev_;
-                if (leaf_)
-                    leaf_start_ -= leaf_->size();
-                else
-                    leaf_start_ = 0;
-            }
+            if (leaf_ && n_ == leaf_start_)
+                leaf_ = nullptr;
             --n_;
             return *this;
         }

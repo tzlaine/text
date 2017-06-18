@@ -144,13 +144,7 @@ namespace boost { namespace text {
         template <typename Fn>
         void foreach_segment (Fn && f) const
         {
-            if (!ptr_)
-                return;
-
-            detail::found_leaf found;
-            detail::find_leaf(ptr_, 0, found);
-            detail::leaf_node_t const * leaf = found.leaf_->as_leaf();
-            while (leaf) {
+            detail::foreach_leaf(ptr_, [&](detail::leaf_node_t const * leaf) {
                 switch (leaf->which_) {
                 case detail::node_t::which::t:
                     f(leaf->as_text());
@@ -166,8 +160,8 @@ namespace boost { namespace text {
                     break;
                 default: assert(!"unhandled rope node case"); break;
                 }
-                leaf = leaf->next_;
-            }
+                return true;
+            });
         }
 
         int compare (rope rhs) const noexcept;
@@ -202,16 +196,11 @@ namespace boost { namespace text {
             if (r.empty())
                 return *this;
 
-            detail::found_leaf found;
-            find_leaf(r.ptr_, 0, found);
-
-            detail::leaf_node_t const * leaf = found.leaf_->as_leaf();
-
-            while (leaf) {
+            detail::foreach_leaf(r.ptr_, [&](detail::leaf_node_t const * leaf) {
                 ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
                 at += detail::size(leaf);
-                leaf = leaf->next_;
-            }
+                return true;
+            });
 
             return *this;
         }
@@ -365,11 +354,11 @@ namespace boost { namespace text {
 
         detail::found_leaf found_lo;
         find_leaf(rv.r_->ptr_, rv.lo_, found_lo);
-        detail::leaf_node_t const * leaf = found_lo.leaf_->as_leaf();
+        detail::leaf_node_t const * const leaf_lo = found_lo.leaf_->as_leaf();
 
         // If the entire rope_view lies within a single segment, slice off
         // the appropriate part of that segment.
-        if (found_lo.offset_ + rv.size() <= detail::size(leaf)) {
+        if (found_lo.offset_ + rv.size() <= detail::size(leaf_lo)) {
             ptr_ = detail::btree_insert(
                 ptr_,
                 at,
@@ -381,23 +370,26 @@ namespace boost { namespace text {
         {
             detail::node_ptr node;
             if (found_lo.offset_ != 0)
-                node = slice_leaf(*found_lo.leaf_, found_lo.offset_, detail::size(leaf), true);
+                node = slice_leaf(*found_lo.leaf_, found_lo.offset_, detail::size(leaf_lo), true);
             else
-                node = detail::node_ptr(leaf);
+                node = detail::node_ptr(leaf_lo);
             ptr_ = detail::btree_insert(ptr_, at, std::move(node));
         }
-        at += detail::size(leaf);
-        leaf = leaf->next_;
+        at += detail::size(leaf_lo);
 
         detail::found_leaf found_hi;
         find_leaf(rv.r_->ptr_, rv.hi_, found_hi);
         detail::leaf_node_t const * const leaf_hi = found_hi.leaf_->as_leaf();
 
-        while (leaf != leaf_hi) {
+        detail::foreach_leaf(ptr_, [&](detail::leaf_node_t const * leaf) {
+            if (leaf == leaf_lo)
+                return true; // continue
+            if (leaf == leaf_hi)
+                return false; // break
             ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
             at += detail::size(leaf);
-            leaf = leaf->next_;
-        }
+            return true;
+        });
 
         if (found_hi.offset_ != 0) {
             ptr_ = detail::btree_insert(
