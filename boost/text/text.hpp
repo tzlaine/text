@@ -36,6 +36,7 @@ namespace boost { namespace text {
         text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
+        // TODO: Is this needed, given that there's a text_view overload?
         explicit text (char const * c_str);
 
         template <typename CharRange>
@@ -174,7 +175,7 @@ namespace boost { namespace text {
 
         // TODO: Document that the inserted/replaced sequence need not be
         // UTF-8 encoded, since direct use of iterators is the unsafe
-        // interface.  (To once again make it safe, use one of the conerting
+        // interface.  (To once again make it safe, use one of the converting
         // iterators.)
         template <typename Iter>
         auto insert (int at, Iter first, Iter last)
@@ -323,6 +324,13 @@ namespace boost { namespace text {
             std::swap(size_, rhs.size_);
             std::swap(cap_, rhs.cap_);
         }
+
+        inline text & operator+= (text_view view);
+        inline text & operator+= (repeated_text_view rv);
+
+        template <typename CharRange>
+        auto operator+= (CharRange const & r)
+            -> detail::rng_alg_ret_t<text &, CharRange>;
 
         friend iterator begin (text & t) noexcept
         { return t.begin(); }
@@ -825,6 +833,24 @@ namespace boost { namespace text {
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
+    inline text & text::operator+= (text_view view)
+    { return insert(size(), view); }
+
+    inline text & text::operator+= (repeated_text_view rv)
+    {
+        assert(0 <= rv.size());
+        reserve(size() + rv.size());
+        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
+            insert(size(), rv.view());
+        }
+        return *this;
+    }
+
+    template <typename CharRange>
+    auto text::operator+= (CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    { return insert(size(), text_view(&*r.begin(), r.end() - r.begin())); }
+
     inline bool text::self_reference (text_view view) const
     {
         using less_t = std::less<char const *>;
@@ -850,46 +876,6 @@ namespace boost { namespace text {
 
     inline bool operator>= (char const * lhs, text const & rhs) noexcept
     { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0; }
-
-
-
-    inline text & operator+= (text & t, text_view view)
-    { return t.insert(t.size(), view); }
-
-    inline text & operator+= (text & t, repeated_text_view rv)
-    {
-        assert(0 <= rv.size());
-        t.reserve(t.size() + rv.size());
-        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
-            t.insert(t.size(), rv.view());
-        }
-        return t;
-    }
-
-    template <typename CharRange>
-    auto operator+= (text & t, CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
-    { return t.insert(t.size(), text_view(&*r.begin(), r.end() - r.begin())); }
-
-
-
-    inline text & operator+= (text && t, text_view view)
-    { return t.insert(t.size(), view); }
-
-    inline text & operator+= (text && t, repeated_text_view rv)
-    {
-        assert(0 <= rv.size());
-        t.reserve(t.size() + rv.size());
-        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
-            t.insert(t.size(), rv.view());
-        }
-        return t;
-    }
-
-    template <typename CharRange>
-    auto operator+= (text && t, CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
-    { return t.insert(t.size(), text_view(&*r.begin(), r.end() - r.begin())); }
 
 
 

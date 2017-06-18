@@ -11,10 +11,27 @@
 namespace boost { namespace text {
 
     struct rope_view;
+    struct rope;
 
     namespace detail {
+
         struct const_rope_iterator;
         struct const_reverse_rope_iterator;
+
+        template <
+            typename T,
+            typename R1,
+            bool R1IsCharRange = is_char_range<R1, text>{}
+        >
+        struct rope_rng_ret {};
+
+        template <typename T, typename R1>
+        struct rope_rng_ret<T, R1, true>
+        { using type = T; };
+
+        template <typename T, typename R1>
+        using rope_rng_ret_t = typename rope_rng_ret<T, R1>::type;
+
     }
 
     struct rope
@@ -35,11 +52,25 @@ namespace boost { namespace text {
         explicit rope (text const & t) : ptr_ (detail::make_node(t)) {}
         explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
 
+        template <typename CharRange>
+        explicit rope (
+            CharRange const & r,
+            detail::rope_rng_ret_t<int *, CharRange> = 0
+        ) : ptr_ ()
+        { insert(0, r); }
+
         explicit rope (text_view tv) : ptr_ (nullptr)
         { insert(0, tv); }
 
         explicit rope (repeated_text_view rtv) : ptr_ (nullptr)
         { insert(0, rtv); }
+
+        template <typename Iter>
+        rope (
+            Iter first, Iter last,
+            detail::char_iter_ret_t<void *, Iter> = 0
+        ) : ptr_ ()
+        { insert(0, first, last); }
 
         rope & operator= (rope const & rhs) = default;
         rope & operator= (rope && rhs) noexcept = default;
@@ -59,6 +90,11 @@ namespace boost { namespace text {
             swap(temp);
             return *this;
         }
+
+        template <typename CharRange>
+        auto operator= (CharRange const & r)
+            -> detail::rope_rng_ret_t<rope &, CharRange>
+        { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
 
         rope & operator= (text_view tv)
         {
@@ -187,24 +223,13 @@ namespace boost { namespace text {
         void clear ()
         { ptr_ = detail::node_ptr(); }
 
+        template <typename CharRange>
+        auto insert (int at, CharRange const & r)
+            -> detail::rope_rng_ret_t<rope &, CharRange>
+        { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
+
         // TODO: Document that each insert(), erase(), and replace() overload
         // has only the basic guarantee.
-        rope & insert (size_type at, rope r)
-        {
-            assert(0 <= at && at <= size());
-
-            if (r.empty())
-                return *this;
-
-            detail::foreach_leaf(r.ptr_, [&](detail::leaf_node_t const * leaf) {
-                ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
-                at += detail::size(leaf);
-                return true;
-            });
-
-            return *this;
-        }
-
         rope & insert (size_type at, rope_view rv);
 
         rope & insert (size_type at, text const & t)
@@ -230,15 +255,53 @@ namespace boost { namespace text {
             return insert_impl(at, rtv, false);
         }
 
-        rope & erase (rope_view rv);
+        // TODO: Document that the inserted/replaced sequence need not be
+        // UTF-8 encoded, since direct use of iterators is the unsafe
+        // interface.  (To once again make it safe, use one of the converting
+        // iterators.)
+        template <typename Iter>
+        auto insert (int at, Iter first, Iter last)
+            -> detail::char_iter_ret_t<rope &, Iter>;
 
-        rope & replace (rope_view rv, text const & t);
-        rope & replace (rope_view rv, text && t);
-        rope & replace (rope_view rv, text_view tv);
-        rope & replace (rope_view rv, repeated_text_view rtv);
+        template <typename Iter>
+        auto insert (const_iterator at, Iter first, Iter last)
+            -> detail::char_iter_ret_t<rope &, Iter>;
+
+        rope & erase (rope_view rv);
+        rope & erase (const_iterator first, const_iterator last);
+
+        template <typename CharRange>
+        auto replace (rope_view old_substr, CharRange const & r)
+            -> detail::rope_rng_ret_t<rope &, CharRange>;
+
+        rope & replace (rope_view old_substr, rope_view rv);
+        rope & replace (rope_view old_substr, text const & t);
+        rope & replace (rope_view old_substr, text && t);
+        rope & replace (rope_view old_substr, text_view tv);
+        rope & replace (rope_view old_substr, repeated_text_view rtv);
+
+        template <typename Iter>
+        auto replace (rope_view old_substr, Iter first, Iter last)
+            -> detail::char_iter_ret_t<rope &, Iter>;
+
+        template <typename Iter>
+        auto replace (const_iterator old_first, const_iterator old_last, Iter new_first, Iter new_last)
+            -> detail::char_iter_ret_t<rope &, Iter>;
 
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
+
+        // TODO: Make sure all the mutating operations have this same set of
+        // overloads.
+        inline rope & operator+= (rope_view rv);
+        inline rope & operator+= (text const & t);
+        inline rope & operator+= (text && t);
+        inline rope & operator+= (text_view tv);
+        inline rope & operator+= (repeated_text_view rv);
+
+        template <typename CharRange>
+        auto operator+= (CharRange const & r)
+            -> detail::rope_rng_ret_t<rope &, CharRange>;
 
         friend const_iterator begin (rope r) noexcept;
         friend const_iterator end (rope r) noexcept;
@@ -264,6 +327,8 @@ namespace boost { namespace text {
 
     private:
         explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
+
+        bool self_reference (rope_view rv) const;
 
         struct text_insertion
         {
@@ -313,15 +378,22 @@ namespace boost { namespace text {
             return *this;
         }
 
+        template <typename Iter>
+        auto insert_iter_impl (int at, Iter first, Iter last)
+            -> detail::char_iter_ret_t<rope &, Iter>
+        {
+            // TODO
+            return *this;
+        }
+
         detail::node_ptr ptr_;
 
         friend struct detail::const_rope_iterator;
     };
 
-    // TODO: inline rope const & checked_encoding (rope const & t)
-    // TODO: inline rope && checked_encoding (rope && t)
-    // TODO: operator+= ()
-    // TODO: operator+ ()
+
+    inline rope const & checked_encoding (rope const & r);
+    inline rope && checked_encoding (rope && r);
 
 } }
 
@@ -335,6 +407,10 @@ namespace boost { namespace text {
 
     inline rope & rope::operator= (rope_view rv)
     {
+        detail::node_ptr extra_ref;
+        if (self_reference(rv))
+            extra_ref = ptr_;
+
         rope temp(rv);
         swap(temp);
         return *this;
@@ -347,6 +423,10 @@ namespace boost { namespace text {
     {
         if (rv.empty())
             return *this;
+
+        detail::node_ptr extra_ref;
+        if (self_reference(rv))
+            extra_ref = ptr_;
 
         bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
         if (rv_null_terminated)
@@ -402,8 +482,36 @@ namespace boost { namespace text {
         return *this;
     }
 
+    template <typename Iter>
+    auto rope::insert (int at, Iter first, Iter last)
+        -> detail::char_iter_ret_t<rope &, Iter>
+    {
+        assert(0 <= at && at <= size());
+
+        if (first == last)
+            return *this;
+
+        if (!utf8::starts_encoded(begin() + at, end()))
+            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+
+        return insert_iter_impl(at, first, last);
+    }
+
+    template <typename Iter>
+    auto rope::insert (const_iterator at, Iter first, Iter last)
+        -> detail::char_iter_ret_t<rope &, Iter>
+    {
+        assert(begin() <= at && at <= end());
+
+        if (first == last)
+            return *this;
+
+        return insert_iter_impl(at - begin(), first, last);
+    }
+
     inline rope & rope::erase (rope_view rv)
     {
+        assert(self_reference(rv));
         assert(0 <= rv.lo_ && rv.lo_ <= size());
         assert(0 <= rv.hi_ && rv.hi_ <= size());
         assert(rv.lo_ <= rv.hi_);
@@ -420,17 +528,73 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope & rope::replace (rope_view rv, text const & t)
-    { return erase(rv).insert(rv.lo_, t); }
+    inline rope & rope::erase (const_iterator first, const_iterator last)
+    {
+        assert(first <= last);
+        assert(begin() <= first && last <= end());
 
-    inline rope & rope::replace (rope_view rv, text && t)
-    { return erase(rv).insert(rv.lo_, std::move(t)); }
+        // TODO
 
-    inline rope & rope::replace (rope_view rv, text_view tv)
-    { return erase(rv).insert(rv.lo_, tv); }
+        return *this;
+    }
 
-    inline rope & rope::replace (rope_view rv, repeated_text_view rtv)
-    { return erase(rv).insert(rv.lo_, rtv); }
+    template <typename CharRange>
+    auto rope::replace (rope_view old_substr, CharRange const & r)
+        -> detail::rope_rng_ret_t<rope &, CharRange>
+    { return replace(old_substr, text_view(&*r.begin(), r.end() - r.begin())); }
+
+    inline rope & rope::replace (rope_view old_substr, rope_view rv)
+    { return erase(old_substr).insert(old_substr.lo_, rv); }
+
+    inline rope & rope::replace (rope_view old_substr, text const & t)
+    { return erase(old_substr).insert(old_substr.lo_, t); }
+
+    inline rope & rope::replace (rope_view old_substr, text && t)
+    { return erase(old_substr).insert(old_substr.lo_, std::move(t)); }
+
+    inline rope & rope::replace (rope_view old_substr, text_view tv)
+    { return erase(old_substr).insert(old_substr.lo_, tv); }
+
+    inline rope & rope::replace (rope_view old_substr, repeated_text_view rtv)
+    { return erase(old_substr).insert(old_substr.lo_, rtv); }
+
+    template <typename Iter>
+    auto rope::replace (rope_view old_substr, Iter first, Iter last)
+        -> detail::char_iter_ret_t<rope &, Iter>
+    {
+        assert(self_reference(old_substr));
+        assert(0 <= old_substr.size());
+        const_iterator const old_first = old_substr.begin();
+        return replace(old_first, old_first + old_substr.size(), first, last);
+    }
+
+    template <typename Iter>
+    auto rope::replace (const_iterator old_first, const_iterator old_last, Iter new_first, Iter new_last)
+        -> detail::char_iter_ret_t<rope &, Iter>
+    {
+        // TODO
+        return *this;
+    }
+
+    inline rope & rope::operator+= (rope_view rv)
+    { return insert(size(), rv); }
+
+    inline rope & rope::operator+= (text const & t)
+    { return insert(size(), t); }
+
+    inline rope & rope::operator+= (text && t)
+    { return insert(size(), std::move(t)); }
+
+    inline rope & rope::operator+= (text_view tv)
+    { return insert(size(), tv); }
+
+    inline rope & rope::operator+= (repeated_text_view rtv)
+    { return insert(size(), rtv); }
+
+    template <typename CharRange>
+    auto rope::operator+= (CharRange const & r)
+        -> detail::rope_rng_ret_t<rope &, CharRange>
+    { return insert(size(), text_view(&*r.begin(), r.end() - r.begin())); }
 
     inline rope::const_iterator rope::begin () const noexcept
     { return const_iterator(*this, 0); }
@@ -476,6 +640,81 @@ namespace boost { namespace text {
     { return r.rbegin(); }
     inline rope::const_reverse_iterator rend (rope r) noexcept
     { return r.rend(); }
+
+    inline bool rope::self_reference (rope_view rv) const
+    { return rv.r_ == this; }
+
+
+    inline rope operator+ (rope r, rope_view rv)
+    { return r.insert(r.size(), rv); }
+
+    inline rope operator+ (rope r, text const & t)
+    { return r.insert(r.size(), t); }
+
+    inline rope operator+ (rope r, text && t)
+    { return r.insert(r.size(), std::move(t)); }
+
+    inline rope operator+ (rope r, text_view tv)
+    { return r.insert(r.size(), tv); }
+
+    inline rope operator+ (rope r, repeated_text_view rtv)
+    { return r.insert(r.size(), rtv); }
+
+    template <typename CharRange>
+    auto operator+ (rope r, CharRange const & range)
+        -> detail::rope_rng_ret_t<rope, CharRange>
+    { return r.insert(r.size(), text_view(&*range.begin(), range.end() - range.begin())); }
+
+
+    inline rope operator+ (rope_view rv, rope r)
+    { return r.insert(0, rv); }
+
+    inline rope operator+ (text const & t, rope r)
+    { return r.insert(0, t); }
+
+    inline rope operator+ (text && t, rope r)
+    { return r.insert(0, std::move(t)); }
+
+    inline rope operator+ (text_view tv, rope r)
+    { return r.insert(0, tv); }
+
+    inline rope operator+ (repeated_text_view rtv, rope r)
+    { return r.insert(0, rtv); }
+
+    template <typename CharRange>
+    auto operator+ (CharRange const & range, rope r)
+        -> detail::rope_rng_ret_t<rope, CharRange>
+    { return r.insert(0, text_view(&*range.begin(), range.end() - range.begin())); }
+
+    namespace detail {
+
+        template <typename Segment>
+        bool encoded (Segment const & segment)
+        { return utf8::encoded(segment.begin(), segment.end()); }
+
+        inline bool encoded (repeated_text_view rtv)
+        { return utf8::encoded(rtv.view().begin(), rtv.view().end()); }
+
+    }
+
+    inline rope const & checked_encoding (rope const & r)
+    {
+        r.foreach_segment([](auto const & segment) {
+            if (!detail::encoded(segment))
+                throw std::invalid_argument("Invalid UTF-8 encoding");
+        });
+        return r;
+    }
+
+    inline rope && checked_encoding (rope && r)
+    {
+        r.foreach_segment([](auto const & segment) {
+            if (!detail::encoded(segment))
+                throw std::invalid_argument("Invalid UTF-8 encoding");
+        });
+        return std::move(r);
+    }
+
 
     namespace detail {
 

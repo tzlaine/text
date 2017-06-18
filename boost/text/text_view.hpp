@@ -183,7 +183,7 @@ namespace boost { namespace text {
 
     }
 
-    constexpr text_view encoding_checked (text_view view)
+    constexpr text_view checked_encoding (text_view view)
     {
         if (!utf8::encoded(view.begin(), view.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");

@@ -83,7 +83,11 @@ namespace boost { namespace text {
         constexpr size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
-        // TODO: foreach_segment() ?
+        template <typename Fn>
+        void foreach_segment (Fn && f) const
+        {
+            // TODO
+        }
 
         int compare (rope_view rhs) const noexcept;
 
@@ -112,10 +116,11 @@ namespace boost { namespace text {
             std::swap(hi_, rhs.hi_);
         }
 
-#if 0 // TODO
-        friend std::ostream & operator<< (std::ostream & os, rope_view view)
-        { return os.write(view.begin(), view.size()); }
-#endif
+        friend std::ostream & operator<< (std::ostream & os, rope_view rv)
+        {
+            rv.foreach_segment([&os](auto const & segment) { os << segment; });
+            return os;
+        }
 
     private:
         rope const * r_;
@@ -164,6 +169,32 @@ namespace boost { namespace text {
         return (*r_)[lo_ + i];
     }
 
+    namespace detail {
+
+        template <typename Iter>
+        int mismatch_compare (rope_view rv, Iter rhs_first, Iter rhs_last)
+        {
+            // TODO: This could probably be optimized quite a bit by using
+            // rv.foreach_segment().
+            auto const iters = std::mismatch(rv.begin(), rv.end(), rhs_first, rhs_last);
+            if (iters.first == rv.end()) {
+                if (iters.second == rhs_last)
+                    return 0;
+                else
+                    return -1;
+            } else if (iters.second == rhs_last) {
+                return 1;
+            } else if (*iters.first == *iters.second) {
+                return 0;
+            } else if (*iters.first < *iters.second) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+
+    }
+
     inline int rope_view::compare (rope_view rhs) const noexcept
     {
         // TODO: This could probably be optimized quite a bit by doing
@@ -194,6 +225,44 @@ namespace boost { namespace text {
     { return v.rbegin(); }
     inline rope_view::reverse_iterator rend (rope_view v) noexcept
     { return v.rend(); }
+
+
+    inline bool operator== (rope_view lhs, text_view rhs) noexcept
+    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) == 0; }
+
+    inline bool operator!= (rope_view lhs, text_view rhs) noexcept
+    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) != 0; }
+
+    inline bool operator< (rope_view lhs, text_view rhs) noexcept
+    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) < 0; }
+
+    inline bool operator<= (rope_view lhs, text_view rhs) noexcept
+    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) <= 0; }
+
+    inline bool operator> (rope_view lhs, text_view rhs) noexcept
+    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) > 0; }
+
+    inline bool operator>= (rope_view lhs, text_view rhs) noexcept
+    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) >= 0; }
+
+
+    inline bool operator== (text_view lhs, rope_view rhs) noexcept
+    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) == 0; }
+
+    inline bool operator!= (text_view lhs, rope_view rhs) noexcept
+    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) != 0; }
+
+    inline bool operator< (text_view lhs, rope_view rhs) noexcept
+    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) > 0; }
+
+    inline bool operator<= (text_view lhs, rope_view rhs) noexcept
+    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) >= 0; }
+
+    inline bool operator> (text_view lhs, rope_view rhs) noexcept
+    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) < 0; }
+
+    inline bool operator>= (text_view lhs, rope_view rhs) noexcept
+    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) <= 0; }
 
 } }
 
