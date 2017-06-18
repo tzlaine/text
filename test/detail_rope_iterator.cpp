@@ -228,7 +228,15 @@ TEST(both_rope_iterators, test_larger_ropes)
         text::rope r;
 
         text::text_view tv("text");
-        for (int i = 0; i < copies; ++i) {
+        int i = 0;
+        for (; i < text::detail::min_children - 1; ++i) {
+            r.insert(0, tv);
+        }
+
+        text::rope extra_ref = r;
+        (void)extra_ref;
+
+        for (; i < copies; ++i) {
             r.insert(0, tv);
         }
 
@@ -277,7 +285,7 @@ TEST(both_rope_iterators, test_larger_ropes)
         text::rope r;
         text::repeated_text_view rtv("text", 2);
         for (int i = 0; i < copies; ++i) {
-            r.insert(0, rtv);
+            r.insert(r.size(), rtv);
         }
 
         {
