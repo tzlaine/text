@@ -13,8 +13,6 @@ namespace boost { namespace text { namespace detail {
     // TODO: Experiment with collapsing adjacent text_views, references, etc.,
     // when inserting, erasing, etc.
 
-    // TODO: Remove leaf links, as they are inappropriate for heavy sharing.
-
     struct node_t;
     struct leaf_node_t;
     struct interior_node_t;

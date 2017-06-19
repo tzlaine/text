@@ -300,8 +300,6 @@ namespace boost { namespace text {
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
 
-        // TODO: Make sure all the mutating operations have this same set of
-        // overloads.
         inline rope & operator+= (rope_view rv);
         inline rope & operator+= (text const & t);
         inline rope & operator+= (text && t);
