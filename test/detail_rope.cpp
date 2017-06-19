@@ -470,7 +470,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         text t("some text");
         node_ptr p0 = make_node(t);
-        node_ptr p1 = slice_leaf(p0, 0, t.size(), true);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), true, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(p1.as_leaf()->as_reference().ref_, "some text");
     }
@@ -478,7 +478,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         text t("some text");
         node_ptr p0 = make_node(t);
-        node_ptr p1 = slice_leaf(p0, 0, t.size(), false);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(p1.as_leaf()->as_text(), "some text");
     }
@@ -486,7 +486,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         text t("some text");
         node_ptr p0 = make_node(t);
-        slice_leaf(p0, 1, t.size() - 1, false);
+        slice_leaf(p0, 1, t.size() - 1, false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "ome tex");
     }
 
@@ -494,7 +494,7 @@ TEST(rope_detail, test_slice_leaf)
         text t("some text");
         node_ptr p0 = make_node(t);
         node_ptr p1 = p0;
-        node_ptr p2 = slice_leaf(p0, 1, t.size() - 1, false);
+        node_ptr p2 = slice_leaf(p0, 1, t.size() - 1, false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(p2.as_leaf()->as_reference().ref_, "ome tex");
     }
@@ -504,7 +504,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         text_view tv("some text");
         node_ptr p0 = make_node(tv);
-        node_ptr p1 = slice_leaf(p0, 0, tv.size(), true);
+        node_ptr p1 = slice_leaf(p0, 0, tv.size(), true, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text_view(), "some text");
         EXPECT_EQ(p1.as_leaf()->as_text_view(), "some text");
     }
@@ -512,7 +512,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         text_view tv("some text");
         node_ptr p0 = make_node(tv);
-        slice_leaf(p0, 1, tv.size() - 1, false);
+        slice_leaf(p0, 1, tv.size() - 1, false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text_view(), "ome tex");
     }
 
@@ -520,7 +520,7 @@ TEST(rope_detail, test_slice_leaf)
         text_view tv("some text");
         node_ptr p0 = make_node(tv);
         node_ptr p1 = p0;
-        node_ptr p2 = slice_leaf(p0, 1, tv.size() - 1, false);
+        node_ptr p2 = slice_leaf(p0, 1, tv.size() - 1, false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text_view(), "some text");
         EXPECT_EQ(p2.as_leaf()->as_text_view(), "ome tex");
     }
@@ -530,7 +530,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         repeated_text_view rtv("text", 3);
         node_ptr p0 = make_node(rtv);
-        node_ptr p1 = slice_leaf(p0, 0, rtv.size(), true);
+        node_ptr p1 = slice_leaf(p0, 0, rtv.size(), true, check_encoding_breakage);
         EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), "texttexttext");
         EXPECT_EQ(text(p1.as_leaf()->as_repeated_text_view()), "texttexttext");
         EXPECT_EQ(p0->refs_, 1);
@@ -540,7 +540,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         repeated_text_view rtv("text", 3);
         node_ptr p0 = make_node(rtv);
-        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() * 2, false);
+        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() * 2, false, check_encoding_breakage);
         EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), "text");
         EXPECT_EQ(text(p1.as_leaf()->as_repeated_text_view()), "text");
     }
@@ -548,7 +548,7 @@ TEST(rope_detail, test_slice_leaf)
     {
         repeated_text_view rtv("text", 3);
         node_ptr p0 = make_node(rtv);
-        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() + 1, false);
+        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() + 1, false, check_encoding_breakage);
         EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), "texttexttext");
         EXPECT_EQ(text(p1.as_leaf()->as_text()), "t");
     }
@@ -559,8 +559,8 @@ TEST(rope_detail, test_slice_leaf)
         text t("some text");
         node_ptr pt = make_node(t);
 
-        node_ptr p0 = slice_leaf(pt, 0, t.size(), true);
-        node_ptr p1 = slice_leaf(p0, 0, t.size(), true);
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true, check_encoding_breakage);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), true, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_reference().ref_, "some text");
         EXPECT_EQ(p1.as_leaf()->as_reference().ref_, "some text");
     }
@@ -569,8 +569,8 @@ TEST(rope_detail, test_slice_leaf)
         text t("some text");
         node_ptr pt = make_node(t);
 
-        node_ptr p0 = slice_leaf(pt, 0, t.size(), true);
-        slice_leaf(p0, 1, t.size() - 1, false);
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true, check_encoding_breakage);
+        slice_leaf(p0, 1, t.size() - 1, false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_reference().ref_, "ome tex");
     }
 
@@ -578,9 +578,9 @@ TEST(rope_detail, test_slice_leaf)
         text t("some text");
         node_ptr pt = make_node(t);
 
-        node_ptr p0 = slice_leaf(pt, 0, t.size(), true);
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true, check_encoding_breakage);
         node_ptr p1 = p0;
-        node_ptr p2 = slice_leaf(p0, 1, t.size() - 1, false);
+        node_ptr p2 = slice_leaf(p0, 1, t.size() - 1, false, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_reference().ref_, "some text");
         EXPECT_EQ(p2.as_leaf()->as_reference().ref_, "ome tex");
     }
@@ -593,7 +593,7 @@ TEST(rope_detail, test_erase_leaf)
     {
         text t("some text");
         node_ptr p0 = make_node(t);
-        leaf_slices slices = erase_leaf(p0, 0, 9);
+        leaf_slices slices = erase_leaf(p0, 0, 9, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(slices.slice.get(), nullptr);
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -602,7 +602,7 @@ TEST(rope_detail, test_erase_leaf)
     {
         text t("some text");
         node_ptr p0 = make_node(t);
-        leaf_slices slices = erase_leaf(p0, 1, 9);
+        leaf_slices slices = erase_leaf(p0, 1, 9, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "s");
         EXPECT_EQ(slices.slice.as_leaf()->as_text(), "s");
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -612,7 +612,7 @@ TEST(rope_detail, test_erase_leaf)
         text t("some text");
         node_ptr p0 = make_node(t);
         node_ptr p1 = p0;
-        leaf_slices slices = erase_leaf(p0, 1, 9);
+        leaf_slices slices = erase_leaf(p0, 1, 9, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().ref_, "s");
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -622,7 +622,7 @@ TEST(rope_detail, test_erase_leaf)
         text t("some text");
         node_ptr p0 = make_node(t);
         node_ptr p1 = p0;
-        leaf_slices slices = erase_leaf(p0, 0, 8);
+        leaf_slices slices = erase_leaf(p0, 0, 8, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().ref_, "t");
         EXPECT_EQ(slices.other_slice.get(), nullptr);
@@ -632,7 +632,7 @@ TEST(rope_detail, test_erase_leaf)
         text t("some text");
         node_ptr p0 = make_node(t);
         node_ptr p1 = p0;
-        leaf_slices slices = erase_leaf(p0, 1, 8);
+        leaf_slices slices = erase_leaf(p0, 1, 8, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text(), "some text");
         EXPECT_EQ(slices.slice.as_leaf()->as_reference().ref_, "s");
         EXPECT_EQ(slices.other_slice.as_leaf()->as_reference().ref_, "t");
@@ -644,7 +644,7 @@ TEST(rope_detail, test_erase_leaf)
     {
         text_view t("some text");
         node_ptr p0 = make_node(t);
-        leaf_slices slices = erase_leaf(p0, 1, 8);
+        leaf_slices slices = erase_leaf(p0, 1, 8, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text_view(), "s");
         EXPECT_EQ(slices.slice.as_leaf()->as_text_view(), "s");
         EXPECT_EQ(slices.other_slice.as_leaf()->as_text_view(), "t");
@@ -654,7 +654,7 @@ TEST(rope_detail, test_erase_leaf)
         text_view t("some text");
         node_ptr p0 = make_node(t);
         node_ptr p1 = p0;
-        leaf_slices slices = erase_leaf(p0, 1, 8);
+        leaf_slices slices = erase_leaf(p0, 1, 8, check_encoding_breakage);
         EXPECT_EQ(p0.as_leaf()->as_text_view(), "some text");
         EXPECT_EQ(slices.slice.as_leaf()->as_text_view(), "s");
         EXPECT_EQ(slices.other_slice.as_leaf()->as_text_view(), "t");

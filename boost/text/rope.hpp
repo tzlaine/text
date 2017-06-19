@@ -21,7 +21,7 @@ namespace boost { namespace text {
         template <
             typename T,
             typename R1,
-            bool R1IsCharRange = is_char_range<R1, text>{}
+            bool R1IsCharRange = is_char_range<R1, text, text_view>{}
         >
         struct rope_rng_ret {};
 
@@ -151,8 +151,17 @@ namespace boost { namespace text {
             // off the appropriate part of that segment.
             detail::found_leaf found;
             detail::find_leaf(ptr_, lo, found);
-            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get()))
-                return rope(slice_leaf(*found.leaf_, found.offset_, found.offset_ + hi - lo, true));
+            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
+                return rope(
+                    slice_leaf(
+                        *found.leaf_,
+                        found.offset_,
+                        found.offset_ + hi - lo,
+                        true,
+                        detail::check_encoding_breakage
+                    )
+                );
+            }
 
             // Take an extra ref to the root, which will force all a clone of
             // all the interior nodes.
@@ -233,17 +242,17 @@ namespace boost { namespace text {
         rope & insert (size_type at, rope_view rv);
 
         rope & insert (size_type at, text const & t)
-        { return insert_impl(at, t, true); }
+        { return insert_impl(at, t, would_allocate); }
 
         rope & insert (size_type at, text && t)
-        { return insert_impl(at, std::move(t), false); }
+        { return insert_impl(at, std::move(t), would_not_allocate); }
 
         rope & insert (size_type at, text_view tv)
         {
             bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
             if (tv_null_terminated)
                 tv = tv(0, -1);
-            return insert_impl(at, tv, false);
+            return insert_impl(at, tv, would_not_allocate);
         }
 
         rope & insert (size_type at, repeated_text_view rtv)
@@ -252,7 +261,7 @@ namespace boost { namespace text {
                 !rtv.view().empty() && rtv.view().end()[-1] == '\0';
             if (rtv_null_terminated)
                 rtv = repeat(rtv.view()(0, -1), rtv.count());
-            return insert_impl(at, rtv, false);
+            return insert_impl(at, rtv, would_not_allocate);
         }
 
         // TODO: Document that the inserted/replaced sequence need not be
@@ -303,12 +312,6 @@ namespace boost { namespace text {
         auto operator+= (CharRange const & r)
             -> detail::rope_rng_ret_t<rope &, CharRange>;
 
-        friend const_iterator begin (rope r) noexcept;
-        friend const_iterator end (rope r) noexcept;
-
-        friend const_reverse_iterator rbegin (rope r) noexcept;
-        friend const_reverse_iterator rend (rope r) noexcept;
-
         friend std::ostream & operator<< (std::ostream & os, rope r)
         {
             r.foreach_segment([&os](auto const & segment) { os << segment; });
@@ -326,6 +329,8 @@ namespace boost { namespace text {
 #endif
 
     private:
+        enum allocation_note_t { would_allocate, would_not_allocate };
+
         explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
 
         bool self_reference (rope_view rv) const;
@@ -339,7 +344,7 @@ namespace boost { namespace text {
             std::ptrdiff_t offset_;
         };
 
-        text_insertion mutable_insertion_leaf (size_type at, size_type size, bool insertion_would_allocate)
+        text_insertion mutable_insertion_leaf (size_type at, size_type size, allocation_note_t allocation_note)
         {
             if (!ptr_)
                 return text_insertion{nullptr};
@@ -357,7 +362,7 @@ namespace boost { namespace text {
                 auto const inserted_size = t.size() + size;
                 if (inserted_size <= t.capacity())
                     return text_insertion{&t, found.offset_};
-                else if (insertion_would_allocate && inserted_size <= detail::text_insert_max)
+                else if (allocation_note == would_allocate && inserted_size <= detail::text_insert_max)
                     return text_insertion{&t, found.offset_};
             }
 
@@ -365,24 +370,29 @@ namespace boost { namespace text {
         }
 
         template <typename T>
-        rope & insert_impl (size_type at, T && t, bool insertion_would_allocate)
-        {
+        rope & insert_impl (
+            size_type at,
+            T && t,
+            allocation_note_t allocation_note,
+            detail::encoding_note_t encoding_note = detail::check_encoding_breakage
+        ) {
             if (t.empty())
                 return *this;
 
-            if (text_insertion insertion = mutable_insertion_leaf(at, t.size(), insertion_would_allocate))
-                insertion.text_->insert(insertion.offset_, t);
-            else
-                ptr_ = detail::btree_insert(ptr_, at, detail::make_node(std::forward<T &&>(t)));
+            if (text_insertion insertion = mutable_insertion_leaf(at, t.size(), allocation_note)) {
+                if (encoding_note == detail::encoding_breakage_ok)
+                    insertion.text_->insert(insertion.text_->begin() + insertion.offset_, t.begin(), t.end());
+                else
+                    insertion.text_->insert(insertion.offset_, t);
+            } else {
+                ptr_ = detail::btree_insert(
+                    ptr_,
+                    at,
+                    detail::make_node(std::forward<T &&>(t)),
+                    encoding_note
+                );
+            }
 
-            return *this;
-        }
-
-        template <typename Iter>
-        auto insert_iter_impl (int at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<rope &, Iter>
-        {
-            // TODO
             return *this;
         }
 
@@ -442,17 +452,30 @@ namespace boost { namespace text {
             ptr_ = detail::btree_insert(
                 ptr_,
                 at,
-                slice_leaf(*found_lo.leaf_, found_lo.offset_, found_lo.offset_ + rv.size(), true)
+                slice_leaf(
+                    *found_lo.leaf_,
+                    found_lo.offset_,
+                    found_lo.offset_ + rv.size(),
+                    true,
+                    detail::check_encoding_breakage
+                )
             );
             return *this;
         }
 
         {
             detail::node_ptr node;
-            if (found_lo.offset_ != 0)
-                node = slice_leaf(*found_lo.leaf_, found_lo.offset_, detail::size(leaf_lo), true);
-            else
+            if (found_lo.offset_ != 0) {
+                node = slice_leaf(
+                    *found_lo.leaf_,
+                    found_lo.offset_,
+                    detail::size(leaf_lo),
+                    true,
+                    detail::check_encoding_breakage
+                );
+            } else {
                 node = detail::node_ptr(leaf_lo);
+            }
             ptr_ = detail::btree_insert(ptr_, at, std::move(node));
         }
         at += detail::size(leaf_lo);
@@ -475,7 +498,13 @@ namespace boost { namespace text {
             ptr_ = detail::btree_insert(
                 ptr_,
                 at,
-                slice_leaf(*found_hi.leaf_, 0, found_hi.offset_, true)
+                slice_leaf(
+                    *found_hi.leaf_,
+                    0,
+                    found_hi.offset_,
+                    true,
+                    detail::check_encoding_breakage
+                )
             );
         }
 
@@ -494,7 +523,9 @@ namespace boost { namespace text {
         if (!utf8::starts_encoded(begin() + at, end()))
             throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
 
-        return insert_iter_impl(at, first, last);
+        ptr_ = detail::btree_insert(ptr_, at, detail::make_node(text(first, last)));
+
+        return *this;
     }
 
     template <typename Iter>
@@ -506,7 +537,14 @@ namespace boost { namespace text {
         if (first == last)
             return *this;
 
-        return insert_iter_impl(at - begin(), first, last);
+        ptr_ = detail::btree_insert(
+            ptr_,
+            at - begin(),
+            detail::make_node(text(first, last)),
+            detail::encoding_breakage_ok
+        );
+
+        return *this;
     }
 
     inline rope & rope::erase (rope_view rv)
@@ -631,14 +669,14 @@ namespace boost { namespace text {
         return rope_view(*this, lo, hi);
     }
 
-    inline rope::const_iterator begin (rope r) noexcept
+    inline rope::const_iterator begin (rope const & r) noexcept
     { return r.begin(); }
-    inline rope::const_iterator end (rope r) noexcept
+    inline rope::const_iterator end (rope const & r) noexcept
     { return r.end(); }
 
-    inline rope::const_reverse_iterator rbegin (rope r) noexcept
+    inline rope::const_reverse_iterator rbegin (rope const & r) noexcept
     { return r.rbegin(); }
-    inline rope::const_reverse_iterator rend (rope r) noexcept
+    inline rope::const_reverse_iterator rend (rope const & r) noexcept
     { return r.rend(); }
 
     inline bool rope::self_reference (rope_view rv) const

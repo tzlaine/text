@@ -5,7 +5,6 @@
 #include <boost/text/text.hpp>
 
 #include <boost/container/static_vector.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <boost/smart_ptr/intrusive_ptr.hpp>
 
 
@@ -487,6 +486,8 @@ namespace boost { namespace text { namespace detail {
         assert(text_node.as_leaf()->which_ == node_t::which::t);
     }
 
+    enum encoding_note_t { check_encoding_breakage, encoding_breakage_ok };
+
     inline node_ptr make_node (text const & t)
     { return node_ptr(new leaf_node_t(t)); }
 
@@ -499,10 +500,17 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr make_node (repeated_text_view rtv)
     { return node_ptr(new leaf_node_t(rtv)); }
 
-    inline node_ptr make_ref (leaf_node_t const * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
-    {
+    inline node_ptr make_ref (
+        leaf_node_t const * t,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi,
+        encoding_note_t encoding_note = check_encoding_breakage
+    ) {
         assert(t->which_ == node_t::which::t);
-        text_view const tv = t->as_text()(lo, hi);
+        text_view const tv =
+            encoding_note == encoding_breakage_ok ?
+            text_view(t->as_text().begin() + lo, hi - lo, utf8::unchecked) :
+            t->as_text()(lo, hi);
 
         leaf_node_t * leaf = nullptr;
         node_ptr retval(leaf = new leaf_node_t);
@@ -513,10 +521,14 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
-    inline node_ptr make_ref (reference const & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
-    {
+    inline node_ptr make_ref (
+        reference const & t,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi,
+        encoding_note_t encoding_note = check_encoding_breakage
+    ) {
         auto const offset = t.ref_.begin() - t.text_.as_leaf()->as_text().begin();
-        node_ptr retval = make_ref(t.text_.as_leaf(), lo + offset, hi + offset);
+        node_ptr retval = make_ref(t.text_.as_leaf(), lo + offset, hi + offset, encoding_note);
         return retval;
     }
 
@@ -540,12 +552,22 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
+    template <typename Iter>
+    struct reversed_range
+    {
+        Iter first_;
+        Iter last_;
+
+        Iter begin () const { return first_; }
+        Iter end () const { return last_; }
+    };
+
     template <typename Container>
     auto reverse (Container const & c)
     {
-        return boost::iterator_range<typename Container::const_reverse_iterator>(
+        return reversed_range<typename Container::const_reverse_iterator>{
             c.rbegin(), c.rend()
-        );
+        };
     }
 
     inline void insert_child (interior_node_t * node, int i, node_ptr && child)
@@ -577,7 +599,8 @@ namespace boost { namespace text { namespace detail {
         node_ptr const & node,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
-        bool immutable
+        bool immutable,
+        encoding_note_t encoding_note
     ) {
         assert(node);
         assert(0 <= lo && lo <= size(node.get()));
@@ -589,20 +612,30 @@ namespace boost { namespace text { namespace detail {
         switch (node.as_leaf()->which_) {
         case node_t::which::t:
             if (!leaf_mutable)
-                return make_ref(node.as_leaf(), lo, hi);
+                return make_ref(node.as_leaf(), lo, hi, encoding_note);
             {
                 auto mut_node = node.write();
                 text & t = mut_node.as_leaf()->as_text();
-                t = t(lo, hi);
+                if (encoding_note == encoding_breakage_ok)
+                    t = text_view(t.begin() + lo, hi - lo, utf8::unchecked);
+                else
+                    t = t(lo, hi);
             }
             return node;
         case node_t::which::tv: {
+            text_view const old_tv = node.as_leaf()->as_text_view();
+            text_view const new_tv =
+                encoding_note == encoding_breakage_ok ?
+                text_view(old_tv.begin() + lo, hi - lo, utf8::unchecked) :
+                old_tv(lo, hi);
+
             if (!leaf_mutable)
-                return make_node(node.as_leaf()->as_text_view()(lo, hi));
+                return make_node(new_tv);
+
             {
                 auto mut_node = node.write();
                 text_view & tv = mut_node.as_leaf()->as_text_view();
-                tv = tv(lo, hi);
+                tv = new_tv;
             }
             return node;
         }
@@ -611,12 +644,13 @@ namespace boost { namespace text { namespace detail {
             int const mod_lo = lo % crtv.view().size();
             int const mod_hi = hi % crtv.view().size();
             if (mod_lo != 0 || mod_hi != 0) {
-                // Check for encoding breakage.
-                text_view const tv = crtv.view()(
-                    (std::min)(mod_lo, mod_hi),
-                    (std::max)(mod_lo, mod_hi)
-                );
-                (void)tv;
+                if (encoding_note == check_encoding_breakage) {
+                    text_view const tv = crtv.view()(
+                        (std::min)(mod_lo, mod_hi),
+                        (std::max)(mod_lo, mod_hi)
+                    );
+                    (void)tv;
+                }
                 return make_node(text(crtv.begin() + lo, crtv.begin() + hi));
             } else {
                 auto const count = (hi - lo) / crtv.view().size();
@@ -630,11 +664,14 @@ namespace boost { namespace text { namespace detail {
         }
         case node_t::which::ref: {
             if (!leaf_mutable)
-                return make_ref(node.as_leaf()->as_reference(), lo, hi);
+                return make_ref(node.as_leaf()->as_reference(), lo, hi, encoding_note);
             {
                 auto mut_node = node.write();
                 reference & ref = mut_node.as_leaf()->as_reference();
-                ref.ref_ = ref.ref_(lo, hi);
+                ref.ref_ =
+                    encoding_note == encoding_breakage_ok ?
+                    text_view(ref.ref_.begin() + lo, hi - lo, utf8::unchecked) :
+                    ref.ref_(lo, hi);
             }
             return node;
         }
@@ -649,8 +686,12 @@ namespace boost { namespace text { namespace detail {
         node_ptr other_slice;
     };
 
-    inline leaf_slices erase_leaf (node_ptr & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
-    {
+    inline leaf_slices erase_leaf (
+        node_ptr & node,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi,
+        encoding_note_t encoding_note
+    ) {
         assert(node);
         assert(0 <= lo && lo <= size(node.get()));
         assert(0 <= hi && hi <= size(node.get()));
@@ -668,16 +709,19 @@ namespace boost { namespace text { namespace detail {
             {
                 auto mut_node = node.write();
                 text & t = mut_node.as_leaf()->as_text();
-                t.erase(t(lo, hi));
+                if (encoding_note == encoding_breakage_ok)
+                    t.erase(text_view(t.begin() + lo, hi - lo, utf8::unchecked));
+                else
+                    t.erase(t(lo, hi));
             }
             retval.slice = node;
             return retval;
         }
 
         if (hi != leaf_size)
-            retval.other_slice = slice_leaf(node, hi, leaf_size, true);
+            retval.other_slice = slice_leaf(node, hi, leaf_size, true, encoding_note);
         if (lo != 0)
-            retval.slice = slice_leaf(node, 0, lo, false);
+            retval.slice = slice_leaf(node, 0, lo, false, encoding_note);
 
         if (!retval.slice)
             retval.slice.swap(retval.other_slice);
@@ -739,8 +783,12 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Analogous to btree_split_child(), for leaf nodes.
-    inline void btree_split_leaf (node_ptr const & parent, int i, std::ptrdiff_t at)
-    {
+    inline void btree_split_leaf (
+        node_ptr const & parent,
+        int i,
+        std::ptrdiff_t at,
+        encoding_note_t encoding_note
+    ) {
         assert(0 <= i && i < num_children(parent));
         assert(0 <= at && at <= size(parent.get()));
         assert(!full(parent));
@@ -754,8 +802,14 @@ namespace boost { namespace text { namespace detail {
         if (cut == 0 || cut == child_size)
             return;
 
-        node_ptr right = slice_leaf(child, cut, child_size, true);
-        node_ptr left = slice_leaf(child, 0, cut, child.as_leaf()->which_ == node_t::which::t);
+        node_ptr right = slice_leaf(child, cut, child_size, true, encoding_note);
+        node_ptr left = slice_leaf(
+            child,
+            0,
+            cut,
+            child.as_leaf()->which_ == node_t::which::t,
+            encoding_note
+        );
 
         auto mut_parent = parent.write();
         children(mut_parent)[i] = left;
@@ -773,7 +827,8 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr btree_insert_nonfull (
         node_ptr & parent,
         std::ptrdiff_t at,
-        node_ptr && node
+        node_ptr && node,
+        encoding_note_t encoding_note
     ) {
         assert(!parent->leaf_);
         assert(0 <= at && at <= size(parent.get()));
@@ -783,7 +838,7 @@ namespace boost { namespace text { namespace detail {
         if (leaf_children(parent)) {
             // Note that this split may add a node to parent, for a
             // maximum of two added nodes in the leaf code path.
-            btree_split_leaf(parent, i, at);
+            btree_split_leaf(parent, i, at, encoding_note);
             if (keys(parent)[i] <= at)
                 ++i;
 
@@ -805,7 +860,8 @@ namespace boost { namespace text { namespace detail {
             node_ptr new_child = btree_insert_nonfull(
                 children(mut_parent)[i],
                 at - offset(mut_parent, i),
-                std::move(node)
+                std::move(node),
+                encoding_note
             );
             delta += size(new_child.get());
             children(mut_parent)[i] = new_child;
@@ -818,8 +874,12 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    inline node_ptr btree_insert (node_ptr & root, std::ptrdiff_t at, node_ptr && node)
-    {
+    inline node_ptr btree_insert (
+        node_ptr & root,
+        std::ptrdiff_t at,
+        node_ptr && node,
+        encoding_note_t encoding_note = check_encoding_breakage
+    ) {
         assert(0 <= at && at <= size(root.get()));
         assert(node->leaf_);
 
@@ -831,7 +891,7 @@ namespace boost { namespace text { namespace detail {
             auto const root_size = size(root.get());
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
-            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node), encoding_note);
         } else if (full(root) || (leaf_children(root) && almost_full(root))) {
             interior_node_t * new_root = nullptr;
             node_ptr new_root_ptr(new_root = new interior_node_t);
@@ -839,9 +899,9 @@ namespace boost { namespace text { namespace detail {
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
             new_root_ptr = btree_split_child(new_root_ptr, 0);
-            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node), encoding_note);
         } else {
-            return btree_insert_nonfull(root, at, std::move(node));
+            return btree_insert_nonfull(root, at, std::move(node), encoding_note);
         }
     }
 
@@ -851,8 +911,12 @@ namespace boost { namespace text { namespace detail {
     // downward pass, with no backtracking.  This function only erases
     // entire segments; the segments must have been split appropriately
     // before this function is ever called.
-    inline node_ptr btree_erase (node_ptr const & node, std::ptrdiff_t at, leaf_node_t const * leaf)
-    {
+    inline node_ptr btree_erase (
+        node_ptr const & node,
+        std::ptrdiff_t at,
+        leaf_node_t const * leaf,
+        encoding_note_t encoding_note
+    ) {
         assert(node);
 
         if (leaf_children(node)) {
@@ -911,7 +975,7 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
-                new_child = btree_erase(child, at - offset_, leaf);
+                new_child = btree_erase(child, at - offset_, leaf, encoding_note);
             } else if (child_right_sib &&
                        min_children + 1 <= num_children(child_right_sib)) {
                 // Remove first element of right sibling.
@@ -937,7 +1001,7 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
-                new_child = btree_erase(child, at - offset_, leaf);
+                new_child = btree_erase(child, at - offset_, leaf, encoding_note);
             } else {
                 auto const right_index = child_right_sib ? child_index + 1 : child_index;
                 auto const left_index = right_index - 1;
@@ -976,7 +1040,7 @@ namespace boost { namespace text { namespace detail {
 
                 std::ptrdiff_t const offset_ = offset(node, left_index);
 
-                new_child = btree_erase(left, at - offset_, leaf);
+                new_child = btree_erase(left, at - offset_, leaf, encoding_note);
                 if (num_children(node) == 2)
                     return new_child;
 
@@ -985,7 +1049,7 @@ namespace boost { namespace text { namespace detail {
             }
         } else {
             std::ptrdiff_t const offset_ = offset(node, child_index);
-            new_child = btree_erase(children(node)[child_index], at - offset_, leaf);
+            new_child = btree_erase(children(node)[child_index], at - offset_, leaf, encoding_note);
         }
 
         {
@@ -1000,8 +1064,12 @@ namespace boost { namespace text { namespace detail {
         return node;
     }
 
-    inline node_ptr btree_erase (node_ptr & root, std::ptrdiff_t lo, std::ptrdiff_t hi)
-    {
+    inline node_ptr btree_erase (
+        node_ptr & root,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi,
+        encoding_note_t encoding_note = check_encoding_breakage
+    ) {
         assert(root);
         assert(0 <= lo && lo <= size(root.get()));
         assert(0 <= hi && hi <= size(root.get()));
@@ -1011,7 +1079,7 @@ namespace boost { namespace text { namespace detail {
 
         if (root->leaf_) {
             leaf_slices slices;
-            slices = erase_leaf(root, lo, hi);
+            slices = erase_leaf(root, lo, hi, encoding_note);
             if (!slices.other_slice) {
                 return slices.slice;
             } else {
@@ -1031,8 +1099,8 @@ namespace boost { namespace text { namespace detail {
             auto const leaf_size = size(found_hi.leaf_->get());
             if (found_hi.offset_ != leaf_size) {
                 node_ptr suffix =
-                    slice_leaf(*found_hi.leaf_, found_hi.offset_, leaf_size, false);
-                root = btree_insert(root, hi - found_hi.offset_ + leaf_size, std::move(suffix));
+                    slice_leaf(*found_hi.leaf_, found_hi.offset_, leaf_size, false, encoding_note);
+                root = btree_insert(root, hi - found_hi.offset_ + leaf_size, std::move(suffix), encoding_note);
             }
 
             // Right before the lo-segment, insert the prefix of the
@@ -1041,8 +1109,8 @@ namespace boost { namespace text { namespace detail {
             detail::find_leaf(root, lo, found_lo);
             if (found_lo.offset_ != 0) {
                 node_ptr prefix =
-                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, false);
-                root = btree_insert(root, lo - found_lo.offset_, std::move(prefix));
+                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, false, encoding_note);
+                root = btree_insert(root, lo - found_lo.offset_, std::move(prefix), encoding_note);
                 lo += found_lo.offset_;
                 hi += found_lo.offset_;
             }
@@ -1056,7 +1124,7 @@ namespace boost { namespace text { namespace detail {
                 before_lo = false;
                 if (leaf == leaf_hi)
                     return false; // break
-                root = btree_erase(root, lo, leaf);
+                root = btree_erase(root, lo, leaf, encoding_note);
                 return true;
             });
         }

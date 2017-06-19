@@ -88,7 +88,7 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template <typename T, typename Exclude = void>
+    template <typename T, typename Exclude1 = void, typename Exclude2 = void>
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<
@@ -119,7 +119,8 @@ namespace boost { namespace text { namespace detail {
             detected_t<iterator_category_, T>,
             std::random_access_iterator_tag
         >::value &&
-        !std::is_same<T, Exclude>::value
+        !std::is_same<T, Exclude1>::value &&
+        !std::is_same<T, Exclude2>::value
     >;
 
 
