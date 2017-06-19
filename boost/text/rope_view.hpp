@@ -130,6 +130,8 @@ namespace boost { namespace text {
         friend struct rope;
     };
 
+    inline rope operator+ (rope_view lhs, rope_view rhs);
+
 } }
 
 #include <boost/text/rope.hpp>
@@ -263,6 +265,13 @@ namespace boost { namespace text {
 
     inline bool operator>= (text_view lhs, rope_view rhs) noexcept
     { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) <= 0; }
+
+
+    inline rope operator+ (rope_view lhs, rope_view rhs)
+    {
+        rope retval(lhs);
+        return retval += rhs;
+    }
 
 } }
 
