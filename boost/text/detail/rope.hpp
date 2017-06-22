@@ -917,9 +917,10 @@ namespace boost { namespace text { namespace detail {
     ) {
         assert(node);
 
-        if (leaf_children(node)) {
-            auto const child_index = find_child(node.as_interior(), at);
+        auto const child_index = find_child(node.as_interior(), at);
+        auto const leaf_size = leaf->size();
 
+        if (leaf_children(node)) {
             if (num_children(node) == 2)
                 return children(node)[child_index ? 0 : 1];
 
@@ -932,8 +933,6 @@ namespace boost { namespace text { namespace detail {
         }
 
         node_ptr new_child;
-
-        auto const child_index = find_child(node.as_interior(), at);
 
         node_ptr const & child = children(node)[child_index];
         if (num_children(child) == min_children) {
@@ -1037,8 +1036,8 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, left_index);
-
                 new_child = btree_erase(left, at - offset_, leaf, encoding_note);
+
                 if (num_children(node) == 2)
                     return new_child;
 
@@ -1053,9 +1052,8 @@ namespace boost { namespace text { namespace detail {
         {
             auto mut_node = node.write();
             children(mut_node)[child_index] = new_child;
-            auto const size_delta = leaf->size();
             for (int i = child_index, size = num_keys(mut_node); i < size; ++i) {
-                keys(mut_node)[i] -= size_delta;
+                keys(mut_node)[i] -= leaf_size;
             }
         }
 
@@ -1083,10 +1081,10 @@ namespace boost { namespace text { namespace detail {
             } else {
                 interior_node_t * new_root = nullptr;
                 node_ptr new_root_ptr(new_root = new interior_node_t);
-                new_root->children_.push_back(slices.slice);
                 new_root->keys_.push_back(size(slices.slice.get()));
-                new_root->children_.push_back(slices.other_slice);
-                new_root->keys_.push_back(size(slices.other_slice.get()));
+                new_root->keys_.push_back(new_root->keys_[0] + size(slices.other_slice.get()));
+                new_root->children_.push_back(std::move(slices.slice));
+                new_root->children_.push_back(std::move(slices.other_slice));
                 return new_root_ptr;
             }
         } else {
@@ -1095,7 +1093,7 @@ namespace boost { namespace text { namespace detail {
             detail::found_leaf found_hi;
             detail::find_leaf(root, hi, found_hi);
             auto const leaf_size = size(found_hi.leaf_->get());
-            if (found_hi.offset_ != leaf_size) {
+            if (found_hi.offset_ != 0) {
                 node_ptr suffix =
                     slice_leaf(*found_hi.leaf_, found_hi.offset_, leaf_size, false, encoding_note);
                 root = btree_insert(root, hi - found_hi.offset_ + leaf_size, std::move(suffix), encoding_note);
@@ -1106,12 +1104,23 @@ namespace boost { namespace text { namespace detail {
             detail::found_leaf found_lo;
             detail::find_leaf(root, lo, found_lo);
             if (found_lo.offset_ != 0) {
+                auto const lo_leaf_size = size(found_lo.leaf_->get());
                 node_ptr prefix =
                     slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, false, encoding_note);
+                if (prefix.get() == found_lo.leaf_->get())
+                    hi -= lo_leaf_size;
                 root = btree_insert(root, lo - found_lo.offset_, std::move(prefix), encoding_note);
                 lo += found_lo.offset_;
                 hi += found_lo.offset_;
             }
+
+            // Re-do the finds, since the insertions above may have mutated
+            // the leaves.
+            detail::find_leaf(root, lo, found_lo);
+            detail::find_leaf(root, hi, found_hi);
+
+            assert(found_lo.offset_ == 0);
+            assert(found_hi.offset_ == 0);
 
             bool before_lo = true;
             leaf_node_t const * leaf_lo = found_lo.leaf_->as_leaf();
