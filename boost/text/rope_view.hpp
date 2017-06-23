@@ -125,7 +125,19 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<< (std::ostream & os, rope_view rv)
         {
-            rv.foreach_segment([&os](auto const & segment) { for (char c : segment) os << c; });
+            if (os.good()) {
+                detail::pad_width_before(os, rv.size());
+                rv.foreach_segment([&os](auto const & segment) {
+                    if (os.good()) {
+                        for (char c : segment) { // TODO: Slow!
+                            os << c;
+                        }
+                    }
+                });
+                if (os.good())
+                    detail::pad_width_after(os, rv.size());
+                os.width(0);
+            }
             return os;
         }
 

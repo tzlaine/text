@@ -312,7 +312,16 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<< (std::ostream & os, rope r)
         {
-            r.foreach_segment([&os](auto const & segment) { os << segment; });
+            if (os.good()) {
+                detail::pad_width_before(os, r.size());
+                r.foreach_segment([&os](auto const & segment) {
+                    if (os.good())
+                        os << segment;
+                });
+                if (os.good())
+                    detail::pad_width_after(os, r.size());
+                os.width(0);
+            }
             return os;
         }
 

@@ -6,8 +6,6 @@
 #include <boost/text/detail/utility.hpp>
 #include <boost/text/detail/iterator.hpp>
 
-#include <ostream>
-
 #include <cassert>
 
 
@@ -164,9 +162,19 @@ namespace boost { namespace text {
         friend constexpr reverse_iterator rend (text_view v) noexcept
         { return v.rend(); }
 
-        // TODO: Honor current width setting here and elsewhere.
+        // TODO: Test left- and right-alignment with width set.
         friend std::ostream & operator<< (std::ostream & os, text_view view)
-        { return os.write(view.begin(), view.size()); }
+        {
+            if (os.good()) {
+                detail::pad_width_before(os, view.size());
+                if (os.good())
+                    os.write(view.begin(), view.size());
+                if (os.good())
+                    detail::pad_width_after(os, view.size());
+                os.width(0);
+            }
+            return os;
+        }
 
     private:
         char const * data_;
@@ -313,10 +321,18 @@ namespace boost { namespace text {
         { return v.rend(); }
 
 
-        friend std::ostream & operator<< (std::ostream & os, repeated_text_view rv)
+        friend std::ostream & operator<< (std::ostream & os, repeated_text_view rtv)
         {
-            for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
-                os.write(rv.view().begin(), rv.view().size());
+            if (os.good()) {
+                detail::pad_width_before(os, rtv.size());
+                for (std::ptrdiff_t i = 0; i < rtv.count(); ++i) {
+                    if (!os.good())
+                        break;
+                    os.write(rtv.view().begin(), rtv.view().size());
+                }
+                if (os.good())
+                    detail::pad_width_after(os, rtv.size());
+                os.width(0);
             }
             return os;
         }

@@ -9,7 +9,6 @@
 
 #include <list>
 #include <memory>
-#include <ostream>
 
 #include <cassert>
 
@@ -356,7 +355,17 @@ namespace boost { namespace text {
         { return t.crend(); }
 
         friend std::ostream & operator<< (std::ostream & os, text const & t)
-        { return os.write(t.begin(), t.size()); }
+        {
+            if (os.good()) {
+                detail::pad_width_before(os, t.size());
+                if (os.good())
+                    os.write(t.begin(), t.size());
+                if (os.good())
+                    detail::pad_width_after(os, t.size());
+                os.width(0);
+            }
+            return os;
+        }
 
     private:
         bool self_reference (text_view view) const;
