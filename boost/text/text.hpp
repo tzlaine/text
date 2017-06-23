@@ -36,9 +36,6 @@ namespace boost { namespace text {
         text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
-        // TODO: Is this needed, given that there's a text_view overload?
-        explicit text (char const * c_str);
-
         template <typename CharRange>
         explicit text (
             CharRange const & r,
@@ -534,9 +531,6 @@ namespace boost { namespace text {
         }
 
     }
-
-    inline text::text (char const * c_str) : data_ (), size_ (0), cap_ (0)
-    { insert(0, c_str); }
 
     inline text::text (text_view view) : data_ (), size_ (0), cap_ (0)
     { insert(0, view); }
