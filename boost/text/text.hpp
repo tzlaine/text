@@ -721,6 +721,16 @@ namespace boost { namespace text {
 
         assert(self_reference(old_substr));
 
+        if (old_substr.empty()) {
+            if (old_substr.begin() == begin()) {
+                text_view check_after(old_substr.begin(), end() - old_substr.begin());
+                (void)check_after;
+            } else {
+                text_view check_before(data_.get(), old_substr.begin() - begin());
+                (void)check_before;
+            }
+        }
+
         bool const new_substr_null_terminated =
             !new_substr.empty() && new_substr.end()[-1] == '\0';
         if (new_substr_null_terminated)
@@ -772,6 +782,16 @@ namespace boost { namespace text {
             old_substr = old_substr(0, -1);
 
         assert(self_reference(old_substr));
+
+        if (old_substr.empty()) {
+            if (old_substr.begin() == begin()) {
+                text_view check_after(old_substr.begin(), end() - old_substr.begin());
+                (void)check_after;
+            } else {
+                text_view check_before(data_.get(), old_substr.begin() - begin());
+                (void)check_before;
+            }
+        }
 
         bool const new_substr_null_terminated =
             !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';

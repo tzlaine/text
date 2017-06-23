@@ -1089,17 +1089,17 @@ TEST(text, test_replace)
 
         {
             text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(1, 1), "something"));
+            EXPECT_THROW(t.replace(t(1, 1), "something"), std::invalid_argument);
         }
 
         {
             text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(2, 2), "something"));
+            EXPECT_THROW(t.replace(t(2, 2), "something"), std::invalid_argument);
         }
 
         {
             text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(3, 3), "something"));
+            EXPECT_THROW(t.replace(t(3, 3), "something"), std::invalid_argument);
         }
 
         {
