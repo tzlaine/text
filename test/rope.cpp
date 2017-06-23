@@ -606,7 +606,6 @@ TEST(rope, test_insert)
     }
 }
 
-#if 0
 TEST(rope, test_erase)
 {
     {
@@ -805,17 +804,17 @@ TEST(rope, test_replace)
 
         {
             text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(1, 1), "something"));
+            EXPECT_THROW(t.replace(t(1, 1), "something"), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(2, 2), "something"));
+            EXPECT_THROW(t.replace(t(2, 2), "something"), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(3, 3), "something"));
+            EXPECT_THROW(t.replace(t(3, 3), "something"), std::invalid_argument);
         }
 
         {
@@ -1027,7 +1026,6 @@ TEST(rope, test_replace_iter_large_insertions)
         EXPECT_EQ(t, expected);
     }
 }
-#endif
 
 // TODO: Add out-of-memory tests (in another file).  These should especially
 // test the Iter interfaces.

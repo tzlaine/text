@@ -233,7 +233,7 @@ namespace boost { namespace text {
         { ptr_ = detail::node_ptr(); }
 
         template <typename CharRange>
-        auto insert (int at, CharRange const & r)
+        auto insert (size_type at, CharRange const & r)
             -> detail::rope_rng_ret_t<rope &, CharRange>
         { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
 
@@ -269,7 +269,7 @@ namespace boost { namespace text {
         // interface.  (To once again make it safe, use one of the converting
         // iterators.)
         template <typename Iter>
-        auto insert (int at, Iter first, Iter last)
+        auto insert (size_type at, Iter first, Iter last)
             -> detail::char_iter_ret_t<rope &, Iter>;
 
         template <typename Iter>
@@ -510,7 +510,7 @@ namespace boost { namespace text {
     }
 
     template <typename Iter>
-    auto rope::insert (int at, Iter first, Iter last)
+    auto rope::insert (size_type at, Iter first, Iter last)
         -> detail::char_iter_ret_t<rope &, Iter>
     {
         assert(0 <= at && at <= size());
@@ -569,7 +569,12 @@ namespace boost { namespace text {
         assert(first <= last);
         assert(begin() <= first && last <= end());
 
-        // TODO
+        if (first == last)
+            return *this;
+
+        auto const lo = first - begin();
+        auto const hi = last - begin();
+        ptr_ = btree_erase(ptr_, lo, hi, detail::encoding_breakage_ok);
 
         return *this;
     }
@@ -580,7 +585,17 @@ namespace boost { namespace text {
     { return replace(old_substr, text_view(&*r.begin(), r.end() - r.begin())); }
 
     inline rope & rope::replace (rope_view old_substr, rope_view rv)
-    { return erase(old_substr).insert(old_substr.lo_, rv); }
+    {
+        detail::node_ptr extra_ref;
+        rope extra_rope;
+        if (self_reference(rv)) {
+            extra_ref = ptr_;
+            extra_rope = rope(extra_ref);
+            rv = rope_view(extra_rope, rv.lo_, rv.hi_);
+        }
+
+        return erase(old_substr).insert(old_substr.lo_, rv);
+    }
 
     inline rope & rope::replace (rope_view old_substr, text const & t)
     { return erase(old_substr).insert(old_substr.lo_, t); }
@@ -608,8 +623,9 @@ namespace boost { namespace text {
     auto rope::replace (const_iterator old_first, const_iterator old_last, Iter new_first, Iter new_last)
         -> detail::char_iter_ret_t<rope &, Iter>
     {
-        // TODO
-        return *this;
+        assert(old_first <= old_last);
+        assert(begin() <= old_first && old_last <= end());
+        return erase(old_first, old_last).insert(old_first, new_first, new_last);
     }
 
     inline rope & rope::operator+= (rope_view rv)
