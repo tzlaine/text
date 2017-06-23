@@ -22,6 +22,7 @@ namespace boost { namespace text {
 
     }
 
+    // TODO: Tests!
     // TODO: Consider adding an implicit conversion ctor from text_view.
     struct rope_view
     {
