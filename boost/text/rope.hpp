@@ -397,6 +397,7 @@ namespace boost { namespace text {
         detail::node_ptr ptr_;
 
         friend struct detail::const_rope_iterator;
+        friend struct rope_view;
     };
 
 

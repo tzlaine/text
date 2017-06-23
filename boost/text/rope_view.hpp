@@ -9,8 +9,17 @@ namespace boost { namespace text {
     struct rope;
 
     namespace detail {
+
         struct const_rope_iterator;
         struct const_reverse_rope_iterator;
+
+        struct repeated_range
+        {
+            repeated_text_view::const_iterator first, last;
+            repeated_text_view::const_iterator begin () const { return first; }
+            repeated_text_view::const_iterator end () const { return last; }
+        };
+
     }
 
     // TODO: Consider adding an implicit conversion ctor from text_view.
@@ -84,10 +93,7 @@ namespace boost { namespace text {
         { return PTRDIFF_MAX; }
 
         template <typename Fn>
-        void foreach_segment (Fn && f) const
-        {
-            // TODO
-        }
+        void foreach_segment (Fn && f) const;
 
         int compare (rope_view rhs) const noexcept;
 
@@ -118,7 +124,7 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<< (std::ostream & os, rope_view rv)
         {
-            rv.foreach_segment([&os](auto const & segment) { os << segment; });
+            rv.foreach_segment([&os](auto const & segment) { for (char c : segment) os << c; });
             return os;
         }
 
@@ -169,6 +175,93 @@ namespace boost { namespace text {
     {
         assert(lo_ + i < r_->size());
         return (*r_)[lo_ + i];
+    }
+
+    template <typename Fn>
+    void rope_view::foreach_segment (Fn && f) const
+    {
+        detail::found_leaf found_lo;
+        detail::find_leaf(r_->ptr_, lo_, found_lo);
+
+        detail::found_leaf found_hi;
+        detail::find_leaf(r_->ptr_, hi_, found_hi);
+
+        bool before_lo = true;
+        detail::foreach_leaf(r_->ptr_, [&](detail::leaf_node_t const * leaf) {
+            if (before_lo) {
+                if (leaf == found_lo.leaf_->as_leaf()) {
+                    auto const leaf_size = detail::size(leaf);
+                    switch (leaf->which_) {
+                    case detail::node_t::which::t:
+                        f(leaf->as_text()(found_lo.offset_, leaf_size));
+                        break;
+                    case detail::node_t::which::tv:
+                        f(leaf->as_text_view()(found_hi.offset_, leaf_size));
+                        break;
+                    case detail::node_t::which::rtv:
+                        f(
+                            detail::repeated_range{
+                                leaf->as_repeated_text_view().begin() + found_lo.offset_,
+                                leaf->as_repeated_text_view().begin() + leaf_size
+                            }
+                        );
+                        break;
+                    case detail::node_t::which::ref:
+                        f(leaf->as_reference().ref_(found_hi.offset_, leaf_size));
+                        break;
+                    default: assert(!"unhandled rope node case"); break;
+                    }
+                } else {
+                    return true; // continue
+                }
+            }
+
+            before_lo = false;
+
+            if (leaf == found_hi.leaf_->as_leaf()) {
+                if (found_hi.offset_ != 0) {
+                    switch (leaf->which_) {
+                    case detail::node_t::which::t:
+                        f(leaf->as_text()(0, found_hi.offset_));
+                        break;
+                    case detail::node_t::which::tv:
+                        f(leaf->as_text_view()(0, found_hi.offset_));
+                        break;
+                    case detail::node_t::which::rtv:
+                        f(
+                            detail::repeated_range{
+                                leaf->as_repeated_text_view().begin(),
+                                leaf->as_repeated_text_view().begin() + found_hi.offset_
+                            }
+                        );
+                        break;
+                    case detail::node_t::which::ref:
+                        f(leaf->as_reference().ref_(0, found_hi.offset_));
+                        break;
+                    default: assert(!"unhandled rope node case"); break;
+                    }
+                }
+                return false; // break
+            }
+
+            switch (leaf->which_) {
+            case detail::node_t::which::t:
+                f(leaf->as_text());
+                break;
+            case detail::node_t::which::tv:
+                f(leaf->as_text_view());
+                break;
+            case detail::node_t::which::rtv:
+                f(leaf->as_repeated_text_view());
+                break;
+            case detail::node_t::which::ref:
+                f(leaf->as_reference().ref_);
+                break;
+            default: assert(!"unhandled rope node case"); break;
+            }
+
+            return true;
+        });
     }
 
     namespace detail {
