@@ -1060,7 +1060,9 @@ namespace boost { namespace text { namespace detail {
 
         assert(root);
 
-        if (root->leaf_) {
+        if (lo == 0 && hi == size(root.get())) {
+            return node_ptr();
+        } else if (root->leaf_) {
             leaf_slices slices;
             slices = erase_leaf(root, lo, hi, encoding_note);
             if (!slices.other_slice) {
@@ -1075,15 +1077,19 @@ namespace boost { namespace text { namespace detail {
                 return new_root_ptr;
             }
         } else {
+            auto const final_size = size(root.get()) - (hi - lo);
+
             // Right after the hi-segment, insert the suffix of the
             // hi-segment that's not being erased (if there is one).
             detail::found_leaf found_hi;
             detail::find_leaf(root, hi, found_hi);
-            auto const leaf_size = size(found_hi.leaf_->get());
             if (found_hi.offset_ != 0) {
+                auto const hi_leaf_size = size(found_hi.leaf_->get());
                 node_ptr suffix =
-                    slice_leaf(*found_hi.leaf_, found_hi.offset_, leaf_size, false, encoding_note);
-                root = btree_insert(root, hi - found_hi.offset_ + leaf_size, std::move(suffix), encoding_note);
+                    slice_leaf(*found_hi.leaf_, found_hi.offset_, hi_leaf_size, true, encoding_note);
+                auto const suffix_at = hi - found_hi.offset_ + hi_leaf_size;
+                root = btree_insert(root, suffix_at, std::move(suffix), encoding_note);
+                detail::find_leaf(root, suffix_at, found_hi);
             }
 
             // Right before the lo-segment, insert the prefix of the
@@ -1093,34 +1099,25 @@ namespace boost { namespace text { namespace detail {
             if (found_lo.offset_ != 0) {
                 auto const lo_leaf_size = size(found_lo.leaf_->get());
                 node_ptr prefix =
-                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, false, encoding_note);
+                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, true, encoding_note);
                 if (prefix.get() == found_lo.leaf_->get())
                     hi -= lo_leaf_size;
                 root = btree_insert(root, lo - found_lo.offset_, std::move(prefix), encoding_note);
-                lo += found_lo.offset_;
-                hi += found_lo.offset_;
+                detail::find_leaf(root, lo, found_lo);
             }
-
-            // Re-do the finds, since the insertions above may have mutated
-            // the leaves.
-            detail::find_leaf(root, lo, found_lo);
-            detail::find_leaf(root, hi, found_hi);
 
             assert(found_lo.offset_ == 0);
             assert(found_hi.offset_ == 0);
 
-            bool before_lo = true;
             leaf_node_t const * leaf_lo = found_lo.leaf_->as_leaf();
-            leaf_node_t const * leaf_hi = found_hi.leaf_->as_leaf();
-            foreach_leaf(root, [&](leaf_node_t const * leaf) {
-                if (before_lo && leaf != leaf_lo)
-                    return true; // continue
-                before_lo = false;
-                if (leaf == leaf_hi)
-                    return false; // break
-                root = btree_erase(root, lo, leaf, encoding_note);
-                return true;
-            });
+            while (true) {
+                root = btree_erase(root, lo, leaf_lo, encoding_note);
+                if (size(root.get()) == final_size)
+                    break;
+                found_leaf found;
+                find_leaf(root, lo, found);
+                leaf_lo = found.leaf_->as_leaf();
+            }
         }
 
         return root;

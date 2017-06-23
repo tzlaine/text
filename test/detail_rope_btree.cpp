@@ -1,8 +1,10 @@
+#define private public
 #include <boost/text/rope.hpp>
 
 #include <gtest/gtest.h>
 
 
+using boost::text::rope;
 using boost::text::text;
 using boost::text::text_view;
 using boost::text::repeated_text_view;
@@ -880,5 +882,104 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
 TEST(rope_btree, test_btree_erase)
 {
-    // TODO
+    // Erasure from a leaf node
+    {
+        node_ptr root = make_node("sliceable");
+
+        root = btree_erase(root, 0, 9);
+
+        EXPECT_EQ(root.get(), nullptr);
+    }
+
+    {
+        node_ptr root = make_node("sliceable");
+
+        root = btree_erase(root, 0, 8);
+
+        EXPECT_TRUE(root->leaf_);
+        EXPECT_EQ(size(root.get()), 1);
+    }
+
+    {
+        node_ptr root = make_node("sliceable");
+
+        root = btree_erase(root, 1, 8);
+
+        EXPECT_EQ(size(root.get()), 2);
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(keys(root)[0], 1);
+        EXPECT_EQ(size(children(root)[1].get()), 1);
+        EXPECT_EQ(keys(root)[1], 2);
+        EXPECT_EQ(size(children(root)[1].get()), 1);
+    }
+
+    // Erasure from non-leaf nodes, entire segments only
+
+    {
+        node_ptr root = make_tree_left_right<max_children, max_children>();
+
+        node_ptr const & left = children(root)[0];
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(left), max_children);
+        EXPECT_EQ(num_children(right), max_children);
+
+        root = btree_erase(root, (max_children - 1) * 4, max_children * 4);
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), max_children - 1);
+        EXPECT_EQ(num_children(right), max_children);
+
+        EXPECT_EQ(keys(root)[0], (max_children - 1) * 4);
+        EXPECT_EQ(keys(root)[1], (max_children - 1) * 4 + max_children * 5);
+        EXPECT_EQ(keys(left).back(), (max_children - 1) * 4);
+        EXPECT_EQ(keys(right).back(), max_children * 5);
+    }
+
+    {
+        node_ptr root = make_tree_left_right<max_children, max_children>();
+
+        node_ptr const & left = children(root)[0];
+        node_ptr const & right = children(root)[1];
+
+        EXPECT_EQ(num_children(left), max_children);
+        EXPECT_EQ(num_children(right), max_children);
+
+        root = btree_erase(root, max_children * 4, max_children * 4 + 5);
+
+        EXPECT_EQ(num_children(root), 2);
+        EXPECT_EQ(num_children(left), max_children);
+        EXPECT_EQ(num_children(right), max_children - 1);
+
+        EXPECT_EQ(keys(root)[0], max_children * 4);
+        EXPECT_EQ(keys(root)[1], max_children * 4 + (max_children - 1) * 5);
+        EXPECT_EQ(keys(left).back(), max_children * 4);
+        EXPECT_EQ(keys(right).back(), (max_children - 1) * 5);
+    }
+
+
+    // Erasure from non-leaf nodes, including partial segments
+
+    node_ptr const tree = make_tree_left_right<max_children, max_children>();
+    rope const tree_rope(tree);
+    auto const tree_size = size(tree.get());
+    std::string const tree_string(tree_rope.begin(), tree_rope.end());
+
+    std::cout << "Initial size of tree used in the erase tests: " << tree_size << "\n";
+
+    for (std::ptrdiff_t i = 0; i < tree_size; ++i) {
+        for (std::ptrdiff_t j = i + 1; j < tree_size; ++j) {
+            node_ptr root = make_tree_left_right<max_children, max_children>();
+            std::string str(tree_string);
+
+            root = btree_erase(root, i, j);
+            str.erase(str.begin() + i, str.begin() + j);
+
+            rope const r(root);
+
+            EXPECT_EQ(size(root.get()), str.size()) << "i=" << i << " j=" << j;
+            EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin())) << "i=" << i << " j=" << j;
+            check_leaf_heights(root);
+        }
+    }
 }
