@@ -983,3 +983,5 @@ TEST(rope_btree, test_btree_erase)
         }
     }
 }
+
+// TODO: Coverage for node-sharing cases.
