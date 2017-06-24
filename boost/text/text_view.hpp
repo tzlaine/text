@@ -170,7 +170,6 @@ namespace boost { namespace text {
                     os.write(tv.begin(), tv.size());
                 if (os.good())
                     detail::pad_width_after(os, tv.size());
-                os.width(0);
             }
             return os;
         }
@@ -331,7 +330,6 @@ namespace boost { namespace text {
                 }
                 if (os.good())
                     detail::pad_width_after(os, rtv.size());
-                os.width(0);
             }
             return os;
         }

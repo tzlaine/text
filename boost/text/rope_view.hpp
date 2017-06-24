@@ -20,9 +20,16 @@ namespace boost { namespace text {
             repeated_text_view::const_iterator end () const { return last; }
         };
 
+        inline std::ostream & operator<< (std::ostream & os, repeated_range rr)
+        {
+            for (char c : rr) {
+                os << c;
+            }
+            return os;
+        }
+
     }
 
-    // TODO: Tests!
     // TODO: Consider adding an implicit conversion ctor from text_view.
     struct rope_view
     {
@@ -125,18 +132,14 @@ namespace boost { namespace text {
 
         friend std::ostream & operator<< (std::ostream & os, rope_view rv)
         {
-            if (os.good()) {
+            if (os.good() && !rv.empty()) {
                 detail::pad_width_before(os, rv.size());
                 rv.foreach_segment([&os](auto const & segment) {
-                    if (os.good()) {
-                        for (char c : segment) { // TODO: Slow!
-                            os << c;
-                        }
-                    }
+                    if (os.good())
+                        os << segment;
                 });
                 if (os.good())
                     detail::pad_width_after(os, rv.size());
-                os.width(0);
             }
             return os;
         }
@@ -190,6 +193,37 @@ namespace boost { namespace text {
         return (*r_)[lo_ + i];
     }
 
+    namespace detail {
+
+        template <typename Fn>
+        void apply_to_segment (
+            detail::leaf_node_t const * leaf,
+            std::ptrdiff_t lo,
+            std::ptrdiff_t hi,
+            Fn const & f
+        ) {
+            switch (leaf->which_) {
+            case detail::node_t::which::t:
+                f(leaf->as_text()(lo, hi));
+                break;
+            case detail::node_t::which::tv:
+                f(leaf->as_text_view()(lo, hi));
+                break;
+            case detail::node_t::which::rtv:
+                f(detail::repeated_range{
+                    leaf->as_repeated_text_view().begin() + lo,
+                    leaf->as_repeated_text_view().begin() + hi
+                });
+                break;
+            case detail::node_t::which::ref:
+                f(leaf->as_reference().ref_(lo, hi));
+                break;
+            default: assert(!"unhandled rope node case"); break;
+            }
+        }
+
+    }
+
     template <typename Fn>
     void rope_view::foreach_segment (Fn && f) const
     {
@@ -199,79 +233,35 @@ namespace boost { namespace text {
         detail::found_leaf found_hi;
         detail::find_leaf(r_->ptr_, hi_, found_hi);
 
+        if (found_lo.leaf_->as_leaf() == found_hi.leaf_->as_leaf()) {
+            detail::apply_to_segment(
+                found_lo.leaf_->as_leaf(),
+                found_lo.offset_,
+                found_hi.offset_,
+                f
+            );
+            return;
+        }
+
         bool before_lo = true;
         detail::foreach_leaf(r_->ptr_, [&](detail::leaf_node_t const * leaf) {
             if (before_lo) {
                 if (leaf == found_lo.leaf_->as_leaf()) {
                     auto const leaf_size = detail::size(leaf);
-                    switch (leaf->which_) {
-                    case detail::node_t::which::t:
-                        f(leaf->as_text()(found_lo.offset_, leaf_size));
-                        break;
-                    case detail::node_t::which::tv:
-                        f(leaf->as_text_view()(found_hi.offset_, leaf_size));
-                        break;
-                    case detail::node_t::which::rtv:
-                        f(
-                            detail::repeated_range{
-                                leaf->as_repeated_text_view().begin() + found_lo.offset_,
-                                leaf->as_repeated_text_view().begin() + leaf_size
-                            }
-                        );
-                        break;
-                    case detail::node_t::which::ref:
-                        f(leaf->as_reference().ref_(found_hi.offset_, leaf_size));
-                        break;
-                    default: assert(!"unhandled rope node case"); break;
-                    }
-                } else {
-                    return true; // continue
+                    detail::apply_to_segment(leaf, found_lo.offset_, leaf_size, f);
+                    before_lo = false;
                 }
+                return true; // continue
             }
 
-            before_lo = false;
-
             if (leaf == found_hi.leaf_->as_leaf()) {
-                if (found_hi.offset_ != 0) {
-                    switch (leaf->which_) {
-                    case detail::node_t::which::t:
-                        f(leaf->as_text()(0, found_hi.offset_));
-                        break;
-                    case detail::node_t::which::tv:
-                        f(leaf->as_text_view()(0, found_hi.offset_));
-                        break;
-                    case detail::node_t::which::rtv:
-                        f(
-                            detail::repeated_range{
-                                leaf->as_repeated_text_view().begin(),
-                                leaf->as_repeated_text_view().begin() + found_hi.offset_
-                            }
-                        );
-                        break;
-                    case detail::node_t::which::ref:
-                        f(leaf->as_reference().ref_(0, found_hi.offset_));
-                        break;
-                    default: assert(!"unhandled rope node case"); break;
-                    }
-                }
+                if (found_hi.offset_ != 0)
+                    detail::apply_to_segment(leaf, 0, found_hi.offset_, f);
                 return false; // break
             }
 
-            switch (leaf->which_) {
-            case detail::node_t::which::t:
-                f(leaf->as_text());
-                break;
-            case detail::node_t::which::tv:
-                f(leaf->as_text_view());
-                break;
-            case detail::node_t::which::rtv:
-                f(leaf->as_repeated_text_view());
-                break;
-            case detail::node_t::which::ref:
-                f(leaf->as_reference().ref_);
-                break;
-            default: assert(!"unhandled rope node case"); break;
-            }
+            auto const leaf_size = detail::size(leaf);
+            detail::apply_to_segment(leaf, 0, leaf_size, f);
 
             return true;
         });
@@ -324,15 +314,15 @@ namespace boost { namespace text {
         }
     }
 
-    inline rope_view::iterator begin (rope_view v) noexcept
-    { return v.begin(); }
-    inline rope_view::iterator end (rope_view v) noexcept
-    { return v.end(); }
+    inline rope_view::iterator begin (rope_view rv) noexcept
+    { return rv.begin(); }
+    inline rope_view::iterator end (rope_view rv) noexcept
+    { return rv.end(); }
 
-    inline rope_view::reverse_iterator rbegin (rope_view v) noexcept
-    { return v.rbegin(); }
-    inline rope_view::reverse_iterator rend (rope_view v) noexcept
-    { return v.rend(); }
+    inline rope_view::reverse_iterator rbegin (rope_view rv) noexcept
+    { return rv.rbegin(); }
+    inline rope_view::reverse_iterator rend (rope_view rv) noexcept
+    { return rv.rend(); }
 
 
     inline bool operator== (rope_view lhs, text_view rhs) noexcept

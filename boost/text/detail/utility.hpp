@@ -97,6 +97,7 @@ namespace boost { namespace text { namespace detail {
             return;
         auto const alignment_size = os.width() - size;
         insert_fill_chars(os, alignment_size);
+        os.width(0);
     }
 
     inline void pad_width_after (std::ostream & os, std::streamsize size)
@@ -107,6 +108,7 @@ namespace boost { namespace text { namespace detail {
             return;
         auto const alignment_size = os.width() - size;
         insert_fill_chars(os, alignment_size);
+        os.width(0);
     }
 
 } } }

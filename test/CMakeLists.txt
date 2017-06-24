@@ -24,6 +24,7 @@ add_test_executable(text_)
 add_test_executable(detail_rope)
 add_test_executable(detail_rope_btree)
 add_test_executable(detail_rope_iterator)
+add_test_executable(rope_view)
 add_test_executable(rope)
 add_test_executable(algorithm)
 

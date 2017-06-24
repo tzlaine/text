@@ -320,7 +320,6 @@ namespace boost { namespace text {
                 });
                 if (os.good())
                     detail::pad_width_after(os, r.size());
-                os.width(0);
             }
             return os;
         }

@@ -364,7 +364,6 @@ namespace boost { namespace text {
                     os.write(t.begin(), t.size());
                 if (os.good())
                     detail::pad_width_after(os, t.size());
-                os.width(0);
             }
             return os;
         }
