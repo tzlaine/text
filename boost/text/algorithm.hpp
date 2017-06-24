@@ -242,11 +242,14 @@ namespace boost { namespace text {
             char const * r_it = r_first;
             while (r_it != r_last) {
                 char const * p_it = p_first;
-                while (p_it != p_last) {
-                    if (*r_it != *p_it)
-                        return r_it - r_first;
+                bool found = true;
+                while (p_it != p_last && found) {
+                    if (*r_it == *p_it)
+                        found = false;
                     ++p_it;
                 }
+                if (found)
+                    return r_it - r_first;
                 ++r_it;
             }
 
@@ -293,11 +296,14 @@ namespace boost { namespace text {
             while (r_first != r_it) {
                 --r_it;
                 char const * p_it = p_first;
-                while (p_it != p_last) {
-                    if (*r_it != *p_it)
-                        return r_it - r_first;
+                bool found = true;
+                while (p_it != p_last && found) {
+                    if (*r_it == *p_it)
+                        found = false;
                     ++p_it;
                 }
+                if (found)
+                    return r_it - r_first;
             }
             return -1;
         }
