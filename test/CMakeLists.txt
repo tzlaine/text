@@ -8,8 +8,9 @@ add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR
 
 macro(add_test_executable name)
     add_executable(${name} ${name}.cpp)
-    target_compile_options(${name} PRIVATE ${std_flag} -Wall)
+    target_compile_options(${name} PRIVATE -Wall)
     target_link_libraries(${name} text gtest gtest_main)
+    set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name} --gtest_catch_exceptions=1)
     if (clang_on_linux)
         target_link_libraries(${name} c++)
@@ -48,8 +49,9 @@ add_executable(
     compile_detail_is_char_iter.cpp
     compile_detail_is_char_range.cpp
 )
-target_compile_options(compile_tests PRIVATE ${std_flag} -Wall)
+target_compile_options(compile_tests PRIVATE -Wall)
 target_link_libraries(compile_tests text)
+set_property(TARGET compile_tests PROPERTY CXX_STANDARD ${CXX_STD})
 if (clang_on_linux)
     target_link_libraries(compile_tests c++)
 endif ()

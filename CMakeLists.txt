@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-# TODO: MSVC
-set(std_flag -std=c++14)
+################################################## 
+# C++ standard version selection
+################################################## 
+set(CXX_STD 14 CACHE STRING "Set to 11 or 14 to enable C++11 or C++14 builds, respectively.")
+message("-- Using -std=c++${CXX_STD}")
+
 
 ##################################################
 # Sanitizers
@@ -13,10 +17,16 @@ if (USE_ASAN AND USE_UBSAN)
     message(FATAL_ERROR "USE_ASAN and USE_UBSAN must not be enabled at the same time")
 elseif (USE_ASAN)
     set(link_flags -fsanitize=address)
+    message("-- Using -fsanitize=address") 
 elseif (USE_UBSAN)
     set(link_flags -fsanitize=undefined)
+    message("-- Using -fsanitize=undefined")
 endif()
- 
+
+
+##################################################
+# text library
+##################################################
 add_library(text INTERFACE)
 target_include_directories(text INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(text INTERFACE boost)
@@ -25,7 +35,15 @@ if (link_flags)
     target_compile_options(text INTERFACE ${link_flags})
 endif ()
 
+
+##################################################
+# Dependencies
+##################################################
 include(dependencies)
 
+
+##################################################
+# Tests and examples
+##################################################
 add_subdirectory(test)
 add_subdirectory(example)
