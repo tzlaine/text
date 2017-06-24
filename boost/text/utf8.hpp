@@ -23,7 +23,7 @@ namespace boost { namespace text { namespace utf8 {
     struct throw_on_encoding_error {};
 
     namespace {
-        constexpr unchecked_t unchecked;
+        constexpr unchecked_t unchecked{};
     }
 
     // Unicode 9, 3.2/C10
