@@ -160,7 +160,56 @@ TEST(algorithm, test_view_view_find_constexpr)
     static_assert(find_aab_ab == 1, "");
 }
 
-// TODO: find_view()
+TEST(algorithm, test_view_view_find_view_constexpr)
+{
+    constexpr text::text_view tv_empty;
+    constexpr text::text_view tv_a("a");
+    constexpr text::text_view tv_b("b");
+    constexpr text::text_view tv_ab("ab");
+    constexpr text::text_view tv_aab("aab");
+
+    constexpr text::text_view find_a_empty = find_view(tv_a, tv_empty);
+    static_assert(find_a_empty.begin() == tv_a.begin(), "");
+    static_assert(find_a_empty.size() == 0, "");
+    constexpr text::text_view find_empty_a = find_view(tv_empty, tv_a);
+    static_assert(find_empty_a.begin() == nullptr, "");
+    static_assert(find_empty_a.size() == 0, "");
+
+    constexpr text::text_view find_a_ab = find_view(tv_a, tv_ab);
+    static_assert(find_a_ab.begin() == nullptr, "");
+    static_assert(find_a_ab.size() == 0, "");
+    constexpr text::text_view find_ab_a = find_view(tv_ab, tv_a);
+    static_assert(find_ab_a.begin() == tv_ab.begin(), "");
+    static_assert(find_ab_a.size() == 1, "");
+    constexpr text::text_view find_a_a = find_view(tv_a, tv_a);
+    static_assert(find_a_a.begin() == tv_a.begin(), "");
+    static_assert(find_a_a.size() == 1, "");
+
+    constexpr text::text_view find_b_ab = find_view(tv_b, tv_ab);
+    static_assert(find_b_ab.begin() == nullptr, "");
+    static_assert(find_b_ab.size() == 0, "");
+    constexpr text::text_view find_ab_b = find_view(tv_ab, tv_b);
+    static_assert(find_ab_b.begin() == tv_ab.begin() + 1, "");
+    static_assert(find_ab_b.size() == 1, "");
+    constexpr text::text_view find_b_b = find_view(tv_b, tv_b);
+    static_assert(find_b_b.begin() == tv_b.begin(), "");
+    static_assert(find_b_b.size() == 1, "");
+
+    constexpr text::text_view find_a_b = find_view(tv_a, tv_b);
+    static_assert(find_a_b.begin() == nullptr, "");
+    static_assert(find_a_b.size() == 0, "");
+    constexpr text::text_view find_b_a = find_view(tv_b, tv_a);
+    static_assert(find_b_a.begin() == nullptr, "");
+    static_assert(find_b_a.size() == 0, "");
+
+    constexpr text::text_view find_ab_aab = find_view(tv_ab, tv_aab);
+    static_assert(find_ab_aab.begin() == nullptr, "");
+    static_assert(find_ab_aab.size() == 0, "");
+    constexpr text::text_view find_aab_ab = find_view(tv_aab, tv_ab);
+    static_assert(find_aab_ab.begin() == tv_aab.begin() + 1, "");
+    static_assert(find_aab_ab.size() == 2, "");
+}
+
 // TODO: find_first_of()
 // TODO: find_last_of()
 // TODO: find_first_not_of()

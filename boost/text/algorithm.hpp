@@ -100,7 +100,7 @@ namespace boost { namespace text {
 
             int const n = find_impl(r_first, r_last, p_first, p_last);
             if (n < 0)
-                return text_view(r_last, 0);
+                return text_view(nullptr, 0);
             return text_view(r_first + n, p_last - p_first);
         }
 
@@ -396,7 +396,7 @@ namespace boost { namespace text {
 
             int const n = rfind_impl(r_first, r_last, p_first, p_last);
             if (n < 0)
-                return text_view(r_last, 0);
+                return text_view(nullptr, 0);
             return text_view(r_first + n, p_last - p_first);
         }
 
