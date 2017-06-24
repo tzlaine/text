@@ -28,3 +28,4 @@ endif ()
 include(dependencies)
 
 add_subdirectory(test)
+add_subdirectory(example)
