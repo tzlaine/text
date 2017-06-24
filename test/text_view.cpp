@@ -2,6 +2,8 @@
 
 #include <gtest/gtest.h>
 
+#include <iomanip>
+
 
 using namespace boost;
 
@@ -270,6 +272,22 @@ TEST(text_view, test_substr_constexpr)
     static_assert(tv_abc(0, 7) == text::text_view("abcdefg"), "");
     static_assert(tv_abc(2, 5) == text::text_view("cde"), "");
 }
+
+TEST(text_view, test_formatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << text::text_view("abc");
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*') << text::text_view("abc");
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+}
+
 
 struct repeated_text_views
 {

@@ -162,7 +162,6 @@ namespace boost { namespace text {
         friend constexpr reverse_iterator rend (text_view tv) noexcept
         { return tv.rend(); }
 
-        // TODO: Test left- and right-alignment with width set.
         friend std::ostream & operator<< (std::ostream & os, text_view tv)
         {
             if (os.good()) {
