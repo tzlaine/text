@@ -20,6 +20,8 @@ namespace boost { namespace text {
 
     // TODO: text should use the more efficient versions of the
     // constexpr-friendly-but-slower operations that text_view does.
+
+    // TODO: text needs SBO.
     struct text
     {
         using iterator = char *;
