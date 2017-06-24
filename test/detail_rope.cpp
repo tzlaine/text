@@ -11,7 +11,7 @@ using namespace boost::text::detail;
 TEST(rope_detail, test_node_ptr)
 {
     {
-        node_ptr p0(new interior_node_t);
+        node_ptr p0(new_interior_node());
         node_ptr p1 = p0;
 
         EXPECT_EQ(p0->refs_, 2);
@@ -158,10 +158,10 @@ TEST(rope_detail, test_mutable_node_ptr)
 node_ptr make_tree ()
 {
     interior_node_t * int_root = nullptr;
-    node_ptr root(int_root = new interior_node_t);
+    node_ptr root(int_root = new_interior_node());
 
     interior_node_t * int_left = nullptr;
-    node_ptr left(int_left = new interior_node_t);
+    node_ptr left(int_left = new_interior_node());
     int_left->children_.push_back(make_node("left left"));
     int_left->keys_.push_back(size(int_left->children_[0].get()));
     int_left->children_.push_back(make_node("left right"));
@@ -171,7 +171,7 @@ node_ptr make_tree ()
     int_root->keys_.push_back(size(left.get()));
 
     interior_node_t * int_right = nullptr;
-    node_ptr right(int_right = new interior_node_t);
+    node_ptr right(int_right = new_interior_node());
     int_right->children_.push_back(make_node("right left"));
     int_right->keys_.push_back(size(int_right->children_[0].get()));
     int_right->children_.push_back(make_node("right right"));
@@ -236,10 +236,10 @@ TEST(rope_detail, test_find)
 
     {
         interior_node_t * int_root = nullptr;
-        node_ptr root(int_root = new interior_node_t);
+        node_ptr root(int_root = new_interior_node());
 
         interior_node_t * int_left = nullptr;
-        node_ptr left(int_left = new interior_node_t);
+        node_ptr left(int_left = new_interior_node());
         int_left->children_.push_back(make_node("left left"));
         int_left->keys_.push_back(size(int_left->children_[0].get()));
         int_left->children_.push_back(make_node("left right"));
@@ -249,7 +249,7 @@ TEST(rope_detail, test_find)
         int_root->keys_.push_back(size(left.get()));
 
         interior_node_t * int_right = nullptr;
-        node_ptr right(int_right = new interior_node_t);
+        node_ptr right(int_right = new_interior_node());
         int_right->children_.push_back(make_node("right left"));
         int_right->keys_.push_back(size(int_right->children_[0].get()));
         int_right->children_.push_back(make_node("right right"));

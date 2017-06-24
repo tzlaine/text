@@ -81,7 +81,7 @@ namespace boost { namespace text {
             assert(0 <= lo && lo <= size());
             assert(0 <= hi && hi <= size());
             assert(lo <= hi);
-            return rope_view(*r_, lo_ + lo, lo_ + hi);
+            return rope_view(r_, lo_ + lo, lo_ + hi);
         }
 
         rope_view operator() (int cut) const
@@ -94,7 +94,7 @@ namespace boost { namespace text {
             }
             assert(0 <= lo && lo <= size());
             assert(0 <= hi && hi <= size());
-            return rope_view(*r_, lo_ + lo, lo_ + hi);
+            return rope_view(r_, lo_ + lo, lo_ + hi);
         }
 
         constexpr size_type max_size () const noexcept
@@ -131,6 +131,10 @@ namespace boost { namespace text {
         }
 
     private:
+        rope_view (rope const * r, int lo, int hi) :
+            r_ (r), lo_ (lo), hi_ (hi)
+        {}
+
         rope const * r_;
         int lo_;
         int hi_;
@@ -164,14 +168,14 @@ namespace boost { namespace text {
     {}
 
     inline rope_view::const_iterator rope_view::begin () const noexcept
-    { return r_->begin() + lo_; }
+    { return const_iterator(r_, lo_); }
     inline rope_view::const_iterator rope_view::end () const noexcept
-    { return r_->begin() + hi_; }
+    { return const_iterator(r_, hi_); }
 
     inline rope_view::const_reverse_iterator rope_view::rbegin () const noexcept
-    { return const_reverse_iterator(r_->begin() + hi_ - 1); }
+    { return const_reverse_iterator(end() - 1); }
     inline rope_view::const_reverse_iterator rope_view::rend () const noexcept
-    { return const_reverse_iterator(r_->begin() + lo_ - 1); }
+    { return const_reverse_iterator(begin() - 1); }
 
     inline char rope_view::operator[] (int i) const noexcept
     {
@@ -258,6 +262,9 @@ namespace boost { namespace text {
         template <typename Iter>
         int mismatch_compare (rope_view rv, Iter rhs_first, Iter rhs_last)
         {
+            if (rv.empty())
+                return rhs_first == rhs_last ? 0 : -1;
+
             // TODO: This could probably be optimized quite a bit by using
             // rv.foreach_segment().
             auto const iters =
@@ -282,6 +289,9 @@ namespace boost { namespace text {
 
     inline int rope_view::compare (rope_view rhs) const noexcept
     {
+        if (empty())
+            return rhs.empty() ? 0 : -1;
+
         // TODO: This could probably be optimized quite a bit by doing
         // something equivalent to mismatch, segment-wise.
         auto const iters =

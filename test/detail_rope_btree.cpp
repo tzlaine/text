@@ -14,7 +14,7 @@ using namespace boost::text::detail;
 inline node_ptr make_interior_with_leaves (char const * leaf_name, int leaves)
 {
     interior_node_t * int_node = nullptr;
-    node_ptr node(int_node = new interior_node_t);
+    node_ptr node(int_node = new_interior_node());
     int_node->children_.push_back(make_node(leaf_name));
     int_node->keys_.push_back(size(int_node->children_[0].get()));
     for (int i = 1; i < leaves; ++i) {
@@ -28,7 +28,7 @@ template <int SizeLeft, int SizeCenter, int SizeRight>
 node_ptr make_tree_left_center_right ()
 {
     interior_node_t * int_root = nullptr;
-    node_ptr root(int_root = new interior_node_t);
+    node_ptr root(int_root = new_interior_node());
 
     node_ptr left = make_interior_with_leaves("left", SizeLeft);
 
@@ -489,7 +489,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
         node_ptr root;
         {
             interior_node_t * int_root = nullptr;
-            root = node_ptr(int_root = new interior_node_t);
+            root = node_ptr(int_root = new_interior_node());
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
@@ -508,7 +508,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
         node_ptr root;
         {
             interior_node_t * int_root = nullptr;
-            root = node_ptr(int_root = new interior_node_t);
+            root = node_ptr(int_root = new_interior_node());
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
@@ -527,7 +527,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
         node_ptr root;
         {
             interior_node_t * int_root = nullptr;
-            root = node_ptr(int_root = new interior_node_t);
+            root = node_ptr(int_root = new_interior_node());
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));

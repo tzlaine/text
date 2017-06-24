@@ -4,6 +4,8 @@
 #include <boost/text/text_view.hpp>
 #include <boost/text/text.hpp>
 
+#include <boost/align/aligned_alloc.hpp>
+#include <boost/align/aligned_delete.hpp>
 #include <boost/container/static_vector.hpp>
 #include <boost/smart_ptr/intrusive_ptr.hpp>
 
@@ -126,9 +128,25 @@ namespace boost { namespace text { namespace detail {
     {
         interior_node_t () : node_t (false) {}
 
+        void * operator new (std::size_t) = delete;
+
         alignas(64) keys_t keys_;
         children_t children_;
     };
+
+    inline interior_node_t * new_interior_node ()
+    {
+        void * ptr =
+            alignment::aligned_alloc(alignof(interior_node_t), sizeof(interior_node_t));
+        return ::new (ptr) interior_node_t;
+    }
+
+    inline interior_node_t * new_interior_node (interior_node_t const & other)
+    {
+        void * ptr =
+            alignment::aligned_alloc(alignof(interior_node_t), sizeof(interior_node_t));
+        return ::new (ptr) interior_node_t(other);
+    }
 
     struct leaf_node_t : node_t
     {
@@ -330,7 +348,7 @@ namespace boost { namespace text { namespace detail {
         if (ptr_->leaf_)
             return mutable_node_ptr(this_ref, new leaf_node_t(*as_leaf()));
         else
-            return mutable_node_ptr(this_ref, new interior_node_t(*as_interior()));
+            return mutable_node_ptr(this_ref, new_interior_node(*as_interior()));
     }
 
     inline void intrusive_ptr_add_ref (node_t const * node)
@@ -341,7 +359,7 @@ namespace boost { namespace text { namespace detail {
             if (node->leaf_)
                 delete static_cast<leaf_node_t const *>(node);
             else
-                delete static_cast<interior_node_t const *>(node);
+                alignment::aligned_delete{}((interior_node_t *)(node));
         }
     }
 
@@ -734,7 +752,7 @@ namespace boost { namespace text { namespace detail {
         assert(full(children(parent)[i]) || almost_full(children(parent)[i]));
 
         interior_node_t * new_node = nullptr;
-        node_ptr new_node_ptr(new_node = new interior_node_t);
+        node_ptr new_node_ptr(new_node = new_interior_node());
 
         assert(!leaf_children(parent));
         node_ptr const & child = children(parent)[i];
@@ -884,14 +902,14 @@ namespace boost { namespace text { namespace detail {
             return node;
         } else if (root->leaf_) {
             interior_node_t * new_root = nullptr;
-            node_ptr new_root_ptr(new_root = new interior_node_t);
+            node_ptr new_root_ptr(new_root = new_interior_node());
             auto const root_size = size(root.get());
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
             return btree_insert_nonfull(new_root_ptr, at, std::move(node), encoding_note);
         } else if (full(root) || (leaf_children(root) && almost_full(root))) {
             interior_node_t * new_root = nullptr;
-            node_ptr new_root_ptr(new_root = new interior_node_t);
+            node_ptr new_root_ptr(new_root = new_interior_node());
             auto const root_size = size(root.get());
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
@@ -1068,7 +1086,7 @@ namespace boost { namespace text { namespace detail {
                 return slices.slice;
             } else {
                 interior_node_t * new_root = nullptr;
-                node_ptr new_root_ptr(new_root = new interior_node_t);
+                node_ptr new_root_ptr(new_root = new_interior_node());
                 new_root->keys_.push_back(size(slices.slice.get()));
                 new_root->keys_.push_back(new_root->keys_[0] + size(slices.other_slice.get()));
                 new_root->children_.push_back(std::move(slices.slice));

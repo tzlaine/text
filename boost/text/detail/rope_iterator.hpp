@@ -121,6 +121,13 @@ namespace boost { namespace text { namespace detail {
         }
 
     private:
+        const_rope_iterator (rope const * r, difference_type n) noexcept :
+            rope_ (r),
+            n_ (n),
+            leaf_ (nullptr),
+            leaf_start_ (0)
+        {}
+
         char deref () const
         {
             switch (leaf_->which_) {
@@ -149,6 +156,8 @@ namespace boost { namespace text { namespace detail {
         difference_type n_;
         mutable leaf_node_t const * leaf_;
         mutable difference_type leaf_start_;
+
+        friend struct ::boost::text::rope_view;
     };
 
     struct const_reverse_rope_iterator
