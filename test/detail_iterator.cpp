@@ -240,6 +240,8 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
     }
 }
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
 constexpr text::text_view tv_a("a");
 inline constexpr text::detail::const_reverse_char_iterator tv_a_preincremented_begin ()
 { return ++tv_a.rbegin(); }
@@ -336,6 +338,8 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
         static_assert(count_tv_a_elements() == 1, "ensure that iterator works in a constexpr function loop");
     }
 }
+
+#endif
 
 TEST(const_repeated_chars_iterator, test_default_ctor)
 {
@@ -676,6 +680,8 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor)
         EXPECT_EQ(it_0 - it_4, -9);
     }
 }
+
+#ifndef BOOST_NO_CXX14_CONSTEXPR
 
 constexpr text::text_view tv_abc("abc");
 
@@ -1040,3 +1046,5 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
         static_assert(reverse_count_tv_abc_elements_repeat() == 9, "ensure that iterator works in a constexpr function loop");
     }
 }
+
+#endif

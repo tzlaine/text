@@ -130,20 +130,6 @@ namespace boost { namespace text {
             std::swap(hi_, rhs.hi_);
         }
 
-        friend std::ostream & operator<< (std::ostream & os, rope_view rv)
-        {
-            if (os.good() && !rv.empty()) {
-                detail::pad_width_before(os, rv.size());
-                rv.foreach_segment([&os](auto const & segment) {
-                    if (os.good())
-                        os << segment;
-                });
-                if (os.good())
-                    detail::pad_width_after(os, rv.size());
-            }
-            return os;
-        }
-
     private:
         rope const * r_;
         int lo_;
@@ -274,7 +260,8 @@ namespace boost { namespace text {
         {
             // TODO: This could probably be optimized quite a bit by using
             // rv.foreach_segment().
-            auto const iters = std::mismatch(rv.begin(), rv.end(), rhs_first, rhs_last);
+            auto const iters =
+                algorithm::mismatch(rv.begin(), rv.end(), rhs_first, rhs_last);
             if (iters.first == rv.end()) {
                 if (iters.second == rhs_last)
                     return 0;
@@ -297,7 +284,8 @@ namespace boost { namespace text {
     {
         // TODO: This could probably be optimized quite a bit by doing
         // something equivalent to mismatch, segment-wise.
-        auto const iters = std::mismatch(begin(), end(), rhs.begin(), rhs.end());
+        auto const iters =
+            algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
         if (iters.first == end()) {
             if (iters.second == rhs.end())
                 return 0;
@@ -362,6 +350,17 @@ namespace boost { namespace text {
     inline bool operator>= (text_view lhs, rope_view rhs) noexcept
     { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) <= 0; }
 
+
+    inline std::ostream & operator<< (std::ostream & os, rope_view rv)
+    {
+        if (os.good() && !rv.empty()) {
+            detail::pad_width_before(os, rv.size());
+            rv.foreach_segment(detail::segment_inserter{os});
+            if (os.good())
+                detail::pad_width_after(os, rv.size());
+        }
+        return os;
+    }
 
     inline rope operator+ (rope_view lhs, rope_view rhs)
     {

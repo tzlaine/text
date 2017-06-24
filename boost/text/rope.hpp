@@ -32,6 +32,35 @@ namespace boost { namespace text {
         template <typename T, typename R1>
         using rope_rng_ret_t = typename rope_rng_ret<T, R1>::type;
 
+        struct segment_inserter
+        {
+            template <typename Segment>
+            void operator() (Segment const & s) const
+            {
+                if (os_.good())
+                    os_ << s;
+            }
+
+            std::ostream & os_;
+        };
+
+        template <typename Segment>
+        bool encoded (Segment const & segment)
+        { return utf8::encoded(segment.begin(), segment.end()); }
+
+        inline bool encoded (repeated_text_view rtv)
+        { return utf8::encoded(rtv.view().begin(), rtv.view().end()); }
+
+        struct segment_encoding_checker
+        {
+            template <typename Segment>
+            void operator() (Segment const & s) const
+            {
+                if (!encoded(s))
+                    throw std::invalid_argument("Invalid UTF-8 encoding");
+            }
+        };
+
     }
 
     struct rope
@@ -314,10 +343,7 @@ namespace boost { namespace text {
         {
             if (os.good()) {
                 detail::pad_width_before(os, r.size());
-                r.foreach_segment([&os](auto const & segment) {
-                    if (os.good())
-                        os << segment;
-                });
+                r.foreach_segment(detail::segment_inserter{os});
                 if (os.good())
                     detail::pad_width_after(os, r.size());
             }
@@ -747,32 +773,15 @@ namespace boost { namespace text {
         -> detail::rope_rng_ret_t<rope, CharRange>
     { return r.insert(0, text_view(&*range.begin(), range.end() - range.begin())); }
 
-    namespace detail {
-
-        template <typename Segment>
-        bool encoded (Segment const & segment)
-        { return utf8::encoded(segment.begin(), segment.end()); }
-
-        inline bool encoded (repeated_text_view rtv)
-        { return utf8::encoded(rtv.view().begin(), rtv.view().end()); }
-
-    }
-
     inline rope const & checked_encoding (rope const & r)
     {
-        r.foreach_segment([](auto const & segment) {
-            if (!detail::encoded(segment))
-                throw std::invalid_argument("Invalid UTF-8 encoding");
-        });
+        r.foreach_segment(detail::segment_encoding_checker{});
         return r;
     }
 
     inline rope && checked_encoding (rope && r)
     {
-        r.foreach_segment([](auto const & segment) {
-            if (!detail::encoded(segment))
-                throw std::invalid_argument("Invalid UTF-8 encoding");
-        });
+        r.foreach_segment(detail::segment_encoding_checker{});
         return std::move(r);
     }
 

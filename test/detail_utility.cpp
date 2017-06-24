@@ -11,9 +11,13 @@ TEST(utility, test_strlen)
     EXPECT_EQ(text::detail::strlen("a"), 1);
     EXPECT_EQ(text::detail::strlen("--------------------"), 20);
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
     static_assert(text::detail::strlen("") == 0, "");
     static_assert(text::detail::strlen("a") == 1, "");
     static_assert(text::detail::strlen("--------------------") == 20, "");
+
+#endif
 }
 
 TEST(utility, test_strrchr)
@@ -24,9 +28,13 @@ TEST(utility, test_strrchr)
         EXPECT_EQ(text::detail::strrchr(empty, empty, 't'), nullptr);
         EXPECT_EQ(text::detail::strrchr(empty, empty + 1, 't'), nullptr);
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
         static_assert(text::detail::strrchr(nullptr, nullptr, 't') == nullptr, "");
         static_assert(text::detail::strrchr(empty, empty, 't') == nullptr, "");
         static_assert(text::detail::strrchr(empty, empty + 1, 't') == nullptr, "");
+
+#endif
     }
 
     {
@@ -39,6 +47,8 @@ TEST(utility, test_strrchr)
         EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 'n'), str_1);
     }
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
     {
         constexpr boost::text::text_view const str_1("not empty");
 
@@ -47,6 +57,8 @@ TEST(utility, test_strrchr)
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 't') == str_1.begin() + 7, "");
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 'n') == str_1.begin(), "");
     }
+
+#endif
 
     {
         char const str_2[] = {'n'};
@@ -58,6 +70,8 @@ TEST(utility, test_strrchr)
         EXPECT_EQ(text::detail::strrchr(str_2, str_2_end, '\0'), nullptr);
     }
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
     {
         constexpr boost::text::text_view const str_2("n", 1);
 
@@ -66,6 +80,8 @@ TEST(utility, test_strrchr)
         static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), 'n') == str_2.begin(), "");
         static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), '\0') == nullptr, "");
     }
+
+#endif
 }
 
 TEST(utility, test_min_)
@@ -74,9 +90,13 @@ TEST(utility, test_min_)
     EXPECT_EQ(text::detail::min_(1, 2), 1);
     EXPECT_EQ(text::detail::min_(2, 1), 1);
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
     static_assert(text::detail::min_(1, 1) == 1, "");
     static_assert(text::detail::min_(1, 2) == 1, "");
     static_assert(text::detail::min_(2, 1) == 1, "");
+
+#endif
 }
 
 TEST(utility, test_compare_impl)
@@ -100,6 +120,8 @@ TEST(utility, test_compare_impl)
         EXPECT_GT(text::detail::compare_impl(non_empty_ab, non_empty_ab + 2, non_empty_a, non_empty_a + 1), 0);
     }
 
+#ifndef BOOST_NO_CXX14_CONSTEXPR
+
     {
         constexpr text::text_view const empty("");
         constexpr text::text_view const non_empty_a("a");
@@ -118,4 +140,6 @@ TEST(utility, test_compare_impl)
         static_assert(text::detail::compare_impl(non_empty_a.begin(), non_empty_a.end(), non_empty_ab.begin(), non_empty_ab.end()) < 0, "");
         static_assert(text::detail::compare_impl(non_empty_ab.begin(), non_empty_ab.end(), non_empty_a.begin(), non_empty_a.end()) > 0, "");
     }
+
+#endif
 }

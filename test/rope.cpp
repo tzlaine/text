@@ -1,5 +1,7 @@
 #include <boost/text/rope.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
+
 #include <gtest/gtest.h>
 
 #include <list>
@@ -379,7 +381,7 @@ TEST(rope, test_iterators_and_index)
         }
 
         std::reverse(vec.begin(), vec.end());
-        EXPECT_TRUE(std::equal(r_it_end.base(), r_it_begin.base(), vec.begin(), vec.end()));
+        EXPECT_TRUE(algorithm::equal(r_it_end.base(), r_it_begin.base(), vec.begin(), vec.end()));
      }
 }
 

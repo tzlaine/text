@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_UTILITY_HPP
 #define BOOST_TEXT_DETAIL_UTILITY_HPP
 
+#include <boost/algorithm/cxx14/mismatch.hpp>
+
 #include <ostream>
 
 #include <cassert>
@@ -10,6 +12,13 @@
 
 
 namespace boost { namespace text { namespace detail {
+
+#ifdef BOOST_NO_CXX14_CONSTEXPR
+
+    inline std::size_t strlen (char const * c_str) noexcept
+    { return ::strlen(c_str); }
+
+#else
 
     inline constexpr std::size_t strlen (char const * c_str) noexcept
     {
@@ -22,7 +31,9 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
-    inline constexpr char const * strchr (
+#endif
+
+    inline BOOST_CXX14_CONSTEXPR char const * strchr (
         char const * first,
         char const * last,
         char c
@@ -35,7 +46,7 @@ namespace boost { namespace text { namespace detail {
         return nullptr;
     }
 
-    inline constexpr char const * strrchr (
+    inline BOOST_CXX14_CONSTEXPR char const * strrchr (
         char const * first,
         char const * last,
         char c
@@ -48,8 +59,38 @@ namespace boost { namespace text { namespace detail {
     }
 
     template <typename T>
-    constexpr T min_ (T rhs, T lhs) noexcept
-    { return rhs < lhs ? rhs : lhs; }
+    constexpr T min_ (T lhs, T rhs) noexcept
+    { return lhs < rhs ? lhs : rhs; }
+
+    template <typename T>
+    constexpr T max_ (T lhs, T rhs) noexcept
+    { return lhs < rhs ? rhs : lhs; }
+
+#ifdef BOOST_NO_CXX14_CONSTEXPR
+
+    inline int compare_impl (
+        char const * l_first, char const * l_last,
+        char const * r_first, char const * r_last
+    ) noexcept {
+        auto const iters =
+            algorithm::mismatch(l_first, l_last, r_first, r_last);
+        if (iters.first == l_last) {
+            if (iters.second == r_last)
+                return 0;
+            else
+                return -1;
+        } else if (iters.second == r_last) {
+            return 1;
+        } else if (*iters.first == *iters.second) {
+            return 0;
+        } else if (*iters.first < *iters.second) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+#else
 
     inline constexpr int compare_impl (
         char const * l_first, char const * l_last,
@@ -89,6 +130,8 @@ namespace boost { namespace text { namespace detail {
 
         return retval;
     }
+
+#endif
 
     inline void insert_fill_chars (std::ostream & os, std::streamsize n)
     {

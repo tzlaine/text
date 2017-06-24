@@ -63,7 +63,7 @@ namespace boost { namespace text { namespace detail {
         { ptr_.swap(rhs.ptr_); }
 
     private:
-        boost::intrusive_ptr<node_t const> ptr_;
+        intrusive_ptr<node_t const> ptr_;
         friend mutable_node_ptr;
     };
 
@@ -77,19 +77,21 @@ namespace boost { namespace text { namespace detail {
 
     constexpr int node_buf_size () noexcept
     {
-        int alignment = alignof(text);
-        alignment = alignment < alignof(text_view) ? alignof(text_view) : alignment;
-        alignment = alignment < alignof(repeated_text_view) ? alignof(repeated_text_view) : alignment;
-        alignment = alignment < alignof(reference) ? alignof(reference) : alignment;
-        int size = sizeof(text);
-        size = size < sizeof(text_view) ? sizeof(text_view) : size;
-        size = size < sizeof(repeated_text_view) ? sizeof(repeated_text_view) : size;
-        size = size < sizeof(reference) ? sizeof(reference) : size;
-        return alignment + size;
+        return
+            max_(alignof(text),
+                 max_(alignof(text_view),
+                      max_(alignof(repeated_text_view),
+                           alignof(reference))))
+            +
+            max_(sizeof(text),
+                 max_(sizeof(text_view),
+                      max_(sizeof(repeated_text_view),
+                           sizeof(reference))))
+            ;
     }
 
     template <typename T>
-    constexpr void * placement_address (void * buf, std::size_t buf_size) noexcept
+    BOOST_CXX14_CONSTEXPR void * placement_address (void * buf, std::size_t buf_size) noexcept
     {
         std::size_t const alignment = alignof(T);
         std::size_t const size = sizeof(T);
@@ -114,8 +116,8 @@ namespace boost { namespace text { namespace detail {
 
     inline std::ptrdiff_t size (node_t const * node);
 
-    using keys_t = boost::container::static_vector<std::ptrdiff_t, max_children>;
-    using children_t = boost::container::static_vector<node_ptr, max_children>;
+    using keys_t = container::static_vector<std::ptrdiff_t, max_children>;
+    using children_t = container::static_vector<node_ptr, max_children>;
 
     static_assert(sizeof(std::ptrdiff_t) * 8 <= 64, "");
     static_assert(sizeof(node_ptr) * 8 <= 64, "");
@@ -420,7 +422,7 @@ namespace boost { namespace text { namespace detail {
     {
         node_ptr const * leaf_;
         std::ptrdiff_t offset_;
-        alignas(64) boost::container::static_vector<interior_node_t const *, 24> path_;
+        alignas(64) container::static_vector<interior_node_t const *, 24> path_;
 
         static_assert(sizeof(interior_node_t const *) * 8 <= 64, "");
     };
@@ -561,12 +563,9 @@ namespace boost { namespace text { namespace detail {
     };
 
     template <typename Container>
-    auto reverse (Container const & c)
-    {
-        return reversed_range<typename Container::const_reverse_iterator>{
-            c.rbegin(), c.rend()
-        };
-    }
+    reversed_range<typename Container::const_reverse_iterator>
+    reverse (Container const & c)
+    { return {c.rbegin(), c.rend()}; }
 
     inline void insert_child (interior_node_t * node, int i, node_ptr && child)
     {

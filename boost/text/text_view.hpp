@@ -25,7 +25,7 @@ namespace boost { namespace text {
             size_ (0)
         {}
 
-        constexpr text_view (char const * c_str) :
+        BOOST_CXX14_CONSTEXPR text_view (char const * c_str) :
             data_ (c_str),
             size_ (detail::strlen(c_str))
         {
@@ -36,7 +36,7 @@ namespace boost { namespace text {
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
-        constexpr text_view (char const * c_str, int len) :
+        BOOST_CXX14_CONSTEXPR text_view (char const * c_str, int len) :
             data_ (c_str),
             size_ (len)
         {
@@ -47,12 +47,12 @@ namespace boost { namespace text {
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
-        constexpr text_view (char const * c_str, utf8::unchecked_t) noexcept :
+        BOOST_CXX14_CONSTEXPR text_view (char const * c_str, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (detail::strlen(c_str))
         { assert(detail::strlen(c_str) <= INT_MAX); }
 
-        constexpr text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
+        BOOST_CXX14_CONSTEXPR text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (len)
         { assert(0 <= len); }
@@ -63,7 +63,7 @@ namespace boost { namespace text {
             data_ (rhs.data_),
             size_ (rhs.size_)
         {}
-        constexpr text_view & operator= (text_view const & rhs) noexcept
+        BOOST_CXX14_CONSTEXPR text_view & operator= (text_view const & rhs) noexcept
         {
             data_ = rhs.data_;
             size_ = rhs.size_;
@@ -82,13 +82,13 @@ namespace boost { namespace text {
         constexpr int size () const noexcept
         { return size_; }
 
-        constexpr char operator[] (int i) const noexcept
+        BOOST_CXX14_CONSTEXPR char operator[] (int i) const noexcept
         {
             assert(i < size_);
             return data_[i];
         }
 
-        constexpr text_view operator() (int lo, int hi) const
+        BOOST_CXX14_CONSTEXPR text_view operator() (int lo, int hi) const
         {
             if (lo < 0)
                 lo += size_;
@@ -100,7 +100,7 @@ namespace boost { namespace text {
             return text_view(data_ + lo, hi - lo);
         }
 
-        constexpr text_view operator() (int cut) const
+        BOOST_CXX14_CONSTEXPR text_view operator() (int cut) const
         {
             int lo = 0;
             int hi = cut;
@@ -116,29 +116,29 @@ namespace boost { namespace text {
         constexpr int max_size () const noexcept
         { return INT_MAX; }
 
-        constexpr int compare (text_view rhs) const noexcept
+        BOOST_CXX14_CONSTEXPR int compare (text_view rhs) const noexcept
         { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 
-        friend constexpr bool operator== (text_view lhs, text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator== (text_view lhs, text_view rhs) noexcept
         { return lhs.compare(rhs) == 0; }
 
-        friend constexpr bool operator!= (text_view lhs, text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator!= (text_view lhs, text_view rhs) noexcept
         { return lhs.compare(rhs) != 0; }
 
-        friend constexpr bool operator< (text_view lhs, text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator< (text_view lhs, text_view rhs) noexcept
         { return lhs.compare(rhs) < 0; }
 
-        friend constexpr bool operator<= (text_view lhs, text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator<= (text_view lhs, text_view rhs) noexcept
         { return lhs.compare(rhs) <= 0; }
 
-        friend constexpr bool operator> (text_view lhs, text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator> (text_view lhs, text_view rhs) noexcept
         { return lhs.compare(rhs) > 0; }
 
-        friend constexpr bool operator>= (text_view lhs, text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator>= (text_view lhs, text_view rhs) noexcept
         { return lhs.compare(rhs) >= 0; }
 
 
-        constexpr void swap (text_view & rhs) noexcept
+        BOOST_CXX14_CONSTEXPR void swap (text_view & rhs) noexcept
         {
             {
                 char const * tmp = data_;
@@ -181,7 +181,7 @@ namespace boost { namespace text {
 
     namespace literals {
 
-        inline constexpr text_view operator"" _tv (char const * str, std::size_t len) noexcept
+        inline BOOST_CXX14_CONSTEXPR text_view operator"" _tv (char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);
             return text_view(str, len);
@@ -189,7 +189,7 @@ namespace boost { namespace text {
 
     }
 
-    constexpr text_view checked_encoding (text_view tv)
+    inline BOOST_CXX14_CONSTEXPR text_view checked_encoding (text_view tv)
     {
         if (!utf8::encoded(tv.begin(), tv.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");
@@ -205,7 +205,7 @@ namespace boost { namespace text {
 
         constexpr repeated_text_view () noexcept : count_ (0) {}
 
-        constexpr repeated_text_view (text_view tv, std::ptrdiff_t count) noexcept :
+        BOOST_CXX14_CONSTEXPR repeated_text_view (text_view tv, std::ptrdiff_t count) noexcept :
             view_ (tv),
             count_ (count)
         { assert(0 <= tv.size()); }
@@ -222,7 +222,7 @@ namespace boost { namespace text {
         { return count_ * view_.size(); }
 
 
-        constexpr int compare (repeated_text_view rhs) const noexcept
+        BOOST_CXX14_CONSTEXPR int compare (repeated_text_view rhs) const noexcept
         {
             if (view_ == rhs.view_) {
                 if (count_ < rhs.count_)
@@ -264,26 +264,26 @@ namespace boost { namespace text {
             }
         }
 
-        friend constexpr bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
         { return lhs.compare(rhs) == 0; }
 
-        friend constexpr bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
         { return lhs.compare(rhs) != 0; }
 
-        friend constexpr bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
         { return lhs.compare(rhs) < 0; }
 
-        friend constexpr bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
         { return lhs.compare(rhs) <= 0; }
 
-        friend constexpr bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
         { return lhs.compare(rhs) > 0; }
 
-        friend constexpr bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+        friend BOOST_CXX14_CONSTEXPR bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
         { return lhs.compare(rhs) >= 0; }
 
 
-        constexpr void swap (repeated_text_view & rhs) noexcept
+        BOOST_CXX14_CONSTEXPR void swap (repeated_text_view & rhs) noexcept
         {
             {
                 text_view tmp = view_;
@@ -339,7 +339,7 @@ namespace boost { namespace text {
         std::ptrdiff_t count_;
     };
 
-    constexpr repeated_text_view repeat (text_view tv, std::ptrdiff_t count)
+    inline BOOST_CXX14_CONSTEXPR repeated_text_view repeat (text_view tv, std::ptrdiff_t count)
     { return repeated_text_view(tv, count); }
 
 } }
