@@ -4,6 +4,7 @@
 #include <boost/text/text_view.hpp>
 #include <boost/text/text.hpp>
 
+#include <boost/align/align.hpp>
 #include <boost/align/aligned_alloc.hpp>
 #include <boost/align/aligned_delete.hpp>
 #include <boost/container/static_vector.hpp>
@@ -93,11 +94,11 @@ namespace boost { namespace text { namespace detail {
     }
 
     template <typename T>
-    BOOST_CXX14_CONSTEXPR void * placement_address (void * buf, std::size_t buf_size) noexcept
+    void * placement_address (void * buf, std::size_t buf_size) noexcept
     {
         std::size_t const alignment = alignof(T);
         std::size_t const size = sizeof(T);
-        return std::align(alignment, size, buf, buf_size);
+        return alignment::align(alignment, size, buf, buf_size);
     }
 
     struct node_t
