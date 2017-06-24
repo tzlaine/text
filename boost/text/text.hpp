@@ -42,8 +42,8 @@ namespace boost { namespace text {
         ) : data_ (), size_ (0), cap_ (0)
         { insert(0, r); }
 
-        inline explicit text (text_view view);
-        inline explicit text (repeated_text_view view);
+        inline explicit text (text_view tv);
+        inline explicit text (repeated_text_view tv);
 
         template <typename Iter>
         text (
@@ -74,8 +74,8 @@ namespace boost { namespace text {
         auto operator= (CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        inline text & operator= (text_view view);
-        inline text & operator= (repeated_text_view view);
+        inline text & operator= (text_view tv);
+        inline text & operator= (repeated_text_view tv);
 
         iterator begin () noexcept
         {
@@ -166,8 +166,8 @@ namespace boost { namespace text {
         auto insert (int at, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        inline text & insert (int at, text_view view);
-        inline text & insert (int at, repeated_text_view rv);
+        inline text & insert (int at, text_view tv);
+        inline text & insert (int at, repeated_text_view rtv);
 
         // TODO: Document that the inserted/replaced sequence need not be
         // UTF-8 encoded, since direct use of iterators is the unsafe
@@ -200,7 +200,7 @@ namespace boost { namespace text {
             return insert_iter_impl(at - begin(), first, last);
         }
 
-        inline text & erase (text_view view) noexcept;
+        inline text & erase (text_view tv) noexcept;
 
         text & erase (iterator first, iterator last) noexcept
         {
@@ -321,8 +321,8 @@ namespace boost { namespace text {
             std::swap(cap_, rhs.cap_);
         }
 
-        inline text & operator+= (text_view view);
-        inline text & operator+= (repeated_text_view rv);
+        inline text & operator+= (text_view tv);
+        inline text & operator+= (repeated_text_view rtv);
 
         template <typename CharRange>
         auto operator+= (CharRange const & r)
@@ -368,7 +368,7 @@ namespace boost { namespace text {
         }
 
     private:
-        bool self_reference (text_view view) const;
+        bool self_reference (text_view tv) const;
 
         int grow_cap (int min_new_cap) const
         {
@@ -541,43 +541,43 @@ namespace boost { namespace text {
 
     }
 
-    inline text::text (text_view view) : data_ (), size_ (0), cap_ (0)
-    { insert(0, view); }
+    inline text::text (text_view tv) : data_ (), size_ (0), cap_ (0)
+    { insert(0, tv); }
 
-    inline text::text (repeated_text_view rv) : data_ (), size_ (0), cap_ (0)
-    { insert(0, rv); }
+    inline text::text (repeated_text_view rtv) : data_ (), size_ (0), cap_ (0)
+    { insert(0, rtv); }
 
     template <typename CharRange>
     auto text::operator= (CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
 
-    inline text & text::operator= (text_view view)
+    inline text & text::operator= (text_view tv)
     {
-        assert(0 <= view.size());
-        bool const self_ref = self_reference(view);
+        assert(0 <= tv.size());
+        bool const self_ref = self_reference(tv);
         if (self_ref) {
-            erase(text_view(view.end(), end() - view.end()));
-            erase(text_view(begin(), view.begin() - begin()));
-        } else if (view.size() <= size()) {
+            erase(text_view(tv.end(), end() - tv.end()));
+            erase(text_view(begin(), tv.begin() - begin()));
+        } else if (tv.size() <= size()) {
             clear();
-            insert(0, view);
+            insert(0, tv);
         } else {
-            text tmp(view);
+            text tmp(tv);
             swap(tmp);
         }
         return *this;
     }
 
-    inline text & text::operator= (repeated_text_view rv)
+    inline text & text::operator= (repeated_text_view rtv)
     {
-        assert(0 <= rv.size());
-        bool const self_ref = self_reference(rv.view());
-        if (!self_ref && rv.size() <= size()) {
+        assert(0 <= rtv.size());
+        bool const self_ref = self_reference(rtv.view());
+        if (!self_ref && rtv.size() <= size()) {
             clear();
-            insert(0, rv);
+            insert(0, rtv);
         } else {
-            text tmp(rv);
+            text tmp(rtv);
             swap(tmp);
         }
         return *this;
@@ -615,36 +615,36 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<text &, CharRange>
     { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
 
-    inline text & text::insert (int at, text_view view)
+    inline text & text::insert (int at, text_view tv)
     {
         assert(0 <= at && at <= size_);
-        assert(0 <= view.size());
+        assert(0 <= tv.size());
 
         if (!utf8::starts_encoded(cbegin() + at, cend()))
             throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
 
-        bool const view_null_terminated = !view.empty() && view.end()[-1] == '\0';
-        if (view_null_terminated)
-            view = view(0, -1);
+        bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
+        if (tv_null_terminated)
+            tv = tv(0, -1);
 
-        int const delta = view.size();
+        int const delta = tv.size();
         if (!delta)
             return *this;
 
         bool const late_self_ref =
-            self_reference(view) && at < view.end() - begin();
+            self_reference(tv) && at < tv.end() - begin();
         int const available = cap_ - 1 - size_;
         if (late_self_ref || available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
-            buf = std::copy(view.begin(), view.end(), buf);
+            buf = std::copy(tv.begin(), tv.end(), buf);
             buf = std::copy(cbegin() + at, cend(), buf);
             new_data.swap(data_);
         } else {
             std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
-            std::copy(view.begin(), view.end(), buf);
+            std::copy(tv.begin(), tv.end(), buf);
         }
 
         size_ += delta;
@@ -653,39 +653,39 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::insert (int at, repeated_text_view rv)
+    inline text & text::insert (int at, repeated_text_view rtv)
     {
         assert(0 <= at && at <= size_);
-        assert(0 <= rv.size());
+        assert(0 <= rtv.size());
 
         if (!utf8::starts_encoded(cbegin() + at, cend()))
             throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
 
-        bool const view_null_terminated = !rv.view().empty() && rv.view().end()[-1] == '\0';
-        if (view_null_terminated)
-            rv = repeat(rv.view()(0, -1), rv.count());
+        bool const rtv_null_terminated = !rtv.view().empty() && rtv.view().end()[-1] == '\0';
+        if (rtv_null_terminated)
+            rtv = repeat(rtv.view()(0, -1), rtv.count());
 
-        int const delta = rv.size();
+        int const delta = rtv.size();
         if (!delta)
             return *this;
 
         bool const late_self_ref =
-            self_reference(rv.view()) && at < rv.view().end() - begin();
+            self_reference(rtv.view()) && at < rtv.view().end() - begin();
         int const available = cap_ - 1 - size_;
         if (late_self_ref || available < delta) {
             std::unique_ptr<char []> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
-            for (int i = 0; i < rv.count(); ++i) {
-                buf = std::copy(rv.view().begin(), rv.view().end(), buf);
+            for (int i = 0; i < rtv.count(); ++i) {
+                buf = std::copy(rtv.view().begin(), rtv.view().end(), buf);
             }
             std::copy(cbegin() + at, cend(), buf);
             new_data.swap(data_);
         } else {
             std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
-            for (int i = 0; i < rv.count(); ++i) {
-                buf = std::copy(rv.view().begin(), rv.view().end(), buf);
+            for (int i = 0; i < rtv.count(); ++i) {
+                buf = std::copy(rtv.view().begin(), rtv.view().end(), buf);
             }
         }
 
@@ -695,16 +695,16 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::erase (text_view view) noexcept
+    inline text & text::erase (text_view tv) noexcept
     {
-        assert(0 <= view.size());
+        assert(0 <= tv.size());
 
-        bool const view_null_terminated = !view.empty() && view.end()[-1] == '\0';
-        if (view_null_terminated)
-            view = view(0, -1);
+        bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
+        if (tv_null_terminated)
+            tv = tv(0, -1);
 
-        char * first = const_cast<char *>(view.begin());
-        return erase(first, first + view.size());
+        char * first = const_cast<char *>(tv.begin());
+        return erase(first, first + tv.size());
     }
 
     template <typename CharRange>
@@ -856,15 +856,15 @@ namespace boost { namespace text {
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
-    inline text & text::operator+= (text_view view)
-    { return insert(size(), view); }
+    inline text & text::operator+= (text_view tv)
+    { return insert(size(), tv); }
 
-    inline text & text::operator+= (repeated_text_view rv)
+    inline text & text::operator+= (repeated_text_view rtv)
     {
-        assert(0 <= rv.size());
-        reserve(size() + rv.size());
-        for (std::ptrdiff_t i = 0; i < rv.count(); ++i) {
-            insert(size(), rv.view());
+        assert(0 <= rtv.size());
+        reserve(size() + rtv.size());
+        for (std::ptrdiff_t i = 0; i < rtv.count(); ++i) {
+            insert(size(), rtv.view());
         }
         return *this;
     }
@@ -874,11 +874,11 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<text &, CharRange>
     { return insert(size(), text_view(&*r.begin(), r.end() - r.begin())); }
 
-    inline bool text::self_reference (text_view view) const
+    inline bool text::self_reference (text_view tv) const
     {
         using less_t = std::less<char const *>;
         less_t less;
-        return !less(view.begin(), begin()) && !less(end(), view.end());
+        return !less(tv.begin(), begin()) && !less(end(), tv.end());
     }
 
 
@@ -902,22 +902,22 @@ namespace boost { namespace text {
 
 
 
-    inline text operator+ (text t, text_view view)
-    { return t += view; }
+    inline text operator+ (text t, text_view tv)
+    { return t += tv; }
 
-    inline text operator+ (text t, repeated_text_view rv)
-    { return t += rv; }
+    inline text operator+ (text t, repeated_text_view rtv)
+    { return t += rtv; }
 
     template <typename CharRange>
     auto operator+ (text t, CharRange const & r)
         -> detail::rng_alg_ret_t<text, CharRange>
     { return t += r; }
 
-    inline text operator+ (text_view view, text const & t)
-    { return (text() += view) += t; }
+    inline text operator+ (text_view tv, text const & t)
+    { return (text() += tv) += t; }
 
-    inline text operator+ (repeated_text_view rv, text const & t)
-    { return (text() += rv) += t; }
+    inline text operator+ (repeated_text_view rtv, text const & t)
+    { return (text() += rtv) += t; }
 
     template <typename CharRange>
     auto operator+ (CharRange const & r, text const & t)

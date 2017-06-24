@@ -152,25 +152,25 @@ namespace boost { namespace text {
             }
         }
 
-        friend constexpr iterator begin (text_view v) noexcept
-        { return v.begin(); }
-        friend constexpr iterator end (text_view v) noexcept
-        { return v.end(); }
+        friend constexpr iterator begin (text_view tv) noexcept
+        { return tv.begin(); }
+        friend constexpr iterator end (text_view tv) noexcept
+        { return tv.end(); }
 
-        friend constexpr reverse_iterator rbegin (text_view v) noexcept
-        { return v.rbegin(); }
-        friend constexpr reverse_iterator rend (text_view v) noexcept
-        { return v.rend(); }
+        friend constexpr reverse_iterator rbegin (text_view tv) noexcept
+        { return tv.rbegin(); }
+        friend constexpr reverse_iterator rend (text_view tv) noexcept
+        { return tv.rend(); }
 
         // TODO: Test left- and right-alignment with width set.
-        friend std::ostream & operator<< (std::ostream & os, text_view view)
+        friend std::ostream & operator<< (std::ostream & os, text_view tv)
         {
             if (os.good()) {
-                detail::pad_width_before(os, view.size());
+                detail::pad_width_before(os, tv.size());
                 if (os.good())
-                    os.write(view.begin(), view.size());
+                    os.write(tv.begin(), tv.size());
                 if (os.good())
-                    detail::pad_width_after(os, view.size());
+                    detail::pad_width_after(os, tv.size());
                 os.width(0);
             }
             return os;
@@ -191,11 +191,11 @@ namespace boost { namespace text {
 
     }
 
-    constexpr text_view checked_encoding (text_view view)
+    constexpr text_view checked_encoding (text_view tv)
     {
-        if (!utf8::encoded(view.begin(), view.end()))
+        if (!utf8::encoded(tv.begin(), tv.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");
-        return view;
+        return tv;
     }
 
     struct repeated_text_view
@@ -207,10 +207,10 @@ namespace boost { namespace text {
 
         constexpr repeated_text_view () noexcept : count_ (0) {}
 
-        constexpr repeated_text_view (text_view view, std::ptrdiff_t count) noexcept :
-            view_ (view),
+        constexpr repeated_text_view (text_view tv, std::ptrdiff_t count) noexcept :
+            view_ (tv),
             count_ (count)
-        { assert(0 <= view.size()); }
+        { assert(0 <= tv.size()); }
 
         constexpr text_view view () const noexcept
         { return view_; }
@@ -310,15 +310,15 @@ namespace boost { namespace text {
         constexpr const_reverse_iterator rend () const noexcept
         { return const_reverse_iterator(begin()); }
 
-        friend constexpr iterator begin (repeated_text_view v) noexcept
-        { return v.begin(); }
-        friend constexpr iterator end (repeated_text_view v) noexcept
-        { return v.end(); }
+        friend constexpr iterator begin (repeated_text_view rtv) noexcept
+        { return rtv.begin(); }
+        friend constexpr iterator end (repeated_text_view rtv) noexcept
+        { return rtv.end(); }
 
-        friend constexpr reverse_iterator rbegin (repeated_text_view v) noexcept
-        { return v.rbegin(); }
-        friend constexpr reverse_iterator rend (repeated_text_view v) noexcept
-        { return v.rend(); }
+        friend constexpr reverse_iterator rbegin (repeated_text_view rtv) noexcept
+        { return rtv.rbegin(); }
+        friend constexpr reverse_iterator rend (repeated_text_view rtv) noexcept
+        { return rtv.rend(); }
 
 
         friend std::ostream & operator<< (std::ostream & os, repeated_text_view rtv)
@@ -342,8 +342,8 @@ namespace boost { namespace text {
         std::ptrdiff_t count_;
     };
 
-    constexpr repeated_text_view repeat (text_view view, std::ptrdiff_t count)
-    { return repeated_text_view(view, count); }
+    constexpr repeated_text_view repeat (text_view tv, std::ptrdiff_t count)
+    { return repeated_text_view(tv, count); }
 
 } }
 

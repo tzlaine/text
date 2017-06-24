@@ -304,7 +304,7 @@ namespace boost { namespace text {
         inline rope & operator+= (text const & t);
         inline rope & operator+= (text && t);
         inline rope & operator+= (text_view tv);
-        inline rope & operator+= (repeated_text_view rv);
+        inline rope & operator+= (repeated_text_view rtv);
 
         template <typename CharRange>
         auto operator+= (CharRange const & r)
