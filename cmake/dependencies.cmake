@@ -6,7 +6,7 @@
 ###############################################################################
 # Boost
 ###############################################################################
-find_package(Boost 1.62.0)
+find_package(Boost 1.64.0)
 if (Boost_INCLUDE_DIRS)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
@@ -14,8 +14,8 @@ else ()
   message("-- Boost was not found; attempting to download it if we haven't already...")
   include(ExternalProject)
   ExternalProject_Add(install-Boost
-    PREFIX ${CMAKE_BINARY_DIR}/dependencies/boost_1_62_0
-    URL https://sourceforge.net/projects/boost/files/boost/1.62.0/boost_1_62_0.tar.bz2
+    PREFIX ${CMAKE_BINARY_DIR}/dependencies/boost_1_64_0
+    URL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.bz2
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
