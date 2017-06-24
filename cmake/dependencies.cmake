@@ -1,12 +1,12 @@
 # Copyright Louis Dionne 2016
-# Copyright Zach Laine 2016
+# Copyright Zach Laine 2016-2017
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 
 ###############################################################################
 # Boost
 ###############################################################################
-find_package(Boost 1.62.0 EXACT)
+find_package(Boost 1.62.0)
 if (Boost_INCLUDE_DIRS)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
@@ -30,7 +30,6 @@ else ()
 endif ()
 
 
-if (false)
 ###############################################################################
 # GoogleTest
 ###############################################################################
@@ -39,6 +38,7 @@ target_include_directories(gtest      INTERFACE ${CMAKE_HOME_DIRECTORY}/googlete
 target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
 
 
+if (false)
 ###############################################################################
 # Google Benchmark
 ###############################################################################
