@@ -22,6 +22,19 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
+    inline constexpr char const * strchr (
+        char const * first,
+        char const * last,
+        char c
+    ) noexcept {
+        while (first != last) {
+            if (*first == c)
+                return first;
+            ++first;
+        }
+        return nullptr;
+    }
+
     inline constexpr char const * strrchr (
         char const * first,
         char const * last,

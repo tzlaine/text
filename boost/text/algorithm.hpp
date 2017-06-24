@@ -37,10 +37,10 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return -1;
-
             if (p_first == p_last)
+                return 0;
+
+            if (r_first == r_last)
                 return -1;
 
             char const p_head = *p_first;
@@ -51,7 +51,7 @@ namespace boost { namespace text {
                 if (r_len < p_len)
                     return -1;
 
-                it = strchr(it, p_head);
+                it = strchr(it, r_last, p_head);
                 if (it == nullptr)
                     return -1;
 
@@ -92,11 +92,11 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return text_view(r_first, 0);
-
             if (p_first == p_last)
                 return text_view(r_first, 0);
+
+            if (r_first == r_last)
+                return text_view(nullptr, 0);
 
             int const n = find_impl(r_first, r_last, p_first, p_last);
             if (n < 0)
@@ -134,10 +134,10 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return -1;
-
             if (p_first == p_last)
+                return 0;
+
+            if (r_first == r_last)
                 return -1;
 
             char const * r_it = r_first;
@@ -184,10 +184,10 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return -1;
-
             if (p_first == p_last)
+                return r_last - r_first;
+
+            if (r_first == r_last)
                 return -1;
 
             char const * r_it = r_last;
@@ -233,10 +233,10 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return -1;
-
             if (p_first == p_last)
+                return 0;
+
+            if (r_first == r_last)
                 return -1;
 
             char const * r_it = r_first;
@@ -283,10 +283,10 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return -1;
-
             if (p_first == p_last)
+                return r_last - r_first;
+
+            if (r_first == r_last)
                 return -1;
 
             char const * r_it = r_last;
@@ -332,10 +332,10 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return -1;
-
             if (p_first == p_last)
+                return r_last - r_first;
+
+            if (r_first == r_last)
                 return -1;
 
             char const p_head = *p_first;
@@ -388,11 +388,11 @@ namespace boost { namespace text {
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
-            if (r_first == r_last)
-                return text_view(r_first, 0);
-
             if (p_first == p_last)
-                return text_view(r_first, 0);
+                return text_view(r_last, 0);
+
+            if (r_first == r_last)
+                return text_view(nullptr, 0);
 
             int const n = rfind_impl(r_first, r_last, p_first, p_last);
             if (n < 0)

@@ -13,24 +13,24 @@ TEST(algorithm, test_empty_view)
     EXPECT_EQ(tv.size(), 0);
 
     int find_index = find(tv, tv);
-    EXPECT_EQ(find_index, -1);
+    EXPECT_EQ(find_index, 0);
     text::text_view find_view_view = find_view(tv, tv);
     EXPECT_EQ(find_view_view, tv);
 
     int rfind_index = rfind(tv, tv);
-    EXPECT_EQ(rfind_index, -1);
+    EXPECT_EQ(rfind_index, 0);
     text::text_view rfind_view_view = rfind_view(tv, tv);
     EXPECT_EQ(rfind_view_view, tv);
 
     int find_first_of_index = find_first_of(tv, tv);
-    EXPECT_EQ(find_first_of_index, -1);
+    EXPECT_EQ(find_first_of_index, 0);
     int find_first_not_of_index = find_first_not_of(tv, tv);
-    EXPECT_EQ(find_first_not_of_index, -1);
+    EXPECT_EQ(find_first_not_of_index, 0);
 
     int find_last_of_index = find_last_of(tv, tv);
-    EXPECT_EQ(find_last_of_index, -1);
+    EXPECT_EQ(find_last_of_index, 0);
     int find_last_not_of_index = find_last_not_of(tv, tv);
-    EXPECT_EQ(find_last_not_of_index, -1);
+    EXPECT_EQ(find_last_not_of_index, 0);
 
     text::text_view substr_view = tv(0, 0);
     EXPECT_EQ(substr_view, tv);
@@ -46,24 +46,24 @@ TEST(algorithm, test_empty_view_constexpr)
     static_assert(tv.size() == 0, "");
 
     constexpr int find_index = find(tv, tv);
-    static_assert(find_index == -1, "");
+    static_assert(find_index == 0, "");
     constexpr text::text_view find_view_view = find_view(tv, tv);
     static_assert(find_view_view == tv, "");
 
     constexpr int rfind_index = rfind(tv, tv);
-    static_assert(rfind_index == -1, "");
+    static_assert(rfind_index == 0, "");
     constexpr text::text_view rfind_view_view = rfind_view(tv, tv);
     static_assert(rfind_view_view == tv, "");
 
     constexpr int find_first_of_index = find_first_of(tv, tv);
-    static_assert(find_first_of_index == -1, "");
+    static_assert(find_first_of_index == 0, "");
     constexpr int find_first_not_of_index = find_first_not_of(tv, tv);
-    static_assert(find_first_not_of_index == -1, "");
+    static_assert(find_first_not_of_index ==0, "");
 
     constexpr int find_last_of_index = find_last_of(tv, tv);
-    static_assert(find_last_of_index == -1, "");
+    static_assert(find_last_of_index == 0, "");
     constexpr int find_last_not_of_index = find_last_not_of(tv, tv);
-    static_assert(find_last_not_of_index == -1, "");
+    static_assert(find_last_not_of_index == 0, "");
 
     constexpr text::text_view substr_view = tv(0, 0);
     static_assert(substr_view == tv, "");
@@ -122,7 +122,44 @@ TEST(algorithm, test_view_view_compare_constexpr)
     static_assert(compare_b_a == 1, "");
 }
 
-// TODO: find()
+TEST(algorithm, test_view_view_find_constexpr)
+{
+    constexpr text::text_view tv_empty;
+    constexpr text::text_view tv_a("a");
+    constexpr text::text_view tv_b("b");
+    constexpr text::text_view tv_ab("ab");
+    constexpr text::text_view tv_aab("aab");
+
+    constexpr int find_a_empty = find(tv_a, tv_empty);
+    static_assert(find_a_empty == 0, "");
+    constexpr int find_empty_a = find(tv_empty, tv_a);
+    static_assert(find_empty_a == -1, "");
+
+    constexpr int find_a_ab = find(tv_a, tv_ab);
+    static_assert(find_a_ab == -1, "");
+    constexpr int find_ab_a = find(tv_ab, tv_a);
+    static_assert(find_ab_a == 0, "");
+    constexpr int find_a_a = find(tv_a, tv_a);
+    static_assert(find_a_a == 0, "");
+
+    constexpr int find_b_ab = find(tv_b, tv_ab);
+    static_assert(find_b_ab == -1, "");
+    constexpr int find_ab_b = find(tv_ab, tv_b);
+    static_assert(find_ab_b == 1, "");
+    constexpr int find_b_b = find(tv_b, tv_b);
+    static_assert(find_b_b == 0, "");
+
+    constexpr int find_a_b = find(tv_a, tv_b);
+    static_assert(find_a_b == -1, "");
+    constexpr int find_b_a = find(tv_b, tv_a);
+    static_assert(find_b_a == -1, "");
+
+    constexpr int find_ab_aab = find(tv_ab, tv_aab);
+    static_assert(find_ab_aab == -1, "");
+    constexpr int find_aab_ab = find(tv_aab, tv_ab);
+    static_assert(find_aab_ab == 1, "");
+}
+
 // TODO: find_view()
 // TODO: find_first_of()
 // TODO: find_last_of()
@@ -130,3 +167,5 @@ TEST(algorithm, test_view_view_compare_constexpr)
 // TODO: find_last_not_of()
 // TODO: rfind()
 // TODO: rfind_view()
+
+// TODO: Coverage for types other than text_view.
