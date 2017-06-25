@@ -179,7 +179,7 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    inline BOOST_CXX14_CONSTEXPR
+    inline BOOST_TEXT_CXX14_CONSTEXPR
     char back_impl (char const * first, char const * last) noexcept
     {
         assert(first != last);

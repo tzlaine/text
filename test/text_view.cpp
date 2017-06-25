@@ -39,7 +39,7 @@ TEST(text_view, test_empty)
 
     std::cout << "tv=\"" << tv << "\"\n";
 
-#ifndef BOOST_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     {
         using namespace text::literals;
@@ -60,13 +60,13 @@ struct text_views
     text::text_view right;
 };
 
-BOOST_CXX14_CONSTEXPR text_views swapped (text::text_view lhs, text::text_view rhs)
+BOOST_TEXT_CXX14_CONSTEXPR text_views swapped (text::text_view lhs, text::text_view rhs)
 {
     lhs.swap(rhs);
     return text_views{lhs, rhs};
 }
 
-#ifndef BOOST_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 TEST(text_view, test_empty_constexpr)
 {
@@ -159,7 +159,7 @@ TEST(text_view, test_non_empty)
     }
 }
 
-#ifndef BOOST_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 TEST(text_view, test_non_empty_constexpr)
 {
@@ -255,7 +255,7 @@ TEST(text_view, test_substr)
     EXPECT_EQ(tv_abc(2, 5), text::text_view("cde"));
 }
 
-#ifndef BOOST_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 TEST(text_view, test_substr_constexpr)
 {
@@ -305,7 +305,7 @@ TEST(text_view, test_formatted_output)
 }
 
 
-#ifndef BOOST_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 struct repeated_text_views
 {

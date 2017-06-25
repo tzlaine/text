@@ -240,7 +240,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
     }
 }
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 constexpr text::text_view tv_a("a");
 inline constexpr text::detail::const_reverse_char_iterator tv_a_preincremented_begin ()
@@ -681,7 +681,7 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor)
     }
 }
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 constexpr text::text_view tv_abc("abc");
 

@@ -12,20 +12,20 @@ namespace boost { namespace text {
     // compare()
 
     template <typename LCharRange, typename RCharRange>
-    BOOST_CXX14_CONSTEXPR auto compare (LCharRange const & l, RCharRange const & r) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto compare (LCharRange const & l, RCharRange const & r) noexcept
         -> detail::rngs_alg_ret_t<int, LCharRange, RCharRange>
     { return detail::compare_impl(&*begin(l), &*end(l), &*begin(r), &*end(r)); }
 
-    inline BOOST_CXX14_CONSTEXPR int compare (text_view l, text_view r) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int compare (text_view l, text_view r) noexcept
     { return detail::compare_impl(begin(l), end(l), begin(r), end(r)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto compare (text_view l, CharRange const & r) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto compare (text_view l, CharRange const & r) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::compare_impl(begin(l), end(l), &*begin(r), &*end(r)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto compare (CharRange const & l, text_view r) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto compare (CharRange const & l, text_view r) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::compare_impl(&*begin(l), &*end(l), begin(r), end(r)); }
 
@@ -35,7 +35,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-#ifdef BOOST_NO_CXX14_CONSTEXPR
+#ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
         inline int find_impl (
             char const * r_first, char const * r_last,
@@ -90,20 +90,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto find (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     { return detail::find_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR int find (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int find (text_view r, text_view p) noexcept
     { return detail::find_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -113,7 +113,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR text_view find_view_impl (
+        inline BOOST_TEXT_CXX14_CONSTEXPR text_view find_view_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
@@ -132,20 +132,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto find_view (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_view (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     { return detail::find_view_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR text_view find_view (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR text_view find_view (text_view r, text_view p) noexcept
     { return detail::find_view_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_view (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_view (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<text_view, CharRange>
     { return detail::find_view_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_view (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_view (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<text_view, CharRange>
     { return detail::find_view_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -155,7 +155,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR int find_first_of_impl (
+        inline BOOST_TEXT_CXX14_CONSTEXPR int find_first_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
@@ -182,20 +182,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto find_first_of (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_first_of (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     { return detail::find_first_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR int find_first_of (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int find_first_of (text_view r, text_view p) noexcept
     { return detail::find_first_of_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_first_of (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_first_of (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_first_of_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_first_of (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_first_of (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_first_of_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -205,7 +205,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR int find_last_of_impl (
+        inline BOOST_TEXT_CXX14_CONSTEXPR int find_last_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
@@ -231,20 +231,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto find_last_of (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_last_of (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     { return detail::find_last_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR int find_last_of (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int find_last_of (text_view r, text_view p) noexcept
     { return detail::find_last_of_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_last_of (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_last_of (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_last_of_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_last_of (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_last_of (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_last_of_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -254,7 +254,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR int find_first_not_of_impl (
+        inline BOOST_TEXT_CXX14_CONSTEXPR int find_first_not_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
@@ -284,20 +284,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto find_first_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_first_not_of (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     { return detail::find_first_not_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR int find_first_not_of (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int find_first_not_of (text_view r, text_view p) noexcept
     { return detail::find_first_not_of_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_first_not_of (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_first_not_of (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_first_not_of_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_first_not_of (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_first_not_of (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_first_not_of_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -307,7 +307,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR int find_last_not_of_impl (
+        inline BOOST_TEXT_CXX14_CONSTEXPR int find_last_not_of_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
@@ -336,20 +336,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto find_last_not_of (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_last_not_of (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     { return detail::find_last_not_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR int find_last_not_of (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int find_last_not_of (text_view r, text_view p) noexcept
     { return detail::find_last_not_of_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_last_not_of (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_last_not_of (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_last_not_of_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto find_last_not_of (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto find_last_not_of (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::find_last_not_of_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -359,7 +359,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-#ifdef BOOST_NO_CXX14_CONSTEXPR
+#ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
         inline int rfind_impl (
             char const * r_first_, char const * r_last_,
@@ -418,20 +418,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto rfind (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto rfind (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     { return detail::rfind_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR int rfind (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int rfind (text_view r, text_view p) noexcept
     { return detail::rfind_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto rfind (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto rfind (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::rfind_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto rfind (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto rfind (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     { return detail::rfind_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -441,7 +441,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR text_view rfind_view_impl (
+        inline BOOST_TEXT_CXX14_CONSTEXPR text_view rfind_view_impl (
             char const * r_first, char const * r_last,
             char const * p_first, char const * p_last
         ) noexcept {
@@ -460,20 +460,20 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange, typename PatternCharRange>
-    BOOST_CXX14_CONSTEXPR auto rfind_view (CharRange const & r, PatternCharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto rfind_view (CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
     { return detail::rfind_view_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
-    inline BOOST_CXX14_CONSTEXPR text_view rfind_view (text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR text_view rfind_view (text_view r, text_view p) noexcept
     { return detail::rfind_view_impl(begin(r), end(r), begin(p), end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto rfind_view (text_view r, CharRange const & p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto rfind_view (text_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<text_view, CharRange>
     { return detail::rfind_view_impl(begin(r), end(r), &*begin(p), &*end(p)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto rfind_view (CharRange const & r, text_view p) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto rfind_view (CharRange const & r, text_view p) noexcept
         -> detail::rng_alg_ret_t<text_view, CharRange>
     { return detail::rfind_view_impl(&*begin(r), &*end(r), begin(p), end(p)); }
 
@@ -483,7 +483,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_CXX14_CONSTEXPR
+        inline BOOST_TEXT_CXX14_CONSTEXPR
         char front_impl (char const * first, char const * last) noexcept
         {
             assert(first != last);
@@ -495,19 +495,19 @@ namespace boost { namespace text {
     }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto front (CharRange const & r) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto front (CharRange const & r) noexcept
         -> detail::rng_alg_ret_t<char, CharRange>
     { return detail::front_impl(&*begin(r), &*end(r)); }
 
-    inline BOOST_CXX14_CONSTEXPR char front (text_view r) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR char front (text_view r) noexcept
     { return detail::front_impl(begin(r), end(r)); }
 
     template <typename CharRange>
-    BOOST_CXX14_CONSTEXPR auto back (CharRange const & r) noexcept
+    BOOST_TEXT_CXX14_CONSTEXPR auto back (CharRange const & r) noexcept
         -> detail::rng_alg_ret_t<char, CharRange>
     { return detail::back_impl(&*begin(r), &*end(r)); }
 
-    inline BOOST_CXX14_CONSTEXPR char back (text_view r) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR char back (text_view r) noexcept
     { return detail::back_impl(begin(r), end(r)); }
 
 } }

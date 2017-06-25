@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_UTF8_HPP
 #define BOOST_TEXT_UTF8_HPP
 
-#include <boost/config.hpp>
+#include <boost/text/config.hpp>
 
 #include <iterator>
 #include <type_traits>
@@ -30,7 +30,7 @@ namespace boost { namespace text { namespace utf8 {
     constexpr uint32_t replacement_character () noexcept
     { return 0xfffd; }
 
-    inline BOOST_CXX14_CONSTEXPR int code_point_bytes (unsigned char first) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR int code_point_bytes (unsigned char first) noexcept
     {
         using detail::in;
         if (first <= 0x7f)
@@ -55,7 +55,7 @@ namespace boost { namespace text { namespace utf8 {
     namespace detail {
 
         // Follow Table 3-7 in Unicode 9, 3.9/D92
-        inline BOOST_CXX14_CONSTEXPR char const * end_of_invalid_utf8 (char const * it) noexcept
+        inline BOOST_TEXT_CXX14_CONSTEXPR char const * end_of_invalid_utf8 (char const * it) noexcept
         {
             assert(!continuation(*it));
 
@@ -130,7 +130,7 @@ namespace boost { namespace text { namespace utf8 {
             return it;
         }
 
-        inline BOOST_CXX14_CONSTEXPR char const * decrement (char const * it) noexcept
+        inline BOOST_TEXT_CXX14_CONSTEXPR char const * decrement (char const * it) noexcept
         {
             char const * retval = it;
 
@@ -153,7 +153,7 @@ namespace boost { namespace text { namespace utf8 {
 
     }
 
-    inline BOOST_CXX14_CONSTEXPR char const *
+    inline BOOST_TEXT_CXX14_CONSTEXPR char const *
     find_invalid_encoding (char const * first, char const * last) noexcept
     {
         while (first != last) {
@@ -170,11 +170,11 @@ namespace boost { namespace text { namespace utf8 {
         return last;
     }
 
-    inline BOOST_CXX14_CONSTEXPR
+    inline BOOST_TEXT_CXX14_CONSTEXPR
     bool encoded (char const * first, char const * last) noexcept
     { return find_invalid_encoding(first, last) == last; }
 
-    inline BOOST_CXX14_CONSTEXPR
+    inline BOOST_TEXT_CXX14_CONSTEXPR
     bool starts_encoded (char const * first, char const * last) noexcept
     {
         if (first == last)
@@ -187,7 +187,7 @@ namespace boost { namespace text { namespace utf8 {
         return detail::end_of_invalid_utf8(first) == nullptr;
     }
 
-    inline BOOST_CXX14_CONSTEXPR
+    inline BOOST_TEXT_CXX14_CONSTEXPR
     bool ends_encoded (char const * first, char const * last) noexcept
     {
         if (first == last)
@@ -233,7 +233,7 @@ namespace boost { namespace text { namespace utf8 {
         return starts_encoded(it, last);
     }
 
-    inline BOOST_CXX14_CONSTEXPR bool surrogate (uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate (uint32_t c) noexcept
     {
         uint32_t const high_surrogate_min = 0xd800;
         uint32_t const low_surrogate_max = 0xdfff;
@@ -241,7 +241,7 @@ namespace boost { namespace text { namespace utf8 {
     }
 
     // Unicode 9, 3.4/D14
-    inline BOOST_CXX14_CONSTEXPR bool reserved_noncharacter (uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool reserved_noncharacter (uint32_t c) noexcept
     {
         bool const byte01_reserved =
             (c & 0xffff) == 0xffff || (c & 0xffff) == 0xfffe;
@@ -253,7 +253,7 @@ namespace boost { namespace text { namespace utf8 {
     }
 
     // Unicode 9, 3.9/D90
-    inline BOOST_CXX14_CONSTEXPR bool valid_code_point (uint32_t c) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point (uint32_t c) noexcept
     { return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c); }
 
 
@@ -300,7 +300,7 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ (false)
         {}
 
-        BOOST_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
         {
             if (buf_empty()) {
                 index_ = read_into_buf();
@@ -311,7 +311,7 @@ namespace boost { namespace text { namespace utf8 {
             return buf_[index_];
         }
 
-        BOOST_CXX14_CONSTEXPR from_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (partial_decrement_) {
                 ++it_;
@@ -329,14 +329,14 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ = false;
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR from_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
             from_utf32_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        BOOST_CXX14_CONSTEXPR from_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (index_ == 0 || buf_empty()) {
                 --it_;
@@ -347,14 +347,14 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR from_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
             from_utf32_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
-        friend BOOST_CXX14_CONSTEXPR bool operator== (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator== (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
                 return false;
@@ -362,7 +362,7 @@ namespace boost { namespace text { namespace utf8 {
                 lhs.index_ == rhs.index_ ||
                 ((lhs.index_ == 0 || lhs.index_ == 4) && (rhs.index_ == 0 || rhs.index_ == 4));
         }
-        friend BOOST_CXX14_CONSTEXPR bool operator!= (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf32_iterator_t<Iter> lhs, from_utf32_iterator_t<Iter> rhs) noexcept
         { return !(lhs.it_ == rhs.it_); }
 
     private:
@@ -372,7 +372,7 @@ namespace boost { namespace text { namespace utf8 {
         constexpr bool at_buf_end () const noexcept
         { return buf_[index_] == '\0'; }
 
-        BOOST_CXX14_CONSTEXPR int read_into_buf () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t c = static_cast<uint32_t>(*it_);
             if (!valid_code_point(c)) {
@@ -444,7 +444,7 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ (false)
         {}
 
-        BOOST_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
         {
             if (partial_decrement_)
                 const_cast<char const *&>(it_) = detail::decrement(it_ + 1);
@@ -452,7 +452,7 @@ namespace boost { namespace text { namespace utf8 {
             return get_value();
         }
 
-        BOOST_CXX14_CONSTEXPR to_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (partial_decrement_) {
                 ++it_;
@@ -464,14 +464,14 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ = false;
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR to_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
             to_utf32_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        BOOST_CXX14_CONSTEXPR to_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (partial_decrement_)
                 it_ = detail::decrement(it_ + 1);
@@ -479,7 +479,7 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ = true;
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR to_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
             to_utf32_iterator_t retval = *this;
             --*this;
@@ -492,7 +492,7 @@ namespace boost { namespace text { namespace utf8 {
         { return lhs.it_ != rhs.it_; }
 
     private:
-        BOOST_CXX14_CONSTEXPR bool check_continuation (
+        BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation (
             unsigned char c,
             unsigned char lo = 0x80,
             unsigned char hi = 0xbf
@@ -509,7 +509,7 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        BOOST_CXX14_CONSTEXPR reference get_value () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR reference get_value () const noexcept(!throw_on_error)
         {
             uint32_t retval = 0;
 
@@ -721,7 +721,7 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ (false)
         {}
 
-        BOOST_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
         {
             if (buf_empty()) {
                 if (partial_decrement_)
@@ -733,7 +733,7 @@ namespace boost { namespace text { namespace utf8 {
             return buf_[index_];
         }
 
-        BOOST_CXX14_CONSTEXPR from_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (partial_decrement_) {
                 ++it_;
@@ -751,14 +751,14 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ = false;
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR from_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
             from_utf16_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        BOOST_CXX14_CONSTEXPR from_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (partial_decrement_)
                 index_ = decr_read_into_buf();
@@ -772,14 +772,14 @@ namespace boost { namespace text { namespace utf8 {
             next_ = it_;
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR from_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
             from_utf16_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
-        friend BOOST_CXX14_CONSTEXPR bool operator== (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator== (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
                 return false;
@@ -787,7 +787,7 @@ namespace boost { namespace text { namespace utf8 {
                 lhs.index_ == rhs.index_ ||
                 ((lhs.index_ == 0 || lhs.index_ == 4) && (rhs.index_ == 0 || rhs.index_ == 4));
         }
-        friend BOOST_CXX14_CONSTEXPR bool operator!= (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf16_iterator_t<Iter> lhs, from_utf16_iterator_t<Iter> rhs) noexcept
         { return !(lhs.it_ == rhs.it_); }
 
     private:
@@ -803,7 +803,7 @@ namespace boost { namespace text { namespace utf8 {
         constexpr bool low_surrogate (uint32_t c) const noexcept
         { return low_surrogate_min <= c && c <= low_surrogate_max; }
 
-        BOOST_CXX14_CONSTEXPR int read_into_buf (uint32_t first, uint32_t second) const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf (uint32_t first, uint32_t second) const noexcept(!throw_on_error)
         {
             uint32_t c = first;
 
@@ -843,7 +843,7 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        BOOST_CXX14_CONSTEXPR int incr_read_into_buf () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int incr_read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
@@ -861,7 +861,7 @@ namespace boost { namespace text { namespace utf8 {
             return 0;
         }
 
-        BOOST_CXX14_CONSTEXPR int decr_read_into_buf () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int decr_read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t first = static_cast<uint32_t>(*it_);
             uint32_t second = 0;
@@ -930,7 +930,7 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ (false)
         {}
 
-        BOOST_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
         {
             if (buf_empty()) {
                 if (partial_decrement_)
@@ -943,7 +943,7 @@ namespace boost { namespace text { namespace utf8 {
             return buf_[index_];
         }
 
-        BOOST_CXX14_CONSTEXPR to_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_t & operator++ () noexcept(!throw_on_error)
         {
             if (partial_decrement_) {
                 ++it_;
@@ -961,14 +961,14 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_ = false;
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR to_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_t operator++ (int) noexcept(!throw_on_error)
         {
             to_utf16_iterator_t retval = *this;
             ++*this;
             return retval;
         }
 
-        BOOST_CXX14_CONSTEXPR to_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_t & operator-- () noexcept(!throw_on_error)
         {
             if (partial_decrement_)
                 it_ = detail::decrement(it_ + 1);
@@ -981,20 +981,20 @@ namespace boost { namespace text { namespace utf8 {
             }
             return *this;
         }
-        BOOST_CXX14_CONSTEXPR to_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_t operator-- (int) noexcept(!throw_on_error)
         {
             to_utf16_iterator_t retval = *this;
             --*this;
             return retval;
         }
 
-        friend BOOST_CXX14_CONSTEXPR bool operator== (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
         {
             if (lhs.it_ != rhs.it_)
                 return false;
             return lhs.index_ == rhs.index_ || (lhs.index_ != 1 && rhs.index_ != 1);
         }
-        friend BOOST_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator_t lhs, to_utf16_iterator_t rhs) noexcept
         { return !(lhs.it_ == rhs.it_); }
 
     private:
@@ -1004,13 +1004,13 @@ namespace boost { namespace text { namespace utf8 {
         constexpr bool at_buf_end () const noexcept
         { return buf_[index_] == 0; }
 
-        BOOST_CXX14_CONSTEXPR void pack_replacement_character () const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR void pack_replacement_character () const noexcept
         {
             buf_[0] = replacement_character();
             buf_[1] = 0;
         }
 
-        BOOST_CXX14_CONSTEXPR bool check_continuation (
+        BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation (
             unsigned char c,
             unsigned char lo = 0x80,
             unsigned char hi = 0xbf
@@ -1026,7 +1026,7 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        BOOST_CXX14_CONSTEXPR int read_into_buf () const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf () const noexcept(!throw_on_error)
         {
             uint32_t value = 0;
 

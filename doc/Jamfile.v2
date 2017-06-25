@@ -26,7 +26,7 @@ doxygen text_reference
         <doxygen:param>"PREDEFINED=\"BOOST_TEXT_DOXYGEN=1\" \\
                                    \"lazy_enable_if=detail::unspecified\" \\
                                    \"enable_if=detail::unspecified\" \\
-                                   \"BOOST_CXX14_CONSTEXPR=constexpr\""
+                                   \"BOOST_TEXT_CXX14_CONSTEXPR=constexpr\""
         <doxygen:param>HIDE_UNDOC_MEMBERS=NO
         <doxygen:param>EXTRACT_PRIVATE=NO
         <doxygen:param>ENABLE_PREPROCESSING=YES

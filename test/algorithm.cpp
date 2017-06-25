@@ -45,7 +45,7 @@ TEST(algorithm, test_empty_view_constexpr)
     static_assert(tv.begin() == nullptr, "");
     static_assert(tv.size() == 0, "");
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr int find_index = find(tv, tv);
     static_assert(find_index == 0, "");
@@ -105,7 +105,7 @@ TEST(algorithm, test_view_view_compare_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -135,7 +135,7 @@ TEST(algorithm, test_view_view_find_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -178,7 +178,7 @@ TEST(algorithm, test_view_view_find_view_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -233,7 +233,7 @@ TEST(algorithm, test_view_view_find_first_of_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -282,7 +282,7 @@ TEST(algorithm, test_view_view_find_first_not_of_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -331,7 +331,7 @@ TEST(algorithm, test_view_view_rfind_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -374,7 +374,7 @@ TEST(algorithm, test_view_view_rfind_view_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -429,7 +429,7 @@ TEST(algorithm, test_view_view_find_last_of_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");
@@ -478,7 +478,7 @@ TEST(algorithm, test_view_view_find_last_not_of_constexpr)
 {
     constexpr text::text_view tv_empty;
 
-#ifndef BOOST_NO_CXX14_CONSTEXPR
+#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     constexpr text::text_view tv_a("a");
     constexpr text::text_view tv_b("b");

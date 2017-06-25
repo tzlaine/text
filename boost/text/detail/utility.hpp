@@ -13,7 +13,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-#ifdef BOOST_NO_CXX14_CONSTEXPR
+#ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     inline std::ptrdiff_t strlen (char const * c_str) noexcept
     { return ::strlen(c_str); }
@@ -33,7 +33,7 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-    inline BOOST_CXX14_CONSTEXPR char const * strchr (
+    inline BOOST_TEXT_CXX14_CONSTEXPR char const * strchr (
         char const * first,
         char const * last,
         char c
@@ -46,7 +46,7 @@ namespace boost { namespace text { namespace detail {
         return last;
     }
 
-    inline BOOST_CXX14_CONSTEXPR char const * strrchr (
+    inline BOOST_TEXT_CXX14_CONSTEXPR char const * strrchr (
         char const * first,
         char const * last,
         char c
@@ -67,7 +67,7 @@ namespace boost { namespace text { namespace detail {
     constexpr T max_ (T lhs, T rhs) noexcept
     { return lhs < rhs ? rhs : lhs; }
 
-#ifdef BOOST_NO_CXX14_CONSTEXPR
+#ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     inline int compare_impl (
         char const * l_first, char const * l_last,

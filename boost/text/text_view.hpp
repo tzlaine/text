@@ -40,7 +40,7 @@ namespace boost { namespace text {
             \pre strlen(c_str) <= max_size()
             \throw std::invalid_argument if the ends of the string are not valid UTF-8.
             \post data() == c_str && size() == strlen(c_str) */
-        BOOST_CXX14_CONSTEXPR text_view (char const * c_str) :
+        BOOST_TEXT_CXX14_CONSTEXPR text_view (char const * c_str) :
             data_ (c_str),
             size_ (detail::strlen(c_str))
         {
@@ -61,7 +61,7 @@ namespace boost { namespace text {
             \throw std::invalid_argument if the ends of the string are not valid UTF-8.
             \pre len >= 0
             \post data() == c_str && size() == len */
-        BOOST_CXX14_CONSTEXPR text_view (char const * c_str, int len) :
+        BOOST_TEXT_CXX14_CONSTEXPR text_view (char const * c_str, int len) :
             data_ (c_str),
             size_ (len)
         {
@@ -79,7 +79,7 @@ namespace boost { namespace text {
 
             \pre strlen(c_str) <= max_size()
             \post data() == c_str && size() == strlen(c_str) */
-        BOOST_CXX14_CONSTEXPR text_view (char const * c_str, utf8::unchecked_t) noexcept :
+        BOOST_TEXT_CXX14_CONSTEXPR text_view (char const * c_str, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (detail::strlen(c_str))
         { assert(detail::strlen(c_str) <= max_size()); }
@@ -91,7 +91,7 @@ namespace boost { namespace text {
 
             \pre len >= 0
             \post data() == c_str && size() == len */
-        BOOST_CXX14_CONSTEXPR text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
+        BOOST_TEXT_CXX14_CONSTEXPR text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (len)
         { assert(0 <= len); }
@@ -109,7 +109,7 @@ namespace boost { namespace text {
         /** Assignment.
 
             This function is constexpr in C++14 and later. */
-        BOOST_CXX14_CONSTEXPR text_view & operator= (text_view const & rhs) noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR text_view & operator= (text_view const & rhs) noexcept
         {
             data_ = rhs.data_;
             size_ = rhs.size_;
@@ -133,7 +133,7 @@ namespace boost { namespace text {
             This function is constexpr in C++14 and later.
 
             \pre i < size() */
-        BOOST_CXX14_CONSTEXPR char operator[] (int i) const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR char operator[] (int i) const noexcept
         {
             assert(i < size_);
             return data_[i];
@@ -152,7 +152,7 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        BOOST_CXX14_CONSTEXPR text_view operator() (int lo, int hi) const
+        BOOST_TEXT_CXX14_CONSTEXPR text_view operator() (int lo, int hi) const
         {
             if (lo < 0)
                 lo += size_;
@@ -170,7 +170,7 @@ namespace boost { namespace text {
             This function is constexpr in C++14 and later.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        BOOST_CXX14_CONSTEXPR text_view operator() (int cut) const
+        BOOST_TEXT_CXX14_CONSTEXPR text_view operator() (int cut) const
         {
             int lo = 0;
             int hi = cut;
@@ -192,13 +192,13 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs.
 
             This function is constexpr in C++14 and later. */
-        BOOST_CXX14_CONSTEXPR int compare (text_view rhs) const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR int compare (text_view rhs) const noexcept
         { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 
         /** Swaps *this with rhs.
 
             This function is constexpr in C++14 and later. */
-        BOOST_CXX14_CONSTEXPR void swap (text_view & rhs) noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR void swap (text_view & rhs) noexcept
         {
             {
                 char const * tmp = data_;
@@ -238,7 +238,7 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8.  */
-        inline BOOST_CXX14_CONSTEXPR text_view operator"" _tv (char const * str, std::size_t len) noexcept
+        inline BOOST_TEXT_CXX14_CONSTEXPR text_view operator"" _tv (char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);
             return text_view(str, len);
@@ -247,27 +247,27 @@ namespace boost { namespace text {
     }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator== (text_view lhs, text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (text_view lhs, text_view rhs) noexcept
     { return lhs.compare(rhs) == 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator!= (text_view lhs, text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (text_view lhs, text_view rhs) noexcept
     { return lhs.compare(rhs) != 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator< (text_view lhs, text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator< (text_view lhs, text_view rhs) noexcept
     { return lhs.compare(rhs) < 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator<= (text_view lhs, text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator<= (text_view lhs, text_view rhs) noexcept
     { return lhs.compare(rhs) <= 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator> (text_view lhs, text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator> (text_view lhs, text_view rhs) noexcept
     { return lhs.compare(rhs) > 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator>= (text_view lhs, text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator>= (text_view lhs, text_view rhs) noexcept
     { return lhs.compare(rhs) >= 0; }
 
     inline constexpr text_view::iterator begin (text_view tv) noexcept
@@ -285,7 +285,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later.
 
         \throw std::invalid_argument when tv is not UTF-8 encoded. */
-    inline BOOST_CXX14_CONSTEXPR text_view checked_encoding (text_view tv)
+    inline BOOST_TEXT_CXX14_CONSTEXPR text_view checked_encoding (text_view tv)
     {
         if (!utf8::encoded(tv.begin(), tv.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");
@@ -314,7 +314,7 @@ namespace boost { namespace text {
             This function is constexpr in C++14 and later.
 
             \post view() == tv && count() == count */
-        BOOST_CXX14_CONSTEXPR repeated_text_view (text_view tv, std::ptrdiff_t count) noexcept :
+        BOOST_TEXT_CXX14_CONSTEXPR repeated_text_view (text_view tv, std::ptrdiff_t count) noexcept :
             view_ (tv),
             count_ (count)
         {
@@ -342,7 +342,7 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs.
 
             This function is constexpr in C++14 and later. */
-        BOOST_CXX14_CONSTEXPR int compare (repeated_text_view rhs) const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR int compare (repeated_text_view rhs) const noexcept
         {
             if (view_ == rhs.view_) {
                 if (count_ < rhs.count_)
@@ -387,7 +387,7 @@ namespace boost { namespace text {
         /** Swaps *this with rhs.
 
             This function is constexpr in C++14 and later. */
-        BOOST_CXX14_CONSTEXPR void swap (repeated_text_view & rhs) noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR void swap (repeated_text_view & rhs) noexcept
         {
             {
                 text_view tmp = view_;
@@ -438,34 +438,34 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later.
 
         \post count >= 0 */
-    inline BOOST_CXX14_CONSTEXPR repeated_text_view repeat (text_view tv, std::ptrdiff_t count)
+    inline BOOST_TEXT_CXX14_CONSTEXPR repeated_text_view repeat (text_view tv, std::ptrdiff_t count)
     {
         assert(0 <= count);
         return repeated_text_view(tv, count);
     }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
     { return lhs.compare(rhs) == 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
     { return lhs.compare(rhs) != 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
     { return lhs.compare(rhs) < 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
     { return lhs.compare(rhs) <= 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
     { return lhs.compare(rhs) > 0; }
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_CXX14_CONSTEXPR bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
     { return lhs.compare(rhs) >= 0; }
 
     inline constexpr repeated_text_view::iterator begin (repeated_text_view rtv) noexcept
