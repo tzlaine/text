@@ -8,6 +8,16 @@ matrix:
         # OSX
         - env: CPP11=off MAC_OSX=true
           os: osx
+          osx_image: xcode6.4
+          compiler: clang
+
+        - env: CPP11=on MAC_OSX=true
+          os: osx
+          osx_image: xcode6.4
+          compiler: clang
+
+        - env: CPP11=off MAC_OSX=true
+          os: osx
           osx_image: xcode7.3
           compiler: clang
 
@@ -47,6 +57,116 @@ matrix:
           compiler: clang
 
         # Gcc
+        - env: GCC_VERSION=4.6 CPP11=off
+          os: linux
+          compiler: gcc-4.6
+          addons: &gcc46
+            apt:
+              packages:
+                - g++-4.6
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.6 CPP11=on
+          os: linux
+          compiler: gcc-4.6
+          addons: &gcc46
+            apt:
+              packages:
+                - g++-4.6
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.7 CPP11=off
+          os: linux
+          compiler: gcc-4.7
+          addons: &gcc47
+            apt:
+              packages:
+                - g++-4.7
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.7 CPP11=on
+          os: linux
+          compiler: gcc-4.7
+          addons: &gcc47
+            apt:
+              packages:
+                - g++-4.7
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.8 CPP11=off
+          os: linux
+          compiler: gcc-4.8
+          addons: &gcc48
+            apt:
+              packages:
+                - g++-4.8
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.8 CPP11=on
+          os: linux
+          compiler: gcc-4.8
+          addons: &gcc48
+            apt:
+              packages:
+                - g++-4.8
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.9 CPP11=off
+          os: linux
+          compiler: gcc-4.9
+          addons: &gcc49
+            apt:
+              packages:
+                - g++-4.9
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=4.9 CPP11=on
+          os: linux
+          compiler: gcc-4.9
+          addons: &gcc49
+            apt:
+              packages:
+                - g++-4.9
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=5 CPP11=off
+          os: linux
+          compiler: gcc-5
+          addons: &gcc5
+            apt:
+              packages:
+                - g++-5
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=5 CPP11=on
+          os: linux
+          compiler: gcc-5
+          addons: &gcc5
+            apt:
+              packages:
+                - g++-5
+                - valgrind
+              sources:
+                - ubuntu-toolchain-r-test
+
         - env: GCC_VERSION=6 CPP11=off
           os: linux
           compiler: gcc-6
