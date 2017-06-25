@@ -211,7 +211,7 @@ namespace boost { namespace text { namespace utf8 {
             return false;
 
         char buf[5] = {0};
-        for (int i = 0; i < sizeof(buf); ++i) {
+        for (int i = 0; i < (int)sizeof(buf); ++i) {
             buf[i] = *first;
             if (++first == last)
                 break;
@@ -530,8 +530,6 @@ namespace boost { namespace text { namespace utf8 {
                 U+100000..U+10FFFF   F4          80..8F       80..BF      80..BF
             */
 
-            int chars = 0;
-
             next_ = it_;
             unsigned char curr_c = *next_;
 
@@ -541,7 +539,6 @@ namespace boost { namespace text { namespace utf8 {
             if (curr_c <= 0x7f) {
                 retval = curr_c;
                 ++next_;
-                chars = 1;
             // Two-byte
             } else if (in(0xc2, curr_c, 0xdf)) {
                 retval = curr_c & 0b00011111;
@@ -550,7 +547,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 2;
             // Three-byte
             } else if (curr_c == 0xe0) {
                 retval = curr_c & 0b00001111;
@@ -563,7 +559,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             } else if (in(0xe1, curr_c, 0xec)) {
                 retval = curr_c & 0b00001111;
                 curr_c = *++next_;
@@ -575,7 +570,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             } else if (curr_c == 0xed) {
                 retval = curr_c & 0b00001111;
                 curr_c = *++next_;
@@ -587,7 +581,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             } else if (in(0xed, curr_c, 0xef)) {
                 retval = curr_c & 0b00001111;
                 curr_c = *++next_;
@@ -599,7 +592,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             // Four-byte
             } else if (curr_c == 0xf0) {
                 retval = curr_c & 0b00000111;
@@ -616,7 +608,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 4;
             } else if (in(0xf1, curr_c, 0xf3)) {
                 retval = curr_c & 0b00000111;
                 curr_c = *++next_;
@@ -632,7 +623,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 4;
             } else if (curr_c == 0xf4) {
                 retval = curr_c & 0b00000111;
                 curr_c = *++next_;
@@ -648,7 +638,6 @@ namespace boost { namespace text { namespace utf8 {
                     return replacement_character();
                 retval = (retval << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 4;
             } else {
                 if (throw_on_error)
                     throw std::logic_error("Invalid initial UTF-8 character.");
@@ -1030,8 +1019,6 @@ namespace boost { namespace text { namespace utf8 {
         {
             uint32_t value = 0;
 
-            int chars = 0;
-
             next_ = it_;
             unsigned char curr_c = *next_;
 
@@ -1041,7 +1028,6 @@ namespace boost { namespace text { namespace utf8 {
             if (curr_c <= 0x7f) {
                 value = curr_c;
                 ++next_;
-                chars = 1;
             // Two-byte
             } else if (in(0xc2, curr_c, 0xdf)) {
                 value = curr_c & 0b00011111;
@@ -1050,7 +1036,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 2;
             // Three-byte
             } else if (curr_c == 0xe0) {
                 value = curr_c & 0b00001111;
@@ -1063,7 +1048,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             } else if (in(0xe1, curr_c, 0xec)) {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
@@ -1075,7 +1059,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             } else if (curr_c == 0xed) {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
@@ -1087,7 +1070,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             } else if (in(0xed, curr_c, 0xef)) {
                 value = curr_c & 0b00001111;
                 curr_c = *++next_;
@@ -1099,7 +1081,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 3;
             // Four-byte
             } else if (curr_c == 0xf0) {
                 value = curr_c & 0b00000111;
@@ -1116,7 +1097,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 4;
             } else if (in(0xf1, curr_c, 0xf3)) {
                 value = curr_c & 0b00000111;
                 curr_c = *++next_;
@@ -1132,7 +1112,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 4;
             } else if (curr_c == 0xf4) {
                 value = curr_c & 0b00000111;
                 curr_c = *++next_;
@@ -1148,7 +1127,6 @@ namespace boost { namespace text { namespace utf8 {
                     return 0;
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next_;
-                chars = 4;
             } else {
                 if (throw_on_error)
                     throw std::logic_error("Invalid initial UTF-8 character.");
