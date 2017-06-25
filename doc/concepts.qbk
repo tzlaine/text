@@ -1,0 +1,33 @@
+[section:concepts Concepts]
+
+[heading Char_range]
+
+TODO _Expr_ is the central concept in _yap_.  It must contain at least an _kind_
+and a _tuple_ of values.
+
+TODO Here is a summary of the requirements on _Expr_.  In the tables below, `E` is
+a type that models _Expr_; `e` is an object of type `E`; and `Tuple` is an
+instantiation of _tuple_.
+
+TODO
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]                      [Notes]]
+    [[`E::kind`]     [_kind_]   [ The kind of expression `E` is. ]  [ Must be a compile-time constant. ]]
+    [[`e.elements`]  [`Tuple`]  [ The child expressions of `e`. ]     [ The types of the elements must be appropriate to the kind of the expression. ]]
+]
+
+[heading Char_iterator]
+
+TODO _ExprTmpl_ is any template with two parameters that, when instantiated with an
+_kind_ and a _tuple_, results in an _Expr_.
+
+TODO
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]                      [Notes]]
+    [[`E::kind`]     [_kind_]   [ The kind of expression `E` is. ]  [ Must be a compile-time constant. ]]
+    [[`e.elements`]  [`Tuple`]  [ The child expressions of `e`. ]     [ The types of the elements must be appropriate to the kind of the expression. ]]
+]
+
+[endsect]
