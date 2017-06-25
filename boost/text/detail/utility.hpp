@@ -15,12 +15,12 @@ namespace boost { namespace text { namespace detail {
 
 #ifdef BOOST_NO_CXX14_CONSTEXPR
 
-    inline std::size_t strlen (char const * c_str) noexcept
+    inline std::ptrdiff_t strlen (char const * c_str) noexcept
     { return ::strlen(c_str); }
 
 #else
 
-    inline constexpr std::size_t strlen (char const * c_str) noexcept
+    inline constexpr std::ptrdiff_t strlen (char const * c_str) noexcept
     {
         assert(c_str);
         std::size_t retval = 0;
@@ -43,7 +43,7 @@ namespace boost { namespace text { namespace detail {
                 return first;
             ++first;
         }
-        return nullptr;
+        return last;
     }
 
     inline BOOST_CXX14_CONSTEXPR char const * strrchr (
@@ -51,11 +51,12 @@ namespace boost { namespace text { namespace detail {
         char const * last,
         char c
     ) noexcept {
-        while (first != last) {
-            if (*--last == c)
-                return last;
+        char const * it = last;
+        while (first != it) {
+            if (*--it == c)
+                return it;
         }
-        return nullptr;
+        return last;
     }
 
     template <typename T>

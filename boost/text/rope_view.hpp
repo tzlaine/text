@@ -97,7 +97,7 @@ namespace boost { namespace text {
             return rope_view(r_, lo_ + lo, lo_ + hi);
         }
 
-        constexpr size_type max_size () const noexcept
+        size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
         template <typename Fn>

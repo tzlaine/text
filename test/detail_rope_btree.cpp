@@ -1,5 +1,6 @@
 #define private public
 #include <boost/text/rope.hpp>
+#undef private
 
 #include <gtest/gtest.h>
 

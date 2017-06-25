@@ -74,7 +74,7 @@ namespace boost { namespace text {
                     return -1;
 
                 it = strchr(it, r_last, p_head);
-                if (it == nullptr)
+                if (it == r_last)
                     return -1;
 
                 text_view candidate(it, p_len);
@@ -401,8 +401,8 @@ namespace boost { namespace text {
                 if (r_len < p_len)
                     return -1;
 
-                auto candidate_first = detail::strrchr(r_first, it, p_head);
-                if (candidate_first == nullptr)
+                auto candidate_first = strrchr(r_first, it, p_head);
+                if (candidate_first == r_last)
                     return -1;
 
                 text_view candidate(candidate_first, p_len);

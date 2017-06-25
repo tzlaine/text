@@ -99,7 +99,7 @@ namespace boost { namespace text {
         /** Constructs a text_view from a text.
 
             \post data() == t.begin() && size() == t.size() */
-        constexpr text_view (text const & t) noexcept;
+        text_view (text const & t) noexcept;
 
         constexpr text_view (text_view const & rhs) noexcept :
             data_ (rhs.data_),
@@ -484,7 +484,7 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline constexpr text_view::text_view (text const & t) noexcept :
+    inline text_view::text_view (text const & t) noexcept :
         data_ (t.begin()),
         size_ (t.size())
     {}

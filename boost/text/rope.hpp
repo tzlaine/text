@@ -163,7 +163,7 @@ namespace boost { namespace text {
         rope_view operator() (int lo, int hi) const;
         rope_view operator() (int cut) const;
 
-        constexpr size_type max_size () const noexcept
+        size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
         rope substr (size_type lo, size_type hi) const

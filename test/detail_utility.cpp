@@ -25,14 +25,14 @@ TEST(utility, test_strrchr)
     {
         constexpr char const * empty = "";
         EXPECT_EQ(text::detail::strrchr(nullptr, nullptr, 't'), nullptr);
-        EXPECT_EQ(text::detail::strrchr(empty, empty, 't'), nullptr);
-        EXPECT_EQ(text::detail::strrchr(empty, empty + 1, 't'), nullptr);
+        EXPECT_EQ(text::detail::strrchr(empty, empty, 't'), empty);
+        EXPECT_EQ(text::detail::strrchr(empty, empty + 1, 't'), empty + 1);
 
 #ifndef BOOST_NO_CXX14_CONSTEXPR
 
         static_assert(text::detail::strrchr(nullptr, nullptr, 't') == nullptr, "");
-        static_assert(text::detail::strrchr(empty, empty, 't') == nullptr, "");
-        static_assert(text::detail::strrchr(empty, empty + 1, 't') == nullptr, "");
+        static_assert(text::detail::strrchr(empty, empty, 't') == empty, "");
+        static_assert(text::detail::strrchr(empty, empty + 1, 't') == empty + 1, "");
 
 #endif
     }
@@ -41,8 +41,8 @@ TEST(utility, test_strrchr)
         char const str_1[] = "not empty";
         char const * str_1_end = str_1 + sizeof(str_1);
 
-        EXPECT_EQ(text::detail::strrchr(str_1, str_1, 't'), nullptr);
-        EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 'x'), nullptr);
+        EXPECT_EQ(text::detail::strrchr(str_1, str_1, 't'), str_1);
+        EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 'x'), str_1_end);
         EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 't'), str_1 + 7);
         EXPECT_EQ(text::detail::strrchr(str_1, str_1_end, 'n'), str_1);
     }
@@ -52,8 +52,8 @@ TEST(utility, test_strrchr)
     {
         constexpr boost::text::text_view const str_1("not empty");
 
-        static_assert(text::detail::strrchr(str_1.begin(), str_1.begin(), 't') == nullptr, "");
-        static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 'x') == nullptr, "");
+        static_assert(text::detail::strrchr(str_1.begin(), str_1.begin(), 't') == str_1.begin(), "");
+        static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 'x') == str_1.end(), "");
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 't') == str_1.begin() + 7, "");
         static_assert(text::detail::strrchr(str_1.begin(), str_1.end(), 'n') == str_1.begin(), "");
     }
@@ -64,10 +64,10 @@ TEST(utility, test_strrchr)
         char const str_2[] = {'n'};
         char const * str_2_end = str_2 + sizeof(str_2);
 
-        EXPECT_EQ(text::detail::strrchr(str_2, str_2, 'n'), nullptr);
-        EXPECT_EQ(text::detail::strrchr(str_2, str_2_end, 'x'), nullptr);
+        EXPECT_EQ(text::detail::strrchr(str_2, str_2, 'n'), str_2);
+        EXPECT_EQ(text::detail::strrchr(str_2, str_2_end, 'x'), str_2_end);
         EXPECT_EQ(text::detail::strrchr(str_2, str_2_end, 'n'), str_2);
-        EXPECT_EQ(text::detail::strrchr(str_2, str_2_end, '\0'), nullptr);
+        EXPECT_EQ(text::detail::strrchr(str_2, str_2_end, '\0'), str_2_end);
     }
 
 #ifndef BOOST_NO_CXX14_CONSTEXPR
@@ -75,10 +75,10 @@ TEST(utility, test_strrchr)
     {
         constexpr boost::text::text_view const str_2("n", 1);
 
-        static_assert(text::detail::strrchr(str_2.begin(), str_2.begin(), 'n') == nullptr, "");
-        static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), 'x') == nullptr, "");
+        static_assert(text::detail::strrchr(str_2.begin(), str_2.begin(), 'n') == str_2.begin(), "");
+        static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), 'x') == str_2.end(), "");
         static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), 'n') == str_2.begin(), "");
-        static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), '\0') == nullptr, "");
+        static_assert(text::detail::strrchr(str_2.begin(), str_2.end(), '\0') == str_2.end(), "");
     }
 
 #endif

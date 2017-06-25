@@ -7,6 +7,7 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
+#include <algorithm>
 #include <list>
 #include <memory>
 
