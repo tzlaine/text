@@ -20,22 +20,47 @@ namespace boost { namespace text {
         using reverse_iterator = detail::const_reverse_char_iterator;
         using const_reverse_iterator = detail::const_reverse_char_iterator;
 
+        /** Default ctor.
+
+            This function is constexpr.
+
+            \post data() == nullptr && size() == 0 */
         constexpr text_view () noexcept :
             data_ (nullptr),
             size_ (0)
         {}
 
+        /** Construct a text_view from a null-terminated C string.  The UTF-8
+            encoding is checked only at the beginning and end of the string,
+            to prevent slicing of code points.  To fully check the encoding,
+            use checked_encoding().
+
+            This function is constexpr in C++14 and later.
+
+            \pre strlen(c_str) <= max_size()
+            \throw std::invalid_argument if the ends of the string are not valid UTF-8.
+            \post data() == c_str && size() == strlen(c_str) */
         BOOST_CXX14_CONSTEXPR text_view (char const * c_str) :
             data_ (c_str),
             size_ (detail::strlen(c_str))
         {
-            assert(detail::strlen(c_str) <= INT_MAX);
+            assert(detail::strlen(c_str) <= max_size());
             if (!utf8::starts_encoded(begin(), end()))
                 throw std::invalid_argument("The start of the given string is not valid UTF-8.");
             if (!utf8::ends_encoded(begin(), end()))
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
+        /** Construct a text_view from an array of char.  The UTF-8 encoding
+            is checked only at the beginning and end of the string, to prevent
+            slicing of code points.  To fully check the encoding, use
+            checked_encoding().
+
+            This function is constexpr in C++14 and later.
+
+            \throw std::invalid_argument if the ends of the string are not valid UTF-8.
+            \pre len >= 0
+            \post data() == c_str && size() == len */
         BOOST_CXX14_CONSTEXPR text_view (char const * c_str, int len) :
             data_ (c_str),
             size_ (len)
@@ -47,22 +72,43 @@ namespace boost { namespace text {
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
+        /** Construct a text_view from a null-terminated C string, without any
+            check of UTF-8 encoding.
+
+            This function is constexpr in C++14 and later.
+
+            \pre strlen(c_str) <= max_size()
+            \post data() == c_str && size() == strlen(c_str) */
         BOOST_CXX14_CONSTEXPR text_view (char const * c_str, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (detail::strlen(c_str))
-        { assert(detail::strlen(c_str) <= INT_MAX); }
+        { assert(detail::strlen(c_str) <= max_size()); }
 
+        /** Construct a text_view from an array of char, without any check of
+            UTF-8 encoding.
+
+            This function is constexpr in C++14 and later.
+
+            \pre len >= 0
+            \post data() == c_str && size() == len */
         BOOST_CXX14_CONSTEXPR text_view (char const * c_str, int len, utf8::unchecked_t) noexcept :
             data_ (c_str),
             size_ (len)
         { assert(0 <= len); }
 
+        /** Construct a text_view from a text.
+
+            \post data() == t.begin() && size() == t.size() */
         constexpr text_view (text const & t) noexcept;
 
         constexpr text_view (text_view const & rhs) noexcept :
             data_ (rhs.data_),
             size_ (rhs.size_)
         {}
+
+        /** Assignment.
+
+            This function is constexpr in C++14 and later. */
         BOOST_CXX14_CONSTEXPR text_view & operator= (text_view const & rhs) noexcept
         {
             data_ = rhs.data_;
@@ -82,12 +128,30 @@ namespace boost { namespace text {
         constexpr int size () const noexcept
         { return size_; }
 
+        /** Returns the i-th char of *this (not a reference).
+
+            This function is constexpr in C++14 and later.
+
+            \pre i < size() */
         BOOST_CXX14_CONSTEXPR char operator[] (int i) const noexcept
         {
             assert(i < size_);
             return data_[i];
         }
 
+        /** Returns a substring of *this, taken from the half-open range of
+            chars at offsets [lo, hi).  If either of lo or hi is a negative
+            value x, x is taken to be an offset from the end, and so x +
+            size() is used instead.
+
+            This function is constexpr in C++14 and later.
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= size()
+            \pre 0 <= hi && lhi <= size()
+            \pre lo <= hi */
         BOOST_CXX14_CONSTEXPR text_view operator() (int lo, int hi) const
         {
             if (lo < 0)
@@ -100,6 +164,12 @@ namespace boost { namespace text {
             return text_view(data_ + lo, hi - lo);
         }
 
+        /** Returns a substring of *this, taken from the first cut chars when
+            cut => 0, or the last -cut chars when cut < 0.
+
+            This function is constexpr in C++14 and later.
+
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         BOOST_CXX14_CONSTEXPR text_view operator() (int cut) const
         {
             int lo = 0;
@@ -113,31 +183,21 @@ namespace boost { namespace text {
             return text_view(data_ + lo, hi - lo);
         }
 
+        /** Returns the maximum size a text_view can have. */
         constexpr int max_size () const noexcept
         { return INT_MAX; }
 
+        /** Lexicographical compare.  Returns a value < 0 when *this is
+            lexicographically less than rhs, 0 if *this == rhs, and a value >
+            0 if *this is lexicographically greater than rhs.
+
+            This function is constexpr in C++14 and later. */
         BOOST_CXX14_CONSTEXPR int compare (text_view rhs) const noexcept
         { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
 
-        friend BOOST_CXX14_CONSTEXPR bool operator== (text_view lhs, text_view rhs) noexcept
-        { return lhs.compare(rhs) == 0; }
+        /** Swaps *this with rhs.
 
-        friend BOOST_CXX14_CONSTEXPR bool operator!= (text_view lhs, text_view rhs) noexcept
-        { return lhs.compare(rhs) != 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator< (text_view lhs, text_view rhs) noexcept
-        { return lhs.compare(rhs) < 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator<= (text_view lhs, text_view rhs) noexcept
-        { return lhs.compare(rhs) <= 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator> (text_view lhs, text_view rhs) noexcept
-        { return lhs.compare(rhs) > 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator>= (text_view lhs, text_view rhs) noexcept
-        { return lhs.compare(rhs) >= 0; }
-
-
+            This function is constexpr in C++14 and later. */
         BOOST_CXX14_CONSTEXPR void swap (text_view & rhs) noexcept
         {
             {
@@ -152,16 +212,7 @@ namespace boost { namespace text {
             }
         }
 
-        friend constexpr iterator begin (text_view tv) noexcept
-        { return tv.begin(); }
-        friend constexpr iterator end (text_view tv) noexcept
-        { return tv.end(); }
-
-        friend constexpr reverse_iterator rbegin (text_view tv) noexcept
-        { return tv.rbegin(); }
-        friend constexpr reverse_iterator rend (text_view tv) noexcept
-        { return tv.rend(); }
-
+        /** Stream inserter; performs formatted output. */
         friend std::ostream & operator<< (std::ostream & os, text_view tv)
         {
             if (os.good()) {
@@ -181,6 +232,9 @@ namespace boost { namespace text {
 
     namespace literals {
 
+        /** Creates text_views from literals.
+
+            This function is constexpr in C++14 and later. */
         inline BOOST_CXX14_CONSTEXPR text_view operator"" _tv (char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);
@@ -189,6 +243,45 @@ namespace boost { namespace text {
 
     }
 
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator== (text_view lhs, text_view rhs) noexcept
+    { return lhs.compare(rhs) == 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator!= (text_view lhs, text_view rhs) noexcept
+    { return lhs.compare(rhs) != 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator< (text_view lhs, text_view rhs) noexcept
+    { return lhs.compare(rhs) < 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator<= (text_view lhs, text_view rhs) noexcept
+    { return lhs.compare(rhs) <= 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator> (text_view lhs, text_view rhs) noexcept
+    { return lhs.compare(rhs) > 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator>= (text_view lhs, text_view rhs) noexcept
+    { return lhs.compare(rhs) >= 0; }
+
+    inline constexpr text_view::iterator begin (text_view tv) noexcept
+    { return tv.begin(); }
+    inline constexpr text_view::iterator end (text_view tv) noexcept
+    { return tv.end(); }
+
+    inline constexpr text_view::reverse_iterator rbegin (text_view tv) noexcept
+    { return tv.rbegin(); }
+    inline constexpr text_view::reverse_iterator rend (text_view tv) noexcept
+    { return tv.rend(); }
+
+    /** Forwards tv when it is entirely UTF-8 encoded; throws otherwise.
+
+        This function is constexpr in C++14 and later.
+
+        \throw std::invalid_argument when tv is not UTF-8 encoded. */
     inline BOOST_CXX14_CONSTEXPR text_view checked_encoding (text_view tv)
     {
         if (!utf8::encoded(tv.begin(), tv.end()))
@@ -196,6 +289,9 @@ namespace boost { namespace text {
         return tv;
     }
 
+    /** A text_view, repeated count() times.  This is useful for representing
+        a single char (e.g. for whitespace padding) or sequence of chars,
+        repeated many times, without allocating storage. */
     struct repeated_text_view
     {
         using iterator = detail::const_repeated_chars_iterator;
@@ -203,15 +299,31 @@ namespace boost { namespace text {
         using reverse_iterator = detail::const_reverse_repeated_chars_iterator;
         using const_reverse_iterator = detail::const_reverse_repeated_chars_iterator;
 
+        /** Default ctor.
+
+            This function is constexpr.
+
+            \post view() == text_view() && count() == 0 */
         constexpr repeated_text_view () noexcept : count_ (0) {}
 
+        /** Constructs a repeated_text_view from a text_view and a count.
+
+            This function is constexpr in C++14 and later.
+
+            \post view() == tv && count() == count */
         BOOST_CXX14_CONSTEXPR repeated_text_view (text_view tv, std::ptrdiff_t count) noexcept :
             view_ (tv),
             count_ (count)
-        { assert(0 <= tv.size()); }
+        {
+            assert(0 <= tv.size());
+            assert(0 <= count);
+        }
 
+        /** Returns the repeated view. */
         constexpr text_view view () const noexcept
         { return view_; }
+
+        /** Returns the number of times the view is repeated. */
         constexpr std::ptrdiff_t count () const noexcept
         { return count_; }
 
@@ -222,6 +334,11 @@ namespace boost { namespace text {
         { return count_ * view_.size(); }
 
 
+        /** Lexicographical compare.  Returns a value < 0 when *this is
+            lexicographically less than rhs, 0 if *this == rhs, and a value >
+            0 if *this is lexicographically greater than rhs.
+
+            This function is constexpr in C++14 and later. */
         BOOST_CXX14_CONSTEXPR int compare (repeated_text_view rhs) const noexcept
         {
             if (view_ == rhs.view_) {
@@ -264,25 +381,9 @@ namespace boost { namespace text {
             }
         }
 
-        friend BOOST_CXX14_CONSTEXPR bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
-        { return lhs.compare(rhs) == 0; }
+        /** Swaps *this with rhs.
 
-        friend BOOST_CXX14_CONSTEXPR bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
-        { return lhs.compare(rhs) != 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
-        { return lhs.compare(rhs) < 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
-        { return lhs.compare(rhs) <= 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
-        { return lhs.compare(rhs) > 0; }
-
-        friend BOOST_CXX14_CONSTEXPR bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
-        { return lhs.compare(rhs) >= 0; }
-
-
+            This function is constexpr in C++14 and later. */
         BOOST_CXX14_CONSTEXPR void swap (repeated_text_view & rhs) noexcept
         {
             {
@@ -308,17 +409,7 @@ namespace boost { namespace text {
         constexpr const_reverse_iterator rend () const noexcept
         { return const_reverse_iterator(begin()); }
 
-        friend constexpr iterator begin (repeated_text_view rtv) noexcept
-        { return rtv.begin(); }
-        friend constexpr iterator end (repeated_text_view rtv) noexcept
-        { return rtv.end(); }
-
-        friend constexpr reverse_iterator rbegin (repeated_text_view rtv) noexcept
-        { return rtv.rbegin(); }
-        friend constexpr reverse_iterator rend (repeated_text_view rtv) noexcept
-        { return rtv.rend(); }
-
-
+        /** Stream inserter; performs formatted output. */
         friend std::ostream & operator<< (std::ostream & os, repeated_text_view rtv)
         {
             if (os.good()) {
@@ -339,8 +430,50 @@ namespace boost { namespace text {
         std::ptrdiff_t count_;
     };
 
+    /** Creates a repeated_text_view from a text_view and a count.
+
+        This function is constexpr in C++14 and later.
+
+        \post count >= 0 */
     inline BOOST_CXX14_CONSTEXPR repeated_text_view repeat (text_view tv, std::ptrdiff_t count)
-    { return repeated_text_view(tv, count); }
+    {
+        assert(0 <= count);
+        return repeated_text_view(tv, count);
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator== (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    { return lhs.compare(rhs) == 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator!= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    { return lhs.compare(rhs) != 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator< (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    { return lhs.compare(rhs) < 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator<= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    { return lhs.compare(rhs) <= 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator> (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    { return lhs.compare(rhs) > 0; }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_CXX14_CONSTEXPR bool operator>= (repeated_text_view lhs, repeated_text_view rhs) noexcept
+    { return lhs.compare(rhs) >= 0; }
+
+    inline constexpr repeated_text_view::iterator begin (repeated_text_view rtv) noexcept
+    { return rtv.begin(); }
+    inline constexpr repeated_text_view::iterator end (repeated_text_view rtv) noexcept
+    { return rtv.end(); }
+
+    inline constexpr repeated_text_view::reverse_iterator rbegin (repeated_text_view rtv) noexcept
+    { return rtv.rbegin(); }
+    inline constexpr repeated_text_view::reverse_iterator rend (repeated_text_view rtv) noexcept
+    { return rtv.rend(); }
 
 } }
 
