@@ -30,7 +30,7 @@ namespace boost { namespace text {
             size_ (0)
         {}
 
-        /** Construct a text_view from a null-terminated C string.  The UTF-8
+        /** Constructs a text_view from a null-terminated C string.  The UTF-8
             encoding is checked only at the beginning and end of the string,
             to prevent slicing of code points.  To fully check the encoding,
             use checked_encoding().
@@ -51,7 +51,7 @@ namespace boost { namespace text {
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
-        /** Construct a text_view from an array of char.  The UTF-8 encoding
+        /** Constructs a text_view from an array of char.  The UTF-8 encoding
             is checked only at the beginning and end of the string, to prevent
             slicing of code points.  To fully check the encoding, use
             checked_encoding().
@@ -72,8 +72,8 @@ namespace boost { namespace text {
                 throw std::invalid_argument("The end of the given string is not valid UTF-8.");
         }
 
-        /** Construct a text_view from a null-terminated C string, without any
-            check of UTF-8 encoding.
+        /** Constructs a text_view from a null-terminated C string, without
+            any check of UTF-8 encoding.
 
             This function is constexpr in C++14 and later.
 
@@ -84,7 +84,7 @@ namespace boost { namespace text {
             size_ (detail::strlen(c_str))
         { assert(detail::strlen(c_str) <= max_size()); }
 
-        /** Construct a text_view from an array of char, without any check of
+        /** Constructs a text_view from an array of char, without any check of
             UTF-8 encoding.
 
             This function is constexpr in C++14 and later.
@@ -96,7 +96,7 @@ namespace boost { namespace text {
             size_ (len)
         { assert(0 <= len); }
 
-        /** Construct a text_view from a text.
+        /** Constructs a text_view from a text.
 
             \post data() == t.begin() && size() == t.size() */
         constexpr text_view (text const & t) noexcept;
@@ -139,10 +139,10 @@ namespace boost { namespace text {
             return data_[i];
         }
 
-        /** Returns a substring of *this, taken from the half-open range of
-            chars at offsets [lo, hi).  If either of lo or hi is a negative
-            value x, x is taken to be an offset from the end, and so x +
-            size() is used instead.
+        /** Returns a substring of *this, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.
 
             This function is constexpr in C++14 and later.
 
@@ -232,9 +232,12 @@ namespace boost { namespace text {
 
     namespace literals {
 
-        /** Creates text_views from literals.
+        /** Creates a text_view from a char string literal.
 
-            This function is constexpr in C++14 and later. */
+            This function is constexpr in C++14 and later.
+
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8.  */
         inline BOOST_CXX14_CONSTEXPR text_view operator"" _tv (char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);

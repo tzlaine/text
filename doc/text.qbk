@@ -83,6 +83,10 @@
 [include intro.qbk]
 /]
 
+[/ TODO: include manual.qbk /]
+
+[include concepts.qbk]
+
 [xinclude text_reference.xml]
 
 [template named_index[type title]

@@ -118,8 +118,6 @@ namespace boost { namespace text { namespace detail {
                 ++l_it;
                 ++r_it;
             }
-            // TODO: if constexpr (!constexpr)
-            // retval = memcmp(l_first, r_first, size);
         }
 
         if (retval == 0) {
