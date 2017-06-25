@@ -309,7 +309,7 @@ namespace boost { namespace text {
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
         template <typename Iter>
-        auto insert (int at, Iter first, Iter last);
+        text & insert (int at, Iter first, Iter last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -322,7 +322,7 @@ namespace boost { namespace text {
             is not checked.  To check the inserted sequence's encoding, use a
             converting iterator. */
         template <typename Iter>
-        auto insert (iterator at, Iter first, Iter last);
+        text & insert (iterator at, Iter first, Iter last);
 
 #else
 
