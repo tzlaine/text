@@ -583,6 +583,16 @@ TEST(text, test_misc)
         EXPECT_EQ(t[t.size()], '\0');
     }
 
+    // Unicode 9, 3.9/D90
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+
+    {
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        text::text t(first, last);
+        EXPECT_THROW(t.resize(t.size() - 1, '\0'), std::invalid_argument);
+    }
+
     {
         text::text t("some text");
         EXPECT_EQ(t[t.size()], '\0');

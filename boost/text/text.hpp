@@ -495,7 +495,9 @@ namespace boost { namespace text {
             size(), and appends new_size - size() repetitions of c it size() <
             new_size.
 
-           \post size() == new_size */
+            \throw std::invalid_argument if truncating to new_size would break
+            UTF-8 encoding.
+            \post size() == new_size */
         void resize (int new_size, char c)
         {
             assert(0 <= new_size);
@@ -513,9 +515,9 @@ namespace boost { namespace text {
                 std::unique_ptr<char []> new_data = get_new_data(delta - available);
                 std::copy(begin(), begin() + prev_size, new_data.get());
                 new_data.swap(data_);
-            } else {
-                if (!utf8::ends_encoded(cbegin(), cbegin() + new_size))
-                    throw std::invalid_argument("Resizing to the given size breaks UTF-8 encoding.");
+            } else if (delta < 0 &&
+                       !utf8::ends_encoded(cbegin(), cbegin() + new_size)) {
+                throw std::invalid_argument("Resizing to the given size breaks UTF-8 encoding.");
             }
 
             size_ = new_size;
