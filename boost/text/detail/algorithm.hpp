@@ -9,8 +9,12 @@
 
 namespace boost { namespace text { namespace detail {
 
-    template <class ...>
-    using void_t = void;
+    template <typename ...>
+    struct void_
+    { using type = void; };
+
+    template <typename ...T>
+    using void_t = typename void_<T...>::type;
 
     template <typename T>
     struct fixup_ptr
@@ -52,14 +56,16 @@ namespace boost { namespace text { namespace detail {
         using type = Template<Args...>;
     };
 
-    template <template<class ...> class Template, class ...Args>
+    template <template<typename ...> class Template, typename ...Args>
     using is_detected = typename detector<nonesuch, void, Template, Args...>::value_t;
 
-    template <template<class ...> class Template, class ...Args>
+    template <template<typename ...> class Template, typename ...Args>
     using detected_t = typename detector<nonesuch, void, Template, Args...>::type;
 
-    template <typename Default, template<class ...> class Template, class ...Args>
+    template <typename Default, template<typename ...> class Template, typename ...Args>
     using detected_or = typename detector<Default, void, Template, Args...>::type;
+
+
 
     template <typename T>
     using has_member_begin = decltype(&*std::declval<T>().begin());
@@ -82,9 +88,13 @@ namespace boost { namespace text { namespace detail {
         >::type
     >::type;
 
+    nonesuch callable_iterator_category (...);
+
     template <typename T>
-    using iterator_category_ =
-        typename std::iterator_traits<typename T::iterator>::iterator_category;
+    typename std::iterator_traits<typename T::iterator>::iterator_category callable_iterator_category (T &&);
+
+    template <typename T>
+    using iterator_category_ = decltype(callable_iterator_category(std::declval<T>()));
 
 
 
@@ -116,7 +126,7 @@ namespace boost { namespace text { namespace detail {
             char const *
         >::value &&
         std::is_same<
-            detected_t<iterator_category_, T>,
+            iterator_category_<T>,
             std::random_access_iterator_tag
         >::value &&
         !std::is_same<T, Exclude1>::value &&
