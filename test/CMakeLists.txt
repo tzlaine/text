@@ -29,8 +29,7 @@ add_test_executable(rope_view)
 add_test_executable(rope)
 add_test_executable(algorithm)
 
-add_executable(
-    compile_tests
+set(compile_sources
     compile_tests_main.cpp
     compile_include_text_view_1.cpp
     compile_include_text_view_2.cpp
@@ -49,6 +48,21 @@ add_executable(
     compile_detail_is_char_iter.cpp
     compile_detail_is_char_range.cpp
 )
+
+# Set to true to compile the headers with BOOST_TEXT_DOXYGEN defiend
+if (false)
+    set(compile_sources
+      ${compile_sources}
+      compile_include_text_view_doxygen.cpp
+      compile_include_text_doxygen.cpp
+      compile_include_rope_view_doxygen.cpp
+      compile_include_rope_doxygen.cpp
+      compile_include_algorithm_doxygen.cpp
+      compile_include_utf8_doxygen.cpp
+    )
+endif ()
+
+add_executable(compile_tests ${compile_sources})
 target_compile_options(compile_tests PRIVATE -Wall)
 target_link_libraries(compile_tests text)
 set_property(TARGET compile_tests PROPERTY CXX_STANDARD ${CXX_STD})
