@@ -17,19 +17,37 @@ namespace boost { namespace text { namespace utf8 {
         constexpr bool in (unsigned char lo, unsigned char c, unsigned char hi) noexcept
         { return lo <= c && c <= hi; }
 
+        /** A tag type used to instantiate some of the converting iterators.  The
+            use of this type indicates that the iterator should throw upon
+            detecting an invalid Unicode encoding. */
+        struct throw_on_encoding_error {};
+
     }
 
+    /** A tag type passed to some constructors to indicate that no UTF-8
+        encoding checks should be performed. */
     struct unchecked_t {};
-    struct throw_on_encoding_error {};
 
     namespace {
+
+        /** A value of unchecked_t that you can use when needed. */
         constexpr unchecked_t unchecked{};
+
     }
 
-    // Unicode 9, 3.2/C10
+    /** The replacement character used to mark invalid portions of a Unicode
+        sequence when converting between two encodings.
+
+        \see Unicode 9, 3.2/C10 */
     constexpr uint32_t replacement_character () noexcept
     { return 0xfffd; }
 
+    /** Given the first (and possibly only) code unit of a UTF-8 code point,
+        returns the number of bytes occupied by that code point (in the range
+        [1, 4]).  Returns a value < 0 if first is not a valid initial UTF-8
+        code unit.
+
+        This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int code_point_bytes (unsigned char first) noexcept
     {
         using detail::in;
@@ -44,6 +62,9 @@ namespace boost { namespace text { namespace utf8 {
         return -1;
     }
 
+    /** Returns true if c is a UTF-8 continuation code unit, and false
+        otherwise.  If optional parameters lo and hi are given, the code unit
+        must also lie in the range [lo, hi]. */
     constexpr bool continuation (
         unsigned char c,
         unsigned char lo = 0x80,
@@ -153,6 +174,10 @@ namespace boost { namespace text { namespace utf8 {
 
     }
 
+    /** Returns the first code unit in [first, last) that is not properly
+        UTF-8 encoded, or last if no such code unit is found.
+
+        This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR char const *
     find_invalid_encoding (char const * first, char const * last) noexcept
     {
@@ -170,10 +195,18 @@ namespace boost { namespace text { namespace utf8 {
         return last;
     }
 
+    /** Returns true if [first, last) is properly UTF-8 encoded, or false
+        otherwise.
+
+        This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR
     bool encoded (char const * first, char const * last) noexcept
     { return find_invalid_encoding(first, last) == last; }
 
+    /** Returns true if [first, last) is empty or the initial code units in
+        [first, last) form a valid Unicode code point, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR
     bool starts_encoded (char const * first, char const * last) noexcept
     {
@@ -187,6 +220,10 @@ namespace boost { namespace text { namespace utf8 {
         return detail::end_of_invalid_utf8(first) == nullptr;
     }
 
+    /** Returns true if [first, last) is empty or the final code units in
+        [first, last) form a valid Unicode code point, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR
     bool ends_encoded (char const * first, char const * last) noexcept
     {
@@ -200,6 +237,8 @@ namespace boost { namespace text { namespace utf8 {
         return starts_encoded(it, last);
     }
 
+    /** Returns true if [first, last) is empty or the initial code units in
+        [first, last) form a valid Unicode code point, or false otherwise. */
     template <typename Iter>
     bool starts_encoded (Iter first, Iter last) noexcept
     {
@@ -220,6 +259,8 @@ namespace boost { namespace text { namespace utf8 {
         return detail::end_of_invalid_utf8(buf) == nullptr;
     }
 
+    /** Returns true if [first, last) is empty or the final code units in
+        [first, last) form a valid Unicode code point, or false otherwise. */
     template <typename Iter>
     bool ends_encoded (Iter first, Iter last) noexcept
     {
@@ -233,6 +274,9 @@ namespace boost { namespace text { namespace utf8 {
         return starts_encoded(it, last);
     }
 
+    /** Returns true if c is a Unicode surrogate, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate (uint32_t c) noexcept
     {
         uint32_t const high_surrogate_min = 0xd800;
@@ -240,7 +284,12 @@ namespace boost { namespace text { namespace utf8 {
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
-    // Unicode 9, 3.4/D14
+    /** Returns true if c is a Unicode reserved noncharacter, or false
+        otherwise.
+
+        This function is constexpr in C++14 and later.
+
+        \see Unicode 9, 3.4/D14 */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool reserved_noncharacter (uint32_t c) noexcept
     {
         bool const byte01_reserved =
@@ -252,11 +301,363 @@ namespace boost { namespace text { namespace utf8 {
             (0xfdd0 <= c && c <= 0xfdef);
     }
 
-    // Unicode 9, 3.9/D90
+    /** Returns true if c is a valid Unicode code point, or false otherwise.
+
+        This function is constexpr in C++14 and later.
+
+        \see Unicode 9, 3.9/D90 */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point (uint32_t c) noexcept
     { return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c); }
 
 
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** A UTF-32 to UTF-8 converting iterator.  This iterator outputs a
+        Unicode replacement character (0xFFFD) when coverting invalid UTF-32.
+
+        \pre Iter must be a bidirectional iterator with a 4-byte integral
+        value_type. */
+    template <typename Iter>
+    struct from_utf32_iterator
+    {
+        using value_type = char;
+        using difference_type = int;
+        using pointer = char *;
+        using reference = char;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr from_utf32_iterator () noexcept;
+        explicit constexpr from_utf32_iterator (Iter it) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator & operator++ () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator operator++ (int) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator & operator-- () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator operator-- (int) noexcept;
+    };
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (from_utf32_iterator<Iter> lhs, from_utf32_iterator<Iter> rhs) noexcept;
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf32_iterator<Iter> lhs, from_utf32_iterator<Iter> rhs) noexcept;
+
+    /** A UTF-32 to UTF-8 converting iterator.  This iterator throws an
+        exception when it reads invalid UTF-32.
+
+        \pre Iter must be a bidirectional iterator with a 4-byte integral
+        value_type. */
+    template <typename Iter>
+    struct from_utf32_iterator_throwing
+    {
+        using value_type = char;
+        using difference_type = int;
+        using pointer = char *;
+        using reference = char;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr from_utf32_iterator_throwing () noexcept;
+        explicit constexpr from_utf32_iterator_throwing (Iter it) noexcept;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-32 code point is
+            read. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-32 code point is
+            read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_throwing & operator++ ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-32 code point is
+            read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_throwing operator++ (int);
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-32 code point is
+            read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_throwing & operator-- ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-32 code point is
+            read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator_throwing operator-- (int);
+    };
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (from_utf32_iterator_throwing<Iter> lhs, from_utf32_iterator_throwing<Iter> rhs) noexcept;
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf32_iterator_throwing<Iter> lhs, from_utf32_iterator_throwing<Iter> rhs) noexcept;
+
+    /** A UTF-8 to UTF-32 converting iterator.  This iterator outputs a
+        Unicode replacement character (0xFFFD) when coverting invalid
+        UTF-8. */
+    struct to_utf32_iterator
+    {
+        using value_type = uint32_t;
+        using difference_type = int;
+        using pointer = uint32_t *;
+        using reference = uint32_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr to_utf32_iterator () noexcept;
+        explicit constexpr to_utf32_iterator (char const * it) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator & operator++ () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator operator++ (int) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator & operator-- () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator operator-- (int) noexcept;
+    };
+
+    inline constexpr bool operator== (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept;
+    inline constexpr bool operator!= (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept;
+
+    /** A UTF-8 to UTF-32 converting iterator.  This iterator throws an
+        exception when it reads invalid UTF-8. */
+    struct to_utf32_iterator_throwing
+    {
+        using value_type = uint32_t;
+        using difference_type = int;
+        using pointer = uint32_t *;
+        using reference = uint32_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr to_utf32_iterator_throwing () noexcept;
+        explicit constexpr to_utf32_iterator_throwing (char const * it) noexcept;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_throwing & operator++ ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_throwing operator++ (int);
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_throwing & operator-- ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_throwing operator-- (int);
+    };
+
+    inline constexpr bool operator== (to_utf32_iterator_throwing lhs, to_utf32_iterator_throwing rhs) noexcept;
+    inline constexpr bool operator!= (to_utf32_iterator_throwing lhs, to_utf32_iterator_throwing rhs) noexcept;
+
+    /** A UTF-16 to UTF-8 converting iterator.  This iterator outputs a
+        Unicode replacement character (0xFFFD) when coverting invalid UTF-16.
+
+        \pre Iter must be a bidirectional iterator with a 2-byte integral
+        value_type. */
+    template <typename Iter>
+    struct from_utf16_iterator
+    {
+        using value_type = char;
+        using difference_type = int;
+        using pointer = char *;
+        using reference = char;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr from_utf16_iterator () noexcept;
+        explicit constexpr from_utf16_iterator (Iter it) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator & operator++ () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator operator++ (int) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator & operator-- () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator operator-- (int) noexcept;
+    };
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (from_utf16_iterator<Iter> lhs, from_utf16_iterator<Iter> rhs) noexcept;
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf16_iterator<Iter> lhs, from_utf16_iterator<Iter> rhs) noexcept;
+
+    /** A UTF-16 to UTF-8 converting iterator.  This iterator throws an
+        exception when it reads invalid UTF-16.
+
+        \pre Iter must be a bidirectional iterator with a 2-byte integral
+        value_type. */
+    template <typename Iter>
+    struct from_utf16_iterator_throwing
+    {
+        using value_type = char;
+        using difference_type = int;
+        using pointer = char *;
+        using reference = char;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr from_utf16_iterator_throwing () noexcept;
+        explicit constexpr from_utf16_iterator_throwing (Iter it) noexcept;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-16 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-16 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_throwing & operator++ ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-16 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_throwing operator++ (int);
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-16 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_throwing & operator-- ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-16 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator_throwing operator-- (int);
+    };
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (from_utf16_iterator_throwing<Iter> lhs, from_utf16_iterator_throwing<Iter> rhs) noexcept;
+
+    /** This function is constexpr in C++14 and later. */
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf16_iterator_throwing<Iter> lhs, from_utf16_iterator_throwing<Iter> rhs) noexcept;
+
+    /** A UTF-8 to UTF-16 converting iterator.  This iterator outputs a
+        Unicode replacement character (0xFFFD) when coverting invalid
+        UTF-8. */
+    struct to_utf16_iterator
+    {
+        using value_type = uint16_t;
+        using difference_type = int;
+        using pointer = uint16_t *;
+        using reference = uint16_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr to_utf16_iterator () noexcept;
+        explicit constexpr to_utf16_iterator (char const * it) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator & operator++ () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator operator++ (int) noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator & operator-- () noexcept;
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator operator-- (int) noexcept;
+    };
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept;
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept;
+
+    /** A UTF-8 to UTF-16 converting iterator.  This iterator throws an
+        exception when it reads invalid UTF-8. */
+    struct to_utf16_iterator_throwing
+    {
+        using value_type = uint16_t;
+        using difference_type = int;
+        using pointer = uint16_t *;
+        using reference = uint16_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+
+        constexpr to_utf16_iterator_throwing () noexcept;
+        explicit constexpr to_utf16_iterator_throwing (char const * it) noexcept;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const;
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_throwing & operator++ ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_throwing operator++ (int);
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_throwing & operator-- ();
+
+        /** This function is constexpr in C++14 and later.
+
+            \throw std::logic_error if an invalid UTF-8 sequence is read. */
+        BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator_throwing operator-- (int);
+    };
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator_throwing lhs, to_utf16_iterator_throwing rhs) noexcept;
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator_throwing lhs, to_utf16_iterator_throwing rhs) noexcept;
+
+#else
 
     // from_utf32_iterator
 
@@ -269,7 +670,7 @@ namespace boost { namespace text { namespace utf8 {
         using reference = char;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
+        static bool const throw_on_error = std::is_same<Throw, detail::throw_on_encoding_error>::value;
 
         static_assert(
             std::is_same<
@@ -416,7 +817,7 @@ namespace boost { namespace text { namespace utf8 {
     using from_utf32_iterator = from_utf32_iterator_t<Iter>;
 
     template <typename Iter>
-    using from_utf32_iterator_throwing = from_utf32_iterator_t<Iter, throw_on_encoding_error>;
+    using from_utf32_iterator_throwing = from_utf32_iterator_t<Iter, detail::throw_on_encoding_error>;
 
 
 
@@ -431,7 +832,7 @@ namespace boost { namespace text { namespace utf8 {
         using reference = uint32_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
+        static bool const throw_on_error = std::is_same<Throw, detail::throw_on_encoding_error>::value;
 
         constexpr to_utf32_iterator_t () noexcept :
             it_ (),
@@ -661,8 +1062,7 @@ namespace boost { namespace text { namespace utf8 {
 
     using to_utf32_iterator = to_utf32_iterator_t<>;
 
-    template <typename Iter>
-    using to_utf32_iterator_throwing = to_utf32_iterator_t<throw_on_encoding_error>;
+    using to_utf32_iterator_throwing = to_utf32_iterator_t<detail::throw_on_encoding_error>;
 
 
 
@@ -677,7 +1077,7 @@ namespace boost { namespace text { namespace utf8 {
         using reference = char;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
+        static bool const throw_on_error = std::is_same<Throw, detail::throw_on_encoding_error>::value;
 
         static_assert(
             std::is_same<
@@ -887,7 +1287,7 @@ namespace boost { namespace text { namespace utf8 {
     using from_utf16_iterator = from_utf16_iterator_t<Iter>;
 
     template <typename Iter>
-    using from_utf16_iterator_throwing = from_utf16_iterator_t<Iter, throw_on_encoding_error>;
+    using from_utf16_iterator_throwing = from_utf16_iterator_t<Iter, detail::throw_on_encoding_error>;
 
 
 
@@ -902,7 +1302,7 @@ namespace boost { namespace text { namespace utf8 {
         using reference = uint16_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        static bool const throw_on_error = std::is_same<Throw, throw_on_encoding_error>::value;
+        static bool const throw_on_error = std::is_same<Throw, detail::throw_on_encoding_error>::value;
 
         constexpr to_utf16_iterator_t () noexcept :
             it_ (),
@@ -1168,8 +1568,9 @@ namespace boost { namespace text { namespace utf8 {
 
     using to_utf16_iterator = to_utf16_iterator_t<>;
 
-    template <typename Iter>
-    using to_utf16_iterator_throwing = to_utf16_iterator_t<throw_on_encoding_error>;
+    using to_utf16_iterator_throwing = to_utf16_iterator_t<detail::throw_on_encoding_error>;
+
+#endif
 
 } } }
 
