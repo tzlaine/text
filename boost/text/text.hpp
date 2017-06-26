@@ -397,7 +397,7 @@ namespace boost { namespace text {
             old_substr.end()) */
         inline text & replace (text_view old_substr, repeated_text_view new_substr);
 
-#if BOOST_TEXT_DOXYGEN
+#ifdef BOOST_TEXT_DOXYGEN
 
         /** Replaces the portion of *this delimited by old_substr with the
             char range r.
