@@ -24,6 +24,9 @@ namespace boost { namespace text {
 
     // TODO: text needs SBO.
 
+    // TODO: Audit all the comments on all functions not marked noexcept; each
+    // should have a \throw section.
+
     /** A mutable contiguous null-terminated sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not.  Strongly exception safe. */
@@ -221,13 +224,17 @@ namespace boost { namespace text {
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi */
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
         text_view operator() (int lo, int hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
 
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
         text_view operator() (int cut) const;
 
         /** Returns the maximum size a text can have. */

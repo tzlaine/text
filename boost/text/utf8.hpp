@@ -315,7 +315,7 @@ namespace boost { namespace text { namespace utf8 {
     /** A UTF-32 to UTF-8 converting iterator.  This iterator outputs a
         Unicode replacement character (0xFFFD) when coverting invalid UTF-32.
 
-        \pre Iter must be a bidirectional iterator with a 4-byte integral
+        Iter must be a bidirectional iterator with a 4-byte integral
         value_type. */
     template <typename Iter>
     struct from_utf32_iterator
@@ -356,7 +356,7 @@ namespace boost { namespace text { namespace utf8 {
     /** A UTF-32 to UTF-8 converting iterator.  This iterator throws an
         exception when it reads invalid UTF-32.
 
-        \pre Iter must be a bidirectional iterator with a 4-byte integral
+        Iter must be a bidirectional iterator with a 4-byte integral
         value_type. */
     template <typename Iter>
     struct from_utf32_iterator_throwing
@@ -487,7 +487,7 @@ namespace boost { namespace text { namespace utf8 {
     /** A UTF-16 to UTF-8 converting iterator.  This iterator outputs a
         Unicode replacement character (0xFFFD) when coverting invalid UTF-16.
 
-        \pre Iter must be a bidirectional iterator with a 2-byte integral
+        Iter must be a bidirectional iterator with a 2-byte integral
         value_type. */
     template <typename Iter>
     struct from_utf16_iterator
@@ -528,7 +528,7 @@ namespace boost { namespace text { namespace utf8 {
     /** A UTF-16 to UTF-8 converting iterator.  This iterator throws an
         exception when it reads invalid UTF-16.
 
-        \pre Iter must be a bidirectional iterator with a 2-byte integral
+        Iter must be a bidirectional iterator with a 2-byte integral
         value_type. */
     template <typename Iter>
     struct from_utf16_iterator_throwing

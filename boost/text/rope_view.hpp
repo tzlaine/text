@@ -31,6 +31,10 @@ namespace boost { namespace text {
     }
 
     // TODO: Consider adding an implicit conversion ctor from text_view.
+
+    /** A reference to a substring of a rope.  The substring is assumed to be
+        UTF-8 encoded, though it is possible to construct a rope_view which is
+        not. */
     struct rope_view
     {
         using iterator = detail::const_rope_iterator;
@@ -40,10 +44,52 @@ namespace boost { namespace text {
 
         using size_type = std::ptrdiff_t;
 
+        /** Default ctor.
+
+            \post size() == 0 && begin() == end() */
         rope_view () noexcept : r_ (nullptr), lo_ (0), hi_ (0) {}
 
+        /** Constructs a rope_view covering the entire given rope.  The UTF-8
+            encoding is checked only at the beginning and end of the sequence,
+            to prevent slicing of code points.  To fully check the encoding,
+            use checked_encoding().
+
+            \throw std::invalid_argument if the ends of the string are not valid UTF-8.
+            \post size() == r.size() && begin() == r.begin() && end() == r.end() */
         rope_view (rope const & r) noexcept;
+
+        /** Constructs a substring of *this, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.  The UTF-8 encoding is checked only at the beginning and
+            end of the sequence, to prevent slicing of code points.  To fully
+            check the encoding, use checked_encoding().
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= r.size()
+            \pre 0 <= hi && lhi <= r.size()
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8.
+            \post size() == r.size() && begin() == r.begin() + lo && end() ==
+            r.begin() + hi */
         rope_view (rope const & r, int lo, int hi);
+
+        /** Constructs a substring of *this, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.  The UTF-8 encoding is not checked.
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= r.size()
+            \pre 0 <= hi && lhi <= r.size()
+            \pre lo <= hi
+            \post size() == r.size() && begin() == r.begin() + lo && end() ==
+            r.begin() + hi */
         rope_view (rope const & r, int lo, int hi, utf8::unchecked_t) noexcept;
 
         rope_view (rope_view const & rhs) noexcept :
@@ -70,8 +116,24 @@ namespace boost { namespace text {
         size_type size () const noexcept
         { return hi_ - lo_; }
 
+        /** Returns the i-th char of *this (not a reference).
+
+            \pre i < size() */
         char operator[] (int i) const noexcept;
 
+        /** Returns a substring of *this, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= size()
+            \pre 0 <= hi && lhi <= size()
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
         rope_view operator() (int lo, int hi) const
         {
             if (lo < 0)
@@ -84,6 +146,12 @@ namespace boost { namespace text {
             return rope_view(r_, lo_ + lo, lo_ + hi);
         }
 
+        /** Returns a substring of *this, taken from the first cut chars when
+            cut => 0, or the last -cut chars when cut < 0.
+
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
         rope_view operator() (int cut) const
         {
             int lo = 0;
@@ -97,38 +165,33 @@ namespace boost { namespace text {
             return rope_view(r_, lo_ + lo, lo_ + hi);
         }
 
+        /** Returns the maximum size a text_view can have. */
         size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
+        /** Visits each segment s of the underlying rope and calls f(s).  Each
+            segment is a value whose type models Char_range.  Depending of the
+            operation performed on each segment, this may be more efficient
+            than iterating over [begin(), end()).
+
+            \pre Fn is an Invocable accepting a single Char_range argument. */
         template <typename Fn>
         void foreach_segment (Fn && f) const;
 
+        /** Lexicographical compare.  Returns a value < 0 when *this is
+            lexicographically less than rhs, 0 if *this == rhs, and a value >
+            0 if *this is lexicographically greater than rhs. */
         int compare (rope_view rhs) const noexcept;
 
-        friend bool operator== (rope_view lhs, rope_view rhs) noexcept
-        { return lhs.compare(rhs) == 0; }
-
-        friend bool operator!= (rope_view lhs, rope_view rhs) noexcept
-        { return lhs.compare(rhs) != 0; }
-
-        friend bool operator< (rope_view lhs, rope_view rhs) noexcept
-        { return lhs.compare(rhs) < 0; }
-
-        friend bool operator<= (rope_view lhs, rope_view rhs) noexcept
-        { return lhs.compare(rhs) <= 0; }
-
-        friend bool operator> (rope_view lhs, rope_view rhs) noexcept
-        { return lhs.compare(rhs) > 0; }
-
-        friend bool operator>= (rope_view lhs, rope_view rhs) noexcept
-        { return lhs.compare(rhs) >= 0; }
-
+        /** Swaps *this with rhs. */
         void swap (rope_view & rhs) noexcept
         {
             std::swap(r_, rhs.r_);
             std::swap(lo_, rhs.lo_);
             std::swap(hi_, rhs.hi_);
         }
+
+#ifndef BOOST_TEXT_DOXYGEN
 
     private:
         rope_view (rope const * r, int lo, int hi) :
@@ -140,8 +203,29 @@ namespace boost { namespace text {
         int hi_;
 
         friend struct rope;
+#endif
+
     };
 
+    inline bool operator== (rope_view lhs, rope_view rhs) noexcept
+    { return lhs.compare(rhs) == 0; }
+
+    inline bool operator!= (rope_view lhs, rope_view rhs) noexcept
+    { return lhs.compare(rhs) != 0; }
+
+    inline bool operator< (rope_view lhs, rope_view rhs) noexcept
+    { return lhs.compare(rhs) < 0; }
+
+    inline bool operator<= (rope_view lhs, rope_view rhs) noexcept
+    { return lhs.compare(rhs) <= 0; }
+
+    inline bool operator> (rope_view lhs, rope_view rhs) noexcept
+    { return lhs.compare(rhs) > 0; }
+
+    inline bool operator>= (rope_view lhs, rope_view rhs) noexcept
+    { return lhs.compare(rhs) >= 0; }
+
+    /** Creates a new rope containing the concatenation of lhs and rhs. */
     inline rope operator+ (rope_view lhs, rope_view rhs);
 
 } }
@@ -361,6 +445,7 @@ namespace boost { namespace text {
     { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) <= 0; }
 
 
+    /** Stream inserter; performs formatted output. */
     inline std::ostream & operator<< (std::ostream & os, rope_view rv)
     {
         if (os.good() && !rv.empty()) {
