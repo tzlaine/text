@@ -14,53 +14,8 @@ namespace boost { namespace text {
     struct rope;
 
     namespace detail {
-
         struct const_rope_iterator;
         struct const_reverse_rope_iterator;
-
-        template <
-            typename T,
-            typename R1,
-            bool R1IsCharRange = is_char_range<R1, text, text_view>{}
-        >
-        struct rope_rng_ret {};
-
-        template <typename T, typename R1>
-        struct rope_rng_ret<T, R1, true>
-        { using type = T; };
-
-        template <typename T, typename R1>
-        using rope_rng_ret_t = typename rope_rng_ret<T, R1>::type;
-
-        struct segment_inserter
-        {
-            template <typename Segment>
-            void operator() (Segment const & s) const
-            {
-                if (os_.good())
-                    os_ << s;
-            }
-
-            std::ostream & os_;
-        };
-
-        template <typename Segment>
-        bool encoded (Segment const & segment)
-        { return utf8::encoded(segment.begin(), segment.end()); }
-
-        inline bool encoded (repeated_text_view rtv)
-        { return utf8::encoded(rtv.view().begin(), rtv.view().end()); }
-
-        struct segment_encoding_checker
-        {
-            template <typename Segment>
-            void operator() (Segment const & s) const
-            {
-                if (!encoded(s))
-                    throw std::invalid_argument("Invalid UTF-8 encoding");
-            }
-        };
-
     }
 
     struct rope
