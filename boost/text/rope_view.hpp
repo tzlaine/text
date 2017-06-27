@@ -170,11 +170,13 @@ namespace boost { namespace text {
         { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying rope and calls f(s).  Each
-            segment is a value whose type models Char_range.  Depending of the
-            operation performed on each segment, this may be more efficient
-            than iterating over [begin(), end()).
+            segment is a value whose type models a Char_iterator
+            iterator-range.  Depending of the operation performed on each
+            segment, this may be more efficient than iterating over [begin(),
+            end()).
 
-            \pre Fn is an Invocable accepting a single Char_range argument. */
+            \pre Fn is an Invocable accepting a single argument whose begin
+            and end model Char_iterator. */
         template <typename Fn>
         void foreach_segment (Fn && f) const;
 

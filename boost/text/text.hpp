@@ -27,6 +27,9 @@ namespace boost { namespace text {
     // TODO: Audit all the comments on all functions not marked noexcept; each
     // should have a \throw section.
 
+    // TODO: Test that copy and assignment do not throw when encoding is
+    // broken.  (Same for rope.)
+
     /** A mutable contiguous null-terminated sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not.  Strongly exception safe. */
@@ -43,21 +46,16 @@ namespace boost { namespace text {
             valid, null-terminated empty string */
         text () noexcept : data_ (), size_ (0), cap_ (0) {}
 
-        /** Copy ctor.
-
-            \throw std::invalid_argument if the ends of t are not valid
-            UTF-8. */
-        text (text const & t) : data_ (), size_ (0), cap_ (0)
-        { insert(0, t); }
+        text (text const & t);
 
         text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
         { swap(rhs); }
 
         /** Constructs a text from a text_view. */
-        inline explicit text (text_view tv);
+        explicit text (text_view tv);
 
         /** Constructs a text from a repeated_text_view. */
-        inline explicit text (repeated_text_view tv);
+        explicit text (repeated_text_view tv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -99,21 +97,7 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Assigment.
-
-            \throw std::invalid_argument if the ends of t are not valid
-            UTF-8. */
-        text & operator= (text const & t)
-        {
-            if (t.size() <= size()) {
-                clear();
-                insert(0, t);
-            } else {
-                text tmp(t);
-                swap(tmp);
-            }
-            return *this;
-        }
+        text & operator= (text const & t);
 
         text & operator= (text && rhs) noexcept
         {
@@ -142,10 +126,10 @@ namespace boost { namespace text {
 #endif
 
         /** Assignment from a text_view. */
-        inline text & operator= (text_view tv);
+        text & operator= (text_view tv);
 
         /** Assignment from a repeated_text_view. */
-        inline text & operator= (repeated_text_view tv);
+        text & operator= (repeated_text_view tv);
 
         iterator begin () noexcept
         {
@@ -281,14 +265,14 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        inline text & insert (int at, text_view tv);
+        text & insert (int at, text_view tv);
 
         /** Inserts the sequence of char from rtv into *this starting at
             offset at.
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        inline text & insert (int at, repeated_text_view rtv);
+        text & insert (int at, repeated_text_view rtv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -298,9 +282,8 @@ namespace boost { namespace text {
             CharRange models the Char_range concept.
 
             \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding.
-            \throw std::invalid_argument if the ends of the range are not
-            valid UTF-8. */
+            UTF-8 encoding, or if the ends of the range are not valid
+            UTF-8. */
         template <typename CharRange>
         text & insert (int at, CharRange const & r);
 
@@ -370,7 +353,7 @@ namespace boost { namespace text {
 
             \pre !std::less(tv.begin(), begin()) && !std::less(end(),
             tv.end()) */
-        inline text & erase (text_view tv) noexcept;
+        text & erase (text_view tv) noexcept;
 
         /** Erases the portion of *this delimited by [first, last).
 
@@ -395,14 +378,14 @@ namespace boost { namespace text {
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        inline text & replace (text_view old_substr, text_view new_substr);
+        text & replace (text_view old_substr, text_view new_substr);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        inline text & replace (text_view old_substr, repeated_text_view new_substr);
+        text & replace (text_view old_substr, repeated_text_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -574,10 +557,10 @@ namespace boost { namespace text {
         }
 
         /** Appends tv to *this. */
-        inline text & operator+= (text_view tv);
+        text & operator+= (text_view tv);
 
         /** Appends rtv to *this. */
-        inline text & operator+= (repeated_text_view rtv);
+        text & operator+= (repeated_text_view rtv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -834,11 +817,26 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
+    inline text::text (text const & t) : data_ (), size_ (0), cap_ (0)
+    { insert(0, text_view(t.begin(), t.size(), utf8::unchecked)); }
+
     inline text::text (text_view tv) : data_ (), size_ (0), cap_ (0)
     { insert(0, tv); }
 
     inline text::text (repeated_text_view rtv) : data_ (), size_ (0), cap_ (0)
     { insert(0, rtv); }
+
+    inline text & text::operator= (text const & t)
+    {
+        if (t.size() <= size()) {
+            clear();
+            insert(0, text_view(t.begin(), t.size(), utf8::unchecked));
+        } else {
+            text tmp(t);
+            swap(tmp);
+        }
+        return *this;
+    }
 
     template <typename CharRange>
     auto text::operator= (CharRange const & r)

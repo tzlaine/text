@@ -18,6 +18,10 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
+    /** A mutable sequence of char with copy-on-write semantics.  The sequence
+        is assumed to be UTF-8 encoded, though it is possible to construct a
+        sequence which is not. A rope is non-contiguous and is not
+        null-terminated. */
     struct rope
     {
         using iterator = detail::const_rope_iterator;
@@ -27,14 +31,54 @@ namespace boost { namespace text {
 
         using size_type = std::ptrdiff_t;
 
+        /** Default ctor.
+
+            \post size() == 0 && begin() == end() */
         rope () noexcept : ptr_ (nullptr) {}
 
         rope (rope const & rhs) = default;
         rope (rope && rhs) noexcept = default;
 
+        /** Constructs a rope from a rope_view. */
         explicit rope (rope_view rv);
+
+        /** Constructs a rope from a text. */
         explicit rope (text const & t) : ptr_ (detail::make_node(t)) {}
+
+        /** Move-constructs a rope from a text. */
         explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
+
+        /** Constructs a rope from a text_view. */
+        explicit rope (text_view tv) : ptr_ (nullptr)
+        { insert(0, tv); }
+
+        /** Constructs a rope from a repeated_text_view. */
+        explicit rope (repeated_text_view rtv) : ptr_ (nullptr)
+        { insert(0, rtv); }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Constructs a rope from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the Char_range concept.
+
+            \throw std::invalid_argument if the ends of the range are not
+            valid UTF-8. */
+        template <typename CharRange>
+        explicit rope (CharRange const & r);
+
+        /** Constructs a rope from a sequence of char.
+
+            The sequence's UTF-8 encoding is not checked.  To check the
+            encoding, use a converting iterator.
+
+            This function only participates in overload resolution if Iter
+            models the Char_iterator concept. */
+        template <typename Iter>
+        rope (Iter first, Iter last);
+
+#else
 
         template <typename CharRange>
         explicit rope (
@@ -43,12 +87,6 @@ namespace boost { namespace text {
         ) : ptr_ ()
         { insert(0, r); }
 
-        explicit rope (text_view tv) : ptr_ (nullptr)
-        { insert(0, tv); }
-
-        explicit rope (repeated_text_view rtv) : ptr_ (nullptr)
-        { insert(0, rtv); }
-
         template <typename Iter>
         rope (
             Iter first, Iter last,
@@ -56,9 +94,12 @@ namespace boost { namespace text {
         ) : ptr_ ()
         { insert(0, first, last); }
 
+#endif
+
         rope & operator= (rope const & rhs) = default;
         rope & operator= (rope && rhs) noexcept = default;
 
+        /** Assignment from a text. */
         rope & operator= (text const & t)
         {
             rope temp(t);
@@ -66,8 +107,10 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Assignment from a rope_view. */
         rope & operator= (rope_view rv);
 
+        /** Move-assignment from a text. */
         rope & operator= (text && t)
         {
             rope temp(std::move(t));
@@ -75,11 +118,28 @@ namespace boost { namespace text {
             return *this;
         }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Assignment from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the Char_range concept.
+
+            \throw std::invalid_argument if the ends of the range are not
+            valid UTF-8. */
+        template <typename CharRange>
+        rope & operator= (CharRange const & r);
+
+#else
+
         template <typename CharRange>
         auto operator= (CharRange const & r)
             -> detail::rope_rng_ret_t<rope &, CharRange>
         { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
 
+#endif
+
+        /** Assignment from a text_view. */
         rope & operator= (text_view tv)
         {
             rope temp(tv);
@@ -87,6 +147,7 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Assignment from a repeated_text_view. */
         rope & operator= (repeated_text_view rtv)
         {
             rope temp(rtv);
@@ -106,6 +167,9 @@ namespace boost { namespace text {
         size_type size () const noexcept
         { return detail::size(ptr_.get()); }
 
+        /** Returns the i-th char of *this (not a reference).
+
+            \pre 0 <= i && i < size() */
         char operator[] (size_type n) const noexcept
         {
             assert(ptr_);
@@ -115,61 +179,64 @@ namespace boost { namespace text {
             return found.c_;
         }
 
+        /** Returns a substring of *this as a rope_view, taken from the range
+            of chars at offsets [lo, hi).  If either of lo or hi is a negative
+            value x, x is taken to be an offset from the end, and so x +
+            size() is used instead.
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= size()
+            \pre 0 <= hi && lhi <= size()
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
         rope_view operator() (int lo, int hi) const;
+
+        /** Returns a substring of *this as a rope_view, taken from the first
+            cut chars when cut => 0, or the last -cut chars when cut < 0.
+
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
         rope_view operator() (int cut) const;
 
+        /** Returns the maximum size a text can have. */
         size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
-        rope substr (size_type lo, size_type hi) const
-        {
-            assert(ptr_);
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            assert(lo <= hi);
+        // TODO: Tests!
+        /** Returns a substring of *this as a new rope, taken from the range
+            of chars at offsets [lo, hi).  If either of lo or hi is a negative
+            value x, x is taken to be an offset from the end, and so x +
+            size() is used instead.
 
-            if (lo == hi)
-                return rope(detail::make_node(""));
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
 
-            // If the entire substring falls within a single segment, slice
-            // off the appropriate part of that segment.
-            detail::found_leaf found;
-            detail::find_leaf(ptr_, lo, found);
-            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
-                return rope(
-                    slice_leaf(
-                        *found.leaf_,
-                        found.offset_,
-                        found.offset_ + hi - lo,
-                        true,
-                        detail::check_encoding_breakage
-                    )
-                );
-            }
+            \pre 0 <= lo && lo <= size()
+            \pre 0 <= hi && lhi <= size()
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
+        rope substr (size_type lo, size_type hi) const;
 
-            // Take an extra ref to the root, which will force all a clone of
-            // all the interior nodes.
-            detail::node_ptr new_root = ptr_;
+        /** Returns a substring of *this, taken from the first cut chars when
+            cut => 0, or the last -cut chars when cut < 0.
 
-            new_root = detail::btree_erase(new_root, hi, size());
-            new_root = detail::btree_erase(new_root, 0, lo);
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
+        rope substr (size_type cut) const;
 
-            return rope(new_root);
-        }
+        /** Visits each segment s of *this and calls f(s).  Each segment is a
+            text const &, text_view, or repeated_text_view.  Depending of the
+            operation performed on each segment, this may be more efficient
+            than iterating over [begin(), end()).
 
-        rope substr (size_type cut) const
-        {
-            int lo = 0;
-            int hi = cut;
-            if (cut < 0) {
-                lo = cut + size();
-                hi = size();
-            }
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            return substr(lo, hi);
-        }
-
+            \pre Fn is an Invocable accepting a single argument of any of the
+            types listed above. */
         template <typename Fn>
         void foreach_segment (Fn && f) const
         {
@@ -193,6 +260,9 @@ namespace boost { namespace text {
             });
         }
 
+        /** Lexicographical compare.  Returns a value < 0 when *this is
+            lexicographically less than rhs, 0 if *this == rhs, and a value >
+            0 if *this is lexicographically greater than rhs. */
         int compare (rope rhs) const noexcept;
 
         bool operator== (rope rhs) const noexcept
@@ -216,21 +286,32 @@ namespace boost { namespace text {
         void clear ()
         { ptr_ = detail::node_ptr(); }
 
-        template <typename CharRange>
-        auto insert (size_type at, CharRange const & r)
-            -> detail::rope_rng_ret_t<rope &, CharRange>
-        { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
+        // TODO: Document the creation of individual segments based on the
+        // ctor, assignment operator, insert, or replace overload.
 
-        // TODO: Document that each insert(), erase(), and replace() overload
-        // has only the basic guarantee.
+        // TODO: Test all these overloads for insert(), replace(), and
+        // erase(), including for texts.  Include verification of encoding
+        // checks being done (or not).
+        /** Inserts the sequence of char from rv into *this starting at offset
+            at.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
         rope & insert (size_type at, rope_view rv);
 
-        rope & insert (size_type at, text const & t)
-        { return insert_impl(at, t, would_allocate); }
+        /** Inserts the sequence of char from t into *this starting at offset
+            at, by moving the contents of t.
 
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
         rope & insert (size_type at, text && t)
         { return insert_impl(at, std::move(t), would_not_allocate); }
 
+        /** Inserts the sequence of char from tv into *this starting at offset
+            at.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
         rope & insert (size_type at, text_view tv)
         {
             bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
@@ -239,6 +320,11 @@ namespace boost { namespace text {
             return insert_impl(at, tv, would_not_allocate);
         }
 
+        /** Inserts the sequence of char from rtv into *this starting at offset
+            at.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
         rope & insert (size_type at, repeated_text_view rtv)
         {
             bool const rtv_null_terminated =
@@ -248,10 +334,53 @@ namespace boost { namespace text {
             return insert_impl(at, rtv, would_not_allocate);
         }
 
-        // TODO: Document that the inserted/replaced sequence need not be
-        // UTF-8 encoded, since direct use of iterators is the unsafe
-        // interface.  (To once again make it safe, use one of the converting
-        // iterators.)
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Inserts the char range r into *this starting at offset at.
+
+            This function only participates in overload resolution if
+            CharRange models the Char_range concept.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding, or if the ends of the range are not valid
+            UTF-8. */
+         template <typename CharRange>
+        rope & insert (size_type at, CharRange const & r);
+
+        /** Inserts the char sequence [first, last) into *this starting at
+            offset at.
+
+            This function only participates in overload resolution if Iter
+            models the Char_iterator concept.
+
+            The inserted sequence's UTF-8 encoding is not checked.  To check
+            the encoding, use a converting iterator.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
+        template <typename Iter>
+        rope & insert (size_type at, Iter first, Iter last);
+
+        /** Inserts the char sequence [first, last) into *this starting at
+            position at.
+
+            This function only participates in overload resolution if Iter
+            models the Char_iterator concept.
+
+            No check is made to determine if insertion at position at would
+            break UTF-8 encoding, and the inserted sequence's UTF-8 encoding
+            is not checked.  To check the inserted sequence's encoding, use a
+            converting iterator. */
+        template <typename Iter>
+        rope & insert (const_iterator at, Iter first, Iter last);
+
+#else
+
+        template <typename CharRange>
+        auto insert (size_type at, CharRange const & r)
+            -> detail::rope_rng_ret_t<rope &, CharRange>
+        { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
+
         template <typename Iter>
         auto insert (size_type at, Iter first, Iter last)
             -> detail::char_iter_ret_t<rope &, Iter>;
@@ -260,18 +389,92 @@ namespace boost { namespace text {
         auto insert (const_iterator at, Iter first, Iter last)
             -> detail::char_iter_ret_t<rope &, Iter>;
 
+#endif
+
+        /** Erases the portion of *this delimited by rv.
+
+            \pre tv.begin() <= rv.begin() && rvend() <= end() */
         rope & erase (rope_view rv);
+
+        /** Erases the portion of *this delimited by [first, last).
+
+            No check is made to determine whether erasing [first, last) breaks
+            UTF-8 encoding.
+
+            \pre first <= last */
         rope & erase (const_iterator first, const_iterator last);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from rv.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        rope & replace (rope_view old_substr, rope_view rv);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from t by moving the contents of t.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        rope & replace (rope_view old_substr, text && t);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from tv.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        rope & replace (rope_view old_substr, text_view tv);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from rtv.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        rope & replace (rope_view old_substr, repeated_text_view rtv);
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            char range r.
+
+            This function only participates in overload resolution if
+            CharRange models the Char_range concept.
+
+            \throw std::invalid_argument if the ends of the range are not
+            valid UTF-8.
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template <typename CharRange>
+        rope & replace (rope_view old_substr, CharRange const & r);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            char sequence [first, last).
+
+            This function only participates in overload resolution if Iter
+            models the Char_iterator concept.
+
+            The inserted sequence's UTF-8 encoding is not checked.  To check
+            the encoding, use a converting iterator.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template <typename Iter>
+        rope & replace (rope_view old_substr, Iter first, Iter last);
+
+        /** Replaces the portion of *this delimited by [old_first, old_last)
+            with the char sequence [new_first, new_last).
+
+            This function only participates in overload resolution if Iter
+            models the Char_iterator concept.
+
+            No check is made to determine if removing [old_first, old_last)
+            would break UTF-8 encoding, and the inserted sequence's UTF-8
+            encoding is not checked.  To check the inserted sequence's
+            encoding, use a converting iterator.
+
+           \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template <typename Iter>
+        rope & replace (const_iterator old_first, const_iterator old_last, Iter new_first, Iter new_last);
+
+#else
 
         template <typename CharRange>
         auto replace (rope_view old_substr, CharRange const & r)
             -> detail::rope_rng_ret_t<rope &, CharRange>;
-
-        rope & replace (rope_view old_substr, rope_view rv);
-        rope & replace (rope_view old_substr, text const & t);
-        rope & replace (rope_view old_substr, text && t);
-        rope & replace (rope_view old_substr, text_view tv);
-        rope & replace (rope_view old_substr, repeated_text_view rtv);
 
         template <typename Iter>
         auto replace (rope_view old_substr, Iter first, Iter last)
@@ -281,19 +484,59 @@ namespace boost { namespace text {
         auto replace (const_iterator old_first, const_iterator old_last, Iter new_first, Iter new_last)
             -> detail::char_iter_ret_t<rope &, Iter>;
 
+#endif
+
+        /** Swaps *this with rhs. */
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
 
-        inline rope & operator+= (rope_view rv);
-        inline rope & operator+= (text const & t);
-        inline rope & operator+= (text && t);
-        inline rope & operator+= (text_view tv);
-        inline rope & operator+= (repeated_text_view rtv);
+        // TODO: Test all these overloads.
+        /** Appends rv to *this. */
+        rope & operator+= (rope_view rv);
+
+        /** Appends r to *this, by moving its contents into *this. */
+        rope & operator+= (rope && r)
+        {
+            detail::interior_node_t * new_root = nullptr;
+            detail::node_ptr new_root_ptr(new_root = detail::new_interior_node());
+            new_root->keys_.push_back(size());
+            new_root->keys_.push_back(size() + r.size());
+            new_root->children_.push_back(std::move(ptr_));
+            new_root->children_.push_back(std::move(r.ptr_));
+            ptr_ = std::move(new_root_ptr);
+            return *this;
+        }
+
+        /** Appends t to *this, by moving its contents into *this. */
+        rope & operator+= (text && t);
+
+        /** Appends tv to *this. */
+        rope & operator+= (text_view tv);
+
+        /** Appends rtv to *this. */
+        rope & operator+= (repeated_text_view rtv);
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Appends the char range r to *this.
+
+            This function only participates in overload resolution if
+            CharRange models the Char_range concept.
+
+            \throw std::invalid_argument if the ends of the range are not
+            valid UTF-8. */
+        template <typename CharRange>
+        rope & operator+= (CharRange const & r);
+
+#else
 
         template <typename CharRange>
         auto operator+= (CharRange const & r)
             -> detail::rope_rng_ret_t<rope &, CharRange>;
 
+#endif
+
+        /** Stream inserter; performs formatted output. */
         friend std::ostream & operator<< (std::ostream & os, rope r)
         {
             if (os.good()) {
@@ -314,6 +557,8 @@ namespace boost { namespace text {
                 detail::dump_tree(r.ptr_);
         }
 #endif
+
+#ifndef BOOST_TEXT_DOXYGEN
 
     private:
         enum allocation_note_t { would_allocate, would_not_allocate };
@@ -387,10 +632,20 @@ namespace boost { namespace text {
 
         friend struct detail::const_rope_iterator;
         friend struct rope_view;
+
+#endif
+
     };
 
 
+    /** Forwards r when it is entirely UTF-8 encoded; throws otherwise.
+
+        \throw std::invalid_argument when r is not UTF-8 encoded. */
     inline rope const & checked_encoding (rope const & r);
+
+    /** Forwards r when it is entirely UTF-8 encoded; throws otherwise.
+
+        \throw std::invalid_argument when r is not UTF-8 encoded. */
     inline rope && checked_encoding (rope && r);
 
 } }
@@ -399,6 +654,8 @@ namespace boost { namespace text {
 #include <boost/text/rope_view.hpp>
 
 namespace boost { namespace text {
+
+#ifndef BOOST_TEXT_DOXYGEN
 
     inline rope::rope (rope_view rv) : ptr_ (nullptr)
     { insert(0, rv); }
@@ -587,9 +844,6 @@ namespace boost { namespace text {
         return erase(old_substr).insert(old_substr.lo_, rv);
     }
 
-    inline rope & rope::replace (rope_view old_substr, text const & t)
-    { return erase(old_substr).insert(old_substr.lo_, t); }
-
     inline rope & rope::replace (rope_view old_substr, text && t)
     { return erase(old_substr).insert(old_substr.lo_, std::move(t)); }
 
@@ -620,9 +874,6 @@ namespace boost { namespace text {
 
     inline rope & rope::operator+= (rope_view rv)
     { return insert(size(), rv); }
-
-    inline rope & rope::operator+= (text const & t)
-    { return insert(size(), t); }
 
     inline rope & rope::operator+= (text && t)
     { return insert(size(), std::move(t)); }
@@ -673,6 +924,61 @@ namespace boost { namespace text {
         return rope_view(*this, lo, hi);
     }
 
+    inline rope rope::substr (size_type lo, size_type hi) const
+    {
+        if (lo < 0)
+            lo += size();
+        if (hi < 0)
+            hi += size();
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        assert(lo <= hi);
+
+        if (lo == hi)
+            return rope();
+
+        auto const check_ends = (*this)(lo, hi);
+        (void)check_ends;
+
+        // If the entire substring falls within a single segment, slice
+        // off the appropriate part of that segment.
+        detail::found_leaf found;
+        detail::find_leaf(ptr_, lo, found);
+        if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
+            return rope(
+                slice_leaf(
+                    *found.leaf_,
+                    found.offset_,
+                    found.offset_ + hi - lo,
+                    true,
+                    detail::check_encoding_breakage
+                )
+            );
+        }
+
+        // Take an extra ref to the root, which will force all a clone of
+        // all the interior nodes.
+        detail::node_ptr new_root = ptr_;
+
+        new_root = detail::btree_erase(new_root, hi, size());
+        new_root = detail::btree_erase(new_root, 0, lo);
+
+        return rope(new_root);
+    }
+
+    inline rope rope::substr (size_type cut) const
+    {
+        int lo = 0;
+        int hi = cut;
+        if (cut < 0) {
+            lo = cut + size();
+            hi = size();
+        }
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        return substr(lo, hi);
+    }
+
     inline rope::const_iterator begin (rope const & r) noexcept
     { return r.begin(); }
     inline rope::const_iterator end (rope const & r) noexcept
@@ -686,47 +992,89 @@ namespace boost { namespace text {
     inline bool rope::self_reference (rope_view rv) const
     { return rv.r_ == this; }
 
+#endif
 
+    /** Creates a new rope object that is the concatenation of r and rv. */
     inline rope operator+ (rope r, rope_view rv)
     { return r.insert(r.size(), rv); }
 
-    inline rope operator+ (rope r, text const & t)
-    { return r.insert(r.size(), t); }
+    /** Creates a new rope object that is the concatenation of rv and r. */
+    inline rope operator+ (rope_view rv, rope r)
+    { return r.insert(0, rv); }
 
+    /** Creates a new rope object that is the concatenation of r and r2, by
+        moving the contents of r2 into the result. */
+    inline rope operator+ (rope r, rope && r2)
+    { return r += std::move(r2); }
+
+    // TODO: Test all these overloads.
+    /** Creates a new rope object that is the concatenation of r2 and r, by
+        moving the contents of r2 into the result. */
+    inline rope operator+ (rope && r2, rope r)
+    { return r2 += std::move(r); }
+
+    /** Creates a new rope object that is the concatenation of r and t, by
+        moving the contents of t into the result. */
     inline rope operator+ (rope r, text && t)
     { return r.insert(r.size(), std::move(t)); }
 
+    /** Creates a new rope object that is the concatenation of t and r, by
+        moving the contents of t into the result. */
+    inline rope operator+ (text && t, rope r)
+    { return r.insert(0, std::move(t)); }
+
+    /** Creates a new rope object that is the concatenation of r and tv. */
     inline rope operator+ (rope r, text_view tv)
     { return r.insert(r.size(), tv); }
 
+    /** Creates a new rope object that is the concatenation of tv and r. */
+    inline rope operator+ (text_view tv, rope r)
+    { return r.insert(0, tv); }
+
+    /** Creates a new rope object that is the concatenation of r and rtv. */
     inline rope operator+ (rope r, repeated_text_view rtv)
     { return r.insert(r.size(), rtv); }
+
+    /** Creates a new rope object that is the concatenation of rtv and r. */
+    inline rope operator+ (repeated_text_view rtv, rope r)
+    { return r.insert(0, rtv); }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Creates a new rope object that is the concatenation of r and range.
+
+        This function only participates in overload resolution if CharRange
+        models the Char_range concept.
+
+        \throw std::invalid_argument if the ends of the range are not valid
+        UTF-8. */
+    template <typename CharRange>
+    rope operator+ (rope r, CharRange const & range);
+
+    /** Creates a new rope object that is the concatenation of range and r.
+
+        This function only participates in overload resolution if CharRange
+        models the Char_range concept.
+
+        \throw std::invalid_argument if the ends of the range are not valid
+        UTF-8. */
+    template <typename CharRange>
+    rope operator+ (CharRange const & range, rope r);
+
+#else
 
     template <typename CharRange>
     auto operator+ (rope r, CharRange const & range)
         -> detail::rope_rng_ret_t<rope, CharRange>
     { return r.insert(r.size(), text_view(&*range.begin(), range.end() - range.begin())); }
 
-
-    inline rope operator+ (rope_view rv, rope r)
-    { return r.insert(0, rv); }
-
-    inline rope operator+ (text const & t, rope r)
-    { return r.insert(0, t); }
-
-    inline rope operator+ (text && t, rope r)
-    { return r.insert(0, std::move(t)); }
-
-    inline rope operator+ (text_view tv, rope r)
-    { return r.insert(0, tv); }
-
-    inline rope operator+ (repeated_text_view rtv, rope r)
-    { return r.insert(0, rtv); }
-
     template <typename CharRange>
     auto operator+ (CharRange const & range, rope r)
         -> detail::rope_rng_ret_t<rope, CharRange>
     { return r.insert(0, text_view(&*range.begin(), range.end() - range.begin())); }
+
+#endif
+
 
     inline rope const & checked_encoding (rope const & r)
     {
