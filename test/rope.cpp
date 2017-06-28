@@ -402,6 +402,35 @@ TEST(rope, test_misc)
     }
 }
 
+TEST(rope, test_substr)
+{
+    text::rope const r =
+        text::rope("When writing a specialization, ") +
+        text::text("be careful about its location; ") +
+        text::text_view("or to make it compile will be such a trial as to kindle its self-immolation") +
+        text::repeated_text_view(".", 3);
+
+    for (int i = 0; i < r.size(); ++i) {
+        for (int j = i; j < r.size(); ++j) {
+            text::rope const substr = r.substr(i, j);
+            text::rope_view const rv = r(i, j);
+            EXPECT_EQ(substr, rv);
+        }
+    }
+
+    for (int i = 0; i < r.size(); ++i) {
+        {
+            text::rope const substr = r.substr(i);
+            text::rope_view const rv = r(i);
+            EXPECT_EQ(substr, rv);
+        }
+        {
+            text::rope const substr = r.substr(-i - 1);
+            text::rope_view const rv = r(-i - 1);
+            EXPECT_EQ(substr, rv);
+        }
+    }
+}
 
 TEST(rope, test_insert)
 {

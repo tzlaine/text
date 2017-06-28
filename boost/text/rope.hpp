@@ -184,7 +184,6 @@ namespace boost { namespace text {
         size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
-        // TODO: Tests!
         /** Returns a substring of *this as a new rope, taken from the range
             of chars at offsets [lo, hi).  If either of lo or hi is a negative
             value x, x is taken to be an offset from the end, and so x +
@@ -941,8 +940,10 @@ namespace boost { namespace text {
         // all the interior nodes.
         detail::node_ptr new_root = ptr_;
 
-        new_root = detail::btree_erase(new_root, hi, size());
-        new_root = detail::btree_erase(new_root, 0, lo);
+        if (hi != size())
+            new_root = detail::btree_erase(new_root, hi, size());
+        if (lo != 0)
+            new_root = detail::btree_erase(new_root, 0, lo);
 
         return rope(new_root);
     }

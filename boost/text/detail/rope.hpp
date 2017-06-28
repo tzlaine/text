@@ -787,11 +787,12 @@ namespace boost { namespace text { namespace detail {
             auto mut_child = children(parent)[i].write();
             children(mut_child).resize(min_children);
             keys(mut_child).resize(min_children);
-
+        }
+        {
             auto mut_parent = parent.write();
             keys(mut_parent).insert(
                 keys(mut_parent).begin() + i,
-                offset(mut_parent, i) + keys(mut_child).back()
+                offset(mut_parent, i) + size(children(parent)[i].get())
             );
         }
 
@@ -943,8 +944,10 @@ namespace boost { namespace text { namespace detail {
 
             assert(children(node)[child_index].as_leaf() == leaf);
 
-            auto mut_node = node.write();
-            erase_child(mut_node.as_interior(), child_index);
+            {
+                auto mut_node = node.write();
+                erase_child(mut_node.as_interior(), child_index);
+            }
 
             return node;
         }
@@ -1101,8 +1104,8 @@ namespace boost { namespace text { namespace detail {
             // hi-segment that's not being erased (if there is one).
             detail::found_leaf found_hi;
             detail::find_leaf(root, hi, found_hi);
-            if (found_hi.offset_ != 0) {
-                auto const hi_leaf_size = size(found_hi.leaf_->get());
+            auto const hi_leaf_size = size(found_hi.leaf_->get());
+            if (found_hi.offset_ != 0 && found_hi.offset_ != hi_leaf_size) {
                 node_ptr suffix =
                     slice_leaf(*found_hi.leaf_, found_hi.offset_, hi_leaf_size, true, encoding_note);
                 auto const suffix_at = hi - found_hi.offset_ + hi_leaf_size;
@@ -1125,7 +1128,7 @@ namespace boost { namespace text { namespace detail {
             }
 
             assert(found_lo.offset_ == 0);
-            assert(found_hi.offset_ == 0);
+            assert(found_hi.offset_ == 0 || found_hi.offset_ == hi_leaf_size);
 
             leaf_node_t const * leaf_lo = found_lo.leaf_->as_leaf();
             while (true) {
