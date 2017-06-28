@@ -687,8 +687,19 @@ namespace boost { namespace text {
         if (rv_null_terminated)
             rv = rv(0, -1);
 
+        if (rv.which_ == rope_view::which::tv)
+            return insert(at, rv.ref_.tv_);
+
+        if (rv.which_ == rope_view::which::rtv) {
+            if (rv.ref_.rtv_.lo_ == 0 && rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size())
+                return insert(at, rv.ref_.rtv_.rtv_);
+            return insert(at, text(rv.begin(), rv.end()));
+        }
+
+        rope_view::rope_ref rope_ref = rv.ref_.r_;
+
         detail::found_leaf found_lo;
-        find_leaf(rv.r_->ptr_, rv.lo_, found_lo);
+        find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
         detail::leaf_node_t const * const leaf_lo = found_lo.leaf_->as_leaf();
 
         // If the entire rope_view lies within a single segment, slice off
@@ -726,7 +737,7 @@ namespace boost { namespace text {
         at += detail::size(leaf_lo);
 
         detail::found_leaf found_hi;
-        find_leaf(rv.r_->ptr_, rv.hi_, found_hi);
+        find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
         detail::leaf_node_t const * const leaf_hi = found_hi.leaf_->as_leaf();
 
         detail::foreach_leaf(ptr_, [&](detail::leaf_node_t const * leaf) {
@@ -795,18 +806,21 @@ namespace boost { namespace text {
     inline rope & rope::erase (rope_view rv)
     {
         assert(self_reference(rv));
-        assert(0 <= rv.lo_ && rv.lo_ <= size());
-        assert(0 <= rv.hi_ && rv.hi_ <= size());
-        assert(rv.lo_ <= rv.hi_);
 
-        if (rv.lo_ == rv.hi_)
+        rope_view::rope_ref rope_ref = rv.ref_.r_;
+
+        assert(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
+        assert(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
+        assert(rope_ref.lo_ <= rope_ref.hi_);
+
+        if (rope_ref.lo_ == rope_ref.hi_)
             return *this;
 
         bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
         if (rv_null_terminated)
             rv = rv(0, -1);
 
-        ptr_ = btree_erase(ptr_, rv.lo_, rv.hi_);
+        ptr_ = btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_);
 
         return *this;
     }
@@ -833,25 +847,28 @@ namespace boost { namespace text {
 
     inline rope & rope::replace (rope_view old_substr, rope_view rv)
     {
+        assert(self_reference(old_substr));
+
         detail::node_ptr extra_ref;
         rope extra_rope;
         if (self_reference(rv)) {
             extra_ref = ptr_;
             extra_rope = rope(extra_ref);
-            rv = rope_view(extra_rope, rv.lo_, rv.hi_);
+            rope_view::rope_ref rope_ref = rv.ref_.r_;
+            rv = rope_view(extra_rope, rope_ref.lo_, rope_ref.hi_);
         }
 
-        return erase(old_substr).insert(old_substr.lo_, rv);
+        return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
     }
 
     inline rope & rope::replace (rope_view old_substr, text && t)
-    { return erase(old_substr).insert(old_substr.lo_, std::move(t)); }
+    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(t)); }
 
     inline rope & rope::replace (rope_view old_substr, text_view tv)
-    { return erase(old_substr).insert(old_substr.lo_, tv); }
+    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, tv); }
 
     inline rope & rope::replace (rope_view old_substr, repeated_text_view rtv)
-    { return erase(old_substr).insert(old_substr.lo_, rtv); }
+    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, rtv); }
 
     template <typename Iter>
     auto rope::replace (rope_view old_substr, Iter first, Iter last)
@@ -859,7 +876,7 @@ namespace boost { namespace text {
     {
         assert(self_reference(old_substr));
         assert(0 <= old_substr.size());
-        const_iterator const old_first = old_substr.begin();
+        const_iterator const old_first = old_substr.begin().as_rope_iter();
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
@@ -990,7 +1007,7 @@ namespace boost { namespace text {
     { return r.rend(); }
 
     inline bool rope::self_reference (rope_view rv) const
-    { return rv.r_ == this; }
+    { return rv.which_ == rope_view::which::r && rv.ref_.r_.r_ == this; }
 
 #endif
 
