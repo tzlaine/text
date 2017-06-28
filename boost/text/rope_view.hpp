@@ -88,6 +88,56 @@ namespace boost { namespace text {
             r.begin() + hi */
         rope_view (rope const & r, int lo, int hi, utf8::unchecked_t) noexcept;
 
+        /** Constructs a rope_view covering the entire given rope.  The UTF-8
+            encoding is not checked. */
+        rope_view (text const & r) noexcept;
+
+        /** Constructs a substring of r, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.  The UTF-8 encoding is checked only at the beginning and
+            end of the sequence, to prevent slicing of code points.  To fully
+            check the encoding, use checked_encoding().
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= r.size()
+            \pre 0 <= hi && lhi <= r.size()
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8.
+            \post size() == r.size() && begin() == r.begin() + lo && end() ==
+            r.begin() + hi */
+        rope_view (text const & r, int lo, int hi);
+
+        /** Constructs a substring of r, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.  The UTF-8 encoding is not checked.
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= r.size()
+            \pre 0 <= hi && lhi <= r.size()
+            \pre lo <= hi
+            \post size() == r.size() && begin() == r.begin() + lo && end() ==
+            r.begin() + hi */
+        rope_view (text const & r, int lo, int hi, utf8::unchecked_t) noexcept;
+
+        /** Constructs a rope_view from a null-terminated C string.  The UTF-8
+            encoding is checked only at the beginning and end of the string,
+            to prevent slicing of code points.  To fully check the encoding,
+            use checked_encoding().
+
+            \pre strlen(c_str) <= max_size()
+            \throw std::invalid_argument if the ends of the string are not valid UTF-8.
+            \post data() == c_str && size() == strlen(c_str) */
+        rope_view (char const * c_str) noexcept :
+            ref_ (text_view(c_str)), which_ (which::tv)
+        {}
+
         /** Constructs a rope_view covering the entire given text_view.  The
             UTF-8 encoding is not checked. */
         rope_view (text_view tv) noexcept : ref_ (tv), which_ (which::tv) {}
@@ -320,6 +370,21 @@ namespace boost { namespace text {
         which_ (which::r)
     {}
 
+    inline rope_view::rope_view (text const & r) noexcept :
+        ref_ (text_view(r.begin(), r.size(), utf8::unchecked)),
+        which_ (which::tv)
+    {}
+
+    inline rope_view::rope_view (text const & r, int lo, int hi) :
+        ref_ (r(lo, hi)),
+        which_ (which::tv)
+    {}
+
+    inline rope_view::rope_view (text const & r, int lo, int hi, utf8::unchecked_t) noexcept :
+        ref_ (text_view(r.begin() + lo, hi - lo, utf8::unchecked)),
+        which_ (which::tv)
+    {}
+
     inline rope_view::rope_view (repeated_text_view rtv, int lo, int hi) :
         ref_ (repeated_ref(rtv, lo, hi)),
         which_ (which::rtv)
@@ -540,44 +605,6 @@ namespace boost { namespace text {
     { return rv.rbegin(); }
     inline rope_view::reverse_iterator rend (rope_view rv) noexcept
     { return rv.rend(); }
-
-
-    inline bool operator== (rope_view lhs, text_view rhs) noexcept
-    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) == 0; }
-
-    inline bool operator!= (rope_view lhs, text_view rhs) noexcept
-    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) != 0; }
-
-    inline bool operator< (rope_view lhs, text_view rhs) noexcept
-    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) < 0; }
-
-    inline bool operator<= (rope_view lhs, text_view rhs) noexcept
-    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) <= 0; }
-
-    inline bool operator> (rope_view lhs, text_view rhs) noexcept
-    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) > 0; }
-
-    inline bool operator>= (rope_view lhs, text_view rhs) noexcept
-    { return detail::mismatch_compare(lhs, rhs.begin(), rhs.end()) >= 0; }
-
-
-    inline bool operator== (text_view lhs, rope_view rhs) noexcept
-    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) == 0; }
-
-    inline bool operator!= (text_view lhs, rope_view rhs) noexcept
-    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) != 0; }
-
-    inline bool operator< (text_view lhs, rope_view rhs) noexcept
-    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) > 0; }
-
-    inline bool operator<= (text_view lhs, rope_view rhs) noexcept
-    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) >= 0; }
-
-    inline bool operator> (text_view lhs, rope_view rhs) noexcept
-    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) < 0; }
-
-    inline bool operator>= (text_view lhs, rope_view rhs) noexcept
-    { return detail::mismatch_compare(rhs, lhs.begin(), lhs.end()) <= 0; }
 
 
     /** Stream inserter; performs formatted output. */

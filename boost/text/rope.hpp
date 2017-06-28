@@ -18,6 +18,9 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
+    // TODO: Now that rope_view covers rope and text, consider dumping rope's
+    // and text's compare() and boolean comparisons.
+
     /** A mutable sequence of char with copy-on-write semantics.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not. A rope is non-contiguous and is not
@@ -47,14 +50,6 @@ namespace boost { namespace text {
 
         /** Move-constructs a rope from a text. */
         explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
-
-        /** Constructs a rope from a text_view. */
-        explicit rope (text_view tv) : ptr_ (nullptr)
-        { insert(0, tv); }
-
-        /** Constructs a rope from a repeated_text_view. */
-        explicit rope (repeated_text_view rtv) : ptr_ (nullptr)
-        { insert(0, rtv); }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -99,6 +94,9 @@ namespace boost { namespace text {
         rope & operator= (rope const & rhs) = default;
         rope & operator= (rope && rhs) noexcept = default;
 
+        /** Assignment from a rope_view. */
+        rope & operator= (rope_view rv);
+
         /** Assignment from a text. */
         rope & operator= (text const & t)
         {
@@ -106,9 +104,6 @@ namespace boost { namespace text {
             swap(temp);
             return *this;
         }
-
-        /** Assignment from a rope_view. */
-        rope & operator= (rope_view rv);
 
         /** Move-assignment from a text. */
         rope & operator= (text && t)
@@ -134,26 +129,9 @@ namespace boost { namespace text {
 
         template <typename CharRange>
         auto operator= (CharRange const & r)
-            -> detail::rope_rng_ret_t<rope &, CharRange>
-        { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
+            -> detail::rope_rng_ret_t<rope &, CharRange>;
 
 #endif
-
-        /** Assignment from a text_view. */
-        rope & operator= (text_view tv)
-        {
-            rope temp(tv);
-            swap(temp);
-            return *this;
-        }
-
-        /** Assignment from a repeated_text_view. */
-        rope & operator= (repeated_text_view rtv)
-        {
-            rope temp(rtv);
-            swap(temp);
-            return *this;
-        }
 
         const_iterator begin () const noexcept;
         const_iterator end () const noexcept;
@@ -300,39 +278,20 @@ namespace boost { namespace text {
         rope & insert (size_type at, rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
+            at.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
+        rope & insert (size_type at, text const & t)
+        { return insert_impl(at, t, would_allocate); }
+
+        /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t.
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
         rope & insert (size_type at, text && t)
         { return insert_impl(at, std::move(t), would_not_allocate); }
-
-        /** Inserts the sequence of char from tv into *this starting at offset
-            at.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
-        rope & insert (size_type at, text_view tv)
-        {
-            bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
-            if (tv_null_terminated)
-                tv = tv(0, -1);
-            return insert_impl(at, tv, would_not_allocate);
-        }
-
-        /** Inserts the sequence of char from rtv into *this starting at offset
-            at.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
-        rope & insert (size_type at, repeated_text_view rtv)
-        {
-            bool const rtv_null_terminated =
-                !rtv.view().empty() && rtv.view().end()[-1] == '\0';
-            if (rtv_null_terminated)
-                rtv = repeat(rtv.view()(0, -1), rtv.count());
-            return insert_impl(at, rtv, would_not_allocate);
-        }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -378,8 +337,7 @@ namespace boost { namespace text {
 
         template <typename CharRange>
         auto insert (size_type at, CharRange const & r)
-            -> detail::rope_rng_ret_t<rope &, CharRange>
-        { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
+            -> detail::rope_rng_ret_t<rope &, CharRange>;
 
         template <typename Iter>
         auto insert (size_type at, Iter first, Iter last)
@@ -411,22 +369,16 @@ namespace boost { namespace text {
         rope & replace (rope_view old_substr, rope_view rv);
 
         /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from t.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        rope & replace (rope_view old_substr, text const & t);
+
+        /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         rope & replace (rope_view old_substr, text && t);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from tv.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        rope & replace (rope_view old_substr, text_view tv);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from rtv.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        rope & replace (rope_view old_substr, repeated_text_view rtv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -507,14 +459,11 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Appends t to *this. */
+        rope & operator+= (text const & t);
+
         /** Appends t to *this, by moving its contents into *this. */
         rope & operator+= (text && t);
-
-        /** Appends tv to *this. */
-        rope & operator+= (text_view tv);
-
-        /** Appends rtv to *this. */
-        rope & operator+= (repeated_text_view rtv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -671,6 +620,11 @@ namespace boost { namespace text {
         return *this;
     }
 
+    template <typename CharRange>
+    auto rope::operator= (CharRange const & r)
+        -> detail::rope_rng_ret_t<rope &, CharRange>
+    { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
+
     inline int rope::compare (rope rhs) const noexcept
     { return rope_view(*this).compare(rhs); }
 
@@ -683,18 +637,29 @@ namespace boost { namespace text {
         if (self_reference(rv))
             extra_ref = ptr_;
 
+        if (rv.which_ == rope_view::which::tv) {
+            text_view tv = rv.ref_.tv_;
+            bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
+            if (tv_null_terminated)
+                tv = tv(0, -1);
+            return insert_impl(at, tv, would_not_allocate);
+        }
+
+        if (rv.which_ == rope_view::which::rtv) {
+            if (rv.ref_.rtv_.lo_ == 0 && rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size()) {
+                repeated_text_view rtv = rv.ref_.rtv_.rtv_;
+                bool const rtv_null_terminated =
+                    !rtv.view().empty() && rtv.view().end()[-1] == '\0';
+                if (rtv_null_terminated)
+                    rtv = repeat(rtv.view()(0, -1), rtv.count());
+                return insert_impl(at, rtv, would_not_allocate);
+            }
+            return insert(at, text(rv.begin(), rv.end()));
+        }
+
         bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
         if (rv_null_terminated)
             rv = rv(0, -1);
-
-        if (rv.which_ == rope_view::which::tv)
-            return insert(at, rv.ref_.tv_);
-
-        if (rv.which_ == rope_view::which::rtv) {
-            if (rv.ref_.rtv_.lo_ == 0 && rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size())
-                return insert(at, rv.ref_.rtv_.rtv_);
-            return insert(at, text(rv.begin(), rv.end()));
-        }
 
         rope_view::rope_ref rope_ref = rv.ref_.r_;
 
@@ -766,6 +731,11 @@ namespace boost { namespace text {
 
         return *this;
     }
+
+    template <typename CharRange>
+    auto rope::insert (size_type at, CharRange const & r)
+        -> detail::rope_rng_ret_t<rope &, CharRange>
+    { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
 
     template <typename Iter>
     auto rope::insert (size_type at, Iter first, Iter last)
@@ -861,14 +831,11 @@ namespace boost { namespace text {
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
     }
 
+    inline rope & rope::replace (rope_view old_substr, text const & t)
+    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, t); }
+
     inline rope & rope::replace (rope_view old_substr, text && t)
     { return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(t)); }
-
-    inline rope & rope::replace (rope_view old_substr, text_view tv)
-    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, tv); }
-
-    inline rope & rope::replace (rope_view old_substr, repeated_text_view rtv)
-    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, rtv); }
 
     template <typename Iter>
     auto rope::replace (rope_view old_substr, Iter first, Iter last)
@@ -892,14 +859,11 @@ namespace boost { namespace text {
     inline rope & rope::operator+= (rope_view rv)
     { return insert(size(), rv); }
 
+    inline rope & rope::operator+= (text const & t)
+    { return insert(size(), t); }
+
     inline rope & rope::operator+= (text && t)
     { return insert(size(), std::move(t)); }
-
-    inline rope & rope::operator+= (text_view tv)
-    { return insert(size(), tv); }
-
-    inline rope & rope::operator+= (repeated_text_view rtv)
-    { return insert(size(), rtv); }
 
     template <typename CharRange>
     auto rope::operator+= (CharRange const & r)
@@ -1030,6 +994,14 @@ namespace boost { namespace text {
     inline rope operator+ (rope && r2, rope r)
     { return r2 += std::move(r); }
 
+    /** Creates a new rope object that is the concatenation of r and t. */
+    inline rope operator+ (rope r, text const & t)
+    { return r.insert(r.size(), t); }
+
+    /** Creates a new rope object that is the concatenation of t and r. */
+    inline rope operator+ (text const & t, rope r)
+    { return r.insert(0, t); }
+
     /** Creates a new rope object that is the concatenation of r and t, by
         moving the contents of t into the result. */
     inline rope operator+ (rope r, text && t)
@@ -1039,22 +1011,6 @@ namespace boost { namespace text {
         moving the contents of t into the result. */
     inline rope operator+ (text && t, rope r)
     { return r.insert(0, std::move(t)); }
-
-    /** Creates a new rope object that is the concatenation of r and tv. */
-    inline rope operator+ (rope r, text_view tv)
-    { return r.insert(r.size(), tv); }
-
-    /** Creates a new rope object that is the concatenation of tv and r. */
-    inline rope operator+ (text_view tv, rope r)
-    { return r.insert(0, tv); }
-
-    /** Creates a new rope object that is the concatenation of r and rtv. */
-    inline rope operator+ (rope r, repeated_text_view rtv)
-    { return r.insert(r.size(), rtv); }
-
-    /** Creates a new rope object that is the concatenation of rtv and r. */
-    inline rope operator+ (repeated_text_view rtv, rope r)
-    { return r.insert(0, rtv); }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
