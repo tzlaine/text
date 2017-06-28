@@ -8,10 +8,10 @@ namespace boost { namespace text { namespace detail {
 
     struct const_rope_iterator
     {
-        using value_type = char const;
+        using value_type = char;
         using difference_type = std::ptrdiff_t;
         using pointer = char const *;
-        using reference = char const;
+        using reference = char;
         using iterator_category = std::random_access_iterator_tag;
 
         const_rope_iterator () noexcept :
@@ -162,10 +162,10 @@ namespace boost { namespace text { namespace detail {
 
     struct const_reverse_rope_iterator
     {
-        using value_type = char const;
+        using value_type = char;
         using difference_type = std::ptrdiff_t;
         using pointer = char const *;
-        using reference = char const;
+        using reference = char;
         using iterator_category = std::random_access_iterator_tag;
 
         const_reverse_rope_iterator () noexcept : base_ () {}
