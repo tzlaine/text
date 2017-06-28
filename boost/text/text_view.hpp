@@ -326,6 +326,16 @@ namespace boost { namespace text {
             assert(0 <= count);
         }
 
+        constexpr const_iterator begin () const noexcept
+        { return const_iterator(view_.begin(), view_.size(), 0); }
+        constexpr const_iterator end () const noexcept
+        { return const_iterator(view_.begin(), view_.size(), size()); }
+
+        constexpr const_reverse_iterator rbegin () const noexcept
+        { return const_reverse_iterator(end()); }
+        constexpr const_reverse_iterator rend () const noexcept
+        { return const_reverse_iterator(begin()); }
+
         /** Returns the repeated view. */
         constexpr text_view view () const noexcept
         { return view_; }
@@ -404,17 +414,6 @@ namespace boost { namespace text {
                 rhs.count_ = tmp;
             }
         }
-
-
-        constexpr const_iterator begin () const noexcept
-        { return const_iterator(view_.begin(), view_.size(), 0); }
-        constexpr const_iterator end () const noexcept
-        { return const_iterator(view_.begin(), view_.size(), size()); }
-
-        constexpr const_reverse_iterator rbegin () const noexcept
-        { return const_reverse_iterator(end()); }
-        constexpr const_reverse_iterator rend () const noexcept
-        { return const_reverse_iterator(begin()); }
 
         /** Stream inserter; performs formatted output. */
         friend std::ostream & operator<< (std::ostream & os, repeated_text_view rtv)
