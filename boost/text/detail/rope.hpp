@@ -1187,6 +1187,21 @@ namespace boost { namespace text { namespace detail {
         }
     };
 
+    struct repeated_range
+    {
+        repeated_text_view::const_iterator first, last;
+        repeated_text_view::const_iterator begin () const { return first; }
+        repeated_text_view::const_iterator end () const { return last; }
+    };
+
+    inline std::ostream & operator<< (std::ostream & os, repeated_range rr)
+    {
+        for (char c : rr) {
+            os << c;
+        }
+        return os;
+    }
+
 } } }
 
 #endif

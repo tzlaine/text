@@ -9,25 +9,8 @@ namespace boost { namespace text {
     struct rope;
 
     namespace detail {
-
         struct const_rope_view_iterator;
         struct const_reverse_rope_view_iterator;
-
-        struct repeated_range
-        {
-            repeated_text_view::const_iterator first, last;
-            repeated_text_view::const_iterator begin () const { return first; }
-            repeated_text_view::const_iterator end () const { return last; }
-        };
-
-        inline std::ostream & operator<< (std::ostream & os, repeated_range rr)
-        {
-            for (char c : rr) {
-                os << c;
-            }
-            return os;
-        }
-
     }
 
     /** A reference to a substring of a rope, text, or repeated_text_view.
