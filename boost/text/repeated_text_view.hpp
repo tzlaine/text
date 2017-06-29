@@ -6,6 +6,8 @@
 
 namespace boost { namespace text {
 
+    struct rope_view;
+
     /** A text_view, repeated count() times.  This is useful for representing
         a single char (e.g. for whitespace padding) or sequence of chars,
         repeated many times, without allocating storage. */
@@ -65,6 +67,33 @@ namespace boost { namespace text {
             assert(i < size());
             return begin()[i];
         }
+
+        /** Returns a substring of *this, taken from the range of chars at
+            offsets [lo, hi).  If either of lo or hi is a negative value x, x
+            is taken to be an offset from the end, and so x + size() is used
+            instead.
+
+            This function is constexpr in C++14 and later.
+
+            These preconditions apply to the values used after size() is added
+            to any negative arguments.
+
+            \pre 0 <= lo && lo <= size()
+            \pre 0 <= hi && lhi <= size()
+            \pre lo <= hi
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
+        rope_view operator() (int lo, int hi) const;
+
+        /** Returns a substring of *this, taken from the first cut chars when
+            cut => 0, or the last -cut chars when cut < 0.
+
+            This function is constexpr in C++14 and later.
+
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
+            \throw std::invalid_argument if the ends of the string are not
+            valid UTF-8. */
+        rope_view operator() (int cut) const;
 
         constexpr bool empty () const noexcept
         { return view_.empty(); }
@@ -212,5 +241,7 @@ namespace boost { namespace text {
     { return rtv.rend(); }
 
 } }
+
+#include <boost/text/rope_view.hpp>
 
 #endif
