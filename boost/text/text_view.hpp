@@ -376,7 +376,17 @@ namespace boost { namespace text {
    incongruous for many other reasons.
 
    14: rope should *always* be passed by value.  If this is *always* done,
-   rope is threadsafe.
+   rope is threadsafe. TODO: Verify.
+
+   15: There is no CharRange for rope like there is for text.  text converts a
+   CharRange into a text_view, but then always copies the bytes into its
+   storage.  rope does not convert text_views into allocated storage, but does
+   so with texts.  So the user should be able to choose what kind of segment
+   gets inserted into the rope by constructing either a text or text_view
+   explicitly first.  Just as importantly, consider: x + std::string("foo").
+   Should this create a rope that refers to the contents of the temporary?
+   Should it create a text that owns the contents?  The user should decide
+   this, case-by-case.
 
 */
 

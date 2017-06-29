@@ -174,7 +174,7 @@ TEST(rope, test_ctors)
     EXPECT_EQ("", t2);
 
     std::string const s("An old-school string");
-    text::rope t5(s);
+    text::rope t5{text::text(s)};
     EXPECT_EQ(t5, "An old-school string");
     EXPECT_EQ("An old-school string", t5);
 
@@ -287,7 +287,7 @@ TEST(rope, test_assignment)
     {
         std::string const s("An old-school string");
         text::rope t;
-        t = s;
+        t = text::text(s);
         EXPECT_EQ(t, "An old-school string");
     }
 
