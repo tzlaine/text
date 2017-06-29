@@ -55,6 +55,17 @@ namespace boost { namespace text {
         constexpr std::ptrdiff_t count () const noexcept
         { return count_; }
 
+        /** Returns the i-th char of *this (not a reference).
+
+            This function is constexpr in C++14 and later.
+
+            \pre i < size() */
+        BOOST_TEXT_CXX14_CONSTEXPR char operator[] (int i) const noexcept
+        {
+            assert(i < size());
+            return begin()[i];
+        }
+
         constexpr bool empty () const noexcept
         { return view_.empty(); }
 
