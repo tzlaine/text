@@ -277,7 +277,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template <typename CharRange, typename PatternCharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto find_first_of (CharRange const & r, PatternCharRange const & p) noexcept
-        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     { return detail::find_first_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
     /** Returns the offset of the first occurance within range r of any of the
@@ -351,7 +351,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template <typename CharRange, typename PatternCharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto find_last_of (CharRange const & r, PatternCharRange const & p) noexcept
-        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     { return detail::find_last_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
     /** Returns the offset of the last occurance within range r of any of the
@@ -430,7 +430,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template <typename CharRange, typename PatternCharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto find_first_not_of (CharRange const & r, PatternCharRange const & p) noexcept
-        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     { return detail::find_first_not_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
     /** Returns the offset of the first char within range r that does not
@@ -510,7 +510,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template <typename CharRange, typename PatternCharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto find_last_not_of (CharRange const & r, PatternCharRange const & p) noexcept
-        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
+        -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     { return detail::find_last_not_of_impl(&*begin(r), &*end(r), &*begin(p), &*end(p)); }
 
     /** Returns the offset of the last char within range r that does not match

@@ -39,6 +39,129 @@ TEST(algorithm, test_empty_view)
     EXPECT_EQ(compare_result, 0);
 }
 
+TEST(algorithm, test_empty_other_types)
+{
+    text::text_view const tv;
+    std::string const str;
+
+    {
+        bool compare_result = compare(tv, str);
+        EXPECT_EQ(compare_result, 0);
+    }
+    {
+        bool compare_result = compare(str, tv);
+        EXPECT_EQ(compare_result, 0);
+    }
+    {
+        bool compare_result = ::boost::text::compare(str, str);
+        EXPECT_EQ(compare_result, 0);
+    }
+
+    {
+        int find_result = find(tv, str);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = find(str, tv);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = ::boost::text::find(str, str);
+        EXPECT_EQ(find_result, 0);
+    }
+
+    {
+        int find_result = rfind(tv, str);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = rfind(str, tv);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = ::boost::text::rfind(str, str);
+        EXPECT_EQ(find_result, 0);
+    }
+
+    {
+        text::text_view find_result = find_view(tv, str);
+        EXPECT_TRUE(find_result.empty());
+    }
+    {
+        text::text_view find_result = find_view(str, tv);
+        EXPECT_TRUE(find_result.empty());
+    }
+    {
+        text::text_view find_result = ::boost::text::find_view(str, str);
+        EXPECT_TRUE(find_result.empty());
+    }
+
+    {
+        text::text_view find_result = rfind_view(tv, str);
+        EXPECT_TRUE(find_result.empty());
+    }
+    {
+        text::text_view find_result = rfind_view(str, tv);
+        EXPECT_TRUE(find_result.empty());
+    }
+    {
+        text::text_view find_result = ::boost::text::rfind_view(str, str);
+        EXPECT_TRUE(find_result.empty());
+    }
+
+    {
+        int find_result = find_first_of(tv, str);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = find_first_of(str, tv);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = ::boost::text::find_first_of(str, str);
+        EXPECT_EQ(find_result, 0);
+    }
+
+    {
+        int find_result = find_first_not_of(tv, str);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = find_first_not_of(str, tv);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = ::boost::text::find_first_not_of(str, str);
+        EXPECT_EQ(find_result, 0);
+    }
+
+    {
+        int find_result = find_last_of(tv, str);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = find_last_of(str, tv);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = ::boost::text::find_last_of(str, str);
+        EXPECT_EQ(find_result, 0);
+    }
+
+    {
+        int find_result = find_last_not_of(tv, str);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = find_last_not_of(str, tv);
+        EXPECT_EQ(find_result, 0);
+    }
+    {
+        int find_result = ::boost::text::find_last_not_of(str, str);
+        EXPECT_EQ(find_result, 0);
+    }
+}
+
 TEST(algorithm, test_empty_view_constexpr)
 {
     constexpr text::text_view tv;
@@ -522,5 +645,3 @@ TEST(algorithm, test_view_view_find_last_not_of_constexpr)
 
 #endif
 }
-
-// TODO: Coverage for types other than text_view.
