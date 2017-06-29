@@ -773,7 +773,7 @@ namespace boost { namespace text {
 
 } }
 
-#include <boost/text/text_view.hpp>
+#include <boost/text/repeated_text_view.hpp>
 
 namespace boost { namespace text {
 
