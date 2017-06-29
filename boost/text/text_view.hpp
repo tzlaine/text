@@ -3,8 +3,9 @@
 
 #include <boost/text/utf8.hpp>
 
-#include <boost/text/detail/utility.hpp>
+#include <boost/text/detail/algorithm.hpp>
 #include <boost/text/detail/iterator.hpp>
+#include <boost/text/detail/utility.hpp>
 
 #include <cassert>
 
@@ -102,6 +103,20 @@ namespace boost { namespace text {
 
             \post data() == t.begin() && size() == t.size() */
         text_view (text const & t) noexcept;
+
+        /** Constructs a text_view from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the Char_range concept.
+
+            \throw std::invalid_argument if the ends of the range are not
+            valid UTF-8. */
+        template <typename CharRange>
+        explicit text_view (
+            CharRange const & r,
+            detail::rng_alg_ret_t<int *, CharRange> = 0
+        )
+        { *this = text_view(&*r.begin(), r.end() - r.begin()); }
 
         constexpr text_view (text_view const & rhs) noexcept :
             data_ (rhs.data_),
