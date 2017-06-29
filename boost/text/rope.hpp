@@ -973,6 +973,10 @@ namespace boost { namespace text {
 
 #endif
 
+    /** Creates a new rope object that is the concatenation of r and r2. */
+    inline rope operator+ (rope r, rope r2)
+    { return r.insert(r.size(), std::move(r2)); }
+
     /** Creates a new rope object that is the concatenation of r and rv. */
     inline rope operator+ (rope r, rope_view rv)
     { return r.insert(r.size(), rv); }
@@ -980,17 +984,6 @@ namespace boost { namespace text {
     /** Creates a new rope object that is the concatenation of rv and r. */
     inline rope operator+ (rope_view rv, rope r)
     { return r.insert(0, rv); }
-
-    /** Creates a new rope object that is the concatenation of r and r2, by
-        moving the contents of r2 into the result. */
-    inline rope operator+ (rope r, rope && r2)
-    { return r += std::move(r2); }
-
-    // TODO: Test all these overloads.
-    /** Creates a new rope object that is the concatenation of r2 and r, by
-        moving the contents of r2 into the result. */
-    inline rope operator+ (rope && r2, rope r)
-    { return r2 += std::move(r); }
 
     /** Creates a new rope object that is the concatenation of r and t. */
     inline rope operator+ (rope r, text const & t)

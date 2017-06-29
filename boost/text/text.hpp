@@ -1197,6 +1197,10 @@ namespace boost { namespace text {
     { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0; }
 
 
+    /** Creates a new text object that is the concatenation of t and t2. */
+    inline text operator+ (text t, text const & t2)
+    { return t += t2; }
+
     /** Creates a new text object that is the concatenation of t and tv. */
     inline text operator+ (text t, text_view tv)
     { return t += tv; }
