@@ -14,9 +14,6 @@ namespace boost { namespace text {
 
     struct text;
 
-    // TODO: Test coverage for copies and assignment -- none should be doing
-    // encoding checks.
-
     /** A reference to a constant contiguous sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not. */
