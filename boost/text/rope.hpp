@@ -226,9 +226,6 @@ namespace boost { namespace text {
         // TODO: Document the creation of individual segments based on the
         // ctor, assignment operator, insert, or replace overload.
 
-        // TODO: Test all these overloads for insert(), replace(), and
-        // erase(), including for texts.  Include verification of encoding
-        // checks being done (or not).
         /** Inserts the sequence of char from rv into *this starting at offset
             at.
 
@@ -457,6 +454,8 @@ namespace boost { namespace text {
             return text_insertion{nullptr};
         }
 
+        void check_encoding_from (size_type at);
+
         template <typename T>
         rope & insert_impl (
             size_type at,
@@ -464,8 +463,13 @@ namespace boost { namespace text {
             allocation_note_t allocation_note,
             detail::encoding_note_t encoding_note = detail::check_encoding_breakage
         ) {
+            assert(0 <= at && at <= size());
+
             if (t.empty())
                 return *this;
+
+            if (encoding_note == detail::check_encoding_breakage)
+                check_encoding_from(at);
 
             if (text_insertion insertion = mutable_insertion_leaf(at, t.size(), allocation_note)) {
                 auto const t_size = t.size();
@@ -542,6 +546,8 @@ namespace boost { namespace text {
 
     inline rope & rope::insert (size_type at, rope_view rv)
     {
+        assert(0 <= at && at <= size());
+
         if (rv.empty())
             return *this;
 
@@ -573,6 +579,8 @@ namespace boost { namespace text {
         if (rv_null_terminated)
             rv = rv(0, -1);
 
+        check_encoding_from(at);
+
         rope_view::rope_ref rope_ref = rv.ref_.r_;
 
         detail::found_leaf found_lo;
@@ -590,7 +598,7 @@ namespace boost { namespace text {
                     found_lo.offset_,
                     found_lo.offset_ + rv.size(),
                     true,
-                    detail::check_encoding_breakage
+                    detail::encoding_breakage_ok
                 )
             );
             return *this;
@@ -653,8 +661,7 @@ namespace boost { namespace text {
         if (first == last)
             return *this;
 
-        if (!utf8::starts_encoded(begin() + at, end()))
-            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+        check_encoding_from(at);
 
         ptr_ = detail::btree_insert(ptr_, at, detail::make_node(text(first, last)));
 
@@ -871,6 +878,12 @@ namespace boost { namespace text {
 
     inline bool rope::self_reference (rope_view rv) const
     { return rv.which_ == rope_view::which::r && rv.ref_.r_.r_ == this; }
+
+    inline void rope::check_encoding_from (size_type at)
+    {
+        if (!utf8::starts_encoded(begin() + at, end()))
+            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+    }
 
 #endif
 

@@ -637,6 +637,91 @@ TEST(rope, test_insert)
     }
 }
 
+TEST(rope, test_insert_encoding_checks)
+{
+    // Unicode 9, 3.9/D90-D92
+    // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
+
+    text::text_view const unbroken_tv = utf8;
+    text::text_view const broken_tv(utf8, sizeof(utf8) - 1, text::utf8::unchecked);
+
+    text::text const unbroken_t(unbroken_tv);
+    text::text const broken_t(broken_tv);
+
+    text::repeated_text_view const unbroken_rtv(unbroken_tv, 2);
+    text::repeated_text_view const broken_rtv(broken_tv, 2);
+
+    text::rope const unbroken_r(unbroken_tv);
+    text::rope const broken_r(broken_tv);
+
+    text::rope_view const unbroken_rv = unbroken_r;
+    text::rope_view const broken_rv = broken_r;
+
+    // text
+
+    {
+        text::rope r(unbroken_t);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rtv), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r + ""), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rv), std::logic_error);
+        EXPECT_NO_THROW(r.insert(r.size(), "x"));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_tv));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_t));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_t + ""));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_rtv));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_r));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_r + ""));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_rv));
+    }
+
+    // text_view
+
+    {
+        text::rope r(unbroken_tv);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rtv), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r + ""), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rv), std::logic_error);
+        EXPECT_NO_THROW(r.insert(r.size(), "x"));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_tv));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_t));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_t + ""));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_rtv));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_r));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_r + ""));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_rv));
+    }
+
+    // repeated_text_view
+
+    {
+        text::rope r(unbroken_rtv);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rtv), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r + ""), std::logic_error);
+        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rv), std::logic_error);
+        EXPECT_NO_THROW(r.insert(r.size(), "x"));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_tv));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_t));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_t + ""));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_rtv));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_r));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_r + ""));
+        EXPECT_NO_THROW(r.insert(r.size(), broken_rv));
+    }
+}
+
 TEST(rope, test_erase)
 {
     {
