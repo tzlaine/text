@@ -18,6 +18,8 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
+    // TODO: atomic refs_
+
     /** A mutable sequence of char with copy-on-write semantics.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not. A rope is non-contiguous and is not
@@ -370,7 +372,6 @@ namespace boost { namespace text {
         void swap (rope & rhs)
         { ptr_.swap(rhs.ptr_); }
 
-        // TODO: Test all these overloads.
         /** Appends rv to *this. */
         rope & operator+= (rope_view rv);
 
@@ -430,7 +431,7 @@ namespace boost { namespace text {
             { return text_ != nullptr; }
 
             text * text_;
-            std::ptrdiff_t offset_;
+            detail::found_leaf found_;
         };
 
         text_insertion mutable_insertion_leaf (size_type at, size_type size, allocation_note_t allocation_note)
@@ -449,10 +450,10 @@ namespace boost { namespace text {
             if (found.leaf_->as_leaf()->which_ == detail::node_t::which::t) {
                 text & t = const_cast<text &>(found.leaf_->as_leaf()->as_text());
                 auto const inserted_size = t.size() + size;
-                if (inserted_size <= t.capacity())
-                    return text_insertion{&t, found.offset_};
-                else if (allocation_note == would_allocate && inserted_size <= detail::text_insert_max)
-                    return text_insertion{&t, found.offset_};
+                if (inserted_size <= t.capacity() ||
+                    (allocation_note == would_allocate && inserted_size <= detail::text_insert_max)) {
+                    return text_insertion{&t, found};
+                }
             }
 
             return text_insertion{nullptr};
@@ -469,10 +470,20 @@ namespace boost { namespace text {
                 return *this;
 
             if (text_insertion insertion = mutable_insertion_leaf(at, t.size(), allocation_note)) {
-                if (encoding_note == detail::encoding_breakage_ok)
-                    insertion.text_->insert(insertion.text_->begin() + insertion.offset_, t.begin(), t.end());
-                else
-                    insertion.text_->insert(insertion.offset_, t);
+                auto const t_size = t.size();
+                for (auto node : insertion.found_.path_) {
+                    auto from = detail::find_child(node, at);
+                    detail::bump_keys(const_cast<detail::interior_node_t *>(node), from, t_size);
+                }
+                if (encoding_note == detail::encoding_breakage_ok) {
+                    insertion.text_->insert(
+                        insertion.text_->begin() + insertion.found_.offset_,
+                        t.begin(),
+                        t.end()
+                    );
+                } else {
+                    insertion.text_->insert(insertion.found_.offset_, t);
+                }
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
@@ -1183,6 +1194,12 @@ namespace boost { namespace text {
         rope retval(lhs);
         return retval += rhs;
     }
+
+    inline text & text::operator+= (rope r)
+    { return insert(size(), r.begin(), r.end()); }
+
+    inline text & text::operator+= (rope_view rv)
+    { return insert(size(), rv.begin(), rv.end()); }
 
     namespace detail {
 

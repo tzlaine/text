@@ -586,14 +586,19 @@ namespace boost { namespace text { namespace detail {
     reverse (Container const & c)
     { return {c.rbegin(), c.rend()}; }
 
+    inline void bump_keys (interior_node_t * node, int from, std::ptrdiff_t bump)
+    {
+        for (int i = from, size = (int)node->keys_.size(); i < size; ++i) {
+            node->keys_[i] += bump;
+        }
+    }
+
     inline void insert_child (interior_node_t * node, int i, node_ptr && child)
     {
         auto const child_size = size(child.get());
         node->children_.insert(node->children_.begin() + i, std::move(child));
         node->keys_.insert(node->keys_.begin() + i, offset(node, i));
-        for (int j = i, size = (int)node->keys_.size(); j < size; ++j) {
-            node->keys_[j] += child_size;
-        }
+        bump_keys(node, i, child_size);
     }
 
     enum erasure_adjustments { adjust_keys, dont_adjust_keys };
@@ -603,11 +608,8 @@ namespace boost { namespace text { namespace detail {
         auto const child_size = size(node->children_[i].get());
         node->children_.erase(node->children_.begin() + i);
         node->keys_.erase(node->keys_.begin() + i);
-        if (adj == adjust_keys) {
-            for (int j = i, size = (int)node->keys_.size(); j < size; ++j) {
-                node->keys_[j] -= child_size;
-            }
-        }
+        if (adj == adjust_keys)
+            bump_keys(node, i, -child_size);
     }
 
     // TODO: Test that this throws when breaking encoding.

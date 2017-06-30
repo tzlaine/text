@@ -1140,5 +1140,44 @@ TEST(rope, test_operator_plus)
     EXPECT_EQ((result = rv + rv), "rr");
 }
 
+TEST(rope, test_operator_plus_assign)
+{
+    {
+        text::text_view const tv("tv");
+        text::repeated_text_view const rtv(tv, 3);
+        text::text const t("t");
+        text::rope const r("r");
+        text::rope_view const rv(r);
+
+        text::text result_t;
+
+        EXPECT_EQ((result_t += tv), "tv");
+        EXPECT_EQ((result_t += rtv), "tvtvtvtv");
+        EXPECT_EQ((result_t += t), "tvtvtvtvt");
+        EXPECT_EQ((result_t += std::move(t)), "tvtvtvtvtt");
+        EXPECT_EQ((result_t += r), "tvtvtvtvttr");
+        EXPECT_EQ((result_t += std::move(r)), "tvtvtvtvttrr");
+        EXPECT_EQ((result_t += rv), "tvtvtvtvttrrr");
+    }
+
+    {
+        text::text_view const tv("tv");
+        text::repeated_text_view const rtv(tv, 3);
+        text::text const t("t");
+        text::rope const r("r");
+        text::rope_view const rv(r);
+
+        text::rope result_r;
+
+        EXPECT_EQ((result_r += tv), "tv");
+        EXPECT_EQ((result_r += rtv), "tvtvtvtv");
+        EXPECT_EQ((result_r += t), "tvtvtvtvt");
+        EXPECT_EQ((result_r += std::move(t)), "tvtvtvtvtt");
+        EXPECT_EQ((result_r += r), "tvtvtvtvttr");
+        EXPECT_EQ((result_r += std::move(r)), "tvtvtvtvttrr");
+        EXPECT_EQ((result_r += rv), "tvtvtvtvttrrr");
+    }
+}
+
 // TODO: Add out-of-memory tests (in another file).  These should especially
 // test the Iter interfaces.

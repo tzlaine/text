@@ -375,10 +375,7 @@ namespace boost { namespace text {
    disparity with builtin arrays shouldn't matter, as builtin arrays are
    incongruous for many other reasons.
 
-   14: rope should *always* be passed by value.  If this is *always* done,
-   rope is threadsafe. TODO: Verify.
-
-   15: There is no CharRange for rope like there is for text.  text converts a
+   14: There is no CharRange for rope like there is for text.  text converts a
    CharRange into a text_view, but then always copies the bytes into its
    storage.  rope does not convert text_views into allocated storage, but does
    so with texts.  So the user should be able to choose what kind of segment
@@ -387,6 +384,10 @@ namespace boost { namespace text {
    Should this create a rope that refers to the contents of the temporary?
    Should it create a text that owns the contents?  The user should decide
    this, case-by-case.
+
+   15: For an overloaded function foo(), providing an overload for each of
+   {text,rope}_view will require you to also add an overload for char const *,
+   so pick one or the otehr.
 
 */
 

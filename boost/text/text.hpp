@@ -18,6 +18,8 @@ namespace boost { namespace text {
 
     struct text_view;
     struct repeated_text_view;
+    struct rope;
+    struct rope_view;
 
     // TODO: text should use the more efficient versions of the
     // constexpr-friendly-but-slower operations that text_view does.
@@ -556,11 +558,20 @@ namespace boost { namespace text {
             std::swap(cap_, rhs.cap_);
         }
 
+        /** Appends c_str to *this. */
+        text & operator+= (char const * c_str);
+
         /** Appends tv to *this. */
         text & operator+= (text_view tv);
 
         /** Appends rtv to *this. */
         text & operator+= (repeated_text_view rtv);
+
+        /** Appends r to *this. */
+        text & operator+= (rope r);
+
+        /** Appends r to *this. */
+        text & operator+= (rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -1150,6 +1161,9 @@ namespace boost { namespace text {
         char * old_first = const_cast<char *>(old_substr.begin());
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
+
+    inline text & text::operator+= (char const * c_str)
+    { return insert(size(), c_str); }
 
     inline text & text::operator+= (text_view tv)
     { return insert(size(), tv); }
