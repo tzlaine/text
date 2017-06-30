@@ -4,6 +4,13 @@
 #include <boost/config.hpp>
 
 
+#ifndef BOOST_TEXT_THREAD_UNSAFE
+/** By default, rope uses atomic reference counts internally.  If you don't
+    care about thread safety, and want to remove the performance overhead of
+    using atomics, #define this macro to a nonzero value. */
+#define BOOST_TEXT_THREAD_UNSAFE 0
+#endif
+
 // Nothing before GCC 6 has proper C++14 constexpr support.
 #if defined(__GNUC__) && __GNUC__ < 6
 # define BOOST_TEXT_CXX14_CONSTEXPR

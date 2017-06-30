@@ -18,8 +18,6 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
-    // TODO: atomic refs_
-
     /** A mutable sequence of char with copy-on-write semantics.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not. A rope is non-contiguous and is not

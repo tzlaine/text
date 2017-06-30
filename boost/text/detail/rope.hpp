@@ -4,6 +4,10 @@
 #include <boost/text/text_view.hpp>
 #include <boost/text/text.hpp>
 
+// TODO: Profile both ways.
+#ifndef BOOST_TEXT_THREAD_UNSAFE
+#include <boost/atomic.hpp>
+#endif
 #include <boost/align/align.hpp>
 #include <boost/align/aligned_alloc.hpp>
 #include <boost/align/aligned_delete.hpp>
@@ -109,7 +113,11 @@ namespace boost { namespace text { namespace detail {
         node_t (node_t const & rhs) : refs_ (0), leaf_ (rhs.leaf_) {}
         node_t & operator= (node_t const & rhs) = delete;
 
+#ifdef BOOST_TEXT_THREAD_UNSAFE
         mutable int refs_;
+#else
+        mutable atomic<int> refs_;
+#endif
         bool leaf_;
     };
 
@@ -352,6 +360,8 @@ namespace boost { namespace text { namespace detail {
             return mutable_node_ptr(this_ref, new_interior_node(*as_interior()));
     }
 
+#ifdef BOOST_TEXT_THREAD_UNSAFE
+
     inline void intrusive_ptr_add_ref (node_t const * node)
     { ++node->refs_; }
     inline void intrusive_ptr_release (node_t const * node)
@@ -363,6 +373,27 @@ namespace boost { namespace text { namespace detail {
                 alignment::aligned_delete{}((interior_node_t *)(node));
         }
     }
+
+#else
+
+    // These functions were implemented following the "Reference counting"
+    // example from Boost.Atomic.
+
+    inline void intrusive_ptr_add_ref (node_t const * node)
+    { node->refs_.fetch_add(1, boost::memory_order_relaxed); }
+
+    inline void intrusive_ptr_release (node_t const * node)
+    {
+        if (node->refs_.fetch_sub(1, boost::memory_order_release) == 1) {
+            boost::atomic_thread_fence(boost::memory_order_acquire);
+            if (node->leaf_)
+                delete static_cast<leaf_node_t const *>(node);
+            else
+                alignment::aligned_delete{}((interior_node_t *)(node));
+        }
+    }
+
+#endif
 
     inline std::ptrdiff_t size (node_t const * node)
     {
