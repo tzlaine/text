@@ -1179,7 +1179,7 @@ namespace boost { namespace text { namespace detail {
     template <
         typename T,
         typename R1,
-        bool R1IsCharRange = is_char_range<R1, text, text_view>{}
+        bool R1IsCharRange = is_char_range<R1, text, text_view>::value
     >
     struct rope_rng_ret {};
 

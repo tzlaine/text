@@ -416,7 +416,13 @@ namespace boost { namespace text {
     private:
         enum allocation_note_t { would_allocate, would_not_allocate };
 
+#ifdef BOOST_TEXT_TESTING
+    public:
+#endif
         explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
+#ifdef BOOST_TEXT_TESTING
+    private:
+#endif
 
         bool self_reference (rope_view rv) const;
 

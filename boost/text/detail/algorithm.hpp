@@ -138,7 +138,7 @@ namespace boost { namespace text { namespace detail {
     template <
         typename T,
         typename R1,
-        bool R1IsCharRange = is_char_range<R1>{}
+        bool R1IsCharRange = is_char_range<R1>::value
     >
     struct rng_alg_ret {};
 
@@ -153,8 +153,8 @@ namespace boost { namespace text { namespace detail {
         typename T,
         typename R1,
         typename R2,
-        bool R1IsCharRange = is_char_range<R1>{},
-        bool R2IsCharRange = is_char_range<R2>{}
+        bool R1IsCharRange = is_char_range<R1>::value,
+        bool R2IsCharRange = is_char_range<R2>::value
     >
     struct rngs_alg_ret {};
 
@@ -176,7 +176,7 @@ namespace boost { namespace text { namespace detail {
     template <
         typename T,
         typename R1,
-        bool R1IsCharRange = is_char_iter<R1>{}
+        bool R1IsCharRange = is_char_iter<R1>::value
     >
     struct char_iter_ret {};
 

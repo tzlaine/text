@@ -17,7 +17,7 @@
 # This must be a macro(), as inside a function string() can only
 # update variables in the function scope.
 macro(fix_default_compiler_settings_)
-  if (MSVC)
+  if (false AND MSVC)
     # For MSVC, CMake sets certain flags to defaults we want to override.
     # This replacement code is taken from sample in the CMake Wiki at
     # http://www.cmake.org/Wiki/CMake_FAQ#Dynamic_Replace.
@@ -52,7 +52,7 @@ macro(config_compiler_and_linker)
   endif()
 
   fix_default_compiler_settings_()
-  if (MSVC)
+  if (false AND MSVC)
     # Newlines inside flags variables break CMake's NMake generator.
     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
     set(cxx_base_flags "-GS -W4 -WX -wd4251 -wd4275 -nologo -J -Zi")
