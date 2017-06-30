@@ -586,6 +586,102 @@ TEST(rope_detail, test_slice_leaf)
     }
 }
 
+TEST(rope_detail, test_slice_leaf_encoding_checks)
+{
+    // Unicode 9, 3.9/D90-D92
+    // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
+
+    // text
+
+    {
+        text t(utf8);
+        node_ptr p0 = make_node(t);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), true, check_encoding_breakage);
+        EXPECT_EQ(p0.as_leaf()->as_text(), utf8);
+        EXPECT_EQ(p1.as_leaf()->as_reference().ref_, utf8);
+    }
+
+    {
+        text t(utf8);
+        node_ptr p0 = make_node(t);
+        EXPECT_THROW(slice_leaf(p0, 1, t.size() - 1, false, check_encoding_breakage), std::logic_error);
+        EXPECT_NO_THROW(slice_leaf(p0, 1, t.size() - 1, false, encoding_breakage_ok));
+    }
+
+    // text_view
+
+    {
+        text_view tv(utf8);
+        node_ptr p0 = make_node(tv);
+        node_ptr p1 = slice_leaf(p0, 0, tv.size(), true, check_encoding_breakage);
+        EXPECT_EQ(p0.as_leaf()->as_text_view(), utf8);
+        EXPECT_EQ(p1.as_leaf()->as_text_view(), utf8);
+    }
+
+    {
+        text_view tv(utf8);
+        node_ptr p0 = make_node(tv);
+        EXPECT_THROW(slice_leaf(p0, 1, tv.size() - 1, false, check_encoding_breakage), std::logic_error);
+        EXPECT_NO_THROW(slice_leaf(p0, 1, tv.size() - 1, false, encoding_breakage_ok));
+    }
+
+    // repeated_text_view
+
+    {
+        repeated_text_view rtv(utf8, 3);
+        node_ptr p0 = make_node(rtv);
+        node_ptr p1 = slice_leaf(p0, 0, rtv.size(), true, check_encoding_breakage);
+        EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), rtv);
+        EXPECT_EQ(text(p1.as_leaf()->as_repeated_text_view()), rtv);
+        EXPECT_EQ(p0->refs_, 1);
+        EXPECT_EQ(p1->refs_, 1);
+    }
+
+    {
+        repeated_text_view rtv(utf8, 3);
+        node_ptr p0 = make_node(rtv);
+        node_ptr p1 = slice_leaf(p0, rtv.view().size(), rtv.view().size() * 2, false, check_encoding_breakage);
+        EXPECT_EQ(text(p0.as_leaf()->as_repeated_text_view()), utf8);
+        EXPECT_EQ(text(p1.as_leaf()->as_repeated_text_view()), utf8);
+    }
+
+    {
+        repeated_text_view rtv(utf8, 3);
+        node_ptr p0 = make_node(rtv);
+        EXPECT_THROW(
+            slice_leaf(p0, rtv.view().size() - 1, rtv.view().size(), false, check_encoding_breakage),
+            std::logic_error
+        );
+        EXPECT_NO_THROW(
+            slice_leaf(p0, rtv.view().size() - 1, rtv.view().size(), false, encoding_breakage_ok)
+        );
+    }
+
+    // reference
+
+    {
+        text t(utf8);
+        node_ptr pt = make_node(t);
+
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true, check_encoding_breakage);
+        node_ptr p1 = slice_leaf(p0, 0, t.size(), true, check_encoding_breakage);
+        EXPECT_EQ(p0.as_leaf()->as_reference().ref_, utf8);
+        EXPECT_EQ(p1.as_leaf()->as_reference().ref_, utf8);
+    }
+
+    {
+        text t(utf8);
+        node_ptr pt = make_node(t);
+
+        node_ptr p0 = slice_leaf(pt, 0, t.size(), true, check_encoding_breakage);
+        EXPECT_EQ(p0.as_leaf()->as_reference().ref_, utf8);
+
+        EXPECT_THROW(slice_leaf(p0, 1, t.size() - 1, false, check_encoding_breakage), std::logic_error);
+        EXPECT_NO_THROW(slice_leaf(p0, 1, t.size() - 1, false, encoding_breakage_ok));
+    }
+}
+
 TEST(rope_detail, test_erase_leaf)
 {
     // text

@@ -14,6 +14,12 @@ namespace boost { namespace text {
 
     struct text;
 
+    // TODO: Test coverage for copies and assignment -- none should be doing
+    // encoding checks.
+
+    /** A reference to a constant contiguous sequence of char.  The sequence
+        is assumed to be UTF-8 encoded, though it is possible to construct a
+        sequence which is not. */
     struct text_view
     {
         using iterator = char const *;
@@ -339,7 +345,9 @@ namespace boost { namespace text {
    1: use of signed types >= sizeof(int) for sizes -- better code gen;
    negative indexing
 
-   2: including null terminator in strings
+   2: operations on existing text/text_view,rope/etc. objects assumes utf8
+   encoding -- checks are only done when constructing, slicing, converting, or
+   by explicit user request (checked_encoding()).
 
    3: removal of data(), front(), back(), assign()
 
@@ -359,7 +367,7 @@ namespace boost { namespace text {
 
    9: checked_encoding() is provided as a free function, since it does extra
    work (as opposed to the unchecked_t ctors which doe less that the vanilla
-   ones).  This also reduces compile times.
+   ones).
 
    10: Unicode 9 is used.  No other versions are supported.
 

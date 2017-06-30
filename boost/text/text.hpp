@@ -859,8 +859,8 @@ namespace boost { namespace text {
         assert(0 <= tv.size());
         bool const self_ref = self_reference(tv);
         if (self_ref) {
-            erase(text_view(tv.end(), end() - tv.end()));
-            erase(text_view(begin(), tv.begin() - begin()));
+            erase(text_view(tv.end(), end() - tv.end(), utf8::unchecked));
+            erase(text_view(begin(), tv.begin() - begin(), utf8::unchecked));
         } else if (tv.size() <= size()) {
             clear();
             insert(0, tv);

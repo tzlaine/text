@@ -643,7 +643,6 @@ namespace boost { namespace text { namespace detail {
             bump_keys(node, i, -child_size);
     }
 
-    // TODO: Test that this throws when breaking encoding.
     inline node_ptr slice_leaf (
         node_ptr const & node,
         std::ptrdiff_t lo,
