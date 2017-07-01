@@ -29,9 +29,6 @@ namespace boost { namespace text {
     // TODO: Audit all the comments on all functions not marked noexcept; each
     // should have a \throw section.
 
-    // TODO: Test that copy and assignment do not throw when encoding is
-    // broken.  (Same for rope.)
-
     /** A mutable contiguous null-terminated sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not.  Strongly exception safe. */
