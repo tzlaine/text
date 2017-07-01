@@ -7,6 +7,13 @@
 #include <cassert>
 
 
+namespace boost { namespace text {
+
+    struct rope;
+    struct rope_view;
+
+} }
+
 namespace boost { namespace text { namespace detail {
 
     template <typename ...>
@@ -98,7 +105,7 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template <typename T, typename Exclude1 = void, typename Exclude2 = void>
+    template <typename T>
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<
@@ -129,8 +136,8 @@ namespace boost { namespace text { namespace detail {
             iterator_category_<T>,
             std::random_access_iterator_tag
         >::value &&
-        !std::is_same<T, Exclude1>::value &&
-        !std::is_same<T, Exclude2>::value
+        !std::is_same<T, rope>::value &&
+        !std::is_same<T, rope_view>::value
     >;
 
 
