@@ -1330,5 +1330,20 @@ TEST(text, test_replace_iter_large_insertions)
     }
 }
 
+TEST(text, test_formatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << text::text("abc");
+        EXPECT_EQ(oss.str(), "       abc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*') << text::text("abc");
+        EXPECT_EQ(oss.str(), "abc*******");
+    }
+}
+
 // TODO: Add out-of-memory tests (in another file).  These should especially
 // test the Iter interfaces.

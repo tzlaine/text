@@ -1143,17 +1143,21 @@ TEST(rope, test_replace_iter_large_insertions)
     }
 }
 
-TEST(text, test_formatted_output)
+// TODO: This is wrong!  The padding is not correct, because the number of
+// glyphs is the number we need to subtract from os.width(), not the number of
+// code units (or even the number of code points).  Make stream inserters
+// unformatted, and update the rationale.
+TEST(rope, test_formatted_output)
 {
     {
         std::ostringstream oss;
-        oss << std::setw(10) << text::text("abc");
+        oss << std::setw(10) << text::rope("abc");
         EXPECT_EQ(oss.str(), "       abc");
     }
 
     {
         std::ostringstream oss;
-        oss << std::setw(10) << std::left << std::setfill('*') << text::text("abc");
+        oss << std::setw(10) << std::left << std::setfill('*') << text::rope("abc");
         EXPECT_EQ(oss.str(), "abc*******");
     }
 }
