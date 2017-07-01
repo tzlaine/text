@@ -1176,20 +1176,6 @@ namespace boost { namespace text { namespace detail {
         return root;
     }
 
-    template <
-        typename T,
-        typename R1,
-        bool R1IsCharRange = is_char_range<R1, text, text_view>::value
-    >
-    struct rope_rng_ret {};
-
-    template <typename T, typename R1>
-    struct rope_rng_ret<T, R1, true>
-    { using type = T; };
-
-    template <typename T, typename R1>
-    using rope_rng_ret_t = typename rope_rng_ret<T, R1>::type;
-
     struct segment_inserter
     {
         template <typename Segment>
