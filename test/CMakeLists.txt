@@ -49,7 +49,7 @@ if (BUILD_COVERAGE)
         COMMAND
             lcov --directory . --base-directory . --gcov-tool ${CMAKE_SOURCE_DIR}/llvm-gcov.sh --capture -o lcov-all.info
         COMMAND
-            lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/boost/text/* -o lcov.info
+            lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/boost/text/* ${CMAKE_SOURCE_DIR}/boost/text/detail/* -o lcov.info
         COMMAND
             genhtml lcov.info -o output
     )
