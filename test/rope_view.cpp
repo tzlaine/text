@@ -37,6 +37,8 @@ TEST(rope_view, test_empty)
     EXPECT_EQ(rtv.rend(), rend(rtv));
 
     std::cout << "rtv=\"" << rtv << "\"\n";
+
+    text::rope_view::iterator it;
 }
 
 struct rope_views

@@ -73,6 +73,9 @@ namespace boost { namespace text {
             if (p_first == p_last)
                 return 0;
 
+            if (r_first == r_last)
+                return -1;
+
             auto const pair =
                 algorithm::boyer_moore_search(r_first, r_last, p_first, p_last);
 
@@ -557,19 +560,22 @@ namespace boost { namespace text {
             char const * p_first_, char const * p_last_
         ) noexcept {
             if (p_first_ == p_last_)
-                return p_last_ - p_first_;
+                return r_last_ - r_first_;
 
-            const_reverse_char_iterator r_first(r_first_);
-            const_reverse_char_iterator r_last(r_last_);
-            const_reverse_char_iterator p_first(p_first_);
-            const_reverse_char_iterator p_last(p_last_);
+            if (r_first_ == r_last_)
+                return -1;
+
+            const_reverse_char_iterator r_first(r_last_);
+            const_reverse_char_iterator r_last(r_first_);
+            const_reverse_char_iterator p_first(p_last_);
+            const_reverse_char_iterator p_last(p_first_);
             auto const pair =
                 algorithm::boyer_moore_search(r_first, r_last, p_first, p_last);
 
             if (pair.first == pair.second)
                 return -1;
 
-            return pair.second.base() - r_first_ + 1;
+            return pair.second.base() - r_first_;
         }
 
 #else
