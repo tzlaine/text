@@ -305,6 +305,65 @@ TEST(text_view, test_unformatted_output)
 }
 
 
+TEST(repeated_text_view, test_swap_and_comparisons)
+{
+    text::text_view tv_a("a");
+    text::text_view tv_ab("ab");
+    text::text_view tv_abab("abab");
+
+    text::repeated_text_view tv_a_3(tv_a, 3);
+    text::repeated_text_view tv_ab_1(tv_ab, 1);
+    text::repeated_text_view tv_ab_2(tv_ab, 2);
+    text::repeated_text_view tv_ab_3(tv_ab, 3);
+    text::repeated_text_view tv_abab_1(tv_abab, 1);
+
+    {
+        auto const tv_a_3_copy = tv_a_3;
+        auto const tv_ab_2_copy = tv_ab_2;
+
+        tv_a_3.swap(tv_ab_2);
+
+        EXPECT_EQ(tv_a_3, tv_ab_2_copy);
+        EXPECT_EQ(tv_ab_2, tv_a_3_copy);
+
+        tv_a_3.swap(tv_ab_2);
+    }
+
+    EXPECT_EQ(tv_ab_2, tv_ab_2);
+
+    EXPECT_TRUE(tv_a_3 < tv_ab_2);
+    EXPECT_TRUE(tv_a_3 < tv_ab_3);
+
+    EXPECT_TRUE(tv_ab_2 < tv_ab_3);
+    EXPECT_TRUE(tv_ab_3 > tv_ab_2);
+
+    EXPECT_TRUE(tv_ab_1 < tv_abab_1);
+    EXPECT_TRUE(tv_abab_1 > tv_ab_1);
+
+    EXPECT_EQ(tv_ab_2, tv_abab_1);
+    EXPECT_EQ(tv_abab_1, tv_ab_2);
+
+    EXPECT_TRUE(tv_ab_3 > tv_abab_1);
+    EXPECT_TRUE(tv_abab_1 < tv_ab_3);
+}
+
+
+TEST(repeated_text_view, test_unformatted_output)
+{
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << text::repeated_text_view("abc", 2);
+        EXPECT_EQ(oss.str(), "abcabc");
+    }
+
+    {
+        std::ostringstream oss;
+        oss << std::setw(10) << std::left << std::setfill('*') << text::repeated_text_view("abc", 2);
+        EXPECT_EQ(oss.str(), "abcabc");
+    }
+}
+
+
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 struct repeated_text_views

@@ -82,8 +82,6 @@ namespace boost { namespace text { namespace detail {
                 return -1;
         } else if (iters.second == r_last) {
             return 1;
-        } else if (*iters.first == *iters.second) {
-            return 0;
         } else if (*iters.first < *iters.second) {
             return -1;
         } else {
