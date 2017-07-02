@@ -41,7 +41,9 @@ add_test_executable(algorithm)
 if (BUILD_COVERAGE)
     add_custom_target(
         coverage
-        ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR}
+        rm -rf ${coverage_gcda_files} lcov-all.info lcov.info output
+        COMMAND
+            ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR}
         COMMAND
             cd ${CMAKE_BINARY_DIR}
         COMMAND
