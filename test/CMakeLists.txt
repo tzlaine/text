@@ -11,6 +11,8 @@ if (NOT MSVC)
     set(warnings_flag -Wall)
 endif ()
 
+set(coverage_gcda_files)
+
 macro(add_test_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
@@ -20,6 +22,7 @@ macro(add_test_executable name)
     if (clang_on_linux)
         target_link_libraries(${name} c++)
     endif ()
+    list(APPEND coverage_gcda_files ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${name}.dir/${name}.cpp.gcda)
 endmacro()
 
 add_test_executable(detail_utility)
@@ -34,6 +37,23 @@ add_test_executable(rope_view)
 add_test_executable(rope)
 add_test_executable(common_op)
 add_test_executable(algorithm)
+
+if (BUILD_COVERAGE)
+    add_custom_target(
+        coverage
+        ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR}
+        COMMAND
+            cd ${CMAKE_BINARY_DIR}
+        COMMAND
+            llvm-cov gcov -f -b ${coverage_gcda_files}
+        COMMAND
+            lcov --directory . --base-directory . --gcov-tool ${CMAKE_SOURCE_DIR}/llvm-gcov.sh --capture -o lcov-all.info
+        COMMAND
+            lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/boost/text/* -o lcov.info
+        COMMAND
+            genhtml lcov.info -o output
+    )
+endif ()
 
 set(compile_sources
     compile_tests_main.cpp

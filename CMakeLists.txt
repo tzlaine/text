@@ -16,12 +16,29 @@ set(USE_UBSAN false CACHE BOOL "Set to true to enable -fsanitize=undefined when 
 if (USE_ASAN AND USE_UBSAN)
     message(FATAL_ERROR "USE_ASAN and USE_UBSAN must not be enabled at the same time")
 elseif (USE_ASAN)
+    set(compile_flags -fsanitize=address)
     set(link_flags -fsanitize=address)
     message("-- Using -fsanitize=address") 
 elseif (USE_UBSAN)
+    set(compile_flags -fsanitize=undefined)
     set(link_flags -fsanitize=undefined)
     message("-- Using -fsanitize=undefined")
 endif()
+
+
+##################################################
+# Code coverage
+##################################################
+if (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL Clang)
+    set(BUILD_COVERAGE false CACHE BOOL "Set to true to enable code coverage when building tests.")
+    if (BUILD_COVERAGE)
+        message("-- Building for code coverage; disabling any sanitizers")
+        set(compile_flags -fprofile-arcs -ftest-coverage)
+        set(CMAKE_BUILD_TYPE RelWithDebInfo)
+        set(link_flags --coverage)
+        #Linux/GCC set(link_flags -lgcov)
+    endif ()
+endif ()
 
 
 ##################################################
@@ -32,7 +49,7 @@ target_include_directories(text INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(text INTERFACE boost)
 if (link_flags)
     target_link_libraries(text INTERFACE ${link_flags})
-    target_compile_options(text INTERFACE ${link_flags})
+    target_compile_options(text INTERFACE ${compile_flags})
 endif ()
 
 
