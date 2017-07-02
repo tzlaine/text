@@ -106,6 +106,7 @@ TEST(text, test_non_empty_const_interface)
     EXPECT_EQ(t_a, t_a(-1));
 
     EXPECT_EQ("", t_a(1, 1));
+    EXPECT_EQ("", t_a(-1, -1));
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.size(), 2);

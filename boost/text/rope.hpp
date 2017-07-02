@@ -461,16 +461,14 @@ namespace boost { namespace text {
         rope & insert_impl (
             size_type at,
             T && t,
-            allocation_note_t allocation_note,
-            detail::encoding_note_t encoding_note = detail::check_encoding_breakage
+            allocation_note_t allocation_note
         ) {
             assert(0 <= at && at <= size());
 
             if (t.empty())
                 return *this;
 
-            if (encoding_note == detail::check_encoding_breakage)
-                check_encoding_from(at);
+            check_encoding_from(at);
 
             if (text_insertion insertion = mutable_insertion_leaf(at, t.size(), allocation_note)) {
                 auto const t_size = t.size();
@@ -478,21 +476,13 @@ namespace boost { namespace text {
                     auto from = detail::find_child(node, at);
                     detail::bump_keys(const_cast<detail::interior_node_t *>(node), from, t_size);
                 }
-                if (encoding_note == detail::encoding_breakage_ok) {
-                    insertion.text_->insert(
-                        insertion.text_->begin() + insertion.found_.offset_,
-                        t.begin(),
-                        t.end()
-                    );
-                } else {
-                    insertion.text_->insert(insertion.found_.offset_, t);
-                }
+                insertion.text_->insert(insertion.found_.offset_, t);
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at,
                     detail::make_node(std::forward<T &&>(t)),
-                    encoding_note
+                    detail::check_encoding_breakage
                 );
             }
 

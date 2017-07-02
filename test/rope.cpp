@@ -78,6 +78,7 @@ TEST(rope, test_non_empty_const_interface)
     EXPECT_EQ(t_a, t_a(-1));
 
     EXPECT_EQ("", t_a(1, 1));
+    EXPECT_EQ("", t_a(-1, -1));
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.size(), 2);
@@ -410,6 +411,8 @@ TEST(rope, test_substr)
         text::text_view("or to make it compile will be such a trial as to kindle its self-immolation") +
         text::repeated_text_view(".", 3);
 
+    EXPECT_EQ(r.substr(-4, -1), "n..");
+
     for (int i = 0; i < r.size(); ++i) {
         for (int j = i; j < r.size(); ++j) {
             text::rope const substr = r.substr(i, j);
@@ -623,6 +626,7 @@ TEST(rope, test_insert)
             auto final_cp_plus_one = first;
             ++final_cp_plus_one;
             EXPECT_NO_THROW(t.insert(4, final_cp_plus_one, last));
+            EXPECT_NO_THROW(t.insert(4, last, last));
         }
 
         {
@@ -633,6 +637,7 @@ TEST(rope, test_insert)
             auto final_cp_plus_one = first;
             ++final_cp_plus_one;
             EXPECT_NO_THROW(t.insert(t.begin() + 1, final_cp_plus_one, last));
+            EXPECT_NO_THROW(t.insert(t.begin() + 1, last, last));
         }
     }
 }

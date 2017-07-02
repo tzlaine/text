@@ -39,6 +39,20 @@ TEST(rope_view, test_empty)
     std::cout << "rtv=\"" << rtv << "\"\n";
 
     text::rope_view::iterator it;
+
+    {
+        text::rope_view rv_from_rtv(text::repeated_text_view("txt", 2), 1, 5);
+        std::ostringstream oss;
+        oss << rv_from_rtv;
+        EXPECT_EQ(oss.str(), "xttx");
+    }
+
+    {
+        text::rope_view rv_from_rtv("fools gold");
+        std::ostringstream oss;
+        oss << rv_from_rtv;
+        EXPECT_EQ(oss.str(), "fools gold");
+    }
 }
 
 struct rope_views
@@ -113,6 +127,7 @@ TEST(rope_view, test_substr)
     EXPECT_EQ(rtv_a(1), rtv_a);
     EXPECT_EQ(rtv_a(-1), rtv_a);
     EXPECT_EQ(rtv_a(0, -1), rtv_empty);
+    EXPECT_EQ(rtv_a(-1, -1), rtv_empty);
 
     EXPECT_EQ(rtv_abc(0, 7), rtv_abc);
     EXPECT_EQ(rtv_abc(0), "");
@@ -132,19 +147,53 @@ TEST(rope_view, test_substr)
 
 TEST(rope_view, test_foreach_segment)
 {
-    text::rope r("some");
-    r += text::repeat(" ", 3);
-    r += text::text("text");
-
-    for (int i = 0; i < r.size(); ++i)
     {
-        for (int j = i; j < r.size(); ++j)
-        {
-            text::rope_view rv = r(i, j);
-            std::ostringstream oss;
-            oss << rv;
+        text::rope r("some");
+        r += text::repeat(" ", 3);
+        r += text::text("text");
 
-            EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+        for (int i = 0; i < r.size(); ++i)
+        {
+            for (int j = i; j < r.size(); ++j)
+            {
+                text::rope_view rv = r(i, j);
+                std::ostringstream oss;
+                oss << rv;
+
+                EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+            }
+        }
+    }
+
+    {
+        text::rope r("some");
+
+        for (int i = 0; i < r.size(); ++i)
+        {
+            for (int j = i; j < r.size(); ++j)
+            {
+                text::rope_view rv = r(i, j);
+                std::ostringstream oss;
+                oss << rv;
+
+                EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+            }
+        }
+    }
+
+    {
+        text::rope r(text::repeated_text_view("txt", 2));
+
+        for (int i = 0; i < r.size(); ++i)
+        {
+            for (int j = i; j < r.size(); ++j)
+            {
+                text::rope_view rv = r(i, j);
+                std::ostringstream oss;
+                oss << rv;
+
+                EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+            }
         }
     }
 }
