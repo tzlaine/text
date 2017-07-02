@@ -289,18 +289,18 @@ TEST(text_view, test_substr_constexpr)
 
 #endif
 
-TEST(text_view, test_formatted_output)
+TEST(text_view, test_unformatted_output)
 {
     {
         std::ostringstream oss;
         oss << std::setw(10) << text::text_view("abc");
-        EXPECT_EQ(oss.str(), "       abc");
+        EXPECT_EQ(oss.str(), "abc");
     }
 
     {
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*') << text::text_view("abc");
-        EXPECT_EQ(oss.str(), "abc*******");
+        EXPECT_EQ(oss.str(), "abc");
     }
 }
 

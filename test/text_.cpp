@@ -1330,18 +1330,18 @@ TEST(text, test_replace_iter_large_insertions)
     }
 }
 
-TEST(text, test_formatted_output)
+TEST(text, test_unformatted_output)
 {
     {
         std::ostringstream oss;
         oss << std::setw(10) << text::text("abc");
-        EXPECT_EQ(oss.str(), "       abc");
+        EXPECT_EQ(oss.str(), "abc");
     }
 
     {
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*') << text::text("abc");
-        EXPECT_EQ(oss.str(), "abc*******");
+        EXPECT_EQ(oss.str(), "abc");
     }
 }
 

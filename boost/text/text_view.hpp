@@ -237,18 +237,9 @@ namespace boost { namespace text {
             }
         }
 
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<< (std::ostream & os, text_view tv)
-        {
-            if (os.good()) {
-                detail::pad_width_before(os, tv.size());
-                if (os.good())
-                    os.write(tv.begin(), tv.size());
-                if (os.good())
-                    detail::pad_width_after(os, tv.size());
-            }
-            return os;
-        }
+        { return os.write(tv.begin(), tv.size()); }
 
     private:
         char const * data_;
@@ -393,6 +384,11 @@ namespace boost { namespace text {
    15: For an overloaded function foo(), providing an overload for each of
    {text,rope}_view will require you to also add an overload for char const *,
    so pick one or the otehr.
+
+   16: All stream inserters perform unformatted output.  This is necessary
+   because a single char is not a code point, and a single code point does not
+   even correspond to a single formatted output glyph.  Higher-level code must
+   deal with such issues.
 
 */
 

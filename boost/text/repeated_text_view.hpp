@@ -167,18 +167,11 @@ namespace boost { namespace text {
             }
         }
 
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<< (std::ostream & os, repeated_text_view rtv)
         {
-            if (os.good()) {
-                detail::pad_width_before(os, rtv.size());
-                for (std::ptrdiff_t i = 0; i < rtv.count(); ++i) {
-                    if (!os.good())
-                        break;
-                    os.write(rtv.view().begin(), rtv.view().size());
-                }
-                if (os.good())
-                    detail::pad_width_after(os, rtv.size());
+            for (std::ptrdiff_t i = 0; i < rtv.count(); ++i) {
+                os.write(rtv.view().begin(), rtv.view().size());
             }
             return os;
         }

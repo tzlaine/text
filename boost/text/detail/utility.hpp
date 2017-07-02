@@ -132,40 +132,6 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-    inline void insert_fill_chars (std::ostream & os, std::streamsize n)
-    {
-        int const chunk_size = 8;
-        char fill_chars[chunk_size];
-        std::fill_n(fill_chars, chunk_size, os.fill());
-        for (; chunk_size <= n && os.good(); n -= chunk_size) {
-            os.write(fill_chars, chunk_size);
-        }
-        if (0 < n && os.good())
-            os.write(fill_chars, n);
-    }
-
-    inline void pad_width_before (std::ostream & os, std::streamsize size)
-    {
-        const bool align_left =
-            (os.flags() & std::ostream::adjustfield) == std::ostream::left;
-        if (align_left)
-            return;
-        auto const alignment_size = os.width() - size;
-        insert_fill_chars(os, alignment_size);
-        os.width(0);
-    }
-
-    inline void pad_width_after (std::ostream & os, std::streamsize size)
-    {
-        const bool align_left =
-            (os.flags() & std::ostream::adjustfield) == std::ostream::left;
-        if (!align_left)
-            return;
-        auto const alignment_size = os.width() - size;
-        insert_fill_chars(os, alignment_size);
-        os.width(0);
-    }
-
 } } }
 
 #endif

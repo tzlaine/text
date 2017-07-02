@@ -147,7 +147,7 @@ TEST(rope_view, test_foreach_segment)
     }
 }
 
-TEST(rope_view, test_formatted_output)
+TEST(rope_view, test_unformatted_output)
 {
     {
         text::rope r("abc");
@@ -155,7 +155,7 @@ TEST(rope_view, test_formatted_output)
 
         std::ostringstream oss;
         oss << std::setw(10) << rv;
-        EXPECT_EQ(oss.str(), "       abc");
+        EXPECT_EQ(oss.str(), "abc");
     }
 
     {
@@ -164,6 +164,6 @@ TEST(rope_view, test_formatted_output)
 
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*') << rv;
-        EXPECT_EQ(oss.str(), "abc*******");
+        EXPECT_EQ(oss.str(), "abc");
     }
 }

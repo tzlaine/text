@@ -590,18 +590,9 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<< (std::ostream & os, text const & t)
-        {
-            if (os.good()) {
-                detail::pad_width_before(os, t.size());
-                if (os.good())
-                    os.write(t.begin(), t.size());
-                if (os.good())
-                    detail::pad_width_after(os, t.size());
-            }
-            return os;
-        }
+        { return os.write(t.begin(), t.size()); }
 
 #ifndef BOOST_TEXT_DOXYGEN
 

@@ -389,15 +389,10 @@ namespace boost { namespace text {
         /** Appends t to *this, by moving its contents into *this. */
         rope & operator+= (text && t);
 
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<< (std::ostream & os, rope r)
         {
-            if (os.good()) {
-                detail::pad_width_before(os, r.size());
-                r.foreach_segment(detail::segment_inserter{os});
-                if (os.good())
-                    detail::pad_width_after(os, r.size());
-            }
+            r.foreach_segment(detail::segment_inserter{os});
             return os;
         }
 
@@ -1085,6 +1080,9 @@ namespace boost { namespace text {
 
         rope_ref r_ref = ref_.r_;
 
+        if (!r_ref.r_)
+            return;
+
         detail::found_leaf found_lo;
         detail::find_leaf(r_ref.r_->ptr_, r_ref.lo_, found_lo);
 
@@ -1194,15 +1192,10 @@ namespace boost { namespace text {
     { return rv.rend(); }
 
 
-    /** Stream inserter; performs formatted output. */
+    /** Stream inserter; performs unformatted output. */
     inline std::ostream & operator<< (std::ostream & os, rope_view rv)
     {
-        if (os.good() && !rv.empty()) {
-            detail::pad_width_before(os, rv.size());
-            rv.foreach_segment(detail::segment_inserter{os});
-            if (os.good())
-                detail::pad_width_after(os, rv.size());
-        }
+        rv.foreach_segment(detail::segment_inserter{os});
         return os;
     }
 
