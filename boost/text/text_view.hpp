@@ -119,7 +119,16 @@ namespace boost { namespace text {
             CharRange const & r,
             detail::rng_alg_ret_t<int *, CharRange> = 0
         )
-        { *this = text_view(&*r.begin(), r.end() - r.begin()); }
+        {
+            // TODO: This doesn't work for types with free begin()/end() but
+            // no member begin()/end().
+            if (std::begin(r) == std::end(r)) {
+                data_ = nullptr;
+                size_ = 0;
+            } else {
+                *this = text_view(&*std::begin(r), std::end(r) - std::begin(r));
+            }
+        }
 
         constexpr text_view (text_view const & rhs) noexcept :
             data_ (rhs.data_),

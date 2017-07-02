@@ -44,7 +44,7 @@ TEST(reverse_char_iterator, test_c_str_ctor)
     {
         std::string tv_a("a");
         text::detail::reverse_char_iterator first(&*tv_a.rbegin());
-        text::detail::reverse_char_iterator last(&*tv_a.rend());
+        text::detail::reverse_char_iterator last(&*tv_a.rbegin() - 1);
 
         EXPECT_EQ(last.base(), &*first);
 

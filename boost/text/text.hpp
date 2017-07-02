@@ -840,7 +840,7 @@ namespace boost { namespace text {
     template <typename CharRange>
     auto text::operator= (CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return *this = text_view(&*r.begin(), r.end() - r.begin()); }
+    { return *this = text_view(r); }
 
     inline text & text::operator= (text_view tv)
     {
@@ -903,7 +903,7 @@ namespace boost { namespace text {
     template <typename CharRange>
     auto text::insert (int at, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return insert(at, text_view(&*r.begin(), r.end() - r.begin())); }
+    { return insert(at, text_view(r)); }
 
     inline text & text::insert (int at, text_view tv)
     {
@@ -1002,7 +1002,7 @@ namespace boost { namespace text {
     template <typename CharRange>
     auto text::replace (text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return replace(old_substr, text_view(&*r.begin(), r.end() - r.begin())); }
+    { return replace(old_substr, text_view(r)); }
 
     inline text & text::replace (text_view old_substr, text_view new_substr)
     {
@@ -1169,7 +1169,7 @@ namespace boost { namespace text {
     template <typename CharRange>
     auto text::operator+= (CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return insert(size(), text_view(&*r.begin(), r.end() - r.begin())); }
+    { return insert(size(), text_view(r)); }
 
     inline bool text::self_reference (text_view tv) const
     {
