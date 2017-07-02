@@ -643,7 +643,7 @@ TEST(rope, test_insert_encoding_checks)
     // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
 
-    text::text_view const unbroken_tv = utf8;
+    text::text_view const unbroken_tv(utf8, sizeof(utf8));
     text::text_view const broken_tv(utf8, sizeof(utf8) - 1, text::utf8::unchecked);
 
     text::text const unbroken_t(unbroken_tv);
@@ -662,6 +662,7 @@ TEST(rope, test_insert_encoding_checks)
 
     {
         text::rope r(unbroken_t);
+
         EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
         EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
         EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
