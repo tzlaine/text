@@ -1142,8 +1142,6 @@ namespace boost { namespace text {
                     return -1;
             } else if (iters.second == rhs_last) {
                 return 1;
-            } else if (*iters.first == *iters.second) {
-                return 0;
             } else if (*iters.first < *iters.second) {
                 return -1;
             } else {
@@ -1172,8 +1170,6 @@ namespace boost { namespace text {
                 return -1;
         } else if (iters.second == rhs.end()) {
             return 1;
-        } else if (*iters.first == *iters.second) {
-            return 0;
         } else if (*iters.first < *iters.second) {
             return -1;
         } else {
