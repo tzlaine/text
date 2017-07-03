@@ -76,13 +76,14 @@ namespace boost { namespace text { namespace utf8 {
     namespace detail {
 
         // Follow Table 3-7 in Unicode 9, 3.9/D92
-        inline BOOST_TEXT_CXX14_CONSTEXPR char const * end_of_invalid_utf8 (char const * it) noexcept
+        inline BOOST_TEXT_CXX14_CONSTEXPR
+        char const * end_of_invalid_utf8 (char const * it) noexcept
         {
             assert(!continuation(*it));
 
             using detail::in;
 
-            if (*it <= 0x7f)
+            if (in(0, *it, 0x7f))
                 return nullptr;
 
             if (in(0xc2, *it, 0xdf)) {
@@ -93,77 +94,90 @@ namespace boost { namespace text { namespace utf8 {
 
             if (in(0xe0, *it, 0xe0)) {
                 if (!continuation(*(it + 1), 0xa0, 0xbf))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 return nullptr;
             }
             if (in(0xe1, *it, 0xec)) {
                 if (!continuation(*(it + 1)))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 return nullptr;
             }
             if (in(0xed, *it, 0xed)) {
                 if (!continuation(*(it + 1), 0x80, 0x9f))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 return nullptr;
             }
             if (in(0xee, *it, 0xef)) {
                 if (!continuation(*(it + 1)))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 return nullptr;
             }
 
             if (in(0xf0, *it, 0xf0)) {
                 if (!continuation(*(it + 1), 0x90, 0xbf))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 if (!continuation(*(it + 3)))
-                    return it - 3;
+                    return it + 3;
                 return nullptr;
             }
             if (in(0xf1, *it, 0xf3)) {
                 if (!continuation(*(it + 1)))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 if (!continuation(*(it + 3)))
-                    return it - 3;
+                    return it + 3;
                 return nullptr;
             }
             if (in(0xf4, *it, 0xf4)) {
                 if (!continuation(*(it + 1), 0x80, 0x8f))
-                    return it - 1;
+                    return it + 1;
                 if (!continuation(*(it + 2)))
-                    return it - 2;
+                    return it + 2;
                 if (!continuation(*(it + 3)))
-                    return it - 3;
+                    return it + 3;
                 return nullptr;
             }
 
             return it;
         }
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR char const * decrement (char const * it) noexcept
+        inline BOOST_TEXT_CXX14_CONSTEXPR
+        char const * decrement (char const * it) noexcept
         {
             char const * retval = it;
 
-            while (continuation(*--retval))
-                ;
+            int backup = 0;
+            while (backup < 4 && continuation(*--retval)) {
+                ++backup;
+            }
+            backup = it - retval;
 
-            int const backup = it - retval;
+            if (continuation(*retval))
+                return it - 1;
 
-            char const * const first_invalid = end_of_invalid_utf8(retval);
-            if (first_invalid) {
+            char const * first_invalid = end_of_invalid_utf8(retval);
+            if (first_invalid == retval)
+                ++first_invalid;
+            while (first_invalid && (first_invalid - retval) < backup) {
+                backup -= first_invalid - retval;
                 retval = first_invalid;
-            } else if (1 < backup) {
+                first_invalid = end_of_invalid_utf8(retval);
+                if (first_invalid == retval)
+                    ++first_invalid;
+            }
+
+            if (1 < backup) {
                 int const cp_bytes = code_point_bytes(*retval);
                 if (cp_bytes < backup)
                     retval = it - 1;
