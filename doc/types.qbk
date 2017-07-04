@@ -156,6 +156,28 @@ checks.
 
 [heading The `repeated_text_view` Type]
 
+One of the things that differs between `std::string` and _t_ is that _t_ is
+missing all those overloads (including constructors) that take a number of
+characters to repeat.  For example, _t_ has no function for inserting a single
+character N times.  Part of the reason for this, is that inserting a single
+character no longer works, since _Text_ types use a variable-length encoding,
+UTF-8.  Instead of having all those overloads, especially since they don't
+really fit with UTF-8, and using a heap-allocating type like _t_ to represent
+repeated characters, _Text_ introduces a new non-allocating type for this,
+_rtv_.
+
+_rtv_ has semantics and an interface much like to _tv_: it is near-immutable;
+uses `int` as its size/index type; uses `char` as its character type; and it
+is slice-able in the same way.
+
+With _rtv_ in hand, this code which allocates:
+
+    std::cout << std::string(indent, ' ');
+
+becomes this code, which does not:
+
+    std::cout << boost::text::repeated_text_view(" ", indent);
+
 
 [heading The `rope` Type]
 
