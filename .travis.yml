@@ -209,8 +209,7 @@ script:
           then
             exit 1
           fi
-          cp test/lcov.info .
-          bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+          bash <(curl -s https://codecov.io/bash) -f test/lcov.info || echo "Codecov did not collect coverage reports"
           cd ..
           rm -rf $build_dir
       fi
