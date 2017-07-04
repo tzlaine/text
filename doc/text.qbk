@@ -36,7 +36,7 @@
 
 [/ Links ]
 
-[def _text_                Boost.Text]
+[def _Text_                Boost.Text]
 [def _Char_rng_            [link boost_text__proposed_.concepts.char_range Char_range]]
 [def _Char_iter_           [link boost_text__proposed_.concepts.char_iterator Char_iterator]]
 
@@ -58,6 +58,7 @@
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 
 [include intro.qbk]
+[include string_bad.qbk]
 [include manual.qbk]
 [include concepts.qbk]
 

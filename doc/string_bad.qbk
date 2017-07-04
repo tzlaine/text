@@ -1,0 +1,99 @@
+[section Why is std::string So Bad?]
+
+[heading The Fat Interface]
+
+Here are the member functions that directly mutate, or allow mutation by
+returning a reference to the internal storage ofa `std::string`, not counting
+overloads, not counting assignment operators:
+
+* `assign()`
+* `at()`
+* `operator[]()`
+* `front()`
+* `back()`
+* `data()`
+* `begin()` (non-`const`)
+* `end()` (non-`const`)
+* `reserve()`
+* `shrink_to_fit()`
+* `clear()`
+* `insert()`
+* `erase()`
+* `push_back()`
+* `pop_back()`
+* `append()`
+* `operator+=()`
+* `replace()`
+* `resize()`
+* `swap()`
+
+That's a lot!  Some are semantically synonymous, like `data()` and `begin()`,
+or `append()` and `operator+=()`.
+
+_t_ has these equivalent member functions (`operator+=()` still exists, but as
+a nonmember):
+
+* `operator[]()`
+* `begin()` (non-`const`)
+* `end()` (non-`const`)
+* `reserve()`
+* `shrink_to_fit()`
+* `clear()`
+* `insert()`
+* `erase()`
+* `replace()`
+* `resize()`
+* `swap()`
+
+This makes _t_ a type that is much easier to teach, audit, and write static
+checks for.
+
+Additionally, `std::string` has a number of search operations that are
+needlessly implemented as member functions:
+
+* `find()`
+* `rfind()`
+* `find_first_of()`
+* `find_first_not_of()`
+* `find_last_of()`
+* `find_last_not_of()`
+
+These would have been much more useful as separate algorithms that can be
+applied to any sequence of characters.  Implementing these as member functions
+is the moral equivalent of adding a `std::vector::sort()` member.
+
+_Text_ provides these as separate algorithms.
+
+
+[heading The Expensive Substring Operation]
+
+Since `std::string_view` was added so long after `std::string`, `std::string`
+forms substrings by allocating memory in `std::string::substr()`.  Forming a
+non-owning substring should be a fundamental operation, and should be
+essentially free.
+
+_Text_ provides substring-producing slicing operations that do no copies or
+allocations.
+
+
+[heading The Missing Unicode Support]
+
+Most humans speak a language that cannot fit in ASCII characters, or in fact
+any one-octet encoding.
+
+However, `std::string` lacks any guarantees of any kind that its contents are
+in a particular encoding.
+
+_Text_'s types address this by guaranteeing UTF-8 encoding at all times,
+unless the user explicitly opts out of this guarantee.
+
+
+[heading Miscellaneous Limitations]
+
+Finally, `std::string` is not thread-safe, cannot be implemented as
+copy-on-write, and is contiguous.
+
+_Text_ provide _r_ for those times when you want a string type that is
+thread-safe, copy-on-write, or cheap to insert into the middle of.
+
+[endsect]
