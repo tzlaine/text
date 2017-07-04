@@ -3,8 +3,8 @@
 [heading The Fat Interface]
 
 Here are the member functions that directly mutate, or allow mutation by
-returning a reference to the internal storage ofa `std::string`, not counting
-overloads, not counting assignment operators:
+returning a reference to the internal storage of a `std::string`, not counting
+overloads, and not counting assignment operators or swap:
 
 * `assign()`
 * `at()`
@@ -25,7 +25,6 @@ overloads, not counting assignment operators:
 * `operator+=()`
 * `replace()`
 * `resize()`
-* `swap()`
 
 That's a lot!  Some are semantically synonymous, like `data()` and `begin()`,
 or `append()` and `operator+=()`.
@@ -42,7 +41,6 @@ a nonmember):
 * `insert()`
 * `erase()`
 * `replace()`
-* `swap()`
 
 This makes _t_ a type that is much easier to teach, audit, and write static
 checks for.

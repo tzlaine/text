@@ -1,6 +1,6 @@
 [section Boost.Text String Types]
 
-[heading `text_view`]
+[heading The `text_view` Type]
 
 _tv_ is type at the center of _Text_.  It is used everywhere you would have
 used `char const *` before C++17, and everywhere you would use
@@ -55,13 +55,116 @@ Of course, there is a user-defined literal for _tv_:
 
 [text_view_literal]
 
+Finally, there is an `explicit` conversion from any value of a type that
+models _Char_rng_.  _Char_rng_ is any contiguous sequence of `char` that
+provides `char const *` pointer access to its `char`s.  This give use
+conversions from `std::string` and other types that _tv_ does not explicitly
+know about.
 
-[heading `text`]
 
-[heading `repeated_text_view`]
+[heading The `text` Type]
 
-[heading `rope`]
+_t_ is a contiguous, heap-allocated sequence of `char`.  _t_ is also strongly
+exception-safe.  Its purpose is to be a better `std::string`.
 
-[heading `rope_view`]
+Like _tv_, it is guaranteed to be UTF-8 encoded, with the same gurantees when
+constructing and slicing.  Its character type is `char` and its size/index
+type is `int`, for the same reasons given for _tv_.  It is also slice-able in
+the same was that _tv_ is.
+
+_t_ has its own user-defined literal:
+
+[text_literal]
+
+Unlike _tv_ though, _t_ is mutable.  _t_ also checks that its mutating
+operations do not break UTF-8 encoding.  Mostly.  Why not always?  This is
+C++, so we say things like "You always -- always and without fail -- want to
+make sure your strings are UTF-8 encoded (except when you don't)."
+
+So, there is a safe interface, that always checks the encoding on mutations,
+and an unsafe one, that does not (or sometimes partially does).  Let's look at
+the mutating operations.
+
+These are not very interesting with respect to encoding, because no checks are
+necessary; these are the purely safe mutations:
+
+* `reserve()`
+* `shrink_to_fit()`
+* `clear()`
+
+These are impossible to check, because they give the user a pointer into the
+guts of _t_, after which _t_ is ignorant of the mutations performed; they are
+purely unsafe mutations:
+
+* `operator[]()`
+* `begin()` (non-`const`)
+* `end()` (non-`const`)
+
+These require checking to ensure UTF-8 encoding:
+
+* `insert()`
+* `erase()`
+* `replace()`
+
+Each of `insert()`, `erase()`, and `replace()` has multiple overloads.  Let's
+look at the ones for `insert()`:
+
+    text & insert(int at, text_view tv);
+    text & insert(int at, repeated_text_view rtv);
+    template<typename CharRange> text & insert(int at, CharRange const & rng);
+    template<typename Iter> text & insert(int at, Iter first, Iter last);
+    template<typename Iter> text & insert(iterator at, Iter first, Iter last);
+
+The first two insert sequences that are unchecked, since they are already
+contained in _Text_ types.  The _Char_rng_ overload constructs a _tv_ from the
+inserted object, and so the normal _tv_ checking is done.
+
+For the last two, it becomes impossible to check the encoding at the ends
+up-front, since the iterators might be input iterators, which are
+iterate-once.  For the same reason, if we wait to do the encoding check, and
+copy the contents of `[first, last)` into the _t_ first, if we find out that
+they are not properly encoded, we would lose the already-read data, since we
+can't go back and re-iterate over the sequence.
+
+For these reasons, and because we need a way for users to intentionally break
+encoding when they really need to, the iterator-using interfaces are not
+checked for UTF-8 encoding at all:
+
+[char_rng_vs_iters_insertion]
+
+Insertions can insert a sequence with broken encoding, or insert at a location
+that breaks encoding.  What about checking the insertion point for encoding
+breakage?
+
+A similar rule applies -- we check for encoding breakage when the insertion
+point is given as an index, and do not check when it is given as an iterator.
+
+Notice how two out of the three the always-unsafe mutations are `begin()` and
+`end()`.  Also, we don't check encoding breakage at the insertion point if the
+insertion point `at` is given as an iterator, and we don't check the inserted
+sequence if it is given as a pair of iterators.  That leads us to this
+guideline:
+
+[note Whenever you see an iterator in the interface to a _Text_ type, that
+signals that there is no UTF-8 encoding guarantee for that part of the
+interface (insertion point or inserted sequence, in the `insert()` case.]
+
+It's not necessary to examine all the `erase()` and `replace()` overloads,
+because they follow the same pattern -- use of iterators turns off encoding
+checks.
+
+
+[heading The `repeated_text_view` Type]
+
+
+[heading The `rope` Type]
+
+
+[heading The `rope_view` Type]
+
+
+[heading Common Operations]
+
+There are some operations that are common to all the _Text_ type. TODO
 
 [endsect]
