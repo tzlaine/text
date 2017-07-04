@@ -58,6 +58,7 @@
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 
 [include intro.qbk]
+[include compiler_support.qbk]
 [include string_bad.qbk]
 [include manual.qbk]
 [include concepts.qbk]

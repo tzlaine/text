@@ -1,0 +1,14 @@
+[section Compiler Support]
+
+_Text_ is written against the C++11 and C++14 standards.  It will use C++14
+features if they are present, and otherwise is C++11 code.  Specifically,
+_Text_ takes advantage of C++14 constexpr support for much of _tv_'s
+implementetation.
+
+Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or
+later), and GCC versions 4.8 and later all work.
+
+MSVC support has been tested with Visual Studio 2015.  Other versions are
+expected to work as well, but have not yet been tested.
+
+[endsect]
