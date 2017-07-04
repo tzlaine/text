@@ -42,7 +42,6 @@ a nonmember):
 * `insert()`
 * `erase()`
 * `replace()`
-* `resize()`
 * `swap()`
 
 This makes _t_ a type that is much easier to teach, audit, and write static
