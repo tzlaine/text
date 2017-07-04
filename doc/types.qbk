@@ -1,0 +1,61 @@
+[section Boost.Text String Types]
+
+[heading `text_view`]
+
+_tv_ is type at the center of _Text_.  It is used everywhere you would have
+used `char const *` before C++17, and everywhere you would use
+`std::string_view` in C++17 and later.
+
+Analogouly to `std::string_view`, it defines implicit conversions from `char
+const *` and _t_, so it can be used in interfaces that accept either.
+
+_tv_ is fully _ce_ in everything it does, if you have the compiler support
+(C++14 _ce_).  You can write very extensive compile-time operations using _tv_
+and the _Text_ algorithms.
+
+_tv_ is a nearly immutable type; there are no mutating member functions,
+besides assignment and `swap()`.  It is small (the size of two pointers on
+most modern architectures) and cheap to copy.
+
+_tv_ is also guaranteed to be UTF-8 encoded, as long as it is constructed from
+a chain of slice operations that originates from a UTF-8 encoded _tv_.  That
+is, it is not possible to break the UTF-8 encoding unintentionally.
+
+Due to its reliance on UTF-8 encoding, it has no need to support multiple
+character types.  Its underlying sequence is always a sequence of `char`.  It
+is not a template.
+
+It has a signed size and index type, and since contiguous unowned sequences of
+`char` are unlikely to be huge, its size/index type is `int`.  It is still
+possible to deal with very large unowned sequences of `char` using _r_, though
+node allocations are required when using that.
+
+It is also slice-able.  There are two slice operations, each using an
+overloaded call operator.  The first one is very much like the Python slicing
+index syntax.  Positive and negative indices are allowed.  Negative indices
+count from the end -- they are converted to positive indices by adding
+`size()`.
+
+[binary_slice_examples]
+
+The second slice operation takes a single index value, which may be positive
+or negative.  A positive value `x` create a prefix substring of length `x`,
+and a negative one creates a suffix substring of length `-x`.
+
+[unary_slice_examples]
+
+[note _tv_ throws an exception whenever it is constructed from a string whose
+ends are not properly UTF-8 encoded (unless you opt out by using
+`boost::text::utf8::unchecked`).  This includes the construction of _tvs_ via
+the slicing operations.]
+
+
+[heading `text`]
+
+[heading `repeated_text_view`]
+
+[heading `rope`]
+
+[heading `rope_view`]
+
+[endsect]

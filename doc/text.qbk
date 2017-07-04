@@ -24,6 +24,8 @@
 
 [/ Imports ]
 
+[import ../example/utf8_guarantee.cpp]
+[import ../example/slicing.cpp]
 [import ../example/hello_world.cpp]
 
 [/ Images ]

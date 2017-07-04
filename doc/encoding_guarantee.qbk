@@ -1,0 +1,95 @@
+[section UTF-8 Encoding Guarantee]
+
+Up front, it's important to cover how the types in _Text_ guarantee UTF-8
+encoding.
+
+Here's the problem: frequently checking entire strings for proper encoding is
+too expensive, but relying on the user to check at the proper times is tedious
+and error-prone.  What to do?
+
+There are two important classes of user with respect to Unicode: those who
+need it, and those who do not.
+
+
+[heading Those Who Need It]
+
+_Text_ assumes that the users that care about UTF-8 encoding keep their
+strings encoded nearly all the time.  It is assumed that there are only two
+kinds of times when encoding is expected to be broken:
+
+# When UTF-8 un-aware conventions require encoding breakage on purpose.
+  [@http://www.unicode.org/versions/Unicode9.0.0/ch03.pdf Unicode 9 (3.2/C10)]
+  calls out the example of a mailer program that chops up text into fixed-with
+  chunks (say, 80 characters wide), with a CRLF sequence at the end of every
+  line.  Users may need to create such an encoding breakage, or deal with
+  one.
+
+# Programming errors.
+
+_Text_'s types are designed to make the intentional-breakage case easy to
+handle (or create, if necessary), while making the untentional-breakage one
+hard to do by accident.
+
+So, _Text_'s types do this:
+
+* Check encoding when constructing a value (including slicing off a
+  substring), or when mutating a value, such as with `insert()` or `erase()`.
+  For example:
+
+[ctor_encoding_check]
+
+* Provide opt-in interfaces that let these checks be skipped, for when that is
+  necessary or desirable.  For example:
+
+[opt_in_skipped_check]
+
+* Assume that proper encoding is the default, and so don't ever check an
+  entire string unless the user explicitly opts in to this.  Instead, only
+  check that the beginning and end of a string are encoded, because breaking
+  existing encoding will be the most frequent encoding failure mode.  For
+  example:
+
+[check_endpoints]
+
+Full-checking is still available, with an opt-in interface:
+
+[opt_in_full_check]
+
+* Assume that a string in an existing _Text_ type is UTF-8 encoded.  If it is
+  not, it's probably because the user purposely created one that was not.
+
+[broken_construction_ok]
+
+
+[heading Those Who Don't]
+
+For those users (or use cases) that don't care about Unicode, the encoding
+checks are cheap enough that in most cases that they'll never notice.
+Specifically, having ends-encoded checks on any construction that allocates
+will not be noticable.  For other cases where it matters, there's
+`boost::text::utf::unchecked`.
+
+
+[heading The Alternatives]
+
+The ends-only checks that are done automatically provide something short of a
+real guarantee.  I could always construct a _Text_ value from a UTF-8 encoded
+string with numerous broken code points in the middle.  That's not much of a
+guarantee!
+
+This is true of course.  However, the alternative would be to do full-length
+checking every time a value is constructed.  That seems like a pretty big
+waste of time for those users that don't care at all about the encoding, and
+for those users who are careful to maintain their UTF-8 encoding at all times,
+and for users that have broken the encoding intentionally.  With _Text_'s
+approach, you only need to do full-length checks when they're needed, at the
+time of initial construction of a _Text_ object from an unchecked string.
+After that, all mutations are checked.
+
+[note This means that, if you create any _Text_ value from a valid UTF-8
+string, you cannot break the encoding by accident.]
+
+This guarantee is weaker than it could be, but is the best balance of safety
+and performance.
+
+[endsect]

@@ -10,4 +10,7 @@ macro(add_sample name)
     endif ()
 endmacro()
 
+add_sample(utf8_guarantee)
+add_sample(slicing)
+
 add_sample(hello_world)
