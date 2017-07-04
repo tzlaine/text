@@ -642,6 +642,47 @@ TEST(rope, test_insert)
     }
 }
 
+TEST(rope, test_insert_rope_view)
+{
+    text::rope rv_rope;
+    std::string rv_rope_as_string;
+    for (int i = 0; i < 8; ++i) {
+        std::ptrdiff_t const at = i % 2 ? 0 : rv_rope.size();
+        switch (i % 3) {
+        case 0:
+            rv_rope.insert(at, text::text("text"));
+            rv_rope_as_string.insert(at, "text");
+            break;
+        case 1:
+            rv_rope.insert(at, text::text_view("text_view"));
+            rv_rope_as_string.insert(at, "text_view");
+            break;
+        case 2:
+            rv_rope.insert(at, text::repeated_text_view("rtv", 2));
+            rv_rope_as_string.insert(at, "rtvrtv");
+            break;
+        }
+    }
+
+    text::rope r;
+    std::string r_as_string;
+    std::string local_string;
+    for (int i = 0, size = rv_rope.size(); i < size; ++i) {
+        for (int j = i + 1; j < size; ++j) {
+            text::rope_view const rv = rv_rope(i, j);
+
+            auto const r_at = r.size() / 2;
+            auto const r_as_string_at = r_as_string.size() / 2;
+            r_as_string.insert(r_as_string.begin() + r_as_string_at, rv.begin(), rv.end());
+            r.insert(r_at, rv);
+
+            local_string.assign(r.begin(), r.end());
+            EXPECT_EQ(local_string, r_as_string)
+                << "i=" << i << " j=" << j << " insert( " << r_at << ", " << rv << ")";
+        }
+    }
+}
+
 TEST(rope, test_insert_encoding_checks)
 {
     // Unicode 9, 3.9/D90-D92

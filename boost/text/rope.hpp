@@ -595,50 +595,59 @@ namespace boost { namespace text {
             return *this;
         }
 
-        {
-            detail::node_ptr node;
-            if (found_lo.offset_ != 0) {
-                node = slice_leaf(
-                    *found_lo.leaf_,
-                    found_lo.offset_,
-                    detail::size(leaf_lo),
-                    true,
-                    detail::check_encoding_breakage
-                );
-            } else {
-                node = detail::node_ptr(leaf_lo);
-            }
-            ptr_ = detail::btree_insert(ptr_, at, std::move(node));
-        }
-        at += detail::size(leaf_lo);
-
         detail::found_leaf found_hi;
         find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
-        detail::leaf_node_t const * const leaf_hi = found_hi.leaf_->as_leaf();
 
-        detail::foreach_leaf(ptr_, [&](detail::leaf_node_t const * leaf) {
-            if (leaf == leaf_lo)
+        bool before_lo = true;
+        detail::foreach_leaf(rope_ref.r_->ptr_, [&](detail::leaf_node_t const * leaf) {
+            if (leaf == found_lo.leaf_->as_leaf()) {
+                detail::node_ptr node;
+                if (found_lo.offset_ != 0) {
+                    node = slice_leaf(
+                        *found_lo.leaf_,
+                        found_lo.offset_,
+                        detail::size(leaf),
+                        true,
+                        detail::encoding_breakage_ok
+                    );
+                } else {
+                    node = detail::node_ptr(leaf);
+                }
+                auto const node_size = detail::size(node.get());
+                ptr_ = detail::btree_insert(ptr_, at, std::move(node));
+                at += node_size;
+                before_lo = false;
                 return true; // continue
-            if (leaf == leaf_hi)
+            }
+
+            if (before_lo)
+                return true; // continue
+
+            if (leaf == found_hi.leaf_->as_leaf()) {
+                if (found_hi.offset_ != 0) {
+                    ptr_ = detail::btree_insert(
+                        ptr_,
+                        at,
+                        slice_leaf(
+                            *found_hi.leaf_,
+                            0,
+                            found_hi.offset_,
+                            true,
+                            detail::encoding_breakage_ok
+                        )
+                    );
+
+                    at += found_hi.offset_;
+                }
+
                 return false; // break
+            }
+
             ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
             at += detail::size(leaf);
+
             return true;
         });
-
-        if (found_hi.offset_ != 0) {
-            ptr_ = detail::btree_insert(
-                ptr_,
-                at,
-                slice_leaf(
-                    *found_hi.leaf_,
-                    0,
-                    found_hi.offset_,
-                    true,
-                    detail::check_encoding_breakage
-                )
-            );
-        }
 
         return *this;
     }
@@ -1206,7 +1215,7 @@ namespace boost { namespace text {
                       << (root->leaf_ ? "LEAF" : "INTR")
                       << " @0x" << std::hex << root.get();
             if (key != -1)
-                std::cout << " < " << key;
+                std::cout << " < " << std::dec << key;
             std::cout << " (" << root->refs_ << " refs)\n";
             if (!root->leaf_) {
                 int i = 0;
