@@ -13,6 +13,8 @@ _tv_ is fully _ce_ in everything it does, if you have the compiler support
 (C++14 _ce_).  You can write very extensive compile-time operations using _tv_
 and the _Text_ algorithms.
 
+[text_view_lotsa_constexpr]
+
 _tv_ is a nearly immutable type; there are no mutating member functions,
 besides assignment and `swap()`.  It is small (the size of two pointers on
 most modern architectures) and cheap to copy.
@@ -48,6 +50,10 @@ and a negative one creates a suffix substring of length `-x`.
 ends are not properly UTF-8 encoded (unless you opt out by using
 `boost::text::utf8::unchecked`).  This includes the construction of _tvs_ via
 the slicing operations.]
+
+Of course, there is a user-defined literal for _tv_:
+
+[text_view_literal]
 
 
 [heading `text`]

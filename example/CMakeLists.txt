@@ -13,4 +13,6 @@ endmacro()
 add_sample(utf8_guarantee)
 add_sample(slicing)
 
+add_sample(text_view_snippets)
+
 add_sample(hello_world)
