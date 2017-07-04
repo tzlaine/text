@@ -12,7 +12,7 @@
 #endif
 
 // Nothing before GCC 6 has proper C++14 constexpr support.
-#if defined(__GNUC__) && __GNUC__ < 6
+#if defined(__GNUC__) && __GNUC__ < 6 && !defined(__clang__)
 # define BOOST_TEXT_CXX14_CONSTEXPR
 # define BOOST_TEXT_NO_CXX14_CONSTEXPR
 #else
