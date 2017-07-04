@@ -85,8 +85,8 @@
 [include intro.qbk]
 /]
 
-[/ TODO: include manual.qbk /]
-
+[include intro.qbk]
+[include manual.qbk]
 [include concepts.qbk]
 
 [xinclude text_reference.xml]

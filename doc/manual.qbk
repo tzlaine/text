@@ -1,0 +1,7 @@
+[section Manual]
+
+[include tutorial.qbk]
+[include examples.qbk]
+[include configuration.qbk]
+
+[endsect]
