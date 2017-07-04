@@ -26,9 +26,6 @@ namespace boost { namespace text {
 
     // TODO: text needs SBO.
 
-    // TODO: Audit all the comments on all functions not marked noexcept; each
-    // should have a \throw section.
-
     /** A mutable contiguous null-terminated sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not.  Strongly exception safe. */
