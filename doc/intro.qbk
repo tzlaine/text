@@ -1,7 +1,43 @@
 [section Intro]
 
-[heading TODO TODO]
+"It's all too much and not enough at the same time."
 
-TODO
+['[*-- Jack Kerouac, referring to `std::string`]]
+
+[heading Motivation]
+
+`std::string` is an infamous design.  It's fat -- why are there so many member
+functions?  It's not fat enough -- what if I need to support non-ASCII
+characters?  I could use `std::basic_string<CharT>` for some `CharT` that
+works for non-ASCII uses, but then I'm left using multiple types for strings,
+or making everything a template parameterized on `CharT`.
+
+This library is an attempt to re-think `std::string` as an interoperable
+family of types, each suited to a different aspect of string processing.
+
+[heading Features]
+
+- _tv_, a `std::string_view` replacement that is: _ce_, optionally
+  null-terminated; UTF-8 encoded; and immutable.
+
+- _t_, a `std::string` replacement that is: always null-terminated; strongly
+  exception safe; UTF-8 encoded; and mutable.
+
+- _r_, a _Rope_-like type with copy-on-write semantics that is:
+  non-null-terminated; basically exception safe; UTF-8 encoded; and mutable.
+
+- _rv_, an immutable non-owning view of a _r_, _t_, _tv_, or _rtv_.
+
+- _rtv_, an immutable utility type representing a repeated _tv_.
+
+- Substrings of each of the five types above can be had with no copies or
+  allocations using a Python-like slicing interface.
+
+- Compilational simplicity -- none of the above five types is a template.
+
+- Iterators converting UTF-8 to and from UTF-16 and UTF-32.
+
+- A small library of algorithms that replicates the functionality of
+  `std::string`'s search members, plus a bit more.
 
 [endsect]

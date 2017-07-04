@@ -41,12 +41,21 @@
 [def _Char_iter_           [link boost_text__proposed_.concepts.char_iterator Char_iterator]]
 
 [def _t_                   [classref boost::text::text `text`]]
+[def _ts_                  [classref boost::text::text `text`s]]
 [def _tv_                  [classref boost::text::text_view `text_view`]]
+[def _tvs_                 [classref boost::text::text_view `text_view`s]]
 [def _rtv_                 [classref boost::text::repeated_text_view `repeated_text_view`]]
+[def _rtvs_                [classref boost::text::repeated_text_view `repeated_text_view`s]]
 [def _r_                   [classref boost::text::rope `rope`]]
+[def _rs_                  [classref boost::text::rope `rope`s]]
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
+[def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
 
 [def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
+
+[def _ce_                  `constexpr`]
+
+[def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 
 [include intro.qbk]
 [include manual.qbk]
