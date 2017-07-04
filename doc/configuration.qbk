@@ -1,7 +1,7 @@
 [section Configuration]
 
-[heading TODO TODO]
-
-TODO
+_thread_unsafe_m_ is a macro that controls whether the reference counts on _r_
+nodes.  Define it to be a nonzero value if you want to use non-atomic
+reference counts for better single-threaded performance.
 
 [endsect]

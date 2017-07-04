@@ -26,27 +26,6 @@
 
 [import ../example/hello_world.cpp]
 
-[/
-[import other_snippets.cpp]
-[import ../example/hello_world_redux.cpp]
-[import ../example/minimal.cpp]
-[import ../example/calc1.cpp]
-[import ../example/calc2a.cpp]
-[import ../example/calc2b.cpp]
-[import ../example/calc3.cpp]
-[import ../example/lazy_vector.cpp]
-[import ../example/tarray.cpp]
-[import ../example/vec3.cpp]
-[import ../example/vector.cpp]
-[import ../example/mixed.cpp]
-[import ../example/map_assign.cpp]
-[import ../example/future_group.cpp]
-[import ../example/autodiff_example.cpp]
-[import ../test/user_expression_transform_2.cpp]
-[import ../test/user_expression_transform_3.cpp]
-[import ../perf/arithmetic_perf.cpp]
-/]
-
 [/ Images ]
 
 [def __note__              [$images/note.png]]
@@ -61,29 +40,13 @@
 [def _Char_rng_            [link boost_text__proposed_.concepts.char_range Char_range]]
 [def _Char_iter_           [link boost_text__proposed_.concepts.char_iterator Char_iterator]]
 
-[/
-[def _Expr_                [link boost_text__proposed_.concepts.expression Expression]]
-[def _Callable_            [@http://en.cppreference.com/w/cpp/concept/Callable Callable]]
-[def _Callables_           [@http://en.cppreference.com/w/cpp/concept/Callable Callables]]
-/]
+[def _t_                   [classref boost::text::text `text`]]
+[def _tv_                  [classref boost::text::text_view `text_view`]]
+[def _rtv_                 [classref boost::text::repeated_text_view `repeated_text_view`]]
+[def _r_                   [classref boost::text::rope `rope`]]
+[def _rv_                  [classref boost::text::rope_view `rope_view`]]
 
-[/
-[def _expr_                [classref boost::text::expression `expression<>`]]
-[def _exprs_               [classref boost::text::expression `expression<>`s]]
-[def _kind_                [enumref boost::text::expr_kind `expr_kind`]]
-[def _terminal_            [link boost.text.expr_kind.terminal `expr_kind::terminal`]]
-[def _placeholder_         [classref boost::text::placeholder `placeholder<>`]]
-[def _if_else_             [link boost.text.expr_kind.if_else `expr_kind::if_else`]]
-[def _expr_ref_            [link boost.text.expr_kind.expr_ref `expr_kind::expr_ref`]]
-[def _tuple_               `boost::hana::tuple<>`]
-
-[def _if_else_expr_header_ [headerref boost/text/expression_if_else.hpp _expr_ `if_else()` header]]
-[def _unary_member_m_      [macroref BOOST_TEXT_USER_UNARY_OPERATOR_MEMBER]]
-
-[def _Ets_                 Expression templates]
-
-[include intro.qbk]
-/]
+[def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
 
 [include intro.qbk]
 [include manual.qbk]
