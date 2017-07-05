@@ -8,7 +8,8 @@ implementetation.
 Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or
 later), and GCC versions 4.8 and later all work.
 
-MSVC support has been tested with Visual Studio 2015.  Other versions are
-expected to work as well, but have not yet been tested.
+MSVC support has been tested with Visual Studio 2015 and Visual Studio 2017.
+Other versions are expected to work as well, but have not yet been tested.
+Note that neither version has correct C++14 _ce_ support.
 
 [endsect]
