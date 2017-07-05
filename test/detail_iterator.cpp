@@ -139,10 +139,12 @@ TEST(const_reverse_char_iterator, test_default_ctor)
 
         static_assert(it1 == it2, "");
         static_assert(!(it1 != it2), "");
+#if !defined(_MSC_VER) ||  1910 < _MSC_VER
         static_assert(!(it1 < it2), "");
         static_assert(it1 <= it2, "");
         static_assert(!(it1 > it2), "");
         static_assert(it1 >= it2, "");
+#endif
 
         static_assert(it1 - it2 == 0, "");
         static_assert(it2 - it1 == 0, "");
