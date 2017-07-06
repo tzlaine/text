@@ -294,7 +294,6 @@ namespace boost { namespace text { namespace detail {
         { return lhs.first_ == rhs.first_ && lhs.n_ == rhs.n_; }
         friend constexpr bool operator!= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
         { return !(lhs == rhs); }
-        // TODO: Document wonky behavior of the inequalities when rhs.first_ != rhs.last_.
         friend constexpr bool operator< (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
         { return lhs.first_ == rhs.first_ && lhs.n_ < rhs.n_; }
         friend constexpr bool operator<= (const_repeated_chars_iterator lhs, const_repeated_chars_iterator rhs) noexcept
@@ -370,7 +369,6 @@ namespace boost { namespace text { namespace detail {
         { return lhs.base_ == rhs.base_; }
         friend constexpr bool operator!= (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
         { return !(lhs == rhs); }
-        // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
         friend constexpr bool operator< (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept
         { return rhs.base_ < lhs.base_; }
         friend constexpr bool operator<= (const_reverse_repeated_chars_iterator lhs, const_reverse_repeated_chars_iterator rhs) noexcept

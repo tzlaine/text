@@ -342,35 +342,12 @@ namespace boost { namespace text {
    1: use of signed types >= sizeof(int) for sizes -- better code gen;
    negative indexing
 
-   2: operations on existing text/text_view,rope/etc. objects assumes utf8
-   encoding -- checks are only done when constructing, slicing, converting, or
-   by explicit user request (checked_encoding()).
-
    3: removal of data(), front(), back(), assign()
 
    4: text{,_view}::iterator is a char const *, and that's fine -- don't use
    the bare iterators unless you know what you're doing.
 
-   5: text{,_view} guarantee they are UTF-8 encoded, as long as one only uses
-   the safe interfaces.
-
-   6: text is strongly exception-safe, always 0-terminated.
-
-   7: operator+(text & t, char c) does not exist, since a single char is no
-   longer a single code point.
-
-   8: First and last code point are checked in a text_view constructed from a
-   UTF-8 C string.  This is to prevent slicing CPs.
-
-   9: checked_encoding() is provided as a free function, since it does extra
-   work (as opposed to the unchecked_t ctors which doe less that the vanilla
-   ones).
-
    10: Unicode 9 is used.  No other versions are supported.
-
-   11: The direct use of iterators in an interface is a signal that the
-   interface is unsafe.  All others are safe.  An unsafe iterator interface
-   can be made safe again by using a converting iterator.
 
    12: text API leaves explicit null terminators out of inserts/replaces from
    {repeated_,}text_view, but the lower-level, less-safe Iter interface can be
@@ -392,7 +369,7 @@ namespace boost { namespace text {
 
    15: For an overloaded function foo(), providing an overload for each of
    {text,rope}_view will require you to also add an overload for char const *,
-   so pick one or the otehr.
+   so pick one or the other.
 
    16: All stream inserters perform unformatted output.  This is necessary
    because a single char is not a code point, and a single code point does not

@@ -18,6 +18,13 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
+    // TODO: Consider special-casing having a single text leaf, as it might
+    // allow a cheap COW & threadsafe alternative to text.
+
+    // TODO: Figure out the best value for detail::text_insert_max by
+    // profiling the cost of slitting a text node into three chunks on insert,
+    // vs. the cost of copying it entirely.
+
     /** A mutable sequence of char with copy-on-write semantics.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not. A rope is non-contiguous and is not
@@ -222,9 +229,6 @@ namespace boost { namespace text {
 
         void clear ()
         { ptr_ = detail::node_ptr(); }
-
-        // TODO: Document the creation of individual segments based on the
-        // ctor, assignment operator, insert, or replace overload.
 
         /** Inserts the sequence of char from rv into *this starting at offset
             at.

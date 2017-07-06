@@ -95,7 +95,6 @@ namespace boost { namespace text { namespace detail {
         { return lhs.rope_ == rhs.rope_ && lhs.n_ == rhs.n_; }
         friend bool operator!= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
         { return !(lhs == rhs); }
-        // TODO: Document wonky behavior of the inequalities when rhs.{frst,last}_ != rhs.{first,last}_.
         friend bool operator< (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
         { return lhs.rope_ == rhs.rope_ && lhs.n_ < rhs.n_; }
         friend bool operator<= (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
@@ -115,7 +114,6 @@ namespace boost { namespace text { namespace detail {
         { return rhs -= lhs; }
         friend difference_type operator- (const_rope_iterator lhs, const_rope_iterator rhs) noexcept
         {
-            // TODO: Document this precondition!
             assert(lhs.rope_ == rhs.rope_);
             return lhs.n_ - rhs.n_;
         }
