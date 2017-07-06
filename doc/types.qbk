@@ -324,11 +324,40 @@ handle _rs_ and _rtvs_, use _rv_ in your interfaces instead.
 
 [heading Common Operations]
 
-There are some operations that are common to all the _Text_ type. TODO
+There are some operations that are common to all the _Text_ types.
+
+# Each has the slicing call operators.  Each slicing call operator returns a
+  view, and so does no allocate.
+
+# Each has an index operator with the signature `char operator[](size_type)
+  const noexcept`.
+
+# `operator+()` is defined for each (even _rtv_).  Most of these operators
+  allocate memory.
+
+# `operator+=()` is defined for the mutable types, _t_ and _r_.
 
 
 [heading Picking the Right String Type]
 
-TODO
+[table Picking the Right String Type
+    [[If I need ...] [... my string type is:]]
+
+    [[to manipulate strings entirely at compile time] [_tv_]]
+    [[to capture a reference to a string that will outlive the reference, without allocating] [_tv_]]
+
+    [[a mutable string with efficient mutation at the end of the string] [_t_]]
+    [[a mutable string with efficient mutation at any point in the string] [_r_]]
+    [[a string with contiguous storage] [_tv_ or _t_]]
+    [[a null-terminated string] [_t_]]
+    [[a mutable string the size of a single pointer] [_r_]]
+    [[a thread-safe string] [_r_]]
+    [[a string with copy-on-write semantics] [_r_]]
+
+    [[to represent the repetition of a snippet of text, without allocating] [_rtv_]]
+
+    [[to capture `char const *`s, _tvs_, and _ts_ in a function parameter] [_tv_]]
+    [[to capture `char const *`s, _tvs_, _ts_, _rtvs_, _rs_, and _rvs_ in a function parameter] [_rv_]]
+]
 
 [endsect]
