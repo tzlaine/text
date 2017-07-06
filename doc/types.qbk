@@ -70,9 +70,9 @@ exception-safe.  Its purpose is to be a better `std::string`.
 Like _tv_, it is guaranteed to be UTF-8 encoded, with the same gurantees when
 constructing and slicing.  Its character type is `char` and its size/index
 type is `int`, for the same reasons given for _tv_.  It is also slice-able in
-the same was that _tv_ is.
+the same way that _tv_ is.
 
-_t_ has its own user-defined literal:
+_t_ has its own user-defined literals:
 
 [text_literal]
 

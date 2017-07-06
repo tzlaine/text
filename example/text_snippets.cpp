@@ -8,9 +8,15 @@ int main ()
 {
 //[ text_literal
 using namespace boost::text::literals;
-boost::text::text t = "UDL here."_t;
+boost::text::text t1 = "UDL here."_t;
+boost::text::text t2 = u8"UDL here."_t;
+boost::text::text t3 = u"UDL here."_t; // char16_t
+boost::text::text t4 = U"UDL here."_t; // char32_t
 //]
-(void)t;
+(void)t1;
+(void)t2;
+(void)t3;
+(void)t4;
 }
 
 try {
