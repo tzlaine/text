@@ -380,12 +380,4 @@ namespace boost { namespace text {
 
 */
 
-// Not rationale:
-
-// TODO: Do text_view == using address + size to short-circuit string
-// compares.
-
-// TODO: Document how much more expensive post-incr/post-decr are for UTF-8
-// iterators.
-
 #endif

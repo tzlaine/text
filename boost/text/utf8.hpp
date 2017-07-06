@@ -327,7 +327,7 @@ namespace boost { namespace text { namespace utf8 {
 #ifdef BOOST_TEXT_DOXYGEN
 
     /** A UTF-32 to UTF-8 converting iterator.  This iterator outputs a
-        Unicode replacement character (0xFFFD) when coverting invalid UTF-32.
+        Unicode replacement character (0xFFFD) when converting invalid UTF-32.
 
         Iter must be a bidirectional iterator with a 4-byte integral
         value_type. */
@@ -424,7 +424,7 @@ namespace boost { namespace text { namespace utf8 {
     inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf32_iterator_throwing<Iter> lhs, from_utf32_iterator_throwing<Iter> rhs) noexcept;
 
     /** A UTF-8 to UTF-32 converting iterator.  This iterator outputs a
-        Unicode replacement character (0xFFFD) when coverting invalid
+        Unicode replacement character (0xFFFD) when converting invalid
         UTF-8. */
     struct to_utf32_iterator
     {
@@ -499,7 +499,7 @@ namespace boost { namespace text { namespace utf8 {
     inline constexpr bool operator!= (to_utf32_iterator_throwing lhs, to_utf32_iterator_throwing rhs) noexcept;
 
     /** A UTF-16 to UTF-8 converting iterator.  This iterator outputs a
-        Unicode replacement character (0xFFFD) when coverting invalid UTF-16.
+        Unicode replacement character (0xFFFD) when converting invalid UTF-16.
 
         Iter must be a bidirectional iterator with a 2-byte integral
         value_type. */
@@ -591,7 +591,7 @@ namespace boost { namespace text { namespace utf8 {
     inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (from_utf16_iterator_throwing<Iter> lhs, from_utf16_iterator_throwing<Iter> rhs) noexcept;
 
     /** A UTF-8 to UTF-16 converting iterator.  This iterator outputs a
-        Unicode replacement character (0xFFFD) when coverting invalid
+        Unicode replacement character (0xFFFD) when converting invalid
         UTF-8. */
     struct to_utf16_iterator
     {
