@@ -399,6 +399,8 @@ namespace boost { namespace text {
    even correspond to a single formatted output glyph.  Higher-level code must
    deal with such issues.
 
+   17: No allocators.
+
 */
 
 // Not rationale:

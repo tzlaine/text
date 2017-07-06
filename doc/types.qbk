@@ -166,9 +166,10 @@ really fit with UTF-8, and using a heap-allocating type like _t_ to represent
 repeated characters, _Text_ introduces a new non-allocating type for this,
 _rtv_.
 
-_rtv_ has semantics and an interface much like to _tv_: it is near-immutable;
-it uses a signed size/index type; it uses `char` as its character type; and it
-is slice-able in the same way.
+_rtv_ has semantics and an interface much like _tv_: it is near-immutable; it
+uses a signed size/index type (though a typically-larger one,
+`std::ptrdiff_t`); it uses `char` as its character type; and it is slice-able
+in the same way.
 
 With _rtv_ in hand, this code which allocates:
 
@@ -265,12 +266,16 @@ we will mutate the tree in place.]
 
 Besides the segmented nature of _r_, there are some other properties you need
 to know about.  A _r_ as a whole is copy-on-write; it is also therefore
-thread-safe for reading and writing; it is not null-terminated.  Insertions
-happen in `O(log_B(N))`, where B is the branching factor (maximum number of
-children per interior node).  As mentioned before, B is an implementation
-detail, and thus subject to change, but it is unlikely to be less than 16.
-That means very little pointer chasing is required to access an arbitrary
-element of a _r_, because its tree is very shallow.
+thread-safe for reading and writing; it is not null-terminated; it uses a
+signed size/index type (`std::ptrdiff_t`); it uses `char` as its character
+type; and it is slice-able.
+
+Insertions, erasures, and indexing each happen in `O(log_B(N))` time, where B
+is the branching factor (maximum number of children per interior node).  As
+mentioned before, B is an implementation detail, and thus subject to change,
+but it is unlikely to be less than 16.  That means very little pointer chasing
+is required to access an arbitrary element of a _r_, because its tree is very
+shallow.
 
 As mentioned previously, mutations to a _r_ are done in-place if the mutations
 do not affect nodes that are shared with other _rs_.
@@ -303,13 +308,26 @@ to update with subsequent in-place edits, insert a _t_ instead.
 
 [heading The `rope_view` Type]
 
+Just as you can think of a _Rope_ as a heavyweight string, you can think of a
+_rv_ is a heavyweight _tv_.  It can bind to a _r_, but also to any of _t_,
+_tv_, and _rtv_.
+
+_rv_ has semantics and an interface much like _tv_: it is near-immutable; it
+uses a signed size/index type (`std::ptrdiff_t`); it uses `char` as its
+character type; and it is slice-able.
+
+A key use of _rv_ is that it can bind to all the other _Text_ string types.
+If your code expects to handle only _ts_, `char const *`s, and _tvs_ as
+function parameters, use _tv_ in your interfaces.  If you also expect to
+handle _rs_ and _rtvs_, use _rv_ in your interfaces instead.
+
 
 [heading Common Operations]
 
 There are some operations that are common to all the _Text_ type. TODO
 
 
-[heading Picking the Right Type]
+[heading Picking the Right String Type]
 
 TODO
 
