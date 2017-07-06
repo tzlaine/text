@@ -337,47 +337,4 @@ namespace boost { namespace text {
 
 } }
 
-/* Rationale
-
-   1: use of signed types >= sizeof(int) for sizes -- better code gen;
-   negative indexing
-
-   3: removal of data(), front(), back(), assign()
-
-   4: text{,_view}::iterator is a char const *, and that's fine -- don't use
-   the bare iterators unless you know what you're doing.
-
-   10: Unicode 9 is used.  No other versions are supported.
-
-   12: text API leaves explicit null terminators out of inserts/replaces from
-   {repeated_,}text_view, but the lower-level, less-safe Iter interface can be
-   used to accomplish this (or a text_view("\0") hack).
-
-   13: Negative indexing should be allowed on all random access ranges.  The
-   disparity with builtin arrays shouldn't matter, as builtin arrays are
-   incongruous for many other reasons.
-
-   14: There is no CharRange for rope like there is for text.  text converts a
-   CharRange into a text_view, but then always copies the bytes into its
-   storage.  rope does not convert text_views into allocated storage, but does
-   so with texts.  So the user should be able to choose what kind of segment
-   gets inserted into the rope by constructing either a text or text_view
-   explicitly first.  Just as importantly, consider: x + std::string("foo").
-   Should this create a rope that refers to the contents of the temporary?
-   Should it create a text that owns the contents?  The user should decide
-   this, case-by-case.
-
-   15: For an overloaded function foo(), providing an overload for each of
-   {text,rope}_view will require you to also add an overload for char const *,
-   so pick one or the other.
-
-   16: All stream inserters perform unformatted output.  This is necessary
-   because a single char is not a code point, and a single code point does not
-   even correspond to a single formatted output glyph.  Higher-level code must
-   deal with such issues.
-
-   17: No allocators.
-
-*/
-
 #endif

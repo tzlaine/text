@@ -42,4 +42,7 @@ caveats:
   post-increment and pot-decrement can be quite a bit more expensive than
   pre-increment and pre-decrement.
 
+[note The `to_utf32_iterator` converting iterator can be used to iterate
+across Unicode code points in most of the _Text_ string types.]
+
 [endsect]
