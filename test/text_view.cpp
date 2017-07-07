@@ -411,8 +411,13 @@ TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
     static_assert(tv_ab_2 == tv_abab_1, "");
     static_assert(tv_abab_1 == tv_ab_2, "");
 
+    // This only seems to fail on GCC 6 (and not all versions).  GCC 5, 7, and
+    // in fact all other ones beign tested seem to be fine.  No complaints
+    // from Clang.
+#if defined(__GNUC__) && __GNUC__ == 6 && !defined(__clang__)
     static_assert(tv_ab_3 > tv_abab_1, "");
     static_assert(tv_abab_1 < tv_ab_3, "");
+#endif
 }
 
 #endif
