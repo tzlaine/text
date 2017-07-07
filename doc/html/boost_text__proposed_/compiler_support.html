@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Compiler Support</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="intro.html" title="Intro">
+<link rel="next" href="why_is_std__string_so_bad_.html" title="Why is std::string So Bad?">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="intro.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="why_is_std__string_so_bad_.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.compiler_support"></a><a class="link" href="compiler_support.html" title="Compiler Support">Compiler Support</a>
+</h2></div></div></div>
+<p>
+      Boost.Text is written against the C++11 and C++14 standards. It will use C++14
+      features if they are present, and otherwise is C++11 code. Specifically, Boost.Text
+      takes advantage of C++14 constexpr support for much of <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>'s implementetation.
+    </p>
+<p>
+      Clang versions 3.6 and later (which corresponds to XCode versions 6.4 or later),
+      and GCC versions 4.8 and later all work.
+    </p>
+<p>
+      MSVC support has been tested with Visual Studio 2015 and Visual Studio 2017.
+      Other versions are expected to work as well, but have not yet been tested.
+      Note that neither version has correct C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>
+      support.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2017 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="intro.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="why_is_std__string_so_bad_.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

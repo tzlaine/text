@@ -1,0 +1,186 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Rationale</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="../index/s09.html" title="Macro Index">
+<link rel="next" href="future_work.html" title="Future Work">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../index/s09.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="future_work.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.rationale"></a><a class="link" href="rationale.html" title="Rationale">Rationale</a>
+</h2></div></div></div>
+<h4>
+<a name="boost_text__proposed_.rationale.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.size_and_index_types"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.size_and_index_types">Size
+      and Index Types</a>
+    </h4>
+<p>
+      Signed values as sizes are advantageous for a number of reasons:
+    </p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+          When doing math with sizes, intermediate values can be negative (which
+          makes sense), instead of wrapping around to a very large value (which does
+          not).
+        </li>
+<li class="listitem">
+          Optimizers produce better code generation in more situations for signed
+          values.
+        </li>
+<li class="listitem">
+          Signed values lead naturally to the negative-indexable slicing that Boost.Text
+          uses.
+        </li>
+</ol></div>
+<p>
+      This last point is particularly important. I think that negative indexing should
+      be allowed on all random access ranges.
+    </p>
+<h4>
+<a name="boost_text__proposed_.rationale.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale._code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__iterators"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale._code__phrase_role__keyword__char__phrase___phrase_role__keyword__const__phrase___phrase_role__special_____phrase___code__iterators"><code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code> Iterators</a>
+    </h4>
+<p>
+      <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+      both use <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+      <span class="special">*</span></code> as their forward iterator types. This
+      allows interoperability with C strings and arrays of <code class="computeroutput"><span class="keyword">char</span></code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_.rationale.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.where_are__code__phrase_role__identifier__data__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__c_str__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__front__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__back__phrase__phrase_role__special______phrase___code___and__code__phrase_role__identifier__assign__phrase__phrase_role__special______phrase___code__"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.where_are__code__phrase_role__identifier__data__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__c_str__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__front__phrase__phrase_role__special______phrase___code____code__phrase_role__identifier__back__phrase__phrase_role__special______phrase___code___and__code__phrase_role__identifier__assign__phrase__phrase_role__special______phrase___code__">Where
+      Are <code class="computeroutput"><span class="identifier">data</span><span class="special">()</span></code>,
+      <code class="computeroutput"><span class="identifier">c_str</span><span class="special">()</span></code>,
+      <code class="computeroutput"><span class="identifier">front</span><span class="special">()</span></code>,
+      <code class="computeroutput"><span class="identifier">back</span><span class="special">()</span></code>,
+      and <code class="computeroutput"><span class="identifier">assign</span><span class="special">()</span></code>?</a>
+    </h4>
+<p>
+      <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      does not have any of these, even though <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+      does. Here's why:
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          Since <code class="computeroutput"><span class="identifier">text</span><span class="special">::</span><span class="identifier">iterator</span></code> is just <code class="computeroutput"><span class="keyword">char</span>
+          <span class="keyword">const</span> <span class="special">*</span></code>,
+          and <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+          is always null-terminated, <code class="computeroutput"><span class="identifier">data</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">c_str</span><span class="special">()</span></code>, and <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code> are synonyms.
+        </li>
+<li class="listitem">
+          <code class="computeroutput"><span class="identifier">front</span><span class="special">()</span></code>
+          and <code class="computeroutput"><span class="identifier">back</span><span class="special">()</span></code>
+          have no reason to be members, so they are now free functions. This makes
+          them usable on many types of sequences of <code class="computeroutput"><span class="keyword">char</span></code>,
+          not just <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>.
+        </li>
+<li class="listitem">
+          Assignment operators are preferable to <code class="computeroutput"><span class="identifier">assign</span><span class="special">()</span></code>. There's no need to add an extra member
+          (or nine overloads as <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+          has) just to avoid writing "<code class="computeroutput"><span class="identifier">text</span><span class="special">()</span></code>":
+        </li>
+</ul></div>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t</span><span class="special">;</span>
+<span class="identifier">t</span><span class="special">.</span><span class="identifier">assign</span><span class="special">(</span><span class="string">"a string"</span><span class="special">);</span>              <span class="comment">// Why have this ...</span>
+<span class="identifier">t</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">(</span><span class="string">"a string"</span><span class="special">);</span> <span class="comment">// ... when this is fine?</span>
+</pre>
+<h4>
+<a name="boost_text__proposed_.rationale.h3"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.inserting_null_terminated_sequences"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.inserting_null_terminated_sequences">Inserting
+      Null Terminated Sequences</a>
+    </h4>
+<p>
+      The <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      inserting interfaces (<code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>) remove explicit null terminators from inserted
+      <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_views</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_views</a></code>,
+      because that's almost certainly an error. This can still be accomplished by
+      directly writing through the index operator or or an iterator, or by inserting
+      <code class="computeroutput"><span class="identifier">text_view</span><span class="special">(</span><span class="string">"\0"</span><span class="special">)</span></code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_.rationale.h4"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.there_are_no__link_linkend__boost_text__proposed__concepts_char_range__char_range__link__interfaces_in__code__phrase_role__identifier__rope__phrase___code_"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.there_are_no__link_linkend__boost_text__proposed__concepts_char_range__char_range__link__interfaces_in__code__phrase_role__identifier__rope__phrase___code_">There
+      are no Char_range
+      Interfaces in <code class="computeroutput"><span class="identifier">rope</span></code></a>
+    </h4>
+<p>
+      The reason that these interfaces exist for <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code> but not for <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> is that <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code> converts a <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>
+      into a <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
+      and then always copies the bytes into its storage. <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> does not convert <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_views</a></code>
+      into allocated storage, but <span class="bold"><strong>does</strong></span> with <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">texts</a></code>.
+      So the user needs to be able to control what kind of segment gets inserted
+      into the <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
+      by constructing either a <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      or <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+      explicitly first. Just as importantly, consider this:
+    </p>
+<pre class="programlisting"><span class="identifier">x</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"foo"</span><span class="special">)</span>
+</pre>
+<p>
+      Should this create a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
+      that refers to the contents of the temporary? Should it create a <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      that owns the contents? The user should decide this, case-by-case. Anything
+      else would be too surprising.
+    </p>
+<h4>
+<a name="boost_text__proposed_.rationale.h5"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.none_of_the_boost_text_string_types_does_formatted_output"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.none_of_the_boost_text_string_types_does_formatted_output">None
+      of the Boost.Text String Types Does Formatted Output</a>
+    </h4>
+<p>
+      This is necessary because a single <code class="computeroutput"><span class="keyword">char</span></code>
+      is not a code point, and a even single code point does not correspond to a
+      single formatted output glyph. This means that the layout/spacing of the output
+      is not something Boost.Text can determine. Higher-level code must deal with
+      such issues.
+    </p>
+<h4>
+<a name="boost_text__proposed_.rationale.h6"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.boost_text_does_not_use_allocators"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.boost_text_does_not_use_allocators">Boost.Text
+      Does Not Use allocators</a>
+    </h4>
+<p>
+      Allocators are too low gain for the cost they impose. How many <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>
+      template instantations in the code bases of the world involve a non-default
+      allocator? I would be surprised if it was as high as 1%. Allocators may once
+      have served an important function, but in modern C++ are a perfect example
+      of not sticking to "Don't pay for what you don't use."
+    </p>
+<h4>
+<a name="boost_text__proposed_.rationale.h7"></a>
+      <span class="phrase"><a name="boost_text__proposed_.rationale.boost_text_is_missing_most_of_the_unicode_functionality"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.boost_text_is_missing_most_of_the_unicode_functionality">Boost.Text
+      is Missing Most of the Unicode Functionality</a>
+    </h4>
+<p>
+      Boost.Text not a full Unicode library. It aims to produce vocabulary string
+      types that serve as a better <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
+      while guaranteeing no accidental Unicode encoding breakage. Doing any kind
+      of code-point or glyph-oriented processing is out of scope, because it requires
+      databases of rules for which characters compare equal, compare less than, are
+      different cases of the same character, etc.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2017 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../index/s09.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="future_work.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

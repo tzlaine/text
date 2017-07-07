@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>UTF-8 Encoding Guarantee</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../tutorial.html" title="Tutorial">
+<link rel="prev" href="../tutorial.html" title="Tutorial">
+<link rel="next" href="_text__string_types.html" title="Boost.Text String Types">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="../tutorial.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="_text__string_types.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee"></a><a class="link" href="utf_8_encoding_guarantee.html" title="UTF-8 Encoding Guarantee">UTF-8
+        Encoding Guarantee</a>
+</h4></div></div></div>
+<p>
+          Up front, it's important to cover how the types in Boost.Text guarantee
+          UTF-8 encoding.
+        </p>
+<p>
+          Here's the problem: frequently checking entire strings for proper encoding
+          is too expensive, but relying on the user to check at the proper times
+          is tedious and error-prone. What to do?
+        </p>
+<p>
+          There are two important classes of user with respect to Unicode: those
+          who need it, and those who do not.
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.h0"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.those_who_need_it"></a></span><a class="link" href="utf_8_encoding_guarantee.html#boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.those_who_need_it">Those
+          Who Need It</a>
+        </h6>
+<p>
+          Boost.Text assumes that the users that care about UTF-8 encoding keep their
+          strings encoded nearly all the time. It is assumed that there are only
+          two kinds of times when encoding is expected to be broken:
+        </p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+              When UTF-8 un-aware conventions require encoding breakage on purpose.
+              <a href="http://www.unicode.org/versions/Unicode9.0.0/ch03.pdf" target="_top">Unicode
+              9 (3.2/C10)</a> calls out the example of a mailer program that
+              chops up text into fixed-with chunks (say, 80 characters wide), with
+              a CRLF sequence at the end of every line. Users may need to create
+              such an encoding breakage, or deal with one.
+            </li>
+<li class="listitem">
+              Programming errors.
+            </li>
+</ol></div>
+<p>
+          Boost.Text's types are designed to make the intentional-breakage case easy
+          to handle (or create, if necessary), while making the untentional-breakage
+          one hard to do by accident.
+        </p>
+<p>
+          So, Boost.Text's types do this:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              Check encoding when constructing a value (including slicing off a substring),
+              or when mutating a value, such as with <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">erase</span><span class="special">()</span></code>. For example:
+            </li></ul></div>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Two Unicode code points.</span>
+<span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">};</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[</span><span class="number">5</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x82</span><span class="special">)};</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv1</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">5</span><span class="special">);</span> <span class="comment">// Ok.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv2</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">4</span><span class="special">);</span> <span class="comment">// Error! The second code point got chopped.</span>
+</pre>
+<p>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              Provide opt-in interfaces that let these checks be skipped, for when
+              that is necessary or desirable. For example:
+            </li></ul></div>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Two Unicode code points.</span>
+<span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">};</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[</span><span class="number">5</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x82</span><span class="special">)};</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv1</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">5</span><span class="special">);</span> <span class="comment">// Ok.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv2</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">4</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">::</span><span class="identifier">unchecked</span><span class="special">);</span> <span class="comment">// Ok, check skipped.</span>
+</pre>
+<p>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              Assume that proper encoding is the default, and so don't ever check
+              an entire string unless the user explicitly opts in to this. Instead,
+              only check that the beginning and end of a string are encoded, because
+              breaking existing encoding will be the most frequent encoding failure
+              mode. For example:
+            </li></ul></div>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Three Unicode code points.</span>
+<span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[</span><span class="number">3</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">,</span> <span class="number">0x004d</span><span class="special">};</span>
+<span class="comment">// The middle one is broken.</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[</span><span class="number">5</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span> <span class="comment">/*char(0x82), */</span><span class="number">0x4d</span><span class="special">};</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">5</span><span class="special">);</span> <span class="comment">// Ok. Breakage is not at the ends.</span>
+</pre>
+<p>
+        </p>
+<p>
+          Full-checking is still available, with an opt-in interface:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Three Unicode code points.</span>
+<span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[</span><span class="number">3</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">,</span> <span class="number">0x004d</span><span class="special">};</span>
+<span class="comment">// The middle one is broken.</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[</span><span class="number">5</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span> <span class="comment">/*char(0x82), */</span><span class="number">0x4d</span><span class="special">};</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">5</span><span class="special">);</span> <span class="comment">// Ok. Breakage is not at the ends.</span>
+<span class="identifier">tv</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">checked_encoding</span><span class="special">(</span><span class="identifier">tv</span><span class="special">);</span> <span class="comment">// Error.</span>
+</pre>
+<p>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              Assume that a string in an existing Boost.Text type is UTF-8 encoded.
+              If it is not, it's probably because the user purposely created one
+              that was not.
+            </li></ul></div>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Three Unicode code points.</span>
+<span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[</span><span class="number">3</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">,</span> <span class="number">0x004d</span><span class="special">};</span>
+<span class="comment">// The middle one is broken.</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[</span><span class="number">5</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span> <span class="comment">/*char(0x82), */</span><span class="number">0x4d</span><span class="special">};</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv1</span><span class="special">(</span><span class="identifier">utf8</span><span class="special">,</span> <span class="number">5</span><span class="special">);</span> <span class="comment">// Ok. Breakage is not at the ends.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv2</span><span class="special">(</span><span class="identifier">tv1</span><span class="special">);</span> <span class="comment">// Ok. No checks are done on existing Boost.Text values.</span>
+</pre>
+<p>
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.h1"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.those_who_don_t"></a></span><a class="link" href="utf_8_encoding_guarantee.html#boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.those_who_don_t">Those
+          Who Don't</a>
+        </h6>
+<p>
+          For those users (or use cases) that don't care about Unicode, the encoding
+          checks are cheap enough that in most cases that they'll never notice. Specifically,
+          having ends-encoded checks on any construction that allocates will not
+          be noticable. For other cases where it matters, there's <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf</span><span class="special">::</span><span class="identifier">unchecked</span></code>.
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.h2"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.the_alternatives"></a></span><a class="link" href="utf_8_encoding_guarantee.html#boost_text__proposed_.manual.tutorial.utf_8_encoding_guarantee.the_alternatives">The
+          Alternatives</a>
+        </h6>
+<p>
+          The ends-only checks that are done automatically provide something short
+          of a real guarantee. I could always construct a Boost.Text value from a
+          UTF-8 encoded string with numerous broken code points in the middle. That's
+          not much of a guarantee!
+        </p>
+<p>
+          This is true of course. However, the alternative would be to do full-length
+          checking every time a value is constructed. That seems like a pretty big
+          waste of time for those users that don't care at all about the encoding,
+          and for those users who are careful to maintain their UTF-8 encoding at
+          all times, and for users that have broken the encoding intentionally. With
+          Boost.Text's approach, you only need to do full-length checks when they're
+          needed, at the time of initial construction of a Boost.Text object from
+          an unchecked string. After that, all mutations are checked.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            This means that, if you create any Boost.Text value from a valid UTF-8
+            string, you cannot break the encoding by accident.
+          </p></td></tr>
+</table></div>
+<p>
+          This guarantee is weaker than it could be, but is the best balance of safety
+          and performance.
+        </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2017 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../tutorial.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="_text__string_types.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
