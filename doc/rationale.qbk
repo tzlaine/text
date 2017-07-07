@@ -1,44 +1,96 @@
 [section Rationale]
 
-[heading TODO TODO]
+[heading Size and Index Types]
 
-1: use of signed types >= sizeof(int) for sizes -- better code gen;
-negative indexing
+Signed values as sizes are advantageous for a number of reasons:
 
-3: removal of data(), front(), back(), assign()
+# When doing math with sizes, intermediate values can be negative (which makes
+  sense), instead of wrapping around to a very large value (which does not).
 
-4: text{,_view}::iterator is a char const *, and that's fine -- don't use
-the bare iterators unless you know what you're doing.
+# Optimizers produce better code generation in more situations for signed
+  values.
 
-10: Unicode 9 is used.  No other versions are supported.
+# Signed values lead naturally to the negative-indexable slicing that _Text_
+  uses.
 
-12: text API leaves explicit null terminators out of inserts/replaces from
-{repeated_,}text_view, but the lower-level, less-safe Iter interface can be
-used to accomplish this (or a text_view("\0") hack).
+This last point is particularly important.  I think that negative indexing
+should be allowed on all random access ranges.
 
-13: Negative indexing should be allowed on all random access ranges.  The
-disparity with builtin arrays shouldn't matter, as builtin arrays are
-incongruous for many other reasons.
 
-14: There is no CharRange for rope like there is for text.  text converts a
-CharRange into a text_view, but then always copies the bytes into its
-storage.  rope does not convert text_views into allocated storage, but does
-so with texts.  So the user should be able to choose what kind of segment
-gets inserted into the rope by constructing either a text or text_view
-explicitly first.  Just as importantly, consider: x + std::string("foo").
-Should this create a rope that refers to the contents of the temporary?
-Should it create a text that owns the contents?  The user should decide
-this, case-by-case.
+[heading `char const *` Iterators]
 
-15: For an overloaded function foo(), providing an overload for each of
-{text,rope}_view will require you to also add an overload for char const *,
-so pick one or the other.
+_t_ and _tv_ both use `char const *` as their forward iterator types.  This
+allows interoperability with C strings and arrays of `char`.
 
-16: All stream inserters perform unformatted output.  This is necessary
-because a single char is not a code point, and a single code point does not
-even correspond to a single formatted output glyph.  Higher-level code must
-deal with such issues.
 
-17: No allocators.
+[heading Where Are `data()`, `c_str()`, `front()`, `back()`, and `assign()`?]
+
+_t_ does not have any of these, even though `std::string` does.  Here's why:
+
+* Since `text::iterator` is just `char const *`, and _t_ is always
+  null-terminated, `data()`, `c_str()`, and `begin()` are synonyms.
+
+* `front()` and `back()` have no reason to be members, so they are now free
+  functions.  This makes them usable on many types of sequences of `char`, not
+  just _t_.
+
+* Assignment operators are preferable to `assign()`.  There's no need to add
+  an extra member (or nine overloads as `std::string` has) just to avoid
+  writing "`text()`":
+
+    boost::text::text t;
+    t.assign("a string");              // Why have this ...
+    t = boost::text::text("a string"); // ... when this is fine?
+
+
+[heading Inserting Null Terminated Sequences]
+
+The _t_ inserting interfaces (`insert()` and `replace()`) remove explicit null
+terminators from inserted _tvs_ and _rtvs_, because that's almost certainly an
+error.  This can still be accomplished by directly writing through the index
+operator or or an iterator, or by inserting `text_view("\0")`.
+
+
+[heading There are no _Char_rng_ Interfaces in `rope`]
+
+The reason that these interfaces exist for _t_ but not for _r_ is that _t_
+converts a _Char_rng_ into a _tv_, and then always copies the bytes into its
+storage.  _r_ does not convert _tvs_ into allocated storage, but *does* with
+_ts_.  So the user needs to be able to control what kind of segment gets
+inserted into the _r_ by constructing either a _t_ or _tv_ explicitly first.
+Just as importantly, consider this:
+
+    x + std::string("foo")
+
+Should this create a _r_ that refers to the contents of the temporary?  Should
+it create a _t_ that owns the contents?  The user should decide this,
+case-by-case.  Anything else would be too surprising.
+
+
+[heading None of the _Text_ String Types Does Formatted Output]
+
+This is necessary because a single `char` is not a code point, and a even
+single code point does not correspond to a single formatted output glyph.
+This means that the layout/spacing of the output is not something _Text_ can
+determine.  Higher-level code must deal with such issues.
+
+
+[heading _Text_ Does Not Use allocators]
+
+Allocators are too low gain for the cost they impose.  How many
+`std::basic_string` template instantations in the code bases of the world
+involve a non-default allocator?  I would be surprised if it was as high as
+1%.  Allocators may once have served an important function, but in modern C++
+are a perfect example of not sticking to "Don't pay for what you don't use."
+
+
+[heading _Text_ is Missing Most of the Unicode Functionality]
+
+_Text_ not a full Unicode library.  It aims to produce vocabulary string types
+that serve as a better `std::string`, while guaranteeing no accidental Unicode
+encoding breakage.  Doing any kind of code-point or glyph-oriented processing
+is out of scope, because it requires databases of rules for which characters
+compare equal, compare less than, are different cases of the same character,
+etc.
 
 [endsect]

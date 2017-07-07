@@ -1,4 +1,4 @@
-[section Boost.Text String Types]
+[section _Text_ String Types]
 
 [heading The `text_view` Type]
 
@@ -359,5 +359,11 @@ There are some operations that are common to all the _Text_ types.
     [[to capture `char const *`s, _tvs_, and _ts_ in a function parameter] [_tv_]]
     [[to capture `char const *`s, _tvs_, _ts_, _rtvs_, _rs_, and _rvs_ in a function parameter] [_rv_]]
 ]
+
+[tip For an overloaded function `foo()`, providing an overload for each
+of `foo(text_view)` and `foo(rope_view)` will create an ambiguity, since they
+are each implicitly constructible from `char const *`.  This will require you
+also to add a third overload `foo(char const *)`, so try to pick one view type
+or the other.]
 
 [endsect]
