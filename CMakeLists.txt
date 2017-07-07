@@ -63,6 +63,12 @@ include(dependencies)
 ##################################################
 # Built conditionally, because it relies on TSan.
 set(BUILD_ROPE_THREADSAFETY_TEST false CACHE BOOL "Set to true to build rope the threadsafety test.")
+# Built conditionally, because it relies on libFuzzer.
+set(BUILD_FUZZ_TESTS false CACHE BOOL "Set to true to build fuzz tests.")
+
+if (BUILD_FUZZ_TESTS AND NOT CMAKE_CXX_COMPILER_ID STREQUAL Clang)
+    message(FATAL_ERROR "BUILD_FUZZ_TESTS only works with Clang; it uses libFuzzer.")
+endif ()
 
 add_subdirectory(test)
 add_subdirectory(example)
