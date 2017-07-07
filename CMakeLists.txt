@@ -36,7 +36,6 @@ if (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL Clang)
         set(compile_flags -fprofile-arcs -ftest-coverage)
         set(CMAKE_BUILD_TYPE RelWithDebInfo)
         set(link_flags --coverage)
-        #Linux/GCC set(link_flags -lgcov)
     endif ()
 endif ()
 
@@ -62,5 +61,8 @@ include(dependencies)
 ##################################################
 # Tests and examples
 ##################################################
+# Built conditionally, because it relies on TSan.
+set(BUILD_ROPE_THREADSAFETY_TEST false CACHE BOOL "Set to true to build rope the threadsafety test.")
+
 add_subdirectory(test)
 add_subdirectory(example)
