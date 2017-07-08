@@ -17,3 +17,15 @@ add_sample(text_view_snippets)
 add_sample(text_snippets)
 
 add_sample(hello_world)
+
+
+add_executable(
+    editor
+    editor/main.cpp
+)
+target_compile_options(editor PRIVATE -Wall)
+target_link_libraries(editor text ${Boost_LIBRARIES})
+set_property(TARGET editor PROPERTY CXX_STANDARD ${CXX_STD})
+if (clang_on_linux)
+    target_link_libraries(editor c++)
+endif ()
