@@ -19,10 +19,11 @@ add_sample(text_snippets)
 add_sample(hello_world)
 
 
-if (UNIX)
+if (BUILD_EDITOR)
     add_executable(
         editor
         editor/main.cpp
+        editor/key_mappings.cpp
     )
     target_compile_options(editor PRIVATE -Wall)
     target_link_libraries(editor text ${Boost_LIBRARIES})
