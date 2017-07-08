@@ -227,6 +227,13 @@ namespace boost { namespace text {
         bool operator>= (rope rhs) const noexcept
         { return compare(rhs) >= 0; }
 
+        /** Returns true if *this and rhs contain the same root node pointer.
+            This is useful when you want to check for equality between two
+            ropes that are likely to have originated from the same initial
+            rope, and may have since been mutated. */
+        bool equal_root (rope rhs) const noexcept
+        { return ptr_ == rhs.ptr_; }
+
         void clear ()
         { ptr_ = detail::node_ptr(); }
 

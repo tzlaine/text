@@ -69,6 +69,9 @@ namespace boost { namespace text { namespace detail {
         void swap (node_ptr & rhs)
         { ptr_.swap(rhs.ptr_); }
 
+        bool operator== (node_ptr const & rhs) const noexcept
+        { return ptr_ == rhs.ptr_; }
+
     private:
         intrusive_ptr<node_t const> ptr_;
         friend mutable_node_ptr;
