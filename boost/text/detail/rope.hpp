@@ -29,19 +29,22 @@ namespace boost { namespace text { namespace detail {
 
     struct mutable_node_ptr
     {
-        ~mutable_node_ptr ();
+        ~mutable_node_ptr () noexcept;
 
-        explicit operator bool () const
+        explicit operator bool () const noexcept
         { return ptr_; }
 
-        node_t * operator-> ()
+        node_t * operator-> () noexcept
         { return ptr_; }
 
-        leaf_node_t * as_leaf ();
-        interior_node_t * as_interior ();
+        leaf_node_t * as_leaf () noexcept;
+        interior_node_t * as_interior () noexcept;
 
     private:
-        mutable_node_ptr (node_ptr & np, node_t * ptr) : node_ptr_ (np), ptr_ (ptr) {}
+        mutable_node_ptr (node_ptr & np, node_t * ptr) noexcept :
+            node_ptr_ (np), ptr_ (ptr)
+        {}
+
         node_ptr & node_ptr_;
         node_t * ptr_;
         friend node_ptr;
@@ -49,24 +52,24 @@ namespace boost { namespace text { namespace detail {
 
     struct node_ptr
     {
-        node_ptr () {}
-        explicit node_ptr (node_t const * node) : ptr_ (node) {}
+        node_ptr () noexcept {}
+        explicit node_ptr (node_t const * node) noexcept : ptr_ (node) {}
 
-        explicit operator bool () const
+        explicit operator bool () const noexcept
         { return ptr_.get(); }
 
-        node_t const * operator-> () const
+        node_t const * operator-> () const noexcept
         { return ptr_.get(); }
 
-        leaf_node_t const * as_leaf () const;
-        interior_node_t const * as_interior () const;
+        leaf_node_t const * as_leaf () const noexcept;
+        interior_node_t const * as_interior () const noexcept;
 
-        node_t const * get () const
+        node_t const * get () const noexcept
         { return ptr_.get(); }
 
         mutable_node_ptr write () const;
 
-        void swap (node_ptr & rhs)
+        void swap (node_ptr & rhs) noexcept
         { ptr_.swap(rhs.ptr_); }
 
         bool operator== (node_ptr const & rhs) const noexcept
@@ -112,8 +115,8 @@ namespace boost { namespace text { namespace detail {
     {
         enum class which : char { t, tv, rtv, ref };
 
-        explicit node_t (bool leaf) : refs_ (0), leaf_ (leaf) {}
-        node_t (node_t const & rhs) : refs_ (0), leaf_ (rhs.leaf_) {}
+        explicit node_t (bool leaf) noexcept : refs_ (0), leaf_ (leaf) {}
+        node_t (node_t const & rhs) noexcept : refs_ (0), leaf_ (rhs.leaf_) {}
         node_t & operator= (node_t const & rhs) = delete;
 
 #ifdef BOOST_TEXT_THREAD_UNSAFE
@@ -128,7 +131,7 @@ namespace boost { namespace text { namespace detail {
     constexpr int max_children = 16;
     constexpr int text_insert_max = 512;
 
-    inline std::ptrdiff_t size (node_t const * node);
+    inline std::ptrdiff_t size (node_t const * node) noexcept;
 
     using keys_t = container::static_vector<std::ptrdiff_t, max_children>;
     using children_t = container::static_vector<node_ptr, max_children>;
@@ -138,7 +141,7 @@ namespace boost { namespace text { namespace detail {
 
     struct interior_node_t : node_t
     {
-        interior_node_t () : node_t (false) {}
+        interior_node_t () noexcept : node_t (false) {}
 
         void * operator new (std::size_t) = delete;
 
@@ -162,7 +165,7 @@ namespace boost { namespace text { namespace detail {
 
     struct leaf_node_t : node_t
     {
-        leaf_node_t () : leaf_node_t (text_view()) {}
+        leaf_node_t () noexcept : leaf_node_t (text_view()) {}
 
         leaf_node_t (text const & t) :
             node_t (true),
@@ -174,7 +177,7 @@ namespace boost { namespace text { namespace detail {
             buf_ptr_ = new (at) text(t);
         }
 
-        leaf_node_t (text && t) :
+        leaf_node_t (text && t) noexcept :
             node_t (true),
             buf_ptr_ (nullptr),
             which_ (which::t)
@@ -184,7 +187,7 @@ namespace boost { namespace text { namespace detail {
             buf_ptr_ = new (at) text(std::move(t));
         }
 
-        leaf_node_t (text_view tv) :
+        leaf_node_t (text_view tv) noexcept :
             node_t (true),
             buf_ptr_ (nullptr),
             which_ (which::tv)
@@ -194,7 +197,7 @@ namespace boost { namespace text { namespace detail {
             buf_ptr_ = new (at) text_view(tv);
         }
 
-        leaf_node_t (repeated_text_view rtv) :
+        leaf_node_t (repeated_text_view rtv) noexcept :
             node_t (true),
             buf_ptr_ (nullptr),
             which_ (which::rtv)
@@ -242,7 +245,7 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (leaf_node_t &&) = delete;
         leaf_node_t & operator= (leaf_node_t &&) = delete;
 
-        ~leaf_node_t ()
+        ~leaf_node_t () noexcept
         {
             if (!buf_ptr_)
                 return;
@@ -256,7 +259,7 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
-        int size () const
+        int size () const noexcept
         {
             switch (which_) {
             case which::t: return as_text().size(); break;
@@ -268,49 +271,49 @@ namespace boost { namespace text { namespace detail {
             return -(1 << 30); // This should never execute.
         }
 
-        text const & as_text () const
+        text const & as_text () const noexcept
         {
             assert(which_ == which::t);
             return *static_cast<text *>(buf_ptr_);
         }
 
-        text_view const & as_text_view () const
+        text_view const & as_text_view () const noexcept
         {
             assert(which_ == which::tv);
             return *static_cast<text_view *>(buf_ptr_);
         }
 
-        repeated_text_view const & as_repeated_text_view () const
+        repeated_text_view const & as_repeated_text_view () const noexcept
         {
             assert(which_ == which::rtv);
             return *static_cast<repeated_text_view *>(buf_ptr_);
         }
 
-        reference const & as_reference () const
+        reference const & as_reference () const noexcept
         {
             assert(which_ == which::ref);
             return *static_cast<reference *>(buf_ptr_);
         }
 
-        text & as_text ()
+        text & as_text () noexcept
         {
             assert(which_ == which::t);
             return *static_cast<text *>(buf_ptr_);
         }
 
-        text_view & as_text_view ()
+        text_view & as_text_view () noexcept
         {
             assert(which_ == which::tv);
             return *static_cast<text_view *>(buf_ptr_);
         }
 
-        repeated_text_view & as_repeated_text_view ()
+        repeated_text_view & as_repeated_text_view () noexcept
         {
             assert(which_ == which::rtv);
             return *static_cast<repeated_text_view *>(buf_ptr_);
         }
 
-        reference & as_reference ()
+        reference & as_reference () noexcept
         {
             assert(which_ == which::ref);
             return *static_cast<reference *>(buf_ptr_);
@@ -321,31 +324,31 @@ namespace boost { namespace text { namespace detail {
         which which_;
     };
 
-    inline mutable_node_ptr::~mutable_node_ptr ()
+    inline mutable_node_ptr::~mutable_node_ptr () noexcept
     { node_ptr_.ptr_ = ptr_; }
 
-    inline leaf_node_t * mutable_node_ptr::as_leaf ()
+    inline leaf_node_t * mutable_node_ptr::as_leaf () noexcept
     {
         assert(ptr_);
         assert(ptr_->leaf_);
         return static_cast<leaf_node_t *>(ptr_);
     }
 
-    inline interior_node_t * mutable_node_ptr::as_interior ()
+    inline interior_node_t * mutable_node_ptr::as_interior () noexcept
     {
         assert(ptr_);
         assert(!ptr_->leaf_);
         return static_cast<interior_node_t *>(ptr_);
     }
 
-    inline leaf_node_t const * node_ptr::as_leaf () const
+    inline leaf_node_t const * node_ptr::as_leaf () const noexcept
     {
         assert(ptr_);
         assert(ptr_->leaf_);
         return static_cast<leaf_node_t const *>(ptr_.get());
     }
 
-    inline interior_node_t const * node_ptr::as_interior () const
+    inline interior_node_t const * node_ptr::as_interior () const noexcept
     {
         assert(ptr_);
         assert(!ptr_->leaf_);
@@ -398,7 +401,7 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-    inline std::ptrdiff_t size (node_t const * node)
+    inline std::ptrdiff_t size (node_t const * node) noexcept
     {
         if (!node) {
             return 0;
@@ -412,40 +415,40 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    inline children_t const & children (node_ptr const & node)
+    inline children_t const & children (node_ptr const & node) noexcept
     { return node.as_interior()->children_; }
 
-    inline children_t & children (mutable_node_ptr & node)
+    inline children_t & children (mutable_node_ptr & node) noexcept
     { return node.as_interior()->children_; }
 
-    inline keys_t const & keys (node_ptr const & node)
+    inline keys_t const & keys (node_ptr const & node) noexcept
     { return node.as_interior()->keys_; }
 
-    inline keys_t & keys (mutable_node_ptr & node)
+    inline keys_t & keys (mutable_node_ptr & node) noexcept
     { return node.as_interior()->keys_; }
 
-    inline int num_children (node_ptr const & node)
+    inline int num_children (node_ptr const & node) noexcept
     { return static_cast<int>(children(node).size()); }
 
-    inline int num_children (mutable_node_ptr & node)
+    inline int num_children (mutable_node_ptr & node) noexcept
     { return static_cast<int>(children(node).size()); }
 
-    inline int num_keys (node_ptr const & node)
+    inline int num_keys (node_ptr const & node) noexcept
     { return static_cast<int>(keys(node).size()); }
 
-    inline int num_keys (mutable_node_ptr & node)
+    inline int num_keys (mutable_node_ptr & node) noexcept
     { return static_cast<int>(keys(node).size()); }
 
-    inline bool full (node_ptr const & node)
+    inline bool full (node_ptr const & node) noexcept
     { return num_children(node) == max_children; }
 
-    inline bool almost_full (node_ptr const & node)
+    inline bool almost_full (node_ptr const & node) noexcept
     { return num_children(node) == max_children - 1; }
 
     inline bool leaf_children (node_ptr const & node)
     { return children(node)[0]->leaf_; }
 
-    inline std::ptrdiff_t offset (interior_node_t const * node, int i)
+    inline std::ptrdiff_t offset (interior_node_t const * node, int i) noexcept
     {
         assert(0 <= i);
         assert(i <= (int)node->keys_.size());
@@ -454,13 +457,13 @@ namespace boost { namespace text { namespace detail {
         return node->keys_[i - 1];
     }
 
-    inline std::ptrdiff_t offset (node_ptr const & node, int i)
+    inline std::ptrdiff_t offset (node_ptr const & node, int i) noexcept
     { return offset(node.as_interior(), i); }
 
-    inline std::ptrdiff_t offset (mutable_node_ptr const & node, int i)
+    inline std::ptrdiff_t offset (mutable_node_ptr const & node, int i) noexcept
     { return offset(const_cast<mutable_node_ptr &>(node).as_interior(), i); }
 
-    inline std::ptrdiff_t find_child (interior_node_t const * node, std::ptrdiff_t n)
+    inline std::ptrdiff_t find_child (interior_node_t const * node, std::ptrdiff_t n) noexcept
     {
         int i = 0;
         auto const sizes = static_cast<int>(node->keys_.size());
@@ -484,7 +487,7 @@ namespace boost { namespace text { namespace detail {
         node_ptr const & node,
         std::ptrdiff_t n,
         found_leaf & retval
-    ) {
+    ) noexcept {
         assert(node);
         assert(n <= size(node.get()));
         if (node->leaf_) {
@@ -505,7 +508,7 @@ namespace boost { namespace text { namespace detail {
         char c_;
     };
 
-    inline void find_char (node_ptr const & node, std::ptrdiff_t n, found_char & retval)
+    inline void find_char (node_ptr const & node, std::ptrdiff_t n, found_char & retval) noexcept
     {
         assert(node);
         find_leaf(node, n, retval.leaf_);
@@ -611,13 +614,13 @@ namespace boost { namespace text { namespace detail {
         Iter first_;
         Iter last_;
 
-        Iter begin () const { return first_; }
-        Iter end () const { return last_; }
+        Iter begin () const noexcept { return first_; }
+        Iter end () const noexcept { return last_; }
     };
 
     template <typename Container>
     reversed_range<typename Container::const_reverse_iterator>
-    reverse (Container const & c)
+    reverse (Container const & c) noexcept
     { return {c.rbegin(), c.rend()}; }
 
     inline void bump_keys (interior_node_t * node, int from, std::ptrdiff_t bump)
@@ -627,7 +630,7 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    inline void insert_child (interior_node_t * node, int i, node_ptr && child)
+    inline void insert_child (interior_node_t * node, int i, node_ptr && child) noexcept
     {
         auto const child_size = size(child.get());
         node->children_.insert(node->children_.begin() + i, std::move(child));
@@ -637,7 +640,7 @@ namespace boost { namespace text { namespace detail {
 
     enum erasure_adjustments { adjust_keys, dont_adjust_keys };
 
-    inline void erase_child (interior_node_t * node, int i, erasure_adjustments adj = adjust_keys)
+    inline void erase_child (interior_node_t * node, int i, erasure_adjustments adj = adjust_keys) noexcept
     {
         auto const child_size = size(node->children_[i].get());
         node->children_.erase(node->children_.begin() + i);
