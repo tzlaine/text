@@ -65,6 +65,8 @@ matrix:
               packages:
                 - g++-4.8
                 - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -75,7 +77,8 @@ matrix:
             apt:
               packages:
                 - g++-4.8
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -86,7 +89,8 @@ matrix:
             apt:
               packages:
                 - g++-4.9
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -97,7 +101,8 @@ matrix:
             apt:
               packages:
                 - g++-4.9
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -108,7 +113,8 @@ matrix:
             apt:
               packages:
                 - g++-5
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -119,7 +125,8 @@ matrix:
             apt:
               packages:
                 - g++-5
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -130,7 +137,8 @@ matrix:
             apt:
               packages:
                 - g++-6
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
@@ -141,7 +149,8 @@ matrix:
             apt:
               packages:
                 - g++-6
-                - valgrind
+                - libboost-filesystem-dev
+                - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
 
