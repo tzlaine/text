@@ -1,3 +1,5 @@
+#include "key_mappings.hpp"
+
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 
@@ -16,4 +18,6 @@ int main (int argc, char * argv[])
         std::cerr << "error: Could not access filename " << argv[1] << ".\n";
         return 1;
     }
+
+    std::locale::global(std::locale(""));
 }
