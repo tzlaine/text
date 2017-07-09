@@ -9,7 +9,7 @@ namespace {
 
     key_code_t to_key_code (boost::text::text_view name)
     {
-        assert(0 < (intptr_t)tigetstr(name.begin()));
+        assert(0 < (intptr_t)tigetstr((char *)name.begin()));
         int const k = key_defined(name.begin());
         assert(0 < k);
         return {KEY_CODE_YES, k};

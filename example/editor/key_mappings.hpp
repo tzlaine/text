@@ -105,7 +105,7 @@ namespace {
     ctrl_t ctrl;
     alt_t alt;
     // Silence warnings.
-    bool const b_ = ([=]{ (void)ctrl; (void)alt; return true; })();
+    bool const b_ = ([]{ (void)ctrl; (void)alt; return true; })();
 }
 
 #endif
