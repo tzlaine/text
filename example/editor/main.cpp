@@ -1,4 +1,4 @@
-#include "key_mappings.hpp"
+#include "curses_interface.hpp"
 
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -20,4 +20,11 @@ int main (int argc, char * argv[])
     }
 
     std::locale::global(std::locale(""));
+
+    curses_interface_t curses_interface;
+
+    while (true) {
+        auto const event = curses_interface.next_event();
+        (void)event;
+    }
 }

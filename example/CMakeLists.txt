@@ -23,9 +23,10 @@ if (BUILD_EDITOR)
     add_executable(
         editor
         editor/main.cpp
+        editor/curses_interface.cpp
         editor/key_mappings.cpp
     )
-    target_compile_options(editor PRIVATE -Wall)
+    target_compile_options(editor PRIVATE -Wall -D_XOPEN_SOURCE_EXTENDED)
     if (CMAKE_COMPILER_IS_GNUCXX)
         target_compile_options(editor PRIVATE -Wno-terminate)
     endif ()
