@@ -1,0 +1,851 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Boost Text String Types</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../tutorial.html" title="Tutorial">
+<link rel="prev" href="utf_8_encoding_guarantee.html" title="UTF-8 Encoding Guarantee">
+<link rel="next" href="utf_8_conversions.html" title="UTF-8 Conversions">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="utf_8_encoding_guarantee.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_8_conversions.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types"></a><a class="link" href="boost_text_string_types.html" title="Boost Text String Types">Boost
+        Text String Types</a>
+</h4></div></div></div>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h0"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__text_view__phrase___code__type"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__text_view__phrase___code__type">The
+          <code class="computeroutput"><span class="identifier">text_view</span></code> Type</a>
+        </h6>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          is type at the center of Boost.Text. It is used everywhere you would have
+          used <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+          <span class="special">*</span></code> before C++17, and everywhere you
+          would use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code> in C++17 and later.
+        </p>
+<p>
+          Analogouly to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>, it defines implicit conversions
+          from <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+          <span class="special">*</span></code> and <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>, so it can be used in
+          interfaces that accept either.
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          is fully <code class="computeroutput"><span class="keyword">constexpr</span></code> in everything
+          it does, if you have the compiler support (C++14 <code class="computeroutput"><span class="keyword">constexpr</span></code>).
+          You can write very extensive compile-time operations using <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> and the Boost.Text
+          algorithms.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="identifier">find_spaces</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">retval</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">space</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">find_view</span><span class="special">(</span><span class="identifier">tv</span><span class="special">,</span> <span class="string">" "</span><span class="special">);</span>
+    <span class="keyword">while</span> <span class="special">(!</span><span class="identifier">space</span><span class="special">.</span><span class="identifier">empty</span><span class="special">())</span> <span class="special">{</span>
+        <span class="special">++</span><span class="identifier">retval</span><span class="special">;</span>
+        <span class="identifier">tv</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">space</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">tv</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">space</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+        <span class="identifier">space</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">find_view</span><span class="special">(</span><span class="identifier">tv</span><span class="special">,</span> <span class="string">" "</span><span class="special">);</span>
+    <span class="special">}</span>
+    <span class="keyword">return</span> <span class="identifier">retval</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">int</span> <span class="identifier">main</span> <span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">constexpr</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv</span> <span class="special">=</span>
+        <span class="string">"When writing a specialization, "</span>
+        <span class="string">"be careful about its location; "</span>
+        <span class="string">"or to make it compile "</span>
+        <span class="string">"will be such a trial "</span>
+        <span class="string">"as to kindle its self-immolation"</span><span class="special">;</span>
+
+    <span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="identifier">spaces_found</span> <span class="special">=</span> <span class="identifier">find_spaces</span><span class="special">(</span><span class="identifier">tv</span><span class="special">);</span>
+    <span class="keyword">static_assert</span><span class="special">(</span><span class="identifier">spaces_found</span> <span class="special">==</span> <span class="number">23</span><span class="special">,</span> <span class="string">""</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          is a nearly immutable type; there are no mutating member functions, besides
+          assignment and <code class="computeroutput"><span class="identifier">swap</span><span class="special">()</span></code>.
+          It is small (the size of two pointers on most modern architectures) and
+          cheap to copy.
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          is also guaranteed to be UTF-8 encoded, as long as it is constructed from
+          a chain of slice operations that originates from a UTF-8 encoded <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>.
+          That is, it is not possible to break the UTF-8 encoding unintentionally.
+        </p>
+<p>
+          Due to its reliance on UTF-8 encoding, it has no need to support multiple
+          character types. Its underlying sequence is always a sequence of <code class="computeroutput"><span class="keyword">char</span></code>. It is not a template.
+        </p>
+<p>
+          It has a signed size and index type, and since contiguous unowned sequences
+          of <code class="computeroutput"><span class="keyword">char</span></code> are unlikely to be
+          huge, its size/index type is <code class="computeroutput"><span class="keyword">int</span></code>.
+          It is still possible to deal with very large unowned sequences of <code class="computeroutput"><span class="keyword">char</span></code> using <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>, though node allocations
+          are required when using that.
+        </p>
+<p>
+          It is also slice-able. There are two slice operations, each using an overloaded
+          call operator. The first one is very much like the Python slicing index
+          syntax. Positive and negative indices are allowed. Negative indices count
+          from the end -- they are converted to positive indices by adding <code class="computeroutput"><span class="identifier">size</span><span class="special">()</span></code>.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv1</span> <span class="special">=</span> <span class="string">"some text"</span><span class="special">;</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv2</span> <span class="special">=</span> <span class="identifier">tv1</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="number">4</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">tv2</span> <span class="special">==</span> <span class="string">"some"</span><span class="special">);</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv3</span> <span class="special">=</span> <span class="identifier">tv1</span><span class="special">(-</span><span class="number">3</span><span class="special">,</span> <span class="special">-</span><span class="number">1</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">tv3</span> <span class="special">==</span> <span class="string">"ex"</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<p>
+          The second slice operation takes a single index value, which may be positive
+          or negative. A positive value <code class="computeroutput"><span class="identifier">x</span></code>
+          create a prefix substring of length <code class="computeroutput"><span class="identifier">x</span></code>,
+          and a negative one creates a suffix substring of length <code class="computeroutput"><span class="special">-</span><span class="identifier">x</span></code>.
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv1</span> <span class="special">=</span> <span class="string">"some text"</span><span class="special">;</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv2</span> <span class="special">=</span> <span class="identifier">tv1</span><span class="special">(</span><span class="number">4</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">tv2</span> <span class="special">==</span> <span class="string">"some"</span><span class="special">);</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv3</span> <span class="special">=</span> <span class="identifier">tv1</span><span class="special">(-</span><span class="number">4</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">tv3</span> <span class="special">==</span> <span class="string">"text"</span><span class="special">);</span>
+</pre>
+<p>
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+            throws an exception whenever it is constructed from a string whose ends
+            are not properly UTF-8 encoded (unless you opt out by using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">::</span><span class="identifier">unchecked</span></code>). This includes the construction
+            of <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_views</a></code>
+            via the slicing operations.
+          </p></td></tr>
+</table></div>
+<p>
+          Of course, there is a user-defined literal for <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">literals</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv</span> <span class="special">=</span> <span class="string">"UDLs are, literally, the best idea."</span><span class="identifier">_tv</span><span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          Finally, there is an <code class="computeroutput"><span class="keyword">explicit</span></code>
+          conversion from any value of a type that models <a class="link" href="../../concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>.
+          <a class="link" href="../../concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>
+          is any contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>
+          that provides <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+          <span class="special">*</span></code> pointer access to its <code class="computeroutput"><span class="keyword">char</span></code>s. This give use conversions from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> and other types that <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          does not explicitly know about.
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h1"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__text__phrase___code__type"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__text__phrase___code__type">The
+          <code class="computeroutput"><span class="identifier">text</span></code> Type</a>
+        </h6>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          is a contiguous, heap-allocated sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          is also strongly exception-safe. Its purpose is to be a better <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>.
+        </p>
+<p>
+          Like <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
+          it is guaranteed to be UTF-8 encoded, with the same gurantees when constructing
+          and slicing. Its character type is <code class="computeroutput"><span class="keyword">char</span></code>
+          and its size/index type is <code class="computeroutput"><span class="keyword">int</span></code>,
+          for the same reasons given for <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>. It is also slice-able
+          in the same way that <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> is.
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          has its own user-defined literals:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">literals</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t1</span> <span class="special">=</span> <span class="string">"UDL here."</span><span class="identifier">_t</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t2</span> <span class="special">=</span> <span class="identifier">u8</span><span class="string">"UDL here."</span><span class="identifier">_t</span><span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t3</span> <span class="special">=</span> <span class="identifier">u</span><span class="string">"UDL here."</span><span class="identifier">_t</span><span class="special">;</span> <span class="comment">// char16_t</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t4</span> <span class="special">=</span> <span class="identifier">U</span><span class="string">"UDL here."</span><span class="identifier">_t</span><span class="special">;</span> <span class="comment">// char32_t</span>
+</pre>
+<p>
+        </p>
+<p>
+          Unlike <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          though, <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          is mutable. <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          also checks that its mutating operations do not break UTF-8 encoding. Mostly.
+          Why not always? This is C++, so we say things like "You always --
+          always and without fail -- want to make sure your strings are UTF-8 encoded
+          (except when you don't)."
+        </p>
+<p>
+          So, there is a safe interface, that always checks the encoding on mutations,
+          and an unsafe one, that does not (or sometimes partially does). Let's look
+          at the mutating operations.
+        </p>
+<p>
+          These are not very interesting with respect to encoding, because no checks
+          are necessary; these are the purely safe mutations:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">reserve</span><span class="special">()</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">shrink_to_fit</span><span class="special">()</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">clear</span><span class="special">()</span></code>
+            </li>
+</ul></div>
+<p>
+          These are impossible to check, because they give the user a pointer into
+          the guts of <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>,
+          after which <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          is ignorant of the mutations performed; they are purely unsafe mutations:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <code class="computeroutput"><span class="keyword">operator</span><span class="special">[]()</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code>
+              (non-<code class="computeroutput"><span class="keyword">const</span></code>)
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">end</span><span class="special">()</span></code>
+              (non-<code class="computeroutput"><span class="keyword">const</span></code>)
+            </li>
+</ul></div>
+<p>
+          These require checking to ensure UTF-8 encoding:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">erase</span><span class="special">()</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>
+            </li>
+</ul></div>
+<p>
+          Each of <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code>,
+          <code class="computeroutput"><span class="identifier">erase</span><span class="special">()</span></code>,
+          and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>
+          has multiple overloads. Let's look at the ones for <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code>:
+        </p>
+<pre class="programlisting"><span class="identifier">text</span> <span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">at</span><span class="special">,</span> <span class="identifier">text_view</span> <span class="identifier">tv</span><span class="special">);</span>
+<span class="identifier">text</span> <span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">at</span><span class="special">,</span> <span class="identifier">repeated_text_view</span> <span class="identifier">rtv</span><span class="special">);</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CharRange</span><span class="special">&gt;</span> <span class="identifier">text</span> <span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">at</span><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">rng</span><span class="special">);</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iter</span><span class="special">&gt;</span> <span class="identifier">text</span> <span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">at</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iter</span><span class="special">&gt;</span> <span class="identifier">text</span> <span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">at</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iter</span> <span class="identifier">last</span><span class="special">);</span>
+</pre>
+<p>
+          The first two insert sequences that are unchecked, since they are already
+          contained in Boost.Text types. The <a class="link" href="../../concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>
+          overload constructs a <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> from the inserted
+          object, and so the normal <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> checking is done.
+        </p>
+<p>
+          For the last two, it becomes impossible to check the encoding at the ends
+          up-front, since the iterators might be input iterators, which are iterate-once.
+          For the same reason, if we wait to do the encoding check, and copy the
+          contents of <code class="computeroutput"><span class="special">[</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span></code> into the <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code> first, if we find out
+          that they are not properly encoded, we would lose the already-read data,
+          since we can't go back and re-iterate over the sequence.
+        </p>
+<p>
+          For these reasons, and because we need a way for users to intentionally
+          break encoding when they really need to, the iterator-using interfaces
+          are not checked for UTF-8 encoding at all:
+        </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Two Unicode code points.</span>
+<span class="identifier">uint32_t</span> <span class="keyword">const</span> <span class="identifier">utf32</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x004d</span><span class="special">,</span> <span class="number">0x10302</span><span class="special">};</span>
+<span class="comment">// The second one is truncated.</span>
+<span class="keyword">char</span> <span class="keyword">const</span> <span class="identifier">utf8</span><span class="special">[</span><span class="number">5</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0x4d</span><span class="special">,</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0xf0</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x90</span><span class="special">),</span> <span class="keyword">char</span><span class="special">(</span><span class="number">0x8c</span><span class="special">),</span> <span class="char">'\0'</span><span class="special">};</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="identifier">str</span> <span class="special">=</span> <span class="identifier">utf8</span><span class="special">;</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t1</span><span class="special">;</span>
+<span class="identifier">t1</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="identifier">str</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">str</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span> <span class="comment">// Ok.  The broken encoding is never checked.</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t2</span><span class="special">;</span>
+<span class="identifier">t2</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="identifier">str</span><span class="special">);</span> <span class="comment">// Error!  The encoding is broken at the end.</span>
+</pre>
+<p>
+        </p>
+<p>
+          Insertions can insert a sequence with broken encoding, or insert at a location
+          that breaks encoding. What about checking the insertion point for encoding
+          breakage?
+        </p>
+<p>
+          A similar rule applies -- we check for encoding breakage when the insertion
+          point is given as an index, and do not check when it is given as an iterator.
+        </p>
+<p>
+          Notice how two out of the three the always-unsafe mutations are <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code>
+          and <code class="computeroutput"><span class="identifier">end</span><span class="special">()</span></code>.
+          Also, we don't check encoding breakage at the insertion point if the insertion
+          point <code class="computeroutput"><span class="identifier">at</span></code> is given as an
+          iterator, and we don't check the inserted sequence if it is given as a
+          pair of iterators. That leads us to this guideline:
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Whenever you see an iterator in the interface to a Boost.Text type, that
+            signals that there is no UTF-8 encoding guarantee for that part of the
+            interface (insertion point or inserted sequence, in the <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code>
+            case.
+          </p></td></tr>
+</table></div>
+<p>
+          It's not necessary to examine all the <code class="computeroutput"><span class="identifier">erase</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code> overloads, because they follow the same
+          pattern -- use of iterators turns off encoding checks.
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h2"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__repeated_text_view__phrase___code__type"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__repeated_text_view__phrase___code__type">The
+          <code class="computeroutput"><span class="identifier">repeated_text_view</span></code> Type</a>
+        </h6>
+<p>
+          One of the things that differs between <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+          and <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          is that <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          is missing all those overloads (including constructors) that take a number
+          of characters to repeat. For example, <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code> has no function for
+          inserting a single character N times. Part of the reason for this, is that
+          inserting a single character no longer works, since Boost.Text types use
+          a variable-length encoding, UTF-8. Instead of having all those overloads,
+          especially since they don't really fit with UTF-8, and using a heap-allocating
+          type like <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          to represent repeated characters, Boost.Text introduces a new non-allocating
+          type for this, <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>.
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>
+          has semantics and an interface much like <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>: it is near-immutable;
+          it uses a signed size/index type (though a typically-larger one, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>); it uses <code class="computeroutput"><span class="keyword">char</span></code>
+          as its character type; and it is slice-able in the same way.
+        </p>
+<p>
+          With <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>
+          in hand, this code which allocates:
+        </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">indent</span><span class="special">,</span> <span class="char">' '</span><span class="special">);</span>
+</pre>
+<p>
+          becomes this code, which does not:
+        </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeated_text_view</span><span class="special">(</span><span class="string">" "</span><span class="special">,</span> <span class="identifier">indent</span><span class="special">);</span>
+</pre>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h3"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__rope__phrase___code__type"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__rope__phrase___code__type">The
+          <code class="computeroutput"><span class="identifier">rope</span></code> Type</a>
+        </h6>
+<p>
+          In general, a <a href="https://en.wikipedia.org/wiki/Rope_(data_structure)" target="_top">Rope</a>
+          is a heavyweight string; whereas a string is a simple array of contiguous
+          storage, a <a href="https://en.wikipedia.org/wiki/Rope_(data_structure)" target="_top">Rope</a>
+          is much more complicated and is typically a tree whose leaves are contiguous
+          strings.
+        </p>
+<p>
+          The user's view of Boost.Text's <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> is that it is a UTF-8
+          encoded string that is inexpensive to insert into at any point -- even
+          the middle or front -- no matter how large it is. In addition, substrings
+          within the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+          have copy-on-write semantics. This means that often a copy of a very large
+          <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+          is nearly free, and that a mutated a copy of a <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> often shares much of
+          its data with the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+          from which it was copied.
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>'s
+          implementation uses a tree structure similar to a B+ tree, and each subtree
+          is copy-on-write. The tree consists of interior nodes that contain structural
+          information, and leaf nodes which contain the data. <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> only contains a single
+          pointer to a root node. Here is one of the simplest nonempty <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">ropes</a></code>
+          you can have:
+        </p>
+<p>
+          <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../../../doc/rope_text_leaf.svg" width="160" height="144"></object></span>
+        </p>
+<p>
+          This <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+          is just a single leaf node, containing the super-useful string <code class="computeroutput"><span class="string">"text"</span></code>. In this case, the leaf
+          was a <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          node, labeled here with <code class="computeroutput"><span class="identifier">t</span></code>.
+          There can also be leaf nodes for <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_views</a></code> and <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_views</a></code>,
+          labeled in these diagrams with <code class="computeroutput"><span class="identifier">tv</span></code>
+          and <code class="computeroutput"><span class="identifier">rtv</span></code>, respectively.
+          The final leaf node type is a reference-to-<code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code> leaf, labeled as <code class="computeroutput"><span class="identifier">ref</span></code>. More on that in a bit.
+        </p>
+<p>
+          If we copy the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+          above, we get something like this:
+        </p>
+<p>
+          <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../../../doc/rope_text_leaf_extra_ref.svg" width="202" height="143"></object></span>
+        </p>
+<p>
+          No copying was done, nor allocations performed. Copying an entire tree
+          only requires copying a pointer and incrementing a reference count. The
+          string in this <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          leaf is only four characters, but let's suppose it was megabytes instead.
+          Inserting even a small sequence near the beginning of the string would
+          be costly, since we'd have to copy all the characters after the insertion
+          point. And since the <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          leaf may be shared, we would have to copy everything <span class="emphasis"><em>before</em></span>
+          the insertion, too! For large <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code> leaves, insertions into
+          them result in something like this:
+        </p>
+<p>
+          <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../../../doc/rope_text_refs_after_insert.svg" width="534" height="242"></object></span>
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            This is <span class="bold"><strong>not</strong></span> what actually happens to
+            small <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+            leaves with a reference count of 1! Those are mutated in place.
+          </p></td></tr>
+</table></div>
+<p>
+          Here, we see that we've made two new reference nodes, each of which refers
+          to part of the original <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>, and we've put the inserted
+          string in between, forming <code class="computeroutput"><span class="string">"text text"</span></code>,
+          which everyone knows is the <span class="bold"><strong>best</strong></span> string.
+        </p>
+<p>
+          And now we see our first interior node. Each interior node has a key and
+          a pointer for each child, and a fixed maximum number of children. Each
+          key <code class="computeroutput"><span class="identifier">Ki</span></code> is the cumulative
+          size of all children in the range <code class="computeroutput"><span class="special">[</span><span class="number">0</span><span class="special">,</span> <span class="identifier">i</span><span class="special">]</span></code>.
+        </p>
+<p>
+          To make the images smaller, each interior node in these diagrams has a
+          maximum of four children (the actually number is an implementation detail,
+          but it's a lot higher).
+        </p>
+<p>
+          Now let's take a look at a more complicated <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>:
+        </p>
+<p>
+          <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../../../doc/rope_tree_structure.svg" width="748" height="363"></object></span>
+        </p>
+<p>
+          In this tree, we have three interior nodes: the root and its two children.
+          We also have at least one of each type of leaf node.
+        </p>
+<p>
+          Copying even this <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+          is very cheap, requiring only copying a pointer and incrementing a reference
+          count:
+        </p>
+<p>
+          <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../../../doc/rope_copy_add_ref.svg" width="748" height="363"></object></span>
+        </p>
+<p>
+          Let's say we wanted to erase part of this <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>. We'll erase a substring
+          that matches a whole leaf exactly, to keep things simpler:
+        </p>
+<p>
+          <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../../../doc/rope_erase.svg" width="878" height="363"></object></span>
+        </p>
+<p>
+          Simple, right? In this case, we did the erasure by creating a copy of each
+          node on the path from the root to the erased leaf, and just referring to
+          all the other nodes that did not change. Again, most of the string data
+          and and even interior nodes are shared among the three ropes in the diagram.
+          This same principle applies to <code class="computeroutput"><span class="identifier">insert</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">erase</span><span class="special">()</span></code>, and <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code>.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            We don't make new nodes every time we need to do an insert, erase, or
+            other mutation. If the reference counts on the root-to-leaf path are
+            all <code class="computeroutput"><span class="number">1</span></code>, we will mutate the
+            tree in place.
+          </p></td></tr>
+</table></div>
+<p>
+          Besides the segmented nature of <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>, there are some other
+          properties you need to know about. A <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> as a whole is copy-on-write;
+          it is also therefore thread-safe for reading and writing; it is not null-terminated;
+          it uses a signed size/index type (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
+          it uses <code class="computeroutput"><span class="keyword">char</span></code> as its character
+          type; and it is slice-able.
+        </p>
+<p>
+          Insertions, erasures, and indexing each happen in <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="identifier">log_B</span><span class="special">(</span><span class="identifier">N</span><span class="special">))</span></code>
+          time, where B is the branching factor (maximum number of children per interior
+          node). As mentioned before, B is an implementation detail, and thus subject
+          to change, but it is unlikely to be less than 16. That means very little
+          pointer chasing is required to access an arbitrary element of a <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>,
+          because its tree is very shallow.
+        </p>
+<p>
+          As mentioned previously, mutations to a <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> are done in-place if
+          the mutations do not affect nodes that are shared with other <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">ropes</a></code>.
+        </p>
+<p>
+          If a mutation can be done in place, and the point of mutation is falls
+          within a <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          leaf, the <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+          object is directly mutated if: the inserted string fits within the <code class="computeroutput"><span class="identifier">capacity</span><span class="special">()</span></code>
+          of the <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>,
+          <span class="bold"><strong>or</strong></span>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              the <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+              object is not too large (there is a maximum size that is an implementation
+              detail, but is likely to be hundreds or thousands, not tens or tens
+              of thousands), <span class="bold"><strong>and</strong></span>
+            </li>
+<li class="listitem">
+              the inserted object would cause an allocation if copied (i.e. it is
+              a <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>).
+            </li>
+</ul></div>
+<p>
+          Most of Boost.Text's interfaces try to use <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> or <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code> parameters where
+          possible, instead of explicitly creating all the possible <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>, <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> <code class="computeroutput"><span class="keyword">char</span>
+          <span class="keyword">const</span> <span class="special">*</span></code>,
+          etc. overloads. You may notice however that <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> has overloads for its
+          inserting functions and constructors for <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>, <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>, <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>, and
+          <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>,
+          when it seems just <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code> would do.
+        </p>
+<p>
+          These extra overloads allow you to control exactly which kind of leaf node
+          gets inserted into the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> (except the in-place
+          mutation of <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">texts</a></code>
+          mentioned above). If you have a string that is already owned by another
+          entity, and is guaranteed to outlive the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>, insert a <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+          of the string into the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>, because it's very efficient.
+          If you don't know that a string you're inserting will outlive the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>,
+          or if you want to add a spot to the <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code> that you intend to update
+          with subsequent in-place edits, insert a <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code> instead.
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h4"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__rope_view__phrase___code__type"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.the__code__phrase_role__identifier__rope_view__phrase___code__type">The
+          <code class="computeroutput"><span class="identifier">rope_view</span></code> Type</a>
+        </h6>
+<p>
+          Just as you can think of a <a href="https://en.wikipedia.org/wiki/Rope_(data_structure)" target="_top">Rope</a>
+          as a heavyweight string, you can think of a <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code> is a heavyweight
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>.
+          It can bind to a <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>,
+          but also to any of <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>,
+          <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
+          and <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>.
+        </p>
+<p>
+          <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>
+          has semantics and an interface much like <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>: it is near-immutable;
+          it uses a signed size/index type (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
+          it uses <code class="computeroutput"><span class="keyword">char</span></code> as its character
+          type; and it is slice-able.
+        </p>
+<p>
+          A key use of <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>
+          is that it can bind to all the other Boost.Text string types. If your code
+          expects to handle only <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">texts</a></code>, <code class="computeroutput"><span class="keyword">char</span>
+          <span class="keyword">const</span> <span class="special">*</span></code>s,
+          and <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_views</a></code>
+          as function parameters, use <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> in your interfaces.
+          If you also expect to handle <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">ropes</a></code> and <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_views</a></code>, use
+          <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>
+          in your interfaces instead.
+        </p>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h5"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.common_operations"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.common_operations">Common
+          Operations</a>
+        </h6>
+<p>
+          There are some operations that are common to all the Boost.Text types.
+        </p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+              Each has the slicing call operators. Each slicing call operator returns
+              a view, and so does no allocate.
+            </li>
+<li class="listitem">
+              Each has an index operator with the signature <code class="computeroutput"><span class="keyword">char</span>
+              <span class="keyword">operator</span><span class="special">[](</span><span class="identifier">size_type</span><span class="special">)</span>
+              <span class="keyword">const</span> <span class="keyword">noexcept</span></code>.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="keyword">operator</span><span class="special">+()</span></code>
+              is defined for each (even <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>).
+              Most of these operators allocate memory.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="keyword">operator</span><span class="special">+=()</span></code>
+              is defined for the mutable types, <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>.
+            </li>
+</ol></div>
+<h6>
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.h6"></a>
+          <span class="phrase"><a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.picking_the_right_string_type"></a></span><a class="link" href="boost_text_string_types.html#boost_text__proposed_.manual.tutorial.boost_text_string_types.picking_the_right_string_type">Picking
+          the Right String Type</a>
+        </h6>
+<div class="table">
+<a name="boost_text__proposed_.manual.tutorial.boost_text_string_types.t0"></a><p class="title"><b>Table&#160;1.1.&#160;Picking the Right String Type</b></p>
+<div class="table-contents"><table class="table" summary="Picking the Right String Type">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    If I need ...
+                  </p>
+                </th>
+<th>
+                  <p>
+                    ... my string type is:
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    to manipulate strings entirely at compile time
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    to capture a reference to a string that will outlive the reference,
+                    without allocating
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a mutable string with efficient mutation at the end of the string
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a mutable string with efficient mutation at any point in the
+                    string
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a string with contiguous storage
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+                    or <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a null-terminated string
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">text</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a mutable string the size of a single pointer
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a thread-safe string
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    a string with copy-on-write semantics
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">rope</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    to represent the repetition of a snippet of text, without allocating
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    to capture <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>s,
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_views</a></code>,
+                    and <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">texts</a></code>
+                    in a function parameter
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    to capture <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>s,
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text_view.html" title="Struct text_view">text_views</a></code>,
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/text.html" title="Struct text">texts</a></code>,
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_views</a></code>,
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/rope.html" title="Struct rope">ropes</a></code>,
+                    and <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_views</a></code>
+                    in a function parameter
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="tip"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../../../images/tip.png"></td>
+<th align="left">Tip</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            For an overloaded function <code class="computeroutput"><span class="identifier">foo</span><span class="special">()</span></code>, providing an overload for each of
+            <code class="computeroutput"><span class="identifier">foo</span><span class="special">(</span><span class="identifier">text_view</span><span class="special">)</span></code>
+            and <code class="computeroutput"><span class="identifier">foo</span><span class="special">(</span><span class="identifier">rope_view</span><span class="special">)</span></code>
+            will create an ambiguity, since they are each implicitly constructible
+            from <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+            <span class="special">*</span></code>. This will require you also
+            to add a third overload <code class="computeroutput"><span class="identifier">foo</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*)</span></code>,
+            so try to pick one view type or the other.
+          </p></td></tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2017 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="utf_8_encoding_guarantee.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="utf_8_conversions.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
