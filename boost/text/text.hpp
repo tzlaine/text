@@ -477,6 +477,43 @@ namespace boost { namespace text {
 
 #endif
 
+        /** Changes the size of *this to new_size.  Truncates if new_size <
+            size(), and appends new_size - size() repetitions of c it size() <
+            new_size.
+
+            \throw std::invalid_argument if truncating to new_size would break
+            UTF-8 encoding.
+            \post size() == new_size */
+        void resize (int new_size, char c)
+        {
+            assert(0 <= new_size);
+
+            if (c & 0x80)
+                throw std::invalid_argument("Given character is not a valid UTF-8 1-character code point");
+
+            int const prev_size = size_;
+            int const delta = new_size - prev_size;
+            if (!delta)
+                return;
+
+            int const available = cap_ - 1 - size_;
+            if (available < delta) {
+                std::unique_ptr<char []> new_data = get_new_data(delta - available);
+                std::copy(begin(), begin() + prev_size, new_data.get());
+                new_data.swap(data_);
+            } else if (delta < 0 &&
+                       !utf8::ends_encoded(cbegin(), cbegin() + new_size)) {
+                throw std::invalid_argument("Resizing to the given size breaks UTF-8 encoding.");
+            }
+
+            size_ = new_size;
+
+            if (0 < delta)
+                std::fill(begin() + prev_size, end(), c);
+
+            data_[size_] = '\0';
+        }
+
         /** Reserves storage enough for a string of at least new_size
             bytes.
 
