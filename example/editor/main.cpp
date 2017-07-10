@@ -1,4 +1,5 @@
 #include "curses_interface.hpp"
+#include "buffer.hpp"
 
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -21,10 +22,14 @@ int main (int argc, char * argv[])
 
     std::locale::global(std::locale(""));
 
+    buffer_t const buffer = load(path);
+
     curses_interface_t curses_interface;
+    render(buffer, curses_interface.screen_size());
 
     while (true) {
         auto const event = curses_interface.next_event();
         (void)event;
+        render(buffer, curses_interface.screen_size());
     }
 }
