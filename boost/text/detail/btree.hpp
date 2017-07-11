@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_BTREE_HPP
 #define BOOST_TEXT_DETAIL_BTREE_HPP
 
+#include <boost/text/detail/utility.hpp>
+
 // TODO: Profile both ways.
 #ifndef BOOST_TEXT_THREAD_UNSAFE
 #include <boost/atomic.hpp>
@@ -174,7 +176,7 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (std::vector<T> const & t) :
             node_t<T> (true),
             buf_ptr_ (nullptr),
-            which_ (which::t)
+            which_ (which::vec)
         {
             auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
             assert(at);
@@ -184,7 +186,7 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (std::vector<T> && t) noexcept :
             node_t<T> (true),
             buf_ptr_ (nullptr),
-            which_ (which::t)
+            which_ (which::vec)
         {
             auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
             assert(at);
@@ -233,7 +235,7 @@ namespace boost { namespace text { namespace detail {
         {
             switch (which_) {
             case which::vec: return as_vec().size(); break;
-            case which::ref: return as_reference().ref_.size(); break;
+            case which::ref: return as_reference().hi_ - as_reference().lo_; break;
             default: assert(!"unhandled leaf node case"); break;
             }
             return -(1 << 30); // This should never execute.
@@ -475,34 +477,34 @@ namespace boost { namespace text { namespace detail {
         find_leaf(child, n - offset_, retval);
     }
 
-#if 0 // TODO
     template <typename T>
     struct found_element
     {
         found_leaf<T> leaf_;
-        T * element_;
+        T const * element_;
     };
 
     template <typename T>
-    inline void find_char (node_ptr<T> const & node, std::ptrdiff_t n, found_element<T> & retval) noexcept
+    inline void find_element (node_ptr<T> const & node, std::ptrdiff_t n, found_element<T> & retval) noexcept
     {
         assert(node);
         find_leaf(node, n, retval.leaf_);
 
         leaf_node_t<T> const * leaf = retval.leaf_.leaf_->as_leaf();
-        T * e = nullptr;
+        T const * e = nullptr;
         switch (leaf->which_) {
-        case node_ptr<T>::which::vec:
+        case leaf_node_t<T>::which::vec:
             e = &leaf->as_vec()[retval.leaf_.offset_];
             break;
-        case node_ptr<T>::which::ref:
-            e = &leaf->as_reference().ref_[leaf->as_reference().lo_ + retval.leaf_.offset_];
+        case leaf_node_t<T>::which::ref:
+            e = &leaf->as_reference().vec_.as_leaf()->as_vec()[
+                leaf->as_reference().lo_ + retval.leaf_.offset_
+            ];
             break;
         default: assert(!"unhandled leaf node case"); break;
         }
         retval.element_ = e;
     }
-#endif
 
     template <typename T>
     inline reference<T>::reference (
@@ -549,7 +551,7 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t lo,
         std::ptrdiff_t hi
     ) {
-        auto const offset = r.rlo_;
+        auto const offset = r.lo_;
         return make_ref(r.vec_.as_leaf(), lo + offset, hi + offset);
     }
 
@@ -686,7 +688,7 @@ namespace boost { namespace text { namespace detail {
         if (lo == 0 && hi == leaf_size)
             return retval;
 
-        if (leaf_mutable && node.as_leaf()->which_ == leaf_slices<T>::which::vec) {
+        if (leaf_mutable && node.as_leaf()->which_ == leaf_node_t<T>::which::vec) {
             {
                 auto mut_node = node.write();
                 std::vector<T> & v = mut_node.as_leaf()->as_vec();
