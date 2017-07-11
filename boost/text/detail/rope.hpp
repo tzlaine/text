@@ -14,19 +14,29 @@
 #include <boost/container/static_vector.hpp>
 #include <boost/smart_ptr/intrusive_ptr.hpp>
 
+#include <vector>
+
 
 namespace boost { namespace text { namespace detail {
 
     // TODO: Experiment with collapsing adjacent text_views, references, etc.,
     // when inserting, erasing, etc.
 
+    template <typename T>
     struct node_t;
+    template <typename T>
     struct leaf_node_t;
+    template <typename T>
     struct interior_node_t;
+    template <typename T>
     struct node_ptr;
 
-    void dump_tree (node_ptr const & root, int key = -1, int indent = 0);
+    struct rope_tag;
 
+    template <typename T>
+    void dump_tree (node_ptr<T> const & root, int key = -1, int indent = 0);
+
+    template <typename T>
     struct mutable_node_ptr
     {
         ~mutable_node_ptr () noexcept;
@@ -34,40 +44,41 @@ namespace boost { namespace text { namespace detail {
         explicit operator bool () const noexcept
         { return ptr_; }
 
-        node_t * operator-> () noexcept
+        node_t<T> * operator-> () noexcept
         { return ptr_; }
 
-        leaf_node_t * as_leaf () noexcept;
-        interior_node_t * as_interior () noexcept;
+        leaf_node_t<T> * as_leaf () noexcept;
+        interior_node_t<T> * as_interior () noexcept;
 
     private:
-        mutable_node_ptr (node_ptr & np, node_t * ptr) noexcept :
+        mutable_node_ptr (node_ptr<T> & np, node_t<T> * ptr) noexcept :
             node_ptr_ (np), ptr_ (ptr)
         {}
 
-        node_ptr & node_ptr_;
-        node_t * ptr_;
-        friend node_ptr;
+        node_ptr<T> & node_ptr_;
+        node_t<T> * ptr_;
+        friend node_ptr<T>;
     };
 
+    template <typename T>
     struct node_ptr
     {
         node_ptr () noexcept {}
-        explicit node_ptr (node_t const * node) noexcept : ptr_ (node) {}
+        explicit node_ptr (node_t<T> const * node) noexcept : ptr_ (node) {}
 
         explicit operator bool () const noexcept
         { return ptr_.get(); }
 
-        node_t const * operator-> () const noexcept
+        node_t<T> const * operator-> () const noexcept
         { return ptr_.get(); }
 
-        leaf_node_t const * as_leaf () const noexcept;
-        interior_node_t const * as_interior () const noexcept;
+        leaf_node_t<T> const * as_leaf () const noexcept;
+        interior_node_t<T> const * as_interior () const noexcept;
 
-        node_t const * get () const noexcept
+        node_t<T> const * get () const noexcept
         { return ptr_.get(); }
 
-        mutable_node_ptr write () const;
+        mutable_node_ptr<T> write () const;
 
         void swap (node_ptr & rhs) noexcept
         { ptr_.swap(rhs.ptr_); }
@@ -76,30 +87,41 @@ namespace boost { namespace text { namespace detail {
         { return ptr_ == rhs.ptr_; }
 
     private:
-        intrusive_ptr<node_t const> ptr_;
-        friend mutable_node_ptr;
+        intrusive_ptr<node_t<T> const> ptr_;
+        friend mutable_node_ptr<T>;
     };
 
+    template <typename T>
     struct reference
     {
-        reference (node_ptr const & text_node, text_view ref) noexcept;
+        reference (node_ptr<T> const & node, std::ptrdiff_t lo, std::ptrdiff_t hi) noexcept;
 
-        node_ptr text_;
+        node_ptr<T> vec_;
+        std::ptrdiff_t lo_;
+        std::ptrdiff_t hi_;
+    };
+
+    template <>
+    struct reference<rope_tag>
+    {
+        reference (node_ptr<rope_tag> const & text_node, text_view ref) noexcept;
+
+        node_ptr<rope_tag> text_;
         text_view ref_;
     };
 
-    constexpr int node_buf_size () noexcept
+    constexpr int rope_node_buf_size () noexcept
     {
         return
             max_(alignof(text),
                  max_(alignof(text_view),
                       max_(alignof(repeated_text_view),
-                           alignof(reference))))
+                           alignof(reference<rope_tag>))))
             +
             max_(sizeof(text),
                  max_(sizeof(text_view),
                       max_(sizeof(repeated_text_view),
-                           sizeof(reference))))
+                           sizeof(reference<rope_tag>))))
             ;
     }
 
@@ -111,10 +133,11 @@ namespace boost { namespace text { namespace detail {
         return alignment::align(alignment, size, buf, buf_size);
     }
 
+    enum class which : char { t, tv, rtv, ref };
+
+    template <typename T>
     struct node_t
     {
-        enum class which : char { t, tv, rtv, ref };
-
         explicit node_t (bool leaf) noexcept : refs_ (0), leaf_ (leaf) {}
         node_t (node_t const & rhs) noexcept : refs_ (0), leaf_ (rhs.leaf_) {}
         node_t & operator= (node_t const & rhs) = delete;
@@ -131,39 +154,158 @@ namespace boost { namespace text { namespace detail {
     constexpr int max_children = 16;
     constexpr int text_insert_max = 512;
 
-    inline std::ptrdiff_t size (node_t const * node) noexcept;
+    template <typename T>
+    inline std::ptrdiff_t size (node_t<T> const * node) noexcept;
 
     using keys_t = container::static_vector<std::ptrdiff_t, max_children>;
-    using children_t = container::static_vector<node_ptr, max_children>;
+
+    template <typename T>
+    using children_t = container::static_vector<node_ptr<T>, max_children>;
 
     static_assert(sizeof(std::ptrdiff_t) * 8 <= 64, "");
-    static_assert(sizeof(node_ptr) * 8 <= 64, "");
+    static_assert(sizeof(node_ptr<detail::rope_tag>) * 8 <= 64, "");
 
-    struct interior_node_t : node_t
+    template <typename T>
+    struct interior_node_t : node_t<T>
     {
-        interior_node_t () noexcept : node_t (false) {}
+        interior_node_t () noexcept : node_t<T> (false) {}
 
         void * operator new (std::size_t) = delete;
 
         alignas(64) keys_t keys_;
-        children_t children_;
+        children_t<T> children_;
     };
 
-    inline interior_node_t * new_interior_node ()
+    template <typename T>
+    inline interior_node_t<T> * new_interior_node ()
     {
         void * ptr =
-            alignment::aligned_alloc(alignof(interior_node_t), sizeof(interior_node_t));
-        return ::new (ptr) interior_node_t;
+            alignment::aligned_alloc(alignof(interior_node_t<T>), sizeof(interior_node_t<T>));
+        return ::new (ptr) interior_node_t<T>;
     }
 
-    inline interior_node_t * new_interior_node (interior_node_t const & other)
+    template <typename T>
+    inline interior_node_t<T> * new_interior_node (interior_node_t<T> const & other)
     {
         void * ptr =
-            alignment::aligned_alloc(alignof(interior_node_t), sizeof(interior_node_t));
-        return ::new (ptr) interior_node_t(other);
+            alignment::aligned_alloc(alignof(interior_node_t<T>), sizeof(interior_node_t<T>));
+        return ::new (ptr) interior_node_t<T>(other);
     }
 
-    struct leaf_node_t : node_t
+    template <typename T>
+    constexpr int node_buf_size () noexcept
+    {
+        return
+            max_(alignof(std::vector<T>), alignof(reference<T>)) +
+            max_(sizeof(std::vector<T>), sizeof(reference<T>));
+    }
+
+    template <typename T>
+    struct leaf_node_t : node_t<T>
+    {
+        enum class which : char { vec, ref };
+
+        leaf_node_t () noexcept : leaf_node_t (std::vector<T>()) {}
+
+        leaf_node_t (std::vector<T> const & t) :
+            node_t<T> (true),
+            buf_ptr_ (nullptr),
+            which_ (which::t)
+        {
+            auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
+            assert(at);
+            buf_ptr_ = new (at) std::vector<T>(t);
+        }
+
+        leaf_node_t (std::vector<T> && t) noexcept :
+            node_t<T> (true),
+            buf_ptr_ (nullptr),
+            which_ (which::t)
+        {
+            auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
+            assert(at);
+            buf_ptr_ = new (at) std::vector<T>(std::move(t));
+        }
+
+        leaf_node_t (leaf_node_t const & rhs) :
+            node_t<T> (true),
+            buf_ptr_ (rhs.buf_ptr_),
+            which_ (rhs.which_)
+        {
+            switch (which_) {
+            case which::vec: {
+                auto at = placement_address<text>(buf_, sizeof(buf_));
+                assert(at);
+                buf_ptr_ = new (at) text(rhs.as_text());
+                break;
+            }
+            case which::ref: {
+                auto at = placement_address<reference<rope_tag>>(buf_, sizeof(buf_));
+                assert(at);
+                buf_ptr_ = new (at) reference<rope_tag>(rhs.as_reference());
+                break;
+            }
+            default: assert(!"unhandled leaf node case"); break;
+            }
+        }
+
+        leaf_node_t & operator= (leaf_node_t const &) = delete;
+        leaf_node_t (leaf_node_t &&) = delete;
+        leaf_node_t & operator= (leaf_node_t &&) = delete;
+
+        ~leaf_node_t () noexcept
+        {
+            if (!buf_ptr_)
+                return;
+
+            switch (which_) {
+            case which::vec: as_vec().~vector(); break;
+            case which::ref: as_reference().~reference(); break;
+            default: assert(!"unhandled leaf node case"); break;
+            }
+        }
+
+        int size () const noexcept
+        {
+            switch (which_) {
+            case which::vec: return as_vec().size(); break;
+            case which::ref: return as_reference().ref_.size(); break;
+            default: assert(!"unhandled leaf node case"); break;
+            }
+            return -(1 << 30); // This should never execute.
+        }
+
+        std::vector<T> const & as_vec () const noexcept
+        {
+            assert(which_ == which::vec);
+            return *static_cast<std::vector<T> *>(buf_ptr_);
+        }
+
+        reference<T> const & as_reference () const noexcept
+        {
+            assert(which_ == which::ref);
+            return *static_cast<reference<T> *>(buf_ptr_);
+        }
+
+        std::vector<T> & as_vec () noexcept
+        {
+            assert(which_ == which::vec);
+            return *static_cast<std::vector<T> *>(buf_ptr_);
+        }
+
+        reference<T> & as_reference () noexcept
+        {
+            assert(which_ == which::ref);
+            return *static_cast<reference<T> *>(buf_ptr_);
+        }
+
+        char buf_[node_buf_size<T>()];
+        void * buf_ptr_;
+        which which_;
+    };
+
+    template <>
+    struct leaf_node_t<rope_tag> : node_t<rope_tag>
     {
         leaf_node_t () noexcept : leaf_node_t (text_view()) {}
 
@@ -232,9 +374,9 @@ namespace boost { namespace text { namespace detail {
                 break;
             }
             case which::ref: {
-                auto at = placement_address<reference>(buf_, sizeof(buf_));
+                auto at = placement_address<reference<rope_tag>>(buf_, sizeof(buf_));
                 assert(at);
-                buf_ptr_ = new (at) reference(rhs.as_reference());
+                buf_ptr_ = new (at) reference<rope_tag>(rhs.as_reference());
                 break;
             }
             default: assert(!"unhandled rope node case"); break;
@@ -289,10 +431,10 @@ namespace boost { namespace text { namespace detail {
             return *static_cast<repeated_text_view *>(buf_ptr_);
         }
 
-        reference const & as_reference () const noexcept
+        reference<rope_tag> const & as_reference () const noexcept
         {
             assert(which_ == which::ref);
-            return *static_cast<reference *>(buf_ptr_);
+            return *static_cast<reference<rope_tag> *>(buf_ptr_);
         }
 
         text & as_text () noexcept
@@ -313,70 +455,79 @@ namespace boost { namespace text { namespace detail {
             return *static_cast<repeated_text_view *>(buf_ptr_);
         }
 
-        reference & as_reference () noexcept
+        reference<rope_tag> & as_reference () noexcept
         {
             assert(which_ == which::ref);
-            return *static_cast<reference *>(buf_ptr_);
+            return *static_cast<reference<rope_tag> *>(buf_ptr_);
         }
 
-        char buf_[node_buf_size()];
+        char buf_[rope_node_buf_size()];
         void * buf_ptr_;
         which which_;
     };
 
-    inline mutable_node_ptr::~mutable_node_ptr () noexcept
+    template <typename T>
+    inline mutable_node_ptr<T>::~mutable_node_ptr () noexcept
     { node_ptr_.ptr_ = ptr_; }
 
-    inline leaf_node_t * mutable_node_ptr::as_leaf () noexcept
+    template <typename T>
+    inline leaf_node_t<T> * mutable_node_ptr<T>::as_leaf () noexcept
     {
         assert(ptr_);
         assert(ptr_->leaf_);
-        return static_cast<leaf_node_t *>(ptr_);
+        return static_cast<leaf_node_t<T> *>(ptr_);
     }
 
-    inline interior_node_t * mutable_node_ptr::as_interior () noexcept
+    template <typename T>
+    inline interior_node_t<T> * mutable_node_ptr<T>::as_interior () noexcept
     {
         assert(ptr_);
         assert(!ptr_->leaf_);
-        return static_cast<interior_node_t *>(ptr_);
+        return static_cast<interior_node_t<T> *>(ptr_);
     }
 
-    inline leaf_node_t const * node_ptr::as_leaf () const noexcept
+    template <typename T>
+    inline leaf_node_t<T> const * node_ptr<T>::as_leaf () const noexcept
     {
         assert(ptr_);
         assert(ptr_->leaf_);
-        return static_cast<leaf_node_t const *>(ptr_.get());
+        return static_cast<leaf_node_t<T> const *>(ptr_.get());
     }
 
-    inline interior_node_t const * node_ptr::as_interior () const noexcept
+    template <typename T>
+    inline interior_node_t<T> const * node_ptr<T>::as_interior () const noexcept
     {
         assert(ptr_);
         assert(!ptr_->leaf_);
-        return static_cast<interior_node_t const *>(ptr_.get());
+        return static_cast<interior_node_t<T> const *>(ptr_.get());
     }
 
-    inline mutable_node_ptr node_ptr::write () const
+    template <typename T>
+    inline mutable_node_ptr<T> node_ptr<T>::write () const
     {
-        auto & this_ref = const_cast<node_ptr &>(*this);
+        auto & this_ref = const_cast<node_ptr<T> &>(*this);
         if (ptr_->refs_ == 1)
-            return mutable_node_ptr(this_ref, const_cast<node_t *>(ptr_.get()));
+            return mutable_node_ptr<T>(this_ref, const_cast<node_t<T> *>(ptr_.get()));
         if (ptr_->leaf_)
-            return mutable_node_ptr(this_ref, new leaf_node_t(*as_leaf()));
+            return mutable_node_ptr<T>(this_ref, new leaf_node_t<T>(*as_leaf()));
         else
-            return mutable_node_ptr(this_ref, new_interior_node(*as_interior()));
+            return mutable_node_ptr<T>(this_ref, new_interior_node(*as_interior()));
     }
 
 #ifdef BOOST_TEXT_THREAD_UNSAFE
 
-    inline void intrusive_ptr_add_ref (node_t const * node)
+    template <typename T>
+    inline void intrusive_ptr_add_ref (node_t<T> const * node)
     { ++node->refs_; }
-    inline void intrusive_ptr_release (node_t const * node)
+
+    template <typename T>
+    inline void intrusive_ptr_release (node_t<T> const * node)
     {
         if (!--node->refs_) {
             if (node->leaf_)
-                delete static_cast<leaf_node_t const *>(node);
+                delete static_cast<leaf_node_t<T> const *>(node);
             else
-                alignment::aligned_delete{}((interior_node_t *)(node));
+                alignment::aligned_delete{}((interior_node_t<T> *)(node));
         }
     }
 
@@ -385,70 +536,85 @@ namespace boost { namespace text { namespace detail {
     // These functions were implemented following the "Reference counting"
     // example from Boost.Atomic.
 
-    inline void intrusive_ptr_add_ref (node_t const * node)
+    template <typename T>
+    inline void intrusive_ptr_add_ref (node_t<T> const * node)
     { node->refs_.fetch_add(1, boost::memory_order_relaxed); }
 
-    inline void intrusive_ptr_release (node_t const * node)
+    template <typename T>
+    inline void intrusive_ptr_release (node_t<T> const * node)
     {
         if (node->refs_.fetch_sub(1, boost::memory_order_release) == 1) {
             boost::atomic_thread_fence(boost::memory_order_acquire);
             if (node->leaf_)
-                delete static_cast<leaf_node_t const *>(node);
+                delete static_cast<leaf_node_t<T> const *>(node);
             else
-                alignment::aligned_delete{}((interior_node_t *)(node));
+                alignment::aligned_delete{}((interior_node_t<T> *)(node));
         }
     }
 
 #endif
 
-    inline std::ptrdiff_t size (node_t const * node) noexcept
+    template <typename T>
+    inline std::ptrdiff_t size (node_t<T> const * node) noexcept
     {
         if (!node) {
             return 0;
         } else if (node->leaf_) {
-            return static_cast<leaf_node_t const *>(node)->size();
+            return static_cast<leaf_node_t<T> const *>(node)->size();
         } else {
-            auto int_node = static_cast<interior_node_t const *>(node);
+            auto int_node = static_cast<interior_node_t<T> const *>(node);
             if (int_node->keys_.empty())
                 return 0;
             return int_node->keys_.back();
         }
     }
 
-    inline children_t const & children (node_ptr const & node) noexcept
+    template <typename T>
+    inline children_t<T> const & children (node_ptr<T> const & node) noexcept
     { return node.as_interior()->children_; }
 
-    inline children_t & children (mutable_node_ptr & node) noexcept
+    template <typename T>
+    inline children_t<T> & children (mutable_node_ptr<T> & node) noexcept
     { return node.as_interior()->children_; }
 
-    inline keys_t const & keys (node_ptr const & node) noexcept
+    template <typename T>
+    inline keys_t const & keys (node_ptr<T> const & node) noexcept
     { return node.as_interior()->keys_; }
 
-    inline keys_t & keys (mutable_node_ptr & node) noexcept
+    template <typename T>
+    inline keys_t & keys (mutable_node_ptr<T> & node) noexcept
     { return node.as_interior()->keys_; }
 
-    inline int num_children (node_ptr const & node) noexcept
+    template <typename T>
+    inline int num_children (node_ptr<T> const & node) noexcept
     { return static_cast<int>(children(node).size()); }
 
-    inline int num_children (mutable_node_ptr & node) noexcept
+    template <typename T>
+    inline int num_children (mutable_node_ptr<T> & node) noexcept
     { return static_cast<int>(children(node).size()); }
 
-    inline int num_keys (node_ptr const & node) noexcept
+    template <typename T>
+    inline int num_keys (node_ptr<T> const & node) noexcept
     { return static_cast<int>(keys(node).size()); }
 
-    inline int num_keys (mutable_node_ptr & node) noexcept
+    template <typename T>
+    inline int num_keys (mutable_node_ptr<T> & node) noexcept
     { return static_cast<int>(keys(node).size()); }
 
-    inline bool full (node_ptr const & node) noexcept
+    template <typename T>
+    inline bool full (node_ptr<T> const & node) noexcept
     { return num_children(node) == max_children; }
 
-    inline bool almost_full (node_ptr const & node) noexcept
+    template <typename T>
+    inline bool almost_full (node_ptr<T> const & node) noexcept
     { return num_children(node) == max_children - 1; }
 
-    inline bool leaf_children (node_ptr const & node)
+    template <typename T>
+    inline bool leaf_children (node_ptr<T> const & node)
     { return children(node)[0]->leaf_; }
 
-    inline std::ptrdiff_t offset (interior_node_t const * node, int i) noexcept
+    template <typename T>
+    inline std::ptrdiff_t offset (interior_node_t<T> const * node, int i) noexcept
     {
         assert(0 <= i);
         assert(i <= (int)node->keys_.size());
@@ -457,13 +623,16 @@ namespace boost { namespace text { namespace detail {
         return node->keys_[i - 1];
     }
 
-    inline std::ptrdiff_t offset (node_ptr const & node, int i) noexcept
+    template <typename T>
+    inline std::ptrdiff_t offset (node_ptr<T> const & node, int i) noexcept
     { return offset(node.as_interior(), i); }
 
-    inline std::ptrdiff_t offset (mutable_node_ptr const & node, int i) noexcept
-    { return offset(const_cast<mutable_node_ptr &>(node).as_interior(), i); }
+    template <typename T>
+    inline std::ptrdiff_t offset (mutable_node_ptr<T> const & node, int i) noexcept
+    { return offset(const_cast<mutable_node_ptr<T> &>(node).as_interior(), i); }
 
-    inline std::ptrdiff_t find_child (interior_node_t const * node, std::ptrdiff_t n) noexcept
+    template <typename T>
+    inline std::ptrdiff_t find_child (interior_node_t<T> const * node, std::ptrdiff_t n) noexcept
     {
         int i = 0;
         auto const sizes = static_cast<int>(node->keys_.size());
@@ -474,19 +643,21 @@ namespace boost { namespace text { namespace detail {
         return i;
     }
 
+    template <typename T>
     struct found_leaf
     {
-        node_ptr const * leaf_;
+        node_ptr<T> const * leaf_;
         std::ptrdiff_t offset_;
-        alignas(64) container::static_vector<interior_node_t const *, 24> path_;
+        alignas(64) container::static_vector<interior_node_t<T> const *, 24> path_;
 
-        static_assert(sizeof(interior_node_t const *) * 8 <= 64, "");
+        static_assert(sizeof(interior_node_t<T> const *) * 8 <= 64, "");
     };
 
+    template <typename T>
     inline void find_leaf (
-        node_ptr const & node,
+        node_ptr<T> const & node,
         std::ptrdiff_t n,
-        found_leaf & retval
+        found_leaf<T> & retval
     ) noexcept {
         assert(node);
         assert(n <= size(node.get()));
@@ -497,35 +668,35 @@ namespace boost { namespace text { namespace detail {
         }
         retval.path_.push_back(node.as_interior());
         auto const i = find_child(node.as_interior(), n);
-        node_ptr const & child = children(node)[i];
+        node_ptr<T> const & child = children(node)[i];
         auto const offset_ = offset(node, i);
         find_leaf(child, n - offset_, retval);
     }
 
     struct found_char
     {
-        found_leaf leaf_;
+        found_leaf<rope_tag> leaf_;
         char c_;
     };
 
-    inline void find_char (node_ptr const & node, std::ptrdiff_t n, found_char & retval) noexcept
+    inline void find_char (node_ptr<rope_tag> const & node, std::ptrdiff_t n, found_char & retval) noexcept
     {
         assert(node);
         find_leaf(node, n, retval.leaf_);
 
-        leaf_node_t const * leaf = retval.leaf_.leaf_->as_leaf(); // Heh.
+        leaf_node_t<rope_tag> const * leaf = retval.leaf_.leaf_->as_leaf(); // Heh.
         char c = '\0';
         switch (leaf->which_) {
-        case node_t::which::t:
+        case which::t:
             c = *(leaf->as_text().cbegin() + retval.leaf_.offset_);
             break;
-        case node_t::which::tv:
+        case which::tv:
             c = *(leaf->as_text_view().begin() + retval.leaf_.offset_);
             break;
-        case node_t::which::rtv:
+        case which::rtv:
             c = *(leaf->as_repeated_text_view().begin() + retval.leaf_.offset_);
             break;
-        case node_t::which::ref:
+        case which::ref:
             c = *(leaf->as_reference().ref_.begin() + retval.leaf_.offset_);
             break;
         default: assert(!"unhandled rope node case"); break;
@@ -533,72 +704,113 @@ namespace boost { namespace text { namespace detail {
         retval.c_ = c;
     }
 
-    inline reference::reference (node_ptr const & text_node, text_view ref) noexcept :
+    template <typename T>
+    inline reference<T>::reference (
+        node_ptr<T> const & vec_node,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi
+    ) noexcept :
+        vec_ (vec_node),
+        lo_ (lo),
+        hi_ (hi)
+    {
+        assert(vec_node);
+        assert(vec_node->leaf_);
+        assert(vec_node.as_leaf()->which_ == leaf_node_t<T>::which::vec);
+    }
+
+    inline reference<rope_tag>::reference (node_ptr<rope_tag> const & text_node, text_view ref) noexcept :
         text_ (text_node),
         ref_ (ref)
     {
         assert(text_node);
         assert(text_node->leaf_);
-        assert(text_node.as_leaf()->which_ == node_t::which::t);
+        assert(text_node.as_leaf()->which_ == which::t);
     }
 
     enum encoding_note_t { check_encoding_breakage, encoding_breakage_ok };
 
-    inline node_ptr make_node (text const & t)
-    { return node_ptr(new leaf_node_t(t)); }
+    inline node_ptr<rope_tag> make_node (text const & t)
+    { return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(t)); }
 
-    inline node_ptr make_node (text && t)
-    { return node_ptr(new leaf_node_t(std::move(t))); }
+    inline node_ptr<rope_tag> make_node (text && t)
+    { return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(std::move(t))); }
 
-    inline node_ptr make_node (text_view tv)
-    { return node_ptr(new leaf_node_t(tv)); }
+    inline node_ptr<rope_tag> make_node (text_view tv)
+    { return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(tv)); }
 
-    inline node_ptr make_node (repeated_text_view rtv)
-    { return node_ptr(new leaf_node_t(rtv)); }
+    inline node_ptr<rope_tag> make_node (repeated_text_view rtv)
+    { return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(rtv)); }
 
-    inline node_ptr make_ref (
-        leaf_node_t const * t,
+    inline node_ptr<rope_tag> make_ref (
+        leaf_node_t<rope_tag> const * t,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
         encoding_note_t encoding_note = check_encoding_breakage
     ) {
-        assert(t->which_ == node_t::which::t);
+        assert(t->which_ == which::t);
         text_view const tv =
             encoding_note == encoding_breakage_ok ?
             text_view(t->as_text().begin() + lo, hi - lo, utf8::unchecked) :
             t->as_text()(lo, hi);
 
-        leaf_node_t * leaf = nullptr;
-        node_ptr retval(leaf = new leaf_node_t);
-        leaf->which_ = node_t::which::ref;
-        auto at = placement_address<reference>(leaf->buf_, sizeof(leaf->buf_));
+        leaf_node_t<rope_tag> * leaf = nullptr;
+        node_ptr<rope_tag> retval(leaf = new leaf_node_t<rope_tag>);
+        leaf->which_ = which::ref;
+        auto at = placement_address<reference<rope_tag>>(leaf->buf_, sizeof(leaf->buf_));
         assert(at);
-        leaf->buf_ptr_ = new (at) reference(node_ptr(t), tv);
+        leaf->buf_ptr_ = new (at) reference<rope_tag>(node_ptr<rope_tag>(t), tv);
         return retval;
     }
 
-    inline node_ptr make_ref (
-        reference const & t,
+    inline node_ptr<rope_tag> make_ref (
+        reference<rope_tag> const & t,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
         encoding_note_t encoding_note = check_encoding_breakage
     ) {
         auto const offset = t.ref_.begin() - t.text_.as_leaf()->as_text().begin();
-        node_ptr retval = make_ref(t.text_.as_leaf(), lo + offset, hi + offset, encoding_note);
+        node_ptr<rope_tag> retval = make_ref(t.text_.as_leaf(), lo + offset, hi + offset, encoding_note);
         return retval;
     }
 
-    template <typename Fn>
-    void foreach_leaf (node_ptr const & root, Fn && f)
+    template <typename T>
+    inline node_ptr<T> make_ref (
+        leaf_node_t<T> const * v,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi
+    ) {
+        assert(v->which_ == leaf_node_t<T>::which::vec);
+        leaf_node_t<T> * leaf = nullptr;
+        node_ptr<T> retval(leaf = new leaf_node_t<T>);
+        leaf->which_ = leaf_node_t<T>::which::ref;
+        auto at = placement_address<reference<T>>(leaf->buf_, sizeof(leaf->buf_));
+        assert(at);
+        leaf->buf_ptr_ = new (at) reference<T>(node_ptr<T>(v), lo, hi);
+        return retval;
+    }
+
+    template <typename T>
+    inline node_ptr<T> make_ref (
+        reference<T> const & r,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi
+    ) {
+        auto const offset = r.rlo_;
+        return make_ref(r.vec_.as_leaf(), lo + offset, hi + offset);
+    }
+
+    template <typename T, typename Fn>
+    void foreach_leaf (node_ptr<T> const & root, Fn && f)
     {
         if (!root)
             return;
 
         std::ptrdiff_t offset = 0;
         while (true) {
-            found_leaf found;
+            found_leaf<T> found;
             find_leaf(root, offset, found);
-            leaf_node_t const * leaf = found.leaf_->as_leaf();
+            leaf_node_t<T> const * leaf = found.leaf_->as_leaf();
 
             if (!f(leaf))
                 break;
@@ -623,14 +835,16 @@ namespace boost { namespace text { namespace detail {
     reverse (Container const & c) noexcept
     { return {c.rbegin(), c.rend()}; }
 
-    inline void bump_keys (interior_node_t * node, int from, std::ptrdiff_t bump)
+    template <typename T>
+    inline void bump_keys (interior_node_t<T> * node, int from, std::ptrdiff_t bump)
     {
         for (int i = from, size = (int)node->keys_.size(); i < size; ++i) {
             node->keys_[i] += bump;
         }
     }
 
-    inline void insert_child (interior_node_t * node, int i, node_ptr && child) noexcept
+    template <typename T>
+    inline void insert_child (interior_node_t<T> * node, int i, node_ptr<T> && child) noexcept
     {
         auto const child_size = size(child.get());
         node->children_.insert(node->children_.begin() + i, std::move(child));
@@ -640,7 +854,8 @@ namespace boost { namespace text { namespace detail {
 
     enum erasure_adjustments { adjust_keys, dont_adjust_keys };
 
-    inline void erase_child (interior_node_t * node, int i, erasure_adjustments adj = adjust_keys) noexcept
+    template <typename T>
+    inline void erase_child (interior_node_t<T> * node, int i, erasure_adjustments adj = adjust_keys) noexcept
     {
         auto const child_size = size(node->children_[i].get());
         node->children_.erase(node->children_.begin() + i);
@@ -649,8 +864,50 @@ namespace boost { namespace text { namespace detail {
             bump_keys(node, i, -child_size);
     }
 
-    inline node_ptr slice_leaf (
-        node_ptr const & node,
+    template <typename T, typename LeafDatum>
+    inline node_ptr<T> slice_leaf (
+        node_ptr<T> const & node,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi,
+        bool immutable,
+        LeafDatum
+    ) {
+        assert(node);
+        assert(0 <= lo && lo <= size(node.get()));
+        assert(0 <= hi && hi <= size(node.get()));
+        assert(lo < hi);
+
+        bool const leaf_mutable = !immutable && node->refs_ == 1;
+
+        switch (node.as_leaf()->which_) {
+        case leaf_node_t<T>::which::vec:
+            if (!leaf_mutable)
+                return make_ref(node.as_leaf(), lo, hi);
+            {
+                auto mut_node = node.write();
+                std::vector<T> & v = mut_node.as_leaf()->as_vec();
+                v.erase(v.begin() + hi, v.end());
+                v.erase(v.begin(), v.begin() + lo);
+            }
+            return node;
+        case leaf_node_t<T>::which::ref: {
+            if (!leaf_mutable)
+                return make_ref(node.as_leaf()->as_reference(), lo, hi);
+            {
+                auto mut_node = node.write();
+                reference<T> & ref = mut_node.as_leaf()->as_reference();
+                ref.hi_ = ref.lo_ + hi;
+                ref.lo_ = ref.lo_ + lo;
+            }
+            return node;
+        }
+        default: assert(!"unhandled leaf node case"); break;
+        }
+        return node_ptr<T>(); // This should never execute.
+    }
+
+    inline node_ptr<rope_tag> slice_leaf (
+        node_ptr<rope_tag> const & node,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
         bool immutable,
@@ -664,7 +921,7 @@ namespace boost { namespace text { namespace detail {
         bool const leaf_mutable = !immutable && node->refs_ == 1;
 
         switch (node.as_leaf()->which_) {
-        case node_t::which::t:
+        case which::t:
             if (!leaf_mutable)
                 return make_ref(node.as_leaf(), lo, hi, encoding_note);
             {
@@ -676,7 +933,7 @@ namespace boost { namespace text { namespace detail {
                     t = t(lo, hi);
             }
             return node;
-        case node_t::which::tv: {
+        case which::tv: {
             text_view const old_tv = node.as_leaf()->as_text_view();
             text_view const new_tv =
                 encoding_note == encoding_breakage_ok ?
@@ -693,7 +950,7 @@ namespace boost { namespace text { namespace detail {
             }
             return node;
         }
-        case node_t::which::rtv: {
+        case which::rtv: {
             repeated_text_view const & crtv = node.as_leaf()->as_repeated_text_view();
             int const mod_lo = lo % crtv.view().size();
             int const mod_hi = hi % crtv.view().size();
@@ -716,12 +973,12 @@ namespace boost { namespace text { namespace detail {
             }
             return node;
         }
-        case node_t::which::ref: {
+        case which::ref: {
             if (!leaf_mutable)
                 return make_ref(node.as_leaf()->as_reference(), lo, hi, encoding_note);
             {
                 auto mut_node = node.write();
-                reference & ref = mut_node.as_leaf()->as_reference();
+                reference<rope_tag> & ref = mut_node.as_leaf()->as_reference();
                 ref.ref_ =
                     encoding_note == encoding_breakage_ok ?
                     text_view(ref.ref_.begin() + lo, hi - lo, utf8::unchecked) :
@@ -731,17 +988,59 @@ namespace boost { namespace text { namespace detail {
         }
         default: assert(!"unhandled rope node case"); break;
         }
-        return node_ptr(); // This should never execute.
+        return node_ptr<rope_tag>(); // This should never execute.
     }
 
+    template <typename T>
     struct leaf_slices
     {
-        node_ptr slice;
-        node_ptr other_slice;
+        node_ptr<T> slice;
+        node_ptr<T> other_slice;
     };
 
-    inline leaf_slices erase_leaf (
-        node_ptr & node,
+    template <typename T, typename LeafDatum>
+    inline leaf_slices<T> erase_leaf (
+        node_ptr<T> & node,
+        std::ptrdiff_t lo,
+        std::ptrdiff_t hi,
+        LeafDatum datum
+    ) {
+        assert(node);
+        assert(0 <= lo && lo <= size(node.get()));
+        assert(0 <= hi && hi <= size(node.get()));
+        assert(lo < hi);
+
+        bool const leaf_mutable = node.as_leaf()->refs_ == 1;
+        auto const leaf_size = size(node.get());
+
+        leaf_slices<T> retval;
+
+        if (lo == 0 && hi == leaf_size)
+            return retval;
+
+        if (leaf_mutable && node.as_leaf()->which_ == leaf_slices<T>::which::vec) {
+            {
+                auto mut_node = node.write();
+                std::vector<T> & v = mut_node.as_leaf()->as_vec();
+                v.erase(v.begin() + lo, v.begin() + hi);
+            }
+            retval.slice = node;
+            return retval;
+        }
+
+        if (hi != leaf_size)
+            retval.other_slice = slice_leaf(node, hi, leaf_size, true, datum);
+        if (lo != 0)
+            retval.slice = slice_leaf(node, 0, lo, false, datum);
+
+        if (!retval.slice)
+            retval.slice.swap(retval.other_slice);
+
+        return retval;
+    }
+
+    inline leaf_slices<rope_tag> erase_leaf (
+        node_ptr<rope_tag> & node,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
         encoding_note_t encoding_note
@@ -754,12 +1053,12 @@ namespace boost { namespace text { namespace detail {
         bool const leaf_mutable = node.as_leaf()->refs_ == 1;
         auto const leaf_size = size(node.get());
 
-        leaf_slices retval;
+        leaf_slices<rope_tag> retval;
 
         if (lo == 0 && hi == leaf_size)
             return retval;
 
-        if (leaf_mutable && node.as_leaf()->which_ == node_t::which::t) {
+        if (leaf_mutable && node.as_leaf()->which_ == which::t) {
             {
                 auto mut_node = node.write();
                 text & t = mut_node.as_leaf()->as_text();
@@ -784,17 +1083,18 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    inline node_ptr btree_split_child (node_ptr const & parent, int i)
+    template <typename T>
+    inline node_ptr<T> btree_split_child (node_ptr<T> const & parent, int i)
     {
         assert(0 <= i && i < num_children(parent));
         assert(!full(parent));
         assert(full(children(parent)[i]) || almost_full(children(parent)[i]));
 
-        interior_node_t * new_node = nullptr;
-        node_ptr new_node_ptr(new_node = new_interior_node());
+        interior_node_t<T> * new_node = nullptr;
+        node_ptr<T> new_node_ptr(new_node = new_interior_node<T>());
 
         assert(!leaf_children(parent));
-        node_ptr const & child = children(parent)[i];
+        node_ptr<T> const & child = children(parent)[i];
 
         {
             int const elements = min_children - (full(child) ? 0 : 1);
@@ -837,18 +1137,26 @@ namespace boost { namespace text { namespace detail {
         return parent;
     }
 
+    template <typename T>
+    bool child_immutable (node_ptr<T> const & node)
+    { return false; }
+
+    inline bool child_immutable (node_ptr<rope_tag> const & node)
+    { return node.as_leaf()->which_ == which::t; }
+
     // Analogous to btree_split_child(), for leaf nodes.
+    template <typename T, typename LeafDatum>
     inline void btree_split_leaf (
-        node_ptr const & parent,
+        node_ptr<T> const & parent,
         int i,
         std::ptrdiff_t at,
-        encoding_note_t encoding_note
+        LeafDatum datum
     ) {
         assert(0 <= i && i < num_children(parent));
         assert(0 <= at && at <= size(parent.get()));
         assert(!full(parent));
 
-        node_ptr const & child = children(parent)[i];
+        node_ptr<T> const & child = children(parent)[i];
 
         auto const child_size = child.as_leaf()->size();
         auto const offset_at_i = offset(parent, i);
@@ -857,13 +1165,13 @@ namespace boost { namespace text { namespace detail {
         if (cut == 0 || cut == child_size)
             return;
 
-        node_ptr right = slice_leaf(child, cut, child_size, true, encoding_note);
-        node_ptr left = slice_leaf(
+        node_ptr<T> right = slice_leaf(child, cut, child_size, true, datum);
+        node_ptr<T> left = slice_leaf(
             child,
             0,
             cut,
-            child.as_leaf()->which_ == node_t::which::t,
-            encoding_note
+            child_immutable(child),
+            datum
         );
 
         auto mut_parent = parent.write();
@@ -879,11 +1187,12 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    inline node_ptr btree_insert_nonfull (
-        node_ptr & parent,
+    template <typename T, typename LeafDatum>
+    inline node_ptr<T> btree_insert_nonfull (
+        node_ptr<T> & parent,
         std::ptrdiff_t at,
-        node_ptr && node,
-        encoding_note_t encoding_note
+        node_ptr<T> && node,
+        LeafDatum datum
     ) {
         assert(!parent->leaf_);
         assert(0 <= at && at <= size(parent.get()));
@@ -893,7 +1202,7 @@ namespace boost { namespace text { namespace detail {
         if (leaf_children(parent)) {
             // Note that this split may add a node to parent, for a
             // maximum of two added nodes in the leaf code path.
-            btree_split_leaf(parent, i, at, encoding_note);
+            btree_split_leaf(parent, i, at, datum);
             if (keys(parent)[i] <= at)
                 ++i;
 
@@ -901,7 +1210,7 @@ namespace boost { namespace text { namespace detail {
             insert_child(mut_parent.as_interior(), i, std::move(node));
         } else {
             {
-                node_ptr const & child = children(parent)[i];
+                node_ptr<T> const & child = children(parent)[i];
                 bool const child_i_needs_split =
                     full(child) || (leaf_children(child) && almost_full(child));
                 if (child_i_needs_split) {
@@ -912,11 +1221,11 @@ namespace boost { namespace text { namespace detail {
             }
             auto mut_parent = parent.write();
             auto delta = -size(children(mut_parent)[i].get());
-            node_ptr new_child = btree_insert_nonfull(
+            node_ptr<T> new_child = btree_insert_nonfull(
                 children(mut_parent)[i],
                 at - offset(mut_parent, i),
                 std::move(node),
-                encoding_note
+                datum
             );
             delta += size(new_child.get());
             children(mut_parent)[i] = new_child;
@@ -929,11 +1238,12 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    inline node_ptr btree_insert (
-        node_ptr & root,
+    template <typename T, typename LeafDatum>
+    inline node_ptr<T> btree_insert (
+        node_ptr<T> & root,
         std::ptrdiff_t at,
-        node_ptr && node,
-        encoding_note_t encoding_note = check_encoding_breakage
+        node_ptr<T> && node,
+        LeafDatum datum
     ) {
         assert(0 <= at && at <= size(root.get()));
         assert(node->leaf_);
@@ -941,22 +1251,22 @@ namespace boost { namespace text { namespace detail {
         if (!root) {
             return node;
         } else if (root->leaf_) {
-            interior_node_t * new_root = nullptr;
-            node_ptr new_root_ptr(new_root = new_interior_node());
+            interior_node_t<T> * new_root = nullptr;
+            node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
             auto const root_size = size(root.get());
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
-            return btree_insert_nonfull(new_root_ptr, at, std::move(node), encoding_note);
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node), datum);
         } else if (full(root) || (leaf_children(root) && almost_full(root))) {
-            interior_node_t * new_root = nullptr;
-            node_ptr new_root_ptr(new_root = new_interior_node());
+            interior_node_t<T> * new_root = nullptr;
+            node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
             auto const root_size = size(root.get());
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
             new_root_ptr = btree_split_child(new_root_ptr, 0);
-            return btree_insert_nonfull(new_root_ptr, at, std::move(node), encoding_note);
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node), datum);
         } else {
-            return btree_insert_nonfull(root, at, std::move(node), encoding_note);
+            return btree_insert_nonfull(root, at, std::move(node), datum);
         }
     }
 
@@ -966,11 +1276,12 @@ namespace boost { namespace text { namespace detail {
     // downward pass, with no backtracking.  This function only erases
     // entire segments; the segments must have been split appropriately
     // before this function is ever called.
-    inline node_ptr btree_erase (
-        node_ptr const & node,
+    template <typename T, typename LeafDatum>
+    inline node_ptr<T> btree_erase (
+        node_ptr<T> const & node,
         std::ptrdiff_t at,
-        leaf_node_t const * leaf,
-        encoding_note_t encoding_note
+        leaf_node_t<T> const * leaf,
+        LeafDatum datum
     ) {
         assert(node);
 
@@ -990,18 +1301,18 @@ namespace boost { namespace text { namespace detail {
             return node;
         }
 
-        node_ptr new_child;
+        node_ptr<T> new_child;
 
-        node_ptr const & child = children(node)[child_index];
+        node_ptr<T> const & child = children(node)[child_index];
         if (num_children(child) == min_children) {
             assert(child_index != 0 || child_index != num_children(node) - 1);
 
             if (child_index != 0 &&
                 min_children + 1 <= num_children(children(node)[child_index - 1])) {
-                node_ptr const & child_left_sib = children(node)[child_index - 1];
+                node_ptr<T> const & child_left_sib = children(node)[child_index - 1];
 
                 // Remove last element of left sibling.
-                node_ptr moved_node = children(child_left_sib).back();
+                node_ptr<T> moved_node = children(child_left_sib).back();
                 auto const moved_node_size = size(moved_node.get());
 
                 {
@@ -1017,13 +1328,13 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
-                new_child = btree_erase(child, at - offset_ + moved_node_size, leaf, encoding_note);
+                new_child = btree_erase(child, at - offset_ + moved_node_size, leaf, datum);
             } else if (child_index != num_children(node) - 1 &&
                        min_children + 1 <= num_children(children(node)[child_index + 1])) {
-                node_ptr const & child_right_sib = children(node)[child_index + 1];
+                node_ptr<T> const & child_right_sib = children(node)[child_index + 1];
 
                 // Remove first element of right sibling.
-                node_ptr moved_node = children(child_right_sib).front();
+                node_ptr<T> moved_node = children(child_right_sib).front();
 
                 {
                     auto mut_right = child_right_sib.write();
@@ -1038,20 +1349,20 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
-                new_child = btree_erase(child, at - offset_, leaf, encoding_note);
+                new_child = btree_erase(child, at - offset_, leaf, datum);
             } else {
                 auto const right_index = child_index == 0 ? child_index + 1 : child_index;
                 auto const left_index = right_index - 1;
 
-                node_ptr const & left = children(node)[left_index];
-                node_ptr const & right = children(node)[right_index];
+                node_ptr<T> const & left = children(node)[left_index];
+                node_ptr<T> const & right = children(node)[right_index];
 
                 {
                     auto mut_left = left.write();
                     auto mut_right = right.write();
 
-                    children_t & left_children = children(mut_left);
-                    children_t & right_children = children(mut_right);
+                    children_t<T> & left_children = children(mut_left);
+                    children_t<T> & right_children = children(mut_right);
 
                     left_children.insert(
                         left_children.end(),
@@ -1076,7 +1387,7 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, left_index);
-                new_child = btree_erase(left, at - offset_, leaf, encoding_note);
+                new_child = btree_erase(left, at - offset_, leaf, datum);
 
                 // This can only happen if node is the root.
                 if (num_children(node) == 2)
@@ -1090,7 +1401,7 @@ namespace boost { namespace text { namespace detail {
             }
         } else {
             std::ptrdiff_t const offset_ = offset(node, child_index);
-            new_child = btree_erase(children(node)[child_index], at - offset_, leaf, encoding_note);
+            new_child = btree_erase(children(node)[child_index], at - offset_, leaf, datum);
         }
 
         {
@@ -1106,11 +1417,12 @@ namespace boost { namespace text { namespace detail {
         return node;
     }
 
-    inline node_ptr btree_erase (
-        node_ptr & root,
+    template <typename T, typename LeafDatum>
+    inline node_ptr<T> btree_erase (
+        node_ptr<T> & root,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
-        encoding_note_t encoding_note = check_encoding_breakage
+        LeafDatum datum
     ) {
         assert(root);
         assert(0 <= lo && lo <= size(root.get()));
@@ -1120,15 +1432,15 @@ namespace boost { namespace text { namespace detail {
         assert(root);
 
         if (lo == 0 && hi == size(root.get())) {
-            return node_ptr();
+            return node_ptr<T>();
         } else if (root->leaf_) {
-            leaf_slices slices;
-            slices = erase_leaf(root, lo, hi, encoding_note);
+            leaf_slices<T> slices;
+            slices = erase_leaf(root, lo, hi, datum);
             if (!slices.other_slice) {
                 return slices.slice;
             } else {
-                interior_node_t * new_root = nullptr;
-                node_ptr new_root_ptr(new_root = new_interior_node());
+                interior_node_t<T> * new_root = nullptr;
+                node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
                 new_root->keys_.push_back(size(slices.slice.get()));
                 new_root->keys_.push_back(new_root->keys_[0] + size(slices.other_slice.get()));
                 new_root->children_.push_back(std::move(slices.slice));
@@ -1140,40 +1452,40 @@ namespace boost { namespace text { namespace detail {
 
             // Right after the hi-segment, insert the suffix of the
             // hi-segment that's not being erased (if there is one).
-            detail::found_leaf found_hi;
+            detail::found_leaf<T> found_hi;
             detail::find_leaf(root, hi, found_hi);
             auto const hi_leaf_size = size(found_hi.leaf_->get());
             if (found_hi.offset_ != 0 && found_hi.offset_ != hi_leaf_size) {
-                node_ptr suffix =
-                    slice_leaf(*found_hi.leaf_, found_hi.offset_, hi_leaf_size, true, encoding_note);
+                node_ptr<T> suffix =
+                    slice_leaf(*found_hi.leaf_, found_hi.offset_, hi_leaf_size, true, datum);
                 auto const suffix_at = hi - found_hi.offset_ + hi_leaf_size;
-                root = btree_insert(root, suffix_at, std::move(suffix), encoding_note);
+                root = btree_insert(root, suffix_at, std::move(suffix), datum);
                 detail::find_leaf(root, suffix_at, found_hi);
             }
 
             // Right before the lo-segment, insert the prefix of the
             // lo-segment that's not being erased (if there is one).
-            detail::found_leaf found_lo;
+            detail::found_leaf<T> found_lo;
             detail::find_leaf(root, lo, found_lo);
             if (found_lo.offset_ != 0) {
                 auto const lo_leaf_size = size(found_lo.leaf_->get());
-                node_ptr prefix =
-                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, true, encoding_note);
+                node_ptr<T> prefix =
+                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, true, datum);
                 if (prefix.get() == found_lo.leaf_->get())
                     hi -= lo_leaf_size;
-                root = btree_insert(root, lo - found_lo.offset_, std::move(prefix), encoding_note);
+                root = btree_insert(root, lo - found_lo.offset_, std::move(prefix), datum);
                 detail::find_leaf(root, lo, found_lo);
             }
 
             assert(found_lo.offset_ == 0);
             assert(found_hi.offset_ == 0 || found_hi.offset_ == hi_leaf_size);
 
-            leaf_node_t const * leaf_lo = found_lo.leaf_->as_leaf();
+            leaf_node_t<T> const * leaf_lo = found_lo.leaf_->as_leaf();
             while (true) {
-                root = btree_erase(root, lo, leaf_lo, encoding_note);
+                root = btree_erase(root, lo, leaf_lo, datum);
                 if (size(root.get()) == final_size)
                     break;
-                found_leaf found;
+                found_leaf<T> found;
                 find_leaf(root, lo, found);
                 leaf_lo = found.leaf_->as_leaf();
             }
