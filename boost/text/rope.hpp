@@ -147,7 +147,7 @@ namespace boost { namespace text {
             valid UTF-8. */
         rope_view operator() (int cut) const;
 
-        /** Returns the maximum size a text can have. */
+        /** Returns the maximum size a rope can have. */
         size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
