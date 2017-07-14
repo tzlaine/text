@@ -147,6 +147,35 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from t into *this starting at offset
             at. */
+        void push_back (T const & t)
+        { insert(end(), t); }
+
+        /** Inserts the sequence of char from t into *this starting at offset
+            at. */
+        segmented_vector & insert (const_iterator at, T const & t)
+        {
+            assert(begin() <= at && at <= end());
+
+            if (vec_insertion insertion = mutable_insertion_leaf(at, 1, would_allocate)) {
+                for (auto node : insertion.found_.path_) {
+                    auto from = detail::find_child(node, at - begin());
+                    detail::bump_keys(const_cast<detail::interior_node_t<T> *>(node), from, 1);
+                }
+                insertion.vec_->insert(insertion.vec_->begin() + insertion.found_.offset_, t);
+            } else {
+                ptr_ = detail::btree_insert(
+                    ptr_,
+                    at - begin(),
+                    detail::make_node(std::vector<T>(1, t)),
+                    0
+                );
+            }
+
+            return *this;
+        }
+
+        /** Inserts the sequence of char from t into *this starting at offset
+            at. */
         segmented_vector & insert (const_iterator at, std::vector<T> const & t)
         { return insert_impl(at, t, would_allocate); }
 
@@ -256,28 +285,29 @@ namespace boost { namespace text {
             return vec_insertion{nullptr};
         }
 
+        template <typename U>
         segmented_vector & insert_impl (
             iterator at,
-            std::vector<T> && t,
+            U && u,
             allocation_note_t allocation_note
         ) {
             assert(begin() <= at && at <= end());
 
-            if (t.empty())
+            if (u.empty())
                 return *this;
 
-            if (vec_insertion insertion = mutable_insertion_leaf(at, t.size(), allocation_note)) {
-                auto const t_size = t.size();
+            if (vec_insertion insertion = mutable_insertion_leaf(at, u.size(), allocation_note)) {
+                auto const u_size = u.size();
                 for (auto node : insertion.found_.path_) {
                     auto from = detail::find_child(node, at - begin());
-                    detail::bump_keys(const_cast<detail::interior_node_t<T> *>(node), from, t_size);
+                    detail::bump_keys(const_cast<detail::interior_node_t<T> *>(node), from, u_size);
                 }
-                insertion.vec_->insert(insertion.found_.offset_, t);
+                insertion.vec_->insert(insertion.found_.offset_, u.begin(), u.end());
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),
-                    detail::make_node(std::forward<T &&>(t)),
+                    detail::make_node(std::forward<T &&>(u)),
                     0
                 );
             }
