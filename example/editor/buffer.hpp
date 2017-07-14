@@ -27,6 +27,7 @@ inline bool dirty (buffer_t const & b)
 inline buffer_t load (boost::filesystem::path path)
 {
     boost::filesystem::ifstream ifs(path);
+
     snapshot_t snapshot;
     int line_size = 0;
     while (ifs.good()) {
@@ -36,6 +37,7 @@ inline buffer_t load (boost::filesystem::path path)
         ifs.read(chunk.begin(), chunk_size);
         if (!ifs.good())
             chunk.resize(ifs.gcount(), ' ');
+
         auto it = std::find(chunk.begin(), chunk.end(), '\n');
         line_size += chunk.begin() - it;
         while (it != chunk.end()) {
@@ -45,6 +47,7 @@ inline buffer_t load (boost::filesystem::path path)
         }
         snapshot.content_ += std::move(chunk);
     }
+
     if (line_size)
         snapshot.line_sizes_.push_back(line_size);
 
