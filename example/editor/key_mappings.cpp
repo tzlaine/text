@@ -17,21 +17,24 @@ namespace {
 
 }
 
+ctrl_t ctrl;
+alt_t alt;
+
 key_code_t::key_code_t (char c) : mod_ (OK), key_ (c) {}
 
 key_code_t::key_code_t (key k)
 {
     switch(k) {
-    case up: *this = {KEY_CODE_YES, KEY_UP};
-    case down: *this = {KEY_CODE_YES, KEY_DOWN};
-    case left: *this = {KEY_CODE_YES, KEY_LEFT};
-    case right: *this = {KEY_CODE_YES, KEY_RIGHT};
-    case home: *this = {KEY_CODE_YES, KEY_HOME};
-    case end: *this = {KEY_CODE_YES, KEY_END};
-    case backspace: *this = {KEY_CODE_YES, KEY_BACKSPACE};
-    case delete_: *this = {KEY_CODE_YES, KEY_DC};
-    case page_up: *this = {KEY_CODE_YES, KEY_PPAGE};
-    case page_down: *this = {KEY_CODE_YES, KEY_NPAGE};
+    case up: *this = {KEY_CODE_YES, KEY_UP}; break;
+    case down: *this = {KEY_CODE_YES, KEY_DOWN}; break;
+    case left: *this = {KEY_CODE_YES, KEY_LEFT}; break;
+    case right: *this = {KEY_CODE_YES, KEY_RIGHT}; break;
+    case home: *this = {KEY_CODE_YES, KEY_HOME}; break;
+    case end: *this = {KEY_CODE_YES, KEY_END}; break;
+    case backspace: *this = {KEY_CODE_YES, KEY_BACKSPACE}; break;
+    case delete_: *this = {KEY_CODE_YES, KEY_DC}; break;
+    case page_up: *this = {KEY_CODE_YES, KEY_PPAGE}; break;
+    case page_down: *this = {KEY_CODE_YES, KEY_NPAGE}; break;
     default:
         assert(!"Unhandled case in key_sequence_t (key)");
     }
@@ -39,10 +42,10 @@ key_code_t::key_code_t (key k)
 
 key_code_t operator- (ctrl_t, char c)
 {
-    assert('@' <= c && c <= '_');
+    assert(' ' <= c && c <= '~');
     if ('a' <= c && c <= 'z')
         c = (c - 'a') + 'A';
-    return {OK, c - '@'};
+    return {OK, c};
 }
 
 key_code_t operator- (ctrl_t, key k)
@@ -70,41 +73,4 @@ key_code_t operator- (alt_t, key k)
     default: assert(!"Unhandled case in operator- (alt_t, key)");
     }
     return {}; // This should never execute.
-}
-
-key_map_t emacs_lite ()
-{
-    key_map_t retval;
-
-    retval[up] = "move-up";
-    retval[down] = "move-down";
-    retval[left] = "move-left";
-    retval[right] = "move-right";
-    retval[page_down] = "page-down";
-    retval[page_up] = "page-up";
-    retval[backspace] = "delete-char";
-    retval[delete_] = "delete-char-right";
-    
-    retval[ctrl-'f'] = "move-left";
-    retval[ctrl-'b'] = "move-right";
-
-    retval[alt-'f'] = "move-word-left";
-    retval[alt-'b'] = "move-word-right";
-    retval[alt-backspace] = "delete-word";
-    retval[alt-delete_] = "delete-word-right";
-
-    retval[home] = "move-beginning-of-line";
-    retval[ctrl-'a'] = "move-beginning-of-line";
-    retval[end] = "move-end-of-line";
-    retval[ctrl-'e'] = "move-end-of-line";
-
-    retval[ctrl-'k'] ="kill-line";
-    retval[ctrl-'w'] ="cut";
-    retval[ctrl-'y'] ="paste";
-    retval[ctrl-'_'] ="undo";
-
-    retval[ctrl-'x', ctrl-'c'] = "quit";
-    retval[ctrl-'x', ctrl-'s'] = "save";
-
-    return retval;
 }

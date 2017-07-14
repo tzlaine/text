@@ -1,6 +1,8 @@
 #ifndef EDITOR_BUFFER_HPP
 #define EDITOR_BUFFER_HPP
 
+#include "event.hpp"
+
 #include <boost/text/rope.hpp>
 #include <boost/text/segmented_vector.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -12,6 +14,8 @@ struct snapshot_t
 {
     boost::text::rope content_;
     boost::text::segmented_vector<int> line_sizes_;
+    int first_row_ = 0;
+    screen_pos_t cursor_pos_;
 };
 
 struct buffer_t

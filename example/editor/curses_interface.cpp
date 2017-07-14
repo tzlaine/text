@@ -4,6 +4,8 @@ extern "C" {
 #include <ncurses.h>
 }
 
+#include <fstream> // TODO
+
 
 curses_interface_t::curses_interface_t () :
     win_ (initscr())
@@ -24,10 +26,16 @@ curses_interface_t::~curses_interface_t ()
 screen_pos_t curses_interface_t::screen_size () const
 { return {getmaxy(stdscr), getmaxx(stdscr)}; }
 
+// TODO
+std::ofstream ofs("log");
+
 event_t curses_interface_t::next_event () const
 {
     int k = 0;
     int const mod = wget_wch(win_, &k);
+
+    ofs << "mod=" << mod << " k=" << k << std::endl;
+    
     return {key_code_t(mod, k), screen_size()};
 }
 
@@ -78,10 +86,16 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
         " %s %s  (%d, %d)",
         dirty(buffer) ? "**" : "--",
         buffer.path_.c_str(),
-        0, // cursor.col_
-        0  // cursor.row_
+        buffer.snapshot_.cursor_pos_.row_,
+        buffer.snapshot_.cursor_pos_.col_
     );
     hline(' ', size.col_);
+
+    move(
+        buffer.snapshot_.cursor_pos_.row_ - buffer.snapshot_.first_row_,
+        buffer.snapshot_.cursor_pos_.col_
+    );
+    curs_set(true);
 
     refresh();
 }

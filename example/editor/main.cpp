@@ -1,5 +1,5 @@
+#include "app_state.hpp"
 #include "curses_interface.hpp"
-#include "buffer.hpp"
 
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -22,14 +22,14 @@ int main (int argc, char * argv[])
 
     std::locale::global(std::locale(""));
 
-    buffer_t const buffer = load(path);
+    app_state_t app_state = {load(path), emacs_lite()};
 
     curses_interface_t curses_interface;
-    render(buffer, curses_interface.screen_size());
+    render(app_state.buffer_, curses_interface.screen_size());
 
-    while (true) {
-        auto const event = curses_interface.next_event();
-        (void)event;
-        render(buffer, curses_interface.screen_size());
+    boost::optional<app_state_t> next_app_state;
+    while (next_app_state = update(app_state, curses_interface.next_event())) {
+        app_state = *next_app_state;
+        render(app_state.buffer_, curses_interface.screen_size());
     }
 }

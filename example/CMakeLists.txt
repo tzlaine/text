@@ -23,6 +23,7 @@ if (BUILD_EDITOR)
     add_executable(
         editor
         editor/main.cpp
+        editor/app_state.cpp
         editor/curses_interface.cpp
         editor/key_mappings.cpp
     )

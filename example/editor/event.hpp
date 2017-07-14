@@ -21,8 +21,8 @@ inline bool operator< (screen_pos_t lhs, screen_pos_t rhs)
 
 struct event_t
 {
-    key_code_t key_code;
-    screen_pos_t screen_size;
+    key_code_t key_code_;
+    screen_pos_t screen_size_;
 };
 
 #endif
