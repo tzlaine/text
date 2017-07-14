@@ -39,8 +39,8 @@ namespace {
         int row = 0;
         move(row, col);
 
-        auto first = buffer.content_.begin();
-        auto last = buffer.content_.end();
+        auto first = buffer.snapshot_.content_.begin();
+        auto last = buffer.snapshot_.content_.end();
 
         char buf[1 << 10]; // Assume lines are <= 1k.
         char * buf_end = buf;
@@ -61,6 +61,7 @@ namespace {
         move(row, col);
         addstr(buf);
     }
+
 }
 
 void render (buffer_t const & buffer, screen_pos_t screen_size)
