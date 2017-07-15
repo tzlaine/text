@@ -11,7 +11,7 @@ namespace {
             s.cursor_pos_.col_ = state.buffer_.desired_col_;
         int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_] - 1;
+            s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
         if (line_size - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line_size;
         return state;
@@ -26,7 +26,7 @@ namespace {
             s.cursor_pos_.col_ = state.buffer_.desired_col_;
         int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_] - 1;
+            s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
         if (line_size - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line_size;
         return state;
@@ -39,7 +39,7 @@ namespace {
             if (s.cursor_pos_.row_ == 0)
                 return state;
             s.cursor_pos_.row_ -= 1;
-            s.cursor_pos_.col_ = s.line_sizes_[s.cursor_pos_.row_] - 1;
+            s.cursor_pos_.col_ = s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
         } else {
             s.cursor_pos_.col_ -= 1;
         }
@@ -52,7 +52,7 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_] - 1;
+            s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
         if (s.cursor_pos_.col_ == line_size) {
             if (s.cursor_pos_.row_ == s.line_sizes_.size())
                 return state;

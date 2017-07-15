@@ -48,11 +48,11 @@ namespace {
         std::ptrdiff_t pos = 0;
         for (auto line : snapshot.line_sizes_) {
             auto first = snapshot.content_.begin() + pos;
-            auto const last = first + line;
+            auto const last = first + line.code_units_;
             move(row, 0);
             *std::copy(first, last, buf) = '\0';
             addstr(buf);
-            pos += line;
+            pos += line.code_units_;
             ++row;
         }
     }
