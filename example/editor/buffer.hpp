@@ -23,6 +23,7 @@ struct buffer_t
     snapshot_t snapshot_;
     boost::filesystem::path path_;
     std::vector<snapshot_t> history_;
+    int desired_col_; // TODO: Set this when changing history.
 };
 
 inline bool dirty (buffer_t const & b)
@@ -72,7 +73,7 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
         ofs << width << std::endl;
     }
 
-    return buffer_t{snapshot, path, {1, snapshot}};
+    return buffer_t{snapshot, path, {1, snapshot}, 0};
 }
 
 #endif

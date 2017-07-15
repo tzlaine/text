@@ -44,7 +44,6 @@ namespace {
     void render_text (snapshot_t const & snapshot)
     {
         int row = 0;
-
         char buf[1 << 10]; // Assume lines are <= 1k.
         std::ptrdiff_t pos = 0;
         for (auto line : snapshot.line_sizes_) {

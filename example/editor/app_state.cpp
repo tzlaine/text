@@ -7,13 +7,61 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
         s.cursor_pos_.row_ = (std::max)(s.cursor_pos_.row_ - 1, 0);
+        if (s.cursor_pos_.col_ != state.buffer_.desired_col_)
+            s.cursor_pos_.col_ = state.buffer_.desired_col_;
+        int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
+            0 :
+            s.line_sizes_[s.cursor_pos_.row_] - 1;
+        if (line_size - 1 < s.cursor_pos_.col_)
+            s.cursor_pos_.col_ = line_size;
         return state;
     }
 
     boost::optional<app_state_t> move_down (app_state_t state, screen_pos_t pos)
     {
         auto & s = state.buffer_.snapshot_;
-        s.cursor_pos_.row_ = (std::min)(s.cursor_pos_.row_ + 1, (int)s.line_sizes_.size());
+        s.cursor_pos_.row_ =
+            (std::min)(s.cursor_pos_.row_ + 1, (int)s.line_sizes_.size());
+        if (s.cursor_pos_.col_ != state.buffer_.desired_col_)
+            s.cursor_pos_.col_ = state.buffer_.desired_col_;
+        int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
+            0 :
+            s.line_sizes_[s.cursor_pos_.row_] - 1;
+        if (line_size - 1 < s.cursor_pos_.col_)
+            s.cursor_pos_.col_ = line_size;
+        return state;
+    }
+
+    boost::optional<app_state_t> move_left (app_state_t state, screen_pos_t pos)
+    {
+        auto & s = state.buffer_.snapshot_;
+        if (s.cursor_pos_.col_ == 0) {
+            if (s.cursor_pos_.row_ == 0)
+                return state;
+            s.cursor_pos_.row_ -= 1;
+            s.cursor_pos_.col_ = s.line_sizes_[s.cursor_pos_.row_] - 1;
+        } else {
+            s.cursor_pos_.col_ -= 1;
+        }
+        state.buffer_.desired_col_ = s.cursor_pos_.col_;
+        return state;
+    }
+
+    boost::optional<app_state_t> move_right (app_state_t state, screen_pos_t pos)
+    {
+        auto & s = state.buffer_.snapshot_;
+        int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
+            0 :
+            s.line_sizes_[s.cursor_pos_.row_] - 1;
+        if (s.cursor_pos_.col_ == line_size) {
+            if (s.cursor_pos_.row_ == s.line_sizes_.size())
+                return state;
+            s.cursor_pos_.row_ += 1;
+            s.cursor_pos_.col_ = 0;
+        } else {
+            s.cursor_pos_.col_ += 1;
+        }
+        state.buffer_.desired_col_ = s.cursor_pos_.col_;
         return state;
     }
 
@@ -25,9 +73,9 @@ key_map_t emacs_lite ()
 
     retval[up] = move_up;
     retval[down] = move_down;
+    retval[left] = move_left;
+    retval[right] = move_right;
 #if 0
-    retval[left] = "move-left";
-    retval[right] = "move-right";
     retval[page_down] = "page-down";
     retval[page_up] = "page-up";
     retval[backspace] = "delete-char";
