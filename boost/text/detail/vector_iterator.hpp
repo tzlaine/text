@@ -45,7 +45,7 @@ namespace boost { namespace text { namespace detail {
                 find_element(vec_->ptr_, n_, found);
                 leaf_ = found.leaf_.leaf_->as_leaf();
                 leaf_start_ = n_ - found.leaf_.offset_;
-                return found.c_;
+                return *found.element_;
             }
         }
 

@@ -8,7 +8,12 @@
 namespace boost { namespace text {
 
     namespace detail {
+
+        template <typename T>
+        struct const_vector_iterator;
+
         constexpr int vec_insert_max = 512;
+
     }
 
     template <typename T>
@@ -316,6 +321,8 @@ namespace boost { namespace text {
         }
 
         detail::node_ptr<T> ptr_;
+
+        friend struct detail::const_vector_iterator<T>;
     };
 
 } }
