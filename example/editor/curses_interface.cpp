@@ -41,33 +41,21 @@ event_t curses_interface_t::next_event () const
 
 namespace {
 
-    void render_text (buffer_t const & buffer)
+    void render_text (snapshot_t const & snapshot)
     {
-        int col = 0;
         int row = 0;
-        move(row, col);
-
-        auto first = buffer.snapshot_.content_.begin();
-        auto last = buffer.snapshot_.content_.end();
 
         char buf[1 << 10]; // Assume lines are <= 1k.
-        char * buf_end = buf;
-        while (first != last) {
-            char const c = *first;
-            if (c != '\n') { // TODO: CRLF
-                *buf_end++ = c;
-            } else {
-                *buf_end = '\0';
-                move(row, col);
-                addstr(buf);
-                buf_end = buf;
-                ++row;
-            }
-            ++first;
+        std::ptrdiff_t pos = 0;
+        for (auto line : snapshot.line_sizes_) {
+            auto first = snapshot.content_.begin() + pos;
+            auto const last = first + line;
+            move(row, 0);
+            *std::copy(first, last, buf) = '\0';
+            addstr(buf);
+            pos += line;
+            ++row;
         }
-        *buf_end = '\0';
-        move(row, col);
-        addstr(buf);
     }
 
 }
@@ -77,7 +65,7 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
     erase();
 
     auto const size = screen_pos_t{screen_size.row_ - 2, screen_size.col_};
-    render_text(buffer);
+    render_text(buffer.snapshot_);
 
     // render the info line
     move(size.row_, 0);

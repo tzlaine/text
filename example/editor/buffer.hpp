@@ -44,6 +44,8 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
 
         auto prev_it = chunk.begin();
         auto it = std::find(chunk.begin(), chunk.end(), '\n');
+        if (it != chunk.end())
+            ++it;
         line_size += it - prev_it;
         while (it != chunk.end()) {
             while (screen_width < line_size) {
@@ -53,7 +55,9 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
             snapshot.line_sizes_.push_back(line_size);
             line_size = 0;
             prev_it = it;
-            it = std::find(it + 1, chunk.end(), '\n');
+            it = std::find(it, chunk.end(), '\n');
+            if (it != chunk.end())
+                ++it;
             line_size += it - prev_it;
         }
         snapshot.content_ += std::move(chunk);
