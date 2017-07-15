@@ -149,7 +149,6 @@ namespace boost { namespace text { namespace detail {
             }
             default: assert(!"unhandled leaf node case"); break;
             }
-            return '\0'; // This should never execute.
         }
 
         segmented_vector<T> const * vec_;
