@@ -42,18 +42,27 @@ inline buffer_t load (boost::filesystem::path path)
         if (!ifs.good())
             chunk.resize(ifs.gcount(), ' ');
 
+        auto prev_it = chunk.begin();
         auto it = std::find(chunk.begin(), chunk.end(), '\n');
-        line_size += chunk.begin() - it;
+        line_size += it - prev_it;
         while (it != chunk.end()) {
             snapshot.line_sizes_.push_back(line_size);
             line_size = 0;
+            prev_it = it;
             it = std::find(it + 1, chunk.end(), '\n');
+            line_size += it - prev_it;
         }
         snapshot.content_ += std::move(chunk);
     }
 
     if (line_size)
         snapshot.line_sizes_.push_back(line_size);
+
+    // TODO
+    std::ofstream ofs("lines.txt");
+    for (auto const width : snapshot.line_sizes_) {
+        ofs << width << std::endl;
+    }
 
     return buffer_t{snapshot, path, {1, snapshot}};
 }
