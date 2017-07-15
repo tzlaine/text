@@ -28,7 +28,7 @@ struct buffer_t
 inline bool dirty (buffer_t const & b)
 { return !b.snapshot_.content_.equal_root(b.history_.back().content_); }
 
-inline buffer_t load (boost::filesystem::path path)
+inline buffer_t load (boost::filesystem::path path, int screen_width)
 {
     boost::filesystem::ifstream ifs(path);
 
@@ -46,6 +46,10 @@ inline buffer_t load (boost::filesystem::path path)
         auto it = std::find(chunk.begin(), chunk.end(), '\n');
         line_size += it - prev_it;
         while (it != chunk.end()) {
+            while (screen_width < line_size) {
+                line_size -= screen_width;
+                snapshot.line_sizes_.push_back(screen_width);
+            }
             snapshot.line_sizes_.push_back(line_size);
             line_size = 0;
             prev_it = it;

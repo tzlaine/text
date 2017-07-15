@@ -22,9 +22,11 @@ int main (int argc, char * argv[])
 
     std::locale::global(std::locale(""));
 
-    app_state_t app_state = {load(path), emacs_lite()};
-
     curses_interface_t curses_interface;
+    app_state_t app_state = {
+        load(path, curses_interface.screen_size().col_),
+        emacs_lite()
+    };
     render(app_state.buffer_, curses_interface.screen_size());
 
     boost::optional<app_state_t> next_app_state;
