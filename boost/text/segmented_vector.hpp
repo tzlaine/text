@@ -150,12 +150,12 @@ namespace boost { namespace text {
         void clear ()
         { ptr_ = detail::node_ptr<T>(); }
 
-        /** Inserts t into *this at offset size(). */
-        void push_back (T const & t)
-        { insert(end(), t); }
+        /** Inserts t into *this at offset size() by moving t. */
+        void push_back (T t)
+        { insert(end(), std::move(t)); }
 
-        /** Inserts t into *this at offset at. */
-        segmented_vector & insert (const_iterator at, T const & t)
+        /** Inserts t into *this at offset at by moving t. */
+        segmented_vector & insert (const_iterator at, T t)
         {
             assert(begin() <= at && at <= end());
 
@@ -164,12 +164,15 @@ namespace boost { namespace text {
                     auto from = detail::find_child(node, at - begin());
                     detail::bump_keys(const_cast<detail::interior_node_t<T> *>(node), from, 1);
                 }
-                insertion.vec_->insert(insertion.vec_->begin() + insertion.found_.offset_, t);
+                insertion.vec_->insert(
+                    insertion.vec_->begin() + insertion.found_.offset_,
+                    std::move(t)
+                );
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),
-                    detail::make_node(std::vector<T>(1, t)),
+                    detail::make_node(std::vector<T>(1, std::move(t))),
                     0
                 );
             }
@@ -177,14 +180,9 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Inserts the sequence of T from t into *this starting at offset
-            at. */
-        segmented_vector & insert (const_iterator at, std::vector<T> const & t)
-        { return insert_impl(at, t, would_allocate); }
-
         /** Inserts the sequence of T from t into *this starting at offset at,
             by moving the contents of t. */
-        segmented_vector & insert (const_iterator at, std::vector<T> && t)
+        segmented_vector & insert (const_iterator at, std::vector<T> t)
         { return insert_impl(at, std::move(t), would_not_allocate); }
 
         /** Inserts the T sequence [first, last) into *this starting at
@@ -207,6 +205,19 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Erases the element at position at.
+
+            \pre begin() <= at && at < end() */
+        segmented_vector & erase (const_iterator at)
+        {
+            assert(begin() <= at && at < end());
+
+            auto const lo = at - begin();
+            ptr_ = btree_erase(ptr_, lo, lo + 1, 0);
+
+            return *this;
+        }
+
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
@@ -225,19 +236,35 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of T from t.
+        /** Replaces the element at position at with t, by moving t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        segmented_vector & replace (const_iterator first, const_iterator last, std::vector<T> const & t)
-        { return erase(first, last).insert(first, t); }
+        segmented_vector & replace (const_iterator at, T t)
+        {
+            assert(begin() <= at && at <= end());
+
+            if (vec_insertion insertion = mutable_insertion_leaf(at, 0, would_allocate)) {
+                (*insertion.vec_)[insertion.found_.offset_] = std::move(t);
+            } else {
+                auto const offset = at - begin();
+                erase(at);
+                ptr_ = detail::btree_insert(
+                    ptr_,
+                    offset,
+                    detail::make_node(std::vector<T>(1, std::move(t))),
+                    0
+                );
+            }
+
+            return *this;
+        }
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of T from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        segmented_vector & replace (const_iterator first, const_iterator last, std::vector<T> && t)
-        { return erase(first, last).insert(first, std::move(t)); }
+        segmented_vector & replace (const_iterator first, const_iterator last, std::vector<T> t)
+        { return erase(first, last).insert(first, t); }
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the T sequence [new_first, new_last).
