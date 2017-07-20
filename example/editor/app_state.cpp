@@ -1,7 +1,12 @@
 #include "app_state.hpp"
 
+#include <boost/text/utf8.hpp>
+
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
+
+// TODO
+extern std::ofstream ofs;
 
 namespace {
 
@@ -70,6 +75,11 @@ namespace {
     command_t insert (boost::text::text_view tv)
     {
         return [tv] (app_state_t state, screen_pos_t) -> boost::optional<app_state_t> {
+            ofs << "inserting tv=" << tv << "\n";
+            for (auto c : tv) {
+                ofs << (int)c << " ";
+            }
+            ofs << "\n";
             return state; // TODO
         };
     }
@@ -99,15 +109,21 @@ namespace {
             }
         }
 
-#if 0
         if (input_seq.single_key()) {
             auto const key_code = input_seq.get_single_key();
             if (key_code.mod_ == 0 &&
-                ' ' <= key_code.key_ && key_code.key_ <= '~') {
-                return eval_input_t{input(key_code.key_), true};
+                ' ' <= key_code.key_ && key_code.key_ <= '~' &&
+                boost::text::utf8::valid_code_point(key_code.key_)) {
+                static char buf[4];
+                int const * const key_ptr = &key_code.key_;
+                auto const last = std::copy(
+                    boost::text::utf8::from_utf32_iterator<int const *>(key_ptr),
+                    boost::text::utf8::from_utf32_iterator<int const *>(key_ptr + 1),
+                    buf
+                );
+                return eval_input_t{insert(boost::text::text_view(buf, last - buf)), true};
             }
         }
-#endif
 
         return eval_input_t{{}, input_greater_than_all};
     }
