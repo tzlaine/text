@@ -53,7 +53,7 @@ namespace boost { namespace text {
         size_type size () const noexcept
         { return detail::size(ptr_.get()); }
 
-        /** Returns the i-th char of *this (not a reference).
+        /** Returns a const reference to the i-th element of *this.
 
             \pre 0 <= i && i < size() */
         T const & operator[] (size_type n) const noexcept
@@ -150,13 +150,11 @@ namespace boost { namespace text {
         void clear ()
         { ptr_ = detail::node_ptr<T>(); }
 
-        /** Inserts the sequence of char from t into *this starting at offset
-            at. */
+        /** Inserts t into *this at offset size(). */
         void push_back (T const & t)
         { insert(end(), t); }
 
-        /** Inserts the sequence of char from t into *this starting at offset
-            at. */
+        /** Inserts t into *this at offset at. */
         segmented_vector & insert (const_iterator at, T const & t)
         {
             assert(begin() <= at && at <= end());
@@ -179,17 +177,17 @@ namespace boost { namespace text {
             return *this;
         }
 
-        /** Inserts the sequence of char from t into *this starting at offset
+        /** Inserts the sequence of T from t into *this starting at offset
             at. */
         segmented_vector & insert (const_iterator at, std::vector<T> const & t)
         { return insert_impl(at, t, would_allocate); }
 
-        /** Inserts the sequence of char from t into *this starting at offset
-            at, by moving the contents of t. */
+        /** Inserts the sequence of T from t into *this starting at offset at,
+            by moving the contents of t. */
         segmented_vector & insert (const_iterator at, std::vector<T> && t)
         { return insert_impl(at, std::move(t), would_not_allocate); }
 
-        /** Inserts the char sequence [first, last) into *this starting at
+        /** Inserts the T sequence [first, last) into *this starting at
             position at. */
         template <typename Iter>
         segmented_vector & insert (const_iterator at, Iter first, Iter last)
@@ -228,21 +226,21 @@ namespace boost { namespace text {
         }
 
         /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from t.
+            sequence of T from t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         segmented_vector & replace (const_iterator first, const_iterator last, std::vector<T> const & t)
         { return erase(first, last).insert(first, t); }
 
         /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from t by moving the contents of t.
+            sequence of T from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         segmented_vector & replace (const_iterator first, const_iterator last, std::vector<T> && t)
         { return erase(first, last).insert(first, std::move(t)); }
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
-            with the char sequence [new_first, new_last).
+            with the T sequence [new_first, new_last).
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template <typename Iter>
