@@ -7,8 +7,6 @@
 #include <boost/optional.hpp>
 #include <boost/text/text_view.hpp>
 
-#include <unordered_map>
-
 
 struct app_state_t;
 struct key_sequence_t;
@@ -37,6 +35,12 @@ struct key_code_t
     bool operator== (key_code_t rhs) const
     { return mod_ == rhs.mod_ && key_ == rhs.key_; }
 
+    bool operator!= (key_code_t rhs) const
+    { return !(*this == rhs); }
+
+    bool operator< (key_code_t rhs) const
+    { return mod_ < rhs.mod_ || (mod_ == rhs.mod_ && key_ < rhs.key_); }
+
     key_sequence_t operator, (key_code_t rhs) &&;
 
     int mod_;
@@ -61,6 +65,15 @@ struct key_sequence_t
     bool operator== (key_sequence_t rhs) const
     { return keys_ == rhs.keys_; }
 
+    bool single_key () const
+    { return keys_.size() == 1; }
+
+    key_code_t get_single_key () const
+    {
+        assert(single_key());
+        return keys_.front();
+    }
+
     iterator begin () const
     { return keys_.begin(); }
 
@@ -81,26 +94,17 @@ private:
     boost::container::static_vector<key_code_t, max_size> keys_;
 };
 
-inline std::size_t hash_value (key_sequence_t const & seq)
-{
-    boost::hash<int> hasher;
-    std::size_t seed = 0;
-    for (auto const key_code : seq) {
-        boost::hash_combine(seed, hasher(key_code.mod_));
-        boost::hash_combine(seed, hasher(key_code.key_));
-    }
-    return seed;
-}
-
 using command_t = boost::function<
     boost::optional<app_state_t> (app_state_t, screen_pos_t)
 >;
 
-using key_map_t = std::unordered_map<
-    key_sequence_t,
-    command_t,
-    boost::hash<key_sequence_t>
->;
+struct key_map_entry_t
+{
+    key_sequence_t key_seq_;
+    command_t command_;
+};
+
+using key_map_t = std::vector<key_map_entry_t>;
 
 struct ctrl_t {};
 struct alt_t {};

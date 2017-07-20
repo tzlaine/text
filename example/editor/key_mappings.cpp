@@ -44,7 +44,7 @@ key_code_t operator- (ctrl_t, char c)
 {
     assert(' ' <= c && c <= '~');
     if ('a' <= c && c <= 'z')
-        c = (c - 'a') + 'A';
+        c -= 96;
     return {OK, c};
 }
 
