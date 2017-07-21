@@ -14,11 +14,11 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
         s.cursor_pos_.row_ = (std::max)(s.cursor_pos_.row_ - 1, 0);
-        if (s.cursor_pos_.col_ != state.buffer_.desired_col_)
-            s.cursor_pos_.col_ = state.buffer_.desired_col_;
+        if (s.cursor_pos_.col_ != s.desired_col_)
+            s.cursor_pos_.col_ = s.desired_col_;
         int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
+            s.line_sizes_[s.cursor_pos_.row_].code_points_;
         if (line_size - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line_size;
         return state;
@@ -29,11 +29,11 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         s.cursor_pos_.row_ =
             (std::min)(s.cursor_pos_.row_ + 1, (int)s.line_sizes_.size());
-        if (s.cursor_pos_.col_ != state.buffer_.desired_col_)
-            s.cursor_pos_.col_ = state.buffer_.desired_col_;
+        if (s.cursor_pos_.col_ != s.desired_col_)
+            s.cursor_pos_.col_ = s.desired_col_;
         int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
+            s.line_sizes_[s.cursor_pos_.row_].code_points_;
         if (line_size - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line_size;
         return state;
@@ -46,11 +46,11 @@ namespace {
             if (s.cursor_pos_.row_ == 0)
                 return state;
             s.cursor_pos_.row_ -= 1;
-            s.cursor_pos_.col_ = s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
+            s.cursor_pos_.col_ = s.line_sizes_[s.cursor_pos_.row_].code_points_;
         } else {
             s.cursor_pos_.col_ -= 1;
         }
-        state.buffer_.desired_col_ = s.cursor_pos_.col_;
+        s.desired_col_ = s.cursor_pos_.col_;
         return state;
     }
 
@@ -59,7 +59,7 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_].code_points_ - 1;
+            s.line_sizes_[s.cursor_pos_.row_].code_points_;
         if (s.cursor_pos_.col_ == line_size) {
             if (s.cursor_pos_.row_ == s.line_sizes_.size())
                 return state;
@@ -68,19 +68,117 @@ namespace {
         } else {
             s.cursor_pos_.col_ += 1;
         }
-        state.buffer_.desired_col_ = s.cursor_pos_.col_;
+        s.desired_col_ = s.cursor_pos_.col_;
         return state;
+    }
+
+    void fixup_lines (
+        boost::text::segmented_vector<line_size_t> & line_sizes,
+        int line,
+        boost::text::rope::const_iterator line_it,
+        int cols
+    ) {
+        ofs << "fixup_lines()\n";
+        char buf[11];
+        *std::copy(line_it, line_it + 9, buf) = '\0';
+        ofs << "  " << buf << std::endl;
+        while (line < (int)line_sizes.size() &&
+               cols < line_sizes[line].code_points_) {
+            ofs << "  line=" << line << std::endl;
+            auto line_size = line_sizes[line];
+            auto const line_end = advance_by_code_point(line_it, cols);
+            ofs << "  line_size cu=" << line_size.code_units_ << " cp=" << line_size.code_points_ << std::endl;
+            auto const excess_units = line_size.code_units_ - int(line_end - line_it);
+            auto const excess_points = std::distance(
+                boost::text::utf8::to_utf32_iterator<boost::text::rope::const_iterator>(line_end),
+                boost::text::utf8::to_utf32_iterator<boost::text::rope::const_iterator>(line_end + excess_units)
+            );
+            ofs << "  excess_units=" << excess_units << " excess_points=" << excess_points << std::endl;
+            line_size.code_units_ -= excess_units;
+            line_size.code_points_ -= excess_points;
+            line_sizes.replace(line_sizes.begin() + line, line_size);
+
+            if (line_end[excess_units - 1] == '\n') {
+                ofs << "  newline! adding new line_size" << std::endl;
+                auto insert_it = line + 1 <= line_sizes.size() ?
+                    line_sizes.begin() + line + 1 :
+                    line_sizes.end();
+                line_sizes.insert(insert_it, line_size_t{excess_units, excess_points});
+            } else {
+                ofs << "  push excess to next line" << std::endl;
+                line_size = line_sizes[line + 1];
+                line_size.code_units_ += excess_units;
+                line_size.code_points_ += excess_points;
+                line_sizes.replace(line_sizes.begin() + line + 1, line_size);
+            }
+
+            line_it = line_end;
+            ++line;
+            ofs << "  line <- " << line << std::endl;
+        }
+        ofs << std::endl;
     }
 
     command_t insert (boost::text::text_view tv)
     {
-        return [tv] (app_state_t state, screen_pos_t) -> boost::optional<app_state_t> {
+        return [tv] (app_state_t state, screen_pos_t screen_size)
+            -> boost::optional<app_state_t>
+        {
             ofs << "inserting tv=" << tv << "\n";
             for (auto c : tv) {
                 ofs << (int)c << " ";
             }
             ofs << "\n";
-            return state; // TODO
+            auto & s = state.buffer_.snapshot_;
+            state.buffer_.history_.push_back(s);
+            auto const offset = cursor_offset(s);
+            if (tv == "\n") {
+                s.content_.insert(offset.rope_offset_, tv);
+                auto const line = cursor_line(s);
+                line_size_t line_size;
+                if (line < s.line_sizes_.size())
+                    line_size = s.line_sizes_[line];
+                line_size_t const new_line_size{
+                    line_size.code_units_ - offset.line_offset_.code_units_,
+                    line_size.code_points_ - offset.line_offset_.code_points_
+                };
+                auto insert_it = line + 1 <= s.line_sizes_.size() ?
+                    s.line_sizes_.begin() + line + 1 :
+                    s.line_sizes_.end();
+                s.line_sizes_.insert(insert_it, new_line_size);
+                line_size.code_units_ = offset.line_offset_.code_units_ + 1;
+                line_size.code_points_ = offset.line_offset_.code_points_ + 1;
+                s.line_sizes_.replace(s.line_sizes_.begin() + line, line_size);
+                ++s.cursor_pos_.row_;
+                s.cursor_pos_.col_ = 0;
+            } else {
+                auto const cols = screen_size.col_;
+                s.content_.insert(offset.rope_offset_, tv);
+                auto const line = cursor_line(s);
+                line_size_t line_size;
+                if (line < s.line_sizes_.size())
+                    line_size = s.line_sizes_[line];
+                line_size.code_units_ += tv.size();
+                line_size.code_points_ += 1;
+                s.cursor_pos_.col_ += 1;
+                if (cols <= s.cursor_pos_.col_) {
+                    ++s.cursor_pos_.row_;
+                    s.cursor_pos_.col_ = 0;
+                }
+
+                if (line < s.line_sizes_.size()) {
+                    s.line_sizes_.replace(s.line_sizes_.begin() + line, line_size);
+                    fixup_lines(
+                        s.line_sizes_,
+                        line,
+                        s.content_.begin() + offset.rope_offset_ - offset.line_offset_.code_units_,
+                        cols
+                    );
+                } else {
+                    s.line_sizes_.insert(s.line_sizes_.end(), line_size);
+                }
+            }
+            return state;
         };
     }
 
@@ -111,17 +209,20 @@ namespace {
 
         if (input_seq.single_key()) {
             auto const key_code = input_seq.get_single_key();
-            if (key_code.mod_ == 0 &&
-                ' ' <= key_code.key_ && key_code.key_ <= '~' &&
-                boost::text::utf8::valid_code_point(key_code.key_)) {
-                static char buf[4];
-                int const * const key_ptr = &key_code.key_;
-                auto const last = std::copy(
-                    boost::text::utf8::from_utf32_iterator<int const *>(key_ptr),
-                    boost::text::utf8::from_utf32_iterator<int const *>(key_ptr + 1),
-                    buf
-                );
-                return eval_input_t{insert(boost::text::text_view(buf, last - buf)), true};
+            if (key_code.mod_ == 0) {
+                if (key_code.key_ == '\n') {
+                    return eval_input_t{insert("\n"), true};
+                } else if(' ' <= key_code.key_ && key_code.key_ <= '~' &&
+                          boost::text::utf8::valid_code_point(key_code.key_)) {
+                    static char buf[4]; // TODO: rope should always allocate storage for incoming text_view characters.
+                    int const * const key_ptr = &key_code.key_;
+                    auto const last = std::copy(
+                        boost::text::utf8::from_utf32_iterator<int const *>(key_ptr),
+                        boost::text::utf8::from_utf32_iterator<int const *>(key_ptr + 1),
+                        buf
+                    );
+                    return eval_input_t{insert(boost::text::text_view(buf, last - buf)), true};
+                }
             }
         }
 
@@ -142,28 +243,10 @@ key_map_t emacs_lite ()
     };
 
 #if 0
-    retval[page_down] = "page-down";
-    retval[page_up] = "page-up";
-    retval[backspace] = "delete-char";
-    retval[delete_] = "delete-char-right";
-    
-    retval[ctrl-'f'] = "move-left";
-    retval[ctrl-'b'] = "move-right";
+    retval[backspace] = "delete-before";
+    retval[delete_] = "delete-after";
 
-    retval[alt-'f'] = "move-word-left";
-    retval[alt-'b'] = "move-word-right";
-
-    retval[home] = "move-beginning-of-line";
-    retval[ctrl-'a'] = "move-beginning-of-line";
-    retval[end] = "move-end-of-line";
-    retval[ctrl-'e'] = "move-end-of-line";
-
-    retval[ctrl-'k'] = "kill-line";
-    retval[ctrl-'w'] = "cut";
-    retval[ctrl-'y'] = "paste";
     retval[ctrl-'_'] = "undo";
-
-    retval[ctrl-'x', ctrl-'s'] = "save";
 #endif
 
     return retval;
@@ -172,12 +255,11 @@ key_map_t emacs_lite ()
 boost::optional<app_state_t> update (app_state_t state, event_t event)
 {
     state.input_seq_.append(event.key_code_);
-
     eval_input_t const input_evaluation =
         eval_input(state.key_map_, state.input_seq_);
     if (input_evaluation.reset_input_)
         state.input_seq_ = key_sequence_t();
     if (input_evaluation.command_)
-        return input_evaluation.command_(state, screen_pos_t{});
+        return input_evaluation.command_(state, event.screen_size_);
     return state;
 }

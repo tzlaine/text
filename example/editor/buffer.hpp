@@ -12,8 +12,8 @@
 
 struct line_size_t
 {
-    int code_units_;
-    int code_points_;
+    int code_units_ = 0;
+    int code_points_ = 0;
 };
 
 struct snapshot_t
@@ -21,7 +21,9 @@ struct snapshot_t
     boost::text::rope content_;
     boost::text::segmented_vector<line_size_t> line_sizes_;
     int first_row_ = 0;
+    int desired_col_ = 0;
     screen_pos_t cursor_pos_;
+    std::ptrdiff_t first_char_index_ = 0;
 };
 
 struct buffer_t
@@ -29,21 +31,45 @@ struct buffer_t
     snapshot_t snapshot_;
     boost::filesystem::path path_;
     std::vector<snapshot_t> history_;
-    int desired_col_; // TODO: Set this when changing history.
 };
 
 inline bool dirty (buffer_t const & b)
 { return !b.snapshot_.content_.equal_root(b.history_.back().content_); }
 
-inline char const * advance_by_code_point (char const * str, int code_points)
+template <typename Iter>
+Iter advance_by_code_point (Iter it, int code_points)
 {
     while (code_points) {
-        int bytes = boost::text::utf8::code_point_bytes(*str);
+        int const bytes = boost::text::utf8::code_point_bytes(*it);
         assert(0 < bytes);
-        str += bytes;
+        it += bytes;
         --code_points;
     }
-    return str;
+    return it;
+}
+
+inline std::ptrdiff_t cursor_line (snapshot_t const & snapshot)
+{ return snapshot.first_row_ + snapshot.cursor_pos_.row_; }
+
+struct cursor_offset_t
+{
+    std::ptrdiff_t rope_offset_;
+    line_size_t line_offset_;
+};
+
+inline cursor_offset_t cursor_offset (snapshot_t const & snapshot)
+{
+    std::ptrdiff_t rope_offset = snapshot.first_char_index_;
+    for (int i = snapshot.first_row_, end = cursor_line(snapshot);
+         i < end;
+         ++i) {
+        rope_offset += snapshot.line_sizes_[i].code_units_;
+    }
+    auto const it = snapshot.content_.begin() + rope_offset;
+    auto const last = advance_by_code_point(it, snapshot.cursor_pos_.col_);
+    int const line_code_units = last - it;
+    rope_offset += line_code_units;
+    return cursor_offset_t{rope_offset, {line_code_units, snapshot.cursor_pos_.col_}};
 }
 
 inline buffer_t load (boost::filesystem::path path, int screen_width)
@@ -62,15 +88,21 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
             chunk.resize(ifs.gcount(), ' ');
 
         auto prev_it = chunk.cbegin();
-        auto it = std::find(chunk.cbegin(), chunk.cend(), '\n');
-        if (it != chunk.end())
-            ++it;
-        line_size += it - prev_it;
-        line_cps += std::distance(
-            boost::text::utf8::to_utf32_iterator(prev_it),
-            boost::text::utf8::to_utf32_iterator(it)
-        );
+        auto it = prev_it;
+
         while (it != chunk.end()) {
+            it = std::find(prev_it, chunk.cend(), '\n');
+            auto it_for_counting_cps = it;
+            if (it != chunk.end() && it != chunk.begin() && it[-1] == '\r')
+                --it_for_counting_cps;
+            line_cps += std::distance(
+                boost::text::utf8::to_utf32_iterator<boost::text::text::const_iterator>(prev_it),
+                boost::text::utf8::to_utf32_iterator<boost::text::text::const_iterator>(it_for_counting_cps)
+            );
+            if (it != chunk.end())
+                ++it;
+            line_size += it - prev_it;
+
             auto prev_width_end = prev_it;
             while (screen_width < line_cps) {
                 line_cps -= screen_width;
@@ -81,17 +113,10 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
                 prev_width_end = width_end;
             }
             snapshot.line_sizes_.push_back({line_size, line_cps});
+
+            prev_it = it;
             line_size = 0;
             line_cps = 0;
-            prev_it = it;
-            it = std::find(it, chunk.cend(), '\n');
-            if (it != chunk.end())
-                ++it;
-            line_size += it - prev_it;
-            line_cps += std::distance(
-                boost::text::utf8::to_utf32_iterator(prev_it),
-                boost::text::utf8::to_utf32_iterator(it)
-            );
         }
         snapshot.content_ += std::move(chunk);
     }
@@ -105,7 +130,7 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
         ofs << width.code_units_ << " " << width.code_points_ << std::endl;
     }
 
-    return buffer_t{snapshot, path, {1, snapshot}, 0};
+    return buffer_t{snapshot, path, {1, snapshot}};
 }
 
 #endif

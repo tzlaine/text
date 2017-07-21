@@ -50,7 +50,12 @@ namespace {
             auto first = snapshot.content_.begin() + pos;
             auto const last = first + line.code_units_;
             move(row, 0);
-            *std::copy(first, last, buf) = '\0';
+            auto it = std::copy(first, last, buf);
+            if (buf < it && *it == '\n')
+                --it;
+            if (buf < it && *it == '\r')
+                --it;
+            *it = '\0';
             addstr(buf);
             pos += line.code_units_;
             ++row;
@@ -68,7 +73,7 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
 
     // render the info line
     move(size.row_, 0);
-    attrset(A_REVERSE);
+    attron(A_REVERSE);
     printw(
         " %s %s  (%d, %d)",
         dirty(buffer) ? "**" : "--",
@@ -76,6 +81,7 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
         buffer.snapshot_.cursor_pos_.row_,
         buffer.snapshot_.cursor_pos_.col_
     );
+    attroff(A_REVERSE);
     hline(' ', size.col_);
 
     move(
