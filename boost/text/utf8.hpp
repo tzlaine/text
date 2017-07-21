@@ -76,8 +76,9 @@ namespace boost { namespace text { namespace utf8 {
     namespace detail {
 
         // Follow Table 3-7 in Unicode 9, 3.9/D92
-        inline BOOST_TEXT_CXX14_CONSTEXPR
-        char const * end_of_invalid_utf8 (char const * it) noexcept
+        template <typename Iter>
+        BOOST_TEXT_CXX14_CONSTEXPR
+        Iter end_of_invalid_utf8 (Iter it) noexcept
         {
             assert(!continuation(*it));
 
@@ -152,10 +153,11 @@ namespace boost { namespace text { namespace utf8 {
             return it;
         }
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR
-        char const * decrement (char const * it) noexcept
+        template <typename Iter>
+        BOOST_TEXT_CXX14_CONSTEXPR
+        Iter decrement (Iter it) noexcept
         {
-            char const * retval = it;
+            Iter retval = it;
 
             int backup = 0;
             while (backup < 4 && continuation(*--retval)) {
@@ -166,7 +168,7 @@ namespace boost { namespace text { namespace utf8 {
             if (continuation(*retval))
                 return it - 1;
 
-            char const * first_invalid = end_of_invalid_utf8(retval);
+            Iter first_invalid = end_of_invalid_utf8(retval);
             if (first_invalid == retval)
                 ++first_invalid;
             while (first_invalid && (first_invalid - retval) < backup) {
@@ -425,7 +427,11 @@ namespace boost { namespace text { namespace utf8 {
 
     /** A UTF-8 to UTF-32 converting iterator.  This iterator outputs a
         Unicode replacement character (0xFFFD) when converting invalid
-        UTF-8. */
+        UTF-8.
+
+        Iter must be a bidirectional iterator with a 1-byte char
+        value_type. */
+    template <typename Iter>
     struct to_utf32_iterator
     {
         using value_type = uint32_t;
@@ -453,11 +459,17 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator operator-- (int) noexcept;
     };
 
-    inline constexpr bool operator== (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept;
-    inline constexpr bool operator!= (to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept;
+    template <typename Iter>
+    inline constexpr bool operator== (to_utf32_iterator<Iter> lhs, to_utf32_iterator<Iter> rhs) noexcept;
+    template <typename Iter>
+    inline constexpr bool operator!= (to_utf32_iterator<Iter> lhs, to_utf32_iterator<Iter> rhs) noexcept;
 
     /** A UTF-8 to UTF-32 converting iterator.  This iterator throws an
-        exception when it reads invalid UTF-8. */
+        exception when it reads invalid UTF-8.
+
+        Iter must be a bidirectional iterator with a 1-byte char
+        value_type. */
+    template <typename Iter>
     struct to_utf32_iterator_throwing
     {
         using value_type = uint32_t;
@@ -495,8 +507,10 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator_throwing operator-- (int);
     };
 
-    inline constexpr bool operator== (to_utf32_iterator_throwing lhs, to_utf32_iterator_throwing rhs) noexcept;
-    inline constexpr bool operator!= (to_utf32_iterator_throwing lhs, to_utf32_iterator_throwing rhs) noexcept;
+    template <typename Iter>
+    inline constexpr bool operator== (to_utf32_iterator_throwing<Iter> lhs, to_utf32_iterator_throwing<Iter> rhs) noexcept;
+    template <typename Iter>
+    inline constexpr bool operator!= (to_utf32_iterator_throwing<Iter> lhs, to_utf32_iterator_throwing<Iter> rhs) noexcept;
 
     /** A UTF-16 to UTF-8 converting iterator.  This iterator outputs a
         Unicode replacement character (0xFFFD) when converting invalid UTF-16.
@@ -592,7 +606,11 @@ namespace boost { namespace text { namespace utf8 {
 
     /** A UTF-8 to UTF-16 converting iterator.  This iterator outputs a
         Unicode replacement character (0xFFFD) when converting invalid
-        UTF-8. */
+        UTF-8.
+
+        Iter must be a bidirectional iterator with a 1-byte char
+        value_type. */
+    template <typename Iter>
     struct to_utf16_iterator
     {
         using value_type = uint16_t;
@@ -621,13 +639,19 @@ namespace boost { namespace text { namespace utf8 {
     };
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept;
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator<Iter> lhs, to_utf16_iterator<Iter> rhs) noexcept;
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept;
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator<Iter> lhs, to_utf16_iterator<Iter> rhs) noexcept;
 
     /** A UTF-8 to UTF-16 converting iterator.  This iterator throws an
-        exception when it reads invalid UTF-8. */
+        exception when it reads invalid UTF-8.
+
+        Iter must be a bidirectional iterator with a 1-byte char
+        value_type. */
+    template <typename Iter>
     struct to_utf16_iterator_throwing
     {
         using value_type = uint16_t;
@@ -666,10 +690,12 @@ namespace boost { namespace text { namespace utf8 {
     };
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator_throwing lhs, to_utf16_iterator_throwing rhs) noexcept;
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator== (to_utf16_iterator_throwing<Iter> lhs, to_utf16_iterator_throwing<Iter> rhs) noexcept;
 
     /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator_throwing lhs, to_utf16_iterator_throwing rhs) noexcept;
+    template <typename Iter>
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool operator!= (to_utf16_iterator_throwing<Iter> lhs, to_utf16_iterator_throwing<Iter> rhs) noexcept;
 
 #else
 
@@ -837,7 +863,7 @@ namespace boost { namespace text { namespace utf8 {
 
     // to_utf32_iterator
 
-    template <typename Throw = void>
+    template <typename Iter, typename Throw = void>
     struct to_utf32_iterator_t
     {
         using value_type = uint32_t;
@@ -853,7 +879,7 @@ namespace boost { namespace text { namespace utf8 {
             next_ (),
             partial_decrement_ (false)
         {}
-        explicit constexpr to_utf32_iterator_t (char const * it) noexcept :
+        explicit constexpr to_utf32_iterator_t (Iter it) noexcept :
             it_ (it),
             next_ (it),
             partial_decrement_ (false)
@@ -862,7 +888,7 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR reference operator* () const noexcept(!throw_on_error)
         {
             if (partial_decrement_)
-                const_cast<char const *&>(it_) = detail::decrement(it_ + 1);
+                const_cast<Iter&>(it_) = detail::decrement(it_ + 1);
             partial_decrement_ = false;
             return get_value();
         }
@@ -1069,14 +1095,16 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        char const * it_;
-        mutable char const * next_;
+        Iter it_;
+        mutable Iter next_;
         mutable bool partial_decrement_;
     };
 
-    using to_utf32_iterator = to_utf32_iterator_t<>;
+    template <typename Iter>
+    using to_utf32_iterator = to_utf32_iterator_t<Iter>;
 
-    using to_utf32_iterator_throwing = to_utf32_iterator_t<detail::throw_on_encoding_error>;
+    template <typename Iter>
+    using to_utf32_iterator_throwing = to_utf32_iterator_t<Iter, detail::throw_on_encoding_error>;
 
 
 
@@ -1307,7 +1335,7 @@ namespace boost { namespace text { namespace utf8 {
 
     // to_utf16_iterator
 
-    template <typename Throw = void>
+    template <typename Iter, typename Throw = void>
     struct to_utf16_iterator_t
     {
         using value_type = uint16_t;
@@ -1325,7 +1353,7 @@ namespace boost { namespace text { namespace utf8 {
             buf_ (),
             partial_decrement_ (false)
         {}
-        explicit constexpr to_utf16_iterator_t (char const * it) noexcept :
+        explicit constexpr to_utf16_iterator_t (Iter it) noexcept :
             it_ (it),
             next_ (it),
             index_ (2),
@@ -1337,7 +1365,7 @@ namespace boost { namespace text { namespace utf8 {
         {
             if (buf_empty()) {
                 if (partial_decrement_)
-                    const_cast<char const *&>(it_) = detail::decrement(it_ + 1);
+                    const_cast<Iter&>(it_) = detail::decrement(it_ + 1);
                 index_ = read_into_buf();
                 if (!partial_decrement_)
                     index_ = 0;
@@ -1570,8 +1598,8 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        char const * it_;
-        mutable char const * next_;
+        Iter it_;
+        mutable Iter next_;
         mutable int index_;
         mutable uint16_t buf_[3];
         mutable bool partial_decrement_;
@@ -1580,9 +1608,11 @@ namespace boost { namespace text { namespace utf8 {
         static uint16_t const low_surrogate_base = 0xdc00;
     };
 
-    using to_utf16_iterator = to_utf16_iterator_t<>;
+    template <typename Iter>
+    using to_utf16_iterator = to_utf16_iterator_t<Iter>;
 
-    using to_utf16_iterator_throwing = to_utf16_iterator_t<detail::throw_on_encoding_error>;
+    template <typename Iter>
+    using to_utf16_iterator_throwing = to_utf16_iterator_t<Iter, detail::throw_on_encoding_error>;
 
 #endif
 
