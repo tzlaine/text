@@ -303,6 +303,9 @@ namespace boost { namespace text {
                     return vec_insertion{nullptr};
             }
 
+            if (1 < found.leaf_->get()->refs_)
+                return vec_insertion{nullptr};
+
             if (found.leaf_->as_leaf()->which_ == detail::leaf_node_t<T>::which::vec) {
                 std::vector<T> & v = const_cast<std::vector<T> &>(found.leaf_->as_leaf()->as_vec());
                 auto const inserted_size = v.size() + size;
