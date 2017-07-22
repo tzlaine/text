@@ -51,7 +51,6 @@ TEST(detail_btree_util, test_make_node)
 
         EXPECT_EQ(size(p.get()), v.size());
         EXPECT_EQ(p.as_leaf()->as_vec(), v);
-        EXPECT_NE(p.as_leaf()->as_vec().begin(), v.begin());
     }
 
     {
@@ -69,7 +68,6 @@ TEST(detail_btree_util, test_make_node)
 
         EXPECT_EQ(size(p_text.get()), v.size());
         EXPECT_EQ(p_text.as_leaf()->as_vec(), v);
-        EXPECT_NE(p_text.as_leaf()->as_vec().begin(), v.begin());
 
         {
             node_ptr<int> p_ref0 = make_ref(p_text.as_leaf(), 1, 8);
