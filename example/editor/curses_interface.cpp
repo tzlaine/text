@@ -84,7 +84,7 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
         " %s %s  (%d, %d)",
         dirty(buffer) ? "**" : "--",
         buffer.path_.c_str(),
-        buffer.snapshot_.first_row_ + buffer.snapshot_.cursor_pos_.row_,
+        buffer.snapshot_.first_row_ + buffer.snapshot_.cursor_pos_.row_ + 1,
         buffer.snapshot_.cursor_pos_.col_
     );
     attroff(A_REVERSE);

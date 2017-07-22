@@ -34,7 +34,7 @@ namespace {
     boost::optional<app_state_t> move_down (app_state_t state, screen_pos_t screen_size)
     {
         auto & s = state.buffer_.snapshot_;
-        if (s.first_row_ + s.cursor_pos_.row_ == (int)s.line_sizes_.size()) {
+        if (s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()) {
             return state;
         } else if (s.cursor_pos_.row_ == screen_size.row_ - 1 - 2) { // -2 for two bottom rows
             s.first_char_index_ += s.line_sizes_[s.first_row_].code_units_;
@@ -56,10 +56,15 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
         if (s.cursor_pos_.col_ == 0) {
-            if (s.cursor_pos_.row_ == 0)
+            if (s.first_row_ + s.cursor_pos_.row_ == 0) {
                 return state;
-            s.cursor_pos_.row_ -= 1;
-            s.cursor_pos_.col_ = s.line_sizes_[s.cursor_pos_.row_].code_points_;
+            } else if (s.cursor_pos_.row_ == 0) {
+                s.first_row_ -= 1;
+                s.first_char_index_ -= s.line_sizes_[s.first_row_].code_units_;
+            } else {
+                --s.cursor_pos_.row_;
+            }
+            s.cursor_pos_.col_ = s.line_sizes_[s.first_row_ + s.cursor_pos_.row_].code_points_;
         } else {
             s.cursor_pos_.col_ -= 1;
         }
@@ -67,16 +72,21 @@ namespace {
         return state;
     }
 
-    boost::optional<app_state_t> move_right (app_state_t state, screen_pos_t)
+    boost::optional<app_state_t> move_right (app_state_t state, screen_pos_t screen_size)
     {
         auto & s = state.buffer_.snapshot_;
-        int line_size = s.cursor_pos_.row_ == s.line_sizes_.size() ?
+        int const line_size = s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size() ?
             0 :
-            s.line_sizes_[s.cursor_pos_.row_].code_points_;
+            s.line_sizes_[s.first_row_ + s.cursor_pos_.row_].code_points_;
         if (s.cursor_pos_.col_ == line_size) {
-            if (s.cursor_pos_.row_ == s.line_sizes_.size())
+            if (s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()) {
                 return state;
-            s.cursor_pos_.row_ += 1;
+            } else if (s.cursor_pos_.row_ == screen_size.row_ - 1 - 2) { // -2 for two bottom rows
+                s.first_char_index_ += s.line_sizes_[s.first_row_].code_units_;
+                s.first_row_ += 1;
+            } else {
+                ++s.cursor_pos_.row_;
+            }
             s.cursor_pos_.col_ = 0;
         } else {
             s.cursor_pos_.col_ += 1;
