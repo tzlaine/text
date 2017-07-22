@@ -205,6 +205,14 @@ namespace {
         };
     }
 
+    boost::optional<app_state_t> undo (app_state_t state, screen_pos_t)
+    {
+        state.buffer_.snapshot_ = state.buffer_.history_.back();
+        if (1 < state.buffer_.history_.size())
+            state.buffer_.history_.pop_back();
+        return state;
+    }
+
     boost::optional<app_state_t> quit (app_state_t, screen_pos_t)
     { return boost::none; }
 
@@ -262,14 +270,14 @@ key_map_t emacs_lite ()
         key_map_entry_t{left, move_left},
         key_map_entry_t{right, move_right},
 
+        key_map_entry_t{ctrl-'_', undo},
+
         key_map_entry_t{(ctrl-'x', ctrl-'c'), quit},
     };
 
 #if 0
     retval[backspace] = "delete-before";
     retval[delete_] = "delete-after";
-
-    retval[ctrl-'_'] = "undo";
 #endif
 
     return retval;

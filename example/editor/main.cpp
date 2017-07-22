@@ -30,7 +30,7 @@ int main (int argc, char * argv[])
     render(app_state.buffer_, curses_interface.screen_size());
 
     boost::optional<app_state_t> next_app_state;
-    while (next_app_state = update(app_state, curses_interface.next_event())) {
+    while ((next_app_state = update(app_state, curses_interface.next_event()))) {
         app_state = *next_app_state;
         render(app_state.buffer_, curses_interface.screen_size());
     }

@@ -34,7 +34,7 @@ struct buffer_t
 };
 
 inline bool dirty (buffer_t const & b)
-{ return !b.snapshot_.content_.equal_root(b.history_.back().content_); }
+{ return !b.snapshot_.content_.equal_root(b.history_.front().content_); }
 
 template <typename Iter>
 Iter advance_by_code_point (Iter it, int code_points)
