@@ -161,7 +161,7 @@ TEST(detail_btree, test_btree_split_leaf)
     }
 }
 
-TEST(detail_btree, test_btree_split_leaf_extra_ref)
+TEST(detail_btree_, test_btree_split_leaf_extra_ref_)
 {
     {
         node_ptr<int> root = make_tree_left_min();
@@ -220,7 +220,7 @@ TEST(detail_btree, test_btree_split_leaf_extra_ref)
     }
 }
 
-TEST(detail_btree, test_btree_insert_nonfull)
+TEST(detail_btree_, test_btree_insert_nonfull_)
 {
     // Insert into half-full interior child, then between existing leaves.
     {
@@ -426,7 +426,7 @@ TEST(detail_btree, test_btree_insert_nonfull)
     }
 }
 
-TEST(detail_btree, test_btree_insert_nonfull_extra_ref)
+TEST(detail_btree_, test_btree_insert_nonfull_extra_ref_)
 {
     // Insert into half-full interior child, then between existing leaves.
     {
@@ -641,7 +641,7 @@ void check_leaf_heights (node_ptr<int> const & node)
     }
 }
 
-TEST(detail_btree, test_btree_insert)
+TEST(detail_btree_0, test_btree_insert_0)
 {
     {
         node_ptr<int> root = make_node(std::vector<int>(4, 4));
@@ -707,7 +707,7 @@ TEST(detail_btree, test_btree_insert)
     }
 }
 
-TEST(detail_btree, test_btree_insert_extra_ref)
+TEST(detail_btree_0, test_btree_insert_extra_ref_0)
 {
     {
         node_ptr<int> root = make_node(std::vector<int>(4, 4));
@@ -803,7 +803,7 @@ TEST(detail_btree, test_btree_insert_extra_ref)
     }
 }
 
-TEST(detail_btree, test_btree_erase_entire_node_leaf_children)
+TEST(detail_btree_0, test_btree_erase_entire_node_leaf_children_0)
 {
     {
         node_ptr<int> root = make_interior_with_leaves(4, 7, 3);
@@ -916,7 +916,8 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children)
     }
 }
 
-TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
+#if 0
+TEST(foos, foo) // test_btree_erase_entire_node_leaf_children_extra_ref
 {
     {
         node_ptr<int> root = make_interior_with_leaves(4, 7, 3);
@@ -989,8 +990,12 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         EXPECT_EQ(keys(root)[1], 8);
         EXPECT_EQ(size(children(root)[1].get()), 4);
     }
+}
+#endif
 
-
+#if 0
+TEST(foos, foo2)
+{
     {
         node_ptr<int> root;
         {
@@ -1057,8 +1062,10 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
         EXPECT_EQ(size(root.get()), 4);
     }
 }
+#endif
 
-TEST(detail_btree, test_btree_erase_entire_node_interior_children)
+#if 0
+TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
 {
     // Last interior node has more than min children.
     {
@@ -1394,7 +1401,9 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(keys(right).back(), min_children * 6 + (min_children - 1) * 5);
     }
 }
+#endif
 
+#if 0
 TEST(detail_btree, test_btree_erase)
 {
     // Erasure from a leaf node
@@ -1475,3 +1484,4 @@ TEST(detail_btree, test_btree_erase)
         EXPECT_EQ(keys(right).back(), (max_children - 1) * 5);
     }
 }
+#endif

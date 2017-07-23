@@ -96,7 +96,7 @@ TEST(detail_btree_util, test_make_node)
     }
 }
 
-TEST(detail_btree_util, test_mutable_node_ptr)
+TEST(detail_btree_util_, test_mutable_node_ptr)
 {
     {
         std::vector<int> v(9, 3);
@@ -374,7 +374,7 @@ void fill_interior_node (interior_node_t<int> & parent)
     parent.keys_.push_back(9);
 }
 
-TEST(detail_btree_util, test_insert_erase_child)
+TEST(detail_btree_util_, test_insert_erase_child)
 {
     {
         interior_node_t<int> parent;
@@ -441,7 +441,7 @@ TEST(detail_btree_util, test_insert_erase_child)
     }
 }
 
-TEST(detail_btree_util, test_slice_leaf)
+TEST(detail_btree_util_0, test_slice_leaf)
 {
     // text
 
@@ -517,7 +517,7 @@ TEST(detail_btree_util, test_slice_leaf)
     }
 }
 
-TEST(detail_btree_util, test_erase_leaf)
+TEST(detail_btree_util_, test_erase_leaf)
 {
     // text
 
