@@ -5,9 +5,6 @@
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
 
-// TODO
-extern std::ofstream ofs;
-
 namespace {
 
     boost::optional<app_state_t> move_up (app_state_t state, screen_pos_t)
@@ -101,34 +98,25 @@ namespace {
         boost::text::rope::const_iterator line_it,
         int cols
     ) {
-        ofs << "fixup_lines()\n";
-        char buf[11];
-        *std::copy(line_it, line_it + 9, buf) = '\0';
-        ofs << "  " << buf << std::endl;
         while (line < (int)line_sizes.size() &&
                cols < line_sizes[line].code_points_) {
-            ofs << "  line=" << line << std::endl;
             auto line_size = line_sizes[line];
             auto const line_end = advance_by_code_point(line_it, cols);
-            ofs << "  line_size cu=" << line_size.code_units_ << " cp=" << line_size.code_points_ << std::endl;
             auto const excess_units = line_size.code_units_ - int(line_end - line_it);
             auto const excess_points = std::distance(
                 boost::text::utf8::to_utf32_iterator<boost::text::rope::const_iterator>(line_end),
                 boost::text::utf8::to_utf32_iterator<boost::text::rope::const_iterator>(line_end + excess_units)
             );
-            ofs << "  excess_units=" << excess_units << " excess_points=" << excess_points << std::endl;
             line_size.code_units_ -= excess_units;
             line_size.code_points_ -= excess_points;
             line_sizes.replace(line_sizes.begin() + line, line_size);
 
             if (line_end[excess_units - 1] == '\n') {
-                ofs << "  newline! adding new line_size" << std::endl;
                 auto insert_it = line + 1 <= line_sizes.size() ?
                     line_sizes.begin() + line + 1 :
                     line_sizes.end();
                 line_sizes.insert(insert_it, line_size_t{excess_units, excess_points});
             } else {
-                ofs << "  push excess to next line" << std::endl;
                 line_size = line_sizes[line + 1];
                 line_size.code_units_ += excess_units;
                 line_size.code_points_ += excess_points;
@@ -137,9 +125,7 @@ namespace {
 
             line_it = line_end;
             ++line;
-            ofs << "  line <- " << line << std::endl;
         }
-        ofs << std::endl;
     }
 
     command_t insert (boost::text::text_view tv)
@@ -147,11 +133,6 @@ namespace {
         return [tv] (app_state_t state, screen_pos_t screen_size)
             -> boost::optional<app_state_t>
         {
-            ofs << "inserting tv=" << tv << "\n";
-            for (auto c : tv) {
-                ofs << (int)c << " ";
-            }
-            ofs << "\n";
             auto & s = state.buffer_.snapshot_;
             state.buffer_.history_.push_back(s);
             auto const offset = cursor_offset(s);

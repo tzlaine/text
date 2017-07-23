@@ -124,12 +124,6 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
     if (line_size)
         snapshot.line_sizes_.push_back({line_size, line_cps});
 
-    // TODO
-    std::ofstream ofs("lines.txt");
-    for (auto const width : snapshot.line_sizes_) {
-        ofs << width.code_units_ << " " << width.code_points_ << std::endl;
-    }
-
     return buffer_t{snapshot, path, {1, snapshot}};
 }
 
