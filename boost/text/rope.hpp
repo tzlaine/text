@@ -449,7 +449,6 @@ namespace boost { namespace text {
             detail::found_leaf<detail::rope_tag> found;
             find_leaf(ptr_, at, found);
 
-            // TODO: This looks racy.
             for (auto node : found.path_) {
                 if (1 < node->refs_)
                     return text_insertion{nullptr};
