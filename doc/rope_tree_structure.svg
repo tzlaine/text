@@ -15,7 +15,7 @@
    viewBox="0 0 211.11545 102.50549"
    version="1.1"
    id="svg11234"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.1 r"
    sodipodi:docname="rope_tree_structure.svg">
   <defs
      id="defs11228">
@@ -304,15 +304,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="631.68862"
-     inkscape:cy="275.32117"
+     inkscape:cx="446.32563"
+     inkscape:cy="53.087612"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1441"
+     inkscape:window-width="1440"
      inkscape:window-height="682"
-     inkscape:window-x="204"
-     inkscape:window-y="593"
+     inkscape:window-x="0"
+     inkscape:window-y="51"
      inkscape:window-maximized="0"
      fit-margin-top="4"
      fit-margin-left="4"
@@ -376,46 +376,41 @@
            id="tspan6435"
            sodipodi:role="line">&quot;string&quot;xN</tspan></text>
     </g>
-    <g
-       id="g4282"
-       transform="matrix(0.64105354,0,0,0.64105354,-6.4880071,-21.678991)">
-      <rect
-         ry="2.6714945"
-         y="157.2684"
-         x="152.87885"
-         height="9.0831041"
-         width="52.648033"
-         id="rect6057-4-3-8"
-         style="fill:#add8e6;fill-opacity:1;stroke:#000000;stroke-width:0.2690596;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         ry="0"
-         y="154.07664"
-         x="146.74716"
-         height="10.121167"
-         width="14.932033"
-         id="rect6092-6-3-2-5-1-6"
-         style="fill:#fffafa;fill-opacity:1;stroke:#000000;stroke-width:0.30007452;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <text
-         id="text6096-9-8-94-1-4-8"
-         y="160.74084"
-         x="147.53145"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           id="tspan6489"
-           sodipodi:role="line"
-           x="147.53145"
-           y="160.74084">tv</tspan></text>
-      <text
-         id="text6096-9-8-94-1-4-9-83"
-         y="163.56761"
-         x="165.91356"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           y="163.56761"
-           x="165.91356"
-           id="tspan6487"
-           sodipodi:role="line">&quot;string&quot;</tspan></text>
-    </g>
+    <rect
+       style="fill:#add8e6;fill-opacity:1;stroke:#000000;stroke-width:0.17248161;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6057-4-3-8"
+       width="33.75021"
+       height="5.8227563"
+       x="91.515518"
+       y="79.138474"
+       ry="1.712571" />
+    <rect
+       style="fill:#fffafa;fill-opacity:1;stroke:#000000;stroke-width:0.19236383;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6092-6-3-2-5-1-6"
+       width="9.5722322"
+       height="6.4882102"
+       x="87.584778"
+       y="77.092384"
+       ry="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.52296392px;line-height:1.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.16961208;"
+       x="88.087547"
+       y="81.364494"
+       id="text6096-9-8-94-1-4-8"><tspan
+         sodipodi:role="line"
+         id="tspan5822">t</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.5229888px;line-height:1.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.16961208"
+       x="99.871468"
+       y="83.176605"
+       id="text6096-9-8-94-1-4-9-83"><tspan
+         sodipodi:role="line"
+         id="tspan6487"
+         x="99.871468"
+         y="83.176605"
+         style="stroke-width:0.16961208">&quot;string&quot;</tspan></text>
     <g
        id="g6529"
        transform="matrix(0.64105354,0,0,0.64105354,-72.495507,53.053638)">

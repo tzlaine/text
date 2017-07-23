@@ -182,8 +182,6 @@ becomes this code, which does not:
 
 [heading The `rope` Type]
 
-TODO: Update for text_view removal.
-
 In general, a _Rope_ is a heavyweight string; whereas a string is a simple
 array of contiguous storage, a _Rope_ is much more complicated and is
 typically a tree whose leaves are contiguous strings.
@@ -205,9 +203,9 @@ nonempty _rs_ you can have:
 
 This _r_ is just a single leaf node, containing the super-useful string
 `"text"`.  In this case, the leaf was a _t_ node, labeled here with `t`.
-There can also be leaf nodes for _tvs_ and _rtvs_, labeled in these diagrams
-with `tv` and `rtv`, respectively.  The final leaf node type is a
-reference-to-_t_ leaf, labeled as `ref`.  More on that in a bit.
+There can also be leaf nodes for _rtvs_, labeled in these diagrams with `rtv`.
+The final leaf node type is a reference-to-_t_ leaf, labeled as `ref`.  More
+on that in a bit.
 
 If we copy the _r_ above, we get something like this:
 
@@ -258,9 +256,9 @@ matches a whole leaf exactly, to keep things simpler:
 
 Simple, right?  In this case, we did the erasure by creating a copy of each
 node on the path from the root to the erased leaf, and just referring to all
-the other nodes that did not change.  Again, most of the string data and and
-even interior nodes are shared among the three ropes in the diagram.  This
-same principle applies to `insert()`, `erase()`, and `replace()`.
+the other nodes that did not change.  Again, most of the string data and even
+interior nodes are shared among the three ropes in the diagram.  This same
+principle applies to `insert()`, `erase()`, and `replace()`.
 
 [note We don't make new nodes every time we need to do an insert, erase, or
 other mutation.  If the reference counts on the root-to-leaf path are all `1`,
@@ -282,8 +280,8 @@ shallow.
 As mentioned previously, mutations to a _r_ are done in-place if the mutations
 do not affect nodes that are shared with other _rs_.
 
-If a mutation can be done in place, and the point of mutation is falls within
-a _t_ leaf, the _t_ object is directly mutated if: the inserted string fits
+If a mutation can be done in place, and the point of mutation falls within a
+_t_ leaf, the _t_ object is directly mutated if: the inserted string fits
 within the `capacity()` of the _t_, *or*
 
 * the _t_ object is not too large (there is a maximum size that is an
@@ -292,20 +290,6 @@ within the `capacity()` of the _t_, *or*
 
 * the inserted object would cause an allocation if copied (i.e. it is a
   _t_).
-
-Most of _Text_'s interfaces try to use _tv_ or _rv_ parameters where possible,
-instead of explicitly creating all the possible _t_, _tv_ `char const *`,
-etc. overloads.  You may notice however that _r_ has overloads for its
-inserting functions and constructors for _t_, _tv_, _rtv_, and _rv_, when it
-seems just _rv_ would do.
-
-These extra overloads allow you to control exactly which kind of leaf node
-gets inserted into the _r_ (except the in-place mutation of _ts_ mentioned
-above).  If you have a string that is already owned by another entity, and is
-guaranteed to outlive the _r_, insert a _tv_ of the string into the _r_,
-because it's very efficient.  If you don't know that a string you're inserting
-will outlive the _r_, or if you want to add a spot to the _r_ that you intend
-to update with subsequent in-place edits, insert a _t_ instead.
 
 
 [heading The `rope_view` Type]
