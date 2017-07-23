@@ -256,11 +256,6 @@ key_map_t emacs_lite ()
         key_map_entry_t{(ctrl-'x', ctrl-'c'), quit},
     };
 
-#if 0
-    retval[backspace] = "delete-before";
-    retval[delete_] = "delete-after";
-#endif
-
     return retval;
 }
 
