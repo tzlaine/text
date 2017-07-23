@@ -9,8 +9,8 @@
 
 namespace boost { namespace text { namespace detail {
 
-    // TODO: Experiment with collapsing adjacent text_views, references, etc.,
-    // when inserting, erasing, etc.
+    // TODO: Experiment with collapsing adjacent references when inserting,
+    // erasing, etc.
 
     struct rope_tag;
 
@@ -38,7 +38,7 @@ namespace boost { namespace text { namespace detail {
             ;
     }
 
-    enum class which : char { t, tv, rtv, ref };
+    enum class which : char { t, rtv, ref };
 
     constexpr int text_insert_max = 512;
 
@@ -48,16 +48,6 @@ namespace boost { namespace text { namespace detail {
     struct leaf_node_t<rope_tag> : node_t<rope_tag>
     {
         leaf_node_t () noexcept : leaf_node_t (text_view()) {}
-
-        leaf_node_t (text const & t) :
-            node_t (true),
-            buf_ptr_ (nullptr),
-            which_ (which::t)
-        {
-            auto at = placement_address<text>(buf_, sizeof(buf_));
-            assert(at);
-            buf_ptr_ = new (at) text(t);
-        }
 
         leaf_node_t (text && t) noexcept :
             node_t (true),
@@ -72,11 +62,11 @@ namespace boost { namespace text { namespace detail {
         leaf_node_t (text_view tv) noexcept :
             node_t (true),
             buf_ptr_ (nullptr),
-            which_ (which::tv)
+            which_ (which::t)
         {
             auto at = placement_address<text_view>(buf_, sizeof(buf_));
             assert(at);
-            buf_ptr_ = new (at) text_view(tv);
+            buf_ptr_ = new (at) text(tv);
         }
 
         leaf_node_t (repeated_text_view rtv) noexcept :
@@ -99,12 +89,6 @@ namespace boost { namespace text { namespace detail {
                 auto at = placement_address<text>(buf_, sizeof(buf_));
                 assert(at);
                 buf_ptr_ = new (at) text(rhs.as_text());
-                break;
-            }
-            case which::tv: {
-                auto at = placement_address<text_view>(buf_, sizeof(buf_));
-                assert(at);
-                buf_ptr_ = new (at) text_view(rhs.as_text_view());
                 break;
             }
             case which::rtv: {
@@ -134,7 +118,6 @@ namespace boost { namespace text { namespace detail {
 
             switch (which_) {
             case which::t: as_text().~text(); break;
-            case which::tv: as_text_view().~text_view (); break;
             case which::rtv: as_repeated_text_view().~repeated_text_view(); break;
             case which::ref: as_reference().~reference(); break;
             default: assert(!"unhandled rope node case"); break;
@@ -145,7 +128,6 @@ namespace boost { namespace text { namespace detail {
         {
             switch (which_) {
             case which::t: return as_text().size(); break;
-            case which::tv: return as_text_view().size(); break;
             case which::rtv: return as_repeated_text_view().size(); break;
             case which::ref: return as_reference().ref_.size(); break;
             default: assert(!"unhandled rope node case"); break;
@@ -157,12 +139,6 @@ namespace boost { namespace text { namespace detail {
         {
             assert(which_ == which::t);
             return *static_cast<text *>(buf_ptr_);
-        }
-
-        text_view const & as_text_view () const noexcept
-        {
-            assert(which_ == which::tv);
-            return *static_cast<text_view *>(buf_ptr_);
         }
 
         repeated_text_view const & as_repeated_text_view () const noexcept
@@ -181,12 +157,6 @@ namespace boost { namespace text { namespace detail {
         {
             assert(which_ == which::t);
             return *static_cast<text *>(buf_ptr_);
-        }
-
-        text_view & as_text_view () noexcept
-        {
-            assert(which_ == which::tv);
-            return *static_cast<text_view *>(buf_ptr_);
         }
 
         repeated_text_view & as_repeated_text_view () noexcept
@@ -222,9 +192,6 @@ namespace boost { namespace text { namespace detail {
         switch (leaf->which_) {
         case which::t:
             c = *(leaf->as_text().cbegin() + retval.leaf_.offset_);
-            break;
-        case which::tv:
-            c = *(leaf->as_text_view().begin() + retval.leaf_.offset_);
             break;
         case which::rtv:
             c = *(leaf->as_repeated_text_view().begin() + retval.leaf_.offset_);
@@ -319,23 +286,6 @@ namespace boost { namespace text { namespace detail {
                     t = t(lo, hi);
             }
             return node;
-        case which::tv: {
-            text_view const old_tv = node.as_leaf()->as_text_view();
-            text_view const new_tv =
-                encoding_note == encoding_breakage_ok ?
-                text_view(old_tv.begin() + lo, hi - lo, utf8::unchecked) :
-                old_tv(lo, hi);
-
-            if (!leaf_mutable)
-                return make_node(new_tv);
-
-            {
-                auto mut_node = node.write();
-                text_view & tv = mut_node.as_leaf()->as_text_view();
-                tv = new_tv;
-            }
-            return node;
-        }
         case which::rtv: {
             repeated_text_view const & crtv = node.as_leaf()->as_repeated_text_view();
             int const mod_lo = lo % crtv.view().size();

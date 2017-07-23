@@ -49,9 +49,6 @@ namespace boost { namespace text {
         /** Constructs a rope from a rope_view. */
         explicit rope (rope_view rv);
 
-        /** Constructs a rope from a text. */
-        explicit rope (text const & t) : ptr_ (detail::make_node(t)) {}
-
         /** Move-constructs a rope from a text. */
         explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
 
@@ -83,14 +80,6 @@ namespace boost { namespace text {
 
         /** Assignment from a rope_view. */
         rope & operator= (rope_view rv);
-
-        /** Assignment from a text. */
-        rope & operator= (text const & t)
-        {
-            rope temp(t);
-            swap(temp);
-            return *this;
-        }
 
         /** Move-assignment from a text. */
         rope & operator= (text && t)
@@ -175,9 +164,9 @@ namespace boost { namespace text {
         rope substr (size_type cut) const;
 
         /** Visits each segment s of *this and calls f(s).  Each segment is a
-            text const &, text_view, or repeated_text_view.  Depending of the
-            operation performed on each segment, this may be more efficient
-            than iterating over [begin(), end()).
+            text_view or repeated_text_view.  Depending of the operation
+            performed on each segment, this may be more efficient than
+            iterating over [begin(), end()).
 
             \pre Fn is an Invocable accepting a single argument of any of the
             types listed above. */
@@ -187,10 +176,7 @@ namespace boost { namespace text {
             detail::foreach_leaf(ptr_, [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
                 switch (leaf->which_) {
                 case detail::which::t:
-                    f(leaf->as_text());
-                    break;
-                case detail::which::tv:
-                    f(leaf->as_text_view());
+                    f(text_view(leaf->as_text()));
                     break;
                 case detail::which::rtv:
                     f(leaf->as_repeated_text_view());
@@ -245,14 +231,6 @@ namespace boost { namespace text {
         rope & insert (size_type at, rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
-            at.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
-        rope & insert (size_type at, text const & t)
-        { return insert_impl(at, t, would_allocate); }
-
-        /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t.
 
             \throw std::invalid_argument if insertion at offset at would break
@@ -303,7 +281,7 @@ namespace boost { namespace text {
 
         /** Erases the portion of *this delimited by rv.
 
-            \pre tv.begin() <= rv.begin() && rvend() <= end() */
+            \pre rv.begin() <= rv.begin() && rv.end() <= end() */
         rope & erase (rope_view rv);
 
         /** Erases the portion of *this delimited by [first, last).
@@ -319,12 +297,6 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         rope & replace (rope_view old_substr, rope_view rv);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from t.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        rope & replace (rope_view old_substr, text const & t);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from t by moving the contents of t.
@@ -393,9 +365,6 @@ namespace boost { namespace text {
             ptr_ = std::move(new_root_ptr);
             return *this;
         }
-
-        /** Appends t to *this. */
-        rope & operator+= (text const & t);
 
         /** Appends t to *this, by moving its contents into *this. */
         rope & operator+= (text && t);
@@ -565,7 +534,7 @@ namespace boost { namespace text {
             bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
             if (tv_null_terminated)
                 tv = tv(0, -1);
-            return insert_impl(at, tv, would_not_allocate);
+            return insert_impl(at, tv, would_allocate);
         }
 
         if (rv.which_ == rope_view::which::rtv) {
@@ -766,9 +735,6 @@ namespace boost { namespace text {
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
     }
 
-    inline rope & rope::replace (rope_view old_substr, text const & t)
-    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, t); }
-
     inline rope & rope::replace (rope_view old_substr, text && t)
     { return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(t)); }
 
@@ -793,9 +759,6 @@ namespace boost { namespace text {
 
     inline rope & rope::operator+= (rope_view rv)
     { return insert(size(), rv); }
-
-    inline rope & rope::operator+= (text const & t)
-    { return insert(size(), t); }
 
     inline rope & rope::operator+= (text && t)
     { return insert(size(), std::move(t)); }
@@ -924,14 +887,6 @@ namespace boost { namespace text {
     /** Creates a new rope object that is the concatenation of rv and r. */
     inline rope operator+ (rope_view rv, rope r)
     { return r.insert(0, rv); }
-
-    /** Creates a new rope object that is the concatenation of r and t. */
-    inline rope operator+ (rope r, text const & t)
-    { return r.insert(r.size(), t); }
-
-    /** Creates a new rope object that is the concatenation of t and r. */
-    inline rope operator+ (text const & t, rope r)
-    { return r.insert(0, t); }
 
     /** Creates a new rope object that is the concatenation of r and t, by
         moving the contents of t into the result. */
@@ -1068,9 +1023,6 @@ namespace boost { namespace text {
             switch (leaf->which_) {
             case detail::which::t:
                 f(leaf->as_text()(lo, hi));
-                break;
-            case detail::which::tv:
-                f(leaf->as_text_view()(lo, hi));
                 break;
             case detail::which::rtv:
                 f(detail::repeated_range{

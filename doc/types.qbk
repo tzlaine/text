@@ -182,6 +182,8 @@ becomes this code, which does not:
 
 [heading The `rope` Type]
 
+TODO: Update for text_view removal.
+
 In general, a _Rope_ is a heavyweight string; whereas a string is a simple
 array of contiguous storage, a _Rope_ is much more complicated and is
 typically a tree whose leaves are contiguous strings.

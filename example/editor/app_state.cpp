@@ -226,7 +226,7 @@ namespace {
                     return eval_input_t{insert("\n"), true};
                 } else if(' ' <= key_code.key_ && key_code.key_ <= '~' &&
                           boost::text::utf8::valid_code_point(key_code.key_)) {
-                    static char buf[4]; // TODO: rope should always allocate storage for incoming text_view characters.
+                    static char buf[4];
                     int const * const key_ptr = &key_code.key_;
                     auto const last = std::copy(
                         boost::text::utf8::from_utf32_iterator<int const *>(key_ptr),

@@ -751,7 +751,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         root = btree_insert(root, 2, make_node("new"), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
-        EXPECT_EQ(extra_ref->refs_, 2);
+        EXPECT_EQ(extra_ref->refs_, 4);
 
         EXPECT_FALSE(root->leaf_);
         EXPECT_EQ(num_children(root), 3);
@@ -799,7 +799,7 @@ TEST(rope_btree, test_btree_insert_extra_ref)
         }
 
         EXPECT_EQ(root->refs_, 1);
-        EXPECT_EQ(extra_ref->refs_, 2);
+        EXPECT_EQ(extra_ref->refs_, 4);
 
         check_leaf_heights(root);
 
@@ -1428,12 +1428,8 @@ TEST(rope_btree, test_btree_erase)
 
         root = btree_erase(root, 1, 8, check_encoding_breakage);
 
+        EXPECT_TRUE(root->leaf_);
         EXPECT_EQ(size(root.get()), 2);
-        EXPECT_EQ(num_children(root), 2);
-        EXPECT_EQ(keys(root)[0], 1);
-        EXPECT_EQ(size(children(root)[1].get()), 1);
-        EXPECT_EQ(keys(root)[1], 2);
-        EXPECT_EQ(size(children(root)[1].get()), 1);
     }
 
     // Erasure from non-leaf nodes, entire segments only
