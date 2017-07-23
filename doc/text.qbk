@@ -41,8 +41,8 @@
 [/ Links ]
 
 [def _Text_                Boost.Text]
-[def _Char_rng_            [link boost_text__proposed_.concepts.char_range Char_range]]
-[def _Char_iter_           [link boost_text__proposed_.concepts.char_iterator Char_iterator]]
+[def _CharRng_             [link boost_text__proposed_.concepts.char_range CharRange]]
+[def _CharIter_            [link boost_text__proposed_.concepts.char_iterator CharIterator]]
 
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]

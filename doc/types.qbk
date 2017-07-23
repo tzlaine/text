@@ -56,7 +56,7 @@ Of course, there is a user-defined literal for _tv_:
 [text_view_literal]
 
 Finally, there is an `explicit` conversion from any value of a type that
-models _Char_rng_.  _Char_rng_ is any contiguous sequence of `char` that
+models _CharRng_.  _CharRng_ is any contiguous sequence of `char` that
 provides `char const *` pointer access to its `char`s.  This give use
 conversions from `std::string` and other types that _tv_ does not explicitly
 know about.
@@ -116,7 +116,7 @@ look at the ones for `insert()`:
     template<typename Iter> text & insert(iterator at, Iter first, Iter last);
 
 The first two insert sequences that are unchecked, since they are already
-contained in _Text_ types.  The _Char_rng_ overload constructs a _tv_ from the
+contained in _Text_ types.  The _CharRng_ overload constructs a _tv_ from the
 inserted object, and so the normal _tv_ checking is done.
 
 For the last two, it becomes impossible to check the encoding at the ends
