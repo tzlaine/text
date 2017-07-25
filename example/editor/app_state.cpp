@@ -92,10 +92,11 @@ namespace {
         return state;
     }
 
+    template <typename Iter>
     void fixup_lines (
         boost::text::segmented_vector<line_size_t> & line_sizes,
         int line,
-        boost::text::rope::const_iterator line_it,
+        Iter line_it,
         int cols
     ) {
         while (line < (int)line_sizes.size() &&
@@ -104,8 +105,8 @@ namespace {
             auto const line_end = advance_by_code_point(line_it, cols);
             auto const excess_units = line_size.code_units_ - int(line_end - line_it);
             auto const excess_points = std::distance(
-                boost::text::utf8::to_utf32_iterator<boost::text::rope::const_iterator>(line_end),
-                boost::text::utf8::to_utf32_iterator<boost::text::rope::const_iterator>(line_end + excess_units)
+                boost::text::utf8::to_utf32_iterator<Iter>(line_end),
+                boost::text::utf8::to_utf32_iterator<Iter>(line_end + excess_units)
             );
             line_size.code_units_ -= excess_units;
             line_size.code_points_ -= excess_points;
@@ -134,7 +135,9 @@ namespace {
             -> boost::optional<app_state_t>
         {
             auto & s = state.buffer_.snapshot_;
+#ifdef USE_ROPES
             state.buffer_.history_.push_back(s);
+#endif
             auto const offset = cursor_offset(s);
             if (tv == "\n") {
                 s.content_.insert(offset.rope_offset_, tv);
@@ -186,6 +189,7 @@ namespace {
         };
     }
 
+#if USE_ROPES
     boost::optional<app_state_t> undo (app_state_t state, screen_pos_t)
     {
         state.buffer_.snapshot_ = state.buffer_.history_.back();
@@ -193,6 +197,7 @@ namespace {
             state.buffer_.history_.pop_back();
         return state;
     }
+#endif
 
     boost::optional<app_state_t> quit (app_state_t, screen_pos_t)
     { return boost::none; }
@@ -251,7 +256,9 @@ key_map_t emacs_lite ()
         key_map_entry_t{left, move_left},
         key_map_entry_t{right, move_right},
 
+#if USE_ROPES
         key_map_entry_t{ctrl-'_', undo},
+#endif
 
         key_map_entry_t{(ctrl-'x', ctrl-'c'), quit},
     };

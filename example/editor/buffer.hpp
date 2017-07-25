@@ -18,7 +18,11 @@ struct line_size_t
 
 struct snapshot_t
 {
+#ifdef USE_ROPES
     boost::text::rope content_;
+#else
+    boost::text::text content_;
+#endif
     boost::text::segmented_vector<line_size_t> line_sizes_;
     int first_row_ = 0;
     int desired_col_ = 0;
@@ -30,11 +34,15 @@ struct buffer_t
 {
     snapshot_t snapshot_;
     boost::filesystem::path path_;
+#ifdef USE_ROPES
     std::vector<snapshot_t> history_;
+#endif
 };
 
+#ifdef USE_ROPES
 inline bool dirty (buffer_t const & b)
 { return !b.snapshot_.content_.equal_root(b.history_.front().content_); }
+#endif
 
 template <typename Iter>
 Iter advance_by_code_point (Iter it, int code_points)
@@ -124,7 +132,13 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
     if (line_size)
         snapshot.line_sizes_.push_back({line_size, line_cps});
 
-    return buffer_t{snapshot, path, {1, snapshot}};
+    return buffer_t{
+        snapshot,
+        path
+#if USE_ROPES
+        , {1, snapshot}
+#endif
+    };
 }
 
 #endif

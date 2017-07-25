@@ -74,7 +74,11 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
     attron(A_REVERSE);
     printw(
         " %s %s  (%d, %d)",
+#if USE_ROPES
         dirty(buffer) ? "**" : "--",
+#else
+        "  ",
+#endif
         buffer.path_.c_str(),
         buffer.snapshot_.first_row_ + buffer.snapshot_.cursor_pos_.row_ + 1,
         buffer.snapshot_.cursor_pos_.col_

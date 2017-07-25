@@ -1,4 +1,4 @@
-//[hello_world
+//[ hello_world
 
 #include <boost/text/text.hpp>
 
