@@ -17,6 +17,7 @@ add_sample(text_view_snippets)
 add_sample(text_snippets)
 
 add_sample(hello_world)
+add_sample(encoding)
 
 
 if (BUILD_EDITOR)
