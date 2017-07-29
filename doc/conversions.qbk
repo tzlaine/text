@@ -8,10 +8,10 @@ _Text_ provides eight converting iterators:
 * `template<typename Iter> struct from_utf16_iterator_throwing`
 * `template<typename Iter> struct from_utf32_iterator`
 * `template<typename Iter> struct from_utf32_iterator_throwing`
-* `struct to_utf16_iterator`
-* `struct to_utf16_iterator_throwing`
-* `struct to_utf32_iterator`
-* `struct to_utf32_iterator_throwing`
+* `template<typename Iter> struct to_utf16_iterator`
+* `template<typename Iter> struct to_utf16_iterator_throwing`
+* `template<typename Iter> struct to_utf32_iterator`
+* `template<typename Iter> struct to_utf32_iterator_throwing`
 
 The ones with `throwing` in the name throw an exception when encoutering an
 invalid encoding.
@@ -43,6 +43,6 @@ caveats:
   pre-increment and pre-decrement.
 
 [note The `to_utf32_iterator` converting iterator can be used to iterate
-across Unicode code points in most of the _Text_ string types.]
+across Unicode code points in the _Text_ string types.]
 
 [endsect]
