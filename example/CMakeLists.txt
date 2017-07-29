@@ -17,3 +17,42 @@ add_sample(text_view_snippets)
 add_sample(text_snippets)
 
 add_sample(hello_world)
+add_sample(encoding)
+add_sample(param_conventions)
+
+
+if (BUILD_EDITOR)
+    add_executable(
+        rope_editor
+        editor/main.cpp
+        editor/app_state.cpp
+        editor/curses_interface.cpp
+        editor/key_mappings.cpp
+    )
+    target_compile_options(rope_editor PRIVATE -Wall -D_XOPEN_SOURCE_EXTENDED -DUSE_ROPES)
+    if (CMAKE_COMPILER_IS_GNUCXX)
+        target_compile_options(rope_editor PRIVATE -Wno-terminate)
+    endif ()
+    target_link_libraries(rope_editor text ${Boost_LIBRARIES} ncurses)
+    set_property(TARGET rope_editor PROPERTY CXX_STANDARD ${CXX_STD})
+    if (clang_on_linux)
+        target_link_libraries(rope_editor c++)
+    endif ()
+
+    add_executable(
+        text_editor
+        editor/main.cpp
+        editor/app_state.cpp
+        editor/curses_interface.cpp
+        editor/key_mappings.cpp
+    )
+    target_compile_options(text_editor PRIVATE -Wall -D_XOPEN_SOURCE_EXTENDED)
+    if (CMAKE_COMPILER_IS_GNUCXX)
+        target_compile_options(text_editor PRIVATE -Wno-terminate)
+    endif ()
+    target_link_libraries(text_editor text ${Boost_LIBRARIES} ncurses)
+    set_property(TARGET text_editor PROPERTY CXX_STANDARD ${CXX_STD})
+    if (clang_on_linux)
+        target_link_libraries(text_editor c++)
+    endif ()
+endif ()

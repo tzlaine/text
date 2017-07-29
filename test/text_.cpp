@@ -52,6 +52,7 @@ TEST(text, test_empty)
     EXPECT_EQ(t.crend(), crend(t));
 
     t.clear();
+    t.resize(0, 'c');
     t.shrink_to_fit();
 
     std::cout << "t=\"" << t << "\"\n";
@@ -553,6 +554,44 @@ TEST(text, test_misc)
         t.clear();
         EXPECT_EQ(t.size(), 0);
         EXPECT_EQ(t.capacity(), cap);
+    }
+
+    {
+        text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
+        int const cap = t.capacity();
+        t.resize(0, 'c');
+        EXPECT_EQ(t.size(), 0);
+        EXPECT_EQ(t.capacity(), cap);
+    }
+
+    {
+        text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
+        int const cap = t.capacity();
+        t.resize(4, 'c');
+        EXPECT_EQ(t.size(), 4);
+        EXPECT_EQ(t.capacity(), cap);
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    {
+        text::text t("some text");
+        EXPECT_EQ(t[t.size()], '\0');
+        t.resize(12, 'c');
+        EXPECT_EQ(t.size(), 12);
+        EXPECT_EQ(t, "some textccc");
+        EXPECT_EQ(t[t.size()], '\0');
+    }
+
+    // Unicode 9, 3.9/D90
+    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+
+    {
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        text::text t(first, last);
+        EXPECT_THROW(t.resize(t.size() - 1, '\0'), std::invalid_argument);
     }
 
     {

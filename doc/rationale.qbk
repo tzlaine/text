@@ -51,10 +51,10 @@ error.  This can still be accomplished by directly writing through the index
 operator or or an iterator, or by inserting `text_view("\0")`.
 
 
-[heading There are no _Char_rng_ Interfaces in `rope`]
+[heading There are no _CharRng_ Interfaces in `rope`]
 
 The reason that these interfaces exist for _t_ but not for _r_ is that _t_
-converts a _Char_rng_ into a _tv_, and then always copies the bytes into its
+converts a _CharRng_ into a _tv_, and then always copies the bytes into its
 storage.  _r_ does not convert _tvs_ into allocated storage, but *does* with
 _ts_.  So the user needs to be able to control what kind of segment gets
 inserted into the _r_ by constructing either a _t_ or _tv_ explicitly first.

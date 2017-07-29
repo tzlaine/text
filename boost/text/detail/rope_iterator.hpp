@@ -129,20 +129,19 @@ namespace boost { namespace text { namespace detail {
         char deref () const
         {
             switch (leaf_->which_) {
-            case node_t::which::t: {
-                text const * t = static_cast<text *>(leaf_->buf_ptr_);
+            case which::t: {
+                text const * t =
+                    static_cast<text *>(leaf_->buf_ptr_);
                 return *(t->begin() + (n_ - leaf_start_));
             }
-            case node_t::which::tv: {
-                text_view const * tv = static_cast<text_view *>(leaf_->buf_ptr_);
-                return *(tv->begin() + (n_ - leaf_start_));
-            }
-            case node_t::which::rtv: {
-                repeated_text_view const * rtv = static_cast<repeated_text_view *>(leaf_->buf_ptr_);
+            case which::rtv: {
+                repeated_text_view const * rtv =
+                    static_cast<repeated_text_view *>(leaf_->buf_ptr_);
                 return *(rtv->begin() + (n_ - leaf_start_));
             }
-            case node_t::which::ref: {
-                detail::reference const * ref = static_cast<detail::reference *>(leaf_->buf_ptr_);
+            case which::ref: {
+                detail::reference<rope_tag> const * ref =
+                    static_cast<detail::reference<rope_tag> *>(leaf_->buf_ptr_);
                 return *(ref->ref_.begin() + (n_ - leaf_start_));
             }
             default: assert(!"unhandled rope node case"); break;
@@ -152,7 +151,7 @@ namespace boost { namespace text { namespace detail {
 
         rope const * rope_;
         difference_type n_;
-        mutable leaf_node_t const * leaf_;
+        mutable leaf_node_t<rope_tag> const * leaf_;
         mutable difference_type leaf_start_;
 
         friend struct ::boost::text::rope_view;

@@ -30,6 +30,9 @@ add_test_executable(detail_iterator)
 add_test_executable(utf8)
 add_test_executable(text_view)
 add_test_executable(text_)
+add_test_executable(detail_btree_util)
+add_test_executable(detail_btree)
+add_test_executable(detail_btree_2)
 add_test_executable(detail_rope)
 add_test_executable(detail_rope_btree)
 add_test_executable(detail_rope_iterator)
@@ -71,6 +74,8 @@ set(compile_sources
     compile_include_rope_1.cpp
     compile_include_rope_2.cpp
     compile_include_rope_3.cpp
+    compile_include_vector_1.cpp
+    compile_include_vector_2.cpp
     compile_include_algorithm_1.cpp
     compile_include_algorithm_2.cpp
     compile_detail_is_char_iter.cpp
@@ -96,4 +101,40 @@ target_link_libraries(compile_tests text)
 set_property(TARGET compile_tests PROPERTY CXX_STANDARD ${CXX_STD})
 if (clang_on_linux)
     target_link_libraries(compile_tests c++)
+endif ()
+
+if (BUILD_ROPE_THREADSAFETY_TEST)
+    if (USE_ASAN OR USE_UBSAN)
+        message(FATAL_ERROR "BUILD_ROPE_THREADSAFETY_TEST must not be enabled at the same time as USE_ASAN or USE_UBSAN")
+    endif ()
+    add_executable(rope_threadsafety rope_threadsafety.cpp)
+    target_compile_options(rope_threadsafety PRIVATE ${warnings_flag} -fsanitize=thread)
+    target_link_libraries(rope_threadsafety text -fsanitize=thread)
+    if (UNIX AND NOT APPLE) # Linux
+        target_compile_options(rope_threadsafety PRIVATE -pthread)
+        target_link_libraries(rope_threadsafety -pthread)
+    endif ()
+    set_property(TARGET rope_threadsafety PROPERTY CXX_STANDARD ${CXX_STD})
+    add_test(rope_threadsafety ${CMAKE_CURRENT_BINARY_DIR}/rope_threadsafety)
+    if (clang_on_linux)
+        target_link_libraries(rope_threadsafety c++)
+    endif ()
+endif ()
+
+if (BUILD_FUZZ_TESTS)
+    if (NOT USE_ASAN AND NOT USE_UBSAN)
+        message("BUILD_FUZZ_TEST would greatly benefit from also turning on USE_ASAN or USE_UBSAN")
+    endif ()
+
+    add_executable(fuzz_1 fuzz_1.cpp)
+    target_compile_options(fuzz_1 PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_1 text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
+    set_property(TARGET fuzz_1 PROPERTY CXX_STANDARD ${CXX_STD})
+    add_test(fuzz_1 ${CMAKE_CURRENT_BINARY_DIR}/fuzz_1)
+    if (clang_on_linux)
+        target_link_libraries(fuzz_1 c++)
+    endif ()
+
+    add_custom_target(build_libfuzzer ${CMAKE_CURRENT_SOURCE_DIR}/Fuzzer/build.sh)
+    add_dependencies(fuzz_1 build_libfuzzer)
 endif ()

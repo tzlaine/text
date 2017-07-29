@@ -29,6 +29,8 @@
 [import ../example/text_view_snippets.cpp]
 [import ../example/text_snippets.cpp]
 [import ../example/hello_world.cpp]
+[import ../example/encoding.cpp]
+[import ../example/param_conventions.cpp]
 
 [/ Images ]
 
@@ -41,8 +43,8 @@
 [/ Links ]
 
 [def _Text_                Boost.Text]
-[def _Char_rng_            [link boost_text__proposed_.concepts.char_range Char_range]]
-[def _Char_iter_           [link boost_text__proposed_.concepts.char_iterator Char_iterator]]
+[def _CharRng_             [link boost_text__proposed_.concepts.charrange CharRange]]
+[def _CharIter_            [link boost_text__proposed_.concepts.chariterator CharIterator]]
 
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]

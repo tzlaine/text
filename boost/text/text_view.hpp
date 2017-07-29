@@ -120,13 +120,13 @@ namespace boost { namespace text {
             detail::rng_alg_ret_t<int *, CharRange> = 0
         )
         {
-            // TODO: This doesn't work for types with free begin()/end() but
-            // no member begin()/end().
-            if (std::begin(r) == std::end(r)) {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
                 data_ = nullptr;
                 size_ = 0;
             } else {
-                *this = text_view(&*std::begin(r), std::end(r) - std::begin(r));
+                *this = text_view(&*begin(r), end(r) - begin(r));
             }
         }
 

@@ -6,7 +6,8 @@
 ###############################################################################
 # Boost
 ###############################################################################
-find_package(Boost 1.64.0)
+set(Boost_USE_STATIC_LIBS ON)
+find_package(Boost 1.64.0 COMPONENTS system filesystem)
 if (Boost_INCLUDE_DIRS)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})

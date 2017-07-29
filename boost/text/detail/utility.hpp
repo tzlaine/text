@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_UTILITY_HPP
 #define BOOST_TEXT_DETAIL_UTILITY_HPP
 
+#include <boost/text/config.hpp>
+
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
 #include <ostream>

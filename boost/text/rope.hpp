@@ -49,9 +49,6 @@ namespace boost { namespace text {
         /** Constructs a rope from a rope_view. */
         explicit rope (rope_view rv);
 
-        /** Constructs a rope from a text. */
-        explicit rope (text const & t) : ptr_ (detail::make_node(t)) {}
-
         /** Move-constructs a rope from a text. */
         explicit rope (text && t) : ptr_ (detail::make_node(std::move(t))) {}
 
@@ -83,14 +80,6 @@ namespace boost { namespace text {
 
         /** Assignment from a rope_view. */
         rope & operator= (rope_view rv);
-
-        /** Assignment from a text. */
-        rope & operator= (text const & t)
-        {
-            rope temp(t);
-            swap(temp);
-            return *this;
-        }
 
         /** Move-assignment from a text. */
         rope & operator= (text && t)
@@ -147,7 +136,7 @@ namespace boost { namespace text {
             valid UTF-8. */
         rope_view operator() (int cut) const;
 
-        /** Returns the maximum size a text can have. */
+        /** Returns the maximum size a rope can have. */
         size_type max_size () const noexcept
         { return PTRDIFF_MAX; }
 
@@ -175,27 +164,24 @@ namespace boost { namespace text {
         rope substr (size_type cut) const;
 
         /** Visits each segment s of *this and calls f(s).  Each segment is a
-            text const &, text_view, or repeated_text_view.  Depending of the
-            operation performed on each segment, this may be more efficient
-            than iterating over [begin(), end()).
+            text_view or repeated_text_view.  Depending of the operation
+            performed on each segment, this may be more efficient than
+            iterating over [begin(), end()).
 
             \pre Fn is an Invocable accepting a single argument of any of the
             types listed above. */
         template <typename Fn>
         void foreach_segment (Fn && f) const
         {
-            detail::foreach_leaf(ptr_, [&](detail::leaf_node_t const * leaf) {
+            detail::foreach_leaf(ptr_, [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
                 switch (leaf->which_) {
-                case detail::node_t::which::t:
-                    f(leaf->as_text());
+                case detail::which::t:
+                    f(text_view(leaf->as_text()));
                     break;
-                case detail::node_t::which::tv:
-                    f(leaf->as_text_view());
-                    break;
-                case detail::node_t::which::rtv:
+                case detail::which::rtv:
                     f(leaf->as_repeated_text_view());
                     break;
-                case detail::node_t::which::ref:
+                case detail::which::ref:
                     f(leaf->as_reference().ref_);
                     break;
                 default: assert(!"unhandled rope node case"); break;
@@ -227,8 +213,15 @@ namespace boost { namespace text {
         bool operator>= (rope rhs) const noexcept
         { return compare(rhs) >= 0; }
 
+        /** Returns true if *this and rhs contain the same root node pointer.
+            This is useful when you want to check for equality between two
+            ropes that are likely to have originated from the same initial
+            rope, and may have since been mutated. */
+        bool equal_root (rope rhs) const noexcept
+        { return ptr_ == rhs.ptr_; }
+
         void clear ()
-        { ptr_ = detail::node_ptr(); }
+        { ptr_ = detail::node_ptr<detail::rope_tag>(); }
 
         /** Inserts the sequence of char from rv into *this starting at offset
             at.
@@ -236,14 +229,6 @@ namespace boost { namespace text {
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
         rope & insert (size_type at, rope_view rv);
-
-        /** Inserts the sequence of char from t into *this starting at offset
-            at.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
-        rope & insert (size_type at, text const & t)
-        { return insert_impl(at, t, would_allocate); }
 
         /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t.
@@ -296,7 +281,7 @@ namespace boost { namespace text {
 
         /** Erases the portion of *this delimited by rv.
 
-            \pre tv.begin() <= rv.begin() && rvend() <= end() */
+            \pre rv.begin() <= rv.begin() && rv.end() <= end() */
         rope & erase (rope_view rv);
 
         /** Erases the portion of *this delimited by [first, last).
@@ -312,12 +297,6 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         rope & replace (rope_view old_substr, rope_view rv);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from t.
-
-            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        rope & replace (rope_view old_substr, text const & t);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from t by moving the contents of t.
@@ -377,8 +356,8 @@ namespace boost { namespace text {
         /** Appends r to *this, by moving its contents into *this. */
         rope & operator+= (rope && r)
         {
-            detail::interior_node_t * new_root = nullptr;
-            detail::node_ptr new_root_ptr(new_root = detail::new_interior_node());
+            detail::interior_node_t<detail::rope_tag> * new_root = nullptr;
+            detail::node_ptr<detail::rope_tag> new_root_ptr(new_root = detail::new_interior_node<detail::rope_tag>());
             new_root->keys_.push_back(size());
             new_root->keys_.push_back(size() + r.size());
             new_root->children_.push_back(std::move(ptr_));
@@ -386,9 +365,6 @@ namespace boost { namespace text {
             ptr_ = std::move(new_root_ptr);
             return *this;
         }
-
-        /** Appends t to *this. */
-        rope & operator+= (text const & t);
 
         /** Appends t to *this, by moving its contents into *this. */
         rope & operator+= (text && t);
@@ -418,7 +394,7 @@ namespace boost { namespace text {
 #ifdef BOOST_TEXT_TESTING
     public:
 #endif
-        explicit rope (detail::node_ptr const & node) : ptr_ (node) {}
+        explicit rope (detail::node_ptr<detail::rope_tag> const & node) : ptr_ (node) {}
 #ifdef BOOST_TEXT_TESTING
     private:
 #endif
@@ -431,7 +407,7 @@ namespace boost { namespace text {
             { return text_ != nullptr; }
 
             text * text_;
-            detail::found_leaf found_;
+            detail::found_leaf<detail::rope_tag> found_;
         };
 
         text_insertion mutable_insertion_leaf (size_type at, size_type size, allocation_note_t allocation_note)
@@ -439,7 +415,7 @@ namespace boost { namespace text {
             if (!ptr_)
                 return text_insertion{nullptr};
 
-            detail::found_leaf found;
+            detail::found_leaf<detail::rope_tag> found;
             find_leaf(ptr_, at, found);
 
             for (auto node : found.path_) {
@@ -447,7 +423,10 @@ namespace boost { namespace text {
                     return text_insertion{nullptr};
             }
 
-            if (found.leaf_->as_leaf()->which_ == detail::node_t::which::t) {
+            if (1 < found.leaf_->get()->refs_)
+                return text_insertion{nullptr};
+
+            if (found.leaf_->as_leaf()->which_ == detail::which::t) {
                 text & t = const_cast<text &>(found.leaf_->as_leaf()->as_text());
                 auto const inserted_size = t.size() + size;
                 if (inserted_size <= t.capacity() ||
@@ -478,7 +457,7 @@ namespace boost { namespace text {
                 auto const t_size = t.size();
                 for (auto node : insertion.found_.path_) {
                     auto from = detail::find_child(node, at);
-                    detail::bump_keys(const_cast<detail::interior_node_t *>(node), from, t_size);
+                    detail::bump_keys(const_cast<detail::interior_node_t<detail::rope_tag> *>(node), from, t_size);
                 }
                 insertion.text_->insert(insertion.found_.offset_, t);
             } else {
@@ -493,7 +472,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        detail::node_ptr ptr_;
+        detail::node_ptr<detail::rope_tag> ptr_;
 
         friend struct detail::const_rope_iterator;
         friend struct rope_view;
@@ -527,7 +506,7 @@ namespace boost { namespace text {
 
     inline rope & rope::operator= (rope_view rv)
     {
-        detail::node_ptr extra_ref;
+        detail::node_ptr<detail::rope_tag> extra_ref;
         if (self_reference(rv))
             extra_ref = ptr_;
 
@@ -546,7 +525,7 @@ namespace boost { namespace text {
         if (rv.empty())
             return *this;
 
-        detail::node_ptr extra_ref;
+        detail::node_ptr<detail::rope_tag> extra_ref;
         if (self_reference(rv))
             extra_ref = ptr_;
 
@@ -555,7 +534,7 @@ namespace boost { namespace text {
             bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
             if (tv_null_terminated)
                 tv = tv(0, -1);
-            return insert_impl(at, tv, would_not_allocate);
+            return insert_impl(at, tv, would_allocate);
         }
 
         if (rv.which_ == rope_view::which::rtv) {
@@ -578,9 +557,9 @@ namespace boost { namespace text {
 
         rope_view::rope_ref rope_ref = rv.ref_.r_;
 
-        detail::found_leaf found_lo;
+        detail::found_leaf<detail::rope_tag> found_lo;
         find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
-        detail::leaf_node_t const * const leaf_lo = found_lo.leaf_->as_leaf();
+        detail::leaf_node_t<detail::rope_tag> const * const leaf_lo = found_lo.leaf_->as_leaf();
 
         // If the entire rope_view lies within a single segment, slice off
         // the appropriate part of that segment.
@@ -594,18 +573,19 @@ namespace boost { namespace text {
                     found_lo.offset_ + rv.size(),
                     true,
                     detail::encoding_breakage_ok
-                )
+                ),
+                detail::check_encoding_breakage
             );
             return *this;
         }
 
-        detail::found_leaf found_hi;
+        detail::found_leaf<detail::rope_tag> found_hi;
         find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
 
         bool before_lo = true;
-        detail::foreach_leaf(rope_ref.r_->ptr_, [&](detail::leaf_node_t const * leaf) {
+        detail::foreach_leaf(rope_ref.r_->ptr_, [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
             if (leaf == found_lo.leaf_->as_leaf()) {
-                detail::node_ptr node;
+                detail::node_ptr<detail::rope_tag> node;
                 if (found_lo.offset_ != 0) {
                     node = slice_leaf(
                         *found_lo.leaf_,
@@ -615,10 +595,10 @@ namespace boost { namespace text {
                         detail::encoding_breakage_ok
                     );
                 } else {
-                    node = detail::node_ptr(leaf);
+                    node = detail::node_ptr<detail::rope_tag>(leaf);
                 }
                 auto const node_size = detail::size(node.get());
-                ptr_ = detail::btree_insert(ptr_, at, std::move(node));
+                ptr_ = detail::btree_insert(ptr_, at, std::move(node), detail::check_encoding_breakage);
                 at += node_size;
                 before_lo = false;
                 return true; // continue
@@ -638,7 +618,8 @@ namespace boost { namespace text {
                             found_hi.offset_,
                             true,
                             detail::encoding_breakage_ok
-                        )
+                        ),
+                        detail::check_encoding_breakage
                     );
 
                     at += found_hi.offset_;
@@ -647,7 +628,12 @@ namespace boost { namespace text {
                 return false; // break
             }
 
-            ptr_ = detail::btree_insert(ptr_, at, detail::node_ptr(leaf));
+            ptr_ = detail::btree_insert(
+                ptr_,
+                at,
+                detail::node_ptr<detail::rope_tag>(leaf),
+                detail::check_encoding_breakage
+            );
             at += detail::size(leaf);
 
             return true;
@@ -667,7 +653,12 @@ namespace boost { namespace text {
 
         check_encoding_from(at);
 
-        ptr_ = detail::btree_insert(ptr_, at, detail::make_node(text(first, last)));
+        ptr_ = detail::btree_insert(
+            ptr_,
+            at,
+            detail::make_node(text(first, last)),
+            detail::check_encoding_breakage
+        );
 
         return *this;
     }
@@ -708,7 +699,7 @@ namespace boost { namespace text {
         if (rv_null_terminated)
             rv = rv(0, -1);
 
-        ptr_ = btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_);
+        ptr_ = btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_, detail::check_encoding_breakage);
 
         return *this;
     }
@@ -732,7 +723,7 @@ namespace boost { namespace text {
     {
         assert(self_reference(old_substr));
 
-        detail::node_ptr extra_ref;
+        detail::node_ptr<detail::rope_tag> extra_ref;
         rope extra_rope;
         if (self_reference(rv)) {
             extra_ref = ptr_;
@@ -743,9 +734,6 @@ namespace boost { namespace text {
 
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
     }
-
-    inline rope & rope::replace (rope_view old_substr, text const & t)
-    { return erase(old_substr).insert(old_substr.ref_.r_.lo_, t); }
 
     inline rope & rope::replace (rope_view old_substr, text && t)
     { return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(t)); }
@@ -771,9 +759,6 @@ namespace boost { namespace text {
 
     inline rope & rope::operator+= (rope_view rv)
     { return insert(size(), rv); }
-
-    inline rope & rope::operator+= (text const & t)
-    { return insert(size(), t); }
 
     inline rope & rope::operator+= (text && t)
     { return insert(size(), std::move(t)); }
@@ -831,7 +816,7 @@ namespace boost { namespace text {
 
         // If the entire substring falls within a single segment, slice
         // off the appropriate part of that segment.
-        detail::found_leaf found;
+        detail::found_leaf<detail::rope_tag> found;
         detail::find_leaf(ptr_, lo, found);
         if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
             return rope(
@@ -847,12 +832,12 @@ namespace boost { namespace text {
 
         // Take an extra ref to the root, which will force all a clone of
         // all the interior nodes.
-        detail::node_ptr new_root = ptr_;
+        detail::node_ptr<detail::rope_tag> new_root = ptr_;
 
         if (hi != size())
-            new_root = detail::btree_erase(new_root, hi, size());
+            new_root = detail::btree_erase(new_root, hi, size(), detail::check_encoding_breakage);
         if (lo != 0)
-            new_root = detail::btree_erase(new_root, 0, lo);
+            new_root = detail::btree_erase(new_root, 0, lo, detail::check_encoding_breakage);
 
         return rope(new_root);
     }
@@ -902,14 +887,6 @@ namespace boost { namespace text {
     /** Creates a new rope object that is the concatenation of rv and r. */
     inline rope operator+ (rope_view rv, rope r)
     { return r.insert(0, rv); }
-
-    /** Creates a new rope object that is the concatenation of r and t. */
-    inline rope operator+ (rope r, text const & t)
-    { return r.insert(r.size(), t); }
-
-    /** Creates a new rope object that is the concatenation of t and r. */
-    inline rope operator+ (text const & t, rope r)
-    { return r.insert(0, t); }
 
     /** Creates a new rope object that is the concatenation of r and t, by
         moving the contents of t into the result. */
@@ -1038,25 +1015,22 @@ namespace boost { namespace text {
 
         template <typename Fn>
         void apply_to_segment (
-            detail::leaf_node_t const * leaf,
+            detail::leaf_node_t<detail::rope_tag> const * leaf,
             std::ptrdiff_t lo,
             std::ptrdiff_t hi,
             Fn const & f
         ) {
             switch (leaf->which_) {
-            case detail::node_t::which::t:
+            case detail::which::t:
                 f(leaf->as_text()(lo, hi));
                 break;
-            case detail::node_t::which::tv:
-                f(leaf->as_text_view()(lo, hi));
-                break;
-            case detail::node_t::which::rtv:
+            case detail::which::rtv:
                 f(detail::repeated_range{
                     leaf->as_repeated_text_view().begin() + lo,
                     leaf->as_repeated_text_view().begin() + hi
                 });
                 break;
-            case detail::node_t::which::ref:
+            case detail::which::ref:
                 f(leaf->as_reference().ref_(lo, hi));
                 break;
             default: assert(!"unhandled rope node case"); break;
@@ -1086,10 +1060,10 @@ namespace boost { namespace text {
         if (!r_ref.r_)
             return;
 
-        detail::found_leaf found_lo;
+        detail::found_leaf<detail::rope_tag> found_lo;
         detail::find_leaf(r_ref.r_->ptr_, r_ref.lo_, found_lo);
 
-        detail::found_leaf found_hi;
+        detail::found_leaf<detail::rope_tag> found_hi;
         detail::find_leaf(r_ref.r_->ptr_, r_ref.hi_, found_hi);
 
         if (found_lo.leaf_->as_leaf() == found_hi.leaf_->as_leaf()) {
@@ -1103,7 +1077,7 @@ namespace boost { namespace text {
         }
 
         bool before_lo = true;
-        detail::foreach_leaf(r_ref.r_->ptr_, [&](detail::leaf_node_t const * leaf) {
+        detail::foreach_leaf(r_ref.r_->ptr_, [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
             if (before_lo) {
                 if (leaf == found_lo.leaf_->as_leaf()) {
                     auto const leaf_size = detail::size(leaf);
@@ -1213,7 +1187,8 @@ namespace boost { namespace text {
     namespace detail {
 
 #ifdef BOOST_TEXT_TESTING
-        inline void dump_tree (node_ptr const & root, int key, int indent)
+        template <typename T>
+        inline void dump_tree (node_ptr<T> const & root, int key, int indent)
         {
             std::cout << repeated_text_view("    ", indent)
                       << (root->leaf_ ? "LEAF" : "INTR")
@@ -1229,6 +1204,7 @@ namespace boost { namespace text {
             }
         }
 #endif
+
     }
 
 } }

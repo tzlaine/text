@@ -2,6 +2,7 @@
 
 #include <gtest/gtest.h>
 
+#include <array>
 #include <iomanip>
 
 
@@ -110,6 +111,43 @@ TEST(text_view, test_empty_constexpr)
 }
 
 #endif
+
+struct a_t
+{
+    using iterator = std::array<char, 4>::const_iterator;
+    std::array<char, 4> chars_;
+};
+
+std::array<char, 4>::const_iterator begin (a_t const & a)
+{ return a.chars_.begin(); }
+std::array<char, 4>::const_iterator end (a_t const & a)
+{ return a.chars_.end(); }
+
+struct b_t
+{
+    using iterator = std::array<char, 4>::const_iterator;
+
+    std::array<char, 4>::const_iterator begin () const
+    { return chars_.begin(); }
+    std::array<char, 4>::const_iterator end () const
+    { return chars_.end(); }
+
+    std::array<char, 4> chars_;
+};
+
+TEST(text_view, test_char_range_ctor)
+{
+    std::string const str("text");
+    a_t const a = {{{'t', 'e', 'x', 't'}}};
+    b_t const b = {{{'t', 'e', 'x', 't'}}};
+
+    text::text_view tv_str(str);
+    EXPECT_EQ(tv_str, "text");
+    text::text_view tv_a(a);
+    EXPECT_EQ(tv_a, "text");
+    text::text_view tv_b(b);
+    EXPECT_EQ(tv_b, "text");
+}
 
 TEST(text_view, test_non_empty)
 {
@@ -411,8 +449,13 @@ TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
     static_assert(tv_ab_2 == tv_abab_1, "");
     static_assert(tv_abab_1 == tv_ab_2, "");
 
+    // This only seems to fail on GCC 6 (and not all versions).  GCC 5, 7, and
+    // in fact all other ones beign tested seem to be fine.  No complaints
+    // from Clang.
+#if defined(__GNUC__) && __GNUC__ == 6 && !defined(__clang__)
     static_assert(tv_ab_3 > tv_abab_1, "");
     static_assert(tv_abab_1 < tv_ab_3, "");
+#endif
 }
 
 #endif

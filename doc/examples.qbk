@@ -1,7 +1,84 @@
 [section Examples]
 
-[heading TODO TODO]
+[heading Hello, World!]
 
-TODO
+Ok, here is the obligatory "Hello, world!" example:
+
+[hello_world]
+
+Pretty simple, we've just made a non-owning _tv_, and an owning-and-allocating
+_t_.  They each say "Hello, World!".  The second one is what the Internet
+assures me is idiomatic Russian meaning the same thing.
+
+[heading Establishing Some Guarantees]
+
+If we want to ensure that we do all our Unicode processing safely, we just
+need to establish the invariant that our string is properly encoded:
+
+[start_with_encoding]
+
+And then all subsequent operations that use the safe interfaces (i.e. not the
+non-`const` index operator or mutable iterators), we are guaranteed that the
+string remains encoded properly:
+
+[encoding_affecting_operations]
+
+[heading Breaking Encoding on Purpose]
+
+Of course, we may wish to break the encoding for some reason.  That too is
+allowed, by using the unsafe interfaces:
+
+[slicing_on_purpose]
+
+The breakage can also be repaired again later:
+
+[repairing_on_purpose_slices]
+
+[heading Using Text Types in Interfaces]
+
+There are particular parameter passing conventions that some of the _Text_
+types are designed for.  For instance, _tv_, like `std::string_view`, is
+designed to bind to any `char const *`, _tv_, or _t_ argument, without making
+a copy.  _tv_ is therefore a replacement for the multiple overloads it would
+take to handle all those types.  If _tv_ was not implicitly convertible from
+`char const *` and _t_, this is the sort of code you would have to write:
+
+[params_to_take_text_and_text_view_without]
+
+And here is what you can write with _tv_'s implicit conversions:
+
+[params_to_take_text_and_text_view_with]
+
+If you want to write a function parameter that handles any of _Text_'s types,
+_rv_ is available:
+
+[params_to_take_anything]
+
+And, sure enough, you can call it with any of the _Text_ types, and even `char
+const *`:
+
+[print_any_text_type_usage]
+
+[note _rv_ is less efficient than _tv_ for binding to _ts_ and _tvs_ (though
+only a little).  If you know you need that extra efficiency, and you know you
+*don't* need to support _rs_ or _rtvs_ as arguments to your function, stick to
+_tv_.]
+
+[heading Ropes in Practice]
+
+A key use of ropes is in text editors.  Every text editor you've ever used
+that handles large files gracefully has done something to break the file into
+chunks -- editing the beginning of a 64MB file that is stored in a contiguous
+sequence in memory is way too slow.  The use of a rope is a common approach to
+remedy this.
+
+In the example directory, there are two programs, `text_editor` and
+`rope_editor`.  The first uses an in-memory _t_ object to store text that is
+edited.  It is unusably slow.  The second does nearly the same thing, but uses
+a _r_.  It is way more usable.
+
+[note These editors are pretty lame.  They don't have cut/copy/paste, and
+can't even save your file!  They use Emacs keybindings for what little they
+do.  They use the ncurses library, which is apparently pretty buggy on MacOS.]
 
 [endsect]
