@@ -291,6 +291,44 @@ within the `capacity()` of the _t_, *or*
 * the inserted object would cause an allocation if copied (i.e. it is a
   _t_).
 
+One more thing.  _rs_ are meant to be passed by value.  Some of their
+thread-safety guarantees may not be fulfilled if they are passed by value.  If
+you do not care about thread-safe use of _r_, you can pass _rs_ by `const &`
+if you like.  If you care about thread-safety, *always* pass them by value.
+
+_r_ contains logic like the pseudocode below to determine when to create a
+partial copy of a _r_'s tree, or when to mutate the tree in-place when
+performing inserts or erases on a _r_:
+
+    path = find_path_from_root_to_mutation_point()
+    in_place = true
+    for (node : path)
+        if (node.references() == 1)
+            in_place = false
+
+Let's call the _r_ `R`, and the thread on which the operation is being
+performed `T`.  Also, assume that all references to `R`'s root node exist in
+copies of `R`, and no reference (C++ reference/pointer) to `R` or any of its
+copies exists.
+
+With this assumption, we know at the end of the pseudocode `for` loop above,
+that there is still exactly one reference to each node in `path`.  For this
+not to be true, we would need to either:
+
+# Create a copy of one of the nodes on thread `T`.  Clearly we cannot, since
+  we're currently executing `insert()` or `erase()` instead.
+
+# Create a copy of one of the nodes on a thread other than `T`.  We can't do
+  this either, since we have no reference to `R` that can be used by another
+  thread, and we know that there are no other copies on any other threads
+  either, since each node's reference count is `1`.
+
+Were we to write references/pointers to `R` into our code, a thread other than
+`T` could create a copy of `R` between when we read the reference count of one
+of its nodes, and when we decided to mutate `R` in place or not.
+
+[important Therefore, if you care about using _rs_ in a thread-safe manner,
+always pass them by value.]
 
 [heading The `rope_view` Type]
 

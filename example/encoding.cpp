@@ -20,7 +20,7 @@ int main ()
 
 //[ encoding_affecting_operations
     try {
-        // If we try to slice the encoding, we get an error.
+        // If we try to slice the encoding, we get an exception.
         boost::text::text_view slice_0 = tv(0, 1);
         assert(!"We should never evaluate this assert.");
     } catch (...) {}
@@ -34,7 +34,7 @@ int main ()
     boost::text::text text_slice_0(tv.begin(), tv.begin() + 1);
     boost::text::text text_slice_1(tv.begin() + 1, tv.end());
 
-    std::cout << text_slice_0 << "\n"; // prints "?\n" or some other garbage indicaator
+    std::cout << text_slice_0 << "\n"; // prints "?\n" or some other garbage indicator
 //]
 
 //[ repairing_on_purpose_slices
