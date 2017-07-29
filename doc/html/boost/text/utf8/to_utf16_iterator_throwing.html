@@ -1,13 +1,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Struct to_utf16_iterator_throwing</title>
+<title>Struct template to_utf16_iterator_throwing</title>
 <link rel="stylesheet" href="../../../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../../header/boost/text/utf8_hpp.html" title="Header &lt;boost/text/utf8.hpp&gt;">
-<link rel="prev" href="to_utf16_iterator.html" title="Struct to_utf16_iterator">
-<link rel="next" href="to_utf32_iterator.html" title="Struct to_utf32_iterator">
+<link rel="prev" href="to_utf16_iterator.html" title="Struct template to_utf16_iterator">
+<link rel="next" href="to_utf32_iterator.html" title="Struct template to_utf32_iterator">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
@@ -16,14 +16,14 @@
 <div class="refentry">
 <a name="boost.text.utf8.to_utf16_iterator_throwing"></a><div class="titlepage"></div>
 <div class="refnamediv">
-<h2><span class="refentrytitle">Struct to_utf16_iterator_throwing</span></h2>
+<h2><span class="refentrytitle">Struct template to_utf16_iterator_throwing</span></h2>
 <p>boost::text::utf8::to_utf16_iterator_throwing</p>
 </div>
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../header/boost/text/utf8_hpp.html" title="Header &lt;boost/text/utf8.hpp&gt;">boost/text/utf8.hpp</a>&gt;
 
-</span>
-<span class="keyword">struct</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">{</span>
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">{</span>
   <span class="comment">// types</span>
   <span class="keyword">typedef</span> <span class="identifier">uint16_t</span>                        <a name="boost.text.utf8.to_utf16_iterator_throwing.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>       
   <span class="keyword">typedef</span> <span class="keyword">int</span>                             <a name="boost.text.utf8.to_utf16_iterator_throwing.difference_type"></a><span class="identifier">difference_type</span><span class="special">;</span>  
@@ -32,35 +32,36 @@
   <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator_tag</span> <a name="boost.text.utf8.to_utf16_iterator_throwing.iterator_category"></a><span class="identifier">iterator_category</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="to_utf16_iterator_throwing.html#boost.text.utf8.to_utf16_iterator_throwingconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="to_utf16_iterator_throwing.html#idp140502912528792-bb"><span class="identifier">to_utf16_iterator_throwing</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140502912529304-bb"><span class="identifier">to_utf16_iterator_throwing</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="to_utf16_iterator_throwing.html#idp140429132182696-bb"><span class="identifier">to_utf16_iterator_throwing</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140429132183208-bb"><span class="identifier">to_utf16_iterator_throwing</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="to_utf16_iterator_throwing.html#idp140502912514104-bb">public member functions</a></span>
-  <span class="keyword">constexpr</span> <span class="identifier">reference</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140502912514632-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140502912517096-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a class="link" href="to_utf16_iterator_throwing.html#idp140502912519736-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140502912522872-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a class="link" href="to_utf16_iterator_throwing.html#idp140502912525512-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="to_utf16_iterator_throwing.html#idp140429132168008-bb">public member functions</a></span>
+  <span class="keyword">constexpr</span> <span class="identifier">reference</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140429132168536-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140429132171000-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a class="link" href="to_utf16_iterator_throwing.html#idp140429132173640-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a class="link" href="to_utf16_iterator_throwing.html#idp140429132176776-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a class="link" href="to_utf16_iterator_throwing.html#idp140429132179416-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp140722455391704"></a><h2>Description</h2>
-<p>A UTF-8 to UTF-16 converting iterator. This iterator throws an exception when it reads invalid UTF-8. </p>
+<a name="idp140568951892728"></a><h2>Description</h2>
+<p>A UTF-8 to UTF-16 converting iterator. This iterator throws an exception when it reads invalid UTF-8.</p>
+<p>Iter must be a bidirectional iterator with a 1-byte char value_type. </p>
 <div class="refsect2">
-<a name="idp140722455392472"></a><h3>
+<a name="idp140568951893832"></a><h3>
 <a name="boost.text.utf8.to_utf16_iterator_throwingconstruct-copy-destruct"></a><code class="computeroutput">to_utf16_iterator_throwing</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idp140502912528792-bb"></a><span class="identifier">to_utf16_iterator_throwing</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idp140502912529304-bb"></a><span class="identifier">to_utf16_iterator_throwing</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> it<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp140429132182696-bb"></a><span class="identifier">to_utf16_iterator_throwing</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idp140429132183208-bb"></a><span class="identifier">to_utf16_iterator_throwing</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> it<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp140722455405176"></a><h3>
-<a name="idp140502912514104-bb"></a><code class="computeroutput">to_utf16_iterator_throwing</code> public member functions</h3>
+<a name="idp140568951904984"></a><h3>
+<a name="idp140429132168008-bb"></a><code class="computeroutput">to_utf16_iterator_throwing</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">reference</span> <a name="idp140502912514632-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">constexpr</span> <span class="identifier">reference</span> <a name="idp140429132168536-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>This function is constexpr in C++14 and later.</p>
 <p>
 </p>
@@ -76,7 +77,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a name="idp140502912517096-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a name="idp140429132171000-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>This function is constexpr in C++14 and later.</p>
 <p>
 </p>
@@ -92,7 +93,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a name="idp140502912519736-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a name="idp140429132173640-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre>
 <p>This function is constexpr in C++14 and later.</p>
 <p>
 </p>
@@ -108,7 +109,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a name="idp140502912522872-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <span class="special">&amp;</span> <a name="idp140429132176776-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>This function is constexpr in C++14 and later.</p>
 <p>
 </p>
@@ -124,7 +125,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a name="idp140502912525512-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">constexpr</span> <a class="link" href="to_utf16_iterator_throwing.html" title="Struct template to_utf16_iterator_throwing">to_utf16_iterator_throwing</a> <a name="idp140429132179416-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre>
 <p>This function is constexpr in C++14 and later.</p>
 <p>
 </p>

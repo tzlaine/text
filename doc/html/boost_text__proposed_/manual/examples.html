@@ -19,12 +19,222 @@
 </h3></div></div></div>
 <h5>
 <a name="boost_text__proposed_.manual.examples.h0"></a>
-        <span class="phrase"><a name="boost_text__proposed_.manual.examples.todo_todo"></a></span><a class="link" href="examples.html#boost_text__proposed_.manual.examples.todo_todo">TODO
-        TODO</a>
+        <span class="phrase"><a name="boost_text__proposed_.manual.examples.hello__world_"></a></span><a class="link" href="examples.html#boost_text__proposed_.manual.examples.hello__world_">Hello,
+        World!</a>
       </h5>
 <p>
-        TODO
+        Ok, here is the obligatory "Hello, world!" example:
       </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">text</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+
+
+<span class="keyword">int</span> <span class="identifier">main</span> <span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="keyword">const</span> <span class="identifier">text_view</span><span class="special">(</span><span class="string">"Hello, world!\n"</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">text</span><span class="special">(</span><span class="string">"&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span><span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">text_view</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">text</span><span class="special">;</span>
+
+    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        Pretty simple, we've just made a non-owning <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>, and an owning-and-allocating
+        <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>.
+        They each say "Hello, World!". The second one is what the Internet
+        assures me is idiomatic Russian meaning the same thing.
+      </p>
+<h5>
+<a name="boost_text__proposed_.manual.examples.h1"></a>
+        <span class="phrase"><a name="boost_text__proposed_.manual.examples.establishing_some_guarantees"></a></span><a class="link" href="examples.html#boost_text__proposed_.manual.examples.establishing_some_guarantees">Establishing
+        Some Guarantees</a>
+      </h5>
+<p>
+        If we want to ensure that we do all our Unicode processing safely, we just
+        need to establish the invariant that our string is properly encoded:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// We can start with a literal or other user-verified encoded string.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">tv</span> <span class="special">=</span> <span class="string">"&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span><span class="special">;</span>
+
+<span class="comment">// Or we can explicitly run over the entire string and check its encoding.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">checked_encoding</span><span class="special">(</span><span class="identifier">string_from_terminal</span><span class="special">());</span>
+</pre>
+<p>
+      </p>
+<p>
+        And then all subsequent operations that use the safe interfaces (i.e. not
+        the non-<code class="computeroutput"><span class="keyword">const</span></code> index operator
+        or mutable iterators), we are guaranteed that the string remains encoded
+        properly:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">try</span> <span class="special">{</span>
+    <span class="comment">// If we try to slice the encoding, we get an exception.</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">slice_0</span> <span class="special">=</span> <span class="identifier">tv</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="number">1</span><span class="special">);</span>
+    <span class="identifier">assert</span><span class="special">(!</span><span class="string">"We should never evaluate this assert."</span><span class="special">);</span>
+<span class="special">}</span> <span class="keyword">catch</span> <span class="special">(...)</span> <span class="special">{}</span>
+
+<span class="comment">// But as long as we slice along code point boundaries, everything works.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">slice_1</span> <span class="special">=</span> <span class="identifier">tv</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="number">2</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<h5>
+<a name="boost_text__proposed_.manual.examples.h2"></a>
+        <span class="phrase"><a name="boost_text__proposed_.manual.examples.breaking_encoding_on_purpose"></a></span><a class="link" href="examples.html#boost_text__proposed_.manual.examples.breaking_encoding_on_purpose">Breaking
+        Encoding on Purpose</a>
+      </h5>
+<p>
+        Of course, we may wish to break the encoding for some reason. That too is
+        allowed, by using the unsafe interfaces:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">text_slice_0</span><span class="special">(</span><span class="identifier">tv</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">tv</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="number">1</span><span class="special">);</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">text_slice_1</span><span class="special">(</span><span class="identifier">tv</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">tv</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">text_slice_0</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span> <span class="comment">// prints "?\n" or some other garbage indicator</span>
+</pre>
+<p>
+      </p>
+<p>
+        The breakage can also be repaired again later:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">text_slice_0</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span>
+    <span class="identifier">text_slice_0</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span>
+    <span class="identifier">text_slice_1</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">text_slice_1</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span>
+<span class="special">);</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">text_slice_0</span><span class="special">;</span> <span class="comment">// prints "&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span>
+</pre>
+<p>
+      </p>
+<h5>
+<a name="boost_text__proposed_.manual.examples.h3"></a>
+        <span class="phrase"><a name="boost_text__proposed_.manual.examples.using_text_types_in_interfaces"></a></span><a class="link" href="examples.html#boost_text__proposed_.manual.examples.using_text_types_in_interfaces">Using
+        Text Types in Interfaces</a>
+      </h5>
+<p>
+        There are particular parameter passing conventions that some of the Boost.Text
+        types are designed for. For instance, <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>, like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>,
+        is designed to bind to any <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>,
+        <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
+        or <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>
+        argument, without making a copy. <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> is therefore a replacement
+        for the multiple overloads it would take to handle all those types. If <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>
+        was not implicitly convertible from <code class="computeroutput"><span class="keyword">char</span>
+        <span class="keyword">const</span> <span class="special">*</span></code>
+        and <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>,
+        this is the sort of code you would have to write:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">print_string_without</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">str</span><span class="special">));</span> <span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">print_string_without</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">str</span><span class="special">));</span> <span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        And here is what you can write with <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>'s implicit conversions:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_string_with</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        If you want to write a function parameter that handles any of Boost.Text's
+        types, <code class="computeroutput"><a class="link" href="../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>
+        is available:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_any_text_type</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">rope_view</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        And, sure enough, you can call it with any of the Boost.Text types, and even
+        <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+        <span class="special">*</span></code>:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">print_any_text_type</span><span class="special">(</span><span class="string">"1\n"</span><span class="special">);</span>
+<span class="identifier">print_any_text_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="string">"2\n"</span><span class="special">));</span>
+<span class="identifier">print_any_text_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">(</span><span class="string">"3\n"</span><span class="special">));</span>
+<span class="identifier">print_any_text_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"4\n"</span><span class="special">,</span> <span class="number">4</span><span class="special">));</span>
+<span class="identifier">print_any_text_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">rope</span><span class="special">(</span><span class="string">"5\n"</span><span class="special">));</span>
+</pre>
+<p>
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          <code class="computeroutput"><a class="link" href="../../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>
+          is less efficient than <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code> for binding to
+          <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">texts</a></code>
+          and <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_views</a></code>
+          (though only a little). If you know you need that extra efficiency, and
+          you know you <span class="bold"><strong>don't</strong></span> need to support <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">ropes</a></code>
+          or <code class="computeroutput"><a class="link" href="../../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_views</a></code>
+          as arguments to your function, stick to <code class="computeroutput"><a class="link" href="../../boost/text/text_view.html" title="Struct text_view">text_view</a></code>.
+        </p></td></tr>
+</table></div>
+<h5>
+<a name="boost_text__proposed_.manual.examples.h4"></a>
+        <span class="phrase"><a name="boost_text__proposed_.manual.examples.ropes_in_practice"></a></span><a class="link" href="examples.html#boost_text__proposed_.manual.examples.ropes_in_practice">Ropes in
+        Practice</a>
+      </h5>
+<p>
+        A key use of ropes is in text editors. Every text editor you've ever used
+        that handles large files gracefully has done something to break the file
+        into chunks -- editing the beginning of a 64MB file that is stored in a contiguous
+        sequence in memory is way too slow. The use of a rope is a common approach
+        to remedy this.
+      </p>
+<p>
+        In the example directory, there are two programs, <code class="computeroutput"><span class="identifier">text_editor</span></code>
+        and <code class="computeroutput"><span class="identifier">rope_editor</span></code>. The first
+        uses an in-memory <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>
+        object to store text that is edited. It is unusably slow. The second does
+        nearly the same thing, but uses a <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>. It is way more usable.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          These editors are pretty lame. They don't have cut/copy/paste, and can't
+          even save your file! They use Emacs keybindings for what little they do.
+          They use the ncurses library, which is apparently pretty buggy on MacOS.
+        </p></td></tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

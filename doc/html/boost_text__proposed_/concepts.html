@@ -19,16 +19,16 @@
 </h2></div></div></div>
 <h4>
 <a name="boost_text__proposed_.concepts.h0"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.char_range"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.charrange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
     </h4>
 <p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>
+      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
       is a contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>.
+      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>.
       In the table below, <code class="computeroutput"><span class="identifier">R</span></code> is a
-      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>;
+      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>;
       <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code>
       is an iterator type; and <code class="computeroutput"><span class="identifier">it</span></code>
       is an object of type <code class="computeroutput"><span class="identifier">Iter</span></code>.
@@ -118,7 +118,7 @@
 <tr>
 <td>
               <p>
-                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="identifier">Iter</span><span class="special">&gt;::</span><span class="identifier">iterator_category</span></code>
+                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&gt;::</span><span class="identifier">iterator_category</span></code>
               </p>
             </td>
 <td>
@@ -128,8 +128,8 @@
             </td>
 <td>
               <p>
-                <code class="computeroutput"><span class="identifier">Iter</span></code> must be a random
-                access iterator.
+                <code class="computeroutput"><span class="identifier">R</span><span class="special">::</span><span class="identifier">iterator</span></code> must be a random access
+                iterator.
               </p>
             </td>
 <td>
@@ -169,16 +169,16 @@
     </p>
 <h4>
 <a name="boost_text__proposed_.concepts.h1"></a>
-      <span class="phrase"><a name="boost_text__proposed_.concepts.char_iterator"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.char_iterator">Char_iterator</a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.chariterator"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.chariterator">CharIterator</a>
     </h4>
 <p>
-      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_iterator">Char_iterator</a>
+      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariterator">CharIterator</a>
       is an iterator over a sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
     </p>
 <p>
-      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_iterator">Char_iterator</a>.
+      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariterator">CharIterator</a>.
       In the table below, <code class="computeroutput"><span class="identifier">Iter</span></code> is
-      a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_iterator">Char_iterator</a>.
+      a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariterator">CharIterator</a>.
     </p>
 <div class="table">
 <a name="boost_text__proposed_.concepts.t1"></a><p class="title"><b>Table&#160;1.3.&#160;Expression Requirements</b></p>
@@ -232,8 +232,8 @@
 </table></div>
 </div>
 <br class="table-break"><p>
-      <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_iterator">Char_iterator</a>
-      does not need to be a contiguous iterator, and <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_iterator">Char_iterator</a>
+      <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariterator">CharIterator</a>
+      does not need to be a contiguous iterator, and <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariterator">CharIterator</a>
       does not need to have a particular iterator category.
     </p>
 </div>

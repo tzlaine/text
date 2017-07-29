@@ -109,12 +109,12 @@
     </p>
 <h4>
 <a name="boost_text__proposed_.rationale.h4"></a>
-      <span class="phrase"><a name="boost_text__proposed_.rationale.there_are_no__link_linkend__boost_text__proposed__concepts_char_range__char_range__link__interfaces_in__code__phrase_role__identifier__rope__phrase___code_"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.there_are_no__link_linkend__boost_text__proposed__concepts_char_range__char_range__link__interfaces_in__code__phrase_role__identifier__rope__phrase___code_">There
-      are no Char_range
+      <span class="phrase"><a name="boost_text__proposed_.rationale.there_are_no__link_linkend__boost_text__proposed__concepts_charrange__charrange__link__interfaces_in__code__phrase_role__identifier__rope__phrase___code_"></a></span><a class="link" href="rationale.html#boost_text__proposed_.rationale.there_are_no__link_linkend__boost_text__proposed__concepts_charrange__charrange__link__interfaces_in__code__phrase_role__identifier__rope__phrase___code_">There
+      are no CharRange
       Interfaces in <code class="computeroutput"><span class="identifier">rope</span></code></a>
     </h4>
 <p>
-      The reason that these interfaces exist for <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code> but not for <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> is that <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code> converts a <a class="link" href="concepts.html#boost_text__proposed_.concepts.char_range">Char_range</a>
+      The reason that these interfaces exist for <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code> but not for <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> is that <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code> converts a <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
       into a <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
       and then always copies the bytes into its storage. <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> does not convert <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_views</a></code>
       into allocated storage, but <span class="bold"><strong>does</strong></span> with <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">texts</a></code>.
