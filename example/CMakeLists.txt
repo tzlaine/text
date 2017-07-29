@@ -22,6 +22,16 @@ add_sample(param_conventions)
 
 
 if (BUILD_EDITOR)
+    find_package(Curses)
+    if (NOT CURSES_FOUND)
+        message("-- Could not find libcurses; editor will not be built.")
+        set(BUILD_EDITOR false)
+    endif ()
+    message("${CURSES_LIBRARIES}")
+endif ()
+
+
+if (BUILD_EDITOR)
     add_executable(
         rope_editor
         editor/main.cpp
@@ -33,7 +43,7 @@ if (BUILD_EDITOR)
     if (CMAKE_COMPILER_IS_GNUCXX)
         target_compile_options(rope_editor PRIVATE -Wno-terminate)
     endif ()
-    target_link_libraries(rope_editor text ${Boost_LIBRARIES} ncurses)
+    target_link_libraries(rope_editor text ${Boost_LIBRARIES} ${CURSES_LIBRARIES})
     set_property(TARGET rope_editor PROPERTY CXX_STANDARD ${CXX_STD})
     if (clang_on_linux)
         target_link_libraries(rope_editor c++)
@@ -50,9 +60,16 @@ if (BUILD_EDITOR)
     if (CMAKE_COMPILER_IS_GNUCXX)
         target_compile_options(text_editor PRIVATE -Wno-terminate)
     endif ()
-    target_link_libraries(text_editor text ${Boost_LIBRARIES} ncurses)
+    target_link_libraries(text_editor text ${Boost_LIBRARIES} ${CURSES_LIBRARIES})
     set_property(TARGET text_editor PROPERTY CXX_STANDARD ${CXX_STD})
     if (clang_on_linux)
         target_link_libraries(text_editor c++)
+    endif ()
+
+    if (UNIX AND NOT APPLE) # Linux
+        target_include_directories(rope_editor PRIVATE ${CURSES_INCLUDE_DIR}/ncursesw)
+        target_include_directories(text_editor PRIVATE ${CURSES_INCLUDE_DIR}/ncursesw)
+        target_link_libraries(rope_editor ncursesw)
+        target_link_libraries(text_editor ncursesw)
     endif ()
 endif ()

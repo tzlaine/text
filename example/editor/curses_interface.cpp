@@ -26,9 +26,9 @@ screen_pos_t curses_interface_t::screen_size () const
 
 event_t curses_interface_t::next_event () const
 {
-    int k = 0;
+    wint_t k = 0;
     int const mod = wget_wch(win_, &k);    
-    return {key_code_t(mod, k), screen_size()};
+    return {key_code_t(mod, (int)k), screen_size()};
 }
 
 namespace {
