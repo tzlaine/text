@@ -3,7 +3,7 @@
 
 
 boost::text::text string_from_terminal ()
-{ return boost::text::text(""); } // TODO: There should be an istream extractor for text and rope.
+{ return boost::text::text(""); }
 
 int main ()
 {
