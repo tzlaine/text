@@ -75,4 +75,5 @@ endif ()
 set(BUILD_EDITOR false CACHE BOOL "Set to true to build ncurses-based text editor.")
 
 add_subdirectory(test)
+add_subdirectory(perf)
 add_subdirectory(example)

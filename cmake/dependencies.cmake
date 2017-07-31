@@ -39,10 +39,7 @@ target_include_directories(gtest      INTERFACE ${CMAKE_HOME_DIRECTORY}/googlete
 target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
 
 
-if (false)
 ###############################################################################
 # Google Benchmark
 ###############################################################################
-add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.1.0)
-target_include_directories(benchmark INTERFACE ${CMAKE_HOME_DIRECTORY}/benchmark-v1.1.0/include)
-endif()
+add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.2.0)
