@@ -46,7 +46,7 @@ namespace {
     };
 
     boost::text::rope make_rope (int i)
-    { return boost::text::rope(strings[i].c_str()); }
+    { return boost::text::rope(boost::text::repeat(".", strings[i].size())); }
 
     boost::text::rope ropes[14] = {
         make_rope(0),
@@ -87,7 +87,7 @@ namespace {
 
 }
 
-#define BENCHMARK_ARGS()                        \
-    ->Arg(0)->Arg(1)->Arg(2)->Arg(3)->Arg(4)    \
+#define BENCHMARK_ARGS_NONEMPTY()               \
+    ->Arg(1)->Arg(2)->Arg(3)->Arg(4)            \
     ->Arg(5)->Arg(6)->Arg(7)->Arg(8)->Arg(9)    \
     ->Arg(10)->Arg(11)->Arg(12)->Arg(13)
