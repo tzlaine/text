@@ -1,6 +1,4 @@
 # TODO: Perf tests for:
-# ctor
-# dtor
 # copy
 # move
 # insert at front
