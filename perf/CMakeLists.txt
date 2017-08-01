@@ -26,10 +26,11 @@ macro(add_perf_executable name)
 endmacro()
 
 add_perf_executable(ctor_dtor_perf)
+add_perf_executable(copy_perf)
 
 #add_custom_target(perf
 #    COMMAND ctor_dtor_perf
-#    COMMAND copy_move_perf
+#    COMMAND copy_perf
 #    COMMAND insert_perf
 #    COMMAND erase_perf
 #    COMMAND for_find_perf
