@@ -27,7 +27,6 @@ if (BUILD_EDITOR)
         message("-- Could not find libcurses; editor will not be built.")
         set(BUILD_EDITOR false)
     endif ()
-    message("${CURSES_LIBRARIES}")
 endif ()
 
 

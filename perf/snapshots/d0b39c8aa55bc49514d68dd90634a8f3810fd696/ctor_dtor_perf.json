@@ -1,0 +1,501 @@
+{
+  "context": {
+    "date": "2017-08-01 22:08:13",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_text_view_ctor_dtor/0",
+      "iterations": 65956224,
+      "real_time": 11,
+      "cpu_time": 11,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/1",
+      "iterations": 36942628,
+      "real_time": 20,
+      "cpu_time": 20,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/2",
+      "iterations": 34132356,
+      "real_time": 22,
+      "cpu_time": 21,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/3",
+      "iterations": 36255341,
+      "real_time": 20,
+      "cpu_time": 20,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/4",
+      "iterations": 35076818,
+      "real_time": 21,
+      "cpu_time": 21,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/5",
+      "iterations": 35387672,
+      "real_time": 21,
+      "cpu_time": 21,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/6",
+      "iterations": 31242468,
+      "real_time": 23,
+      "cpu_time": 23,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/7",
+      "iterations": 31600283,
+      "real_time": 23,
+      "cpu_time": 23,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/8",
+      "iterations": 31512369,
+      "real_time": 23,
+      "cpu_time": 23,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/9",
+      "iterations": 31506979,
+      "real_time": 22,
+      "cpu_time": 22,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/10",
+      "iterations": 32527428,
+      "real_time": 22,
+      "cpu_time": 22,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/11",
+      "iterations": 30575964,
+      "real_time": 23,
+      "cpu_time": 23,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/12",
+      "iterations": 31608845,
+      "real_time": 22,
+      "cpu_time": 22,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/13",
+      "iterations": 33102874,
+      "real_time": 21,
+      "cpu_time": 21,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/0",
+      "iterations": 86247259,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/1",
+      "iterations": 89672312,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/2",
+      "iterations": 88913728,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/3",
+      "iterations": 93366945,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/4",
+      "iterations": 86823859,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/5",
+      "iterations": 84857742,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/6",
+      "iterations": 72885538,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/7",
+      "iterations": 74019245,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/8",
+      "iterations": 75629889,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/9",
+      "iterations": 75518923,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/10",
+      "iterations": 70283241,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/11",
+      "iterations": 70924860,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/12",
+      "iterations": 75046100,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/13",
+      "iterations": 75054951,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/0",
+      "iterations": 16147412,
+      "real_time": 43,
+      "cpu_time": 43,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/1",
+      "iterations": 1615498,
+      "real_time": 419,
+      "cpu_time": 419,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/2",
+      "iterations": 1648024,
+      "real_time": 425,
+      "cpu_time": 424,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/3",
+      "iterations": 1675639,
+      "real_time": 427,
+      "cpu_time": 427,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/4",
+      "iterations": 1628869,
+      "real_time": 421,
+      "cpu_time": 421,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/5",
+      "iterations": 1597378,
+      "real_time": 548,
+      "cpu_time": 547,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/6",
+      "iterations": 1000000,
+      "real_time": 625,
+      "cpu_time": 624,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/7",
+      "iterations": 945814,
+      "real_time": 663,
+      "cpu_time": 662,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/8",
+      "iterations": 709738,
+      "real_time": 913,
+      "cpu_time": 911,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/9",
+      "iterations": 999473,
+      "real_time": 709,
+      "cpu_time": 707,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/10",
+      "iterations": 564440,
+      "real_time": 1248,
+      "cpu_time": 1246,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/11",
+      "iterations": 62324,
+      "real_time": 11297,
+      "cpu_time": 11278,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/12",
+      "iterations": 919,
+      "real_time": 819077,
+      "cpu_time": 817506,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/13",
+      "iterations": 1,
+      "real_time": 930430914,
+      "cpu_time": 928519000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/0",
+      "iterations": 13363624,
+      "real_time": 53,
+      "cpu_time": 53,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/1",
+      "iterations": 707264,
+      "real_time": 977,
+      "cpu_time": 975,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/2",
+      "iterations": 731758,
+      "real_time": 973,
+      "cpu_time": 971,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/3",
+      "iterations": 662057,
+      "real_time": 1010,
+      "cpu_time": 1009,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/4",
+      "iterations": 710220,
+      "real_time": 997,
+      "cpu_time": 995,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/5",
+      "iterations": 752033,
+      "real_time": 1048,
+      "cpu_time": 1046,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/6",
+      "iterations": 783585,
+      "real_time": 1069,
+      "cpu_time": 1067,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/7",
+      "iterations": 742485,
+      "real_time": 1157,
+      "cpu_time": 1154,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/8",
+      "iterations": 507265,
+      "real_time": 1206,
+      "cpu_time": 1204,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/9",
+      "iterations": 473645,
+      "real_time": 1349,
+      "cpu_time": 1346,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/10",
+      "iterations": 360735,
+      "real_time": 1791,
+      "cpu_time": 1787,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/11",
+      "iterations": 57427,
+      "real_time": 12051,
+      "cpu_time": 12027,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/12",
+      "iterations": 954,
+      "real_time": 838815,
+      "cpu_time": 837022,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/13",
+      "iterations": 1,
+      "real_time": 921671234,
+      "cpu_time": 919863000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/0",
+      "iterations": 72574207,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/1",
+      "iterations": 27154096,
+      "real_time": 27,
+      "cpu_time": 27,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/2",
+      "iterations": 25235137,
+      "real_time": 27,
+      "cpu_time": 27,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/3",
+      "iterations": 25401433,
+      "real_time": 27,
+      "cpu_time": 27,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/4",
+      "iterations": 25843418,
+      "real_time": 27,
+      "cpu_time": 27,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/5",
+      "iterations": 26504610,
+      "real_time": 27,
+      "cpu_time": 27,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/6",
+      "iterations": 23666158,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/7",
+      "iterations": 24139513,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/8",
+      "iterations": 23720290,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/9",
+      "iterations": 24191988,
+      "real_time": 31,
+      "cpu_time": 31,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/10",
+      "iterations": 23438886,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/11",
+      "iterations": 22019157,
+      "real_time": 33,
+      "cpu_time": 33,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/12",
+      "iterations": 22534413,
+      "real_time": 31,
+      "cpu_time": 31,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/13",
+      "iterations": 23234201,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    }
+  ]
+}
