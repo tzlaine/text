@@ -37,7 +37,7 @@ namespace boost { namespace text { namespace detail {
 
     enum class which : char { t, rtv, ref };
 
-    constexpr int text_insert_max = 512;
+    constexpr int text_insert_max = BOOST_TEXT_TEXT_INSERT_MAX;
 
     static_assert(sizeof(node_ptr<detail::rope_tag>) * 8 <= 64, "");
 

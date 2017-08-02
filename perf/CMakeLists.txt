@@ -38,3 +38,41 @@ add_custom_target(perf_comparison
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py for_find_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/for_find_perf.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py compare_boyer_moore_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/compare_boyer_moore_perf.json
 )
+
+
+################################
+# text_insert_max perf testing #
+################################
+macro(add_text_insert_max_perf_executable name size)
+    add_executable(${name}_${size} ${name}.cpp)
+    target_compile_options(${name}_${size} PRIVATE ${warnings_flag} -DBOOST_TEXT_TEXT_INSERT_MAX=${size})
+    target_link_libraries(${name}_${size} text benchmark)
+    set_property(TARGET ${name}_${size} PROPERTY CXX_STANDARD ${CXX_STD})
+    if (clang_on_linux)
+        target_link_libraries(${name}_${size} c++)
+    endif ()
+endmacro()
+
+add_text_insert_max_perf_executable(text_insert_max_perf 128)
+add_text_insert_max_perf_executable(text_insert_max_perf 256)
+add_text_insert_max_perf_executable(text_insert_max_perf 512)
+add_text_insert_max_perf_executable(text_insert_max_perf 1024)
+add_text_insert_max_perf_executable(text_insert_max_perf 2048)
+add_text_insert_max_perf_executable(text_insert_max_perf 4096)
+add_text_insert_max_perf_executable(text_insert_max_perf 8192)
+add_text_insert_max_perf_executable(text_insert_max_perf 16384)
+add_text_insert_max_perf_executable(text_insert_max_perf 32768)
+add_text_insert_max_perf_executable(text_insert_max_perf 65536)
+
+add_custom_target(find_text_insert_max
+    COMMAND text_insert_max_perf_128
+    COMMAND text_insert_max_perf_256
+    COMMAND text_insert_max_perf_512
+    COMMAND text_insert_max_perf_1024
+    COMMAND text_insert_max_perf_2048
+    COMMAND text_insert_max_perf_4096
+    COMMAND text_insert_max_perf_8192
+    COMMAND text_insert_max_perf_16384
+    COMMAND text_insert_max_perf_32768
+    COMMAND text_insert_max_perf_65536
+)

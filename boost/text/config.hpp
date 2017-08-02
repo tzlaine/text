@@ -11,6 +11,16 @@
 #define BOOST_TEXT_THREAD_UNSAFE 0
 #endif
 
+/** When you insert into a rope, the incoming text sequence may be inserted as
+    a new segment, or if it falls within an existing text-segment, it may be
+    inserted into the text object used to represemt that segment.  This only
+    happens if the incoming sequence will fit within the existing segment's
+    capacity, or if the segment is smaller than a certain limit.
+    BOOST_TEXT_TEXT_INSERT_MAX is that limit. */
+#ifndef BOOST_TEXT_TEXT_INSERT_MAX
+#define BOOST_TEXT_TEXT_INSERT_MAX 4096
+#endif
+
 // Nothing before GCC 6 has proper C++14 constexpr support.
 #if defined(__GNUC__) && __GNUC__ < 6 && !defined(__clang__)
 # define BOOST_TEXT_CXX14_CONSTEXPR
