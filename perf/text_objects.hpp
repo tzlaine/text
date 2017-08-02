@@ -46,7 +46,18 @@ namespace {
     };
 
     boost::text::rope make_rope (int i)
-    { return boost::text::rope(boost::text::repeat(".", strings[i].size())); }
+    {
+        boost::text::rope retval;
+        auto size = strings[i].size();
+        auto const chunk_size = 512;
+        while (size) {
+            auto const this_chunk_size = chunk_size <= size ?
+                chunk_size : size;
+            retval.insert(retval.size(), boost::text::text(boost::text::repeat(".", this_chunk_size)));
+            size -= this_chunk_size;
+        }
+        return retval;
+    }
 
     boost::text::rope ropes[14] = {
         make_rope(0),
@@ -66,7 +77,7 @@ namespace {
     };
 
     boost::text::rope_view make_rope_view (int i)
-    { return boost::text::rope_view(strings[i].c_str()); }
+    { return boost::text::rope_view(ropes[i]); }
 
     boost::text::rope_view rope_views[14] = {
         make_rope_view(0),

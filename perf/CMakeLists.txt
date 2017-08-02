@@ -22,11 +22,12 @@ endmacro()
 add_perf_executable(ctor_dtor_perf)
 add_perf_executable(copy_perf)
 add_perf_executable(insert_erase_perf)
+add_perf_executable(for_find_perf)
 
 #add_custom_target(perf
 #    COMMAND ctor_dtor_perf
 #    COMMAND copy_perf
 #    COMMAND insert_erase_perf
 #    COMMAND for_find_perf
-#    COMMAND boyer_moore_compare_perf
+#    COMMAND compare_boyer_moore_perf
 #)
