@@ -1126,7 +1126,6 @@ namespace boost { namespace text {
         return *this;
     }
 
-    // TODO: Add a noncontiguous random_access Iter overload, here and elsewhere.
     template <typename Iter>
     auto text::replace (text_view old_substr, Iter first, Iter last)
         -> detail::char_iter_ret_t<text &, Iter>
