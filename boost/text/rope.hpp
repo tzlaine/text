@@ -18,9 +18,6 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
-    // TODO: Consider special-casing having a single text leaf, as it might
-    // allow a cheap COW & threadsafe alternative to text.
-
     // TODO: Figure out the best value for detail::text_insert_max by
     // profiling the cost of slitting a text node into three chunks on insert,
     // vs. the cost of copying it entirely.
