@@ -3,7 +3,6 @@
 
 #include <boost/text/detail/utility.hpp>
 
-// TODO: Profile both ways.
 #ifndef BOOST_TEXT_THREAD_UNSAFE
 #include <boost/atomic.hpp>
 #endif

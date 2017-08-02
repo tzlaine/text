@@ -1,0 +1,6 @@
+Notes:
+
+* Using atomic operations for rope ref counts does not seem to incur much
+  cost.  In perf tests, copying a _r_ is 8ns with non-atomic ints, vs. 9-10ns
+  with atomic ints.  Comparison was done on MacOS.
+
