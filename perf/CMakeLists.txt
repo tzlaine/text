@@ -1,9 +1,3 @@
-# TODO: Perf tests for:
-# for-loop iteration
-# std::find
-# boyer_moore
-# compare
-
 set(warnings_flag)
 if (NOT MSVC)
     set(warnings_flag -Wall)
@@ -23,11 +17,12 @@ add_perf_executable(ctor_dtor_perf)
 add_perf_executable(copy_perf)
 add_perf_executable(insert_erase_perf)
 add_perf_executable(for_find_perf)
+add_perf_executable(compare_boyer_moore_perf)
 
-#add_custom_target(perf
-#    COMMAND ctor_dtor_perf
-#    COMMAND copy_perf
-#    COMMAND insert_erase_perf
-#    COMMAND for_find_perf
-#    COMMAND compare_boyer_moore_perf
-#)
+add_custom_target(perf
+    COMMAND ctor_dtor_perf
+    COMMAND copy_perf
+    COMMAND insert_erase_perf
+    COMMAND for_find_perf
+    COMMAND compare_boyer_moore_perf
+)
