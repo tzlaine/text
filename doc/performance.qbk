@@ -4,3 +4,15 @@ Notes:
   cost.  In perf tests, copying a _r_ is 8ns with non-atomic ints, vs. 9-10ns
   with atomic ints.  Comparison was done on MacOS.
 
+* It is possible to implement more efficient versions of some of the
+  algorithms.  For instance, find() could use Boyer-Moore instead of the naive
+  linear search that it currently uses.  This was not done so that these
+  algorithms can be available for use in constexpr contexts in c++14 and
+  later.  Note this does not affect any MSVC users, nor any C++11 Clang or CCG
+  users, as those compilers do not provide C++14 constepxr support.  It is
+  likely that C++20 will provide language support for detecting at compile
+  time whether a function is being evaluated in a constexpr context, allowing
+  a constexpr implementation and a more efficient runtime implementation with
+  a single interface.  This only affects the algorithms that _Text_ provides.
+  Just use the standard algorithms if you see performance problems with the
+  _Text_ ones.

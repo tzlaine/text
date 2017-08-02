@@ -21,9 +21,6 @@ namespace boost { namespace text {
     struct rope;
     struct rope_view;
 
-    // TODO: text should use the more efficient versions of the
-    // constexpr-friendly-but-slower operations that text_view does.
-
     // TODO: text needs SBO.
 
     /** A mutable contiguous null-terminated sequence of char.  The sequence
