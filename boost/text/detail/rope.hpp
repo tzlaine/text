@@ -9,9 +9,6 @@
 
 namespace boost { namespace text { namespace detail {
 
-    // TODO: Experiment with collapsing adjacent references when inserting,
-    // erasing, etc.
-
     struct rope_tag;
 
     template <>
