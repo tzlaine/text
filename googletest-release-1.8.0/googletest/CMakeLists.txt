@@ -99,6 +99,7 @@ if (DEFINED CMAKE_VERSION AND NOT "${CMAKE_VERSION}" VERSION_LESS "2.8.11")
   target_include_directories(gtest_main INTERFACE "${gtest_SOURCE_DIR}/include")
 endif()
 
+if (false) # Disable completely.
 ########################################################################
 #
 # Install rules
@@ -106,6 +107,7 @@ install(TARGETS gtest gtest_main
   DESTINATION lib)
 install(DIRECTORY ${gtest_SOURCE_DIR}/include/gtest
   DESTINATION include)
+endif ()
 
 ########################################################################
 #

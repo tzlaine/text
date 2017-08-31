@@ -100,6 +100,7 @@ if (DEFINED CMAKE_VERSION AND NOT "${CMAKE_VERSION}" VERSION_LESS "2.8.11")
   target_include_directories(gmock_main INTERFACE "${gmock_SOURCE_DIR}/include")
 endif()
 
+if (false) # Disable completely.
 ########################################################################
 #
 # Install rules
@@ -107,6 +108,7 @@ install(TARGETS gmock gmock_main
   DESTINATION lib)
 install(DIRECTORY ${gmock_SOURCE_DIR}/include/gmock
   DESTINATION include)
+endif ()
 
 ########################################################################
 #
