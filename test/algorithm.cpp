@@ -183,7 +183,7 @@ TEST(algorithm, test_empty_view_constexpr)
     constexpr int find_first_of_index = find_first_of(tv, tv);
     static_assert(find_first_of_index == 0, "");
     constexpr int find_first_not_of_index = find_first_not_of(tv, tv);
-    static_assert(find_first_not_of_index ==0, "");
+    static_assert(find_first_not_of_index == 0, "");
 
     constexpr int find_last_of_index = find_last_of(tv, tv);
     static_assert(find_last_of_index == 0, "");

@@ -139,7 +139,7 @@ TEST(const_reverse_char_iterator, test_default_ctor)
 
         static_assert(it1 == it2, "");
         static_assert(!(it1 != it2), "");
-#if !defined(_MSC_VER) ||  1910 < _MSC_VER
+#if !defined(_MSC_VER) || 1910 < _MSC_VER
         static_assert(!(it1 < it2), "");
         static_assert(it1 <= it2, "");
         static_assert(!(it1 > it2), "");
@@ -245,21 +245,39 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 constexpr text::text_view tv_a("a");
-inline constexpr text::detail::const_reverse_char_iterator tv_a_preincremented_begin ()
-{ return ++tv_a.rbegin(); }
-inline constexpr text::detail::const_reverse_char_iterator tv_a_postincremented_begin ()
-{ return tv_a.rbegin()++; }
-inline constexpr text::detail::const_reverse_char_iterator tv_a_plusequals1_begin ()
-{ return tv_a.rbegin() += 1; }
+inline constexpr text::detail::const_reverse_char_iterator
+tv_a_preincremented_begin()
+{
+    return ++tv_a.rbegin();
+}
+inline constexpr text::detail::const_reverse_char_iterator
+tv_a_postincremented_begin()
+{
+    return tv_a.rbegin()++;
+}
+inline constexpr text::detail::const_reverse_char_iterator
+tv_a_plusequals1_begin()
+{
+    return tv_a.rbegin() += 1;
+}
 
-inline constexpr text::detail::const_reverse_char_iterator tv_a_predecremented_end ()
-{ return --tv_a.rend(); }
-inline constexpr text::detail::const_reverse_char_iterator tv_a_postdecremented_end ()
-{ return tv_a.rend()--; }
-inline constexpr text::detail::const_reverse_char_iterator tv_a_minusequals1_end ()
-{ return tv_a.rend() -= 1; }
+inline constexpr text::detail::const_reverse_char_iterator
+tv_a_predecremented_end()
+{
+    return --tv_a.rend();
+}
+inline constexpr text::detail::const_reverse_char_iterator
+tv_a_postdecremented_end()
+{
+    return tv_a.rend()--;
+}
+inline constexpr text::detail::const_reverse_char_iterator
+tv_a_minusequals1_end()
+{
+    return tv_a.rend() -= 1;
+}
 
-inline constexpr int count_tv_a_elements ()
+inline constexpr int count_tv_a_elements()
 {
     int retval = 0;
     for (auto it = tv_a.rbegin(); it != tv_a.rend(); ++it) {
@@ -272,7 +290,8 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
 {
     {
         constexpr text::text_view tv_empty("");
-        constexpr text::detail::const_reverse_char_iterator it = tv_empty.rbegin();
+        constexpr text::detail::const_reverse_char_iterator it =
+            tv_empty.rbegin();
 
         static_assert(it == it, "");
         static_assert(!(it != it), "");
@@ -285,7 +304,8 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
     }
 
     {
-        constexpr text::detail::const_reverse_char_iterator first = tv_a.rbegin();
+        constexpr text::detail::const_reverse_char_iterator first =
+            tv_a.rbegin();
         constexpr text::detail::const_reverse_char_iterator last = tv_a.rend();
 
         static_assert(*last.base() == *first, "");
@@ -337,7 +357,9 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
         static_assert(first - last == -1, "");
         static_assert(last - first == 1, "");
 
-        static_assert(count_tv_a_elements() == 1, "ensure that iterator works in a constexpr function loop");
+        static_assert(
+            count_tv_a_elements() == 1,
+            "ensure that iterator works in a constexpr function loop");
     }
 }
 
@@ -380,7 +402,8 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor)
 {
     {
         text::text_view tv_empty("");
-        text::detail::const_repeated_chars_iterator it(tv_empty.begin(), tv_empty.size(), 0);
+        text::detail::const_repeated_chars_iterator it(
+            tv_empty.begin(), tv_empty.size(), 0);
 
         EXPECT_EQ(it, it);
         EXPECT_FALSE(it != it);
@@ -394,8 +417,10 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor)
 
     {
         text::text_view tv_abc("abc");
-        text::detail::const_repeated_chars_iterator first(tv_abc.begin(), tv_abc.size(), 0);
-        text::detail::const_repeated_chars_iterator last(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
+        text::detail::const_repeated_chars_iterator first(
+            tv_abc.begin(), tv_abc.size(), 0);
+        text::detail::const_repeated_chars_iterator last(
+            tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
 
         EXPECT_EQ(*first, 'a');
         EXPECT_EQ(first[0], 'a');
@@ -594,11 +619,11 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor)
     {
         text::text_view tv_abc("abc");
         text::detail::const_reverse_repeated_chars_iterator first(
-            text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size())
-        );
+            text::detail::const_repeated_chars_iterator(
+                tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
         text::detail::const_reverse_repeated_chars_iterator last(
-            text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 0)
-        );
+            text::detail::const_repeated_chars_iterator(
+                tv_abc.begin(), tv_abc.size(), 0));
 
         EXPECT_EQ(*first, 'c');
         EXPECT_EQ(first[0], 'c');
@@ -687,25 +712,57 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor)
 
 constexpr text::text_view tv_abc("abc");
 
-inline constexpr text::detail::const_repeated_chars_iterator tv_abc_preincremented_begin_repeat ()
-{ text::detail::const_repeated_chars_iterator it(tv_abc.begin(), tv_abc.size(), 0); return ++it; }
-inline constexpr text::detail::const_repeated_chars_iterator tv_abc_postincremented_begin_repeat ()
-{ text::detail::const_repeated_chars_iterator it(tv_abc.begin(), tv_abc.size(), 0); return it++; }
-inline constexpr text::detail::const_repeated_chars_iterator tv_abc_plusequals9_begin_repeat ()
-{ text::detail::const_repeated_chars_iterator it(tv_abc.begin(), tv_abc.size(), 0); return it += 9; }
+inline constexpr text::detail::const_repeated_chars_iterator
+tv_abc_preincremented_begin_repeat()
+{
+    text::detail::const_repeated_chars_iterator it(
+        tv_abc.begin(), tv_abc.size(), 0);
+    return ++it;
+}
+inline constexpr text::detail::const_repeated_chars_iterator
+tv_abc_postincremented_begin_repeat()
+{
+    text::detail::const_repeated_chars_iterator it(
+        tv_abc.begin(), tv_abc.size(), 0);
+    return it++;
+}
+inline constexpr text::detail::const_repeated_chars_iterator
+tv_abc_plusequals9_begin_repeat()
+{
+    text::detail::const_repeated_chars_iterator it(
+        tv_abc.begin(), tv_abc.size(), 0);
+    return it += 9;
+}
 
-inline constexpr text::detail::const_repeated_chars_iterator tv_abc_predecremented_end_repeat ()
-{ text::detail::const_repeated_chars_iterator it(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()); return --it; }
-inline constexpr text::detail::const_repeated_chars_iterator tv_abc_postdecremented_end_repeat ()
-{ text::detail::const_repeated_chars_iterator it(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()); return it--; }
-inline constexpr text::detail::const_repeated_chars_iterator tv_abc_minusequals9_end_repeat ()
-{ text::detail::const_repeated_chars_iterator it(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()); return it -= 9; }
+inline constexpr text::detail::const_repeated_chars_iterator
+tv_abc_predecremented_end_repeat()
+{
+    text::detail::const_repeated_chars_iterator it(
+        tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
+    return --it;
+}
+inline constexpr text::detail::const_repeated_chars_iterator
+tv_abc_postdecremented_end_repeat()
+{
+    text::detail::const_repeated_chars_iterator it(
+        tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
+    return it--;
+}
+inline constexpr text::detail::const_repeated_chars_iterator
+tv_abc_minusequals9_end_repeat()
+{
+    text::detail::const_repeated_chars_iterator it(
+        tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
+    return it -= 9;
+}
 
-inline constexpr int count_tv_abc_elements_repeat ()
+inline constexpr int count_tv_abc_elements_repeat()
 {
     int retval = 0;
-    text::detail::const_repeated_chars_iterator first(tv_abc.begin(), tv_abc.size(), 0);
-    text::detail::const_repeated_chars_iterator last(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
+    text::detail::const_repeated_chars_iterator first(
+        tv_abc.begin(), tv_abc.size(), 0);
+    text::detail::const_repeated_chars_iterator last(
+        tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
     for (auto it = first; it != last; ++it) {
         ++retval;
     }
@@ -716,7 +773,8 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor_constexpr)
 {
     {
         constexpr text::text_view tv_empty("");
-        constexpr text::detail::const_repeated_chars_iterator it(tv_empty.begin(), tv_empty.size(), 0);
+        constexpr text::detail::const_repeated_chars_iterator it(
+            tv_empty.begin(), tv_empty.size(), 0);
 
         static_assert(it == it, "");
         static_assert(!(it != it), "");
@@ -729,8 +787,10 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor_constexpr)
     }
 
     {
-        constexpr text::detail::const_repeated_chars_iterator first(tv_abc.begin(), tv_abc.size(), 0);
-        constexpr text::detail::const_repeated_chars_iterator last(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
+        constexpr text::detail::const_repeated_chars_iterator first(
+            tv_abc.begin(), tv_abc.size(), 0);
+        constexpr text::detail::const_repeated_chars_iterator last(
+            tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size());
 
         static_assert(*first == 'a', "");
         static_assert(first[0] == 'a', "");
@@ -844,63 +904,71 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor_constexpr)
         static_assert(it_3 - it_3 == 0, "");
         static_assert(it_4 - it_4 == 0, "");
 
-        static_assert(count_tv_abc_elements_repeat() == 9, "ensure that iterator works in a constexpr function loop");
+        static_assert(
+            count_tv_abc_elements_repeat() == 9,
+            "ensure that iterator works in a constexpr function loop");
     }
 }
 
-constexpr text::detail::const_reverse_repeated_chars_iterator reverse_tv_abc_preincremented_begin_repeat ()
+constexpr text::detail::const_reverse_repeated_chars_iterator
+reverse_tv_abc_preincremented_begin_repeat()
 {
     text::detail::const_reverse_repeated_chars_iterator it(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size())
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
     return ++it;
 }
-constexpr text::detail::const_reverse_repeated_chars_iterator reverse_tv_abc_postincremented_begin_repeat ()
+constexpr text::detail::const_reverse_repeated_chars_iterator
+reverse_tv_abc_postincremented_begin_repeat()
 {
     text::detail::const_reverse_repeated_chars_iterator it(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size())
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
     return it++;
 }
-constexpr text::detail::const_reverse_repeated_chars_iterator reverse_tv_abc_plusequals9_begin_repeat ()
+constexpr text::detail::const_reverse_repeated_chars_iterator
+reverse_tv_abc_plusequals9_begin_repeat()
 {
     text::detail::const_reverse_repeated_chars_iterator it(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size())
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
     return it += 9;
 }
 
-constexpr text::detail::const_reverse_repeated_chars_iterator reverse_tv_abc_predecremented_end_repeat ()
+constexpr text::detail::const_reverse_repeated_chars_iterator
+reverse_tv_abc_predecremented_end_repeat()
 {
     text::detail::const_reverse_repeated_chars_iterator it(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 0)
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 0));
     return --it;
 }
-constexpr text::detail::const_reverse_repeated_chars_iterator reverse_tv_abc_postdecremented_end_repeat ()
+constexpr text::detail::const_reverse_repeated_chars_iterator
+reverse_tv_abc_postdecremented_end_repeat()
 {
     text::detail::const_reverse_repeated_chars_iterator it(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 0)
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 0));
     return it--;
 }
-constexpr text::detail::const_reverse_repeated_chars_iterator reverse_tv_abc_minusequals9_end_repeat ()
+constexpr text::detail::const_reverse_repeated_chars_iterator
+reverse_tv_abc_minusequals9_end_repeat()
 {
     text::detail::const_reverse_repeated_chars_iterator it(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 0)
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 0));
     return it -= 9;
 }
 
-constexpr int reverse_count_tv_abc_elements_repeat ()
+constexpr int reverse_count_tv_abc_elements_repeat()
 {
     int retval = 0;
     text::detail::const_reverse_repeated_chars_iterator first(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size())
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
     text::detail::const_reverse_repeated_chars_iterator last(
-        text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 0)
-    );
+        text::detail::const_repeated_chars_iterator(
+            tv_abc.begin(), tv_abc.size(), 0));
     for (auto it = first; it != last; ++it) {
         ++retval;
     }
@@ -912,8 +980,8 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
     {
         constexpr text::text_view tv_empty("");
         constexpr text::detail::const_reverse_repeated_chars_iterator it(
-            text::detail::const_repeated_chars_iterator(tv_empty.begin(), tv_empty.size(), tv_empty.size())
-        );
+            text::detail::const_repeated_chars_iterator(
+                tv_empty.begin(), tv_empty.size(), tv_empty.size()));
 
         static_assert(it == it, "");
         static_assert(!(it != it), "");
@@ -927,11 +995,11 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
 
     {
         constexpr text::detail::const_reverse_repeated_chars_iterator first(
-            text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size())
-        );
+            text::detail::const_repeated_chars_iterator(
+                tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
         constexpr text::detail::const_reverse_repeated_chars_iterator last(
-            text::detail::const_repeated_chars_iterator(tv_abc.begin(), tv_abc.size(), 0)
-        );
+            text::detail::const_repeated_chars_iterator(
+                tv_abc.begin(), tv_abc.size(), 0));
 
         static_assert(*first == 'c', "");
         static_assert(first[0] == 'c', "");
@@ -1045,7 +1113,9 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
         static_assert(it_3 - it_3 == 0, "");
         static_assert(it_4 - it_4 == 0, "");
 
-        static_assert(reverse_count_tv_abc_elements_repeat() == 9, "ensure that iterator works in a constexpr function loop");
+        static_assert(
+            reverse_count_tv_abc_elements_repeat() == 9,
+            "ensure that iterator works in a constexpr function loop");
     }
 }
 

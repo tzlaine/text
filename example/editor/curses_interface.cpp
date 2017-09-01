@@ -5,8 +5,7 @@ extern "C" {
 }
 
 
-curses_interface_t::curses_interface_t () :
-    win_ (initscr())
+curses_interface_t::curses_interface_t() : win_(initscr())
 {
     if (win_ != stdscr)
         throw std::runtime_error("ncurses initscr() failed.");
@@ -18,22 +17,23 @@ curses_interface_t::curses_interface_t () :
     use_default_colors();
 }
 
-curses_interface_t::~curses_interface_t ()
-{ endwin(); }
+curses_interface_t::~curses_interface_t() { endwin(); }
 
-screen_pos_t curses_interface_t::screen_size () const
-{ return {getmaxy(stdscr), getmaxx(stdscr)}; }
+screen_pos_t curses_interface_t::screen_size() const
+{
+    return {getmaxy(stdscr), getmaxx(stdscr)};
+}
 
-event_t curses_interface_t::next_event () const
+event_t curses_interface_t::next_event() const
 {
     wint_t k = 0;
-    int const mod = wget_wch(win_, &k);    
+    int const mod = wget_wch(win_, &k);
     return {key_code_t(mod, (int)k), screen_size()};
 }
 
 namespace {
 
-    void render_text (snapshot_t const & snapshot, screen_pos_t screen_size)
+    void render_text(snapshot_t const & snapshot, screen_pos_t screen_size)
     {
         int row = 0;
         char buf[1 << 10]; // Assume lines are <= 1k.
@@ -41,8 +41,7 @@ namespace {
         auto line_first = snapshot.first_row_;
         auto const line_last = (std::min)(
             line_first + screen_size.row_ - 2,
-            (int)snapshot.line_sizes_.size()
-        );
+            (int)snapshot.line_sizes_.size());
         for (; line_first != line_last; ++line_first) {
             auto const line = snapshot.line_sizes_[line_first];
             auto first = snapshot.content_.begin() + pos;
@@ -59,10 +58,9 @@ namespace {
             ++row;
         }
     }
-
 }
 
-void render (buffer_t const & buffer, screen_pos_t screen_size)
+void render(buffer_t const & buffer, screen_pos_t screen_size)
 {
     erase();
 
@@ -81,15 +79,11 @@ void render (buffer_t const & buffer, screen_pos_t screen_size)
 #endif
         buffer.path_.c_str(),
         buffer.snapshot_.first_row_ + buffer.snapshot_.cursor_pos_.row_ + 1,
-        buffer.snapshot_.cursor_pos_.col_
-    );
+        buffer.snapshot_.cursor_pos_.col_);
     attroff(A_REVERSE);
     hline(' ', size.col_);
 
-    move(
-        buffer.snapshot_.cursor_pos_.row_,
-        buffer.snapshot_.cursor_pos_.col_
-    );
+    move(buffer.snapshot_.cursor_pos_.row_, buffer.snapshot_.cursor_pos_.col_);
     curs_set(true);
 
     refresh();

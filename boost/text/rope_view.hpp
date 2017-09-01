@@ -28,11 +28,11 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        rope_view () noexcept : ref_ (rope_ref()), which_ (which::r) {}
+        rope_view() noexcept : ref_(rope_ref()), which_(which::r) {}
 
         /** Constructs a rope_view covering the entire given rope.  The UTF-8
             encoding is not checked. */
-        rope_view (rope const & r) noexcept;
+        rope_view(rope const & r) noexcept;
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -51,7 +51,7 @@ namespace boost { namespace text {
             valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        rope_view (rope const & r, int lo, int hi);
+        rope_view(rope const & r, int lo, int hi);
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -66,11 +66,11 @@ namespace boost { namespace text {
             \pre lo <= hi
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        rope_view (rope const & r, int lo, int hi, utf8::unchecked_t) noexcept;
+        rope_view(rope const & r, int lo, int hi, utf8::unchecked_t) noexcept;
 
         /** Constructs a rope_view covering the entire given rope.  The UTF-8
             encoding is not checked. */
-        rope_view (text const & r) noexcept;
+        rope_view(text const & r) noexcept;
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -89,7 +89,7 @@ namespace boost { namespace text {
             valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        rope_view (text const & r, int lo, int hi);
+        rope_view(text const & r, int lo, int hi);
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -104,7 +104,7 @@ namespace boost { namespace text {
             \pre lo <= hi
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        rope_view (text const & r, int lo, int hi, utf8::unchecked_t) noexcept;
+        rope_view(text const & r, int lo, int hi, utf8::unchecked_t) noexcept;
 
         /** Constructs a rope_view from a null-terminated C string.  The UTF-8
             encoding is checked only at the beginning and end of the string,
@@ -112,21 +112,22 @@ namespace boost { namespace text {
             use checked_encoding().
 
             \pre strlen(c_str) <= max_size()
-            \throw std::invalid_argument if the ends of the string are not valid UTF-8.
-            \post data() == c_str && size() == strlen(c_str) */
-        rope_view (char const * c_str) noexcept :
-            ref_ (text_view(c_str)), which_ (which::tv)
+            \throw std::invalid_argument if the ends of the string are not valid
+           UTF-8. \post data() == c_str && size() == strlen(c_str) */
+        rope_view(char const * c_str) noexcept :
+            ref_(text_view(c_str)),
+            which_(which::tv)
         {}
 
         /** Constructs a rope_view covering the entire given text_view.  The
             UTF-8 encoding is not checked. */
-        rope_view (text_view tv) noexcept : ref_ (tv), which_ (which::tv) {}
+        rope_view(text_view tv) noexcept : ref_(tv), which_(which::tv) {}
 
         /** Constructs a rope_view covering the entire given
             repeated_text_view.  The UTF-8 encoding is not checked. */
-        rope_view (repeated_text_view rtv) noexcept :
-            ref_ (repeated_ref(rtv, 0, rtv.size())),
-            which_ (which::rtv)
+        rope_view(repeated_text_view rtv) noexcept :
+            ref_(repeated_ref(rtv, 0, rtv.size())),
+            which_(which::rtv)
         {}
 
         /** Constructs a substring of rtv, taken from the range of chars at
@@ -146,7 +147,7 @@ namespace boost { namespace text {
             valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        rope_view (repeated_text_view rtv, int lo, int hi);
+        rope_view(repeated_text_view rtv, int lo, int hi);
 
         /** Constructs a substring of rtv, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -161,24 +162,28 @@ namespace boost { namespace text {
             \pre lo <= hi
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        rope_view (repeated_text_view rtv, int lo, int hi, utf8::unchecked_t) noexcept :
-            ref_ (repeated_ref(rtv, lo, hi)),
-            which_ (which::rtv)
+        rope_view(
+            repeated_text_view rtv,
+            int lo,
+            int hi,
+            utf8::unchecked_t) noexcept :
+            ref_(repeated_ref(rtv, lo, hi)),
+            which_(which::rtv)
         {}
 
-        const_iterator begin () const noexcept;
-        const_iterator end () const noexcept;
+        const_iterator begin() const noexcept;
+        const_iterator end() const noexcept;
 
-        const_reverse_iterator rbegin () const noexcept;
-        const_reverse_iterator rend () const noexcept;
+        const_reverse_iterator rbegin() const noexcept;
+        const_reverse_iterator rend() const noexcept;
 
-        bool empty () const noexcept;
-        size_type size () const noexcept;
+        bool empty() const noexcept;
+        size_type size() const noexcept;
 
         /** Returns the i-th char of *this (not a reference).
 
             \pre i < size() */
-        char operator[] (int i) const noexcept;
+        char operator[](int i) const noexcept;
 
         /** Returns a substring of *this, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -193,7 +198,7 @@ namespace boost { namespace text {
             \pre lo <= hi
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope_view operator() (int lo, int hi) const;
+        rope_view operator()(int lo, int hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -201,7 +206,7 @@ namespace boost { namespace text {
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope_view operator() (int cut) const
+        rope_view operator()(int cut) const
         {
             int lo = 0;
             int hi = cut;
@@ -215,8 +220,7 @@ namespace boost { namespace text {
         }
 
         /** Returns the maximum size a text_view can have. */
-        size_type max_size () const noexcept
-        { return PTRDIFF_MAX; }
+        size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying rope and calls f(s).  Each
             segment is a value whose type models a Char_iterator
@@ -226,16 +230,16 @@ namespace boost { namespace text {
 
             \pre Fn is an Invocable accepting a single argument whose begin
             and end model Char_iterator. */
-        template <typename Fn>
-        void foreach_segment (Fn && f) const;
+        template<typename Fn>
+        void foreach_segment(Fn && f) const;
 
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
-        int compare (rope_view rhs) const noexcept;
+        int compare(rope_view rhs) const noexcept;
 
         /** Swaps *this with rhs. */
-        void swap (rope_view & rhs) noexcept
+        void swap(rope_view & rhs) noexcept
         {
             std::swap(ref_, rhs.ref_);
             std::swap(which_, rhs.which_);
@@ -248,9 +252,8 @@ namespace boost { namespace text {
 
         struct rope_ref
         {
-            rope_ref () : r_ (nullptr), lo_ (0), hi_ (0) {}
-            rope_ref (rope const * r, int lo, int hi) :
-                r_ (r), lo_ (lo), hi_ (hi)
+            rope_ref() : r_(nullptr), lo_(0), hi_(0) {}
+            rope_ref(rope const * r, int lo, int hi) : r_(r), lo_(lo), hi_(hi)
             {}
 
             rope const * r_;
@@ -260,9 +263,11 @@ namespace boost { namespace text {
 
         struct repeated_ref
         {
-            repeated_ref () : rtv_ (), lo_ (0), hi_ (0) {}
-            repeated_ref (repeated_text_view rtv, int lo, int hi) :
-                rtv_ (rtv), lo_ (lo), hi_ (hi)
+            repeated_ref() : rtv_(), lo_(0), hi_(0) {}
+            repeated_ref(repeated_text_view rtv, int lo, int hi) :
+                rtv_(rtv),
+                lo_(lo),
+                hi_(hi)
             {}
 
             repeated_text_view rtv_;
@@ -272,14 +277,13 @@ namespace boost { namespace text {
 
         union ref
         {
-            ref (rope_ref r) : r_ (r) {}
-            ref (text_view tv) : tv_ (tv) {}
-            ref (repeated_ref rtv) : rtv_ (rtv) {}
+            ref(rope_ref r) : r_(r) {}
+            ref(text_view tv) : tv_(tv) {}
+            ref(repeated_ref rtv) : rtv_(rtv) {}
 
-            ref (ref const & rhs)
-            { memcpy(this, &rhs, sizeof(*this)); }
+            ref(ref const & rhs) { memcpy(this, &rhs, sizeof(*this)); }
 
-            ref & operator= (ref const & rhs)
+            ref & operator=(ref const & rhs)
             {
                 memcpy(this, &rhs, sizeof(*this));
                 return *this;
@@ -290,9 +294,9 @@ namespace boost { namespace text {
             repeated_ref rtv_;
         };
 
-        rope_view (rope const * r, int lo, int hi) :
-            ref_ (rope_ref(r, lo, hi)),
-            which_ (which::r)
+        rope_view(rope const * r, int lo, int hi) :
+            ref_(rope_ref(r, lo, hi)),
+            which_(which::r)
         {}
 
         ref ref_;
@@ -300,42 +304,57 @@ namespace boost { namespace text {
 
         friend struct rope;
 #endif
-
     };
 
-    inline bool operator== (rope_view lhs, rope_view rhs) noexcept
-    { return lhs.compare(rhs) == 0; }
+    inline bool operator==(rope_view lhs, rope_view rhs) noexcept
+    {
+        return lhs.compare(rhs) == 0;
+    }
 
-    inline bool operator!= (rope_view lhs, rope_view rhs) noexcept
-    { return lhs.compare(rhs) != 0; }
+    inline bool operator!=(rope_view lhs, rope_view rhs) noexcept
+    {
+        return lhs.compare(rhs) != 0;
+    }
 
-    inline bool operator< (rope_view lhs, rope_view rhs) noexcept
-    { return lhs.compare(rhs) < 0; }
+    inline bool operator<(rope_view lhs, rope_view rhs) noexcept
+    {
+        return lhs.compare(rhs) < 0;
+    }
 
-    inline bool operator<= (rope_view lhs, rope_view rhs) noexcept
-    { return lhs.compare(rhs) <= 0; }
+    inline bool operator<=(rope_view lhs, rope_view rhs) noexcept
+    {
+        return lhs.compare(rhs) <= 0;
+    }
 
-    inline bool operator> (rope_view lhs, rope_view rhs) noexcept
-    { return lhs.compare(rhs) > 0; }
+    inline bool operator>(rope_view lhs, rope_view rhs) noexcept
+    {
+        return lhs.compare(rhs) > 0;
+    }
 
-    inline bool operator>= (rope_view lhs, rope_view rhs) noexcept
-    { return lhs.compare(rhs) >= 0; }
+    inline bool operator>=(rope_view lhs, rope_view rhs) noexcept
+    {
+        return lhs.compare(rhs) >= 0;
+    }
 
     /** Creates a new rope containing the concatenation of lhs and rhs. */
-    inline rope operator+ (rope_view lhs, rope_view rhs);
+    inline rope operator+(rope_view lhs, rope_view rhs);
 
-} }
+}}
 
 #include <boost/text/rope.hpp>
 
 namespace boost { namespace text {
 
-    inline rope_view repeated_text_view::operator() (int lo, int hi) const
-    { return rope_view(*this)(hi, lo); }
+    inline rope_view repeated_text_view::operator()(int lo, int hi) const
+    {
+        return rope_view(*this)(hi, lo);
+    }
 
-    inline rope_view repeated_text_view::operator() (int cut) const
-    { return rope_view(*this)(cut); }
+    inline rope_view repeated_text_view::operator()(int cut) const
+    {
+        return rope_view(*this)(cut);
+    }
 
-} }
+}}
 
 #endif

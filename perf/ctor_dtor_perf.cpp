@@ -7,55 +7,44 @@
 #include <iostream>
 
 
-void BM_text_view_ctor_dtor (benchmark::State & state)
+void BM_text_view_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            boost::text::text_view(
-                strings[state.range(0)].c_str(),
-                strings[state.range(0)].size()
-            )
-        );
+        benchmark::DoNotOptimize(boost::text::text_view(
+            strings[state.range(0)].c_str(), strings[state.range(0)].size()));
     }
 }
 
-void BM_text_view_ctor_dtor_unchecked (benchmark::State & state)
+void BM_text_view_ctor_dtor_unchecked(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            boost::text::text_view(
-                strings[state.range(0)].c_str(),
-                strings[state.range(0)].size(),
-                boost::text::utf8::unchecked
-            )
-        );
+        benchmark::DoNotOptimize(boost::text::text_view(
+            strings[state.range(0)].c_str(),
+            strings[state.range(0)].size(),
+            boost::text::utf8::unchecked));
     }
 }
 
-void BM_text_ctor_dtor (benchmark::State & state)
+void BM_text_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            boost::text::text(strings[state.range(0)])
-        );
+        benchmark::DoNotOptimize(boost::text::text(strings[state.range(0)]));
     }
 }
 
-void BM_rope_ctor_dtor (benchmark::State & state)
+void BM_rope_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(
-            boost::text::rope(boost::text::text_view(strings[state.range(0)]))
-        );
+            boost::text::rope(boost::text::text_view(strings[state.range(0)])));
     }
 }
 
-void BM_rope_view_ctor_dtor (benchmark::State & state)
+void BM_rope_view_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            boost::text::rope_view(boost::text::text_view(strings[state.range(0)]))
-        );
+        benchmark::DoNotOptimize(boost::text::rope_view(
+            boost::text::text_view(strings[state.range(0)])));
     }
 }
 

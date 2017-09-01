@@ -382,8 +382,9 @@ TEST(rope, test_iterators_and_index)
         }
 
         std::reverse(vec.begin(), vec.end());
-        EXPECT_TRUE(algorithm::equal(r_it_end.base(), r_it_begin.base(), vec.begin(), vec.end()));
-     }
+        EXPECT_TRUE(algorithm::equal(
+            r_it_end.base(), r_it_begin.base(), vec.begin(), vec.end()));
+    }
 }
 
 TEST(rope, test_misc)
@@ -405,11 +406,12 @@ TEST(rope, test_misc)
 
 TEST(rope, test_substr)
 {
-    text::rope const r =
-        text::rope("When writing a specialization, ") +
-        text::text("be careful about its location; ") +
-        text::text_view("or to make it compile will be such a trial as to kindle its self-immolation") +
-        text::repeated_text_view(".", 3);
+    text::rope const r = text::rope("When writing a specialization, ") +
+                         text::text("be careful about its location; ") +
+                         text::text_view(
+                             "or to make it compile will be such a trial as to "
+                             "kindle its self-immolation") +
+                         text::repeated_text_view(".", 3);
 
     EXPECT_EQ(r.substr(-4, -1), "n..");
 
@@ -533,8 +535,10 @@ TEST(rope, test_insert)
 
     {
         text::rope const ct("string");
-        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto const first =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        auto const last =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
 
         text::rope t0 = ct;
         t0.insert(0, first, last);
@@ -589,8 +593,10 @@ TEST(rope, test_insert)
     }
 
     {
-        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto const first =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
+        auto const last =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
         text::rope const ct(first, last);
         EXPECT_EQ(ct.size(), 4);
 
@@ -673,12 +679,14 @@ TEST(rope, test_insert_rope_view)
 
             auto const r_at = r.size() / 2;
             auto const r_as_string_at = r_as_string.size() / 2;
-            r_as_string.insert(r_as_string.begin() + r_as_string_at, rv.begin(), rv.end());
+            r_as_string.insert(
+                r_as_string.begin() + r_as_string_at, rv.begin(), rv.end());
             r.insert(r_at, rv);
 
             local_string.assign(r.begin(), r.end());
             EXPECT_EQ(local_string, r_as_string)
-                << "i=" << i << " j=" << j << " insert( " << r_at << ", " << rv << ")";
+                << "i=" << i << " j=" << j << " insert( " << r_at << ", " << rv
+                << ")";
         }
     }
 }
@@ -687,10 +695,20 @@ TEST(rope, test_insert_encoding_checks)
 {
     // Unicode 9, 3.9/D90-D92
     // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    char const utf8[] = {0x4d, char(0xd0), char(0xb0), char(0xe4), char(0xba), char(0x8c), char(0xf0), char(0x90), char(0x8c), char(0x82)};
+    char const utf8[] = {0x4d,
+                         char(0xd0),
+                         char(0xb0),
+                         char(0xe4),
+                         char(0xba),
+                         char(0x8c),
+                         char(0xf0),
+                         char(0x90),
+                         char(0x8c),
+                         char(0x82)};
 
     text::text_view const unbroken_tv(utf8, sizeof(utf8));
-    text::text_view const broken_tv(utf8, sizeof(utf8) - 1, text::utf8::unchecked);
+    text::text_view const broken_tv(
+        utf8, sizeof(utf8) - 1, text::utf8::unchecked);
 
     text::text const unbroken_t(unbroken_tv);
     text::text const broken_t(broken_tv);
@@ -791,7 +809,8 @@ TEST(rope, test_erase)
             expected += after;
 
             t.erase(substr);
-            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected)
+                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
         }
     }
 
@@ -799,8 +818,10 @@ TEST(rope, test_erase)
         // Unicode 9, 3.9/D90
         uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
 
-        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto const first =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
+        auto const last =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
         text::rope const ct(first, last);
         EXPECT_EQ(ct.size(), 4);
 
@@ -876,7 +897,8 @@ TEST(rope, test_replace)
 {
     text::text_view const replacement("REP");
     // Explicitly null-terminated.
-    text::text_view const replacement_with_null(replacement.begin(), replacement.size() + 1);
+    text::text_view const replacement_with_null(
+        replacement.begin(), replacement.size() + 1);
 
     {
         text::rope t("string");
@@ -924,7 +946,8 @@ TEST(rope, test_replace)
             expected += after;
 
             t.replace(substr, replacement);
-            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected)
+                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
         }
     }
 
@@ -942,7 +965,8 @@ TEST(rope, test_replace)
             expected += after;
 
             t.replace(substr, really_long_replacement);
-            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected)
+                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
         }
     }
 
@@ -950,8 +974,10 @@ TEST(rope, test_replace)
         // Unicode 9, 3.9/D90
         uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
 
-        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto const first =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
+        auto const last =
+            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
         text::rope const ct(first, last);
         EXPECT_EQ(ct.size(), 4);
 
@@ -967,17 +993,20 @@ TEST(rope, test_replace)
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(1, 1), "something"), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(1, 1), "something"), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(2, 2), "something"), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(2, 2), "something"), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(3, 3), "something"), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(3, 3), "something"), std::invalid_argument);
         }
 
         {
@@ -987,17 +1016,20 @@ TEST(rope, test_replace)
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(0, -1), "something"), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(0, -1), "something"), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(0, -2), "something"), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(0, -2), "something"), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(0, -3), "something"), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(0, -3), "something"), std::invalid_argument);
         }
 
         {
@@ -1022,8 +1054,10 @@ TEST(rope, test_replace_iter)
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-    auto const final_cp = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-    auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+    auto const final_cp =
+        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
+    auto const last =
+        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
 
     text::rope const ct_string("string");
     text::rope const ct_text("text");
@@ -1059,7 +1093,8 @@ TEST(rope, test_replace_iter)
                 expected += after;
 
                 t.replace(substr, final_cp, last);
-                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+                EXPECT_EQ(t, expected)
+                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
             }
 
             {
@@ -1073,7 +1108,8 @@ TEST(rope, test_replace_iter)
                 expected += after;
 
                 t.replace(substr, first, last);
-                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+                EXPECT_EQ(t, expected)
+                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
             }
         }
     }
@@ -1114,32 +1150,38 @@ TEST(rope, test_replace_iter)
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(0, -1), final_cp, last), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(0, -1), final_cp, last), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(0, -2), final_cp, last), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(0, -2), final_cp, last), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(0, -3), final_cp, last), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(0, -3), final_cp, last), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(1), final_cp, last), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(1), final_cp, last), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(2), final_cp, last), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(2), final_cp, last), std::invalid_argument);
         }
 
         {
             text::rope t = ct;
-            EXPECT_THROW(t.replace(t(3), final_cp, last), std::invalid_argument);
+            EXPECT_THROW(
+                t.replace(t(3), final_cp, last), std::invalid_argument);
         }
 
         {
@@ -1157,7 +1199,8 @@ TEST(rope, test_replace_iter)
             text::rope t = ct;
             auto final_cp_plus_one = final_cp;
             ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.replace(t.begin() + 1, t.end(), final_cp_plus_one, last));
+            EXPECT_NO_THROW(
+                t.replace(t.begin() + 1, t.end(), final_cp_plus_one, last));
             EXPECT_EQ(t, ct);
         }
     }
@@ -1172,8 +1215,12 @@ TEST(rope, test_replace_iter_large_insertions)
     for (int i = 0; i < 5000; ++i) {
         utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
     }
-    auto const first = text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(utf32_repeated.begin());
-    auto const last = text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(utf32_repeated.end());
+    auto const first =
+        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
+            utf32_repeated.begin());
+    auto const last =
+        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
+            utf32_repeated.end());
 
     {
         text::rope t("string");
@@ -1200,7 +1247,8 @@ TEST(rope, test_unformatted_output)
 
     {
         std::ostringstream oss;
-        oss << std::setw(10) << std::left << std::setfill('*') << text::rope("abc");
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::rope("abc");
         EXPECT_EQ(oss.str(), "abc");
     }
 }

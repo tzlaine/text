@@ -61,7 +61,8 @@ struct text_views
     text::text_view right;
 };
 
-BOOST_TEXT_CXX14_CONSTEXPR text_views swapped (text::text_view lhs, text::text_view rhs)
+BOOST_TEXT_CXX14_CONSTEXPR text_views
+swapped(text::text_view lhs, text::text_view rhs)
 {
     lhs.swap(rhs);
     return text_views{lhs, rhs};
@@ -118,19 +119,21 @@ struct a_t
     std::array<char, 4> chars_;
 };
 
-std::array<char, 4>::const_iterator begin (a_t const & a)
-{ return a.chars_.begin(); }
-std::array<char, 4>::const_iterator end (a_t const & a)
-{ return a.chars_.end(); }
+std::array<char, 4>::const_iterator begin(a_t const & a)
+{
+    return a.chars_.begin();
+}
+std::array<char, 4>::const_iterator end(a_t const & a)
+{
+    return a.chars_.end();
+}
 
 struct b_t
 {
     using iterator = std::array<char, 4>::const_iterator;
 
-    std::array<char, 4>::const_iterator begin () const
-    { return chars_.begin(); }
-    std::array<char, 4>::const_iterator end () const
-    { return chars_.end(); }
+    std::array<char, 4>::const_iterator begin() const { return chars_.begin(); }
+    std::array<char, 4>::const_iterator end() const { return chars_.end(); }
 
     std::array<char, 4> chars_;
 };
@@ -337,7 +340,8 @@ TEST(text_view, test_unformatted_output)
 
     {
         std::ostringstream oss;
-        oss << std::setw(10) << std::left << std::setfill('*') << text::text_view("abc");
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::text_view("abc");
         EXPECT_EQ(oss.str(), "abc");
     }
 }
@@ -396,7 +400,8 @@ TEST(repeated_text_view, test_unformatted_output)
 
     {
         std::ostringstream oss;
-        oss << std::setw(10) << std::left << std::setfill('*') << text::repeated_text_view("abc", 2);
+        oss << std::setw(10) << std::left << std::setfill('*')
+            << text::repeated_text_view("abc", 2);
         EXPECT_EQ(oss.str(), "abcabc");
     }
 }
@@ -410,7 +415,8 @@ struct repeated_text_views
     text::repeated_text_view right;
 };
 
-constexpr repeated_text_views swapped (text::repeated_text_view lhs, text::repeated_text_view rhs)
+constexpr repeated_text_views
+swapped(text::repeated_text_view lhs, text::repeated_text_view rhs)
 {
     lhs.swap(rhs);
     return repeated_text_views{lhs, rhs};
@@ -429,10 +435,14 @@ TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
     constexpr text::repeated_text_view tv_abab_1(tv_abab, 1);
 
     {
-        static_assert(swapped(tv_a_3, tv_ab_2).left.view() == tv_ab_2.view(), "");
-        static_assert(swapped(tv_a_3, tv_ab_2).left.count() == tv_ab_2.count(), "");
-        static_assert(swapped(tv_a_3, tv_ab_2).right.view() == tv_a_3.view(), "");
-        static_assert(swapped(tv_a_3, tv_ab_2).right.count() == tv_a_3.count(), "");
+        static_assert(
+            swapped(tv_a_3, tv_ab_2).left.view() == tv_ab_2.view(), "");
+        static_assert(
+            swapped(tv_a_3, tv_ab_2).left.count() == tv_ab_2.count(), "");
+        static_assert(
+            swapped(tv_a_3, tv_ab_2).right.view() == tv_a_3.view(), "");
+        static_assert(
+            swapped(tv_a_3, tv_ab_2).right.count() == tv_a_3.count(), "");
     }
 
     static_assert(tv_ab_2 == tv_ab_2, "");
@@ -452,10 +462,10 @@ TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
     // This only seems to fail on GCC 6 (and not all versions).  GCC 5, 7, and
     // in fact all other ones beign tested seem to be fine.  No complaints
     // from Clang.
-#if defined(__GNUC__) && __GNUC__ == 6 && !defined(__clang__)
+#    if defined(__GNUC__) && __GNUC__ == 6 && !defined(__clang__)
     static_assert(tv_ab_3 > tv_abab_1, "");
     static_assert(tv_abab_1 < tv_ab_3, "");
-#endif
+#    endif
 }
 
 #endif

@@ -15,19 +15,21 @@ struct a_t
     std::array<char, 4> chars_;
 };
 
-std::array<char, 4>::const_iterator begin (a_t const & a)
-{ return a.chars_.begin(); }
-std::array<char, 4>::const_iterator end (a_t const & a)
-{ return a.chars_.end(); }
+std::array<char, 4>::const_iterator begin(a_t const & a)
+{
+    return a.chars_.begin();
+}
+std::array<char, 4>::const_iterator end(a_t const & a)
+{
+    return a.chars_.end();
+}
 
 struct b_t
 {
     using iterator = std::array<char, 4>::const_iterator;
 
-    std::array<char, 4>::const_iterator begin () const
-    { return chars_.begin(); }
-    std::array<char, 4>::const_iterator end () const
-    { return chars_.end(); }
+    std::array<char, 4>::const_iterator begin() const { return chars_.begin(); }
+    std::array<char, 4>::const_iterator end() const { return chars_.end(); }
 
     std::array<char, 4> chars_;
 };
@@ -47,8 +49,13 @@ static_assert(text::detail::is_char_range<std::array<char, 5>>{}, "");
 static_assert(text::detail::is_char_range<std::array<char, 5> const>{}, "");
 static_assert(text::detail::is_char_range<iterator_range<char *>>{}, "");
 static_assert(text::detail::is_char_range<iterator_range<char const *>>{}, "");
-static_assert(text::detail::is_char_range<iterator_range<std::vector<char>::iterator>>{}, "");
-static_assert(text::detail::is_char_range<iterator_range<std::vector<char>::iterator const>>{}, "");
+static_assert(
+    text::detail::is_char_range<iterator_range<std::vector<char>::iterator>>{},
+    "");
+static_assert(
+    text::detail::is_char_range<
+        iterator_range<std::vector<char>::iterator const>>{},
+    "");
 
 static_assert(text::detail::is_char_range<a_t>{}, "");
 static_assert(text::detail::is_char_range<a_t const>{}, "");
@@ -62,7 +69,9 @@ static_assert(!text::detail::is_char_range<std::array<float, 5>>{}, "");
 static_assert(!text::detail::is_char_range<char>{}, "");
 static_assert(!text::detail::is_char_range<int>{}, "");
 static_assert(!text::detail::is_char_range<iterator_range<wchar_t *>>{}, "");
-static_assert(!text::detail::is_char_range<iterator_range<std::vector<int>::iterator>>{}, "");
+static_assert(
+    !text::detail::is_char_range<iterator_range<std::vector<int>::iterator>>{},
+    "");
 static_assert(!text::detail::is_char_range<wchar_t[5]>{}, "");
 static_assert(!text::detail::is_char_range<int[5]>{}, "");
 

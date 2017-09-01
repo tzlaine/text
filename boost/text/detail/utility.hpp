@@ -17,12 +17,14 @@ namespace boost { namespace text { namespace detail {
 
 #ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-    inline std::ptrdiff_t strlen (char const * c_str) noexcept
-    { return ::strlen(c_str); }
+    inline std::ptrdiff_t strlen(char const * c_str) noexcept
+    {
+        return ::strlen(c_str);
+    }
 
 #else
 
-    inline constexpr std::ptrdiff_t strlen (char const * c_str) noexcept
+    inline constexpr std::ptrdiff_t strlen(char const * c_str) noexcept
     {
         assert(c_str);
         std::size_t retval = 0;
@@ -35,11 +37,9 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-    inline BOOST_TEXT_CXX14_CONSTEXPR char const * strchr (
-        char const * first,
-        char const * last,
-        char c
-    ) noexcept {
+    inline BOOST_TEXT_CXX14_CONSTEXPR char const *
+    strchr(char const * first, char const * last, char c) noexcept
+    {
         while (first != last) {
             if (*first == c)
                 return first;
@@ -48,11 +48,9 @@ namespace boost { namespace text { namespace detail {
         return last;
     }
 
-    inline BOOST_TEXT_CXX14_CONSTEXPR char const * strrchr (
-        char const * first,
-        char const * last,
-        char c
-    ) noexcept {
+    inline BOOST_TEXT_CXX14_CONSTEXPR char const *
+    strrchr(char const * first, char const * last, char c) noexcept
+    {
         char const * it = last;
         while (first != it) {
             if (*--it == c)
@@ -61,20 +59,26 @@ namespace boost { namespace text { namespace detail {
         return last;
     }
 
-    template <typename T>
-    constexpr T min_ (T lhs, T rhs) noexcept
-    { return lhs < rhs ? lhs : rhs; }
+    template<typename T>
+    constexpr T min_(T lhs, T rhs) noexcept
+    {
+        return lhs < rhs ? lhs : rhs;
+    }
 
-    template <typename T>
-    constexpr T max_ (T lhs, T rhs) noexcept
-    { return lhs < rhs ? rhs : lhs; }
+    template<typename T>
+    constexpr T max_(T lhs, T rhs) noexcept
+    {
+        return lhs < rhs ? rhs : lhs;
+    }
 
 #ifdef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-    inline int compare_impl (
-        char const * l_first, char const * l_last,
-        char const * r_first, char const * r_last
-    ) noexcept {
+    inline int compare_impl(
+        char const * l_first,
+        char const * l_last,
+        char const * r_first,
+        char const * r_last) noexcept
+    {
         auto const iters =
             algorithm::mismatch(l_first, l_last, r_first, r_last);
         if (iters.first == l_last) {
@@ -93,10 +97,12 @@ namespace boost { namespace text { namespace detail {
 
 #else
 
-    inline constexpr int compare_impl (
-        char const * l_first, char const * l_last,
-        char const * r_first, char const * r_last
-    ) noexcept {
+    inline constexpr int compare_impl(
+        char const * l_first,
+        char const * l_last,
+        char const * r_first,
+        char const * r_last) noexcept
+    {
         auto const l_size = l_last - l_first;
         auto const r_size = r_last - r_first;
         assert(l_size <= INT_MAX);
@@ -122,8 +128,10 @@ namespace boost { namespace text { namespace detail {
         }
 
         if (retval == 0) {
-            if (l_size < r_size) return -1;
-            if (l_size == r_size) return 0;
+            if (l_size < r_size)
+                return -1;
+            if (l_size == r_size)
+                return 0;
             return 1;
         }
 
@@ -132,6 +140,6 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-} } }
+}}}
 
 #endif

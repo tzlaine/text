@@ -6,21 +6,25 @@
 using namespace boost::text::detail;
 
 
-inline node_ptr<int> make_interior_with_leaves (int leaf_size, int leaf_value, int leaves)
+inline node_ptr<int>
+make_interior_with_leaves(int leaf_size, int leaf_value, int leaves)
 {
     interior_node_t<int> * int_node = nullptr;
     node_ptr<int> node(int_node = new_interior_node<int>());
-    int_node->children_.push_back(make_node(std::vector<int>(leaf_size, leaf_value)));
+    int_node->children_.push_back(
+        make_node(std::vector<int>(leaf_size, leaf_value)));
     int_node->keys_.push_back(size(int_node->children_[0].get()));
     for (int i = 1; i < leaves; ++i) {
-        int_node->children_.push_back(make_node(std::vector<int>(leaf_size, leaf_value)));
-        int_node->keys_.push_back(int_node->keys_.back() + size(int_node->children_[i].get()));
+        int_node->children_.push_back(
+            make_node(std::vector<int>(leaf_size, leaf_value)));
+        int_node->keys_.push_back(
+            int_node->keys_.back() + size(int_node->children_[i].get()));
     }
     return node;
 }
 
-template <int SizeLeft, int SizeCenter, int SizeRight>
-node_ptr<int> make_tree_left_center_right ()
+template<int SizeLeft, int SizeCenter, int SizeRight>
+node_ptr<int> make_tree_left_center_right()
 {
     interior_node_t<int> * int_root = nullptr;
     node_ptr<int> root(int_root = new_interior_node<int>());
@@ -45,15 +49,21 @@ node_ptr<int> make_tree_left_center_right ()
     return root;
 }
 
-template <int SizeLeft, int SizeRight>
-node_ptr<int> make_tree_left_right ()
-{ return make_tree_left_center_right<SizeLeft, -1, SizeRight>(); }
+template<int SizeLeft, int SizeRight>
+node_ptr<int> make_tree_left_right()
+{
+    return make_tree_left_center_right<SizeLeft, -1, SizeRight>();
+}
 
-inline node_ptr<int> make_tree_left_max ()
-{ return make_tree_left_right<max_children, max_children - 1>(); }
+inline node_ptr<int> make_tree_left_max()
+{
+    return make_tree_left_right<max_children, max_children - 1>();
+}
 
-inline node_ptr<int> make_tree_left_min ()
-{ return make_tree_left_right<min_children, max_children - 1>(); }
+inline node_ptr<int> make_tree_left_min()
+{
+    return make_tree_left_right<min_children, max_children - 1>();
+}
 
 
 TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
@@ -138,7 +148,8 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
             int_root->children_.push_back(make_node(std::vector<int>(4, 4)));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node(std::vector<int>(5, 5)));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<int> extra_ref = root;
 
@@ -160,7 +171,8 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
             int_root->children_.push_back(make_node(std::vector<int>(4, 4)));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node(std::vector<int>(5, 5)));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<int> extra_ref = root;
 
@@ -182,7 +194,8 @@ TEST(detail_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
             int_root->children_.push_back(make_node(std::vector<int>(4, 4)));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node(std::vector<int>(5, 5)));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<int> extra_ref = root;
 
@@ -210,11 +223,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), max_children - 1);
 
         root = btree_erase(
-            root,
-            min_children * 4,
-            children(right)[0].as_leaf(),
-            0
-        );
+            root, min_children * 4, children(right)[0].as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -237,8 +246,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
             root,
             min_children * 4 + (max_children - 1) * 5,
             children(right).back().as_leaf(),
-            0
-        );
+            0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -261,12 +269,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children);
 
-        root = btree_erase(
-            root,
-            0,
-            children(left).front().as_leaf(),
-            0
-        );
+        root = btree_erase(root, 0, children(left).front().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -290,11 +293,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(
-            root,
-            min_children * 4 - 1,
-            children(left).back().as_leaf(),
-            0
-        );
+            root, min_children * 4 - 1, children(left).back().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -320,11 +319,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            size(root.get()),
-            children(right).back().as_leaf(),
-            0
-        );
+            root, size(root.get()), children(right).back().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -348,11 +343,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            max_children * 4,
-            children(right).front().as_leaf(),
-            0
-        );
+            root, max_children * 4, children(right).front().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -376,11 +367,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            size(root.get()),
-            children(right).back().as_leaf(),
-            0
-        );
+            root, size(root.get()), children(right).back().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
@@ -405,12 +392,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), min_children);
 
-        root = btree_erase(
-            root,
-            0,
-            children(left).front().as_leaf(),
-            0
-        );
+        root = btree_erase(root, 0, children(left).front().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
@@ -429,7 +411,10 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, all three children have min children.
     {
-        node_ptr<int> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<int> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -442,12 +427,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
             EXPECT_EQ(num_children(center), min_children);
             EXPECT_EQ(num_children(right), min_children);
 
-            root = btree_erase(
-                root,
-                0,
-                children(left).front().as_leaf(),
-                0
-            );
+            root = btree_erase(root, 0, children(left).front().as_leaf(), 0);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -464,7 +444,10 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<int> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<int> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -478,11 +461,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
             EXPECT_EQ(num_children(right), min_children);
 
             root = btree_erase(
-                root,
-                min_children * 4,
-                children(center).front().as_leaf(),
-                0
-            );
+                root, min_children * 4, children(center).front().as_leaf(), 0);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -499,7 +478,10 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<int> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<int> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -513,11 +495,7 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
             EXPECT_EQ(num_children(right), min_children);
 
             root = btree_erase(
-                root,
-                size(root.get()),
-                children(right).back().as_leaf(),
-                0
-            );
+                root, size(root.get()), children(right).back().as_leaf(), 0);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -530,7 +508,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(keys(root)[0], min_children * 4);
         EXPECT_EQ(keys(root)[1], root_initial_size - 5);
         EXPECT_EQ(keys(left).back(), min_children * 4);
-        EXPECT_EQ(keys(right).back(), min_children * 6 + (min_children - 1) * 5);
+        EXPECT_EQ(
+            keys(right).back(), min_children * 6 + (min_children - 1) * 5);
     }
 }
 
@@ -554,7 +533,7 @@ TEST(detail_btree, test_btree_erase)
         EXPECT_EQ(size(root.get()), 1);
     }
 
-#if 0 // This test expects to split the node, but that doesn't really work
+#if 0 // This test expects to split the node, but that doesn't really work     \
       // with std::vector.
     {
         node_ptr<int> root = make_node(std::vector<int>(9, 9));

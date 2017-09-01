@@ -40,12 +40,14 @@ struct buffer_t
 };
 
 #ifdef USE_ROPES
-inline bool dirty (buffer_t const & b)
-{ return !b.snapshot_.content_.equal_root(b.history_.front().content_); }
+inline bool dirty(buffer_t const & b)
+{
+    return !b.snapshot_.content_.equal_root(b.history_.front().content_);
+}
 #endif
 
-template <typename Iter>
-Iter advance_by_code_point (Iter it, int code_points)
+template<typename Iter>
+Iter advance_by_code_point(Iter it, int code_points)
 {
     while (code_points) {
         int const bytes = boost::text::utf8::code_point_bytes(*it);
@@ -56,8 +58,10 @@ Iter advance_by_code_point (Iter it, int code_points)
     return it;
 }
 
-inline std::ptrdiff_t cursor_line (snapshot_t const & snapshot)
-{ return snapshot.first_row_ + snapshot.cursor_pos_.row_; }
+inline std::ptrdiff_t cursor_line(snapshot_t const & snapshot)
+{
+    return snapshot.first_row_ + snapshot.cursor_pos_.row_;
+}
 
 struct cursor_offset_t
 {
@@ -65,11 +69,10 @@ struct cursor_offset_t
     line_size_t line_offset_;
 };
 
-inline cursor_offset_t cursor_offset (snapshot_t const & snapshot)
+inline cursor_offset_t cursor_offset(snapshot_t const & snapshot)
 {
     std::ptrdiff_t rope_offset = snapshot.first_char_index_;
-    for (int i = snapshot.first_row_, end = cursor_line(snapshot);
-         i < end;
+    for (int i = snapshot.first_row_, end = cursor_line(snapshot); i < end;
          ++i) {
         rope_offset += snapshot.line_sizes_[i].code_units_;
     }
@@ -77,10 +80,11 @@ inline cursor_offset_t cursor_offset (snapshot_t const & snapshot)
     auto const last = advance_by_code_point(it, snapshot.cursor_pos_.col_);
     int const line_code_units = last - it;
     rope_offset += line_code_units;
-    return cursor_offset_t{rope_offset, {line_code_units, snapshot.cursor_pos_.col_}};
+    return cursor_offset_t{rope_offset,
+                           {line_code_units, snapshot.cursor_pos_.col_}};
 }
 
-inline buffer_t load (boost::filesystem::path path, int screen_width)
+inline buffer_t load(boost::filesystem::path path, int screen_width)
 {
     boost::filesystem::ifstream ifs(path);
 
@@ -104,9 +108,10 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
             if (it != chunk.end() && it != chunk.begin() && it[-1] == '\r')
                 --it_for_counting_cps;
             line_cps += std::distance(
-                boost::text::utf8::to_utf32_iterator<boost::text::text::const_iterator>(prev_it),
-                boost::text::utf8::to_utf32_iterator<boost::text::text::const_iterator>(it_for_counting_cps)
-            );
+                boost::text::utf8::to_utf32_iterator<
+                    boost::text::text::const_iterator>(prev_it),
+                boost::text::utf8::to_utf32_iterator<
+                    boost::text::text::const_iterator>(it_for_counting_cps));
             if (it != chunk.end())
                 ++it;
             line_size += it - prev_it;
@@ -114,7 +119,8 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
             auto prev_width_end = prev_it;
             while (screen_width < line_cps) {
                 line_cps -= screen_width;
-                auto const width_end = advance_by_code_point(prev_width_end, screen_width);
+                auto const width_end =
+                    advance_by_code_point(prev_width_end, screen_width);
                 int const code_units = width_end - prev_width_end;
                 line_size -= code_units;
                 snapshot.line_sizes_.push_back({code_units, screen_width});
@@ -132,11 +138,14 @@ inline buffer_t load (boost::filesystem::path path, int screen_width)
     if (line_size)
         snapshot.line_sizes_.push_back({line_size, line_cps});
 
-    return buffer_t{
-        snapshot,
-        path
+    return buffer_t
+    {
+        snapshot, path
 #if USE_ROPES
-        , {1, snapshot}
+            ,
+        {
+            1, snapshot
+        }
 #endif
     };
 }

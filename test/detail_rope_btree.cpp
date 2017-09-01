@@ -11,7 +11,8 @@ using boost::text::repeated_text_view;
 using namespace boost::text::detail;
 
 
-inline node_ptr<rope_tag> make_interior_with_leaves (char const * leaf_name, int leaves)
+inline node_ptr<rope_tag>
+make_interior_with_leaves(char const * leaf_name, int leaves)
 {
     interior_node_t<rope_tag> * int_node = nullptr;
     node_ptr<rope_tag> node(int_node = new_interior_node<rope_tag>());
@@ -19,13 +20,14 @@ inline node_ptr<rope_tag> make_interior_with_leaves (char const * leaf_name, int
     int_node->keys_.push_back(size(int_node->children_[0].get()));
     for (int i = 1; i < leaves; ++i) {
         int_node->children_.push_back(make_node(leaf_name));
-        int_node->keys_.push_back(int_node->keys_.back() + size(int_node->children_[i].get()));
+        int_node->keys_.push_back(
+            int_node->keys_.back() + size(int_node->children_[i].get()));
     }
     return node;
 }
 
-template <int SizeLeft, int SizeCenter, int SizeRight>
-node_ptr<rope_tag> make_tree_left_center_right ()
+template<int SizeLeft, int SizeCenter, int SizeRight>
+node_ptr<rope_tag> make_tree_left_center_right()
 {
     interior_node_t<rope_tag> * int_root = nullptr;
     node_ptr<rope_tag> root(int_root = new_interior_node<rope_tag>());
@@ -36,7 +38,8 @@ node_ptr<rope_tag> make_tree_left_center_right ()
     int_root->keys_.push_back(size(left.get()));
 
     if (SizeCenter != -1) {
-        node_ptr<rope_tag> center = make_interior_with_leaves("center", SizeCenter);
+        node_ptr<rope_tag> center =
+            make_interior_with_leaves("center", SizeCenter);
 
         int_root->children_.push_back(center);
         int_root->keys_.push_back(int_root->keys_.back() + size(center.get()));
@@ -50,15 +53,21 @@ node_ptr<rope_tag> make_tree_left_center_right ()
     return root;
 }
 
-template <int SizeLeft, int SizeRight>
-node_ptr<rope_tag> make_tree_left_right ()
-{ return make_tree_left_center_right<SizeLeft, -1, SizeRight>(); }
+template<int SizeLeft, int SizeRight>
+node_ptr<rope_tag> make_tree_left_right()
+{
+    return make_tree_left_center_right<SizeLeft, -1, SizeRight>();
+}
 
-inline node_ptr<rope_tag> make_tree_left_max ()
-{ return make_tree_left_right<max_children, max_children - 1>(); }
+inline node_ptr<rope_tag> make_tree_left_max()
+{
+    return make_tree_left_right<max_children, max_children - 1>();
+}
 
-inline node_ptr<rope_tag> make_tree_left_min ()
-{ return make_tree_left_right<min_children, max_children - 1>(); }
+inline node_ptr<rope_tag> make_tree_left_min()
+{
+    return make_tree_left_right<min_children, max_children - 1>();
+}
 
 
 TEST(rope_btree, test_btree_split_child)
@@ -237,8 +246,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children + 1);
@@ -265,8 +274,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 5, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 5, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children + 2);
@@ -292,8 +301,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 3);
         EXPECT_EQ(num_children(left), min_children + 1);
@@ -316,8 +325,11 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()) - 5, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root,
+            size(root.get()) - 5,
+            make_node("new node"),
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 3);
 
@@ -325,9 +337,11 @@ TEST(rope_btree, test_btree_insert_nonfull)
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8);
-        EXPECT_EQ(keys(new_right)[min_children - 2], (min_children - 2) * 5 + 8);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 2], (min_children - 2) * 5 + 8);
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 5);
-        EXPECT_EQ(keys(new_right)[min_children - 1], (min_children - 2) * 5 + 8 + 5);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 1], (min_children - 2) * 5 + 8 + 5);
     }
 
     // Insert into almost-full interior child, then into the middle of an
@@ -339,8 +353,11 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()) - 2, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root,
+            size(root.get()) - 2,
+            make_node("new node"),
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 3);
 
@@ -348,11 +365,14 @@ TEST(rope_btree, test_btree_insert_nonfull)
         EXPECT_EQ(num_children(new_right), min_children + 1);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3);
-        EXPECT_EQ(keys(new_right)[min_children - 2], (min_children - 2) * 5 + 3);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 2], (min_children - 2) * 5 + 3);
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
-        EXPECT_EQ(keys(new_right)[min_children - 1], (min_children - 2) * 5 + 3 + 8);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 1], (min_children - 2) * 5 + 3 + 8);
         EXPECT_EQ(size(children(new_right)[min_children].get()), 2);
-        EXPECT_EQ(keys(new_right)[min_children], (min_children - 2) * 5 + 3 + 8 + 2);
+        EXPECT_EQ(
+            keys(new_right)[min_children], (min_children - 2) * 5 + 3 + 8 + 2);
     }
 
 
@@ -364,8 +384,11 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         EXPECT_EQ(num_children(right), max_children - 1);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()), make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root,
+            size(root.get()),
+            make_node("new node"),
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 3);
 
@@ -373,7 +396,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
-        EXPECT_EQ(keys(new_right)[min_children - 1], (min_children - 1) * 5 + 8);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 1], (min_children - 1) * 5 + 8);
     }
 
     // Copy vs. mutation coverage.
@@ -386,8 +410,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         EXPECT_EQ(num_children(left), min_children);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children + 1);
@@ -403,8 +427,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         EXPECT_EQ(num_children(left), min_children);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -420,8 +444,8 @@ TEST(rope_btree, test_btree_insert_nonfull)
 
         EXPECT_EQ(num_children(left), min_children);
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         node_ptr<rope_tag> const & new_left = children(root)[0];
 
@@ -446,8 +470,8 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 2);
         EXPECT_EQ(extra_ref->refs_, 1);
@@ -482,8 +506,8 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 5, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 5, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 2);
         EXPECT_EQ(extra_ref->refs_, 1);
@@ -517,8 +541,8 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, 4, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root, 4, make_node("new node"), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 2);
         EXPECT_EQ(extra_ref->refs_, 1);
@@ -549,8 +573,11 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()) - 5, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root,
+            size(root.get()) - 5,
+            make_node("new node"),
+            check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 2);
         EXPECT_EQ(extra_ref->refs_, 1);
@@ -561,9 +588,11 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 8);
-        EXPECT_EQ(keys(new_right)[min_children - 2], (min_children - 2) * 5 + 8);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 2], (min_children - 2) * 5 + 8);
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 5);
-        EXPECT_EQ(keys(new_right)[min_children - 1], (min_children - 2) * 5 + 8 + 5);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 1], (min_children - 2) * 5 + 8 + 5);
     }
 
     // Insert into almost-full interior child, then into the middle of an
@@ -578,8 +607,11 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()) - 2, make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root,
+            size(root.get()) - 2,
+            make_node("new node"),
+            check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 2);
         EXPECT_EQ(extra_ref->refs_, 1);
@@ -590,11 +622,14 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
         EXPECT_EQ(num_children(new_right), min_children + 1);
 
         EXPECT_EQ(size(children(new_right)[min_children - 2].get()), 3);
-        EXPECT_EQ(keys(new_right)[min_children - 2], (min_children - 2) * 5 + 3);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 2], (min_children - 2) * 5 + 3);
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
-        EXPECT_EQ(keys(new_right)[min_children - 1], (min_children - 2) * 5 + 3 + 8);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 1], (min_children - 2) * 5 + 3 + 8);
         EXPECT_EQ(size(children(new_right)[min_children].get()), 2);
-        EXPECT_EQ(keys(new_right)[min_children], (min_children - 2) * 5 + 3 + 8 + 2);
+        EXPECT_EQ(
+            keys(new_right)[min_children], (min_children - 2) * 5 + 3 + 8 + 2);
     }
 
 
@@ -609,8 +644,11 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
             EXPECT_EQ(num_children(right), max_children - 1);
         }
 
-        node_ptr<rope_tag> new_root =
-            btree_insert_nonfull(root, size(root.get()), make_node("new node"), check_encoding_breakage);
+        node_ptr<rope_tag> new_root = btree_insert_nonfull(
+            root,
+            size(root.get()),
+            make_node("new node"),
+            check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 2);
         EXPECT_EQ(extra_ref->refs_, 1);
@@ -621,18 +659,19 @@ TEST(rope_btree, test_btree_insert_nonfull_extra_ref)
         EXPECT_EQ(num_children(new_right), min_children);
 
         EXPECT_EQ(size(children(new_right)[min_children - 1].get()), 8);
-        EXPECT_EQ(keys(new_right)[min_children - 1], (min_children - 1) * 5 + 8);
+        EXPECT_EQ(
+            keys(new_right)[min_children - 1], (min_children - 1) * 5 + 8);
     }
 }
 
-int height_at (node_ptr<rope_tag> const & node, std::ptrdiff_t at)
+int height_at(node_ptr<rope_tag> const & node, std::ptrdiff_t at)
 {
     found_leaf<rope_tag> found;
     find_leaf(node, at, found);
     return (int)found.path_.size();
 }
 
-void check_leaf_heights (node_ptr<rope_tag> const & node)
+void check_leaf_heights(node_ptr<rope_tag> const & node)
 {
     found_leaf<rope_tag> found;
     find_leaf(node, 0, found);
@@ -679,8 +718,10 @@ TEST(rope_btree, test_btree_insert)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("child", max_children - 1);
-        root = btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
+        node_ptr<rope_tag> root =
+            make_interior_with_leaves("child", max_children - 1);
+        root =
+            btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
 
@@ -688,8 +729,10 @@ TEST(rope_btree, test_btree_insert)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("child", max_children);
-        root = btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
+        node_ptr<rope_tag> root =
+            make_interior_with_leaves("child", max_children);
+        root =
+            btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
 
@@ -702,7 +745,8 @@ TEST(rope_btree, test_btree_insert)
 
         int const N = 100000;
         for (int i = 0; i < N; ++i) {
-            root = btree_insert(root, 2, make_node("new node"), check_encoding_breakage);
+            root = btree_insert(
+                root, 2, make_node("new node"), check_encoding_breakage);
         }
 
         check_leaf_heights(root);
@@ -760,10 +804,12 @@ TEST(rope_btree, test_btree_insert_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("child", max_children - 1);
+        node_ptr<rope_tag> root =
+            make_interior_with_leaves("child", max_children - 1);
         node_ptr<rope_tag> extra_ref = root;
         node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
+        root =
+            btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -774,10 +820,12 @@ TEST(rope_btree, test_btree_insert_extra_ref)
     }
 
     {
-        node_ptr<rope_tag> root = make_interior_with_leaves("child", max_children);
+        node_ptr<rope_tag> root =
+            make_interior_with_leaves("child", max_children);
         node_ptr<rope_tag> extra_ref = root;
         node_ptr<rope_tag> extra_ref_2 = root;
-        root = btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
+        root =
+            btree_insert(root, 2, make_node("new 1"), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -795,7 +843,8 @@ TEST(rope_btree, test_btree_insert_extra_ref)
 
         int const N = 100000;
         for (int i = 0; i < N; ++i) {
-            root = btree_insert(root, 2, make_node("new node"), check_encoding_breakage);
+            root = btree_insert(
+                root, 2, make_node("new node"), check_encoding_breakage);
         }
 
         EXPECT_EQ(root->refs_, 1);
@@ -815,7 +864,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(keys(root)[0], 4);
         EXPECT_EQ(size(children(root)[0].get()), 4);
@@ -828,7 +878,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(keys(root)[0], 4);
         EXPECT_EQ(size(children(root)[0].get()), 4);
@@ -841,7 +892,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 8, children(root)[2].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 8, children(root)[2].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(keys(root)[0], 4);
         EXPECT_EQ(size(children(root)[0].get()), 4);
@@ -854,7 +906,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 12, children(root)[2].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 12, children(root)[2].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(keys(root)[0], 4);
         EXPECT_EQ(size(children(root)[0].get()), 4);
@@ -871,12 +924,14 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
 
         EXPECT_EQ(num_children(root), 2);
 
-        root = btree_erase(root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
 
         EXPECT_TRUE(root->leaf_);
         EXPECT_EQ(size(root.get()), 5);
@@ -890,12 +945,14 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
 
         EXPECT_EQ(num_children(root), 2);
 
-        root = btree_erase(root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
 
         EXPECT_TRUE(root->leaf_);
         EXPECT_EQ(size(root.get()), 4);
@@ -909,12 +966,14 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children)
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
 
         EXPECT_EQ(num_children(root), 2);
 
-        root = btree_erase(root, 9, children(root)[1].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 9, children(root)[1].as_leaf(), check_encoding_breakage);
 
         EXPECT_TRUE(root->leaf_);
         EXPECT_EQ(size(root.get()), 4);
@@ -930,7 +989,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -948,7 +1008,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -966,7 +1027,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 8, children(root)[2].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 8, children(root)[2].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -984,7 +1046,8 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 
         EXPECT_EQ(num_children(root), 3);
 
-        root = btree_erase(root, 12, children(root)[2].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 12, children(root)[2].as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(root->refs_, 1);
         EXPECT_EQ(extra_ref->refs_, 2);
@@ -1004,13 +1067,15 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<rope_tag> extra_ref = root;
 
         EXPECT_EQ(num_children(root), 2);
 
-        root = btree_erase(root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 0, children(root)[0].as_leaf(), check_encoding_breakage);
 
         EXPECT_NE(root.get(), extra_ref.get());
 
@@ -1026,13 +1091,15 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<rope_tag> extra_ref = root;
 
         EXPECT_EQ(num_children(root), 2);
 
-        root = btree_erase(root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 4, children(root)[1].as_leaf(), check_encoding_breakage);
 
         EXPECT_NE(root.get(), extra_ref.get());
 
@@ -1048,13 +1115,15 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
             int_root->children_.push_back(make_node("left"));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node("right"));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<rope_tag> extra_ref = root;
 
         EXPECT_EQ(num_children(root), 2);
 
-        root = btree_erase(root, 9, children(root)[1].as_leaf(), check_encoding_breakage);
+        root = btree_erase(
+            root, 9, children(root)[1].as_leaf(), check_encoding_breakage);
 
         EXPECT_NE(root.get(), extra_ref.get());
 
@@ -1082,8 +1151,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root,
             min_children * 4,
             children(right)[0].as_leaf(),
-            check_encoding_breakage
-        );
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1106,8 +1174,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root,
             min_children * 4 + (max_children - 1) * 5,
             children(right).back().as_leaf(),
-            check_encoding_breakage
-        );
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1120,7 +1187,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, left has min children.
     {
-        node_ptr<rope_tag> root = make_tree_left_right<min_children, max_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<min_children, max_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1131,11 +1199,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(
-            root,
-            0,
-            children(left).front().as_leaf(),
-            check_encoding_breakage
-        );
+            root, 0, children(left).front().as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1148,7 +1212,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_right<min_children, max_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<min_children, max_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1162,8 +1227,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root,
             min_children * 4 - 1,
             children(left).back().as_leaf(),
-            check_encoding_breakage
-        );
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1178,7 +1242,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, right has min children.
     {
-        node_ptr<rope_tag> root = make_tree_left_right<max_children, min_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<max_children, min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1192,8 +1257,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root,
             size(root.get()),
             children(right).back().as_leaf(),
-            check_encoding_breakage
-        );
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -1206,7 +1270,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_right<max_children, min_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<max_children, min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1220,8 +1285,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root,
             max_children * 4,
             children(right).front().as_leaf(),
-            check_encoding_breakage
-        );
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -1236,7 +1300,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, both sides have min children.
     {
-        node_ptr<rope_tag> root = make_tree_left_right<min_children, min_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<min_children, min_children>();
 
         node_ptr<rope_tag> const & left = children(root)[0];
         node_ptr<rope_tag> const & right = children(root)[1];
@@ -1248,8 +1313,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
             root,
             size(root.get()),
             children(right).back().as_leaf(),
-            check_encoding_breakage
-        );
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
@@ -1266,7 +1330,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_right<min_children, min_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<min_children, min_children>();
 
         node_ptr<rope_tag> const & left = children(root)[0];
         node_ptr<rope_tag> const & right = children(root)[1];
@@ -1275,11 +1340,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            0,
-            children(left).front().as_leaf(),
-            check_encoding_breakage
-        );
+            root, 0, children(left).front().as_leaf(), check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
@@ -1298,7 +1359,10 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 
     // Last interior node min children, all three children have min children.
     {
-        node_ptr<rope_tag> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<rope_tag> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1315,8 +1379,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
                 root,
                 0,
                 children(left).front().as_leaf(),
-                check_encoding_breakage
-            );
+                check_encoding_breakage);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -1333,7 +1396,10 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<rope_tag> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1350,8 +1416,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
                 root,
                 min_children * 4,
                 children(center).front().as_leaf(),
-                check_encoding_breakage
-            );
+                check_encoding_breakage);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -1368,7 +1433,10 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<rope_tag> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1385,8 +1453,7 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
                 root,
                 size(root.get()),
                 children(right).back().as_leaf(),
-                check_encoding_breakage
-            );
+                check_encoding_breakage);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -1399,7 +1466,8 @@ TEST(rope_btree, test_btree_erase_entire_node_interior_children)
         EXPECT_EQ(keys(root)[0], min_children * 4);
         EXPECT_EQ(keys(root)[1], root_initial_size - 5);
         EXPECT_EQ(keys(left).back(), min_children * 4);
-        EXPECT_EQ(keys(right).back(), min_children * 6 + (min_children - 1) * 5);
+        EXPECT_EQ(
+            keys(right).back(), min_children * 6 + (min_children - 1) * 5);
     }
 }
 
@@ -1435,7 +1503,8 @@ TEST(rope_btree, test_btree_erase)
     // Erasure from non-leaf nodes, entire segments only
 
     {
-        node_ptr<rope_tag> root = make_tree_left_right<max_children, max_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<max_children, max_children>();
 
         node_ptr<rope_tag> const & left = children(root)[0];
         node_ptr<rope_tag> const & right = children(root)[1];
@@ -1443,7 +1512,11 @@ TEST(rope_btree, test_btree_erase)
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children);
 
-        root = btree_erase(root, (max_children - 1) * 4, max_children * 4, check_encoding_breakage);
+        root = btree_erase(
+            root,
+            (max_children - 1) * 4,
+            max_children * 4,
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -1456,7 +1529,8 @@ TEST(rope_btree, test_btree_erase)
     }
 
     {
-        node_ptr<rope_tag> root = make_tree_left_right<max_children, max_children>();
+        node_ptr<rope_tag> root =
+            make_tree_left_right<max_children, max_children>();
 
         node_ptr<rope_tag> const & left = children(root)[0];
         node_ptr<rope_tag> const & right = children(root)[1];
@@ -1464,7 +1538,11 @@ TEST(rope_btree, test_btree_erase)
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children);
 
-        root = btree_erase(root, max_children * 4, max_children * 4 + 5, check_encoding_breakage);
+        root = btree_erase(
+            root,
+            max_children * 4,
+            max_children * 4 + 5,
+            check_encoding_breakage);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children);
@@ -1479,16 +1557,19 @@ TEST(rope_btree, test_btree_erase)
 
     // Erasure from non-leaf nodes, including partial segments
 
-    node_ptr<rope_tag> const tree = make_tree_left_right<max_children, max_children>();
+    node_ptr<rope_tag> const tree =
+        make_tree_left_right<max_children, max_children>();
     rope const tree_rope(tree);
     auto const tree_size = size(tree.get());
     std::string const tree_string(tree_rope.begin(), tree_rope.end());
 
-    std::cout << "Initial size of tree used in the erase tests: " << tree_size << "\n";
+    std::cout << "Initial size of tree used in the erase tests: " << tree_size
+              << "\n";
 
     for (std::ptrdiff_t i = 0; i < tree_size; ++i) {
         for (std::ptrdiff_t j = i + 1; j < tree_size; ++j) {
-            node_ptr<rope_tag> root = make_tree_left_right<max_children, max_children>();
+            node_ptr<rope_tag> root =
+                make_tree_left_right<max_children, max_children>();
             std::string str(tree_string);
 
             root = btree_erase(root, i, j, check_encoding_breakage);
@@ -1497,7 +1578,8 @@ TEST(rope_btree, test_btree_erase)
             rope const r(root);
 
             EXPECT_EQ(size(root.get()), str.size()) << "i=" << i << " j=" << j;
-            EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin())) << "i=" << i << " j=" << j;
+            EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin()))
+                << "i=" << i << " j=" << j;
             check_leaf_heights(root);
         }
     }

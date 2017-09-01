@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-int main (int argc, char * argv[])
+int main(int argc, char * argv[])
 {
     if (argc < 2) {
         std::cerr << "error: You must supply at least a filename.\n";
@@ -23,14 +23,13 @@ int main (int argc, char * argv[])
     std::locale::global(std::locale(""));
 
     curses_interface_t curses_interface;
-    app_state_t app_state = {
-        load(path, curses_interface.screen_size().col_),
-        emacs_lite()
-    };
+    app_state_t app_state = {load(path, curses_interface.screen_size().col_),
+                             emacs_lite()};
     render(app_state.buffer_, curses_interface.screen_size());
 
     boost::optional<app_state_t> next_app_state;
-    while ((next_app_state = update(app_state, curses_interface.next_event()))) {
+    while (
+        (next_app_state = update(app_state, curses_interface.next_event()))) {
         app_state = *next_app_state;
         render(app_state.buffer_, curses_interface.screen_size());
     }

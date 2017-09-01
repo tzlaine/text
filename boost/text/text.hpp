@@ -37,18 +37,17 @@ namespace boost { namespace text {
 
             \post size() == 0 && capacity() == 0; begin(), end() delimit a
             valid, null-terminated empty string */
-        text () noexcept : data_ (), size_ (0), cap_ (0) {}
+        text() noexcept : data_(), size_(0), cap_(0) {}
 
-        text (text const & t);
+        text(text const & t);
 
-        text (text && rhs) noexcept : data_ (), size_ (0), cap_ (0)
-        { swap(rhs); }
+        text(text && rhs) noexcept : data_(), size_(0), cap_(0) { swap(rhs); }
 
         /** Constructs a text from a text_view. */
-        explicit text (text_view tv);
+        explicit text(text_view tv);
 
         /** Constructs a text from a repeated_text_view. */
-        explicit text (repeated_text_view tv);
+        explicit text(repeated_text_view tv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -59,8 +58,8 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
-        template <typename CharRange>
-        explicit text (CharRange const & r);
+        template<typename CharRange>
+        explicit text(CharRange const & r);
 
         /** Constructs a text from a sequence of char.
 
@@ -69,30 +68,35 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if Iter
             models the Char_iterator concept. */
-        template <typename Iter>
-        text (Iter first, Iter last);
+        template<typename Iter>
+        text(Iter first, Iter last);
 
 #else
 
-        template <typename CharRange>
-        explicit text (
-            CharRange const & r,
-            detail::rng_alg_ret_t<int *, CharRange> = 0
-        ) : data_ (), size_ (0), cap_ (0)
-        { insert(0, r); }
+        template<typename CharRange>
+        explicit text(
+            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
+            data_(),
+            size_(0),
+            cap_(0)
+        {
+            insert(0, r);
+        }
 
-        template <typename Iter>
-        text (
-            Iter first, Iter last,
-            detail::char_iter_ret_t<void *, Iter> = 0
-        ) : data_ (), size_ (0), cap_ (0)
-        { insert(0, first, last); }
+        template<typename Iter>
+        text(Iter first, Iter last, detail::char_iter_ret_t<void *, Iter> = 0) :
+            data_(),
+            size_(0),
+            cap_(0)
+        {
+            insert(0, first, last);
+        }
 
 #endif
 
-        text & operator= (text const & t);
+        text & operator=(text const & t);
 
-        text & operator= (text && rhs) noexcept
+        text & operator=(text && rhs) noexcept
         {
             swap(rhs);
             return *this;
@@ -107,83 +111,98 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
-        template <typename CharRange>
-        text & operator= (CharRange const & r);
+        template<typename CharRange>
+        text & operator=(CharRange const & r);
 
 #else
 
-        template <typename CharRange>
-        auto operator= (CharRange const & r)
+        template<typename CharRange>
+        auto operator=(CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
 #endif
 
         /** Assignment from a text_view. */
-        text & operator= (text_view tv);
+        text & operator=(text_view tv);
 
         /** Assignment from a repeated_text_view. */
-        text & operator= (repeated_text_view tv);
+        text & operator=(repeated_text_view tv);
 
-        iterator begin () noexcept
+        iterator begin() noexcept
         {
             if (!data_)
                 return reinterpret_cast<char *>(&cap_);
             return data_.get();
         }
-        iterator end () noexcept
+        iterator end() noexcept
         {
             if (!data_)
                 return reinterpret_cast<char *>(&cap_);
             return data_.get() + size_;
         }
 
-        const_iterator begin () const noexcept
+        const_iterator begin() const noexcept
         {
             if (!data_)
                 return reinterpret_cast<char const *>(&cap_);
             return data_.get();
         }
-        const_iterator end () const noexcept
+        const_iterator end() const noexcept
         {
             if (!data_)
                 return reinterpret_cast<char const *>(&cap_);
             return data_.get() + size_;
         }
 
-        const_iterator cbegin () const noexcept { return begin(); }
-        const_iterator cend () const noexcept { return end(); }
+        const_iterator cbegin() const noexcept { return begin(); }
+        const_iterator cend() const noexcept { return end(); }
 
-        reverse_iterator rbegin () noexcept { return reverse_iterator(end() - 1); }
-        reverse_iterator rend () noexcept { return reverse_iterator(begin() - 1); }
+        reverse_iterator rbegin() noexcept
+        {
+            return reverse_iterator(end() - 1);
+        }
+        reverse_iterator rend() noexcept
+        {
+            return reverse_iterator(begin() - 1);
+        }
 
-        const_reverse_iterator rbegin () const noexcept { return const_reverse_iterator(end()); }
-        const_reverse_iterator rend () const noexcept { return const_reverse_iterator(begin()); }
+        const_reverse_iterator rbegin() const noexcept
+        {
+            return const_reverse_iterator(end());
+        }
+        const_reverse_iterator rend() const noexcept
+        {
+            return const_reverse_iterator(begin());
+        }
 
-        const_reverse_iterator crbegin () const noexcept { return const_reverse_iterator(end()); }
-        const_reverse_iterator crend () const noexcept { return const_reverse_iterator(begin()); }
+        const_reverse_iterator crbegin() const noexcept
+        {
+            return const_reverse_iterator(end());
+        }
+        const_reverse_iterator crend() const noexcept
+        {
+            return const_reverse_iterator(begin());
+        }
 
         /** Returns true if size() == 0, false otherwise.
 
             An empty text is still a valid null-terminated empty string. */
-        bool empty () const noexcept
-        { return size_ == 0; }
+        bool empty() const noexcept { return size_ == 0; }
 
         /** Returns the number of characters controlled by *this, not
             including the null terminator. */
-        int size () const noexcept
-        { return size_; }
+        int size() const noexcept { return size_; }
 
         /** Returns the number of bytes of storage currently in use by *this.
 
             Even if the capcity is 0, the text is still a valid
             null-terminated empty string. */
-        int capacity () const noexcept
-        { return cap_ - 1; }
+        int capacity() const noexcept { return cap_ - 1; }
 
         /** Returns the i-th char of *this (not a reference).
 
             \pre 0 <= i && i < size() */
-        char operator[] (int i) const noexcept
+        char operator[](int i) const noexcept
         {
 #ifndef BOOST_TEXT_TESTING
             assert(0 <= i && i < size_);
@@ -204,7 +223,7 @@ namespace boost { namespace text {
             \pre lo <= hi
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        text_view operator() (int lo, int hi) const;
+        text_view operator()(int lo, int hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -212,29 +231,28 @@ namespace boost { namespace text {
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        text_view operator() (int cut) const;
+        text_view operator()(int cut) const;
 
         /** Returns the maximum size a text can have. */
-        int max_size () const noexcept
-        { return INT_MAX; }
+        int max_size() const noexcept { return INT_MAX; }
 
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
-        int compare (text_view rhs) const noexcept;
+        int compare(text_view rhs) const noexcept;
 
-        bool operator== (text_view rhs) const noexcept;
-        bool operator!= (text_view rhs) const noexcept;
-        bool operator< (text_view rhs) const noexcept;
-        bool operator<= (text_view rhs) const noexcept;
-        bool operator> (text_view rhs) const noexcept;
-        bool operator>= (text_view rhs) const noexcept;
+        bool operator==(text_view rhs) const noexcept;
+        bool operator!=(text_view rhs) const noexcept;
+        bool operator<(text_view rhs) const noexcept;
+        bool operator<=(text_view rhs) const noexcept;
+        bool operator>(text_view rhs) const noexcept;
+        bool operator>=(text_view rhs) const noexcept;
 
         /** Clear.
 
             \post size() == 0 && capacity() == 0; begin(), end() delimit a
             valid, null-terminated empty string */
-        void clear () noexcept
+        void clear() noexcept
         {
             size_ = 0;
             if (data_)
@@ -245,7 +263,7 @@ namespace boost { namespace text {
 
             No check is made (or could be made) to check that writes through
             the returned reference do not break UTF-8 encoding. */
-        char & operator[] (int i) noexcept
+        char & operator[](int i) noexcept
         {
 #ifndef BOOST_TEXT_TESTING
             assert(0 <= 0 && i < size_);
@@ -258,14 +276,14 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        text & insert (int at, text_view tv);
+        text & insert(int at, text_view tv);
 
         /** Inserts the sequence of char from rtv into *this starting at
             offset at.
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        text & insert (int at, repeated_text_view rtv);
+        text & insert(int at, repeated_text_view rtv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -277,8 +295,8 @@ namespace boost { namespace text {
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding, or if the ends of the range are not valid
             UTF-8. */
-        template <typename CharRange>
-        text & insert (int at, CharRange const & r);
+        template<typename CharRange>
+        text & insert(int at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             offset at.
@@ -291,8 +309,8 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        template <typename Iter>
-        text & insert (int at, Iter first, Iter last);
+        template<typename Iter>
+        text & insert(int at, Iter first, Iter last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -304,17 +322,17 @@ namespace boost { namespace text {
             break UTF-8 encoding, and the inserted sequence's UTF-8 encoding
             is not checked.  To check the inserted sequence's encoding, use a
             converting iterator. */
-        template <typename Iter>
-        text & insert (iterator at, Iter first, Iter last);
+        template<typename Iter>
+        text & insert(iterator at, Iter first, Iter last);
 
 #else
 
-        template <typename CharRange>
-        auto insert (int at, CharRange const & r)
+        template<typename CharRange>
+        auto insert(int at, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        template <typename Iter>
-        auto insert (int at, Iter first, Iter last)
+        template<typename Iter>
+        auto insert(int at, Iter first, Iter last)
             -> detail::char_iter_ret_t<text &, Iter>
         {
             assert(0 <= at && at <= size_);
@@ -323,13 +341,14 @@ namespace boost { namespace text {
                 return *this;
 
             if (!utf8::starts_encoded(cbegin() + at, cend()))
-                throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+                throw std::invalid_argument(
+                    "Inserting at that character breaks UTF-8 encoding.");
 
             return insert_iter_impl(at, first, last);
         }
 
-        template <typename Iter>
-        auto insert (iterator at, Iter first, Iter last)
+        template<typename Iter>
+        auto insert(iterator at, Iter first, Iter last)
             -> detail::char_iter_ret_t<text &, Iter>
         {
             assert(begin() <= at && at <= end());
@@ -346,7 +365,7 @@ namespace boost { namespace text {
 
             \pre !std::less(tv.begin(), begin()) && !std::less(end(),
             tv.end()) */
-        text & erase (text_view tv) noexcept;
+        text & erase(text_view tv) noexcept;
 
         /** Erases the portion of *this delimited by [first, last).
 
@@ -354,7 +373,7 @@ namespace boost { namespace text {
             UTF-8 encoding.
 
             \pre first <= last */
-        text & erase (iterator first, iterator last) noexcept
+        text & erase(iterator first, iterator last) noexcept
         {
             assert(first <= last);
             assert(begin() <= first && last <= end());
@@ -371,14 +390,14 @@ namespace boost { namespace text {
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        text & replace (text_view old_substr, text_view new_substr);
+        text & replace(text_view old_substr, text_view new_substr);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        text & replace (text_view old_substr, repeated_text_view new_substr);
+        text & replace(text_view old_substr, repeated_text_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -392,8 +411,8 @@ namespace boost { namespace text {
             valid UTF-8.
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        template <typename CharRange>
-        text & replace (text_view old_substr, CharRange const & r);
+        template<typename CharRange>
+        text & replace(text_view old_substr, CharRange const & r);
 
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
@@ -406,8 +425,8 @@ namespace boost { namespace text {
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        template <typename Iter>
-        text & replace (text_view old_substr, Iter first, Iter last);
+        template<typename Iter>
+        text & replace(text_view old_substr, Iter first, Iter last);
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the char sequence [new_first, new_last).
@@ -421,38 +440,47 @@ namespace boost { namespace text {
             encoding, use a converting iterator.
 
            \pre old_first <= old_last */
-        template <typename Iter>
-        text & replace (iterator old_first, iterator old_last, Iter new_first, Iter new_last);
+        template<typename Iter>
+        text & replace(
+            iterator old_first,
+            iterator old_last,
+            Iter new_first,
+            Iter new_last);
 
 #else
 
-        template <typename CharRange>
-        auto replace (text_view old_substr, CharRange const & r)
+        template<typename CharRange>
+        auto replace(text_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        template <typename Iter>
-        auto replace (text_view old_substr, Iter first, Iter last)
+        template<typename Iter>
+        auto replace(text_view old_substr, Iter first, Iter last)
             -> detail::char_iter_ret_t<text &, Iter>;
 
         // TODO: Perf test replace(Iter) against insert(Iter), and replace the
         // insert(Iter) implementation if that is warranted.
-        template <typename Iter>
-        auto replace (iterator old_first, iterator old_last, Iter new_first, Iter new_last)
-            -> detail::char_iter_ret_t<text &, Iter>
+        template<typename Iter>
+        auto replace(
+            iterator old_first,
+            iterator old_last,
+            Iter new_first,
+            Iter new_last) -> detail::char_iter_ret_t<text &, Iter>
         {
             assert(begin() <= old_first && old_last <= end());
             assert(old_first <= old_last);
 
             char stack_buf[1024];
             std::list<text> heap_bufs;
-            int const chars_pushed =
-                read_iters(stack_buf, sizeof(stack_buf), heap_bufs, new_first, new_last);
-            int const stack_buf_bytes = (std::min)(chars_pushed, (int)sizeof(stack_buf));
+            int const chars_pushed = read_iters(
+                stack_buf, sizeof(stack_buf), heap_bufs, new_first, new_last);
+            int const stack_buf_bytes =
+                (std::min)(chars_pushed, (int)sizeof(stack_buf));
 
             int const delta = chars_pushed - (old_last - old_first);
             int const available = cap_ - 1 - size_;
             if (available < delta) {
-                std::unique_ptr<char []> new_data = get_new_data(delta - available);
+                std::unique_ptr<char[]> new_data =
+                    get_new_data(delta - available);
                 char * buf = new_data.get();
                 buf = std::copy(begin(), old_first, buf);
                 buf = copy_bufs(stack_buf, stack_buf_bytes, heap_bufs, buf);
@@ -481,12 +509,14 @@ namespace boost { namespace text {
             \throw std::invalid_argument if truncating to new_size would break
             UTF-8 encoding.
             \post size() == new_size */
-        void resize (int new_size, char c)
+        void resize(int new_size, char c)
         {
             assert(0 <= new_size);
 
             if (c & 0x80)
-                throw std::invalid_argument("Given character is not a valid UTF-8 1-character code point");
+                throw std::invalid_argument(
+                    "Given character is not a valid UTF-8 1-character code "
+                    "point");
 
             int const prev_size = size_;
             int const delta = new_size - prev_size;
@@ -495,12 +525,15 @@ namespace boost { namespace text {
 
             int const available = cap_ - 1 - size_;
             if (available < delta) {
-                std::unique_ptr<char []> new_data = get_new_data(delta - available);
+                std::unique_ptr<char[]> new_data =
+                    get_new_data(delta - available);
                 std::copy(begin(), begin() + prev_size, new_data.get());
                 new_data.swap(data_);
-            } else if (delta < 0 &&
-                       !utf8::ends_encoded(cbegin(), cbegin() + new_size)) {
-                throw std::invalid_argument("Resizing to the given size breaks UTF-8 encoding.");
+            } else if (
+                delta < 0 &&
+                !utf8::ends_encoded(cbegin(), cbegin() + new_size)) {
+                throw std::invalid_argument(
+                    "Resizing to the given size breaks UTF-8 encoding.");
             }
 
             size_ = new_size;
@@ -515,13 +548,13 @@ namespace boost { namespace text {
             bytes.
 
             \post capacity() >= new_size + 1 */
-        void reserve (int new_size)
+        void reserve(int new_size)
         {
             assert(0 <= new_size);
             int const new_cap = new_size + 1;
             if (new_cap <= cap_)
                 return;
-            std::unique_ptr<char []> new_data(new char[new_cap]);
+            std::unique_ptr<char[]> new_data(new char[new_cap]);
             *std::copy(cbegin(), cend(), new_data.get()) = '\0';
             data_.swap(new_data);
             cap_ = new_cap;
@@ -531,18 +564,18 @@ namespace boost { namespace text {
             contain size() chars.
 
             \post capacity() == 0 || capacity() == size() + 1 */
-        void shrink_to_fit ()
+        void shrink_to_fit()
         {
             if (cap_ == 0 || cap_ == size_ + 1)
                 return;
-            std::unique_ptr<char []> new_data(new char[size_ + 1]);
+            std::unique_ptr<char[]> new_data(new char[size_ + 1]);
             *std::copy(cbegin(), cend(), new_data.get()) = '\0';
             data_.swap(new_data);
             cap_ = size_ + 1;
         }
 
         /** Swaps *this with rhs. */
-        void swap (text & rhs) noexcept
+        void swap(text & rhs) noexcept
         {
             data_.swap(rhs.data_);
             std::swap(size_, rhs.size_);
@@ -550,19 +583,19 @@ namespace boost { namespace text {
         }
 
         /** Appends c_str to *this. */
-        text & operator+= (char const * c_str);
+        text & operator+=(char const * c_str);
 
         /** Appends tv to *this. */
-        text & operator+= (text_view tv);
+        text & operator+=(text_view tv);
 
         /** Appends rtv to *this. */
-        text & operator+= (repeated_text_view rtv);
+        text & operator+=(repeated_text_view rtv);
 
         /** Appends r to *this. */
-        text & operator+= (rope r);
+        text & operator+=(rope r);
 
         /** Appends r to *this. */
-        text & operator+= (rope_view rv);
+        text & operator+=(rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -573,27 +606,29 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
-        template <typename CharRange>
-        text & operator+= (CharRange const & r);
+        template<typename CharRange>
+        text & operator+=(CharRange const & r);
 
 #else
 
-        template <typename CharRange>
-        auto operator+= (CharRange const & r)
+        template<typename CharRange>
+        auto operator+=(CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
 #endif
 
         /** Stream inserter; performs unformatted output. */
-        friend std::ostream & operator<< (std::ostream & os, text const & t)
-        { return os.write(t.begin(), t.size()); }
+        friend std::ostream & operator<<(std::ostream & os, text const & t)
+        {
+            return os.write(t.begin(), t.size());
+        }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        bool self_reference (text_view tv) const;
+        bool self_reference(text_view tv) const;
 
-        int grow_cap (int min_new_cap) const
+        int grow_cap(int min_new_cap) const
         {
             assert(0 < min_new_cap);
             int retval = (std::max)(8, cap_);
@@ -610,20 +645,20 @@ namespace boost { namespace text {
             return retval;
         }
 
-        std::unique_ptr<char []> get_new_data (int resize_amount)
+        std::unique_ptr<char[]> get_new_data(int resize_amount)
         {
             int const new_cap =
                 0 < resize_amount ? grow_cap(cap_ + resize_amount) : cap_;
-            std::unique_ptr<char []> retval(new char [new_cap]);
+            std::unique_ptr<char[]> retval(new char[new_cap]);
             cap_ = new_cap;
             return retval;
         }
 
-        void push_char (char c, std::unique_ptr<char []> & initial_data)
+        void push_char(char c, std::unique_ptr<char[]> & initial_data)
         {
             int const available = cap_ - 1 - size_;
             if (available < 1) {
-                std::unique_ptr<char []> new_data = get_new_data(1 - available);
+                std::unique_ptr<char[]> new_data = get_new_data(1 - available);
                 std::copy(cbegin(), cend(), new_data.get());
                 if (!initial_data) {
                     initial_data = std::move(data_);
@@ -636,11 +671,11 @@ namespace boost { namespace text {
             ++size_;
         }
 
-        template <typename Iter>
-        auto insert_iter_impl (int at, Iter first, Iter last)
+        template<typename Iter>
+        auto insert_iter_impl(int at, Iter first, Iter last)
             -> detail::char_iter_ret_t<text &, Iter>
         {
-            std::unique_ptr<char []> initial_data;
+            std::unique_ptr<char[]> initial_data;
             int const initial_size = size_;
             int const initial_cap = cap_;
             try {
@@ -661,15 +696,16 @@ namespace boost { namespace text {
             return *this;
         }
 
-        template <typename Iter>
+        template<typename Iter>
         struct buf_ptr_iterator
         {
             char * buf_;
             Iter it_;
         };
 
-        template <typename Iter>
-        buf_ptr_iterator<Iter> fill_buf (char * buf, int size, Iter first, Iter last)
+        template<typename Iter>
+        buf_ptr_iterator<Iter>
+        fill_buf(char * buf, int size, Iter first, Iter last)
         {
             char * const buf_end = buf + size;
             while (first != last && buf != buf_end) {
@@ -680,7 +716,8 @@ namespace boost { namespace text {
             return {buf, first};
         }
 
-        char * copy_bufs (char * buf, int size, std::list<text> const & bufs, char * it)
+        char *
+        copy_bufs(char * buf, int size, std::list<text> const & bufs, char * it)
         {
             it = std::copy_n(buf, size, it);
             for (text const & t : bufs) {
@@ -689,8 +726,9 @@ namespace boost { namespace text {
             return it;
         }
 
-        template <typename Iter>
-        int read_iters (char * buf, int size, std::list<text> & bufs, Iter first, Iter last)
+        template<typename Iter>
+        int read_iters(
+            char * buf, int size, std::list<text> & bufs, Iter first, Iter last)
         {
             buf_ptr_iterator<Iter> buf_first = fill_buf(buf, size, first, last);
 
@@ -703,7 +741,8 @@ namespace boost { namespace text {
                 text & temp = bufs.back();
                 temp.data_.reset(new char[buf_size]);
                 temp.cap_ = buf_size;
-                buf_first = fill_buf(temp.data_.get(), buf_size, buf_first.it_, last);
+                buf_first =
+                    fill_buf(temp.data_.get(), buf_size, buf_first.it_, last);
                 temp.size_ = buf_first.buf_ - temp.data_.get();
                 chars_pushed += temp.size_;
             }
@@ -711,43 +750,55 @@ namespace boost { namespace text {
             return chars_pushed;
         }
 
-        std::unique_ptr<char []> data_;
+        std::unique_ptr<char[]> data_;
         int size_;
         int cap_;
 
 #endif // Doxygen
     };
 
-    inline text::iterator begin (text & t) noexcept
-    { return t.begin(); }
-    inline text::iterator end (text & t) noexcept
-    { return t.end(); }
-    inline text::const_iterator begin (text const & t) noexcept
-    { return t.begin(); }
-    inline text::const_iterator end (text const & t) noexcept
-    { return t.end(); }
-    inline text::const_iterator cbegin (text const & t) noexcept
-    { return t.cbegin(); }
-    inline text::const_iterator cend (text const & t) noexcept
-    { return t.cend(); }
+    inline text::iterator begin(text & t) noexcept { return t.begin(); }
+    inline text::iterator end(text & t) noexcept { return t.end(); }
+    inline text::const_iterator begin(text const & t) noexcept
+    {
+        return t.begin();
+    }
+    inline text::const_iterator end(text const & t) noexcept { return t.end(); }
+    inline text::const_iterator cbegin(text const & t) noexcept
+    {
+        return t.cbegin();
+    }
+    inline text::const_iterator cend(text const & t) noexcept
+    {
+        return t.cend();
+    }
 
-    inline text::reverse_iterator rbegin (text & t) noexcept
-    { return t.rbegin(); }
-    inline text::reverse_iterator rend (text & t) noexcept
-    { return t.rend(); }
-    inline text::const_reverse_iterator rbegin (text const & t) noexcept
-    { return t.rbegin(); }
-    inline text::const_reverse_iterator rend (text const & t) noexcept
-    { return t.rend(); }
-    inline text::const_reverse_iterator crbegin (text const & t) noexcept
-    { return t.crbegin(); }
-    inline text::const_reverse_iterator crend (text const & t) noexcept
-    { return t.crend(); }
+    inline text::reverse_iterator rbegin(text & t) noexcept
+    {
+        return t.rbegin();
+    }
+    inline text::reverse_iterator rend(text & t) noexcept { return t.rend(); }
+    inline text::const_reverse_iterator rbegin(text const & t) noexcept
+    {
+        return t.rbegin();
+    }
+    inline text::const_reverse_iterator rend(text const & t) noexcept
+    {
+        return t.rend();
+    }
+    inline text::const_reverse_iterator crbegin(text const & t) noexcept
+    {
+        return t.crbegin();
+    }
+    inline text::const_reverse_iterator crend(text const & t) noexcept
+    {
+        return t.crend();
+    }
 
     /** Forwards t when it is entirely UTF-8 encoded; throws otherwise.
 
         \throw std::invalid_argument when t is not UTF-8 encoded. */
-    inline text const & checked_encoding (text const & t)
+    inline text const & checked_encoding(text const & t)
     {
         if (!utf8::encoded(t.begin(), t.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");
@@ -757,14 +808,14 @@ namespace boost { namespace text {
     /** Forwards t when it is entirely UTF-8 encoded; throws otherwise.
 
         \throw std::invalid_argument when t is not UTF-8 encoded. */
-    inline text && checked_encoding (text && t)
+    inline text && checked_encoding(text && t)
     {
         if (!utf8::encoded(t.begin(), t.end()))
             throw std::invalid_argument("Invalid UTF-8 encoding");
         return std::move(t);
     }
 
-} }
+}}
 
 #include <boost/text/repeated_text_view.hpp>
 
@@ -776,7 +827,7 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        inline text operator"" _t (char const * str, std::size_t len)
+        inline text operator"" _t(char const * str, std::size_t len)
         {
             assert(len < INT_MAX);
             return text(text_view(str, len));
@@ -785,41 +836,44 @@ namespace boost { namespace text {
         /** Creates a text from a char16_t string literal.
 
             \throw std::invalid_argument if the string is not valid UTF-16. */
-        inline text operator"" _t (char16_t const * str, std::size_t len)
+        inline text operator"" _t(char16_t const * str, std::size_t len)
         {
             assert(len < INT_MAX / 2);
             return text(
                 utf8::from_utf16_iterator<char16_t const *>(str),
-                utf8::from_utf16_iterator<char16_t const *>(str + len)
-            );
+                utf8::from_utf16_iterator<char16_t const *>(str + len));
         }
 
         /** Creates a text from a char32_t string literal.
 
             \throw std::invalid_argument if the string is not valid UTF-32. */
-        inline text operator"" _t (char32_t const * str, std::size_t len)
+        inline text operator"" _t(char32_t const * str, std::size_t len)
         {
             assert(len < INT_MAX / 4);
             return text(
                 utf8::from_utf32_iterator<char32_t const *>(str),
-                utf8::from_utf32_iterator<char32_t const *>(str + len)
-            );
+                utf8::from_utf32_iterator<char32_t const *>(str + len));
         }
-
     }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    inline text::text (text const & t) : data_ (), size_ (0), cap_ (0)
-    { insert(0, text_view(t.begin(), t.size(), utf8::unchecked)); }
+    inline text::text(text const & t) : data_(), size_(0), cap_(0)
+    {
+        insert(0, text_view(t.begin(), t.size(), utf8::unchecked));
+    }
 
-    inline text::text (text_view tv) : data_ (), size_ (0), cap_ (0)
-    { insert(0, tv); }
+    inline text::text(text_view tv) : data_(), size_(0), cap_(0)
+    {
+        insert(0, tv);
+    }
 
-    inline text::text (repeated_text_view rtv) : data_ (), size_ (0), cap_ (0)
-    { insert(0, rtv); }
+    inline text::text(repeated_text_view rtv) : data_(), size_(0), cap_(0)
+    {
+        insert(0, rtv);
+    }
 
-    inline text & text::operator= (text const & t)
+    inline text & text::operator=(text const & t)
     {
         if (t.size() <= size()) {
             clear();
@@ -831,12 +885,14 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template <typename CharRange>
-    auto text::operator= (CharRange const & r)
+    template<typename CharRange>
+    auto text::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return *this = text_view(r); }
+    {
+        return *this = text_view(r);
+    }
 
-    inline text & text::operator= (text_view tv)
+    inline text & text::operator=(text_view tv)
     {
         assert(0 <= tv.size());
         bool const self_ref = self_reference(tv);
@@ -853,7 +909,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::operator= (repeated_text_view rtv)
+    inline text & text::operator=(repeated_text_view rtv)
     {
         assert(0 <= rtv.size());
         bool const self_ref = self_reference(rtv.view());
@@ -867,45 +923,66 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text_view text::operator() (int lo, int hi) const
-    { return text_view(*this)(lo, hi); }
+    inline text_view text::operator()(int lo, int hi) const
+    {
+        return text_view(*this)(lo, hi);
+    }
 
-    inline text_view text::operator() (int cut) const
-    { return text_view(*this)(cut); }
+    inline text_view text::operator()(int cut) const
+    {
+        return text_view(*this)(cut);
+    }
 
-    inline int text::compare (text_view rhs) const noexcept
-    { return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end()); }
+    inline int text::compare(text_view rhs) const noexcept
+    {
+        return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end());
+    }
 
-    inline bool text::operator== (text_view rhs) const noexcept
-    { return compare(rhs) == 0; }
+    inline bool text::operator==(text_view rhs) const noexcept
+    {
+        return compare(rhs) == 0;
+    }
 
-    inline bool text::operator!= (text_view rhs) const noexcept
-    { return compare(rhs) != 0; }
+    inline bool text::operator!=(text_view rhs) const noexcept
+    {
+        return compare(rhs) != 0;
+    }
 
-    inline bool text::operator< (text_view rhs) const noexcept
-    { return compare(rhs) < 0; }
+    inline bool text::operator<(text_view rhs) const noexcept
+    {
+        return compare(rhs) < 0;
+    }
 
-    inline bool text::operator<= (text_view rhs) const noexcept
-    { return compare(rhs) <= 0; }
+    inline bool text::operator<=(text_view rhs) const noexcept
+    {
+        return compare(rhs) <= 0;
+    }
 
-    inline bool text::operator> (text_view rhs) const noexcept
-    { return compare(rhs) > 0; }
+    inline bool text::operator>(text_view rhs) const noexcept
+    {
+        return compare(rhs) > 0;
+    }
 
-    inline bool text::operator>= (text_view rhs) const noexcept
-    { return compare(rhs) >= 0; }
+    inline bool text::operator>=(text_view rhs) const noexcept
+    {
+        return compare(rhs) >= 0;
+    }
 
-    template <typename CharRange>
-    auto text::insert (int at, CharRange const & r)
+    template<typename CharRange>
+    auto text::insert(int at, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return insert(at, text_view(r)); }
+    {
+        return insert(at, text_view(r));
+    }
 
-    inline text & text::insert (int at, text_view tv)
+    inline text & text::insert(int at, text_view tv)
     {
         assert(0 <= at && at <= size_);
         assert(0 <= tv.size());
 
         if (!utf8::starts_encoded(cbegin() + at, cend()))
-            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+            throw std::invalid_argument(
+                "Inserting at that character breaks UTF-8 encoding.");
 
         bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
         if (tv_null_terminated)
@@ -919,7 +996,7 @@ namespace boost { namespace text {
             self_reference(tv) && at < tv.end() - begin();
         int const available = cap_ - 1 - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
             buf = std::copy(tv.begin(), tv.end(), buf);
@@ -937,15 +1014,17 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::insert (int at, repeated_text_view rtv)
+    inline text & text::insert(int at, repeated_text_view rtv)
     {
         assert(0 <= at && at <= size_);
         assert(0 <= rtv.size());
 
         if (!utf8::starts_encoded(cbegin() + at, cend()))
-            throw std::invalid_argument("Inserting at that character breaks UTF-8 encoding.");
+            throw std::invalid_argument(
+                "Inserting at that character breaks UTF-8 encoding.");
 
-        bool const rtv_null_terminated = !rtv.view().empty() && rtv.view().end()[-1] == '\0';
+        bool const rtv_null_terminated =
+            !rtv.view().empty() && rtv.view().end()[-1] == '\0';
         if (rtv_null_terminated)
             rtv = repeat(rtv.view()(0, -1), rtv.count());
 
@@ -957,7 +1036,7 @@ namespace boost { namespace text {
             self_reference(rtv.view()) && at < rtv.view().end() - begin();
         int const available = cap_ - 1 - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
             for (int i = 0; i < rtv.count(); ++i) {
@@ -979,7 +1058,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::erase (text_view tv) noexcept
+    inline text & text::erase(text_view tv) noexcept
     {
         assert(0 <= tv.size());
 
@@ -993,12 +1072,14 @@ namespace boost { namespace text {
         return erase(first, first + tv.size());
     }
 
-    template <typename CharRange>
-    auto text::replace (text_view old_substr, CharRange const & r)
+    template<typename CharRange>
+    auto text::replace(text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return replace(old_substr, text_view(r)); }
+    {
+        return replace(old_substr, text_view(r));
+    }
 
-    inline text & text::replace (text_view old_substr, text_view new_substr)
+    inline text & text::replace(text_view old_substr, text_view new_substr)
     {
         assert(0 <= old_substr.size());
         assert(0 <= new_substr.size());
@@ -1012,10 +1093,12 @@ namespace boost { namespace text {
 
         if (old_substr.empty()) {
             if (old_substr.begin() == begin()) {
-                text_view check_after(old_substr.begin(), end() - old_substr.begin());
+                text_view check_after(
+                    old_substr.begin(), end() - old_substr.begin());
                 (void)check_after;
             } else {
-                text_view check_before(data_.get(), old_substr.begin() - begin());
+                text_view check_before(
+                    data_.get(), old_substr.begin() - begin());
                 (void)check_before;
             }
         }
@@ -1032,7 +1115,7 @@ namespace boost { namespace text {
         int const delta = new_substr.size() - old_substr.size();
         int const available = cap_ - 1 - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
             buf = std::copy(new_substr.begin(), new_substr.end(), buf);
@@ -1040,15 +1123,12 @@ namespace boost { namespace text {
             new_data.swap(data_);
         } else {
             if (0 < delta) {
-                std::copy_backward(
-                    old_substr.end(), cend(),
-                    end() + delta
-                );
+                std::copy_backward(old_substr.end(), cend(), end() + delta);
             } else if (delta < 0) {
                 std::copy(
-                    old_substr.end(), cend(),
-                    const_cast<char *>(old_substr.end()) + delta
-                );
+                    old_substr.end(),
+                    cend(),
+                    const_cast<char *>(old_substr.end()) + delta);
             }
             char * buf = const_cast<char *>(old_substr.begin());
             std::copy(new_substr.begin(), new_substr.end(), buf);
@@ -1060,7 +1140,8 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::replace (text_view old_substr, repeated_text_view new_substr)
+    inline text &
+    text::replace(text_view old_substr, repeated_text_view new_substr)
     {
         assert(0 <= old_substr.size());
         assert(0 <= new_substr.size());
@@ -1074,10 +1155,12 @@ namespace boost { namespace text {
 
         if (old_substr.empty()) {
             if (old_substr.begin() == begin()) {
-                text_view check_after(old_substr.begin(), end() - old_substr.begin());
+                text_view check_after(
+                    old_substr.begin(), end() - old_substr.begin());
                 (void)check_after;
             } else {
-                text_view check_before(data_.get(), old_substr.begin() - begin());
+                text_view check_before(
+                    data_.get(), old_substr.begin() - begin());
                 (void)check_before;
             }
         }
@@ -1089,34 +1172,33 @@ namespace boost { namespace text {
 
         assert(begin() <= old_substr.begin() && old_substr.end() <= end());
 
-        bool const late_self_ref =
-            self_reference(new_substr.view()) && old_substr.begin() < new_substr.view().end();
+        bool const late_self_ref = self_reference(new_substr.view()) &&
+                                   old_substr.begin() < new_substr.view().end();
         int const delta = new_substr.size() - old_substr.size();
         int const available = cap_ - 1 - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char []> new_data = get_new_data(delta - available);
+            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
             char * buf = new_data.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
             for (int i = 0; i < new_substr.count(); ++i) {
-                buf = std::copy(new_substr.view().begin(), new_substr.view().end(), buf);
+                buf = std::copy(
+                    new_substr.view().begin(), new_substr.view().end(), buf);
             }
             std::copy(old_substr.end(), cend(), buf);
             new_data.swap(data_);
         } else {
             if (0 < delta) {
-                std::copy_backward(
-                    old_substr.end(), cend(),
-                    end() + delta
-                );
+                std::copy_backward(old_substr.end(), cend(), end() + delta);
             } else if (delta < 0) {
                 std::copy(
-                    old_substr.end(), cend(),
-                    const_cast<char *>(old_substr.end()) + delta
-                );
+                    old_substr.end(),
+                    cend(),
+                    const_cast<char *>(old_substr.end()) + delta);
             }
             char * buf = const_cast<char *>(old_substr.begin());
             for (int i = 0; i < new_substr.count(); ++i) {
-                buf = std::copy(new_substr.view().begin(), new_substr.view().end(), buf);
+                buf = std::copy(
+                    new_substr.view().begin(), new_substr.view().end(), buf);
             }
         }
 
@@ -1126,8 +1208,8 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template <typename Iter>
-    auto text::replace (text_view old_substr, Iter first, Iter last)
+    template<typename Iter>
+    auto text::replace(text_view old_substr, Iter first, Iter last)
         -> detail::char_iter_ret_t<text &, Iter>
     {
         assert(0 <= old_substr.size());
@@ -1143,13 +1225,14 @@ namespace boost { namespace text {
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
-    inline text & text::operator+= (char const * c_str)
-    { return insert(size(), c_str); }
+    inline text & text::operator+=(char const * c_str)
+    {
+        return insert(size(), c_str);
+    }
 
-    inline text & text::operator+= (text_view tv)
-    { return insert(size(), tv); }
+    inline text & text::operator+=(text_view tv) { return insert(size(), tv); }
 
-    inline text & text::operator+= (repeated_text_view rtv)
+    inline text & text::operator+=(repeated_text_view rtv)
     {
         assert(0 <= rtv.size());
         reserve(size() + rtv.size());
@@ -1159,12 +1242,14 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template <typename CharRange>
-    auto text::operator+= (CharRange const & r)
+    template<typename CharRange>
+    auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
-    { return insert(size(), text_view(r)); }
+    {
+        return insert(size(), text_view(r));
+    }
 
-    inline bool text::self_reference (text_view tv) const
+    inline bool text::self_reference(text_view tv) const
     {
         using less_t = std::less<char const *>;
         less_t less;
@@ -1173,44 +1258,63 @@ namespace boost { namespace text {
 
 #endif // Doxygen
 
-    inline bool operator== (char const * lhs, text const & rhs) noexcept
-    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) == 0; }
+    inline bool operator==(char const * lhs, text const & rhs) noexcept
+    {
+        return detail::compare_impl(
+                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) == 0;
+    }
 
-    inline bool operator!= (char const * lhs, text const & rhs) noexcept
-    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) != 0; }
+    inline bool operator!=(char const * lhs, text const & rhs) noexcept
+    {
+        return detail::compare_impl(
+                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) != 0;
+    }
 
-    inline bool operator< (char const * lhs, text const & rhs) noexcept
-    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) < 0; }
+    inline bool operator<(char const * lhs, text const & rhs) noexcept
+    {
+        return detail::compare_impl(
+                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) < 0;
+    }
 
-    inline bool operator<= (char const * lhs, text const & rhs) noexcept
-    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) <= 0; }
+    inline bool operator<=(char const * lhs, text const & rhs) noexcept
+    {
+        return detail::compare_impl(
+                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) <= 0;
+    }
 
-    inline bool operator> (char const * lhs, text const & rhs) noexcept
-    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) > 0; }
+    inline bool operator>(char const * lhs, text const & rhs) noexcept
+    {
+        return detail::compare_impl(
+                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) > 0;
+    }
 
-    inline bool operator>= (char const * lhs, text const & rhs) noexcept
-    { return detail::compare_impl(lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0; }
+    inline bool operator>=(char const * lhs, text const & rhs) noexcept
+    {
+        return detail::compare_impl(
+                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0;
+    }
 
 
     /** Creates a new text object that is the concatenation of t and t2. */
-    inline text operator+ (text t, text const & t2)
-    { return t += t2; }
+    inline text operator+(text t, text const & t2) { return t += t2; }
 
     /** Creates a new text object that is the concatenation of t and tv. */
-    inline text operator+ (text t, text_view tv)
-    { return t += tv; }
+    inline text operator+(text t, text_view tv) { return t += tv; }
 
     /** Creates a new text object that is the concatenation of tv and t. */
-    inline text operator+ (text_view tv, text const & t)
-    { return (text() += tv) += t; }
+    inline text operator+(text_view tv, text const & t)
+    {
+        return (text() += tv) += t;
+    }
 
     /** Creates a new text object that is the concatenation of t and rtv. */
-    inline text operator+ (text t, repeated_text_view rtv)
-    { return t += rtv; }
+    inline text operator+(text t, repeated_text_view rtv) { return t += rtv; }
 
     /** Creates a new text object that is the concatenation of rtv and t. */
-    inline text operator+ (repeated_text_view rtv, text const & t)
-    { return (text() += rtv) += t; }
+    inline text operator+(repeated_text_view rtv, text const & t)
+    {
+        return (text() += rtv) += t;
+    }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -1221,8 +1325,8 @@ namespace boost { namespace text {
 
         \throw std::invalid_argument if the ends of the range are not valid
         UTF-8. */
-    template <typename CharRange>
-    text operator+ (text t, CharRange const & r);
+    template<typename CharRange>
+    text operator+(text t, CharRange const & r);
 
     /** Creates a new text object that is the concatenation of r and t.
 
@@ -1231,23 +1335,27 @@ namespace boost { namespace text {
 
         \throw std::invalid_argument if the ends of the range are not valid
         UTF-8. */
-    template <typename CharRange>
-    text operator+ (CharRange const & r, text const & t);
+    template<typename CharRange>
+    text operator+(CharRange const & r, text const & t);
 
 #else
 
-    template <typename CharRange>
-    auto operator+ (text t, CharRange const & r)
+    template<typename CharRange>
+    auto operator+(text t, CharRange const & r)
         -> detail::rng_alg_ret_t<text, CharRange>
-    { return t += r; }
+    {
+        return t += r;
+    }
 
-    template <typename CharRange>
-    auto operator+ (CharRange const & r, text const & t)
+    template<typename CharRange>
+    auto operator+(CharRange const & r, text const & t)
         -> detail::rng_alg_ret_t<text, CharRange>
-    { return (text() += r) += t; }
+    {
+        return (text() += r) += t;
+    }
 
 #endif
 
-} }
+}}
 
 #endif

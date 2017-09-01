@@ -6,7 +6,7 @@
 
 std::atomic<bool> done(false);
 
-void thread_function (boost::text::rope const & r)
+void thread_function(boost::text::rope const & r)
 {
     boost::text::rope local_r = r;
 
@@ -14,10 +14,10 @@ void thread_function (boost::text::rope const & r)
         ;
 }
 
-int main ()
+int main()
 {
     std::unique_ptr<boost::text::rope> r(new boost::text::rope("some text"));
-    
+
     std::thread thread_0(thread_function, *r);
     std::thread thread_1(thread_function, *r);
     std::thread thread_2(thread_function, *r);

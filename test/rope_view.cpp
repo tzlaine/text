@@ -61,7 +61,7 @@ struct rope_views
     text::rope_view right;
 };
 
-rope_views swapped (text::rope_view lhs, text::rope_view rhs)
+rope_views swapped(text::rope_view lhs, text::rope_view rhs)
 {
     lhs.swap(rhs);
     return rope_views{lhs, rhs};
@@ -152,15 +152,14 @@ TEST(rope_view, test_foreach_segment)
         r += text::repeat(" ", 3);
         r += text::text("text");
 
-        for (int i = 0; i < r.size(); ++i)
-        {
-            for (int j = i; j < r.size(); ++j)
-            {
+        for (int i = 0; i < r.size(); ++i) {
+            for (int j = i; j < r.size(); ++j) {
                 text::rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
 
-                EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+                EXPECT_EQ(text::text_view(oss.str().c_str()), rv)
+                    << "i=" << i << " j=" << j;
             }
         }
     }
@@ -168,15 +167,14 @@ TEST(rope_view, test_foreach_segment)
     {
         text::rope r("some");
 
-        for (int i = 0; i < r.size(); ++i)
-        {
-            for (int j = i; j < r.size(); ++j)
-            {
+        for (int i = 0; i < r.size(); ++i) {
+            for (int j = i; j < r.size(); ++j) {
                 text::rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
 
-                EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+                EXPECT_EQ(text::text_view(oss.str().c_str()), rv)
+                    << "i=" << i << " j=" << j;
             }
         }
     }
@@ -184,15 +182,14 @@ TEST(rope_view, test_foreach_segment)
     {
         text::rope r(text::repeated_text_view("txt", 2));
 
-        for (int i = 0; i < r.size(); ++i)
-        {
-            for (int j = i; j < r.size(); ++j)
-            {
+        for (int i = 0; i < r.size(); ++i) {
+            for (int j = i; j < r.size(); ++j) {
                 text::rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
 
-                EXPECT_EQ(text::text_view(oss.str().c_str()), rv) << "i=" << i << " j=" << j;
+                EXPECT_EQ(text::text_view(oss.str().c_str()), rv)
+                    << "i=" << i << " j=" << j;
             }
         }
     }

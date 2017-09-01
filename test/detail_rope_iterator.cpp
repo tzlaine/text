@@ -244,7 +244,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
             text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("text", copies));
+            text::text const from_first_repeated(
+                text::repeated_text_view("text", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
 
@@ -252,7 +253,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
             text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("txet", copies));
+            text::text const from_first_repeated(
+                text::repeated_text_view("txet", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
     }
@@ -268,7 +270,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
             text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("text", copies));
+            text::text const from_first_repeated(
+                text::repeated_text_view("text", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
 
@@ -276,7 +279,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
             text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("txet", copies));
+            text::text const from_first_repeated(
+                text::repeated_text_view("txet", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
     }
@@ -292,7 +296,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
             text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("texttext", copies));
+            text::text const from_first_repeated(
+                text::repeated_text_view("texttext", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
 
@@ -300,7 +305,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
             text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("txettxet", copies));
+            text::text const from_first_repeated(
+                text::repeated_text_view("txettxet", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
     }
@@ -318,7 +324,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_rope_iterator last = r.end();
             text::text const from_first_last(first, last);
             text::text built_up_otherwise("a bitWAT longer text");
-            built_up_otherwise += text::repeated_text_view("a bit longer text", 64 * 1024 - 1);
+            built_up_otherwise +=
+                text::repeated_text_view("a bit longer text", 64 * 1024 - 1);
             EXPECT_EQ(from_first_last, built_up_otherwise);
         }
 
@@ -327,7 +334,8 @@ TEST(both_rope_iterators, test_larger_ropes)
             text::detail::const_reverse_rope_iterator last = r.rend();
             text::text const from_first_last(first, last);
             text::text built_up_otherwise("a bitWAT longer text");
-            built_up_otherwise += text::repeated_text_view("a bit longer text", 64 * 1024 - 1);
+            built_up_otherwise +=
+                text::repeated_text_view("a bit longer text", 64 * 1024 - 1);
             std::reverse(built_up_otherwise.begin(), built_up_otherwise.end());
             EXPECT_EQ(from_first_last, built_up_otherwise);
         }
