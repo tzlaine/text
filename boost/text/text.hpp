@@ -8,6 +8,7 @@
 #include <boost/text/detail/utility.hpp>
 
 #include <algorithm>
+#include <array>
 #include <list>
 #include <memory>
 
@@ -20,8 +21,6 @@ namespace boost { namespace text {
     struct repeated_text_view;
     struct rope;
     struct rope_view;
-
-    // TODO: text needs SBO.
 
     /** A mutable contiguous null-terminated sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
@@ -37,11 +36,14 @@ namespace boost { namespace text {
 
             \post size() == 0 && capacity() == 0; begin(), end() delimit a
             valid, null-terminated empty string */
-        text() noexcept : data_(), size_(0), cap_(0) {}
+        text() noexcept : storage_(), size_(0), heap_(false) {}
 
         text(text const & t);
 
-        text(text && rhs) noexcept : data_(), size_(0), cap_(0) { swap(rhs); }
+        text(text && rhs) noexcept : storage_(), size_(0), heap_(false)
+        {
+            swap(rhs);
+        }
 
         /** Constructs a text from a text_view. */
         explicit text(text_view tv);
@@ -76,23 +78,29 @@ namespace boost { namespace text {
         template<typename CharRange>
         explicit text(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
-            data_(),
+            storage_(),
             size_(0),
-            cap_(0)
+            heap_(false)
         {
             insert(0, r);
         }
 
         template<typename Iter>
         text(Iter first, Iter last, detail::char_iter_ret_t<void *, Iter> = 0) :
-            data_(),
+            storage_(),
             size_(0),
-            cap_(0)
+            heap_(false)
         {
             insert(0, first, last);
         }
 
 #endif
+
+        ~text()
+        {
+            if (heap_)
+                storage_.heap_.~heap_t();
+        }
 
         text & operator=(text const & t);
 
@@ -128,31 +136,11 @@ namespace boost { namespace text {
         /** Assignment from a repeated_text_view. */
         text & operator=(repeated_text_view tv);
 
-        iterator begin() noexcept
-        {
-            if (!data_)
-                return reinterpret_cast<char *>(&cap_);
-            return data_.get();
-        }
-        iterator end() noexcept
-        {
-            if (!data_)
-                return reinterpret_cast<char *>(&cap_);
-            return data_.get() + size_;
-        }
+        iterator begin() noexcept { return ptr(); }
+        iterator end() noexcept { return ptr() + size_; }
 
-        const_iterator begin() const noexcept
-        {
-            if (!data_)
-                return reinterpret_cast<char const *>(&cap_);
-            return data_.get();
-        }
-        const_iterator end() const noexcept
-        {
-            if (!data_)
-                return reinterpret_cast<char const *>(&cap_);
-            return data_.get() + size_;
-        }
+        const_iterator begin() const noexcept { return ptr(); }
+        const_iterator end() const noexcept { return ptr() + size_; }
 
         const_iterator cbegin() const noexcept { return begin(); }
         const_iterator cend() const noexcept { return end(); }
@@ -197,7 +185,7 @@ namespace boost { namespace text {
 
             Even if the capcity is 0, the text is still a valid
             null-terminated empty string. */
-        int capacity() const noexcept { return cap_ - 1; }
+        int capacity() const noexcept { return cap() - 1; }
 
         /** Returns the i-th char of *this (not a reference).
 
@@ -207,7 +195,7 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_TESTING
             assert(0 <= i && i < size_);
 #endif
-            return data_[i];
+            return ptr()[i];
         }
 
         /** Returns a substring of *this, taken from the range of chars at
@@ -234,7 +222,7 @@ namespace boost { namespace text {
         text_view operator()(int cut) const;
 
         /** Returns the maximum size a text can have. */
-        int max_size() const noexcept { return INT_MAX; }
+        int max_size() const noexcept { return INT_MAX / 2; }
 
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
@@ -255,8 +243,7 @@ namespace boost { namespace text {
         void clear() noexcept
         {
             size_ = 0;
-            if (data_)
-                data_[0] = '\0';
+            ptr()[0] = '\0';
         }
 
         /** Returns a reference to the i-th char of *this.
@@ -268,7 +255,7 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_TESTING
             assert(0 <= 0 && i < size_);
 #endif
-            return data_[i];
+            return ptr()[i];
         }
 
         /** Inserts the sequence of char from tv into *this starting at offset
@@ -380,7 +367,7 @@ namespace boost { namespace text {
 
             std::copy(last, end(), first);
             size_ -= last - first;
-            data_[size_] = '\0';
+            ptr()[size_] = '\0';
 
             return *this;
         }
@@ -470,22 +457,21 @@ namespace boost { namespace text {
             assert(old_first <= old_last);
 
             char stack_buf[1024];
-            std::list<text> heap_bufs;
+            std::list<heap_t> heap_bufs;
             int const chars_pushed = read_iters(
                 stack_buf, sizeof(stack_buf), heap_bufs, new_first, new_last);
             int const stack_buf_bytes =
                 (std::min)(chars_pushed, (int)sizeof(stack_buf));
 
             int const delta = chars_pushed - (old_last - old_first);
-            int const available = cap_ - 1 - size_;
+            int const available = capacity() - size_;
             if (available < delta) {
-                std::unique_ptr<char[]> new_data =
-                    get_new_data(delta - available);
-                char * buf = new_data.get();
+                heap_t new_data = get_new_data(delta - available);
+                char * buf = new_data.data_.get();
                 buf = std::copy(begin(), old_first, buf);
                 buf = copy_bufs(stack_buf, stack_buf_bytes, heap_bufs, buf);
                 std::copy(old_last, end(), buf);
-                new_data.swap(data_);
+                set_heap(std::move(new_data));
             } else {
                 if (0 < delta)
                     std::copy_backward(old_last, end(), end() + delta);
@@ -495,7 +481,7 @@ namespace boost { namespace text {
             }
 
             size_ += delta;
-            data_[size_] = '\0';
+            ptr()[size_] = '\0';
 
             return *this;
         }
@@ -523,12 +509,11 @@ namespace boost { namespace text {
             if (!delta)
                 return;
 
-            int const available = cap_ - 1 - size_;
+            int const available = capacity() - size_;
             if (available < delta) {
-                std::unique_ptr<char[]> new_data =
-                    get_new_data(delta - available);
-                std::copy(begin(), begin() + prev_size, new_data.get());
-                new_data.swap(data_);
+                heap_t new_data = get_new_data(delta - available);
+                std::copy(begin(), begin() + prev_size, new_data.data_.get());
+                set_heap(std::move(new_data));
             } else if (
                 delta < 0 &&
                 !utf8::ends_encoded(cbegin(), cbegin() + new_size)) {
@@ -541,7 +526,7 @@ namespace boost { namespace text {
             if (0 < delta)
                 std::fill(begin() + prev_size, end(), c);
 
-            data_[size_] = '\0';
+            ptr()[size_] = '\0';
         }
 
         /** Reserves storage enough for a string of at least new_size
@@ -552,12 +537,12 @@ namespace boost { namespace text {
         {
             assert(0 <= new_size);
             int const new_cap = new_size + 1;
-            if (new_cap <= cap_)
+            if (new_cap <= cap())
                 return;
-            std::unique_ptr<char[]> new_data(new char[new_cap]);
-            *std::copy(cbegin(), cend(), new_data.get()) = '\0';
-            data_.swap(new_data);
-            cap_ = new_cap;
+            std::unique_ptr<char[]> new_ptr(new char[new_cap]);
+            heap_t new_data{std::move(new_ptr), new_cap};
+            *std::copy(cbegin(), cend(), new_data.data_.get()) = '\0';
+            set_heap(std::move(new_data));
         }
 
         /** Reduces storage used by *this to just the amount necessary to
@@ -566,20 +551,37 @@ namespace boost { namespace text {
             \post capacity() == 0 || capacity() == size() + 1 */
         void shrink_to_fit()
         {
-            if (cap_ == 0 || cap_ == size_ + 1)
+            auto const c = cap();
+            if (c == 0 || c == size_ + 1)
                 return;
-            std::unique_ptr<char[]> new_data(new char[size_ + 1]);
-            *std::copy(cbegin(), cend(), new_data.get()) = '\0';
-            data_.swap(new_data);
-            cap_ = size_ + 1;
+            std::unique_ptr<char[]> new_ptr(new char[size_ + 1]);
+            heap_t new_data{std::move(new_ptr), size_ + 1};
+            *std::copy(cbegin(), cend(), new_data.data_.get()) = '\0';
+            set_heap(std::move(new_data));
         }
 
         /** Swaps *this with rhs. */
         void swap(text & rhs) noexcept
         {
-            data_.swap(rhs.data_);
-            std::swap(size_, rhs.size_);
-            std::swap(cap_, rhs.cap_);
+            if (heap_ && rhs.heap_)
+                std::swap(storage_.heap_, rhs.storage_.heap_);
+            else if (!heap_ && !rhs.heap_)
+                std::swap(storage_.local_, rhs.storage_.local_);
+            else if (heap_)
+                swap_local_and_heap(rhs.storage_, storage_);
+            else
+                swap_local_and_heap(storage_, rhs.storage_);
+
+            {
+                int tmp = size_;
+                size_ = rhs.size_;
+                rhs.size_ = tmp;
+            }
+            {
+                bool tmp = heap_;
+                heap_ = rhs.heap_;
+                rhs.heap_ = tmp;
+            }
         }
 
         /** Appends c_str to *this. */
@@ -626,48 +628,57 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
+        struct heap_t
+        {
+            std::unique_ptr<char[]> data_;
+            int cap_;
+        };
+
+        struct local_t
+        {
+            std::array<char, sizeof(heap_t)> buf_;
+        };
+
+        union storage_t
+        {
+            storage_t() { local_ = local_t(); }
+
+            ~storage_t() {}
+
+            heap_t heap_;
+            local_t local_;
+        };
+
         bool self_reference(text_view tv) const;
 
         int grow_cap(int min_new_cap) const
         {
             assert(0 < min_new_cap);
-            int retval = (std::max)(8, cap_);
+            int retval = cap();
             while (retval < min_new_cap) {
                 retval = retval / 2 * 3;
             }
-            // Leave very short strings very short (8 bytes -- even though
-            // this is not portably achievable), but have the rest end on a
-            // 16-byte bundary.
-            if (8 < retval) {
-                int const rem = (retval + 16) % 16;
-                retval += 16 - rem;
-            }
+            int const rem = (retval + 16) % 16;
+            retval += 16 - rem;
             return retval;
         }
 
-        std::unique_ptr<char[]> get_new_data(int resize_amount)
+        heap_t get_new_data(int resize_amount)
         {
             int const new_cap =
-                0 < resize_amount ? grow_cap(cap_ + resize_amount) : cap_;
-            std::unique_ptr<char[]> retval(new char[new_cap]);
-            cap_ = new_cap;
-            return retval;
+                0 < resize_amount ? grow_cap(cap() + resize_amount) : cap();
+            return heap_t{std::unique_ptr<char[]>(new char[new_cap]), new_cap};
         }
 
-        void push_char(char c, std::unique_ptr<char[]> & initial_data)
+        void push_char(char c)
         {
-            int const available = cap_ - 1 - size_;
+            int const available = capacity() - size_;
             if (available < 1) {
-                std::unique_ptr<char[]> new_data = get_new_data(1 - available);
-                std::copy(cbegin(), cend(), new_data.get());
-                if (!initial_data) {
-                    initial_data = std::move(data_);
-                    data_ = std::move(new_data);
-                } else {
-                    new_data.swap(data_);
-                }
+                heap_t new_data = get_new_data(1 - available);
+                std::copy(cbegin(), cend(), new_data.data_.get());
+                set_heap(std::move(new_data));
             }
-            data_[size_] = c;
+            ptr()[size_] = c;
             ++size_;
         }
 
@@ -675,23 +686,19 @@ namespace boost { namespace text {
         auto insert_iter_impl(int at, Iter first, Iter last)
             -> detail::char_iter_ret_t<text &, Iter>
         {
-            std::unique_ptr<char[]> initial_data;
-            int const initial_size = size_;
-            int const initial_cap = cap_;
+            auto const initial_size = size_;
             try {
                 while (first != last) {
-                    push_char(*first, initial_data);
+                    push_char(*first);
                     ++first;
                 }
             } catch (std::bad_alloc const &) {
-                data_.swap(initial_data);
-                size_ = initial_size;
-                cap_ = initial_cap;
+                ptr()[size_] = '\0';
                 throw;
             }
 
             std::rotate(begin() + at, begin() + initial_size, end());
-            data_[size_] = '\0';
+            ptr()[size_] = '\0';
 
             return *this;
         }
@@ -716,19 +723,23 @@ namespace boost { namespace text {
             return {buf, first};
         }
 
-        char *
-        copy_bufs(char * buf, int size, std::list<text> const & bufs, char * it)
+        char * copy_bufs(
+            char * buf, int size, std::list<heap_t> const & bufs, char * it)
         {
             it = std::copy_n(buf, size, it);
-            for (text const & t : bufs) {
-                it = std::copy_n(t.data_.get(), t.size_, it);
+            for (heap_t const & h : bufs) {
+                it = std::copy_n(h.data_.get(), h.cap_, it);
             }
             return it;
         }
 
         template<typename Iter>
         int read_iters(
-            char * buf, int size, std::list<text> & bufs, Iter first, Iter last)
+            char * buf,
+            int size,
+            std::list<heap_t> & bufs,
+            Iter first,
+            Iter last)
         {
             buf_ptr_iterator<Iter> buf_first = fill_buf(buf, size, first, last);
 
@@ -737,22 +748,57 @@ namespace boost { namespace text {
 
             while (buf_first.it_ != last) {
                 buf_size *= 2;
-                bufs.push_back(text());
-                text & temp = bufs.back();
+                bufs.push_back(heap_t());
+                heap_t & temp = bufs.back();
                 temp.data_.reset(new char[buf_size]);
                 temp.cap_ = buf_size;
                 buf_first =
                     fill_buf(temp.data_.get(), buf_size, buf_first.it_, last);
-                temp.size_ = buf_first.buf_ - temp.data_.get();
-                chars_pushed += temp.size_;
+                temp.cap_ = buf_first.buf_ - temp.data_.get();
+                chars_pushed += temp.cap_;
             }
 
             return chars_pushed;
         }
 
-        std::unique_ptr<char[]> data_;
-        int size_;
-        int cap_;
+        storage_t storage_;
+        int size_ : 31;
+        bool heap_ : 1;
+
+        char * ptr() noexcept
+        {
+            return heap_ ? storage_.heap_.data_.get()
+                         : &storage_.local_.buf_[0];
+        }
+
+        char const * ptr() const noexcept
+        {
+            return heap_ ? storage_.heap_.data_.get()
+                         : &storage_.local_.buf_[0];
+        }
+
+        int cap() const noexcept
+        {
+            return heap_ ? storage_.heap_.cap_ : sizeof(heap_t);
+        }
+
+        void set_heap(heap_t && heap)
+        {
+            if (!heap_) {
+                new (&storage_.heap_) heap_t();
+                heap_ = true;
+            }
+            storage_.heap_ = std::move(heap);
+        }
+
+        void swap_local_and_heap(storage_t & local, storage_t & heap)
+        {
+            auto const tmp = local.local_.buf_;
+            new (&local.heap_) heap_t();
+            std::swap(local.heap_, heap.heap_);
+            heap.local_ = local_t();
+            heap.local_.buf_ = tmp;
+        }
 
 #endif // Doxygen
     };
@@ -858,17 +904,20 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    inline text::text(text const & t) : data_(), size_(0), cap_(0)
+    inline text::text(text const & t) : storage_(), size_(0), heap_(false)
     {
         insert(0, text_view(t.begin(), t.size(), utf8::unchecked));
     }
 
-    inline text::text(text_view tv) : data_(), size_(0), cap_(0)
+    inline text::text(text_view tv) : storage_(), size_(0), heap_(false)
     {
         insert(0, tv);
     }
 
-    inline text::text(repeated_text_view rtv) : data_(), size_(0), cap_(0)
+    inline text::text(repeated_text_view rtv) :
+        storage_(),
+        size_(0),
+        heap_(false)
     {
         insert(0, rtv);
     }
@@ -994,14 +1043,14 @@ namespace boost { namespace text {
 
         bool const late_self_ref =
             self_reference(tv) && at < tv.end() - begin();
-        int const available = cap_ - 1 - size_;
+        int const available = capacity() - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
-            char * buf = new_data.get();
+            heap_t new_data = get_new_data(delta - available);
+            char * buf = new_data.data_.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
             buf = std::copy(tv.begin(), tv.end(), buf);
             buf = std::copy(cbegin() + at, cend(), buf);
-            new_data.swap(data_);
+            set_heap(std::move(new_data));
         } else {
             std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
@@ -1009,7 +1058,7 @@ namespace boost { namespace text {
         }
 
         size_ += delta;
-        data_[size_] = '\0';
+        ptr()[size_] = '\0';
 
         return *this;
     }
@@ -1034,16 +1083,16 @@ namespace boost { namespace text {
 
         bool const late_self_ref =
             self_reference(rtv.view()) && at < rtv.view().end() - begin();
-        int const available = cap_ - 1 - size_;
+        int const available = capacity() - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
-            char * buf = new_data.get();
+            heap_t new_data = get_new_data(delta - available);
+            char * buf = new_data.data_.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
             for (int i = 0; i < rtv.count(); ++i) {
                 buf = std::copy(rtv.view().begin(), rtv.view().end(), buf);
             }
             std::copy(cbegin() + at, cend(), buf);
-            new_data.swap(data_);
+            set_heap(std::move(new_data));
         } else {
             std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
@@ -1053,7 +1102,7 @@ namespace boost { namespace text {
         }
 
         size_ += delta;
-        data_[size_] = '\0';
+        ptr()[size_] = '\0';
 
         return *this;
     }
@@ -1097,8 +1146,7 @@ namespace boost { namespace text {
                     old_substr.begin(), end() - old_substr.begin());
                 (void)check_after;
             } else {
-                text_view check_before(
-                    data_.get(), old_substr.begin() - begin());
+                text_view check_before(ptr(), old_substr.begin() - begin());
                 (void)check_before;
             }
         }
@@ -1113,14 +1161,14 @@ namespace boost { namespace text {
         bool const late_self_ref =
             self_reference(new_substr) && old_substr.begin() < new_substr.end();
         int const delta = new_substr.size() - old_substr.size();
-        int const available = cap_ - 1 - size_;
+        int const available = capacity() - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
-            char * buf = new_data.get();
+            heap_t new_data = get_new_data(delta - available);
+            char * buf = new_data.data_.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
             buf = std::copy(new_substr.begin(), new_substr.end(), buf);
             std::copy(old_substr.end(), cend(), buf);
-            new_data.swap(data_);
+            set_heap(std::move(new_data));
         } else {
             if (0 < delta) {
                 std::copy_backward(old_substr.end(), cend(), end() + delta);
@@ -1135,7 +1183,7 @@ namespace boost { namespace text {
         }
 
         size_ += delta;
-        data_[size_] = '\0';
+        ptr()[size_] = '\0';
 
         return *this;
     }
@@ -1159,8 +1207,7 @@ namespace boost { namespace text {
                     old_substr.begin(), end() - old_substr.begin());
                 (void)check_after;
             } else {
-                text_view check_before(
-                    data_.get(), old_substr.begin() - begin());
+                text_view check_before(ptr(), old_substr.begin() - begin());
                 (void)check_before;
             }
         }
@@ -1175,17 +1222,17 @@ namespace boost { namespace text {
         bool const late_self_ref = self_reference(new_substr.view()) &&
                                    old_substr.begin() < new_substr.view().end();
         int const delta = new_substr.size() - old_substr.size();
-        int const available = cap_ - 1 - size_;
+        int const available = capacity() - size_;
         if (late_self_ref || available < delta) {
-            std::unique_ptr<char[]> new_data = get_new_data(delta - available);
-            char * buf = new_data.get();
+            heap_t new_data = get_new_data(delta - available);
+            char * buf = new_data.data_.get();
             buf = std::copy(cbegin(), old_substr.begin(), buf);
             for (int i = 0; i < new_substr.count(); ++i) {
                 buf = std::copy(
                     new_substr.view().begin(), new_substr.view().end(), buf);
             }
             std::copy(old_substr.end(), cend(), buf);
-            new_data.swap(data_);
+            set_heap(std::move(new_data));
         } else {
             if (0 < delta) {
                 std::copy_backward(old_substr.end(), cend(), end() + delta);
@@ -1203,7 +1250,7 @@ namespace boost { namespace text {
         }
 
         size_ += delta;
-        data_[size_] = '\0';
+        ptr()[size_] = '\0';
 
         return *this;
     }
