@@ -32,11 +32,11 @@ add_custom_target(perf_snapshot
 )
 
 add_custom_target(perf_comparison
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ctor_dtor_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/ctor_dtor_perf.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py copy_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/copy_perf.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py insert_erase_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/insert_erase_perf.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py for_find_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/for_find_perf.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py compare_boyer_moore_perf.json  ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/compare_boyer_moore_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/ctor_dtor_perf.json ctor_dtor_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/copy_perf.json copy_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/insert_erase_perf.json insert_erase_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/for_find_perf.json for_find_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/compare_boyer_moore_perf.json compare_boyer_moore_perf.json
 )
 
 
