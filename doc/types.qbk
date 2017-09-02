@@ -64,7 +64,8 @@ know about.
 
 [heading The `text` Type]
 
-_t_ is a contiguous, heap-allocated sequence of `char`.  _t_ is also strongly
+_t_ is a contiguous sequence of `char`.  The sequence of `char` is either
+stored in the _t_, if it is small, or is heap-allocated.  _t_ is also strongly
 exception-safe.  Its purpose is to be a better `std::string`.
 
 Like _tv_, it is guaranteed to be UTF-8 encoded, with the same gurantees when
@@ -376,6 +377,7 @@ There are some operations that are common to all the _Text_ types.
     [[a null-terminated string] [_t_]]
     [[a mutable string the size of a single pointer] [_r_]]
     [[a thread-safe string] [_r_]]
+    [[a string with the small-object optimization] [_t_]]
     [[a string with copy-on-write semantics] [_r_]]
 
     [[to represent the repetition of a snippet of text, without allocating] [_rtv_]]
