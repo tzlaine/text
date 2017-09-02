@@ -18,7 +18,7 @@ namespace {
                                make_string(1 << 12),
                                make_string(1 << 16),
                                make_string(1 << 20),
-                               make_string(1 << 30)};
+                               make_string(1 << 29)};
 }
 
 #define BENCHMARK_ARGS()                                                       \
