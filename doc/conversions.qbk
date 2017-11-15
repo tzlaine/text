@@ -4,21 +4,15 @@
 
 _Text_ provides eight converting iterators:
 
-* `template<typename Iter> struct from_utf16_iterator`
-* `template<typename Iter> struct from_utf16_iterator_throwing`
-* `template<typename Iter> struct from_utf32_iterator`
-* `template<typename Iter> struct from_utf32_iterator_throwing`
-* `template<typename Iter> struct to_utf16_iterator`
-* `template<typename Iter> struct to_utf16_iterator_throwing`
-* `template<typename Iter> struct to_utf32_iterator`
-* `template<typename Iter> struct to_utf32_iterator_throwing`
+* [classref boost::text::utf8::from_utf32_iterator `from_utf32_iterator`]
+* [classref boost::text::utf8::to_utf32_iterator `to_utf32_iterator`]
+* [classref boost::text::utf8::from_utf16_iterator `from_utf16_iterator`]
+* [classref boost::text::utf8::to_utf16_iterator `to_utf16_iterator`]
 
-The ones with `throwing` in the name throw an exception when encoutering an
-invalid encoding.
-
-The other ones produce the Unicode replacement character `0xFFFD` when
+By default, these produce the Unicode replacement character `0xFFFD` when
 encoutering an invalid encoding.  These are the ones that _Text_ uses
-internally when performing conversions.
+internally when performing conversions.  The exact error handling behavior can
+be controlled via the `ErrorHandler` template parameter.
 
 The Unicode standard is flexible with respect to where, in an incoming stream,
 encoding errors are repored.  However, the standard provides recommendations
