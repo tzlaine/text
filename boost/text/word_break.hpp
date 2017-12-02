@@ -103,7 +103,7 @@ constexpr std::array<std::array<bool, 22>, 31> word_breaks = {{
         auto const prop_int = static_cast<int>(prop);
         auto const cp_prop = word_prop(cp);
         auto const cp_prop_int = static_cast<int>(cp_prop);
-        return {word_breaks[prop_int][cp_prop_int], cp_prop};
+        return word_break_t{word_breaks[prop_int][cp_prop_int], cp_prop};
     }
 
 }}

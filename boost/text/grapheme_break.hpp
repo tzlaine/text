@@ -72,7 +72,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         auto const prop_int = static_cast<int>(prop);
         auto const cp_prop = grapheme_prop(cp);
         auto const cp_prop_int = static_cast<int>(cp_prop);
-        return {grapheme_breaks[prop_int][cp_prop_int], cp_prop};
+        return grapheme_break_t{grapheme_breaks[prop_int][cp_prop_int], cp_prop};
     }
 
 }}
