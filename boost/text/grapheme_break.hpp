@@ -8,7 +8,7 @@
 
 namespace boost { namespace text {
 
-    enum grapheme_prop_t {
+    enum class grapheme_prop_t {
         Other,
         CR,
         LF,
@@ -71,8 +71,10 @@ constexpr std::array<std::array<bool, 18>, 18> g_grapheme_breaks = {{
 
     inline grapheme_break_t grapheme_break(grapheme_prop_t prop, uint32_t cp)
     {
-        auto cp_prop = grapheme_prop(cp);
-        return {detail::g_grapheme_breaks[prop][cp_prop], cp_prop};
+        auto const prop_int = static_cast<int>(prop);
+        auto const cp_prop = grapheme_prop(cp);
+        auto const cp_prop_int = static_cast<int>(cp_prop);
+        return {detail::g_grapheme_breaks[prop_int][cp_prop_int], cp_prop};
     }
 
 }}
