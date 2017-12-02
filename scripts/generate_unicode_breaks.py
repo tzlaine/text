@@ -39,12 +39,10 @@ static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{{{
 
 
 def extract_break_properties(filename, prop_):
-    intervals = ''
-    num_intervals = 0
+    intervals = []
+    intervals_str = ''
     prop_enum = prop_ + '_t'
-    props = ''
     break_prop_lines = open(filename, 'r').readlines()
-    prev_prop = ''
     for line in break_prop_lines:
         line = line[:-1]
         if not line.startswith('#') and len(line) != 0:
@@ -62,22 +60,21 @@ def extract_break_properties(filename, prop_):
             else:
                 cp = int(code_points, 16)
                 interval = (cp, cp + 1, prop)
-            if prop != prev_prop:
-                props += '\n        {},'.format(prop)
-                intervals += '\n    // {}\n'.format(prop)
-                prev_prop = prop
-            intervals += '    {}_interval{{ {}, {}, {}::{} }},\n'.format(
-                prop_, hex(interval[0]), hex(interval[1]), prop_enum, interval[2]
-            )
-            num_intervals += 1
-    return (intervals, num_intervals, props)
+            intervals.append(interval)
 
-(grapheme_break_intervals, num_grapheme_intervals, grapheme_props) = \
+    intervals = sorted(intervals)
+    for interval in intervals:
+        intervals_str += '    {}_interval{{{}, {}, {}::{}}},\n'.format(
+            prop_, hex(interval[0]), hex(interval[1]), prop_enum, interval[2]
+        )
+    return (intervals_str, len(intervals))
+
+(grapheme_break_intervals, num_grapheme_intervals) = \
     extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop')
 cpp_file = open('grapheme_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break'))
 
-(word_break_intervals, num_word_intervals, word_props) = \
+(word_break_intervals, num_word_intervals) = \
     extract_break_properties('WordBreakProperty.txt', 'word_prop')
 cpp_file = open('word_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break'))
