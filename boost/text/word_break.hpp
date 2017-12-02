@@ -52,9 +52,10 @@ namespace boost { namespace text {
 
     word_prop_t word_prop(uint32_t cp);
 
-    namespace detail {
+    inline word_break_t word_break(word_prop_t prop, uint32_t cp)
+    {
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/WordBreakTest.html.
-constexpr std::array<std::array<bool, 22>, 31> g_word_breaks = {{
+constexpr std::array<std::array<bool, 22>, 31> word_breaks = {{
 //  Other CR LF NL Ktk AL ML MN MNL Num ENL RI HL DQ SQ E_Bse E_Mod GAZ EBG Fmt Extd ZWJ
     {1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}, // Other
     {1,   1, 0, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}, // CR
@@ -98,14 +99,11 @@ constexpr std::array<std::array<bool, 22>, 31> g_word_breaks = {{
     {1,   1, 1, 1, 1,  1, 1, 1, 1,  0,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}, // Numeric_MidNum
     {1,   1, 1, 1, 1,  1, 1, 1, 1,  0,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}, // Numeric_MidNumLet_Format_FE
 }};
-    }
 
-    inline word_break_t word_break(word_prop_t prop, uint32_t cp)
-    {
         auto const prop_int = static_cast<int>(prop);
         auto const cp_prop = word_prop(cp);
         auto const cp_prop_int = static_cast<int>(cp_prop);
-        return {detail::g_word_breaks[prop_int][cp_prop_int], cp_prop};
+        return {word_breaks[prop_int][cp_prop_int], cp_prop};
     }
 
 }}
