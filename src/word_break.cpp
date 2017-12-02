@@ -17,7 +17,7 @@ struct word_prop_interval
 bool operator<(word_prop_interval lhs, word_prop_interval rhs)
 { return lhs.hi_ <= rhs.lo_; }
 
-static constexpr std::array<word_prop_interval, 1235> g_word_prop_intervals = {
+static constexpr std::array<word_prop_interval, 1235> g_word_prop_intervals = {{
 
     // Double_Quote
     word_prop_interval{ 0x22, 0x23, word_prop_t::Double_Quote },
@@ -1296,7 +1296,7 @@ static constexpr std::array<word_prop_interval, 1235> g_word_prop_intervals = {
     // E_Base_GAZ
     word_prop_interval{ 0x1f466, 0x1f46a, word_prop_t::E_Base_GAZ },
 
-};
+}};
 
 word_prop_t word_prop(uint32_t cp)
 {
@@ -1308,4 +1308,4 @@ word_prop_t word_prop(uint32_t cp)
     return it->prop_;
 }
 
-} }
+}}

@@ -20,9 +20,9 @@ struct {0}_interval
 bool operator<({0}_interval lhs, {0}_interval rhs)
 {{ return lhs.hi_ <= rhs.lo_; }}
 
-static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{
+static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{{{
 {2}
-}};
+}}}};
 
 {0}_t {0}(uint32_t cp)
 {{
@@ -34,7 +34,7 @@ static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{
     return it->prop_;
 }}
 
-}} }}
+}}}}
 '''
 
 

@@ -17,7 +17,7 @@ struct grapheme_prop_interval
 bool operator<(grapheme_prop_interval lhs, grapheme_prop_interval rhs)
 { return lhs.hi_ <= rhs.lo_; }
 
-static constexpr std::array<grapheme_prop_interval, 1371> g_grapheme_prop_intervals = {
+static constexpr std::array<grapheme_prop_interval, 1371> g_grapheme_prop_intervals = {{
 
     // Prepend
     grapheme_prop_interval{ 0x600, 0x606, grapheme_prop_t::Prepend },
@@ -1424,7 +1424,7 @@ static constexpr std::array<grapheme_prop_interval, 1371> g_grapheme_prop_interv
     // E_Base_GAZ
     grapheme_prop_interval{ 0x1f466, 0x1f46a, grapheme_prop_t::E_Base_GAZ },
 
-};
+}};
 
 grapheme_prop_t grapheme_prop(uint32_t cp)
 {
@@ -1436,4 +1436,4 @@ grapheme_prop_t grapheme_prop(uint32_t cp)
     return it->prop_;
 }
 
-} }
+}}

@@ -43,12 +43,19 @@ endif ()
 ##################################################
 # text library
 ##################################################
-add_library(text INTERFACE)
-target_include_directories(text INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(text INTERFACE boost)
+add_library(text
+    src/grapheme_break.cpp
+    src/word_break.cpp
+)
+target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(text PUBLIC boost)
+set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
 if (link_flags)
-    target_link_libraries(text INTERFACE ${link_flags})
-    target_compile_options(text INTERFACE ${compile_flags})
+    target_link_libraries(text PUBLIC ${link_flags})
+    target_compile_options(text PUBLIC ${compile_flags})
+endif ()
+if (NOT MSVC)
+    target_compile_options(text PRIVATE -Wall)
 endif ()
 
 
