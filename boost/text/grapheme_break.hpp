@@ -31,12 +31,13 @@ namespace boost { namespace text {
 
     struct grapheme_break_t
     {
+        grapheme_break_t () : break_ (false), prop_ (grapheme_prop_t::Other) {}
         grapheme_break_t (bool b, grapheme_prop_t p) : break_ (b), prop_ (p) {}
 
         operator bool() const { return break_; }
 
-        bool break_ = false;
-        grapheme_prop_t prop_ = grapheme_prop_t::Other;
+        bool break_;
+        grapheme_prop_t prop_;
     };
 
     grapheme_prop_t grapheme_prop(uint32_t cp);

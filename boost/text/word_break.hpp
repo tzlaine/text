@@ -44,12 +44,13 @@ namespace boost { namespace text {
 
     struct word_break_t
     {
+        word_break_t () : break_ (false), prop_ (word_prop_t::Other) {}
         word_break_t (bool b, word_prop_t p) : break_ (b), prop_ (p) {}
 
         operator bool() const { return break_; }
 
-        bool break_ = false;
-        word_prop_t prop_ = word_prop_t::Other;
+        bool break_;
+        word_prop_t prop_;
     };
 
     word_prop_t word_prop(uint32_t cp);

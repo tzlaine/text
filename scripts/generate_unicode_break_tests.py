@@ -8,7 +8,7 @@ prop_lookup_test_form = decls = '''\
 #include <gtest/gtest.h>
 
 
-TEST({0}, prop_lookups)
+TEST({0}, prop_lookups_{2})
 {{{1}
 }}
 '''
@@ -22,7 +22,7 @@ break_test_form = decls = '''\
 #include <algorithm>
 
 
-TEST({0}, breaks)
+TEST({0}, breaks_{2})
 {{{1}
 }}
 '''
@@ -30,9 +30,18 @@ TEST({0}, breaks)
 
 def extract_break_tests(filename, prop_, prop_names):
     prop_lookup_test = ''
+    prop_lookup_tests = []
     break_test = ''
+    break_tests = []
     lines = open(filename, 'r').readlines()
+    num_lines = 0
     for line in lines:
+        if num_lines == 200:
+            prop_lookup_tests.append(prop_lookup_test)
+            prop_lookup_test = ''
+            break_tests.append(break_test)
+            break_test = ''
+            num_lines = 0
         line = line[:-1]
         if not line.startswith('#') and len(line) != 0:
             comment_start = line.find('#')
@@ -55,7 +64,7 @@ def extract_break_tests(filename, prop_, prop_names):
         EXPECT_EQ(prev_break.break_, {});'''.format(prop_, f, active_break and 'true' or 'false')
                     cps.append(f)
                 else:
-                    active_break = f == '÷' # Divide symbol used in the input.
+                    active_break = f == '÷'
             break_test += '\n    }\n'
 
             comment_fields = comment.split(' ')
@@ -67,7 +76,8 @@ def extract_break_tests(filename, prop_, prop_names):
                             prop_, cps[i], prop_names[f[1:-1]]
                         )
                     i += 1
-    return (prop_lookup_test, break_test)
+        num_lines += 1
+    return (prop_lookup_tests, break_tests)
 
 grapheme_prop_names = {
     'Other': 'boost::text::grapheme_prop_t::Other',
@@ -90,12 +100,13 @@ grapheme_prop_names = {
     'EBG': 'boost::text::grapheme_prop_t::E_Base_GAZ'
 }
 
-(grapheme_prop_lookup_test, grapheme_break_test) = \
+(grapheme_prop_lookup_tests, grapheme_break_tests) = \
     extract_break_tests('GraphemeBreakTest.txt', 'grapheme', grapheme_prop_names)
-cpp_file = open('grapheme_prop_lookup.cpp', 'w')
-cpp_file.write(prop_lookup_test_form.format('grapheme', grapheme_prop_lookup_test))
-cpp_file = open('grapheme_break.cpp', 'w')
-cpp_file.write(break_test_form.format('grapheme', grapheme_break_test))
+for i in range(0, len(grapheme_prop_lookup_tests)):
+    cpp_file = open('grapheme_prop_lookup_{}.cpp'.format(i), 'w')
+    cpp_file.write(prop_lookup_test_form.format('grapheme', grapheme_prop_lookup_tests[i], i))
+    cpp_file = open('grapheme_break_{}.cpp'.format(i), 'w')
+    cpp_file.write(break_test_form.format('grapheme', grapheme_break_tests[i], i))
 
 
 word_prop_names = {
@@ -123,11 +134,12 @@ word_prop_names = {
     'EBG': 'boost::text::word_prop_t::E_Base_GAZ'
 }
 
-(word_prop_lookup_test, word_break_test) = \
+(word_prop_lookup_tests, word_break_tests) = \
     extract_break_tests('WordBreakTest.txt', 'word', word_prop_names)
-cpp_file = open('word_prop_lookup.cpp', 'w')
-cpp_file.write(prop_lookup_test_form.format('word', word_prop_lookup_test))
-cpp_file = open('word_break.cpp', 'w')
-cpp_file.write(break_test_form.format('word', word_break_test))
+for i in range(0, len(word_prop_lookup_tests)):
+    cpp_file = open('word_prop_lookup_{}.cpp'.format(i), 'w')
+    cpp_file.write(prop_lookup_test_form.format('word', word_prop_lookup_tests[i], i))
+    cpp_file = open('word_break_{}.cpp'.format(i), 'w')
+    cpp_file.write(break_test_form.format('word', word_break_tests[i], i))
 
 # TODO: Add sentence breaks?
