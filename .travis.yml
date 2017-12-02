@@ -169,6 +169,7 @@ install:
       if [[ "$MAC_OSX" == "true" ]]; then
         export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.0-Darwin-x86_64.tar.gz"
         travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=3 -xz -C usr
+        brew update
         brew install lcov
       else
         export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.0-Linux-x86_64.tar.gz"
