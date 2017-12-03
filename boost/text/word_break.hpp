@@ -44,9 +44,9 @@ namespace boost { namespace text {
 
         enum class result { use_table, break_, no_break, ignore };
 
-        word_break_fsm () : state_ (state::use_table) {}
+        word_break_fsm() : state_(state::use_table), chars_ignored_(false) {}
 
-        result update(word_prop_t prev_prop, word_prop_t prop)
+        result update(word_prop_t prev_prop, word_prop_t prop, word_prop_t next_prop)
         {
             bool const ignored = chars_ignored_;
             chars_ignored_ = false;
@@ -67,7 +67,14 @@ namespace boost { namespace text {
                 return result::ignore;
             }
 
-            // WB6 TODO
+            // WB6
+            if (ah_letter(prev_prop) && mid_ah(prop) &&
+                /* This does not work because unbounded skipping is required
+                   here for WB4 ignores. */
+                ah_letter(next_prop)) {
+                state_ = state::ah_letter;
+                return result::no_break;
+            }
 
             // WB7
             if (state_ == state::ah_letter) {
@@ -95,7 +102,6 @@ namespace boost { namespace text {
                 state_ = state::hebrew_letter;
             }
 
-#if 0
             // WB11
             if (state_ == state::numeric) {
                 if (prop == word_prop_t::Numeric) {
@@ -104,12 +110,15 @@ namespace boost { namespace text {
                 } else {
                     state_ = state::use_table;
                 }
-            } else if (prop == word_prop_t::Numeric && mid_num(prop)) {
+            } else if (prev_prop == word_prop_t::Numeric && mid_num(prop)) {
                 state_ = state::ah_letter;
             }
-#endif
 
-            // WB12 TODO
+            // WB12
+            if (prev_prop == word_prop_t::Numeric && mid_num(prop) &&
+                next_prop == word_prop_t::Numeric) {
+                return result::no_break;
+            }
 
             if (state_ == state::emoji_flag) {
                 if (prop == word_prop_t::Regional_Indicator) {
@@ -161,9 +170,14 @@ namespace boost { namespace text {
 
     struct word_break_t
     {
-        word_break_t() : break_(false), prop_(word_prop_t::LF) {}
-        word_break_t(bool b, word_prop_t p, word_break_fsm f) :
+        word_break_t() :
+            break_(false),
+            prev_prop_(word_prop_t::LF),
+            prop_(word_prop_t::LF)
+        {}
+        word_break_t(bool b, word_prop_t pp, word_prop_t p, word_break_fsm f) :
             break_(b),
+            prev_prop_(pp),
             prop_(p),
             fsm_(f)
         {}
@@ -171,14 +185,15 @@ namespace boost { namespace text {
         operator bool() const { return break_; }
 
         bool break_;
-        word_prop_t prop_;
+        word_prop_t prev_prop_; // The one just processed.
+        word_prop_t prop_;      // The next to be processed.
         word_break_fsm fsm_;
     };
 
     word_prop_t word_prop(uint32_t cp);
 
     inline word_break_t
-    word_break(word_break_fsm fsm, word_prop_t prop, uint32_t cp)
+    word_break(word_break_fsm fsm, word_prop_t prev_prop, word_prop_t prop, uint32_t cp)
     {
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/WordBreakTest.html.
 constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
@@ -214,21 +229,21 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    0,  0,  0,  0,   0}}, // ZWJ
 }};
 
-        auto const cp_prop = word_prop(cp);
-        auto result = fsm.update(prop, cp_prop);
+        auto const next_prop = word_prop(cp);
+        auto const result = fsm.update(prev_prop, prop, next_prop);
         if (result == word_break_fsm::result::ignore) {
-            return word_break_t(false, prop, fsm);
+            return word_break_t(false, prev_prop, next_prop, fsm);
         } else if (result == word_break_fsm::result::break_) {
-            return word_break_t(true, cp_prop, fsm);
+            return word_break_t(true, prop, next_prop, fsm);
         } else if (result == word_break_fsm::result::no_break) {
-            return word_break_t(false, cp_prop, fsm);
+            return word_break_t(false, prop, next_prop, fsm);
         } else {
+            auto const prev_prop_int = static_cast<int>(prev_prop);
             auto const prop_int = static_cast<int>(prop);
-            auto const cp_prop_int = static_cast<int>(cp_prop);
-            return word_break_t(word_breaks[prop_int][cp_prop_int], cp_prop, fsm);
+            return word_break_t(word_breaks[prev_prop_int][prop_int], prop, next_prop, fsm);
         }
     }
 
 }}
 
-#    endif
+#endif

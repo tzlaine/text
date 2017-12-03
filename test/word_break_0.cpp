@@ -13,9 +13,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -24,11 +26,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -37,9 +41,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -48,11 +54,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -61,9 +69,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -72,11 +82,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -85,9 +97,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000B);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000B);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -96,11 +110,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000B);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000B);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -109,9 +125,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x3031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x3031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -120,11 +138,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x3031);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x3031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -133,9 +153,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0041);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0041);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -144,11 +166,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0041);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0041);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -157,9 +181,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -168,11 +194,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -181,9 +209,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -192,11 +222,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -205,9 +237,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -216,11 +250,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -229,9 +265,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0030);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0030);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -240,11 +278,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0030);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0030);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -253,9 +293,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x005F);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x005F);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -264,11 +306,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x005F);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x005F);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -277,9 +321,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -288,11 +334,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -301,9 +349,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x05D0);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x05D0);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -312,11 +362,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x05D0);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x05D0);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -325,9 +377,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0022);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0022);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -336,11 +390,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0022);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0022);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -349,9 +405,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -360,11 +418,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -373,9 +433,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x261D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -384,11 +446,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x261D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -397,9 +461,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -408,11 +474,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -421,9 +489,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2640);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -432,11 +502,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2640);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -445,9 +517,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -456,11 +530,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -469,9 +545,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x00AD);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x00AD);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -480,11 +558,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x00AD);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x00AD);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -493,9 +573,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0300);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -504,11 +586,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0300);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -517,9 +601,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x200D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -528,11 +614,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x200D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -541,11 +629,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -554,13 +644,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -569,11 +661,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -582,13 +676,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -597,11 +693,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -610,13 +708,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -625,13 +725,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -640,15 +742,17 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -657,11 +761,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -670,13 +776,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -685,11 +793,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -698,13 +808,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -713,11 +825,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -726,13 +840,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -741,11 +857,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -754,13 +872,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -769,13 +889,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -784,15 +906,17 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break.prop_ = boost::text::word_prop(0x0001);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -801,9 +925,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -812,11 +938,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -825,9 +953,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -836,11 +966,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -849,9 +981,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -860,11 +994,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -873,9 +1009,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000B);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000B);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -884,11 +1022,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000B);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000B);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -897,9 +1037,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x3031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x3031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -908,11 +1050,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x3031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x3031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -921,9 +1065,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0041);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0041);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -932,11 +1078,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0041);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0041);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -945,9 +1093,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -956,11 +1106,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -969,9 +1121,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -980,11 +1134,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -993,9 +1149,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1004,11 +1162,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1017,9 +1177,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0030);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0030);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1028,11 +1190,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0030);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0030);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1041,9 +1205,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x005F);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x005F);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1052,11 +1218,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x005F);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x005F);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1065,9 +1233,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1076,11 +1246,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1089,9 +1261,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x05D0);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x05D0);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1100,11 +1274,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x05D0);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x05D0);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1113,9 +1289,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0022);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0022);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1124,11 +1302,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0022);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0022);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1137,9 +1317,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1148,11 +1330,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1161,9 +1345,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x261D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1172,11 +1358,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x261D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1185,9 +1373,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1196,11 +1386,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1209,9 +1401,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2640);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1220,11 +1414,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2640);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1233,9 +1429,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1244,11 +1442,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1257,9 +1457,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x00AD);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x00AD);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1268,11 +1470,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x00AD);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x00AD);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1281,9 +1485,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0300);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1292,11 +1498,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0300);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1305,9 +1513,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x200D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1316,11 +1526,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x200D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1329,11 +1541,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1342,13 +1556,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1357,11 +1573,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1370,13 +1588,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1385,11 +1605,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1398,13 +1620,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1413,13 +1637,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1428,15 +1654,17 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1445,11 +1673,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1458,13 +1688,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1473,11 +1705,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1486,13 +1720,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1501,11 +1737,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1514,13 +1752,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1529,11 +1769,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1542,13 +1784,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1557,13 +1801,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1572,15 +1818,17 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break.prop_ = boost::text::word_prop(0x000D);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -1589,9 +1837,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1600,11 +1850,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0001);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1613,9 +1865,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1624,11 +1878,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1637,9 +1893,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1648,11 +1906,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1661,9 +1921,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000B);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000B);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1672,11 +1934,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x000B);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000B);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1685,9 +1949,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x3031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x3031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1696,11 +1962,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x3031);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x3031);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1709,9 +1977,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0041);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0041);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1720,11 +1990,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0041);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0041);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1733,9 +2005,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1744,11 +2018,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1757,9 +2033,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1768,11 +2046,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002C);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002C);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1781,9 +2061,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1792,11 +2074,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x002E);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x002E);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1805,9 +2089,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0030);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0030);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1816,11 +2102,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0030);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0030);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1829,9 +2117,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x005F);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x005F);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1840,11 +2130,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x005F);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x005F);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1853,9 +2145,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1864,11 +2158,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1877,9 +2173,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x05D0);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x05D0);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1888,11 +2186,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x05D0);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x05D0);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1901,9 +2201,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0022);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0022);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1912,11 +2214,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0022);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0022);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1925,9 +2229,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1936,11 +2242,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1949,9 +2257,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x261D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1960,11 +2270,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x261D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1973,9 +2285,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1984,11 +2298,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -1997,9 +2313,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2640);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2008,11 +2326,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2640);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2021,9 +2341,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2032,11 +2354,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2045,9 +2369,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x00AD);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x00AD);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2056,11 +2382,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x00AD);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x00AD);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -2069,9 +2397,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0300);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2080,11 +2410,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0300);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -2093,9 +2425,11 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x200D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2104,11 +2438,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x200D);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -2117,11 +2453,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -2130,13 +2468,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -2145,11 +2485,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2158,13 +2500,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x003A);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x003A);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2173,11 +2517,13 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2186,13 +2532,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, true);
     }
 
@@ -2201,13 +2549,15 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
@@ -2216,15 +2566,17 @@ TEST(word, breaks_0)
     {
         boost::text::word_break_t prev_break;
 
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x000A);
+        prev_break.prop_ = boost::text::word_prop(0x000A);
+
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0308);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0061);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0061);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0027);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x0027);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x2060);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prop_, 0x2060);
+        prev_break = boost::text::word_break(prev_break.fsm_, prev_break.prev_prop_, prev_break.prop_, 0x0);
         EXPECT_EQ(prev_break.break_, false);
     }
 
