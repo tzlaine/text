@@ -44,7 +44,7 @@ namespace boost { namespace text {
 
     struct word_break_t
     {
-        word_break_t () : break_ (false), prop_ (word_prop_t::Other) {}
+        word_break_t () : break_ (false), prop_ (word_prop_t::LF) {}
         word_break_t (bool b, word_prop_t p) : break_ (b), prop_ (p) {}
 
         operator bool() const { return break_; }

@@ -31,7 +31,7 @@ namespace boost { namespace text {
 
     struct grapheme_break_t
     {
-        grapheme_break_t () : break_ (false), prop_ (grapheme_prop_t::Other) {}
+        grapheme_break_t () : break_ (false), prop_ (grapheme_prop_t::LF) {}
         grapheme_break_t (bool b, grapheme_prop_t p) : break_ (b), prop_ (p) {}
 
         operator bool() const { return break_; }
