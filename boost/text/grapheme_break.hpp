@@ -29,20 +29,66 @@ namespace boost { namespace text {
         E_Base_GAZ
     };
 
+    struct grapheme_break_fsm
+    {
+        enum class state { use_table, emoji_mod, emoji_flag };
+
+        grapheme_break_fsm () : state_ (state::use_table) {}
+
+        bool no_break(grapheme_prop_t prop)
+        {
+            if (state_ == state::emoji_mod) {
+                if (prop == grapheme_prop_t::E_Modifier) {
+                    state_ = state::use_table;
+                    return true;
+                }
+                if (prop != grapheme_prop_t::Extend)
+                    state_ = state::use_table;
+            } else if (
+                prop == grapheme_prop_t::E_Base ||
+                prop == grapheme_prop_t::E_Base_GAZ) {
+                state_ = state::emoji_mod;
+            }
+
+            if (state_ == state::emoji_flag) {
+                if (prop == grapheme_prop_t::Regional_Indicator) {
+                    state_ = state::use_table;
+                    return true;
+                } else {
+                    state_ = state::use_table;
+                }
+            } else if (
+                prop == grapheme_prop_t::Regional_Indicator) {
+                state_ = state::emoji_flag;
+            }
+
+            return false;
+        }
+
+    private:
+        state state_;
+    };
+
     struct grapheme_break_t
     {
-        grapheme_break_t () : break_ (false), prop_ (grapheme_prop_t::LF) {}
-        grapheme_break_t (bool b, grapheme_prop_t p) : break_ (b), prop_ (p) {}
+        grapheme_break_t() : break_(false), prop_(grapheme_prop_t::LF) {}
+        grapheme_break_t(bool b, grapheme_prop_t p, grapheme_break_fsm fsm) :
+            break_(b),
+            prop_(p),
+            fsm_(fsm)
+        {}
 
         operator bool() const { return break_; }
 
         bool break_;
         grapheme_prop_t prop_;
+        grapheme_break_fsm fsm_;
     };
 
     grapheme_prop_t grapheme_prop(uint32_t cp);
 
-    inline grapheme_break_t grapheme_break(grapheme_prop_t prop, uint32_t cp)
+    inline grapheme_break_t
+    grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp)
     {
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html.
 constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
@@ -72,10 +118,15 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    0,    0,  1,  1}}, // E_Base_GAZ
 }};
 
-        auto const prop_int = static_cast<int>(prop);
         auto const cp_prop = grapheme_prop(cp);
-        auto const cp_prop_int = static_cast<int>(cp_prop);
-        return grapheme_break_t(grapheme_breaks[prop_int][cp_prop_int], cp_prop);
+        if (fsm.no_break(cp_prop)) {
+            return grapheme_break_t(false, cp_prop, fsm);
+        } else {
+            auto const prop_int = static_cast<int>(prop);
+            auto const cp_prop_int = static_cast<int>(cp_prop);
+            return grapheme_break_t(
+                grapheme_breaks[prop_int][cp_prop_int], cp_prop, fsm);
+        }
     }
 
 }}

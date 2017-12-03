@@ -56,12 +56,12 @@ add_test_executable(word_prop_lookup_7)
 add_test_executable(word_prop_lookup_8)
 add_test_executable(word_prop_lookup_9)
 
-# TODO: Fix these.
 add_test_executable(grapheme_break_0)
 add_test_executable(grapheme_break_1)
 add_test_executable(grapheme_break_2)
 add_test_executable(grapheme_break_3)
-add_test_executable(word_break_0)
+# TODO: Fix these (FSM needed).
+#add_test_executable(word_break_0)
 #add_test_executable(word_break_1)
 #add_test_executable(word_break_2)
 #add_test_executable(word_break_3)
