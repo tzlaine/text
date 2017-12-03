@@ -54,13 +54,14 @@ def extract_break_tests(filename, prop_, prop_names):
             active_break = True
             break_test += '''
     // {0}
+    // {1}
     {{
-        boost::text::{1}_break_t prev_break;
-'''.format(line, prop_)
+        boost::text::{2}_break_t prev_break;
+'''.format(line, comment, prop_)
             for f in fields:
                 if f[0] in '0123456789ABCDEF':
                     break_test += '''
-        prev_break = boost::text::{}_break(prev_break.prop_, 0x{});
+        prev_break = boost::text::{}_break(prev_break.fsm_, prev_break.prop_, 0x{});
         EXPECT_EQ(prev_break.break_, {});'''.format(prop_, f, active_break and 'true' or 'false')
                     cps.append(f)
                 else:

@@ -9,2202 +9,2402 @@
 TEST(grapheme, breaks_3)
 {
     // ÷ 1F3FB ÷ 1160 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 1160 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ 11A8 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 11A8 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ AC00 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ AC00 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ AC01 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ AC01 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ 1F1E6 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ 261D ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 261D ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ 1F3FB ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 1F3FB ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 200D ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F3FB × 0308 × 200D ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F3FB ÷ 2640 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 2640 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ 1F466 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 1F466 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ 0378 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB ÷ D800 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F3FB × 0308 ÷ D800 ÷	
+    // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 0020 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 000D ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 000D ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 000A ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 000A ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 0001 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 0001 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0300 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D × 0308 × 0300 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D ÷ 0600 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 0600 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0903 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D × 0308 × 0903 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D ÷ 1100 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 1100 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 1160 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 1160 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 11A8 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 11A8 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ AC00 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ AC00 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ AC01 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ AC01 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 1F1E6 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 261D ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 261D ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 1F3FB ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 1F3FB ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 200D ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D × 0308 × 200D ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D × 2640 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [11.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D × 0308 ÷ 2640 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 1F466 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [11.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 200D × 0308 ÷ 1F466 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ 0378 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D ÷ D800 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 200D × 0308 ÷ D800 ÷	
+    // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 0020 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 000D ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 000D ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 000A ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 000A ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 0001 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 0001 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0300 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 2640 × 0308 × 0300 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 2640 ÷ 0600 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 0600 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0903 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 2640 × 0308 × 0903 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 2640 ÷ 1100 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 1100 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 1160 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 1160 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 11A8 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 11A8 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ AC00 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ AC00 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ AC01 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ AC01 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 1F1E6 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 261D ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 261D ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 1F3FB ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 1F3FB ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 200D ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 2640 × 0308 × 200D ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 2640 ÷ 2640 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 2640 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 1F466 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 1F466 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ 0378 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 ÷ D800 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 2640 × 0308 ÷ D800 ÷	
+    // ÷ [0.2] FEMALE SIGN (Glue_After_Zwj) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 0020 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 000D ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 000D ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 000A ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 000A ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 0001 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 0001 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0300 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 × 0308 × 0300 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 ÷ 0600 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 0600 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0903 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 × 0308 × 0903 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 ÷ 1100 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 1100 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 1160 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 1160 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 11A8 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 11A8 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ AC00 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ AC00 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ AC01 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ AC01 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 1F1E6 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 261D ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 261D ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 1F3FB ÷	
+    // ÷ [0.2] BOY (EBG) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 × 0308 × 1F3FB ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 × 200D ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 × 0308 × 200D ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 1F466 ÷ 2640 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 2640 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 1F466 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 1F466 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ 0378 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 ÷ D800 ÷	
+    // ÷ [0.2] BOY (EBG) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 1F466 × 0308 ÷ D800 ÷	
+    // ÷ [0.2] BOY (EBG) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 0020 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 000D ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 000D ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 000A ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 000A ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 0001 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 0001 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0300 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 0378 × 0308 × 0300 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 0378 ÷ 0600 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 0600 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0903 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 0378 × 0308 × 0903 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 0378 ÷ 1100 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 1100 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 1160 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 1160 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1160);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1160);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 11A8 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 11A8 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x11A8);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x11A8);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ AC00 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ AC00 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC00);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC00);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ AC01 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ AC01 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xAC01);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xAC01);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 1F1E6 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F1E6);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F1E6);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 261D ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 261D ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x261D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x261D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 1F3FB ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 1F3FB ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F3FB);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F3FB);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 200D ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 0378 × 0308 × 200D ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x200D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x200D);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ 0378 ÷ 2640 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 2640 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x2640);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x2640);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 1F466 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 1F466 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1F466);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1F466);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ 0378 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 ÷ D800 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ 0378 × 0308 ÷ D800 ÷	
+    // ÷ [0.2] <reserved-0378> (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0378);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0378);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, false);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0020 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 ÷ 0020 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0020);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0020);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 000D ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 ÷ 000D ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000D);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000D);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 000A ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 ÷ 000A ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x000A);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x000A);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0001 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 ÷ 0001 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0001);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0001);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0300 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 × 0300 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0300);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0300);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ D800 ÷ 0600 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 ÷ 0600 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0600);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0600);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0903 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 × 0903 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0903);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0903);
         EXPECT_EQ(prev_break.break_, false);
     }
 
     // ÷ D800 ÷ 1100 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
     // ÷ D800 ÷ 0308 ÷ 1100 ÷	
+    // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         boost::text::grapheme_break_t prev_break;
 
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0xD800);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0xD800);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x0308);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x0308);
         EXPECT_EQ(prev_break.break_, true);
-        prev_break = boost::text::grapheme_break(prev_break.prop_, 0x1100);
+        prev_break = boost::text::grapheme_break(prev_break.fsm_, prev_break.prop_, 0x1100);
         EXPECT_EQ(prev_break.break_, true);
     }
 
