@@ -31,7 +31,11 @@ namespace boost { namespace text {
 
     struct grapheme_break_fsm
     {
-        enum class state { use_table, emoji_mod, emoji_flag };
+        enum class state {
+            use_table,
+            emoji_mod, // GB10
+            emoji_flag // GB12, GB13
+        };
 
         grapheme_break_fsm () : state_ (state::use_table) {}
 
@@ -57,8 +61,7 @@ namespace boost { namespace text {
                 } else {
                     state_ = state::use_table;
                 }
-            } else if (
-                prop == grapheme_prop_t::Regional_Indicator) {
+            } else if (prop == grapheme_prop_t::Regional_Indicator) {
                 state_ = state::emoji_flag;
             }
 
