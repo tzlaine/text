@@ -62,7 +62,7 @@ add_test_executable(grapheme_break_2)
 add_test_executable(grapheme_break_3)
 
 # TODO: A totally different approach is required for word breaks.  Word break
-parsing is LL(*).
+# parsing is LL(*).
 add_test_executable(word_break_0)
 add_test_executable(word_break_1)
 add_test_executable(word_break_2)
