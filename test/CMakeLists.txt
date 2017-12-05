@@ -74,6 +74,11 @@ add_test_executable(word_break_6)
 #add_test_executable(word_break_8)
 #add_test_executable(word_break_9)
 
+add_test_executable(grapheme_iterator_0)
+add_test_executable(grapheme_iterator_1)
+add_test_executable(grapheme_iterator_2)
+add_test_executable(grapheme_iterator_3)
+
 if (BUILD_COVERAGE)
     add_custom_target(
         coverage
