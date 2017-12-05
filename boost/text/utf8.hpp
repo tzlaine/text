@@ -410,6 +410,12 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
+        {
+            return it_;
+        }
+
+        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -568,6 +574,12 @@ namespace boost { namespace text { namespace utf8 {
                 const_cast<Iter &>(it_) = detail::decrement(it_ + 1);
             partial_decrement_ = false;
             return get_value();
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
+        {
+            return it_;
         }
 
         /** This function is constexpr in C++14 and later. */
@@ -857,6 +869,12 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
+        {
+            return it_;
+        }
+
+        /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator &
         operator++() noexcept(!throw_on_error)
         {
@@ -1090,6 +1108,12 @@ namespace boost { namespace text { namespace utf8 {
             }
             partial_decrement_ = false;
             return buf_[index_];
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
+        {
+            return it_;
         }
 
         /** This function is constexpr in C++14 and later. */
