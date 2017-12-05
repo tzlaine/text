@@ -410,10 +410,7 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
-        {
-            return it_;
-        }
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator &
@@ -577,10 +574,7 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
-        {
-            return it_;
-        }
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator &
@@ -869,10 +863,7 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
-        {
-            return it_;
-        }
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator &
@@ -1111,10 +1102,7 @@ namespace boost { namespace text { namespace utf8 {
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
-        {
-            return it_;
-        }
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator &
