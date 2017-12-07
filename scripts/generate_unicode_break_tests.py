@@ -55,6 +55,9 @@ TEST(word, breaks_{1})
 }}
 '''
 
+# TODO: Add iterator tests that use utf8::to_utf32_iterator.
+# TODO: Test reverse iteration.
+# TODO: Test mixed forward and reverse iteration.
 
 def extract_break_tests(filename, prop_, prop_names):
     prop_lookup_test = ''
