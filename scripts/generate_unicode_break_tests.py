@@ -142,7 +142,7 @@ def extract_break_tests(filename, prop_, prop_names):
         EXPECT_EQ((*it).begin(), (*it).end());'''.format(len(cps))
 
             iterator_test += '''{0} }};
-        boost::text::forward_{1}_iterator<uint32_t const *> it(cps, cps + {2});
+        boost::text::{1}_iterator<uint32_t const *> it(cps, cps, cps + {2});
 {3}
     }}
 '''.format('0x' + ', 0x'.join(cps), prop_, len(cps), iterator_test_lines)

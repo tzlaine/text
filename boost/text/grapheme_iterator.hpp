@@ -23,19 +23,28 @@ namespace boost { namespace text {
 
         Iter first_;
         Iter last_;
+
+        friend bool operator==(grapheme<Iter> lhs, grapheme<Iter> rhs)
+        {
+            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
+        }
+
+        friend bool operator!=(grapheme<Iter> lhs, grapheme<Iter> rhs)
+        {
+            return !(lhs == rhs);
+        }
     };
 
     /** TODO */
     template<typename Iter, typename Sentinel = Iter>
-    struct forward_grapheme_iterator
+    struct grapheme_iterator
     {
         using value_type = grapheme<Iter>;
         using difference_type = int;
-        using pointer = value_type *;
+        using pointer = value_type const *;
         using reference = value_type;
-        using iterator_category = std::forward_iterator_tag; // TODO
+        using iterator_category = std::bidirectional_iterator_tag;
 
-#if 0 // TODO: Turn this back on one we have bidirectionality.
         static_assert(
             std::is_same<
                 typename std::iterator_traits<Iter>::iterator_category,
@@ -43,60 +52,75 @@ namespace boost { namespace text {
                 std::is_same<
                     typename std::iterator_traits<Iter>::iterator_category,
                     std::random_access_iterator_tag>::value,
-            "forward_grapheme_boundary_iterator requires its Iter parameter "
-            "to be at least bidirectional.");
-#endif
+            "grapheme_iterator requires its Iter parameter to be at least "
+            "bidirectional.");
         static_assert(
             sizeof(typename std::iterator_traits<Iter>::value_type) == 4,
-            "forward_grapheme_boundary_iterator requires its Iter parameter to "
-            "produce a 4-byte value_type.");
+            "grapheme_iterator requires its Iter parameter to produce a 4-byte "
+            "value_type.");
 
-        constexpr forward_grapheme_iterator() noexcept : it_(), next_it_() {}
+        constexpr grapheme_iterator() noexcept : grapheme_{} {}
 
-        // TODO: Should take it, first, last for bidi.
-        constexpr forward_grapheme_iterator(Iter first, Sentinel last) noexcept :
-            it_(first),
-            next_it_(first),
+        constexpr grapheme_iterator(
+            Iter first, Iter it, Sentinel last) noexcept :
+            grapheme_{it, it},
             first_(first),
             last_(last)
         {
             if (first_ != last_) {
-                break_ = grapheme_break(break_.fsm_, break_.prop_, *it_);
+                break_ = grapheme_break(break_.fsm_, break_.prop_, *grapheme_.first_);
                 find_next_break();
             }
         }
 
         reference operator*() const noexcept
         {
-            return reference{it_, next_it_};
+            return grapheme_;
         }
 
-        constexpr Iter base() const noexcept { return it_; }
-
-        forward_grapheme_iterator & operator++() noexcept
+        pointer operator->() const noexcept
         {
-            it_ = next_it_;
+            return &grapheme_;
+        }
+
+        constexpr Iter base() const noexcept { return grapheme_.first_; }
+
+        grapheme_iterator & operator++() noexcept
+        {
+            grapheme_.first_ = grapheme_.last_;
             find_next_break();
             return *this;
         }
 
-        forward_grapheme_iterator operator++(int) noexcept
+        grapheme_iterator operator++(int) noexcept
         {
-            forward_grapheme_iterator retval = *this;
+            grapheme_iterator retval = *this;
             ++*this;
             return retval;
         }
 
-        friend bool operator==(
-            forward_grapheme_iterator<Iter> lhs,
-            forward_grapheme_iterator<Iter> rhs) noexcept
+        grapheme_iterator & operator--() noexcept
         {
-            return lhs.it_ == rhs.it_ && rhs.next_it_ == lhs.next_it_;
+            grapheme_.last_ = grapheme_.first_;
+            find_prev_break();
+            return *this;
+        }
+
+        grapheme_iterator operator--(int) noexcept
+        {
+            grapheme_iterator retval = *this;
+            --*this;
+            return retval;
+        }
+
+        friend bool operator==(
+            grapheme_iterator<Iter> lhs, grapheme_iterator<Iter> rhs) noexcept
+        {
+            return lhs.grapheme_ == lhs.grapheme_;
         }
 
         friend bool operator!=(
-            forward_grapheme_iterator<Iter> lhs,
-            forward_grapheme_iterator<Iter> rhs) noexcept
+            grapheme_iterator<Iter> lhs, grapheme_iterator<Iter> rhs) noexcept
         {
             return !(lhs == rhs);
         }
@@ -105,15 +129,73 @@ namespace boost { namespace text {
         void find_next_break() noexcept
         {
             bool new_break = false;
-            while (!new_break && next_it_ != last_) {
-                ++next_it_;
-                break_ = grapheme_break(break_.fsm_, break_.prop_, *next_it_);
+            while (!new_break && grapheme_.last_ != last_) {
+                ++grapheme_.last_;
+                break_ = grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
                 new_break = break_;
             }
         }
 
-        Iter it_;
-        Iter next_it_;
+        void find_prev_break() noexcept
+        {
+            if (grapheme_.first_ == first_)
+                return;
+
+            // See http://www.unicode.org/reports/tr15/#Stream_Safe_Text_Format
+            int const max_steps = 31;
+
+            // GB10
+            if (break_.prop_ == grapheme_prop_t::E_Modifier) {
+                auto it = grapheme_.first_;
+                for (int i = 0; i < max_steps; ++i) {
+                    if (it == first_)
+                        break;
+                    auto const prop = grapheme_prop(*--it);
+                    if (prop == grapheme_prop_t::E_Base ||
+                        prop == grapheme_prop_t::E_Base_GAZ) {
+                        break;
+                    } else if (prop != grapheme_prop_t::Extend) {
+                        it = grapheme_.first_;
+                        break;
+                    }
+                }
+                if (it == grapheme_.first_)
+                    it = --grapheme_.first_;
+                auto const prop = grapheme_prop(*it);
+                break_ = grapheme_break_t(true, prop, grapheme_break_fsm());
+            } else if (break_.prop_ == grapheme_prop_t::Regional_Indicator) {
+                auto num_ris = 1;
+                auto it = grapheme_.first_;
+                for (int i = 0; i < max_steps; ++i) {
+                    if (it == first_)
+                        break;
+                    auto const prop = grapheme_prop(*--it);
+                    if (prop == grapheme_prop_t::Regional_Indicator) {
+                        ++num_ris;
+                    } else {
+                        break;
+                    }
+                }
+                it = grapheme_.first_;
+                --it;
+                if ((num_ris & 1) == 0)
+                    --it;
+                auto const prop = grapheme_prop(*it);
+                break_ = grapheme_break_t(true, prop, grapheme_break_fsm());
+            } else {
+                bool new_break = false;
+                while (!new_break && grapheme_.first_ != first_) {
+                    auto const prop = grapheme_prop(*--grapheme_.first_);
+                    break_ = grapheme_break_t(
+                        grapheme_table_break(prop, break_.prop_),
+                        prop,
+                        break_.fsm_);
+                    new_break = break_;
+                }
+            }
+        }
+
+        value_type grapheme_;
         Iter first_;
         Sentinel last_;
         grapheme_break_t break_;

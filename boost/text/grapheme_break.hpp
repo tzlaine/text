@@ -90,8 +90,7 @@ namespace boost { namespace text {
 
     grapheme_prop_t grapheme_prop(uint32_t cp);
 
-    inline grapheme_break_t
-    grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp)
+    inline bool grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs)
     {
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html.
 constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
@@ -120,15 +119,21 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Glue_After_Zwj
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    0,    0,  1,  1}}, // E_Base_GAZ
 }};
+        auto const lhs_int = static_cast<int>(lhs);
+        auto const rhs_int = static_cast<int>(rhs);
+        return grapheme_breaks[lhs_int][rhs_int];
+    }
+
+    inline grapheme_break_t
+    grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp)
+    {
 
         auto const cp_prop = grapheme_prop(cp);
         if (fsm.no_break(cp_prop)) {
             return grapheme_break_t(false, cp_prop, fsm);
         } else {
-            auto const prop_int = static_cast<int>(prop);
-            auto const cp_prop_int = static_cast<int>(cp_prop);
             return grapheme_break_t(
-                grapheme_breaks[prop_int][cp_prop_int], cp_prop, fsm);
+                grapheme_table_break(prop, cp_prop), cp_prop, fsm);
         }
     }
 
