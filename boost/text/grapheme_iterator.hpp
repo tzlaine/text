@@ -59,9 +59,9 @@ namespace boost { namespace text {
             "grapheme_iterator requires its Iter parameter to produce a 4-byte "
             "value_type.");
 
-        constexpr grapheme_iterator() noexcept : grapheme_{} {}
+        grapheme_iterator() noexcept : grapheme_{} {}
 
-        constexpr grapheme_iterator(
+        grapheme_iterator(
             Iter first, Iter it, Sentinel last) noexcept :
             grapheme_{it, it},
             first_(first),
@@ -83,7 +83,7 @@ namespace boost { namespace text {
             return &grapheme_;
         }
 
-        constexpr Iter base() const noexcept { return grapheme_.first_; }
+        Iter base() const noexcept { return grapheme_.first_; }
 
         grapheme_iterator & operator++() noexcept
         {
@@ -106,7 +106,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        grapheme_iterator operator--(int) noexcept
+       grapheme_iterator operator--(int) noexcept
         {
             grapheme_iterator retval = *this;
             --*this;
