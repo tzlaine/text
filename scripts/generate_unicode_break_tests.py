@@ -141,6 +141,13 @@ def generate_iterator_tests(cps_and_breaks, prop_):
         for elem in chunk:
             (cps, line, comment) = elem
             comment_fields = comment.split(' ')
+
+            break_cp_indices = []
+            for j in range(len(cps)):
+                if cps[j][1]: # if break
+                    break_cp_indices.append(j)
+
+            # forward
             iterator_tests += '''
     // {0}
     // {1}
@@ -148,11 +155,6 @@ def generate_iterator_tests(cps_and_breaks, prop_):
         uint32_t const cps[] = {{ {2} }};
         boost::text::{3}_iterator<uint32_t const *> it(cps, cps, cps + {4});
 '''.format(line, comment, '0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
-            break_cp_indices = []
-            for j in range(len(cps)):
-                if cps[j][1]: # if break
-                    break_cp_indices.append(j)
-
             for j in range(len(break_cp_indices)):
                 first = break_cp_indices[j]
                 last = j == len(break_cp_indices) - 1 and len(cps) or break_cp_indices[j + 1]
@@ -168,6 +170,29 @@ def generate_iterator_tests(cps_and_breaks, prop_):
         EXPECT_EQ((*it).begin(), (*it).end());
     }}
 '''.format(len(cps))
+
+            # reverse
+            iterator_tests += '''\
+    {{
+        // reverse
+        uint32_t const cps[] = {{ {0} }};
+        boost::text::{1}_iterator<uint32_t const *> it(cps, cps + {2}, cps + {2});
+
+        EXPECT_EQ(it.base(), cps + {2});
+        EXPECT_EQ((*it).begin(), (*it).end());
+'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+            for j in reversed(range(len(break_cp_indices))):
+                first = break_cp_indices[j]
+                last = j == len(break_cp_indices) - 1 and len(cps) or break_cp_indices[j + 1]
+                iterator_tests += '''
+        --it;
+
+        EXPECT_EQ(it.base(), cps + {0});
+        EXPECT_EQ((*it).begin(), cps + {0});
+        EXPECT_EQ((*it).end(), cps + {1});
+'''.format(first, last)
+            iterator_tests += '    }\n'
+
         cpp_file = open('{}_iterator_{}.cpp'.format(prop_, i), 'w')
         cpp_file.write(grapheme_iterator_test_form.format(iterator_tests, i))
 
