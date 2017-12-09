@@ -379,6 +379,7 @@ TEST(grapheme, iterator_4)
 
         EXPECT_EQ(it.base(), cps + 1);
         EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
         EXPECT_EQ(it.base(), cps + 3);
@@ -954,6 +955,7 @@ TEST(grapheme, iterator_4)
 
         EXPECT_EQ(it.base(), cps + 1);
         EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
         EXPECT_EQ(it.base(), cps + 3);
