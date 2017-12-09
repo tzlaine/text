@@ -45,6 +45,7 @@ add_test_executable(grapheme_prop_lookup_0)
 add_test_executable(grapheme_prop_lookup_1)
 add_test_executable(grapheme_prop_lookup_2)
 add_test_executable(grapheme_prop_lookup_3)
+add_test_executable(grapheme_prop_lookup_4)
 add_test_executable(word_prop_lookup_0)
 add_test_executable(word_prop_lookup_1)
 add_test_executable(word_prop_lookup_2)
@@ -55,11 +56,13 @@ add_test_executable(word_prop_lookup_6)
 add_test_executable(word_prop_lookup_7)
 add_test_executable(word_prop_lookup_8)
 add_test_executable(word_prop_lookup_9)
+add_test_executable(word_prop_lookup_10)
 
 add_test_executable(grapheme_break_0)
 add_test_executable(grapheme_break_1)
 add_test_executable(grapheme_break_2)
 add_test_executable(grapheme_break_3)
+add_test_executable(grapheme_break_4)
 
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).
@@ -73,11 +76,13 @@ add_test_executable(word_break_6)
 #add_test_executable(word_break_7)
 #add_test_executable(word_break_8)
 #add_test_executable(word_break_9)
+#add_test_executable(word_break_10)
 
 add_test_executable(grapheme_iterator_0)
 add_test_executable(grapheme_iterator_1)
 add_test_executable(grapheme_iterator_2)
 add_test_executable(grapheme_iterator_3)
+add_test_executable(grapheme_iterator_4)
 
 if (BUILD_COVERAGE)
     add_custom_target(
