@@ -214,10 +214,10 @@ script:
         done
       fi
       if [[ "$COVERAGE" == "on" ]]; then
-          build_dir="build-$build_type-cxx-$lang_ver-coverage"
+          build_dir="build-$build_type-cxx-$CPP-coverage"
           mkdir $build_dir
           cd $build_dir
-          cmake -DCXX_STD=${lang_ver} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DBUILD_COVERAGE=true ..
+          cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DBUILD_COVERAGE=true ..
           sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov
           VERBOSE=1 make -j4 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
           if [ $? -ne 0 ]
