@@ -103,8 +103,8 @@ namespace boost { namespace text {
         grapheme_iterator & operator--() noexcept
         {
             grapheme_.last_ = grapheme_.first_;
-            break_.prop_ = grapheme_prop(*--grapheme_.first_);
-            find_prev_break();
+            grapheme_.first_ = find_grapheme_start(first_, --grapheme_.first_, last_);
+            break_.prop_ = grapheme_prop(*grapheme_.first_);
             return *this;
         }
 
@@ -135,73 +135,6 @@ namespace boost { namespace text {
                 ++grapheme_.last_;
                 break_ = grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
                 new_break = break_;
-            }
-        }
-
-        void find_prev_break() noexcept
-        {
-            // See http://www.unicode.org/reports/tr15/#Stream_Safe_Text_Format
-            int const max_steps = 31;
-
-            while (grapheme_.first_ != first_) {
-                // GB10
-                if (break_.prop_ == grapheme_prop_t::E_Modifier) {
-                    auto it = grapheme_.first_;
-                    for (int i = 0; i < max_steps; ++i) {
-                        if (it == first_) {
-                            it = grapheme_.first_;
-                            break;
-                        }
-                        auto const prop = grapheme_prop(*--it);
-                        if (prop == grapheme_prop_t::E_Base ||
-                            prop == grapheme_prop_t::E_Base_GAZ) {
-                            break;
-                        } else if (prop != grapheme_prop_t::Extend) {
-                            it = grapheme_.first_;
-                            break;
-                        }
-                    }
-                    if (it != grapheme_.first_) {
-                        auto const prop = grapheme_prop(*it);
-                        grapheme_.first_ = it;
-                        break_ =
-                            grapheme_break_t(false, prop, grapheme_break_fsm());
-                    }
-                } else if (
-                    break_.prop_ == grapheme_prop_t::Regional_Indicator) {
-                    auto it = grapheme_.first_;
-                    auto num_ris = 1;
-                    for (int i = 0; i < max_steps; ++i) {
-                        if (it == first_)
-                            break;
-                        auto const prop = grapheme_prop(*--it);
-                        if (prop == grapheme_prop_t::Regional_Indicator) {
-                            ++num_ris;
-                        } else {
-                            break;
-                        }
-                    }
-                    it = grapheme_.first_;
-                    if ((num_ris & 1) == 0)
-                        --it;
-                    auto const prop = grapheme_prop(*it);
-                    grapheme_.first_ = it;
-                    break_ =
-                        grapheme_break_t(false, prop, grapheme_break_fsm());
-                }
-
-                auto it = grapheme_.first_;
-                auto const prop = grapheme_prop(*--it);
-                auto new_break = grapheme_break_t(
-                    grapheme_table_break(prop, break_.prop_),
-                    prop,
-                    break_.fsm_);
-                if (new_break) {
-                    break;
-                } else {
-                    grapheme_.first_ = it;
-                    break_ = new_break;
-                }
             }
         }
 

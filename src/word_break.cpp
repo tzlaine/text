@@ -14,7 +14,7 @@ struct word_prop_interval
     word_prop_t prop_;
 };
 
-bool operator<(word_prop_interval lhs, word_prop_interval rhs)
+bool operator<(word_prop_interval lhs, word_prop_interval rhs) noexcept
 { return lhs.hi_ <= rhs.lo_; }
 
 static constexpr std::array<word_prop_interval, 1235> g_word_prop_intervals = {{
@@ -1256,7 +1256,7 @@ static constexpr std::array<word_prop_interval, 1235> g_word_prop_intervals = {{
 
 }};
 
-word_prop_t word_prop(uint32_t cp)
+word_prop_t word_prop(uint32_t cp) noexcept
 {
     auto const it = std::lower_bound(g_word_prop_intervals.begin(),
                                      g_word_prop_intervals.end(),

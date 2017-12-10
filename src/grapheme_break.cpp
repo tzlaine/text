@@ -14,7 +14,7 @@ struct grapheme_prop_interval
     grapheme_prop_t prop_;
 };
 
-bool operator<(grapheme_prop_interval lhs, grapheme_prop_interval rhs)
+bool operator<(grapheme_prop_interval lhs, grapheme_prop_interval rhs) noexcept
 { return lhs.hi_ <= rhs.lo_; }
 
 static constexpr std::array<grapheme_prop_interval, 1371> g_grapheme_prop_intervals = {{
@@ -1392,7 +1392,7 @@ static constexpr std::array<grapheme_prop_interval, 1371> g_grapheme_prop_interv
 
 }};
 
-grapheme_prop_t grapheme_prop(uint32_t cp)
+grapheme_prop_t grapheme_prop(uint32_t cp) noexcept
 {
     auto const it = std::lower_bound(g_grapheme_prop_intervals.begin(),
                                      g_grapheme_prop_intervals.end(),

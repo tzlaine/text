@@ -44,9 +44,15 @@ namespace boost { namespace text {
 
         enum class result { use_table, break_, no_break, ignore };
 
-        word_break_fsm() : state_(state::use_table), chars_ignored_(false) {}
+        word_break_fsm() noexcept :
+            state_(state::use_table),
+            chars_ignored_(false)
+        {}
 
-        result update(word_prop_t prev_prop, word_prop_t prop, word_prop_t next_prop)
+        result update(
+            word_prop_t prev_prop,
+            word_prop_t prop,
+            word_prop_t next_prop) noexcept
         {
             bool const ignored = chars_ignored_;
             chars_ignored_ = false;
@@ -135,21 +141,21 @@ namespace boost { namespace text {
         }
 
     private:
-        static bool linebreak(word_prop_t prop)
+        static bool linebreak(word_prop_t prop) noexcept
         {
             return prop == word_prop_t::CR ||
                    prop == word_prop_t::LF ||
                    prop == word_prop_t::Newline;
         }
 
-        static bool ah_letter(word_prop_t prop)
+        static bool ah_letter(word_prop_t prop) noexcept
         {
             return prop == word_prop_t::ALetter ||
                    prop == word_prop_t::Hebrew_Letter;
         }
 
         // Corresonds to (MidLetter | MidNumLetQ) in WB6 and WB7
-        static bool mid_ah(word_prop_t prop)
+        static bool mid_ah(word_prop_t prop) noexcept
         {
             return prop == word_prop_t::MidLetter ||
                    prop == word_prop_t::MidNumLet ||
@@ -157,7 +163,7 @@ namespace boost { namespace text {
         }
 
         // Corresonds to (MidNum | MidNumLetQ) in WB6 and WB7
-        static bool mid_num(word_prop_t prop)
+        static bool mid_num(word_prop_t prop) noexcept
         {
             return prop == word_prop_t::MidNum ||
                    prop == word_prop_t::MidNumLet ||
@@ -170,19 +176,20 @@ namespace boost { namespace text {
 
     struct word_break_t
     {
-        word_break_t() :
+        word_break_t() noexcept :
             break_(false),
             prev_prop_(word_prop_t::LF),
             prop_(word_prop_t::LF)
         {}
-        word_break_t(bool b, word_prop_t pp, word_prop_t p, word_break_fsm f) :
+        word_break_t(
+            bool b, word_prop_t pp, word_prop_t p, word_break_fsm f) noexcept :
             break_(b),
             prev_prop_(pp),
             prop_(p),
             fsm_(f)
         {}
 
-        operator bool() const { return break_; }
+        operator bool() const noexcept { return break_; }
 
         bool break_;
         word_prop_t prev_prop_; // The one just processed.
@@ -190,10 +197,10 @@ namespace boost { namespace text {
         word_break_fsm fsm_;
     };
 
-    word_prop_t word_prop(uint32_t cp);
+    word_prop_t word_prop(uint32_t cp) noexcept;
 
     inline word_break_t
-    word_break(word_break_fsm fsm, word_prop_t prev_prop, word_prop_t prop, uint32_t cp)
+    word_break(word_break_fsm fsm, word_prop_t prev_prop, word_prop_t prop, uint32_t cp) noexcept
     {
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/WordBreakTest.html.
 constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{

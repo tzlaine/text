@@ -3,6 +3,7 @@
 
 #include <array>
 
+#include <cassert>
 #include <stdint.h>
 
 
@@ -37,9 +38,9 @@ namespace boost { namespace text {
             emoji_flag // GB12, GB13
         };
 
-        grapheme_break_fsm () : state_ (state::use_table) {}
+        grapheme_break_fsm() noexcept : state_(state::use_table) {}
 
-        bool no_break(grapheme_prop_t prop)
+        bool no_break(grapheme_prop_t prop) noexcept
         {
             if (state_ == state::emoji_mod) {
                 if (prop == grapheme_prop_t::E_Modifier) {
@@ -74,23 +75,25 @@ namespace boost { namespace text {
 
     struct grapheme_break_t
     {
-        grapheme_break_t() : break_(false), prop_(grapheme_prop_t::LF) {}
-        grapheme_break_t(bool b, grapheme_prop_t p, grapheme_break_fsm fsm) :
+        grapheme_break_t() noexcept : break_(false), prop_(grapheme_prop_t::LF)
+        {}
+        grapheme_break_t(
+            bool b, grapheme_prop_t p, grapheme_break_fsm fsm) noexcept :
             break_(b),
             prop_(p),
             fsm_(fsm)
         {}
 
-        operator bool() const { return break_; }
+        operator bool() const noexcept { return break_; }
 
         bool break_;
         grapheme_prop_t prop_;
         grapheme_break_fsm fsm_;
     };
 
-    grapheme_prop_t grapheme_prop(uint32_t cp);
+    grapheme_prop_t grapheme_prop(uint32_t cp) noexcept;
 
-    inline bool grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs)
+    inline bool grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs) noexcept
     {
         // Note that RI.RI was changed to '1' since that case is handled in
         // the grapheme break FSM.
@@ -128,7 +131,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     }
 
     inline grapheme_break_t
-    grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp)
+    grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp) noexcept
     {
 
         auto const cp_prop = grapheme_prop(cp);
@@ -140,6 +143,72 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         }
     }
 
+    /** Search backward to find the start of the grapheme in which \a current
+        is found, without searching before \a first or into \a last. */
+    template<typename Iter, typename Sentinel>
+    Iter find_grapheme_start(Iter first, Iter current, Sentinel last) noexcept
+    {
+        assert(current != last);
+
+        // See http://www.unicode.org/reports/tr15/#Stream_Safe_Text_Format
+        int const max_steps = 31;
+
+        auto current_prop = grapheme_prop(*current);
+        while (current != first) {
+            // GB10
+            if (current_prop == grapheme_prop_t::E_Modifier) {
+                auto it = current;
+                for (int i = 0; i < max_steps; ++i) {
+                    if (it == first) {
+                        it = current;
+                        break;
+                    }
+                    auto const prop = grapheme_prop(*--it);
+                    if (prop == grapheme_prop_t::E_Base ||
+                        prop == grapheme_prop_t::E_Base_GAZ) {
+                        break;
+                    } else if (prop != grapheme_prop_t::Extend) {
+                        it = current;
+                        break;
+                    }
+                }
+                if (it != current) {
+                    current_prop = grapheme_prop(*it);
+                    current = it;
+                }
+            } else if (current_prop == grapheme_prop_t::Regional_Indicator) {
+                auto it = current;
+                auto num_ris = 1;
+                for (int i = 0; i < max_steps; ++i) {
+                    if (it == first)
+                        break;
+                    auto const prop = grapheme_prop(*--it);
+                    if (prop == grapheme_prop_t::Regional_Indicator) {
+                        ++num_ris;
+                    } else {
+                        break;
+                    }
+                }
+                it = current;
+                if ((num_ris & 1) == 0)
+                    --it;
+                current_prop = grapheme_prop(*it);
+                current = it;
+            }
+
+            auto it = current;
+            auto const prop = grapheme_prop(*--it);
+            if (grapheme_table_break(prop, current_prop)) {
+                break;
+            } else {
+                current = it;
+                current_prop = prop;
+            }
+        }
+
+        return current;
+    }
+
 }}
 
-#endif
+#    endif
