@@ -9,6 +9,7 @@
 
 namespace boost { namespace text {
 
+    /** The grapheme properties outlined in Unicode 10. */
     enum class grapheme_prop_t {
         Other,
         CR,
@@ -30,6 +31,8 @@ namespace boost { namespace text {
         E_Base_GAZ
     };
 
+    /** A state machine used in the detction of extended grapheme clusters.
+        Only suitable for detection in the forward direction. */
     struct grapheme_break_fsm
     {
         enum class state {
@@ -73,6 +76,8 @@ namespace boost { namespace text {
         state state_;
     };
 
+    /** A bookkeeping struct used to apply a \c grapheme_break_fsm to repeated
+        calls to \c grapheme_break(). */
     struct grapheme_break_t
     {
         grapheme_break_t() noexcept : break_(false), prop_(grapheme_prop_t::LF)
@@ -91,8 +96,11 @@ namespace boost { namespace text {
         grapheme_break_fsm fsm_;
     };
 
+    /** Returns the grapheme property associated with code point \a cp. */
     grapheme_prop_t grapheme_prop(uint32_t cp) noexcept;
 
+    /** Returns true if and only if the table from the Unicode Character
+        Database indicates a break between \a lhs and \a rhs. */
     inline bool grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs) noexcept
     {
         // Note that RI.RI was changed to '1' since that case is handled in
@@ -130,6 +138,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return grapheme_breaks[lhs_int][rhs_int];
     }
 
+    /** Returns a \c grapheme_break_t that indicates whether a grapheme break
+        was detected and that contains the current break-detection state. */
     inline grapheme_break_t
     grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp) noexcept
     {
@@ -143,8 +153,9 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         }
     }
 
-    /** Search backward to find the start of the grapheme in which \a current
-        is found, without searching before \a first or into \a last. */
+    /** Searches backward to find the start of the grapheme in which \a
+        current is found, without searching before \a first or into \a
+        last. */
     template<typename Iter, typename Sentinel>
     Iter find_grapheme_start(Iter first, Iter current, Sentinel last) noexcept
     {
