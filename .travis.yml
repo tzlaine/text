@@ -196,7 +196,7 @@ install:
 script:
     - cd $CHECKOUT_PATH
     - export LANGVERSIONS="14"
-    - if [[ "$CPP11" == "on" ]]; then export LANGVERSIONS="${LANGVERSIONS} 11"; fi
+    - if [[ "$CPP11" == "on" ]]; then export LANGVERSIONS="11"; fi
     - |
       if [[ "$COVERAGE" != "on" ]]; then
         for build_type in debug release; do
