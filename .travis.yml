@@ -6,63 +6,63 @@ script: cmake
 matrix:
     include:
         # OSX
-        - env: CPP11=off MAC_OSX=true
+        - env: CPP=14 MAC_OSX=true
           os: osx
           osx_image: xcode6.4
           compiler: clang
 
-        - env: CPP11=on MAC_OSX=true
+        - env: CPP=11 MAC_OSX=true
           os: osx
           osx_image: xcode6.4
           compiler: clang
 
-        - env: CPP11=off MAC_OSX=true
+        - env: CPP=14 MAC_OSX=true
           os: osx
           osx_image: xcode7.3
           compiler: clang
 
-        - env: CPP11=on MAC_OSX=true
+        - env: CPP=11 MAC_OSX=true
           os: osx
           osx_image: xcode7.3
           compiler: clang
 
-        - env: CPP11=off MAC_OSX=true
+        - env: CPP=14 MAC_OSX=true
           os: osx
           osx_image: xcode8
           compiler: clang
 
-        - env: CPP11=on MAC_OSX=true
+        - env: CPP=11 MAC_OSX=true
           os: osx
           osx_image: xcode8
           compiler: clang
 
-        - env: CPP11=off MAC_OSX=true
+        - env: CPP=14 MAC_OSX=true
           os: osx
           osx_image: xcode8.1
           compiler: clang
 
-        - env: CPP11=on MAC_OSX=true
+        - env: CPP=11 MAC_OSX=true
           os: osx
           osx_image: xcode8.1
           compiler: clang
 
-        - env: CPP11=off MAC_OSX=true
+        - env: CPP=14 MAC_OSX=true
           os: osx
           osx_image: xcode8.2
           compiler: clang
 
-        - env: CPP11=on MAC_OSX=true
+        - env: CPP=11 MAC_OSX=true
           os: osx
           osx_image: xcode8.2
           compiler: clang
 
-        - env: CPP11=off MAC_OSX=true COVERAGE=on
+        - env: CPP=14 MAC_OSX=true COVERAGE=on
           os: osx
           osx_image: xcode8.2
           compiler: clang
 
         # Gcc
-        - env: GCC_VERSION=4.8 CPP11=off
+        - env: GCC_VERSION=4.8 CPP=14
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
@@ -75,7 +75,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=4.8 CPP11=on
+        - env: GCC_VERSION=4.8 CPP=11
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
@@ -87,7 +87,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=4.9 CPP11=off
+        - env: GCC_VERSION=4.9 CPP=14
           os: linux
           compiler: gcc-4.9
           addons: &gcc49
@@ -99,7 +99,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=4.9 CPP11=on
+        - env: GCC_VERSION=4.9 CPP=11
           os: linux
           compiler: gcc-4.9
           addons: &gcc49
@@ -111,7 +111,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=5 CPP11=off
+        - env: GCC_VERSION=5 CPP=14
           os: linux
           compiler: gcc-5
           addons: &gcc5
@@ -123,7 +123,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=5 CPP11=on
+        - env: GCC_VERSION=5 CPP=11
           os: linux
           compiler: gcc-5
           addons: &gcc5
@@ -135,7 +135,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=6 CPP11=off
+        - env: GCC_VERSION=6 CPP=14
           os: linux
           compiler: gcc-6
           addons: &gcc6
@@ -147,7 +147,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=6 CPP11=on
+        - env: GCC_VERSION=6 CPP=11
           os: linux
           compiler: gcc-6
           addons: &gcc6
@@ -195,12 +195,10 @@ install:
 
 script:
     - cd $CHECKOUT_PATH
-    - export LANGVERSIONS="14"
-    - if [[ "$CPP11" == "on" ]]; then export LANGVERSIONS="11"; fi
     - |
       if [[ "$COVERAGE" != "on" ]]; then
         for build_type in debug release; do
-          for lang_ver in $LANGVERSIONS; do
+          for lang_ver in $CPP; do
             build_dir="build-$build_type-cxx-$lang_ver"
             mkdir $build_dir
             cd $build_dir
