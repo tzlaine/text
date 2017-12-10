@@ -197,12 +197,12 @@ script:
     - cd $CHECKOUT_PATH
     - |
       if [[ "$COVERAGE" != "on" ]]; then
-        for build_type in debug release; do
+        for build_type in Debug Release; do
           for lang_ver in $CPP; do
             build_dir="build-$build_type-cxx-$lang_ver"
             mkdir $build_dir
             cd $build_dir
-            cmake -DCXX_STD=${lang_ver} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+            cmake -DCXX_STD=${lang_ver} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$build_type ..
             VERBOSE=1 make -j4 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
             if [ $? -ne 0 ]
             then
@@ -214,7 +214,7 @@ script:
         done
       fi
       if [[ "$COVERAGE" == "on" ]]; then
-          build_dir="build-$build_type-cxx-$CPP-coverage"
+          build_dir="build-cov-cxx-$CPP-coverage"
           mkdir $build_dir
           cd $build_dir
           cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DBUILD_COVERAGE=true ..
