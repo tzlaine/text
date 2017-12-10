@@ -42,7 +42,6 @@ TEST(grapheme, iterator_{1})
 '''
 
 # TODO: Add iterator tests that use utf8::to_utf32_iterator.
-# TODO: Test reverse iteration.
 # TODO: Test mixed forward and reverse iteration.
 
 def extract_cps_and_breaks(filename):
