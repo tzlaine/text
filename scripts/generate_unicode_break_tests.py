@@ -36,9 +36,7 @@ grapheme_iterator_test_form = decls = '''\
 #include <algorithm>
 
 
-TEST(grapheme, iterator_{1})
-{{{0}
-}}
+{0}
 '''
 
 # TODO: Add iterator tests that use utf8::to_utf32_iterator.
@@ -136,7 +134,9 @@ def generate_iterator_tests(cps_and_breaks, prop_):
     for i in range(len(cps_and_breaks)):
         iterator_tests = ''
         chunk = cps_and_breaks[i]
+        elem_index = -1
         for elem in chunk:
+            elem_index += 1
             (cps, line, comment) = elem
             comment_fields = comment.split(' ')
 
@@ -159,35 +159,41 @@ def generate_iterator_tests(cps_and_breaks, prop_):
 
             # forward
             iterator_tests += '''
+TEST({3}, iterator_{5:02}_{6}_fwd)
+{{
     // {0}
     // {1}
     {{
         uint32_t const cps[] = {{ {2} }};
         boost::text::{3}_iterator<uint32_t const *> it(cps, cps, cps + {4});
 
-'''.format(line, comment, '0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+'''.format(line, comment, '0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps), i, elem_index)
             iterator_tests += '\n\n        ++it;\n\n'.join(graphemes_and_end)
-            iterator_tests += '\n    }\n'
+            iterator_tests += '\n    }\n}\n'
 
             # reverse
             iterator_tests += '''\
+TEST({1}, iterator_{3:02}_{4}_rev)
+{{
     {{
         // reverse
         uint32_t const cps[] = {{ {0} }};
         boost::text::{1}_iterator<uint32_t const *> it(cps, cps + {2}, cps + {2});
 
-'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps), i, elem_index)
             iterator_tests += '\n\n        --it;\n\n'.join(reversed(graphemes_and_end))
-            iterator_tests += '\n    }\n'
+            iterator_tests += '\n    }\n}\n'
 
             # forth and back
             iterator_tests += '''\
+TEST({1}, iterator_{3:02}_{4}_fab)
+{{
     {{
         // forth and back
         uint32_t const cps[] = {{ {0} }};
         boost::text::{1}_iterator<uint32_t const *> it(cps, cps, cps + {2});
 
-'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps), i, elem_index)
             idx = 0
             iterator_tests += graphemes_and_end[idx]
             for j in range(len(graphemes_and_end)):
@@ -199,16 +205,18 @@ def generate_iterator_tests(cps_and_breaks, prop_):
                     iterator_tests += '\n\n        --it;\n\n'
                     idx -= 1
                     iterator_tests += graphemes_and_end[idx]
-            iterator_tests += '\n    }\n'
+            iterator_tests += '\n    }\n}\n'
 
             # back and forth
             iterator_tests += '''\
+TEST({1}, iterator_{3:02}_{4}_baf)
+{{
     {{
         // back and forth
         uint32_t const cps[] = {{ {0} }};
         boost::text::{1}_iterator<uint32_t const *> it(cps, cps + {2}, cps + {2});
 
-'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps), i, elem_index)
             idx = len(graphemes_and_end) - 1
             iterator_tests += graphemes_and_end[idx]
             for j in range(len(graphemes_and_end)):
@@ -220,7 +228,7 @@ def generate_iterator_tests(cps_and_breaks, prop_):
                     iterator_tests += '\n\n        ++it;\n\n'
                     idx += 1
                     iterator_tests += graphemes_and_end[idx]
-            iterator_tests += '\n    }\n'
+            iterator_tests += '\n    }\n}\n'
 
         cpp_file = open('{}_iterator_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(grapheme_iterator_test_form.format(iterator_tests, i))

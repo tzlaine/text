@@ -6,7 +6,8 @@
 #include <algorithm>
 
 
-TEST(grapheme, iterator_11)
+
+TEST(grapheme, iterator_11_0_fwd)
 {
     // ÷ 261D ÷ 0001 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
@@ -29,6 +30,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_0_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0001 };
@@ -49,6 +53,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_0_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0001 };
@@ -93,6 +100,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_0_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0001 };
@@ -135,7 +145,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_1_fwd)
+{
     // ÷ 261D × 0308 ÷ 0001 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
@@ -157,6 +170,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_1_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0001 };
@@ -177,6 +193,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_1_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0001 };
@@ -221,6 +240,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_1_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0001 };
@@ -263,7 +285,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_2_fwd)
+{
     // ÷ 261D × 0300 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
@@ -279,6 +304,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_2_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0300 };
@@ -293,6 +321,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_2_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0300 };
@@ -313,6 +344,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_2_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0300 };
@@ -332,7 +366,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_3_fwd)
+{
     // ÷ 261D × 0308 × 0300 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
@@ -348,6 +385,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_3_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0300 };
@@ -362,6 +402,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_3_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0300 };
@@ -382,6 +425,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_3_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0300 };
@@ -401,7 +447,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_4_fwd)
+{
     // ÷ 261D ÷ 0600 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
@@ -423,6 +472,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_4_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0600 };
@@ -443,6 +495,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_4_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0600 };
@@ -487,6 +542,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_4_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0600 };
@@ -529,7 +587,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_5_fwd)
+{
     // ÷ 261D × 0308 ÷ 0600 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
@@ -551,6 +612,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_5_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0600 };
@@ -571,6 +635,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_5_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0600 };
@@ -615,6 +682,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_5_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0600 };
@@ -657,7 +727,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_6_fwd)
+{
     // ÷ 261D × 0903 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
@@ -673,6 +746,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_6_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0903 };
@@ -687,6 +763,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_6_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0903 };
@@ -707,6 +786,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_6_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0903 };
@@ -726,7 +808,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_7_fwd)
+{
     // ÷ 261D × 0308 × 0903 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
@@ -742,6 +827,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_7_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0903 };
@@ -756,6 +844,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_7_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0903 };
@@ -776,6 +867,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_7_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0903 };
@@ -795,7 +889,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_8_fwd)
+{
     // ÷ 261D ÷ 1100 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
@@ -817,6 +914,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_8_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x1100 };
@@ -837,6 +937,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_8_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x1100 };
@@ -881,6 +984,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_8_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x1100 };
@@ -923,7 +1029,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_9_fwd)
+{
     // ÷ 261D × 0308 ÷ 1100 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
@@ -945,6 +1054,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_9_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1100 };
@@ -965,6 +1077,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_9_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1100 };
@@ -1009,6 +1124,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_9_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1100 };
@@ -1051,7 +1169,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_10_fwd)
+{
     // ÷ 261D ÷ 1160 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
@@ -1073,6 +1194,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_10_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x1160 };
@@ -1093,6 +1217,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_10_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x1160 };
@@ -1137,6 +1264,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_10_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x1160 };
@@ -1179,7 +1309,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_11_fwd)
+{
     // ÷ 261D × 0308 ÷ 1160 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
@@ -1201,6 +1334,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_11_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1160 };
@@ -1221,6 +1357,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_11_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1160 };
@@ -1265,6 +1404,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_11_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1160 };
@@ -1307,7 +1449,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_12_fwd)
+{
     // ÷ 261D ÷ 11A8 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
@@ -1329,6 +1474,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_12_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x11A8 };
@@ -1349,6 +1497,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_12_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x11A8 };
@@ -1393,6 +1544,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_12_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x11A8 };
@@ -1435,7 +1589,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_13_fwd)
+{
     // ÷ 261D × 0308 ÷ 11A8 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
@@ -1457,6 +1614,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_13_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x11A8 };
@@ -1477,6 +1637,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_13_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x11A8 };
@@ -1521,6 +1684,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_13_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x11A8 };
@@ -1563,7 +1729,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_14_fwd)
+{
     // ÷ 261D ÷ AC00 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
@@ -1585,6 +1754,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_14_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0xAC00 };
@@ -1605,6 +1777,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_14_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0xAC00 };
@@ -1649,6 +1824,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_14_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0xAC00 };
@@ -1691,7 +1869,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_15_fwd)
+{
     // ÷ 261D × 0308 ÷ AC00 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
@@ -1713,6 +1894,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_15_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0xAC00 };
@@ -1733,6 +1917,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_15_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0xAC00 };
@@ -1777,6 +1964,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_15_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0xAC00 };
@@ -1819,7 +2009,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_16_fwd)
+{
     // ÷ 261D ÷ AC01 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
@@ -1841,6 +2034,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_16_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0xAC01 };
@@ -1861,6 +2057,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_16_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0xAC01 };
@@ -1905,6 +2104,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_16_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0xAC01 };
@@ -1947,7 +2149,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_17_fwd)
+{
     // ÷ 261D × 0308 ÷ AC01 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
@@ -1969,6 +2174,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_17_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0xAC01 };
@@ -1989,6 +2197,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_17_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0xAC01 };
@@ -2033,6 +2244,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_17_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0xAC01 };
@@ -2075,7 +2289,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_18_fwd)
+{
     // ÷ 261D ÷ 1F1E6 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
@@ -2097,6 +2314,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_18_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x1F1E6 };
@@ -2117,6 +2337,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_18_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x1F1E6 };
@@ -2161,6 +2384,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_18_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x1F1E6 };
@@ -2203,7 +2429,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_19_fwd)
+{
     // ÷ 261D × 0308 ÷ 1F1E6 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
@@ -2225,6 +2454,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_19_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F1E6 };
@@ -2245,6 +2477,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_19_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F1E6 };
@@ -2289,6 +2524,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_19_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F1E6 };
@@ -2331,7 +2569,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_20_fwd)
+{
     // ÷ 261D ÷ 261D ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
@@ -2353,6 +2594,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_20_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x261D };
@@ -2373,6 +2617,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_20_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x261D };
@@ -2417,6 +2664,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_20_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x261D };
@@ -2459,7 +2709,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_21_fwd)
+{
     // ÷ 261D × 0308 ÷ 261D ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
@@ -2481,6 +2734,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_21_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x261D };
@@ -2501,6 +2757,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_21_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x261D };
@@ -2545,6 +2804,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_21_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x261D };
@@ -2587,7 +2849,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_22_fwd)
+{
     // ÷ 261D × 1F3FB ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
@@ -2603,6 +2868,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_22_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x1F3FB };
@@ -2617,6 +2885,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_22_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x1F3FB };
@@ -2637,6 +2908,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_22_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x1F3FB };
@@ -2656,7 +2930,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_23_fwd)
+{
     // ÷ 261D × 0308 × 1F3FB ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
@@ -2672,6 +2949,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_23_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F3FB };
@@ -2686,6 +2966,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_23_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F3FB };
@@ -2706,6 +2989,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_23_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F3FB };
@@ -2725,7 +3011,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_24_fwd)
+{
     // ÷ 261D × 200D ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
@@ -2741,6 +3030,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_24_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x200D };
@@ -2755,6 +3047,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_24_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x200D };
@@ -2775,6 +3070,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_24_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x200D };
@@ -2794,7 +3092,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_25_fwd)
+{
     // ÷ 261D × 0308 × 200D ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
@@ -2810,6 +3111,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_25_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x200D };
@@ -2824,6 +3128,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_25_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x200D };
@@ -2844,6 +3151,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_25_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x200D };
@@ -2863,7 +3173,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_26_fwd)
+{
     // ÷ 261D ÷ 2640 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
@@ -2885,6 +3198,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_26_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x2640 };
@@ -2905,6 +3221,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_26_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x2640 };
@@ -2949,6 +3268,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_26_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x2640 };
@@ -2991,7 +3313,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_27_fwd)
+{
     // ÷ 261D × 0308 ÷ 2640 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
@@ -3013,6 +3338,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_27_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x2640 };
@@ -3033,6 +3361,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_27_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x2640 };
@@ -3077,6 +3408,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_27_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x2640 };
@@ -3119,7 +3453,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_28_fwd)
+{
     // ÷ 261D ÷ 1F466 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
@@ -3141,6 +3478,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_28_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x1F466 };
@@ -3161,6 +3501,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_28_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x1F466 };
@@ -3205,6 +3548,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_28_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x1F466 };
@@ -3247,7 +3593,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_29_fwd)
+{
     // ÷ 261D × 0308 ÷ 1F466 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
@@ -3269,6 +3618,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_29_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F466 };
@@ -3289,6 +3641,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_29_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F466 };
@@ -3333,6 +3688,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_29_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x1F466 };
@@ -3375,7 +3733,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_30_fwd)
+{
     // ÷ 261D ÷ 0378 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
@@ -3397,6 +3758,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_30_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0378 };
@@ -3417,6 +3781,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_30_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0378 };
@@ -3461,6 +3828,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_30_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0378 };
@@ -3503,7 +3873,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_31_fwd)
+{
     // ÷ 261D × 0308 ÷ 0378 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
@@ -3525,6 +3898,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_31_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0378 };
@@ -3545,6 +3921,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_31_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0378 };
@@ -3589,6 +3968,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_31_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0x0378 };
@@ -3631,7 +4013,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_32_fwd)
+{
     // ÷ 261D ÷ D800 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
@@ -3653,6 +4038,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_32_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0xD800 };
@@ -3673,6 +4061,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_32_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0xD800 };
@@ -3717,6 +4108,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_32_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0xD800 };
@@ -3759,7 +4153,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_33_fwd)
+{
     // ÷ 261D × 0308 ÷ D800 ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
@@ -3781,6 +4178,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_33_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x261D, 0x0308, 0xD800 };
@@ -3801,6 +4201,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_33_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x261D, 0x0308, 0xD800 };
@@ -3845,6 +4248,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_33_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x261D, 0x0308, 0xD800 };
@@ -3887,7 +4293,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_34_fwd)
+{
     // ÷ 1F3FB ÷ 0020 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
@@ -3909,6 +4318,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_34_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0020 };
@@ -3929,6 +4341,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_34_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0020 };
@@ -3973,6 +4388,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_34_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0020 };
@@ -4015,7 +4433,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_35_fwd)
+{
     // ÷ 1F3FB × 0308 ÷ 0020 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
@@ -4037,6 +4458,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_35_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0020 };
@@ -4057,6 +4481,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_35_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0020 };
@@ -4101,6 +4528,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_35_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0020 };
@@ -4143,7 +4573,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_36_fwd)
+{
     // ÷ 1F3FB ÷ 000D ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
@@ -4165,6 +4598,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_36_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x000D };
@@ -4185,6 +4621,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_36_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x000D };
@@ -4229,6 +4668,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_36_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x000D };
@@ -4271,7 +4713,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_37_fwd)
+{
     // ÷ 1F3FB × 0308 ÷ 000D ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
@@ -4293,6 +4738,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_37_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x000D };
@@ -4313,6 +4761,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_37_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x000D };
@@ -4357,6 +4808,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_37_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x000D };
@@ -4399,7 +4853,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_38_fwd)
+{
     // ÷ 1F3FB ÷ 000A ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
@@ -4421,6 +4878,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_38_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x000A };
@@ -4441,6 +4901,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_38_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x000A };
@@ -4485,6 +4948,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_38_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x000A };
@@ -4527,7 +4993,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_39_fwd)
+{
     // ÷ 1F3FB × 0308 ÷ 000A ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
@@ -4549,6 +5018,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_39_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x000A };
@@ -4569,6 +5041,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_39_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x000A };
@@ -4613,6 +5088,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_39_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x000A };
@@ -4655,7 +5133,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_40_fwd)
+{
     // ÷ 1F3FB ÷ 0001 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
@@ -4677,6 +5158,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_40_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0001 };
@@ -4697,6 +5181,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_40_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0001 };
@@ -4741,6 +5228,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_40_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0001 };
@@ -4783,7 +5273,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_41_fwd)
+{
     // ÷ 1F3FB × 0308 ÷ 0001 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
@@ -4805,6 +5298,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_41_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0001 };
@@ -4825,6 +5321,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_41_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0001 };
@@ -4869,6 +5368,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_41_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0001 };
@@ -4911,7 +5413,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_42_fwd)
+{
     // ÷ 1F3FB × 0300 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
@@ -4927,6 +5432,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_42_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0300 };
@@ -4941,6 +5449,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_42_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0300 };
@@ -4961,6 +5472,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_42_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0300 };
@@ -4980,7 +5494,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_43_fwd)
+{
     // ÷ 1F3FB × 0308 × 0300 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
@@ -4996,6 +5513,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_43_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0300 };
@@ -5010,6 +5530,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_43_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0300 };
@@ -5030,6 +5553,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_43_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0300 };
@@ -5049,7 +5575,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_44_fwd)
+{
     // ÷ 1F3FB ÷ 0600 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
@@ -5071,6 +5600,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_44_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0600 };
@@ -5091,6 +5623,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_44_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0600 };
@@ -5135,6 +5670,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_44_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0600 };
@@ -5177,7 +5715,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_45_fwd)
+{
     // ÷ 1F3FB × 0308 ÷ 0600 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
@@ -5199,6 +5740,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_45_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0600 };
@@ -5219,6 +5763,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_45_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0600 };
@@ -5263,6 +5810,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_45_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0600 };
@@ -5305,7 +5855,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_46_fwd)
+{
     // ÷ 1F3FB × 0903 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
@@ -5321,6 +5874,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_46_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0903 };
@@ -5335,6 +5891,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_46_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0903 };
@@ -5355,6 +5914,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_46_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0903 };
@@ -5374,7 +5936,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_47_fwd)
+{
     // ÷ 1F3FB × 0308 × 0903 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
@@ -5390,6 +5955,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_47_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0903 };
@@ -5404,6 +5972,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_47_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0903 };
@@ -5424,6 +5995,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_11_47_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x0903 };
@@ -5443,7 +6017,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_48_fwd)
+{
     // ÷ 1F3FB ÷ 1100 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
@@ -5465,6 +6042,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_48_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x1100 };
@@ -5485,6 +6065,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_48_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x1100 };
@@ -5529,6 +6112,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_11_48_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x1100 };
@@ -5571,7 +6157,10 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_11_49_fwd)
+{
     // ÷ 1F3FB × 0308 ÷ 1100 ÷	
     // ÷ [0.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
@@ -5593,6 +6182,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_11_49_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x1100 };
@@ -5613,6 +6205,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_49_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x1100 };
@@ -5657,6 +6252,9 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_11_49_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x1F3FB, 0x0308, 0x1100 };
@@ -5699,5 +6297,5 @@ TEST(grapheme, iterator_11)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
-
 }
+

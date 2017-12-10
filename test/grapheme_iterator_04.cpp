@@ -6,7 +6,8 @@
 #include <algorithm>
 
 
-TEST(grapheme, iterator_4)
+
+TEST(grapheme, iterator_04_0_fwd)
 {
     // ÷ 0300 ÷ 1160 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
@@ -29,6 +30,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_0_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x1160 };
@@ -49,6 +53,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_0_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x1160 };
@@ -93,6 +100,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_0_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x1160 };
@@ -135,7 +145,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_1_fwd)
+{
     // ÷ 0300 × 0308 ÷ 1160 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
@@ -157,6 +170,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_1_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1160 };
@@ -177,6 +193,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_1_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1160 };
@@ -221,6 +240,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_1_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1160 };
@@ -263,7 +285,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_2_fwd)
+{
     // ÷ 0300 ÷ 11A8 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
@@ -285,6 +310,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_2_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x11A8 };
@@ -305,6 +333,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_2_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x11A8 };
@@ -349,6 +380,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_2_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x11A8 };
@@ -391,7 +425,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_3_fwd)
+{
     // ÷ 0300 × 0308 ÷ 11A8 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
@@ -413,6 +450,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_3_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x11A8 };
@@ -433,6 +473,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_3_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x11A8 };
@@ -477,6 +520,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_3_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x11A8 };
@@ -519,7 +565,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_4_fwd)
+{
     // ÷ 0300 ÷ AC00 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
@@ -541,6 +590,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_4_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0xAC00 };
@@ -561,6 +613,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_4_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0xAC00 };
@@ -605,6 +660,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_4_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0xAC00 };
@@ -647,7 +705,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_5_fwd)
+{
     // ÷ 0300 × 0308 ÷ AC00 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
@@ -669,6 +730,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_5_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0xAC00 };
@@ -689,6 +753,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_5_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0xAC00 };
@@ -733,6 +800,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_5_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0xAC00 };
@@ -775,7 +845,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_6_fwd)
+{
     // ÷ 0300 ÷ AC01 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
@@ -797,6 +870,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_6_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0xAC01 };
@@ -817,6 +893,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_6_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0xAC01 };
@@ -861,6 +940,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_6_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0xAC01 };
@@ -903,7 +985,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_7_fwd)
+{
     // ÷ 0300 × 0308 ÷ AC01 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
@@ -925,6 +1010,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_7_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0xAC01 };
@@ -945,6 +1033,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_7_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0xAC01 };
@@ -989,6 +1080,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_7_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0xAC01 };
@@ -1031,7 +1125,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_8_fwd)
+{
     // ÷ 0300 ÷ 1F1E6 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
@@ -1053,6 +1150,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_8_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x1F1E6 };
@@ -1073,6 +1173,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_8_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x1F1E6 };
@@ -1117,6 +1220,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_8_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x1F1E6 };
@@ -1159,7 +1265,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_9_fwd)
+{
     // ÷ 0300 × 0308 ÷ 1F1E6 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
@@ -1181,6 +1290,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_9_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F1E6 };
@@ -1201,6 +1313,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_9_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F1E6 };
@@ -1245,6 +1360,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_9_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F1E6 };
@@ -1287,7 +1405,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_10_fwd)
+{
     // ÷ 0300 ÷ 261D ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
@@ -1309,6 +1430,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_10_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x261D };
@@ -1329,6 +1453,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_10_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x261D };
@@ -1373,6 +1500,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_10_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x261D };
@@ -1415,7 +1545,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_11_fwd)
+{
     // ÷ 0300 × 0308 ÷ 261D ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
     {
@@ -1437,6 +1570,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_11_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x261D };
@@ -1457,6 +1593,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_11_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x261D };
@@ -1501,6 +1640,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_11_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x261D };
@@ -1543,7 +1685,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_12_fwd)
+{
     // ÷ 0300 ÷ 1F3FB ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
@@ -1565,6 +1710,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_12_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x1F3FB };
@@ -1585,6 +1733,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_12_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x1F3FB };
@@ -1629,6 +1780,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_12_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x1F3FB };
@@ -1671,7 +1825,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_13_fwd)
+{
     // ÷ 0300 × 0308 ÷ 1F3FB ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
     {
@@ -1693,6 +1850,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_13_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F3FB };
@@ -1713,6 +1873,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_13_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F3FB };
@@ -1757,6 +1920,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_13_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F3FB };
@@ -1799,7 +1965,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_14_fwd)
+{
     // ÷ 0300 × 200D ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
@@ -1815,6 +1984,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_14_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x200D };
@@ -1829,6 +2001,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_14_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x200D };
@@ -1849,6 +2024,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_14_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x200D };
@@ -1868,7 +2046,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_15_fwd)
+{
     // ÷ 0300 × 0308 × 200D ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
     {
@@ -1884,6 +2065,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_15_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x200D };
@@ -1898,6 +2082,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_04_15_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x200D };
@@ -1918,6 +2105,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_04_15_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x200D };
@@ -1937,7 +2127,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_16_fwd)
+{
     // ÷ 0300 ÷ 2640 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
@@ -1959,6 +2152,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_16_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x2640 };
@@ -1979,6 +2175,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_16_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x2640 };
@@ -2023,6 +2222,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_16_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x2640 };
@@ -2065,7 +2267,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_17_fwd)
+{
     // ÷ 0300 × 0308 ÷ 2640 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
     {
@@ -2087,6 +2292,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_17_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x2640 };
@@ -2107,6 +2315,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_17_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x2640 };
@@ -2151,6 +2362,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_17_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x2640 };
@@ -2193,7 +2407,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_18_fwd)
+{
     // ÷ 0300 ÷ 1F466 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
@@ -2215,6 +2432,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_18_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x1F466 };
@@ -2235,6 +2455,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_18_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x1F466 };
@@ -2279,6 +2502,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_18_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x1F466 };
@@ -2321,7 +2547,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_19_fwd)
+{
     // ÷ 0300 × 0308 ÷ 1F466 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
     {
@@ -2343,6 +2572,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_19_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F466 };
@@ -2363,6 +2595,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_19_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F466 };
@@ -2407,6 +2642,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_19_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x1F466 };
@@ -2449,7 +2687,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_20_fwd)
+{
     // ÷ 0300 ÷ 0378 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
@@ -2471,6 +2712,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_20_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0378 };
@@ -2491,6 +2735,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_20_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0378 };
@@ -2535,6 +2782,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_20_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0378 };
@@ -2577,7 +2827,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_21_fwd)
+{
     // ÷ 0300 × 0308 ÷ 0378 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
@@ -2599,6 +2852,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_21_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0x0378 };
@@ -2619,6 +2875,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_21_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0x0378 };
@@ -2663,6 +2922,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_21_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0x0378 };
@@ -2705,7 +2967,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_22_fwd)
+{
     // ÷ 0300 ÷ D800 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
@@ -2727,6 +2992,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_22_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0xD800 };
@@ -2747,6 +3015,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_22_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0xD800 };
@@ -2791,6 +3062,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_22_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0xD800 };
@@ -2833,7 +3107,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_23_fwd)
+{
     // ÷ 0300 × 0308 ÷ D800 ÷	
     // ÷ [0.2] COMBINING GRAVE ACCENT (Extend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
@@ -2855,6 +3132,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_23_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0300, 0x0308, 0xD800 };
@@ -2875,6 +3155,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_23_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0300, 0x0308, 0xD800 };
@@ -2919,6 +3202,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_23_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0300, 0x0308, 0xD800 };
@@ -2961,7 +3247,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_24_fwd)
+{
     // ÷ 0600 × 0020 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] SPACE (Other) ÷ [0.3]
     {
@@ -2977,6 +3266,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_24_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0020 };
@@ -2991,6 +3283,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_24_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0020 };
@@ -3011,6 +3306,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_24_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0020 };
@@ -3030,7 +3328,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_25_fwd)
+{
     // ÷ 0600 × 0308 ÷ 0020 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
@@ -3052,6 +3353,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_25_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0020 };
@@ -3072,6 +3376,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_25_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0020 };
@@ -3116,6 +3423,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_25_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0020 };
@@ -3158,7 +3468,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_26_fwd)
+{
     // ÷ 0600 ÷ 000D ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
@@ -3180,6 +3493,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_26_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x000D };
@@ -3200,6 +3516,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_26_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x000D };
@@ -3244,6 +3563,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_26_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x000D };
@@ -3286,7 +3608,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_27_fwd)
+{
     // ÷ 0600 × 0308 ÷ 000D ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
@@ -3308,6 +3633,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_27_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x000D };
@@ -3328,6 +3656,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_27_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x000D };
@@ -3372,6 +3703,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_27_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x000D };
@@ -3414,7 +3748,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_28_fwd)
+{
     // ÷ 0600 ÷ 000A ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
@@ -3436,6 +3773,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_28_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x000A };
@@ -3456,6 +3796,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_28_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x000A };
@@ -3500,6 +3843,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_28_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x000A };
@@ -3542,7 +3888,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_29_fwd)
+{
     // ÷ 0600 × 0308 ÷ 000A ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
@@ -3564,6 +3913,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_29_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x000A };
@@ -3584,6 +3936,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_29_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x000A };
@@ -3628,6 +3983,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_29_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x000A };
@@ -3670,7 +4028,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_30_fwd)
+{
     // ÷ 0600 ÷ 0001 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
@@ -3692,6 +4053,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_30_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0001 };
@@ -3712,6 +4076,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_30_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0001 };
@@ -3756,6 +4123,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+}
+TEST(grapheme, iterator_04_30_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0001 };
@@ -3798,7 +4168,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_31_fwd)
+{
     // ÷ 0600 × 0308 ÷ 0001 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
@@ -3820,6 +4193,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_31_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0001 };
@@ -3840,6 +4216,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_31_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0001 };
@@ -3884,6 +4263,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_31_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0001 };
@@ -3926,7 +4308,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_32_fwd)
+{
     // ÷ 0600 × 0300 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
@@ -3942,6 +4327,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_32_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0300 };
@@ -3956,6 +4344,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_32_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0300 };
@@ -3976,6 +4367,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_32_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0300 };
@@ -3995,7 +4389,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_33_fwd)
+{
     // ÷ 0600 × 0308 × 0300 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
     {
@@ -4011,6 +4408,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_33_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0300 };
@@ -4025,6 +4425,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_04_33_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0300 };
@@ -4045,6 +4448,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_04_33_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0300 };
@@ -4064,7 +4470,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_34_fwd)
+{
     // ÷ 0600 × 0600 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
@@ -4080,6 +4489,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_34_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0600 };
@@ -4094,6 +4506,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_34_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0600 };
@@ -4114,6 +4529,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_34_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0600 };
@@ -4133,7 +4551,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_35_fwd)
+{
     // ÷ 0600 × 0308 ÷ 0600 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
@@ -4155,6 +4576,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_35_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0600 };
@@ -4175,6 +4599,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_35_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0600 };
@@ -4219,6 +4646,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_35_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0600 };
@@ -4261,7 +4691,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_36_fwd)
+{
     // ÷ 0600 × 0903 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
@@ -4277,6 +4710,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_36_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0903 };
@@ -4291,6 +4727,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_36_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0903 };
@@ -4311,6 +4750,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_36_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0903 };
@@ -4330,7 +4772,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_37_fwd)
+{
     // ÷ 0600 × 0308 × 0903 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
@@ -4346,6 +4791,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_37_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0903 };
@@ -4360,6 +4808,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_04_37_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0903 };
@@ -4380,6 +4831,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+}
+TEST(grapheme, iterator_04_37_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x0903 };
@@ -4399,7 +4853,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_38_fwd)
+{
     // ÷ 0600 × 1100 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
@@ -4415,6 +4872,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_38_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x1100 };
@@ -4429,6 +4889,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_38_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x1100 };
@@ -4449,6 +4912,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_38_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x1100 };
@@ -4468,7 +4934,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_39_fwd)
+{
     // ÷ 0600 × 0308 ÷ 1100 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
@@ -4490,6 +4959,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_39_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1100 };
@@ -4510,6 +4982,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_39_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1100 };
@@ -4554,6 +5029,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_39_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1100 };
@@ -4596,7 +5074,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_40_fwd)
+{
     // ÷ 0600 × 1160 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
@@ -4612,6 +5093,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_40_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x1160 };
@@ -4626,6 +5110,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_40_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x1160 };
@@ -4646,6 +5133,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_40_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x1160 };
@@ -4665,7 +5155,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_41_fwd)
+{
     // ÷ 0600 × 0308 ÷ 1160 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
@@ -4687,6 +5180,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_41_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1160 };
@@ -4707,6 +5203,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_41_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1160 };
@@ -4751,6 +5250,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_41_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1160 };
@@ -4793,7 +5295,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_42_fwd)
+{
     // ÷ 0600 × 11A8 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
@@ -4809,6 +5314,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_42_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x11A8 };
@@ -4823,6 +5331,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_42_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x11A8 };
@@ -4843,6 +5354,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_42_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x11A8 };
@@ -4862,7 +5376,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_43_fwd)
+{
     // ÷ 0600 × 0308 ÷ 11A8 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
@@ -4884,6 +5401,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_43_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x11A8 };
@@ -4904,6 +5424,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_43_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x11A8 };
@@ -4948,6 +5471,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_43_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x11A8 };
@@ -4990,7 +5516,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_44_fwd)
+{
     // ÷ 0600 × AC00 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
@@ -5006,6 +5535,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_44_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0xAC00 };
@@ -5020,6 +5552,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_44_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0xAC00 };
@@ -5040,6 +5575,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_44_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0xAC00 };
@@ -5059,7 +5597,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_45_fwd)
+{
     // ÷ 0600 × 0308 ÷ AC00 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
@@ -5081,6 +5622,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_45_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0xAC00 };
@@ -5101,6 +5645,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_45_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0xAC00 };
@@ -5145,6 +5692,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_45_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0xAC00 };
@@ -5187,7 +5737,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_46_fwd)
+{
     // ÷ 0600 × AC01 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
@@ -5203,6 +5756,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_46_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0xAC01 };
@@ -5217,6 +5773,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_46_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0xAC01 };
@@ -5237,6 +5796,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_46_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0xAC01 };
@@ -5256,7 +5818,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_47_fwd)
+{
     // ÷ 0600 × 0308 ÷ AC01 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
@@ -5278,6 +5843,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_47_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0xAC01 };
@@ -5298,6 +5866,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_47_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0xAC01 };
@@ -5342,6 +5913,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_47_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0xAC01 };
@@ -5384,7 +5958,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_48_fwd)
+{
     // ÷ 0600 × 1F1E6 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.2] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
@@ -5400,6 +5977,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_48_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x1F1E6 };
@@ -5414,6 +5994,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_48_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x1F1E6 };
@@ -5434,6 +6017,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_48_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x1F1E6 };
@@ -5453,7 +6039,10 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
 
+TEST(grapheme, iterator_04_49_fwd)
+{
     // ÷ 0600 × 0308 ÷ 1F1E6 ÷	
     // ÷ [0.2] ARABIC NUMBER SIGN (Prepend) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
@@ -5475,6 +6064,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
+}
+TEST(grapheme, iterator_04_49_rev)
+{
     {
         // reverse
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1F1E6 };
@@ -5495,6 +6087,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_49_fab)
+{
     {
         // forth and back
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1F1E6 };
@@ -5539,6 +6134,9 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+}
+TEST(grapheme, iterator_04_49_baf)
+{
     {
         // back and forth
         uint32_t const cps[] = { 0x0600, 0x0308, 0x1F1E6 };
@@ -5581,5 +6179,5 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
-
 }
+
