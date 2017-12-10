@@ -146,6 +146,18 @@ def generate_iterator_tests(cps_and_breaks, prop_):
                 if cps[j][1]: # if break
                     break_cp_indices.append(j)
 
+            graphemes_and_end = []
+            for j in range(len(break_cp_indices)):
+                first = break_cp_indices[j]
+                last = j == len(break_cp_indices) - 1 and len(cps) or break_cp_indices[j + 1]
+                graphemes_and_end.append('''\
+        EXPECT_EQ(it.base(), cps + {0});
+        EXPECT_EQ((*it).begin(), cps + {0});
+        EXPECT_EQ((*it).end(), cps + {1});'''.format(first, last))
+            graphemes_and_end.append('''\
+        EXPECT_EQ(it.base(), cps + {});
+        EXPECT_EQ((*it).begin(), (*it).end());'''.format(len(cps)))
+
             # forward
             iterator_tests += '''
     // {0}
@@ -153,22 +165,10 @@ def generate_iterator_tests(cps_and_breaks, prop_):
     {{
         uint32_t const cps[] = {{ {2} }};
         boost::text::{3}_iterator<uint32_t const *> it(cps, cps, cps + {4});
-'''.format(line, comment, '0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
-            for j in range(len(break_cp_indices)):
-                first = break_cp_indices[j]
-                last = j == len(break_cp_indices) - 1 and len(cps) or break_cp_indices[j + 1]
-                iterator_tests += '''
-        EXPECT_EQ(it.base(), cps + {0});
-        EXPECT_EQ((*it).begin(), cps + {0});
-        EXPECT_EQ((*it).end(), cps + {1});
 
-        ++it;
-'''.format(first, last)
-            iterator_tests += '''\
-        EXPECT_EQ(it.base(), cps + {});
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }}
-'''.format(len(cps))
+'''.format(line, comment, '0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+            iterator_tests += '\n\n        ++it;\n\n'.join(graphemes_and_end)
+            iterator_tests += '\n    }\n'
 
             # reverse
             iterator_tests += '''\
@@ -177,20 +177,51 @@ def generate_iterator_tests(cps_and_breaks, prop_):
         uint32_t const cps[] = {{ {0} }};
         boost::text::{1}_iterator<uint32_t const *> it(cps, cps + {2}, cps + {2});
 
-        EXPECT_EQ(it.base(), cps + {2});
-        EXPECT_EQ((*it).begin(), (*it).end());
 '''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
-            for j in reversed(range(len(break_cp_indices))):
-                first = break_cp_indices[j]
-                last = j == len(break_cp_indices) - 1 and len(cps) or break_cp_indices[j + 1]
-                iterator_tests += '''
-        --it;
+            iterator_tests += '\n\n        --it;\n\n'.join(reversed(graphemes_and_end))
+            iterator_tests += '\n    }\n'
 
-        EXPECT_EQ(it.base(), cps + {0});
-        EXPECT_EQ((*it).begin(), cps + {0});
-        EXPECT_EQ((*it).end(), cps + {1});
-'''.format(first, last)
-            iterator_tests += '    }\n'
+            # forth and back
+            iterator_tests += '''\
+    {{
+        // forth and back
+        uint32_t const cps[] = {{ {0} }};
+        boost::text::{1}_iterator<uint32_t const *> it(cps, cps, cps + {2});
+
+'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+            idx = 0
+            iterator_tests += graphemes_and_end[idx]
+            for j in range(len(graphemes_and_end)):
+                for k in range(j):
+                    iterator_tests += '\n\n        ++it;\n\n'
+                    idx += 1
+                    iterator_tests += graphemes_and_end[idx]
+                for k in range(j):
+                    iterator_tests += '\n\n        --it;\n\n'
+                    idx -= 1
+                    iterator_tests += graphemes_and_end[idx]
+            iterator_tests += '\n    }\n'
+
+            # back and forth
+            iterator_tests += '''\
+    {{
+        // back and forth
+        uint32_t const cps[] = {{ {0} }};
+        boost::text::{1}_iterator<uint32_t const *> it(cps, cps + {2}, cps + {2});
+
+'''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps))
+            idx = len(graphemes_and_end) - 1
+            iterator_tests += graphemes_and_end[idx]
+            for j in range(len(graphemes_and_end)):
+                for k in range(j):
+                    iterator_tests += '\n\n        --it;\n\n'
+                    idx -= 1
+                    iterator_tests += graphemes_and_end[idx]
+                for k in range(j):
+                    iterator_tests += '\n\n        ++it;\n\n'
+                    idx += 1
+                    iterator_tests += graphemes_and_end[idx]
+            iterator_tests += '\n    }\n'
 
         cpp_file = open('{}_iterator_{}.cpp'.format(prop_, i), 'w')
         cpp_file.write(grapheme_iterator_test_form.format(iterator_tests, i))

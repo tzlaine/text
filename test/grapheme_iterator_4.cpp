@@ -25,6 +25,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -47,6 +48,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x1160 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x1160 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 1160 ÷	
@@ -72,6 +159,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -101,6 +189,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1160 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1160 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 11A8 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
@@ -119,6 +364,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -141,6 +387,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x11A8 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x11A8 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 11A8 ÷	
@@ -166,6 +498,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -195,6 +528,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x11A8 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x11A8 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ AC00 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
@@ -213,6 +703,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -235,6 +726,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0xAC00 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0xAC00 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ AC00 ÷	
@@ -260,6 +837,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -289,6 +867,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0xAC00 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0xAC00 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ AC01 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
@@ -307,6 +1042,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -329,6 +1065,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0xAC01 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0xAC01 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ AC01 ÷	
@@ -354,6 +1176,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -383,6 +1206,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0xAC01 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0xAC01 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 1F1E6 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
@@ -401,6 +1381,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -423,6 +1404,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x1F1E6 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x1F1E6 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 1F1E6 ÷	
@@ -448,6 +1515,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -477,6 +1545,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1F1E6 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1F1E6 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 261D ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
@@ -495,6 +1720,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -517,6 +1743,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x261D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x261D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 261D ÷	
@@ -542,6 +1854,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -571,6 +1884,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x261D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x261D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 1F3FB ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
@@ -589,6 +2059,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -611,6 +2082,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 1F3FB ÷	
@@ -636,6 +2193,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -665,6 +2223,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 200D ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
@@ -683,6 +2398,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -706,6 +2422,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x200D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x200D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 0308 × 200D ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
@@ -724,6 +2526,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -747,6 +2550,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x200D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x200D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 2640 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
@@ -765,6 +2654,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -787,6 +2677,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x2640 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x2640 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 2640 ÷	
@@ -812,6 +2788,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -841,6 +2818,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x2640 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x2640 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 1F466 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] BOY (EBG) ÷ [0.3]
@@ -859,6 +2993,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -881,6 +3016,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 1F466 ÷	
@@ -906,6 +3127,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -935,6 +3157,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ 0378 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] <reserved-0378> (Other) ÷ [0.3]
@@ -953,6 +3332,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -975,6 +3355,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0378 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0378 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ 0378 ÷	
@@ -1000,6 +3466,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1029,6 +3496,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x0378 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0x0378 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ D800 ÷ D800 ÷	
     // ÷ [0.2] <surrogate-D800> (Control) ÷ [4.0] <surrogate-D800> (Control) ÷ [0.3]
@@ -1047,6 +3671,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1069,6 +3694,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0xD800 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0xD800 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ D800 ÷ 0308 ÷ D800 ÷	
@@ -1094,6 +3805,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1122,6 +3834,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xD800, 0x0308, 0xD800 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xD800, 0x0308, 0xD800 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 000D × 000A ÷ 0061 ÷ 000A ÷ 0308 ÷	
@@ -1153,6 +4022,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 5);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 5);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1188,6 +4058,258 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x000D, 0x000A, 0x0061, 0x000A, 0x0308 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 5);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x000D, 0x000A, 0x0061, 0x000A, 0x0308 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 5, cps + 5);
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 0061 × 0308 ÷	
     // ÷ [0.2] LATIN SMALL LETTER A (Other) × [9.0] COMBINING DIAERESIS (Extend) ÷ [0.3]
@@ -1200,6 +4322,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1216,6 +4339,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x0308 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x0308 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 0020 × 200D ÷ 0646 ÷	
@@ -1235,6 +4397,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1258,6 +4421,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0020, 0x200D, 0x0646 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0020, 0x200D, 0x0646 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 0646 × 200D ÷ 0020 ÷	
     // ÷ [0.2] ARABIC LETTER NOON (Other) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] SPACE (Other) ÷ [0.3]
@@ -1276,6 +4525,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1299,6 +4549,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0646, 0x200D, 0x0020 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0646, 0x200D, 0x0020 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 1100 × 1100 ÷	
     // ÷ [0.2] HANGUL CHOSEONG KIYEOK (L) × [6.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
@@ -1311,6 +4647,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1327,6 +4664,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x1100, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x1100, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ AC00 × 11A8 ÷ 1100 ÷	
@@ -1346,6 +4722,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1369,6 +4746,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xAC00, 0x11A8, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xAC00, 0x11A8, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ AC01 × 11A8 ÷ 1100 ÷	
     // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [8.0] HANGUL JONGSEONG KIYEOK (T) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
@@ -1387,6 +4850,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1409,6 +4873,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xAC01, 0x11A8, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xAC01, 0x11A8, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 1F1E6 × 1F1E7 ÷ 1F1E8 ÷ 0062 ÷	
@@ -1434,6 +4984,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 4);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 4);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1462,6 +5013,163 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x1F1E6, 0x1F1E7, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 4);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x1F1E6, 0x1F1E7, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 4, cps + 4);
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 0061 ÷ 1F1E6 × 1F1E7 ÷ 1F1E8 ÷ 0062 ÷	
@@ -1493,6 +5201,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 5);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 5);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1528,6 +5237,258 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x1F1E7, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 5);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x1F1E7, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 5, cps + 5);
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 0061 ÷ 1F1E6 × 1F1E7 × 200D ÷ 1F1E8 ÷ 0062 ÷	
     // ÷ [0.2] LATIN SMALL LETTER A (Other) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) × [13.0] REGIONAL INDICATOR SYMBOL LETTER B (RI) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER C (RI) ÷ [999.0] LATIN SMALL LETTER B (Other) ÷ [0.3]
@@ -1558,6 +5519,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 6);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 6);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1592,6 +5554,258 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x1F1E7, 0x200D, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 6);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x1F1E7, 0x200D, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 6, cps + 6);
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 4);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 4);
+        EXPECT_EQ((*it).begin(), cps + 4);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 0061 ÷ 1F1E6 × 200D ÷ 1F1E7 × 1F1E8 ÷ 0062 ÷	
@@ -1623,6 +5837,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 6);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 6);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1658,6 +5873,258 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x200D, 0x1F1E7, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 6);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x200D, 0x1F1E7, 0x1F1E8, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 6, cps + 6);
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 0061 ÷ 1F1E6 × 1F1E7 ÷ 1F1E8 × 1F1E9 ÷ 0062 ÷	
     // ÷ [0.2] LATIN SMALL LETTER A (Other) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) × [13.0] REGIONAL INDICATOR SYMBOL LETTER B (RI) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER C (RI) × [13.0] REGIONAL INDICATOR SYMBOL LETTER D (RI) ÷ [999.0] LATIN SMALL LETTER B (Other) ÷ [0.3]
@@ -1688,6 +6155,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 6);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 6);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1723,6 +6191,258 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x1F1E7, 0x1F1E8, 0x1F1E9, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 6);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x1F1E6, 0x1F1E7, 0x1F1E8, 0x1F1E9, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 6, cps + 6);
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 5);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 5);
+        EXPECT_EQ((*it).begin(), cps + 5);
+        EXPECT_EQ((*it).end(), cps + 6);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 6);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 0061 × 200D ÷	
     // ÷ [0.2] LATIN SMALL LETTER A (Other) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
@@ -1735,6 +6455,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1751,6 +6472,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x200D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x200D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 0061 × 0308 ÷ 0062 ÷	
@@ -1770,6 +6530,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1793,6 +6554,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x0308, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x0308, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 0061 × 0903 ÷ 0062 ÷	
     // ÷ [0.2] LATIN SMALL LETTER A (Other) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [999.0] LATIN SMALL LETTER B (Other) ÷ [0.3]
@@ -1811,6 +6658,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1833,6 +6681,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x0903, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x0903, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 0061 ÷ 0600 × 0062 ÷	
@@ -1852,6 +6786,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1875,6 +6810,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x0061, 0x0600, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x0061, 0x0600, 0x0062 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 261D × 1F3FB ÷ 261D ÷	
     // ÷ [0.2] WHITE UP POINTING INDEX (E_Base) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
@@ -1893,6 +6914,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1916,6 +6938,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x261D, 0x1F3FB, 0x261D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x261D, 0x1F3FB, 0x261D };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 1F466 × 1F3FB ÷	
     // ÷ [0.2] BOY (EBG) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
@@ -1928,6 +7036,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1945,6 +7054,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x1F466, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x1F466, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 200D × 1F466 × 1F3FB ÷	
     // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [11.0] BOY (EBG) × [10.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
@@ -1957,6 +7105,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 3);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -1974,6 +7123,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 3);
     }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x200D, 0x1F466, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x200D, 0x1F466, 0x1F3FB };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
 
     // ÷ 200D × 2640 ÷	
     // ÷ [0.2] ZERO WIDTH JOINER (ZWJ) × [11.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
@@ -1986,6 +7174,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -2002,6 +7191,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x200D, 0x2640 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x200D, 0x2640 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 200D × 1F466 ÷	
@@ -2015,6 +7243,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -2031,6 +7260,45 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x200D, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x200D, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
     // ÷ 1F466 ÷ 1F466 ÷	
@@ -2050,6 +7318,7 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
+
         EXPECT_EQ(it.base(), cps + 2);
         EXPECT_EQ((*it).begin(), (*it).end());
     }
@@ -2072,6 +7341,92 @@ TEST(grapheme, iterator_4)
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
         EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // forth and back
+        uint32_t const cps[] = { 0x1F466, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+    }
+    {
+        // back and forth
+        uint32_t const cps[] = { 0x1F466, 0x1F466 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
     }
 
 }

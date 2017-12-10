@@ -67,11 +67,8 @@ namespace boost { namespace text {
             first_(first),
             last_(last)
         {
-            if (grapheme_.first_ != last_) {
-                break_ = grapheme_break(
-                    break_.fsm_, break_.prop_, *grapheme_.first_);
+            if (grapheme_.first_ != last_)
                 find_next_break();
-            }
         }
 
         reference operator*() const noexcept
@@ -105,6 +102,7 @@ namespace boost { namespace text {
             grapheme_.last_ = grapheme_.first_;
             grapheme_.first_ = find_grapheme_start(first_, --grapheme_.first_, last_);
             break_.prop_ = grapheme_prop(*grapheme_.first_);
+            break_.fsm_ = grapheme_break_fsm{};
             return *this;
         }
 
@@ -130,11 +128,17 @@ namespace boost { namespace text {
     private:
         void find_next_break() noexcept
         {
-            bool new_break = false;
-            while (!new_break && grapheme_.last_ != last_) {
+            if (grapheme_.last_ != last_) {
+                break_ = grapheme_break(
+                    break_.fsm_, break_.prop_, *grapheme_.last_);
+            }
+            while (grapheme_.last_ != last_) {
                 ++grapheme_.last_;
-                break_ = grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
-                new_break = break_;
+                auto const new_break =
+                    grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
+                if (new_break)
+                    break;
+                break_ = new_break;
             }
         }
 
