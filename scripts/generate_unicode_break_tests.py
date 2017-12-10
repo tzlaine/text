@@ -50,7 +50,7 @@ def extract_cps_and_breaks(filename):
     lines = open(filename, 'r').readlines()
     num_lines = 0
     for line in lines:
-        if num_lines == 200:
+        if num_lines == 100:
             retval.append(current_batch)
             current_batch = []
             num_lines = 0
@@ -91,7 +91,7 @@ def generate_prop_lookup_tests(cps_and_breaks, prop_, prop_names):
                             prop_, cps[j][0], prop_names[f[1:-1]]
                         )
                     j += 1
-        cpp_file = open('{}_prop_lookup_{}.cpp'.format(prop_, i), 'w')
+        cpp_file = open('{}_prop_lookup_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(prop_lookup_test_form.format(prop_, prop_lookup_tests, i))
 
 def generate_break_tests(cps_and_breaks, prop_):
@@ -123,7 +123,7 @@ def generate_break_tests(cps_and_breaks, prop_):
         prev_break = boost::text::{}_break(prev_break.fsm_, prev_break.prop_, 0x{});
         EXPECT_EQ(prev_break.break_, {});'''.format(prop_, cp[0], cp[1] and 'true' or 'false')
             break_tests += '\n    }\n'
-        cpp_file = open('{}_break_{}.cpp'.format(prop_, i), 'w')
+        cpp_file = open('{}_break_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(break_test_form.format(prop_, break_tests, i))
 
 def one_break(cps):
@@ -223,7 +223,7 @@ def generate_iterator_tests(cps_and_breaks, prop_):
                     iterator_tests += graphemes_and_end[idx]
             iterator_tests += '\n    }\n'
 
-        cpp_file = open('{}_iterator_{}.cpp'.format(prop_, i), 'w')
+        cpp_file = open('{}_iterator_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(grapheme_iterator_test_form.format(iterator_tests, i))
 
 
