@@ -49,7 +49,7 @@ def extract_cps_and_breaks(filename):
     lines = open(filename, 'r').readlines()
     num_lines = 0
     for line in lines:
-        if num_lines == 100:
+        if num_lines == 50:
             retval.append(current_batch)
             current_batch = []
             num_lines = 0
