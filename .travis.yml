@@ -197,7 +197,7 @@ script:
     - cd $CHECKOUT_PATH
     - |
       if [[ "$COVERAGE" != "on" ]]; then
-        for build_type in Debug release; do
+        for build_type in Debug Release; do
           for lang_ver in $CPP; do
             build_dir="build-$build_type-cxx-$lang_ver"
             mkdir $build_dir
