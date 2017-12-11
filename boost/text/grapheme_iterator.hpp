@@ -125,13 +125,15 @@ namespace boost { namespace text {
         }
 
         friend bool operator==(
-            grapheme_iterator<Iter> lhs, grapheme_iterator<Iter> rhs) noexcept
+            grapheme_iterator<Iter, Sentinel> lhs,
+            grapheme_iterator<Iter, Sentinel> rhs) noexcept
         {
             return lhs.grapheme_ == lhs.grapheme_;
         }
 
         friend bool operator!=(
-            grapheme_iterator<Iter> lhs, grapheme_iterator<Iter> rhs) noexcept
+            grapheme_iterator<Iter, Sentinel> lhs,
+            grapheme_iterator<Iter, Sentinel> rhs) noexcept
         {
             return !(lhs == rhs);
         }
