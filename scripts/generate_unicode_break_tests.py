@@ -277,7 +277,7 @@ TEST({1}, iterator_{3:02}_{4}_utf8)
 
         using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
         boost::text::{1}_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t(cus), iter_t(cus), sentinel);
+            iter_t{{cus}}, iter_t{{cus}}, sentinel);
 
 '''.format('0x' + ', 0x'.join(map(lambda x: x[0], cps)), prop_, len(cps), i, elem_index)
                 iterator_tests += '\n\n        ++it;\n\n'.join(code_unit_graphemes_and_end)
