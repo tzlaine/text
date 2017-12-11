@@ -19,6 +19,7 @@ add_sample(text_snippets)
 add_sample(hello_world)
 add_sample(encoding)
 add_sample(param_conventions)
+add_sample(code_point_to_utf8)
 
 
 if (BUILD_EDITOR)
