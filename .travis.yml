@@ -56,10 +56,11 @@ matrix:
           osx_image: xcode8.2
           compiler: clang
 
-        - env: CPP=14 MAC_OSX=true COVERAGE=on
-          os: osx
-          osx_image: xcode8.2
-          compiler: clang
+# TODO: Disabled for now to get the Travis build to stop failing due to timeout.
+#        - env: CPP=14 MAC_OSX=true COVERAGE=on
+#          os: osx
+#          osx_image: xcode8.2
+#          compiler: clang
 
         # Gcc
         - env: GCC_VERSION=4.8 CPP=14
