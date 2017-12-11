@@ -203,7 +203,7 @@ script:
             mkdir $build_dir
             cd $build_dir
             cmake -DCXX_STD=${lang_ver} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$build_type ..
-            VERBOSE=1 make -j2 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
+            VERBOSE=1 make -j4 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
             if [ $? -ne 0 ]
             then
               exit 1
@@ -219,7 +219,7 @@ script:
           cd $build_dir
           cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DBUILD_COVERAGE=true ..
           sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov
-          VERBOSE=1 make -j2 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
+          make -j4 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
           if [ $? -ne 0 ]
           then
             exit 1
