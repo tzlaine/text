@@ -3,6 +3,7 @@
 
 #include <boost/text/text_view.hpp>
 #include <boost/text/text.hpp>
+#include <boost/text/utf8.hpp>
 
 #include <boost/text/detail/btree.hpp>
 
@@ -252,10 +253,10 @@ namespace boost { namespace text { namespace detail {
         encoding_note_t encoding_note = check_encoding_breakage)
     {
         assert(t->which_ == which::t);
-        text_view const tv =
-            encoding_note == encoding_breakage_ok
-                ? text_view(t->as_text().begin() + lo, hi - lo, utf8::unchecked)
-                : t->as_text()(lo, hi);
+        if (encoding_note == check_encoding_breakage) {
+            // TODO: Check (lo, hi)
+        }
+        text_view const tv = text_view(t->as_text().begin() + lo, hi - lo);
 
         leaf_node_t<rope_tag> * leaf = nullptr;
         node_ptr<rope_tag> retval(leaf = new leaf_node_t<rope_tag>);
@@ -302,10 +303,10 @@ namespace boost { namespace text { namespace detail {
             {
                 auto mut_node = node.write();
                 text & t = mut_node.as_leaf()->as_text();
-                if (encoding_note == encoding_breakage_ok)
-                    t = text_view(t.begin() + lo, hi - lo, utf8::unchecked);
-                else
-                    t = t(lo, hi);
+                if (encoding_note == check_encoding_breakage) {
+                    // TODO: Check (lo, hi)
+                }
+                t = text_view(t.begin() + lo, hi - lo);
             }
             return node;
         case which::rtv: {
@@ -315,9 +316,11 @@ namespace boost { namespace text { namespace detail {
             int const mod_hi = hi % crtv.view().size();
             if (mod_lo != 0 || mod_hi != 0) {
                 if (encoding_note == check_encoding_breakage) {
-                    text_view const tv = crtv.view()(
-                        (std::min)(mod_lo, mod_hi), (std::max)(mod_lo, mod_hi));
-                    (void)tv;
+                    // TODO
+                    // text_view const tv = crtv.view()(
+                    //    (std::min)(mod_lo, mod_hi), (std::max)(mod_lo,
+                    //    mod_hi));
+                    //(void)tv;
                 }
                 return make_node(text(crtv.begin() + lo, crtv.begin() + hi));
             } else {
@@ -338,11 +341,10 @@ namespace boost { namespace text { namespace detail {
             {
                 auto mut_node = node.write();
                 reference<rope_tag> & ref = mut_node.as_leaf()->as_reference();
-                ref.ref_ =
-                    encoding_note == encoding_breakage_ok
-                        ? text_view(
-                              ref.ref_.begin() + lo, hi - lo, utf8::unchecked)
-                        : ref.ref_(lo, hi);
+                if (encoding_note == check_encoding_breakage) {
+                    // TODO: Check ref.ref_(lo, hi);
+                }
+                ref.ref_ = text_view(ref.ref_.begin() + lo, hi - lo);
             }
             return node;
         }
@@ -374,11 +376,10 @@ namespace boost { namespace text { namespace detail {
             {
                 auto mut_node = node.write();
                 text & t = mut_node.as_leaf()->as_text();
-                if (encoding_note == encoding_breakage_ok)
-                    t.erase(
-                        text_view(t.begin() + lo, hi - lo, utf8::unchecked));
-                else
-                    t.erase(t(lo, hi));
+                if (encoding_note == check_encoding_breakage) {
+                    // TODO: Check t(lo, hi)
+                }
+                t.erase(text_view(t.begin() + lo, hi - lo));
             }
             retval.slice = node;
             return retval;

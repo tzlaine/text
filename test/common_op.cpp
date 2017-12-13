@@ -126,7 +126,7 @@ TEST(common_operations, copy_assign_broken_encoding_no_throw)
                          char(0x8c),
                          char(0x82)};
 
-    text::text_view const tv(utf8, sizeof(utf8) - 1, text::utf8::unchecked);
+    text::text_view const tv(utf8, sizeof(utf8) - 1);
     text::repeated_text_view const rtv(tv, 3);
     text::text const t(tv);
     text::rope const r(tv);

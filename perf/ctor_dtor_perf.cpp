@@ -15,16 +15,6 @@ void BM_text_view_ctor_dtor(benchmark::State & state)
     }
 }
 
-void BM_text_view_ctor_dtor_unchecked(benchmark::State & state)
-{
-    while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::text_view(
-            strings[state.range(0)].c_str(),
-            strings[state.range(0)].size(),
-            boost::text::utf8::unchecked));
-    }
-}
-
 void BM_text_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
@@ -49,7 +39,6 @@ void BM_rope_view_ctor_dtor(benchmark::State & state)
 }
 
 BENCHMARK(BM_text_view_ctor_dtor) BENCHMARK_ARGS();
-BENCHMARK(BM_text_view_ctor_dtor_unchecked) BENCHMARK_ARGS();
 
 BENCHMARK(BM_text_ctor_dtor) BENCHMARK_ARGS();
 

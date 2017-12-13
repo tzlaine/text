@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
-#include <boost/text/utf8.hpp>
+#include <boost/text/config.hpp>
 
 #include <boost/text/detail/algorithm.hpp>
 #include <boost/text/detail/iterator.hpp>
@@ -327,10 +327,6 @@ namespace boost { namespace text {
             if (first == last)
                 return *this;
 
-            if (!utf8::starts_encoded(cbegin() + at, cend()))
-                throw std::invalid_argument(
-                    "Inserting at that character breaks UTF-8 encoding.");
-
             return insert_iter_impl(at, first, last);
         }
 
@@ -514,11 +510,6 @@ namespace boost { namespace text {
                 heap_t new_data = get_new_data(delta - available);
                 std::copy(begin(), begin() + prev_size, new_data.data_.get());
                 set_heap(std::move(new_data));
-            } else if (
-                delta < 0 &&
-                !utf8::ends_encoded(cbegin(), cbegin() + new_size)) {
-                throw std::invalid_argument(
-                    "Resizing to the given size breaks UTF-8 encoding.");
             }
 
             size_ = new_size;
@@ -841,26 +832,6 @@ namespace boost { namespace text {
         return t.crend();
     }
 
-    /** Forwards t when it is entirely UTF-8 encoded; throws otherwise.
-
-        \throw std::invalid_argument when t is not UTF-8 encoded. */
-    inline text const & checked_encoding(text const & t)
-    {
-        if (!utf8::encoded(t.begin(), t.end()))
-            throw std::invalid_argument("Invalid UTF-8 encoding");
-        return t;
-    }
-
-    /** Forwards t when it is entirely UTF-8 encoded; throws otherwise.
-
-        \throw std::invalid_argument when t is not UTF-8 encoded. */
-    inline text && checked_encoding(text && t)
-    {
-        if (!utf8::encoded(t.begin(), t.end()))
-            throw std::invalid_argument("Invalid UTF-8 encoding");
-        return std::move(t);
-    }
-
 }}
 
 #include <boost/text/repeated_text_view.hpp>
@@ -878,35 +849,13 @@ namespace boost { namespace text {
             assert(len < INT_MAX);
             return text(text_view(str, len));
         }
-
-        /** Creates a text from a char16_t string literal.
-
-            \throw std::invalid_argument if the string is not valid UTF-16. */
-        inline text operator"" _t(char16_t const * str, std::size_t len)
-        {
-            assert(len < INT_MAX / 2);
-            return text(
-                utf8::from_utf16_iterator<char16_t const *>(str),
-                utf8::from_utf16_iterator<char16_t const *>(str + len));
-        }
-
-        /** Creates a text from a char32_t string literal.
-
-            \throw std::invalid_argument if the string is not valid UTF-32. */
-        inline text operator"" _t(char32_t const * str, std::size_t len)
-        {
-            assert(len < INT_MAX / 4);
-            return text(
-                utf8::from_utf32_iterator<char32_t const *>(str),
-                utf8::from_utf32_iterator<char32_t const *>(str + len));
-        }
     }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     inline text::text(text const & t) : storage_(), size_(0), heap_(false)
     {
-        insert(0, text_view(t.begin(), t.size(), utf8::unchecked));
+        insert(0, text_view(t.begin(), t.size()));
     }
 
     inline text::text(text_view tv) : storage_(), size_(0), heap_(false)
@@ -926,7 +875,7 @@ namespace boost { namespace text {
     {
         if (t.size() <= size()) {
             clear();
-            insert(0, text_view(t.begin(), t.size(), utf8::unchecked));
+            insert(0, text_view(t.begin(), t.size()));
         } else {
             text tmp(t);
             swap(tmp);
@@ -946,8 +895,8 @@ namespace boost { namespace text {
         assert(0 <= tv.size());
         bool const self_ref = self_reference(tv);
         if (self_ref) {
-            erase(text_view(tv.end(), end() - tv.end(), utf8::unchecked));
-            erase(text_view(begin(), tv.begin() - begin(), utf8::unchecked));
+            erase(text_view(tv.end(), end() - tv.end()));
+            erase(text_view(begin(), tv.begin() - begin()));
         } else if (tv.size() <= size()) {
             clear();
             insert(0, tv);
@@ -1029,10 +978,6 @@ namespace boost { namespace text {
         assert(0 <= at && at <= size_);
         assert(0 <= tv.size());
 
-        if (!utf8::starts_encoded(cbegin() + at, cend()))
-            throw std::invalid_argument(
-                "Inserting at that character breaks UTF-8 encoding.");
-
         bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
         if (tv_null_terminated)
             tv = tv(0, -1);
@@ -1067,10 +1012,6 @@ namespace boost { namespace text {
     {
         assert(0 <= at && at <= size_);
         assert(0 <= rtv.size());
-
-        if (!utf8::starts_encoded(cbegin() + at, cend()))
-            throw std::invalid_argument(
-                "Inserting at that character breaks UTF-8 encoding.");
 
         bool const rtv_null_terminated =
             !rtv.view().empty() && rtv.view().end()[-1] == '\0';
@@ -1140,17 +1081,6 @@ namespace boost { namespace text {
 
         assert(self_reference(old_substr));
 
-        if (old_substr.empty()) {
-            if (old_substr.begin() == begin()) {
-                text_view check_after(
-                    old_substr.begin(), end() - old_substr.begin());
-                (void)check_after;
-            } else {
-                text_view check_before(ptr(), old_substr.begin() - begin());
-                (void)check_before;
-            }
-        }
-
         bool const new_substr_null_terminated =
             !new_substr.empty() && new_substr.end()[-1] == '\0';
         if (new_substr_null_terminated)
@@ -1200,17 +1130,6 @@ namespace boost { namespace text {
             old_substr = old_substr(0, -1);
 
         assert(self_reference(old_substr));
-
-        if (old_substr.empty()) {
-            if (old_substr.begin() == begin()) {
-                text_view check_after(
-                    old_substr.begin(), end() - old_substr.begin());
-                (void)check_after;
-            } else {
-                text_view check_before(ptr(), old_substr.begin() - begin());
-                (void)check_before;
-            }
-        }
 
         bool const new_substr_null_terminated =
             !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';

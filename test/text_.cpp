@@ -64,12 +64,6 @@ TEST(text, test_empty)
 
         text::text t3 = u8""_t;
         EXPECT_TRUE(t == t3);
-
-        text::text t4 = u""_t;
-        EXPECT_TRUE(t == t4);
-
-        text::text t5 = U""_t;
-        EXPECT_TRUE(t == t5);
     }
 }
 
@@ -603,18 +597,6 @@ TEST(text, test_misc)
         EXPECT_EQ(t[t.size()], '\0');
     }
 
-    // Unicode 9, 3.9/D90
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-
-    {
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::text t(first, last);
-        EXPECT_THROW(t.resize(t.size() - 1, '\0'), std::invalid_argument);
-    }
-
     {
         text::text t("some text");
         EXPECT_EQ(t[t.size()], '\0');
@@ -835,11 +817,6 @@ TEST(text, test_insert)
         t6.insert(6, first, last);
         EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
         EXPECT_EQ(t6[t6.size()], '\0');
-
-        // Breaking the encoding is fine with the iterator interface.
-        text::text t7(first, last);
-        char const * c_str = "a";
-        EXPECT_NO_THROW(t7.insert(t7.end() - 2, c_str, c_str + 1));
     }
 
     {
@@ -859,61 +836,6 @@ TEST(text, test_insert)
             t.insert(2, rtv);
             EXPECT_EQ(t, "text"); // no nulls in the middle
             EXPECT_EQ(t[t.size()], '\0');
-        }
-    }
-
-    {
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::text const ct(first, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.insert(0, "something"));
-            EXPECT_EQ(t[t.size()], '\0');
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.insert(1, "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.insert(2, "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.insert(3, "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.insert(4, "something"));
-            EXPECT_EQ(t[t.size()], '\0');
-        }
-
-        {
-            // Broken encoding in the removed *and* inserted ranges is fine,
-            // since the iterator interface is considered unsafe.
-            text::text t = ct;
-            auto final_cp_plus_one = first;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.insert(4, final_cp_plus_one, last));
-        }
-
-        {
-            // Broken encoding due to the insertion point *and* inserted
-            // ranges is fine, since the iterator interface is considered
-            // unsafe.
-            text::text t = ct;
-            auto final_cp_plus_one = first;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.insert(t.begin() + 1, final_cp_plus_one, last));
         }
     }
 }
@@ -946,85 +868,6 @@ TEST(text, test_erase)
                 << "i=" << i << " j=" << j << " erasing '" << substr << "'";
             EXPECT_EQ(t, expected)
                 << "i=" << i << " j=" << j << " erasing '" << substr << "'";
-        }
-    }
-
-    {
-        // Unicode 9, 3.9/D90
-        uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::text const ct(first, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t));
-            EXPECT_EQ(t[t.size()], '\0');
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t(0, 0)));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t(1, 1)));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t(2, 2)));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t(3, 3)));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t(4, 4)));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.erase(t(-1)), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.erase(t(-2)), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.erase(t(-3)), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.erase(t(1)), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.erase(t(2)), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.erase(t(3)), std::invalid_argument);
-        }
-
-        {
-            // Breaking the encoding is fine with the iterator interface.
-            text::text t = ct;
-            EXPECT_NO_THROW(t.erase(t.end() - 2, t.end() - 1));
         }
     }
 }
@@ -1116,85 +959,6 @@ TEST(text, test_replace)
                 << "i=" << i << " j=" << j << " erasing '" << substr << "'";
         }
     }
-
-    {
-        // Unicode 9, 3.9/D90
-        uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::text const ct(first, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t, "something"));
-            EXPECT_EQ(t[t.size()], '\0');
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(0, 0), "something"));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(1, 1), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(2, 2), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(3, 3), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(4, 4), "something"));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -1), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -2), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -3), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.replace(t(1), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.replace(t(2), "something"), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(t.replace(t(3), "something"), std::invalid_argument);
-        }
-    }
 }
 
 TEST(text, test_replace_iter)
@@ -1266,98 +1030,6 @@ TEST(text, test_replace_iter)
                 EXPECT_EQ(t, expected)
                     << "i=" << i << " j=" << j << " erasing '" << substr << "'";
             }
-        }
-    }
-
-    {
-        text::text const ct(final_cp, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t, final_cp, last));
-            EXPECT_EQ(t[t.size()], '\0');
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(0, 0), final_cp, last));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(1, 1), final_cp, last));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(2, 2), final_cp, last));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(3, 3), final_cp, last));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_NO_THROW(t.replace(t(4, 4), final_cp, last));
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -1), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -2), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -3), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(1), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(2), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::text t = ct;
-            EXPECT_THROW(
-                t.replace(t(3), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            // Broken encoding in the inserted range is fine, since the
-            // iterator interface is considered unsafe.
-            text::text t = ct;
-            auto final_cp_plus_one = final_cp;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.replace(t, final_cp_plus_one, last));
-        }
-
-        {
-            // Broken encoding in the removed *and* inserted ranges is fine,
-            // since the iterator interface is considered unsafe.
-            text::text t = ct;
-            auto final_cp_plus_one = final_cp;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(
-                t.replace(t.begin() + 1, t.end(), final_cp_plus_one, last));
-            EXPECT_EQ(t, ct);
         }
     }
 }

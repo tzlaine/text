@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_TEXT_VIEW_HPP
 #define BOOST_TEXT_TEXT_VIEW_HPP
 
-#include <boost/text/utf8.hpp>
+#include <boost/text/config.hpp>
 
 #include <boost/text/detail/algorithm.hpp>
 #include <boost/text/detail/iterator.hpp>
@@ -46,12 +46,6 @@ namespace boost { namespace text {
             size_(detail::strlen(c_str))
         {
             assert(detail::strlen(c_str) <= max_size());
-            if (!utf8::starts_encoded(begin(), end()))
-                throw std::invalid_argument(
-                    "The start of the given string is not valid UTF-8.");
-            if (!utf8::ends_encoded(begin(), end()))
-                throw std::invalid_argument(
-                    "The end of the given string is not valid UTF-8.");
         }
 
         /** Constructs a text_view from an array of char.  The UTF-8 encoding
@@ -64,42 +58,6 @@ namespace boost { namespace text {
             \throw std::invalid_argument if the ends of the string are not valid
            UTF-8. \pre len >= 0 \post data() == c_str && size() == len */
         BOOST_TEXT_CXX14_CONSTEXPR text_view(char const * c_str, int len) :
-            data_(c_str),
-            size_(len)
-        {
-            assert(0 <= len);
-            if (!utf8::starts_encoded(begin(), end()))
-                throw std::invalid_argument(
-                    "The start of the given string is not valid UTF-8.");
-            if (!utf8::ends_encoded(begin(), end()))
-                throw std::invalid_argument(
-                    "The end of the given string is not valid UTF-8.");
-        }
-
-        /** Constructs a text_view from a null-terminated C string, without
-            any check of UTF-8 encoding.
-
-            This function is constexpr in C++14 and later.
-
-            \pre strlen(c_str) <= max_size()
-            \post data() == c_str && size() == strlen(c_str) */
-        BOOST_TEXT_CXX14_CONSTEXPR
-        text_view(char const * c_str, utf8::unchecked_t) noexcept :
-            data_(c_str),
-            size_(detail::strlen(c_str))
-        {
-            assert(detail::strlen(c_str) <= max_size());
-        }
-
-        /** Constructs a text_view from an array of char, without any check of
-            UTF-8 encoding.
-
-            This function is constexpr in C++14 and later.
-
-            \pre len >= 0
-            \post data() == c_str && size() == len */
-        BOOST_TEXT_CXX14_CONSTEXPR
-        text_view(char const * c_str, int len, utf8::unchecked_t) noexcept :
             data_(c_str),
             size_(len)
         {
@@ -338,18 +296,6 @@ namespace boost { namespace text {
     inline constexpr text_view::reverse_iterator rend(text_view tv) noexcept
     {
         return tv.rend();
-    }
-
-    /** Forwards tv when it is entirely UTF-8 encoded; throws otherwise.
-
-        This function is constexpr in C++14 and later.
-
-        \throw std::invalid_argument when tv is not UTF-8 encoded. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR text_view checked_encoding(text_view tv)
-    {
-        if (!utf8::encoded(tv.begin(), tv.end()))
-            throw std::invalid_argument("Invalid UTF-8 encoding");
-        return tv;
     }
 
 }}

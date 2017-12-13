@@ -50,12 +50,6 @@ TEST(rope, test_empty)
 
         text::rope t3(u8""_t);
         EXPECT_TRUE(t == t3);
-
-        text::rope t4(u""_t);
-        EXPECT_TRUE(t == t4);
-
-        text::rope t5(U""_t);
-        EXPECT_TRUE(t == t5);
     }
 }
 
@@ -567,11 +561,6 @@ TEST(rope, test_insert)
         text::rope t6 = ct;
         t6.insert(6, first, last);
         EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
-
-        // Breaking the encoding is fine with the iterator interface.
-        text::rope t7(first, last);
-        char const * c_str = "a";
-        EXPECT_NO_THROW(t7.insert(t7.end() - 2, c_str, c_str + 1));
     }
 
     {
@@ -589,61 +578,6 @@ TEST(rope, test_insert)
             text::rope t("text");
             t.insert(2, rtv);
             EXPECT_EQ(t, "text"); // no nulls in the middle
-        }
-    }
-
-    {
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::rope const ct(first, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.insert(0, "something"));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.insert(1, "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.insert(2, "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.insert(3, "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.insert(4, "something"));
-        }
-
-        {
-            // Broken encoding in the removed *and* inserted ranges is fine,
-            // since the iterator interface is considered unsafe.
-            text::rope t = ct;
-            auto final_cp_plus_one = first;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.insert(4, final_cp_plus_one, last));
-            EXPECT_NO_THROW(t.insert(4, last, last));
-        }
-
-        {
-            // Broken encoding due to the insertion point *and* inserted
-            // ranges is fine, since the iterator interface is considered
-            // unsafe.
-            text::rope t = ct;
-            auto final_cp_plus_one = first;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.insert(t.begin() + 1, final_cp_plus_one, last));
-            EXPECT_NO_THROW(t.insert(t.begin() + 1, last, last));
         }
     }
 }
@@ -691,102 +625,6 @@ TEST(rope, test_insert_rope_view)
     }
 }
 
-TEST(rope, test_insert_encoding_checks)
-{
-    // Unicode 9, 3.9/D90-D92
-    // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    char const utf8[] = {0x4d,
-                         char(0xd0),
-                         char(0xb0),
-                         char(0xe4),
-                         char(0xba),
-                         char(0x8c),
-                         char(0xf0),
-                         char(0x90),
-                         char(0x8c),
-                         char(0x82)};
-
-    text::text_view const unbroken_tv(utf8, sizeof(utf8));
-    text::text_view const broken_tv(
-        utf8, sizeof(utf8) - 1, text::utf8::unchecked);
-
-    text::text const unbroken_t(unbroken_tv);
-    text::text const broken_t(broken_tv);
-
-    text::repeated_text_view const unbroken_rtv(unbroken_tv, 2);
-    text::repeated_text_view const broken_rtv(broken_tv, 2);
-
-    text::rope const unbroken_r(unbroken_tv);
-    text::rope const broken_r(broken_tv);
-
-    text::rope_view const unbroken_rv = unbroken_r;
-    text::rope_view const broken_rv = broken_r;
-
-    // text
-
-    {
-        text::rope r(unbroken_t);
-
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rtv), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r + ""), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rv), std::logic_error);
-        EXPECT_NO_THROW(r.insert(r.size(), "x"));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_tv));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_t));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_t + ""));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_rtv));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_r));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_r + ""));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_rv));
-    }
-
-    // text_view
-
-    {
-        text::rope r(unbroken_tv);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rtv), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r + ""), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rv), std::logic_error);
-        EXPECT_NO_THROW(r.insert(r.size(), "x"));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_tv));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_t));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_t + ""));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_rtv));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_r));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_r + ""));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_rv));
-    }
-
-    // repeated_text_view
-
-    {
-        text::rope r(unbroken_rtv);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_tv), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_t + ""), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rtv), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_r + ""), std::logic_error);
-        EXPECT_THROW(r.insert(r.size() - 1, unbroken_rv), std::logic_error);
-        EXPECT_NO_THROW(r.insert(r.size(), "x"));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_tv));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_t));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_t + ""));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_rtv));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_r));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_r + ""));
-        EXPECT_NO_THROW(r.insert(r.size(), broken_rv));
-    }
-}
-
 TEST(rope, test_erase)
 {
     {
@@ -811,84 +649,6 @@ TEST(rope, test_erase)
             t.erase(substr);
             EXPECT_EQ(t, expected)
                 << "i=" << i << " j=" << j << " erasing '" << substr << "'";
-        }
-    }
-
-    {
-        // Unicode 9, 3.9/D90
-        uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::rope const ct(first, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t(0, 0)));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t(1, 1)));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t(2, 2)));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t(3, 3)));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t(4, 4)));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.erase(t(-1)), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.erase(t(-2)), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.erase(t(-3)), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.erase(t(1)), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.erase(t(2)), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.erase(t(3)), std::invalid_argument);
-        }
-
-        {
-            // Breaking the encoding is fine with the iterator interface.
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.erase(t.end() - 2, t.end() - 1));
         }
     }
 }
@@ -969,84 +729,6 @@ TEST(rope, test_replace)
                 << "i=" << i << " j=" << j << " erasing '" << substr << "'";
         }
     }
-
-    {
-        // Unicode 9, 3.9/D90
-        uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-        text::rope const ct(first, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t, "something"));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(0, 0), "something"));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(1, 1), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(2, 2), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(3, 3), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(4, 4), "something"));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -1), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -2), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -3), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.replace(t(1), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.replace(t(2), "something"), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(t.replace(t(3), "something"), std::invalid_argument);
-        }
-    }
 }
 
 TEST(rope, test_replace_iter)
@@ -1111,97 +793,6 @@ TEST(rope, test_replace_iter)
                 EXPECT_EQ(t, expected)
                     << "i=" << i << " j=" << j << " erasing '" << substr << "'";
             }
-        }
-    }
-
-    {
-        text::rope const ct(final_cp, last);
-        EXPECT_EQ(ct.size(), 4);
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t, final_cp, last));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(0, 0), final_cp, last));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(1, 1), final_cp, last));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(2, 2), final_cp, last));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(3, 3), final_cp, last));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_NO_THROW(t.replace(t(4, 4), final_cp, last));
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -1), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -2), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(0, -3), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(1), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(2), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            text::rope t = ct;
-            EXPECT_THROW(
-                t.replace(t(3), final_cp, last), std::invalid_argument);
-        }
-
-        {
-            // Broken encoding in the inserted range is fine, since the
-            // iterator interface is considered unsafe.
-            text::rope t = ct;
-            auto final_cp_plus_one = final_cp;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(t.replace(t, final_cp_plus_one, last));
-        }
-
-        {
-            // Broken encoding in the removed *and* inserted ranges is fine,
-            // since the iterator interface is considered unsafe.
-            text::rope t = ct;
-            auto final_cp_plus_one = final_cp;
-            ++final_cp_plus_one;
-            EXPECT_NO_THROW(
-                t.replace(t.begin() + 1, t.end(), final_cp_plus_one, last));
-            EXPECT_EQ(t, ct);
         }
     }
 }

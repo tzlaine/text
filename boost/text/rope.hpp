@@ -432,8 +432,6 @@ namespace boost { namespace text {
             return text_insertion{nullptr};
         }
 
-        void check_encoding_from(size_type at);
-
         template<typename T>
         rope &
         insert_impl(size_type at, T && t, allocation_note_t allocation_note)
@@ -442,8 +440,6 @@ namespace boost { namespace text {
 
             if (t.empty())
                 return *this;
-
-            check_encoding_from(at);
 
             if (text_insertion insertion =
                     mutable_insertion_leaf(at, t.size(), allocation_note)) {
@@ -462,7 +458,7 @@ namespace boost { namespace text {
                     ptr_,
                     at,
                     detail::make_node(std::forward<T &&>(t)),
-                    detail::check_encoding_breakage);
+                    detail::encoding_breakage_ok);
             }
 
             return *this;
@@ -475,17 +471,6 @@ namespace boost { namespace text {
 
 #endif
     };
-
-
-    /** Forwards r when it is entirely UTF-8 encoded; throws otherwise.
-
-        \throw std::invalid_argument when r is not UTF-8 encoded. */
-    inline rope const & checked_encoding(rope const & r);
-
-    /** Forwards r when it is entirely UTF-8 encoded; throws otherwise.
-
-        \throw std::invalid_argument when r is not UTF-8 encoded. */
-    inline rope && checked_encoding(rope && r);
 
 }}
 
@@ -550,8 +535,6 @@ namespace boost { namespace text {
         if (rv_null_terminated)
             rv = rv(0, -1);
 
-        check_encoding_from(at);
-
         rope_view::rope_ref rope_ref = rv.ref_.r_;
 
         detail::found_leaf<detail::rope_tag> found_lo;
@@ -571,7 +554,7 @@ namespace boost { namespace text {
                     found_lo.offset_ + rv.size(),
                     true,
                     detail::encoding_breakage_ok),
-                detail::check_encoding_breakage);
+                detail::encoding_breakage_ok);
             return *this;
         }
 
@@ -599,7 +582,7 @@ namespace boost { namespace text {
                         ptr_,
                         at,
                         std::move(node),
-                        detail::check_encoding_breakage);
+                        detail::encoding_breakage_ok);
                     at += node_size;
                     before_lo = false;
                     return true; // continue
@@ -619,7 +602,7 @@ namespace boost { namespace text {
                                 found_hi.offset_,
                                 true,
                                 detail::encoding_breakage_ok),
-                            detail::check_encoding_breakage);
+                            detail::encoding_breakage_ok);
 
                         at += found_hi.offset_;
                     }
@@ -631,7 +614,7 @@ namespace boost { namespace text {
                     ptr_,
                     at,
                     detail::node_ptr<detail::rope_tag>(leaf),
-                    detail::check_encoding_breakage);
+                    detail::encoding_breakage_ok);
                 at += detail::size(leaf);
 
                 return true;
@@ -649,13 +632,11 @@ namespace boost { namespace text {
         if (first == last)
             return *this;
 
-        check_encoding_from(at);
-
         ptr_ = detail::btree_insert(
             ptr_,
             at,
             detail::make_node(text(first, last)),
-            detail::check_encoding_breakage);
+            detail::encoding_breakage_ok);
 
         return *this;
     }
@@ -696,7 +677,7 @@ namespace boost { namespace text {
             rv = rv(0, -1);
 
         ptr_ = btree_erase(
-            ptr_, rope_ref.lo_, rope_ref.hi_, detail::check_encoding_breakage);
+            ptr_, rope_ref.lo_, rope_ref.hi_, detail::encoding_breakage_ok);
 
         return *this;
     }
@@ -823,9 +804,6 @@ namespace boost { namespace text {
         if (lo == hi)
             return rope();
 
-        auto const check_ends = (*this)(lo, hi);
-        (void)check_ends;
-
         // If the entire substring falls within a single segment, slice
         // off the appropriate part of that segment.
         detail::found_leaf<detail::rope_tag> found;
@@ -836,7 +814,7 @@ namespace boost { namespace text {
                 found.offset_,
                 found.offset_ + hi - lo,
                 true,
-                detail::check_encoding_breakage));
+                detail::encoding_breakage_ok));
         }
 
         // Take an extra ref to the root, which will force all a clone of
@@ -845,10 +823,10 @@ namespace boost { namespace text {
 
         if (hi != size())
             new_root = detail::btree_erase(
-                new_root, hi, size(), detail::check_encoding_breakage);
+                new_root, hi, size(), detail::encoding_breakage_ok);
         if (lo != 0)
             new_root = detail::btree_erase(
-                new_root, 0, lo, detail::check_encoding_breakage);
+                new_root, 0, lo, detail::encoding_breakage_ok);
 
         return rope(new_root);
     }
@@ -886,13 +864,6 @@ namespace boost { namespace text {
         return rv.which_ == rope_view::which::r && rv.ref_.r_.r_ == this;
     }
 
-    inline void rope::check_encoding_from(size_type at)
-    {
-        if (!utf8::starts_encoded(begin() + at, end()))
-            throw std::invalid_argument(
-                "Inserting at that character breaks UTF-8 encoding.");
-    }
-
 #endif
 
     /** Creates a new rope object that is the concatenation of r and r2. */
@@ -925,19 +896,6 @@ namespace boost { namespace text {
     }
 
 
-    inline rope const & checked_encoding(rope const & r)
-    {
-        r.foreach_segment(detail::segment_encoding_checker{});
-        return r;
-    }
-
-    inline rope && checked_encoding(rope && r)
-    {
-        r.foreach_segment(detail::segment_encoding_checker{});
-        return std::move(r);
-    }
-
-
     inline rope_view::rope_view(rope const & r) noexcept :
         ref_(rope_ref(&r, 0, r.size())),
         which_(which::r)
@@ -946,48 +904,22 @@ namespace boost { namespace text {
     inline rope_view::rope_view(rope const & r, int lo, int hi) :
         ref_(rope_ref(&r, lo, hi)),
         which_(which::r)
-    {
-        if (!utf8::starts_encoded(begin(), end()))
-            throw std::invalid_argument(
-                "The start of the given string is not valid UTF-8.");
-        if (!utf8::ends_encoded(begin(), end()))
-            throw std::invalid_argument(
-                "The end of the given string is not valid UTF-8.");
-    }
-
-    inline rope_view::rope_view(
-        rope const & r, int lo, int hi, utf8::unchecked_t) noexcept :
-        ref_(rope_ref(&r, lo, hi)),
-        which_(which::r)
     {}
 
     inline rope_view::rope_view(text const & r) noexcept :
-        ref_(text_view(r.begin(), r.size(), utf8::unchecked)),
+        ref_(text_view(r.begin(), r.size())),
         which_(which::tv)
     {}
-
+        
     inline rope_view::rope_view(text const & r, int lo, int hi) :
         ref_(r(lo, hi)),
-        which_(which::tv)
-    {}
-
-    inline rope_view::rope_view(
-        text const & r, int lo, int hi, utf8::unchecked_t) noexcept :
-        ref_(text_view(r.begin() + lo, hi - lo, utf8::unchecked)),
         which_(which::tv)
     {}
 
     inline rope_view::rope_view(repeated_text_view rtv, int lo, int hi) :
         ref_(repeated_ref(rtv, lo, hi)),
         which_(which::rtv)
-    {
-        if (!utf8::starts_encoded(begin(), end()))
-            throw std::invalid_argument(
-                "The start of the given string is not valid UTF-8.");
-        if (!utf8::ends_encoded(begin(), end()))
-            throw std::invalid_argument(
-                "The end of the given string is not valid UTF-8.");
-    }
+    {}
 
     inline rope_view::const_iterator rope_view::begin() const noexcept
     {
