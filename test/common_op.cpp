@@ -1,4 +1,4 @@
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 #include <gtest/gtest.h>
 
@@ -10,10 +10,10 @@ TEST(common_operations, test_operator_plus)
     text::text_view const tv("tv");
     text::repeated_text_view const rtv(tv, 3);
     text::text const t("t");
-    text::rope const r("r");
-    text::rope_view const rv(r);
+    text::unencoded_rope const r("r");
+    text::unencoded_rope_view const rv(r);
 
-    text::rope result;
+    text::unencoded_rope result;
 
     EXPECT_EQ((result = tv + tv), "tvtv");
     EXPECT_EQ((result = tv + rtv), "tvtvtvtv");
@@ -78,8 +78,8 @@ TEST(common_operations, test_operator_plus_assign)
         text::text_view const tv("tv");
         text::repeated_text_view const rtv(tv, 3);
         text::text const t("t");
-        text::rope const r("r");
-        text::rope_view const rv(r);
+        text::unencoded_rope const r("r");
+        text::unencoded_rope_view const rv(r);
 
         text::text result_t;
 
@@ -96,10 +96,10 @@ TEST(common_operations, test_operator_plus_assign)
         text::text_view const tv("tv");
         text::repeated_text_view const rtv(tv, 3);
         text::text const t("t");
-        text::rope const r("r");
-        text::rope_view const rv(r);
+        text::unencoded_rope const r("r");
+        text::unencoded_rope_view const rv(r);
 
-        text::rope result_r;
+        text::unencoded_rope result_r;
 
         EXPECT_EQ((result_r += tv), "tv");
         EXPECT_EQ((result_r += rtv), "tvtvtvtv");
@@ -129,13 +129,13 @@ TEST(common_operations, copy_assign_broken_encoding_no_throw)
     text::text_view const tv(utf8, sizeof(utf8) - 1);
     text::repeated_text_view const rtv(tv, 3);
     text::text const t(tv);
-    text::rope const r(tv);
+    text::unencoded_rope const r(tv);
 
-    EXPECT_NO_THROW(text::rope_view(tv));
-    EXPECT_NO_THROW(text::rope_view(rtv));
-    EXPECT_NO_THROW(text::rope_view(t));
+    EXPECT_NO_THROW(text::unencoded_rope_view(tv));
+    EXPECT_NO_THROW(text::unencoded_rope_view(rtv));
+    EXPECT_NO_THROW(text::unencoded_rope_view(t));
 
-    text::rope_view const rv(r);
+    text::unencoded_rope_view const rv(r);
 
     EXPECT_NO_THROW(text::text_view(tv));
     EXPECT_NO_THROW(text::text_view(t));
@@ -149,20 +149,20 @@ TEST(common_operations, copy_assign_broken_encoding_no_throw)
     EXPECT_NO_THROW(text::text(t));
     EXPECT_NO_THROW(text::text(text::text(t)));
 
-    EXPECT_NO_THROW(text::rope(tv));
-    EXPECT_NO_THROW(text::rope(rtv));
-    EXPECT_NO_THROW(text::rope(t));
-    EXPECT_NO_THROW(text::rope(text::text(t)));
-    EXPECT_NO_THROW(text::rope(r));
-    EXPECT_NO_THROW(text::rope(text::rope(r)));
-    EXPECT_NO_THROW(text::rope(rv));
+    EXPECT_NO_THROW(text::unencoded_rope(tv));
+    EXPECT_NO_THROW(text::unencoded_rope(rtv));
+    EXPECT_NO_THROW(text::unencoded_rope(t));
+    EXPECT_NO_THROW(text::unencoded_rope(text::text(t)));
+    EXPECT_NO_THROW(text::unencoded_rope(r));
+    EXPECT_NO_THROW(text::unencoded_rope(text::unencoded_rope(r)));
+    EXPECT_NO_THROW(text::unencoded_rope(rv));
 
-    EXPECT_NO_THROW(text::rope_view(tv));
-    EXPECT_NO_THROW(text::rope_view(rtv));
-    EXPECT_NO_THROW(text::rope_view(t));
-    EXPECT_NO_THROW(text::rope_view(text::text(t)));
-    EXPECT_NO_THROW(text::rope_view(r));
-    EXPECT_NO_THROW(text::rope_view(rv));
+    EXPECT_NO_THROW(text::unencoded_rope_view(tv));
+    EXPECT_NO_THROW(text::unencoded_rope_view(rtv));
+    EXPECT_NO_THROW(text::unencoded_rope_view(t));
+    EXPECT_NO_THROW(text::unencoded_rope_view(text::text(t)));
+    EXPECT_NO_THROW(text::unencoded_rope_view(r));
+    EXPECT_NO_THROW(text::unencoded_rope_view(rv));
 
     EXPECT_NO_THROW(text::text_view() = tv);
     EXPECT_NO_THROW(text::text_view() = t);
@@ -175,18 +175,18 @@ TEST(common_operations, copy_assign_broken_encoding_no_throw)
     EXPECT_NO_THROW(text::text() = t);
     EXPECT_NO_THROW(text::text() = text::text(t));
 
-    EXPECT_NO_THROW(text::rope() = tv);
-    EXPECT_NO_THROW(text::rope() = rtv);
-    EXPECT_NO_THROW(text::rope() = t);
-    EXPECT_NO_THROW(text::rope() = text::text(t));
-    EXPECT_NO_THROW(text::rope() = r);
-    EXPECT_NO_THROW(text::rope() = text::rope(r));
-    EXPECT_NO_THROW(text::rope() = rv);
+    EXPECT_NO_THROW(text::unencoded_rope() = tv);
+    EXPECT_NO_THROW(text::unencoded_rope() = rtv);
+    EXPECT_NO_THROW(text::unencoded_rope() = t);
+    EXPECT_NO_THROW(text::unencoded_rope() = text::text(t));
+    EXPECT_NO_THROW(text::unencoded_rope() = r);
+    EXPECT_NO_THROW(text::unencoded_rope() = text::unencoded_rope(r));
+    EXPECT_NO_THROW(text::unencoded_rope() = rv);
 
-    EXPECT_NO_THROW(text::rope_view() = tv);
-    EXPECT_NO_THROW(text::rope_view() = rtv);
-    EXPECT_NO_THROW(text::rope_view() = t);
-    EXPECT_NO_THROW(text::rope_view() = text::text(t));
-    EXPECT_NO_THROW(text::rope_view() = r);
-    EXPECT_NO_THROW(text::rope_view() = rv);
+    EXPECT_NO_THROW(text::unencoded_rope_view() = tv);
+    EXPECT_NO_THROW(text::unencoded_rope_view() = rtv);
+    EXPECT_NO_THROW(text::unencoded_rope_view() = t);
+    EXPECT_NO_THROW(text::unencoded_rope_view() = text::text(t));
+    EXPECT_NO_THROW(text::unencoded_rope_view() = r);
+    EXPECT_NO_THROW(text::unencoded_rope_view() = rv);
 }

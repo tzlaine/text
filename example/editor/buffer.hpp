@@ -3,7 +3,7 @@
 
 #include "event.hpp"
 
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 #include <boost/text/segmented_vector.hpp>
 #include <boost/filesystem/fstream.hpp>
 
@@ -19,7 +19,7 @@ struct line_size_t
 struct snapshot_t
 {
 #ifdef USE_ROPES
-    boost::text::rope content_;
+    boost::text::unencoded_rope content_;
 #else
     boost::text::text content_;
 #endif

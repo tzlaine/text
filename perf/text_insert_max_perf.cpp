@@ -24,7 +24,7 @@ std::vector<int> const noise_vec = make_noise_vec();
 
 void BM_text_insert_one_char(benchmark::State & state)
 {
-    boost::text::rope rope;
+    boost::text::unencoded_rope rope;
     rope += boost::text::text();
     while (state.KeepRunning()) {
         for (int i = 0, end = state.range(0); i < end; ++i) {

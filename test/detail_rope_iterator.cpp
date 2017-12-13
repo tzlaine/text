@@ -1,4 +1,4 @@
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 #include <gtest/gtest.h>
 
@@ -24,7 +24,7 @@ TEST(const_rope_iterator, test_default_ctor)
 TEST(const_rope_iterator, test_c_str_ctor)
 {
     {
-        text::rope r_empty("");
+        text::unencoded_rope r_empty("");
         text::detail::const_rope_iterator it(r_empty, 0);
 
         EXPECT_TRUE(it == it);
@@ -39,7 +39,7 @@ TEST(const_rope_iterator, test_c_str_ctor)
     }
 
     {
-        text::rope r_a("a");
+        text::unencoded_rope r_a("a");
         text::detail::const_rope_iterator first(r_a, 0);
         text::detail::const_rope_iterator last(r_a, r_a.size());
 
@@ -132,7 +132,7 @@ TEST(const_reverse_rope_iterator, test_default_ctor)
 TEST(const_reverse_rope_iterator, test_c_str_ctor)
 {
     {
-        text::rope r_empty("");
+        text::unencoded_rope r_empty("");
         text::detail::const_reverse_rope_iterator it = r_empty.rbegin();
 
         EXPECT_TRUE(it == it);
@@ -146,7 +146,7 @@ TEST(const_reverse_rope_iterator, test_c_str_ctor)
     }
 
     {
-        text::rope r_a("a");
+        text::unencoded_rope r_a("a");
         text::detail::const_reverse_rope_iterator first = r_a.rbegin();
         text::detail::const_reverse_rope_iterator last = r_a.rend();
 
@@ -225,7 +225,7 @@ TEST(both_rope_iterators, test_larger_ropes)
     int const copies = 40;
 
     {
-        text::rope r;
+        text::unencoded_rope r;
 
         text::text_view tv("text");
         int i = 0;
@@ -233,7 +233,7 @@ TEST(both_rope_iterators, test_larger_ropes)
             r.insert(0, tv);
         }
 
-        text::rope extra_ref = r;
+        text::unencoded_rope extra_ref = r;
         (void)extra_ref;
 
         for (; i < copies; ++i) {
@@ -260,7 +260,7 @@ TEST(both_rope_iterators, test_larger_ropes)
     }
 
     {
-        text::rope r;
+        text::unencoded_rope r;
         text::text t("text");
         for (int i = 0; i < copies; ++i) {
             r.insert(0, t);
@@ -286,7 +286,7 @@ TEST(both_rope_iterators, test_larger_ropes)
     }
 
     {
-        text::rope r;
+        text::unencoded_rope r;
         text::repeated_text_view rtv("text", 2);
         for (int i = 0; i < copies; ++i) {
             r.insert(r.size(), rtv);
@@ -314,7 +314,7 @@ TEST(both_rope_iterators, test_larger_ropes)
     {
         text::repeated_text_view repeated("a bit longer text", 64 * 1024);
 
-        text::rope r;
+        text::unencoded_rope r;
         text::text t(repeated);
         r.insert(0, t);
         r.insert(5, "WAT");

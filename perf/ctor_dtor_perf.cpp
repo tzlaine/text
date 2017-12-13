@@ -25,15 +25,15 @@ void BM_text_ctor_dtor(benchmark::State & state)
 void BM_rope_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            boost::text::rope(boost::text::text_view(strings[state.range(0)])));
+        benchmark::DoNotOptimize(boost::text::unencoded_rope(
+            boost::text::text_view(strings[state.range(0)])));
     }
 }
 
 void BM_rope_view_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::rope_view(
+        benchmark::DoNotOptimize(boost::text::unencoded_rope_view(
             boost::text::text_view(strings[state.range(0)])));
     }
 }

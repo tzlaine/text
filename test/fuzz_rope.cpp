@@ -1,10 +1,10 @@
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 
 namespace {
 
     int const num_ropes = 4;
-    boost::text::rope ropes[num_ropes];
+    boost::text::unencoded_rope ropes[num_ropes];
 }
 
 struct action_t

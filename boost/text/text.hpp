@@ -19,8 +19,8 @@ namespace boost { namespace text {
 
     struct text_view;
     struct repeated_text_view;
-    struct rope;
-    struct rope_view;
+    struct unencoded_rope;
+    struct unencoded_rope_view;
 
     /** A mutable contiguous null-terminated sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
@@ -585,10 +585,10 @@ namespace boost { namespace text {
         text & operator+=(repeated_text_view rtv);
 
         /** Appends r to *this. */
-        text & operator+=(rope r);
+        text & operator+=(unencoded_rope r);
 
         /** Appends r to *this. */
-        text & operator+=(rope_view rv);
+        text & operator+=(unencoded_rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 

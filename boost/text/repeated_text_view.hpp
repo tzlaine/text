@@ -6,7 +6,7 @@
 
 namespace boost { namespace text {
 
-    struct rope_view;
+    struct unencoded_rope_view;
 
     /** A text_view, repeated count() times.  This is useful for representing
         a single char (e.g. for whitespace padding) or sequence of chars,
@@ -90,7 +90,7 @@ namespace boost { namespace text {
             \pre lo <= hi
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(int lo, int hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -100,7 +100,7 @@ namespace boost { namespace text {
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope_view operator()(int cut) const;
+        unencoded_rope_view operator()(int cut) const;
 
         constexpr bool empty() const noexcept { return view_.empty(); }
 
@@ -270,6 +270,6 @@ namespace boost { namespace text {
 
 }}
 
-#    include <boost/text/rope_view.hpp>
+#    include <boost/text/unencoded_rope_view.hpp>
 
 #endif

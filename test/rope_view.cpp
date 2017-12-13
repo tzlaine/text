@@ -1,4 +1,4 @@
-#include <boost/text/rope_view.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
 
 #include <gtest/gtest.h>
 
@@ -7,9 +7,9 @@
 
 using namespace boost;
 
-TEST(rope_view, test_empty)
+TEST(unencoded_rope_view, test_empty)
 {
-    text::rope_view rtv;
+    text::unencoded_rope_view rtv;
 
     EXPECT_EQ(rtv.begin(), rtv.end());
     EXPECT_EQ(rtv.rbegin(), rtv.rend());
@@ -38,17 +38,18 @@ TEST(rope_view, test_empty)
 
     std::cout << "rtv=\"" << rtv << "\"\n";
 
-    text::rope_view::iterator it;
+    text::unencoded_rope_view::iterator it;
 
     {
-        text::rope_view rv_from_rtv(text::repeated_text_view("txt", 2), 1, 5);
+        text::unencoded_rope_view rv_from_rtv(
+            text::repeated_text_view("txt", 2), 1, 5);
         std::ostringstream oss;
         oss << rv_from_rtv;
         EXPECT_EQ(oss.str(), "xttx");
     }
 
     {
-        text::rope_view rv_from_rtv("fools gold");
+        text::unencoded_rope_view rv_from_rtv("fools gold");
         std::ostringstream oss;
         oss << rv_from_rtv;
         EXPECT_EQ(oss.str(), "fools gold");
@@ -57,23 +58,23 @@ TEST(rope_view, test_empty)
 
 struct rope_views
 {
-    text::rope_view left;
-    text::rope_view right;
+    text::unencoded_rope_view left;
+    text::unencoded_rope_view right;
 };
 
-rope_views swapped(text::rope_view lhs, text::rope_view rhs)
+rope_views swapped(text::unencoded_rope_view lhs, text::unencoded_rope_view rhs)
 {
     lhs.swap(rhs);
     return rope_views{lhs, rhs};
 }
 
-TEST(rope_view, test_non_empty)
+TEST(unencoded_rope_view, test_non_empty)
 {
-    text::rope r_a("a");
-    text::rope r_ab("ab");
+    text::unencoded_rope r_a("a");
+    text::unencoded_rope r_ab("ab");
 
-    text::rope_view rtv_a = r_a;
-    text::rope_view rtv_ab = r_ab;
+    text::unencoded_rope_view rtv_a = r_a;
+    text::unencoded_rope_view rtv_ab = r_ab;
 
     EXPECT_EQ(rtv_a.begin() + rtv_a.size(), rtv_a.end());
     EXPECT_EQ(rtv_a.rbegin() + rtv_a.size(), rtv_a.rend());
@@ -111,14 +112,14 @@ TEST(rope_view, test_non_empty)
     EXPECT_EQ(rtv_a.rend(), rend(rtv_a));
 }
 
-TEST(rope_view, test_substr)
+TEST(unencoded_rope_view, test_substr)
 {
-    text::rope r_a("a");
-    text::rope r_abc("abcdefg");
+    text::unencoded_rope r_a("a");
+    text::unencoded_rope r_abc("abcdefg");
 
-    text::rope_view rtv_empty;
-    text::rope_view rtv_a = r_a;
-    text::rope_view rtv_abc = r_abc;
+    text::unencoded_rope_view rtv_empty;
+    text::unencoded_rope_view rtv_a = r_a;
+    text::unencoded_rope_view rtv_abc = r_abc;
 
     EXPECT_EQ(rtv_empty(0, 0), rtv_empty);
 
@@ -145,16 +146,16 @@ TEST(rope_view, test_substr)
     EXPECT_EQ(rtv_abc(2, 5), "cde");
 }
 
-TEST(rope_view, test_foreach_segment)
+TEST(unencoded_rope_view, test_foreach_segment)
 {
     {
-        text::rope r("some");
+        text::unencoded_rope r("some");
         r += text::repeat(" ", 3);
         r += text::text("text");
 
         for (int i = 0; i < r.size(); ++i) {
             for (int j = i; j < r.size(); ++j) {
-                text::rope_view rv = r(i, j);
+                text::unencoded_rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
 
@@ -165,11 +166,11 @@ TEST(rope_view, test_foreach_segment)
     }
 
     {
-        text::rope r("some");
+        text::unencoded_rope r("some");
 
         for (int i = 0; i < r.size(); ++i) {
             for (int j = i; j < r.size(); ++j) {
-                text::rope_view rv = r(i, j);
+                text::unencoded_rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
 
@@ -180,11 +181,11 @@ TEST(rope_view, test_foreach_segment)
     }
 
     {
-        text::rope r(text::repeated_text_view("txt", 2));
+        text::unencoded_rope r(text::repeated_text_view("txt", 2));
 
         for (int i = 0; i < r.size(); ++i) {
             for (int j = i; j < r.size(); ++j) {
-                text::rope_view rv = r(i, j);
+                text::unencoded_rope_view rv = r(i, j);
                 std::ostringstream oss;
                 oss << rv;
 
@@ -195,11 +196,11 @@ TEST(rope_view, test_foreach_segment)
     }
 }
 
-TEST(rope_view, test_unformatted_output)
+TEST(unencoded_rope_view, test_unformatted_output)
 {
     {
-        text::rope r("abc");
-        text::rope_view rv = r;
+        text::unencoded_rope r("abc");
+        text::unencoded_rope_view rv = r;
 
         std::ostringstream oss;
         oss << std::setw(10) << rv;
@@ -207,8 +208,8 @@ TEST(rope_view, test_unformatted_output)
     }
 
     {
-        text::rope r("abc");
-        text::rope_view rv = r;
+        text::unencoded_rope r("abc");
+        text::unencoded_rope_view rv = r;
 
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*') << rv;

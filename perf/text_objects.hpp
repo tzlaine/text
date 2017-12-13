@@ -42,9 +42,9 @@ namespace {
                                    make_text(12),
                                    make_text(13)};
 
-    boost::text::rope make_rope(int i)
+    boost::text::unencoded_rope make_rope(int i)
     {
-        boost::text::rope retval;
+        boost::text::unencoded_rope retval;
         auto size = strings[i].size();
         auto const chunk_size = 512;
         while (size) {
@@ -57,40 +57,40 @@ namespace {
         return retval;
     }
 
-    boost::text::rope ropes[14] = {make_rope(0),
-                                   make_rope(1),
-                                   make_rope(2),
-                                   make_rope(3),
-                                   make_rope(4),
-                                   make_rope(5),
-                                   make_rope(6),
-                                   make_rope(7),
-                                   make_rope(8),
-                                   make_rope(9),
-                                   make_rope(10),
-                                   make_rope(11),
-                                   make_rope(12),
-                                   make_rope(13)};
+    boost::text::unencoded_rope ropes[14] = {make_rope(0),
+                                             make_rope(1),
+                                             make_rope(2),
+                                             make_rope(3),
+                                             make_rope(4),
+                                             make_rope(5),
+                                             make_rope(6),
+                                             make_rope(7),
+                                             make_rope(8),
+                                             make_rope(9),
+                                             make_rope(10),
+                                             make_rope(11),
+                                             make_rope(12),
+                                             make_rope(13)};
 
-    boost::text::rope_view make_rope_view(int i)
+    boost::text::unencoded_rope_view make_rope_view(int i)
     {
-        return boost::text::rope_view(ropes[i]);
+        return boost::text::unencoded_rope_view(ropes[i]);
     }
 
-    boost::text::rope_view rope_views[14] = {make_rope_view(0),
-                                             make_rope_view(1),
-                                             make_rope_view(2),
-                                             make_rope_view(3),
-                                             make_rope_view(4),
-                                             make_rope_view(5),
-                                             make_rope_view(6),
-                                             make_rope_view(7),
-                                             make_rope_view(8),
-                                             make_rope_view(9),
-                                             make_rope_view(10),
-                                             make_rope_view(11),
-                                             make_rope_view(12),
-                                             make_rope_view(13)};
+    boost::text::unencoded_rope_view rope_views[14] = {make_rope_view(0),
+                                                       make_rope_view(1),
+                                                       make_rope_view(2),
+                                                       make_rope_view(3),
+                                                       make_rope_view(4),
+                                                       make_rope_view(5),
+                                                       make_rope_view(6),
+                                                       make_rope_view(7),
+                                                       make_rope_view(8),
+                                                       make_rope_view(9),
+                                                       make_rope_view(10),
+                                                       make_rope_view(11),
+                                                       make_rope_view(12),
+                                                       make_rope_view(13)};
 }
 
 #define BENCHMARK_ARGS_NONEMPTY()                                              \

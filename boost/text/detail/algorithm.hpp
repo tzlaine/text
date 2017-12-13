@@ -9,8 +9,8 @@
 
 namespace boost { namespace text {
 
-    struct rope;
-    struct rope_view;
+    struct unencoded_rope;
+    struct unencoded_rope_view;
 
 }}
 
@@ -138,8 +138,8 @@ namespace boost { namespace text { namespace detail {
             std::is_same<
                 iterator_category_<T>,
                 std::random_access_iterator_tag>::value &&
-            !std::is_same<T, rope>::value &&
-            !std::is_same<T, rope_view>::value>;
+            !std::is_same<T, unencoded_rope>::value &&
+            !std::is_same<T, unencoded_rope_view>::value>;
 
 
 

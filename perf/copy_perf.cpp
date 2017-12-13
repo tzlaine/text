@@ -25,7 +25,8 @@ void BM_text_copy(benchmark::State & state)
 void BM_rope_copy(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::rope(ropes[state.range(0)]));
+        benchmark::DoNotOptimize(
+            boost::text::unencoded_rope(ropes[state.range(0)]));
     }
 }
 
@@ -33,7 +34,7 @@ void BM_rope_view_copy(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(
-            boost::text::rope_view(rope_views[state.range(0)]));
+            boost::text::unencoded_rope_view(rope_views[state.range(0)]));
     }
 }
 

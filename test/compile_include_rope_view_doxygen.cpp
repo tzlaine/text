@@ -1,2 +1,2 @@
 #define BOOST_TEXT_DOXYGEN
-#include <boost/text/rope_view.hpp>
+#include <boost/text/unencoded_rope_view.hpp>

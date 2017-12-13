@@ -1,5 +1,5 @@
-#ifndef BOOST_TEXT_ROPE_HPP
-#define BOOST_TEXT_ROPE_HPP
+#ifndef BOOST_TEXT_UNENCODED_ROPE_HPP
+#define BOOST_TEXT_UNENCODED_ROPE_HPP
 
 #include <boost/text/detail/rope.hpp>
 
@@ -10,8 +10,8 @@
 
 namespace boost { namespace text {
 
-    struct rope_view;
-    struct rope;
+    struct unencoded_rope_view;
+    struct unencoded_rope;
 
     namespace detail {
         struct const_rope_iterator;
@@ -20,9 +20,9 @@ namespace boost { namespace text {
 
     /** A mutable sequence of char with copy-on-write semantics.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
-        sequence which is not. A rope is non-contiguous and is not
+        sequence which is not. An unencoded_rope is non-contiguous and is not
         null-terminated. */
-    struct rope
+    struct unencoded_rope
     {
         using iterator = detail::const_rope_iterator;
         using const_iterator = detail::const_rope_iterator;
@@ -34,20 +34,22 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        rope() noexcept : ptr_(nullptr) {}
+        unencoded_rope() noexcept : ptr_(nullptr) {}
 
-        rope(rope const & rhs) = default;
-        rope(rope && rhs) noexcept = default;
+        unencoded_rope(unencoded_rope const & rhs) = default;
+        unencoded_rope(unencoded_rope && rhs) noexcept = default;
 
-        /** Constructs a rope from a rope_view. */
-        explicit rope(rope_view rv);
+        /** Constructs an unencoded_rope from an unencoded_rope_view. */
+        explicit unencoded_rope(unencoded_rope_view rv);
 
-        /** Move-constructs a rope from a text. */
-        explicit rope(text && t) : ptr_(detail::make_node(std::move(t))) {}
+        /** Move-constructs an unencoded_rope from a text. */
+        explicit unencoded_rope(text && t) :
+            ptr_(detail::make_node(std::move(t)))
+        {}
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        /** Constructs a rope from a sequence of char.
+        /** Constructs an unencoded_rope from a sequence of char.
 
             The sequence's UTF-8 encoding is not checked.  To check the
             encoding, use a converting iterator.
@@ -55,12 +57,13 @@ namespace boost { namespace text {
             This function only participates in overload resolution if Iter
             models the Char_iterator concept. */
         template<typename Iter>
-        rope(Iter first, Iter last);
+        unencoded_rope(Iter first, Iter last);
 
 #else
 
         template<typename Iter>
-        rope(Iter first, Iter last, detail::char_iter_ret_t<void *, Iter> = 0) :
+        unencoded_rope(
+            Iter first, Iter last, detail::char_iter_ret_t<void *, Iter> = 0) :
             ptr_()
         {
             insert(0, first, last);
@@ -68,16 +71,16 @@ namespace boost { namespace text {
 
 #endif
 
-        rope & operator=(rope const & rhs) = default;
-        rope & operator=(rope && rhs) noexcept = default;
+        unencoded_rope & operator=(unencoded_rope const & rhs) = default;
+        unencoded_rope & operator=(unencoded_rope && rhs) noexcept = default;
 
-        /** Assignment from a rope_view. */
-        rope & operator=(rope_view rv);
+        /** Assignment from an unencoded_rope_view. */
+        unencoded_rope & operator=(unencoded_rope_view rv);
 
         /** Move-assignment from a text. */
-        rope & operator=(text && t)
+        unencoded_rope & operator=(text && t)
         {
-            rope temp(std::move(t));
+            unencoded_rope temp(std::move(t));
             swap(temp);
             return *this;
         }
@@ -104,10 +107,10 @@ namespace boost { namespace text {
             return found.c_;
         }
 
-        /** Returns a substring of *this as a rope_view, taken from the range
-            of chars at offsets [lo, hi).  If either of lo or hi is a negative
-            value x, x is taken to be an offset from the end, and so x +
-            size() is used instead.
+        /** Returns a substring of *this as an unencoded_rope_view, taken from
+            the range of chars at offsets [lo, hi).  If either of lo or hi is a
+            negative value x, x is taken to be an offset from the end, and so x
+            + size() is used instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
@@ -117,22 +120,23 @@ namespace boost { namespace text {
             \pre lo <= hi
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(int lo, int hi) const;
 
-        /** Returns a substring of *this as a rope_view, taken from the first
-            cut chars when cut => 0, or the last -cut chars when cut < 0.
+        /** Returns a substring of *this as an unencoded_rope_view, taken from
+            the first cut chars when cut => 0, or the last -cut chars when cut <
+            0.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope_view operator()(int cut) const;
+        unencoded_rope_view operator()(int cut) const;
 
-        /** Returns the maximum size a rope can have. */
+        /** Returns the maximum size an unencoded_rope can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
-        /** Returns a substring of *this as a new rope, taken from the range
-            of chars at offsets [lo, hi).  If either of lo or hi is a negative
-            value x, x is taken to be an offset from the end, and so x +
+        /** Returns a substring of *this as a new unencoded_rope, taken from the
+            range of chars at offsets [lo, hi).  If either of lo or hi is a
+            negative value x, x is taken to be an offset from the end, and so x +
             size() is used instead.
 
             These preconditions apply to the values used after size() is added
@@ -143,7 +147,7 @@ namespace boost { namespace text {
             \pre lo <= hi
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope substr(size_type lo, size_type hi) const;
+        unencoded_rope substr(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -151,7 +155,7 @@ namespace boost { namespace text {
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        rope substr(size_type cut) const;
+        unencoded_rope substr(size_type cut) const;
 
         /** Visits each segment s of *this and calls f(s).  Each segment is a
             text_view or repeated_text_view.  Depending of the operation
@@ -173,7 +177,9 @@ namespace boost { namespace text {
                     case detail::which::ref:
                         f(leaf->as_reference().ref_);
                         break;
-                    default: assert(!"unhandled rope node case"); break;
+                    default:
+                        assert(!"unhandled rope node case");
+                        break;
                     }
                     return true;
                 });
@@ -182,25 +188,46 @@ namespace boost { namespace text {
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
-        int compare(rope rhs) const noexcept;
+        int compare(unencoded_rope rhs) const noexcept;
 
-        bool operator==(rope rhs) const noexcept { return compare(rhs) == 0; }
+        bool operator==(unencoded_rope rhs) const noexcept
+        {
+            return compare(rhs) == 0;
+        }
 
-        bool operator!=(rope rhs) const noexcept { return compare(rhs) != 0; }
+        bool operator!=(unencoded_rope rhs) const noexcept
+        {
+            return compare(rhs) != 0;
+        }
 
-        bool operator<(rope rhs) const noexcept { return compare(rhs) < 0; }
+        bool operator<(unencoded_rope rhs) const noexcept
+        {
+            return compare(rhs) < 0;
+        }
 
-        bool operator<=(rope rhs) const noexcept { return compare(rhs) <= 0; }
+        bool operator<=(unencoded_rope rhs) const noexcept
+        {
+            return compare(rhs) <= 0;
+        }
 
-        bool operator>(rope rhs) const noexcept { return compare(rhs) > 0; }
+        bool operator>(unencoded_rope rhs) const noexcept
+        {
+            return compare(rhs) > 0;
+        }
 
-        bool operator>=(rope rhs) const noexcept { return compare(rhs) >= 0; }
+        bool operator>=(unencoded_rope rhs) const noexcept
+        {
+            return compare(rhs) >= 0;
+        }
 
         /** Returns true if *this and rhs contain the same root node pointer.
             This is useful when you want to check for equality between two
-            ropes that are likely to have originated from the same initial
-            rope, and may have since been mutated. */
-        bool equal_root(rope rhs) const noexcept { return ptr_ == rhs.ptr_; }
+            unencoded_ropes that are likely to have originated from the same
+            initial unencoded_rope, and may have since been mutated. */
+        bool equal_root(unencoded_rope rhs) const noexcept
+        {
+            return ptr_ == rhs.ptr_;
+        }
 
         void clear() { ptr_ = detail::node_ptr<detail::rope_tag>(); }
 
@@ -209,14 +236,14 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        rope & insert(size_type at, rope_view rv);
+        unencoded_rope & insert(size_type at, unencoded_rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t.
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        rope & insert(size_type at, text && t)
+        unencoded_rope & insert(size_type at, text && t)
         {
             return insert_impl(at, std::move(t), would_not_allocate);
         }
@@ -235,7 +262,7 @@ namespace boost { namespace text {
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
         template<typename Iter>
-        rope & insert(size_type at, Iter first, Iter last);
+        unencoded_rope & insert(size_type at, Iter first, Iter last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -248,24 +275,24 @@ namespace boost { namespace text {
             is not checked.  To check the inserted sequence's encoding, use a
             converting iterator. */
         template<typename Iter>
-        rope & insert(const_iterator at, Iter first, Iter last);
+        unencoded_rope & insert(const_iterator at, Iter first, Iter last);
 
 #else
 
         template<typename Iter>
         auto insert(size_type at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<rope &, Iter>;
+            -> detail::char_iter_ret_t<unencoded_rope &, Iter>;
 
         template<typename Iter>
         auto insert(const_iterator at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<rope &, Iter>;
+            -> detail::char_iter_ret_t<unencoded_rope &, Iter>;
 
 #endif
 
         /** Erases the portion of *this delimited by rv.
 
             \pre rv.begin() <= rv.begin() && rv.end() <= end() */
-        rope & erase(rope_view rv);
+        unencoded_rope & erase(unencoded_rope_view rv);
 
         /** Erases the portion of *this delimited by [first, last).
 
@@ -273,19 +300,20 @@ namespace boost { namespace text {
             UTF-8 encoding.
 
             \pre first <= last */
-        rope & erase(const_iterator first, const_iterator last);
+        unencoded_rope & erase(const_iterator first, const_iterator last);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from rv.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        rope & replace(rope_view old_substr, rope_view rv);
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, unencoded_rope_view rv);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        rope & replace(rope_view old_substr, text && t);
+        unencoded_rope & replace(unencoded_rope_view old_substr, text && t);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -300,7 +328,8 @@ namespace boost { namespace text {
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename Iter>
-        rope & replace(rope_view old_substr, Iter first, Iter last);
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, Iter first, Iter last);
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the char sequence [new_first, new_last).
@@ -315,7 +344,7 @@ namespace boost { namespace text {
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename Iter>
-        rope & replace(
+        unencoded_rope & replace(
             const_iterator old_first,
             const_iterator old_last,
             Iter new_first,
@@ -324,26 +353,26 @@ namespace boost { namespace text {
 #else
 
         template<typename Iter>
-        auto replace(rope_view old_substr, Iter first, Iter last)
-            -> detail::char_iter_ret_t<rope &, Iter>;
+        auto replace(unencoded_rope_view old_substr, Iter first, Iter last)
+            -> detail::char_iter_ret_t<unencoded_rope &, Iter>;
 
         template<typename Iter>
         auto replace(
             const_iterator old_first,
             const_iterator old_last,
             Iter new_first,
-            Iter new_last) -> detail::char_iter_ret_t<rope &, Iter>;
+            Iter new_last) -> detail::char_iter_ret_t<unencoded_rope &, Iter>;
 
 #endif
 
         /** Swaps *this with rhs. */
-        void swap(rope & rhs) { ptr_.swap(rhs.ptr_); }
+        void swap(unencoded_rope & rhs) { ptr_.swap(rhs.ptr_); }
 
         /** Appends rv to *this. */
-        rope & operator+=(rope_view rv);
+        unencoded_rope & operator+=(unencoded_rope_view rv);
 
         /** Appends r to *this, by moving its contents into *this. */
-        rope & operator+=(rope && r)
+        unencoded_rope & operator+=(unencoded_rope && r)
         {
             detail::interior_node_t<detail::rope_tag> * new_root = nullptr;
             detail::node_ptr<detail::rope_tag> new_root_ptr(
@@ -357,17 +386,17 @@ namespace boost { namespace text {
         }
 
         /** Appends t to *this, by moving its contents into *this. */
-        rope & operator+=(text && t);
+        unencoded_rope & operator+=(text && t);
 
         /** Stream inserter; performs unformatted output. */
-        friend std::ostream & operator<<(std::ostream & os, rope r)
+        friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
         {
             r.foreach_segment(detail::segment_inserter{os});
             return os;
         }
 
 #ifdef BOOST_TEXT_TESTING
-        friend void dump_tree(rope const & r)
+        friend void dump_tree(unencoded_rope const & r)
         {
             if (r.empty())
                 std::cout << "[EMPTY]\n";
@@ -384,14 +413,15 @@ namespace boost { namespace text {
 #    ifdef BOOST_TEXT_TESTING
     public:
 #    endif
-        explicit rope(detail::node_ptr<detail::rope_tag> const & node) :
+        explicit unencoded_rope(
+            detail::node_ptr<detail::rope_tag> const & node) :
             ptr_(node)
         {}
 #    ifdef BOOST_TEXT_TESTING
     private:
 #    endif
 
-        bool self_reference(rope_view rv) const;
+        bool self_reference(unencoded_rope_view rv) const;
 
         struct text_insertion
         {
@@ -433,7 +463,7 @@ namespace boost { namespace text {
         }
 
         template<typename T>
-        rope &
+        unencoded_rope &
         insert_impl(size_type at, T && t, allocation_note_t allocation_note)
         {
             assert(0 <= at && at <= size());
@@ -467,7 +497,7 @@ namespace boost { namespace text {
         detail::node_ptr<detail::rope_tag> ptr_;
 
         friend struct detail::const_rope_iterator;
-        friend struct rope_view;
+        friend struct unencoded_rope_view;
 
 #endif
     };
@@ -475,31 +505,36 @@ namespace boost { namespace text {
 }}
 
 #include <boost/text/detail/rope_iterator.hpp>
-#include <boost/text/rope_view.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
 
 namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    inline rope::rope(rope_view rv) : ptr_(nullptr) { insert(0, rv); }
+    inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
+        ptr_(nullptr)
+    {
+        insert(0, rv);
+    }
 
-    inline rope & rope::operator=(rope_view rv)
+    inline unencoded_rope & unencoded_rope::operator=(unencoded_rope_view rv)
     {
         detail::node_ptr<detail::rope_tag> extra_ref;
         if (self_reference(rv))
             extra_ref = ptr_;
 
-        rope temp(rv);
+        unencoded_rope temp(rv);
         swap(temp);
         return *this;
     }
 
-    inline int rope::compare(rope rhs) const noexcept
+    inline int unencoded_rope::compare(unencoded_rope rhs) const noexcept
     {
-        return rope_view(*this).compare(rhs);
+        return unencoded_rope_view(*this).compare(rhs);
     }
 
-    inline rope & rope::insert(size_type at, rope_view rv)
+    inline unencoded_rope &
+    unencoded_rope::insert(size_type at, unencoded_rope_view rv)
     {
         assert(0 <= at && at <= size());
 
@@ -510,7 +545,7 @@ namespace boost { namespace text {
         if (self_reference(rv))
             extra_ref = ptr_;
 
-        if (rv.which_ == rope_view::which::tv) {
+        if (rv.which_ == unencoded_rope_view::which::tv) {
             text_view tv = rv.ref_.tv_;
             bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
             if (tv_null_terminated)
@@ -518,7 +553,7 @@ namespace boost { namespace text {
             return insert_impl(at, tv, would_allocate);
         }
 
-        if (rv.which_ == rope_view::which::rtv) {
+        if (rv.which_ == unencoded_rope_view::which::rtv) {
             if (rv.ref_.rtv_.lo_ == 0 &&
                 rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size()) {
                 repeated_text_view rtv = rv.ref_.rtv_.rtv_;
@@ -535,15 +570,15 @@ namespace boost { namespace text {
         if (rv_null_terminated)
             rv = rv(0, -1);
 
-        rope_view::rope_ref rope_ref = rv.ref_.r_;
+        unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
 
         detail::found_leaf<detail::rope_tag> found_lo;
         find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
         detail::leaf_node_t<detail::rope_tag> const * const leaf_lo =
             found_lo.leaf_->as_leaf();
 
-        // If the entire rope_view lies within a single segment, slice off
-        // the appropriate part of that segment.
+        // If the entire unencoded_rope_view lies within a single segment, slice
+        // off the appropriate part of that segment.
         if (found_lo.offset_ + rv.size() <= detail::size(leaf_lo)) {
             ptr_ = detail::btree_insert(
                 ptr_,
@@ -624,8 +659,8 @@ namespace boost { namespace text {
     }
 
     template<typename Iter>
-    auto rope::insert(size_type at, Iter first, Iter last)
-        -> detail::char_iter_ret_t<rope &, Iter>
+    auto unencoded_rope::insert(size_type at, Iter first, Iter last)
+        -> detail::char_iter_ret_t<unencoded_rope &, Iter>
     {
         assert(0 <= at && at <= size());
 
@@ -642,8 +677,8 @@ namespace boost { namespace text {
     }
 
     template<typename Iter>
-    auto rope::insert(const_iterator at, Iter first, Iter last)
-        -> detail::char_iter_ret_t<rope &, Iter>
+    auto unencoded_rope::insert(const_iterator at, Iter first, Iter last)
+        -> detail::char_iter_ret_t<unencoded_rope &, Iter>
     {
         assert(begin() <= at && at <= end());
 
@@ -659,11 +694,11 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope & rope::erase(rope_view rv)
+    inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
     {
         assert(self_reference(rv));
 
-        rope_view::rope_ref rope_ref = rv.ref_.r_;
+        unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
 
         assert(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
         assert(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
@@ -682,7 +717,8 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope & rope::erase(const_iterator first, const_iterator last)
+    inline unencoded_rope &
+    unencoded_rope::erase(const_iterator first, const_iterator last)
     {
         assert(first <= last);
         assert(begin() <= first && last <= end());
@@ -697,30 +733,33 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope & rope::replace(rope_view old_substr, rope_view rv)
+    inline unencoded_rope & unencoded_rope::replace(
+        unencoded_rope_view old_substr, unencoded_rope_view rv)
     {
         assert(self_reference(old_substr));
 
         detail::node_ptr<detail::rope_tag> extra_ref;
-        rope extra_rope;
+        unencoded_rope extra_rope;
         if (self_reference(rv)) {
             extra_ref = ptr_;
-            extra_rope = rope(extra_ref);
-            rope_view::rope_ref rope_ref = rv.ref_.r_;
-            rv = rope_view(extra_rope, rope_ref.lo_, rope_ref.hi_);
+            extra_rope = unencoded_rope(extra_ref);
+            unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
+            rv = unencoded_rope_view(extra_rope, rope_ref.lo_, rope_ref.hi_);
         }
 
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
     }
 
-    inline rope & rope::replace(rope_view old_substr, text && t)
+    inline unencoded_rope &
+    unencoded_rope::replace(unencoded_rope_view old_substr, text && t)
     {
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(t));
     }
 
     template<typename Iter>
-    auto rope::replace(rope_view old_substr, Iter first, Iter last)
-        -> detail::char_iter_ret_t<rope &, Iter>
+    auto unencoded_rope::replace(
+        unencoded_rope_view old_substr, Iter first, Iter last)
+        -> detail::char_iter_ret_t<unencoded_rope &, Iter>
     {
         assert(self_reference(old_substr));
         assert(0 <= old_substr.size());
@@ -729,11 +768,11 @@ namespace boost { namespace text {
     }
 
     template<typename Iter>
-    auto rope::replace(
+    auto unencoded_rope::replace(
         const_iterator old_first,
         const_iterator old_last,
         Iter new_first,
-        Iter new_last) -> detail::char_iter_ret_t<rope &, Iter>
+        Iter new_last) -> detail::char_iter_ret_t<unencoded_rope &, Iter>
     {
         assert(old_first <= old_last);
         assert(begin() <= old_first && old_last <= end());
@@ -741,32 +780,37 @@ namespace boost { namespace text {
             .insert(old_first, new_first, new_last);
     }
 
-    inline rope & rope::operator+=(rope_view rv) { return insert(size(), rv); }
+    inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)
+    {
+        return insert(size(), rv);
+    }
 
-    inline rope & rope::operator+=(text && t)
+    inline unencoded_rope & unencoded_rope::operator+=(text && t)
     {
         return insert(size(), std::move(t));
     }
 
-    inline rope::const_iterator rope::begin() const noexcept
+    inline unencoded_rope::const_iterator unencoded_rope::begin() const noexcept
     {
         return const_iterator(*this, 0);
     }
-    inline rope::const_iterator rope::end() const noexcept
+    inline unencoded_rope::const_iterator unencoded_rope::end() const noexcept
     {
         return const_iterator(*this, size());
     }
 
-    inline rope::const_reverse_iterator rope::rbegin() const noexcept
+    inline unencoded_rope::const_reverse_iterator unencoded_rope::rbegin() const
+        noexcept
     {
         return const_reverse_iterator(const_iterator(*this, size() - 1));
     }
-    inline rope::const_reverse_iterator rope::rend() const noexcept
+    inline unencoded_rope::const_reverse_iterator unencoded_rope::rend() const
+        noexcept
     {
         return const_reverse_iterator(const_iterator(*this, -1));
     }
 
-    inline rope_view rope::operator()(int lo, int hi) const
+    inline unencoded_rope_view unencoded_rope::operator()(int lo, int hi) const
     {
         if (lo < 0)
             lo += size();
@@ -775,10 +819,10 @@ namespace boost { namespace text {
         assert(0 <= lo && lo <= size());
         assert(0 <= hi && hi <= size());
         assert(lo <= hi);
-        return rope_view(*this, lo, hi);
+        return unencoded_rope_view(*this, lo, hi);
     }
 
-    inline rope_view rope::operator()(int cut) const
+    inline unencoded_rope_view unencoded_rope::operator()(int cut) const
     {
         int lo = 0;
         int hi = cut;
@@ -788,10 +832,11 @@ namespace boost { namespace text {
         }
         assert(0 <= lo && lo <= size());
         assert(0 <= hi && hi <= size());
-        return rope_view(*this, lo, hi);
+        return unencoded_rope_view(*this, lo, hi);
     }
 
-    inline rope rope::substr(size_type lo, size_type hi) const
+    inline unencoded_rope
+    unencoded_rope::substr(size_type lo, size_type hi) const
     {
         if (lo < 0)
             lo += size();
@@ -802,14 +847,14 @@ namespace boost { namespace text {
         assert(lo <= hi);
 
         if (lo == hi)
-            return rope();
+            return unencoded_rope();
 
         // If the entire substring falls within a single segment, slice
         // off the appropriate part of that segment.
         detail::found_leaf<detail::rope_tag> found;
         detail::find_leaf(ptr_, lo, found);
         if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
-            return rope(slice_leaf(
+            return unencoded_rope(slice_leaf(
                 *found.leaf_,
                 found.offset_,
                 found.offset_ + hi - lo,
@@ -828,10 +873,10 @@ namespace boost { namespace text {
             new_root = detail::btree_erase(
                 new_root, 0, lo, detail::encoding_breakage_ok);
 
-        return rope(new_root);
+        return unencoded_rope(new_root);
     }
 
-    inline rope rope::substr(size_type cut) const
+    inline unencoded_rope unencoded_rope::substr(size_type cut) const
     {
         int lo = 0;
         int hi = cut;
@@ -844,84 +889,102 @@ namespace boost { namespace text {
         return substr(lo, hi);
     }
 
-    inline rope::const_iterator begin(rope const & r) noexcept
+    inline unencoded_rope::const_iterator
+    begin(unencoded_rope const & r) noexcept
     {
         return r.begin();
     }
-    inline rope::const_iterator end(rope const & r) noexcept { return r.end(); }
+    inline unencoded_rope::const_iterator end(unencoded_rope const & r) noexcept
+    {
+        return r.end();
+    }
 
-    inline rope::const_reverse_iterator rbegin(rope const & r) noexcept
+    inline unencoded_rope::const_reverse_iterator
+    rbegin(unencoded_rope const & r) noexcept
     {
         return r.rbegin();
     }
-    inline rope::const_reverse_iterator rend(rope const & r) noexcept
+    inline unencoded_rope::const_reverse_iterator
+    rend(unencoded_rope const & r) noexcept
     {
         return r.rend();
     }
 
-    inline bool rope::self_reference(rope_view rv) const
+    inline bool unencoded_rope::self_reference(unencoded_rope_view rv) const
     {
-        return rv.which_ == rope_view::which::r && rv.ref_.r_.r_ == this;
+        return rv.which_ == unencoded_rope_view::which::r &&
+               rv.ref_.r_.r_ == this;
     }
 
 #endif
 
-    /** Creates a new rope object that is the concatenation of r and r2. */
-    inline rope operator+(rope r, rope r2)
+    /** Creates a new unencoded_rope object that is the concatenation of r and
+        r2. */
+    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
     {
         return r.insert(r.size(), std::move(r2));
     }
 
-    /** Creates a new rope object that is the concatenation of r and rv. */
-    inline rope operator+(rope r, rope_view rv)
+    /** Creates a new unencoded_rope object that is the concatenation of r and
+        rv. */
+    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope_view rv)
     {
         return r.insert(r.size(), rv);
     }
 
-    /** Creates a new rope object that is the concatenation of rv and r. */
-    inline rope operator+(rope_view rv, rope r) { return r.insert(0, rv); }
+    /** Creates a new unencoded_rope object that is the concatenation of rv and
+        r. */
+    inline unencoded_rope operator+(unencoded_rope_view rv, unencoded_rope r)
+    {
+        return r.insert(0, rv);
+    }
 
-    /** Creates a new rope object that is the concatenation of r and t, by
-        moving the contents of t into the result. */
-    inline rope operator+(rope r, text && t)
+    /** Creates a new unencoded_rope object that is the concatenation of r and
+        t, by moving the contents of t into the result. */
+    inline unencoded_rope operator+(unencoded_rope r, text && t)
     {
         return r.insert(r.size(), std::move(t));
     }
 
-    /** Creates a new rope object that is the concatenation of t and r, by
-        moving the contents of t into the result. */
-    inline rope operator+(text && t, rope r)
+    /** Creates a new unencoded_rope object that is the concatenation of t and
+        r, by moving the contents of t into the result. */
+    inline unencoded_rope operator+(text && t, unencoded_rope r)
     {
         return r.insert(0, std::move(t));
     }
 
 
-    inline rope_view::rope_view(rope const & r) noexcept :
+    inline unencoded_rope_view::unencoded_rope_view(
+        unencoded_rope const & r) noexcept :
         ref_(rope_ref(&r, 0, r.size())),
         which_(which::r)
     {}
 
-    inline rope_view::rope_view(rope const & r, int lo, int hi) :
+    inline unencoded_rope_view::unencoded_rope_view(
+        unencoded_rope const & r, int lo, int hi) :
         ref_(rope_ref(&r, lo, hi)),
         which_(which::r)
     {}
 
-    inline rope_view::rope_view(text const & r) noexcept :
+    inline unencoded_rope_view::unencoded_rope_view(text const & r) noexcept :
         ref_(text_view(r.begin(), r.size())),
         which_(which::tv)
     {}
-        
-    inline rope_view::rope_view(text const & r, int lo, int hi) :
+
+    inline unencoded_rope_view::unencoded_rope_view(
+        text const & r, int lo, int hi) :
         ref_(r(lo, hi)),
         which_(which::tv)
     {}
 
-    inline rope_view::rope_view(repeated_text_view rtv, int lo, int hi) :
+    inline unencoded_rope_view::unencoded_rope_view(
+        repeated_text_view rtv, int lo, int hi) :
         ref_(repeated_ref(rtv, lo, hi)),
         which_(which::rtv)
     {}
 
-    inline rope_view::const_iterator rope_view::begin() const noexcept
+    inline unencoded_rope_view::const_iterator
+    unencoded_rope_view::begin() const noexcept
     {
         switch (which_) {
         case which::r:
@@ -934,7 +997,8 @@ namespace boost { namespace text {
         return const_iterator(); // This should never execute.
     }
 
-    inline rope_view::const_iterator rope_view::end() const noexcept
+    inline unencoded_rope_view::const_iterator unencoded_rope_view::end() const
+        noexcept
     {
         switch (which_) {
         case which::r:
@@ -947,29 +1011,36 @@ namespace boost { namespace text {
         return const_iterator(); // This should never execute.
     }
 
-    inline rope_view::const_reverse_iterator rope_view::rbegin() const noexcept
+    inline unencoded_rope_view::const_reverse_iterator
+    unencoded_rope_view::rbegin() const noexcept
     {
         return const_reverse_iterator(end() - 1);
     }
-    inline rope_view::const_reverse_iterator rope_view::rend() const noexcept
+    inline unencoded_rope_view::const_reverse_iterator
+    unencoded_rope_view::rend() const noexcept
     {
         return const_reverse_iterator(begin() - 1);
     }
 
-    inline bool rope_view::empty() const noexcept { return begin() == end(); }
+    inline bool unencoded_rope_view::empty() const noexcept
+    {
+        return begin() == end();
+    }
 
-    inline rope_view::size_type rope_view::size() const noexcept
+    inline unencoded_rope_view::size_type unencoded_rope_view::size() const
+        noexcept
     {
         return end() - begin();
     }
 
-    inline char rope_view::operator[](int i) const noexcept
+    inline char unencoded_rope_view::operator[](int i) const noexcept
     {
         assert(1 < size());
         return begin()[i];
     }
 
-    inline rope_view rope_view::operator()(int lo, int hi) const
+    inline unencoded_rope_view unencoded_rope_view::
+    operator()(int lo, int hi) const
     {
         if (lo < 0)
             lo += size();
@@ -980,10 +1051,11 @@ namespace boost { namespace text {
         assert(lo <= hi);
         switch (which_) {
         case which::r:
-            return rope_view(ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
-        case which::tv: return rope_view(ref_.tv_(lo, hi));
+            return unencoded_rope_view(
+                ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
+        case which::tv: return unencoded_rope_view(ref_.tv_(lo, hi));
         case which::rtv:
-            return rope_view(
+            return unencoded_rope_view(
                 ref_.rtv_.rtv_, ref_.rtv_.lo_ + lo, ref_.rtv_.lo_ + hi);
         }
         return *this; // This should never execute.
@@ -1014,7 +1086,7 @@ namespace boost { namespace text {
     }
 
     template<typename Fn>
-    void rope_view::foreach_segment(Fn && f) const
+    void unencoded_rope_view::foreach_segment(Fn && f) const
     {
         if (which_ == which::tv) {
             f(ref_.tv_);
@@ -1077,7 +1149,8 @@ namespace boost { namespace text {
     namespace detail {
 
         template<typename Iter>
-        int mismatch_compare(rope_view rv, Iter rhs_first, Iter rhs_last)
+        int
+        mismatch_compare(unencoded_rope_view rv, Iter rhs_first, Iter rhs_last)
         {
             if (rv.empty())
                 return rhs_first == rhs_last ? 0 : -1;
@@ -1101,7 +1174,8 @@ namespace boost { namespace text {
         }
     }
 
-    inline int rope_view::compare(rope_view rhs) const noexcept
+    inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const
+        noexcept
     {
         if (which_ == which::tv && rhs.which_ == which::tv)
             return ref_.tv_.compare(rhs.ref_.tv_);
@@ -1127,41 +1201,47 @@ namespace boost { namespace text {
         }
     }
 
-    inline rope_view::iterator begin(rope_view rv) noexcept
+    inline unencoded_rope_view::iterator begin(unencoded_rope_view rv) noexcept
     {
         return rv.begin();
     }
-    inline rope_view::iterator end(rope_view rv) noexcept { return rv.end(); }
+    inline unencoded_rope_view::iterator end(unencoded_rope_view rv) noexcept
+    {
+        return rv.end();
+    }
 
-    inline rope_view::reverse_iterator rbegin(rope_view rv) noexcept
+    inline unencoded_rope_view::reverse_iterator
+    rbegin(unencoded_rope_view rv) noexcept
     {
         return rv.rbegin();
     }
-    inline rope_view::reverse_iterator rend(rope_view rv) noexcept
+    inline unencoded_rope_view::reverse_iterator
+    rend(unencoded_rope_view rv) noexcept
     {
         return rv.rend();
     }
 
 
     /** Stream inserter; performs unformatted output. */
-    inline std::ostream & operator<<(std::ostream & os, rope_view rv)
+    inline std::ostream & operator<<(std::ostream & os, unencoded_rope_view rv)
     {
         rv.foreach_segment(detail::segment_inserter{os});
         return os;
     }
 
-    inline rope operator+(rope_view lhs, rope_view rhs)
+    inline unencoded_rope
+    operator+(unencoded_rope_view lhs, unencoded_rope_view rhs)
     {
-        rope retval(lhs);
+        unencoded_rope retval(lhs);
         return retval += rhs;
     }
 
-    inline text & text::operator+=(rope r)
+    inline text & text::operator+=(unencoded_rope r)
     {
         return insert(size(), r.begin(), r.end());
     }
 
-    inline text & text::operator+=(rope_view rv)
+    inline text & text::operator+=(unencoded_rope_view rv)
     {
         return insert(size(), rv.begin(), rv.end());
     }

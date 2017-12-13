@@ -1,10 +1,10 @@
 #define BOOST_TEXT_TESTING
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 #include <gtest/gtest.h>
 
 
-using boost::text::rope;
+using boost::text::unencoded_rope;
 using boost::text::text;
 using boost::text::text_view;
 using boost::text::repeated_text_view;
@@ -1559,7 +1559,7 @@ TEST(rope_btree, test_btree_erase)
 
     node_ptr<rope_tag> const tree =
         make_tree_left_right<max_children, max_children>();
-    rope const tree_rope(tree);
+    unencoded_rope const tree_rope(tree);
     auto const tree_size = size(tree.get());
     std::string const tree_string(tree_rope.begin(), tree_rope.end());
 
@@ -1575,7 +1575,7 @@ TEST(rope_btree, test_btree_erase)
             root = btree_erase(root, i, j, check_encoding_breakage);
             str.erase(str.begin() + i, str.begin() + j);
 
-            rope const r(root);
+            unencoded_rope const r(root);
 
             EXPECT_EQ(size(root.get()), str.size()) << "i=" << i << " j=" << j;
             EXPECT_TRUE(std::equal(str.begin(), str.end(), r.begin()))

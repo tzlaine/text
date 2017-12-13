@@ -23,7 +23,7 @@ void print_string_with (boost::text::text_view str)
 
 //[ params_to_take_anything
 
-void print_any_text_type (boost::text::rope_view str)
+void print_any_text_type (boost::text::unencoded_rope_view str)
 { std::cout << str; }
 
 //]
@@ -43,6 +43,6 @@ int main ()
     print_any_text_type(boost::text::text_view("2\n"));
     print_any_text_type(boost::text::text("3\n"));
     print_any_text_type(boost::text::repeat("4\n", 4));
-    print_any_text_type(boost::text::rope("5\n"));
+    print_any_text_type(boost::text::unencoded_rope("5\n"));
 //]
 }

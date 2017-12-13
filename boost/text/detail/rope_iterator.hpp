@@ -21,7 +21,7 @@ namespace boost { namespace text { namespace detail {
             leaf_start_(-1)
         {}
 
-        const_rope_iterator(rope const & r, difference_type n) noexcept :
+        const_rope_iterator(unencoded_rope const & r, difference_type n) noexcept :
             rope_(&r),
             n_(n),
             leaf_(nullptr),
@@ -150,7 +150,7 @@ namespace boost { namespace text { namespace detail {
         }
 
     private:
-        const_rope_iterator(rope const * r, difference_type n) noexcept :
+        const_rope_iterator(unencoded_rope const * r, difference_type n) noexcept :
             rope_(r),
             n_(n),
             leaf_(nullptr),
@@ -179,12 +179,12 @@ namespace boost { namespace text { namespace detail {
             return '\0'; // This should never execute.
         }
 
-        rope const * rope_;
+        unencoded_rope const * rope_;
         difference_type n_;
         mutable leaf_node_t<rope_tag> const * leaf_;
         mutable difference_type leaf_start_;
 
-        friend struct ::boost::text::rope_view;
+        friend struct ::boost::text::unencoded_rope_view;
     };
 
     struct const_reverse_rope_iterator

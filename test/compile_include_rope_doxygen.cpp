@@ -1,2 +1,2 @@
 #define BOOST_TEXT_DOXYGEN
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
