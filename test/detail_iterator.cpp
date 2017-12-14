@@ -1,4 +1,4 @@
-#include <boost/text/text_view.hpp>
+#include <boost/text/string_view.hpp>
 
 #include <gtest/gtest.h>
 
@@ -154,7 +154,7 @@ TEST(const_reverse_char_iterator, test_default_ctor)
 TEST(const_reverse_char_iterator, test_c_str_ctor)
 {
     {
-        text::text_view tv_empty("");
+        text::string_view tv_empty("");
         text::detail::const_reverse_char_iterator it = tv_empty.rbegin();
 
         EXPECT_TRUE(it == it);
@@ -168,7 +168,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
     }
 
     {
-        text::text_view tv_a("a");
+        text::string_view tv_a("a");
         text::detail::const_reverse_char_iterator first = tv_a.rbegin();
         text::detail::const_reverse_char_iterator last = tv_a.rend();
 
@@ -244,7 +244,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
 
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-constexpr text::text_view tv_a("a");
+constexpr text::string_view tv_a("a");
 inline constexpr text::detail::const_reverse_char_iterator
 tv_a_preincremented_begin()
 {
@@ -289,7 +289,7 @@ inline constexpr int count_tv_a_elements()
 TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
 {
     {
-        constexpr text::text_view tv_empty("");
+        constexpr text::string_view tv_empty("");
         constexpr text::detail::const_reverse_char_iterator it =
             tv_empty.rbegin();
 
@@ -401,7 +401,7 @@ TEST(const_repeated_chars_iterator, test_default_ctor)
 TEST(const_repeated_chars_iterator, test_c_str_ctor)
 {
     {
-        text::text_view tv_empty("");
+        text::string_view tv_empty("");
         text::detail::const_repeated_chars_iterator it(
             tv_empty.begin(), tv_empty.size(), 0);
 
@@ -416,7 +416,7 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor)
     }
 
     {
-        text::text_view tv_abc("abc");
+        text::string_view tv_abc("abc");
         text::detail::const_repeated_chars_iterator first(
             tv_abc.begin(), tv_abc.size(), 0);
         text::detail::const_repeated_chars_iterator last(
@@ -617,7 +617,7 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor)
 TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor)
 {
     {
-        text::text_view tv_abc("abc");
+        text::string_view tv_abc("abc");
         text::detail::const_reverse_repeated_chars_iterator first(
             text::detail::const_repeated_chars_iterator(
                 tv_abc.begin(), tv_abc.size(), 3 * tv_abc.size()));
@@ -710,7 +710,7 @@ TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor)
 
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-constexpr text::text_view tv_abc("abc");
+constexpr text::string_view tv_abc("abc");
 
 inline constexpr text::detail::const_repeated_chars_iterator
 tv_abc_preincremented_begin_repeat()
@@ -772,7 +772,7 @@ inline constexpr int count_tv_abc_elements_repeat()
 TEST(const_repeated_chars_iterator, test_c_str_ctor_constexpr)
 {
     {
-        constexpr text::text_view tv_empty("");
+        constexpr text::string_view tv_empty("");
         constexpr text::detail::const_repeated_chars_iterator it(
             tv_empty.begin(), tv_empty.size(), 0);
 
@@ -978,7 +978,7 @@ constexpr int reverse_count_tv_abc_elements_repeat()
 TEST(const_reverse_repeated_chars_iterator, test_c_str_ctor_constexpr)
 {
     {
-        constexpr text::text_view tv_empty("");
+        constexpr text::string_view tv_empty("");
         constexpr text::detail::const_reverse_repeated_chars_iterator it(
             text::detail::const_repeated_chars_iterator(
                 tv_empty.begin(), tv_empty.size(), tv_empty.size()));

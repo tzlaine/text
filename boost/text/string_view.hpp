@@ -1,5 +1,5 @@
-#ifndef BOOST_TEXT_TEXT_VIEW_HPP
-#define BOOST_TEXT_TEXT_VIEW_HPP
+#ifndef BOOST_TEXT_STRING_VIEW_HPP
+#define BOOST_TEXT_STRING_VIEW_HPP
 
 #include <boost/text/config.hpp>
 
@@ -12,12 +12,12 @@
 
 namespace boost { namespace text {
 
-    struct text;
+    struct string;
 
     /** A reference to a constant contiguous sequence of char.  The sequence
         is assumed to be UTF-8 encoded, though it is possible to construct a
         sequence which is not. */
-    struct text_view
+    struct string_view
     {
         using iterator = char const *;
         using const_iterator = char const *;
@@ -29,9 +29,9 @@ namespace boost { namespace text {
             This function is constexpr.
 
             \post data() == nullptr && size() == 0 */
-        constexpr text_view() noexcept : data_(nullptr), size_(0) {}
+        constexpr string_view() noexcept : data_(nullptr), size_(0) {}
 
-        /** Constructs a text_view from a null-terminated C string.  The UTF-8
+        /** Constructs a string_view from a null-terminated C string.  The UTF-8
             encoding is checked only at the beginning and end of the string,
             to prevent slicing of code points.  To fully check the encoding,
             use checked_encoding().
@@ -41,14 +41,14 @@ namespace boost { namespace text {
             \pre strlen(c_str) <= max_size()
             \throw std::invalid_argument if the ends of the string are not valid
            UTF-8. \post data() == c_str && size() == strlen(c_str) */
-        BOOST_TEXT_CXX14_CONSTEXPR text_view(char const * c_str) :
+        BOOST_TEXT_CXX14_CONSTEXPR string_view(char const * c_str) :
             data_(c_str),
             size_(detail::strlen(c_str))
         {
             assert(detail::strlen(c_str) <= max_size());
         }
 
-        /** Constructs a text_view from an array of char.  The UTF-8 encoding
+        /** Constructs a string_view from an array of char.  The UTF-8 encoding
             is checked only at the beginning and end of the string, to prevent
             slicing of code points.  To fully check the encoding, use
             checked_encoding().
@@ -57,19 +57,19 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the string are not valid
            UTF-8. \pre len >= 0 \post data() == c_str && size() == len */
-        BOOST_TEXT_CXX14_CONSTEXPR text_view(char const * c_str, int len) :
+        BOOST_TEXT_CXX14_CONSTEXPR string_view(char const * c_str, int len) :
             data_(c_str),
             size_(len)
         {
             assert(0 <= len);
         }
 
-        /** Constructs a text_view from a text.
+        /** Constructs a string_view from a string.
 
             \post data() == t.begin() && size() == t.size() */
-        text_view(text const & t) noexcept;
+        string_view(string const & t) noexcept;
 
-        /** Constructs a text_view from a range of char.
+        /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
             CharRange models the Char_range concept.
@@ -77,7 +77,7 @@ namespace boost { namespace text {
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
         template<typename CharRange>
-        explicit text_view(
+        explicit string_view(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0)
         {
             using std::begin;
@@ -86,11 +86,11 @@ namespace boost { namespace text {
                 data_ = nullptr;
                 size_ = 0;
             } else {
-                *this = text_view(&*begin(r), end(r) - begin(r));
+                *this = string_view(&*begin(r), end(r) - begin(r));
             }
         }
 
-        constexpr text_view(text_view const & rhs) noexcept :
+        constexpr string_view(string_view const & rhs) noexcept :
             data_(rhs.data_),
             size_(rhs.size_)
         {}
@@ -99,7 +99,7 @@ namespace boost { namespace text {
 
             This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR
-        text_view & operator=(text_view const & rhs) noexcept
+        string_view & operator=(string_view const & rhs) noexcept
         {
             data_ = rhs.data_;
             size_ = rhs.size_;
@@ -148,7 +148,7 @@ namespace boost { namespace text {
             \pre lo <= hi
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        BOOST_TEXT_CXX14_CONSTEXPR text_view operator()(int lo, int hi) const
+        BOOST_TEXT_CXX14_CONSTEXPR string_view operator()(int lo, int hi) const
         {
             if (lo < 0)
                 lo += size_;
@@ -157,7 +157,7 @@ namespace boost { namespace text {
             assert(0 <= lo && lo <= size_);
             assert(0 <= hi && hi <= size_);
             assert(lo <= hi);
-            return text_view(data_ + lo, hi - lo);
+            return string_view(data_ + lo, hi - lo);
         }
 
         /** Returns a substring of *this, taken from the first cut chars when
@@ -168,7 +168,7 @@ namespace boost { namespace text {
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        BOOST_TEXT_CXX14_CONSTEXPR text_view operator()(int cut) const
+        BOOST_TEXT_CXX14_CONSTEXPR string_view operator()(int cut) const
         {
             int lo = 0;
             int hi = cut;
@@ -178,10 +178,10 @@ namespace boost { namespace text {
             }
             assert(0 <= lo && lo <= size_);
             assert(0 <= hi && hi <= size_);
-            return text_view(data_ + lo, hi - lo);
+            return string_view(data_ + lo, hi - lo);
         }
 
-        /** Returns the maximum size a text_view can have. */
+        /** Returns the maximum size a string_view can have. */
         constexpr int max_size() const noexcept { return INT_MAX; }
 
         /** Lexicographical compare.  Returns a value < 0 when *this is
@@ -189,7 +189,7 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs.
 
             This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR int compare(text_view rhs) const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR int compare(string_view rhs) const noexcept
         {
             return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end());
         }
@@ -197,7 +197,7 @@ namespace boost { namespace text {
         /** Swaps *this with rhs.
 
             This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR void swap(text_view & rhs) noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR void swap(string_view & rhs) noexcept
         {
             {
                 char const * tmp = data_;
@@ -212,7 +212,7 @@ namespace boost { namespace text {
         }
 
         /** Stream inserter; performs unformatted output. */
-        friend std::ostream & operator<<(std::ostream & os, text_view tv)
+        friend std::ostream & operator<<(std::ostream & os, string_view tv)
         {
             return os.write(tv.begin(), tv.size());
         }
@@ -224,87 +224,88 @@ namespace boost { namespace text {
 
     namespace literals {
 
-        /** Creates a text_view from a char string literal.
+        /** Creates a string_view from a char string literal.
 
             This function is constexpr in C++14 and later.
 
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8.  */
-        inline BOOST_TEXT_CXX14_CONSTEXPR text_view
-        operator"" _tv(char const * str, std::size_t len) noexcept
+        inline BOOST_TEXT_CXX14_CONSTEXPR string_view
+        operator"" _sv(char const * str, std::size_t len) noexcept
         {
             assert(len < INT_MAX);
-            return text_view(str, len);
+            return string_view(str, len);
         }
     }
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator==(text_view lhs, text_view rhs) noexcept
+    operator==(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) == 0;
     }
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator!=(text_view lhs, text_view rhs) noexcept
+    operator!=(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) != 0;
     }
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator<(text_view lhs, text_view rhs) noexcept
+    operator<(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) < 0;
     }
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator<=(text_view lhs, text_view rhs) noexcept
+    operator<=(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) <= 0;
     }
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator>(text_view lhs, text_view rhs) noexcept
+    operator>(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) > 0;
     }
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator>=(text_view lhs, text_view rhs) noexcept
+    operator>=(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) >= 0;
     }
 
-    inline constexpr text_view::iterator begin(text_view tv) noexcept
+    inline constexpr string_view::iterator begin(string_view tv) noexcept
     {
         return tv.begin();
     }
-    inline constexpr text_view::iterator end(text_view tv) noexcept
+    inline constexpr string_view::iterator end(string_view tv) noexcept
     {
         return tv.end();
     }
 
-    inline constexpr text_view::reverse_iterator rbegin(text_view tv) noexcept
+    inline constexpr string_view::reverse_iterator
+    rbegin(string_view tv) noexcept
     {
         return tv.rbegin();
     }
-    inline constexpr text_view::reverse_iterator rend(text_view tv) noexcept
+    inline constexpr string_view::reverse_iterator rend(string_view tv) noexcept
     {
         return tv.rend();
     }
 
 }}
 
-#include <boost/text/text.hpp>
+#include <boost/text/string.hpp>
 
 namespace boost { namespace text {
 
-    inline text_view::text_view(text const & t) noexcept :
+    inline string_view::string_view(string const & t) noexcept :
         data_(t.begin()),
         size_(t.size())
     {}

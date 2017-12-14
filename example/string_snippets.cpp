@@ -1,4 +1,4 @@
-#include <boost/text/text.hpp>
+#include <boost/text/string.hpp>
 #include <boost/text/algorithm.hpp>
 
 
@@ -6,12 +6,12 @@ int main ()
 {
 
 {
-//[ text_literal
+//[ string_literal
 using namespace boost::text::literals;
-boost::text::text t1 = "UDL here."_t;
-boost::text::text t2 = u8"UDL here."_t;
-boost::text::text t3 = u"UDL here."_t; // char16_t
-boost::text::text t4 = U"UDL here."_t; // char32_t
+boost::text::string t1 = "UDL here."_s;
+boost::text::string t2 = u8"UDL here."_s;
+boost::text::string t3 = u"UDL here."_s; // char16_t
+boost::text::string t4 = U"UDL here."_s; // char32_t
 //]
 (void)t1;
 (void)t2;
@@ -28,10 +28,10 @@ char const utf8[5] = {0x4d, char(0xf0), char(0x90), char(0x8c), '\0'};
 
 std::string const str = utf8;
 
-boost::text::text t1;
+boost::text::string t1;
 t1.insert(0, str.begin(), str.end()); // Ok.  The broken encoding is never checked.
 
-boost::text::text t2;
+boost::text::string t2;
 t2.insert(0, str); // Error!  The encoding is broken at the end.
 //]
 (void)utf32;

@@ -1,4 +1,4 @@
-#include <boost/text/text.hpp>
+#include <boost/text/string.hpp>
 
 #include <benchmark/benchmark.h>
 
@@ -22,24 +22,24 @@ std::vector<int> make_noise_vec()
 std::vector<int> const noise_vec = make_noise_vec();
 
 
-void BM_text_insert_one_char(benchmark::State & state)
+void BM_string_insert_one_char(benchmark::State & state)
 {
-    boost::text::unencoded_rope rope;
-    rope += boost::text::text();
+    boost::text::unencoded_rope unencoded_rope;
+    unencoded_rope += boost::text::string();
     while (state.KeepRunning()) {
         for (int i = 0, end = state.range(0); i < end; ++i) {
-            rope.insert(rope.size() / 2, ".");
+            unencoded_rope.insert(unencoded_rope.size() / 2, ".");
         }
     }
-    if (rope.size() < noise_vec.back())
+    if (unencoded_rope.size() < noise_vec.back())
         std::cout << "";
 }
 
-BENCHMARK(BM_text_insert_one_char)->RangeMultiplier(2)->Range(512, 1 << 20);
+BENCHMARK(BM_string_insert_one_char)->RangeMultiplier(2)->Range(512, 1 << 20);
 
 int main(int argc, char ** argv)
 {
-    std::cout << "text_insert_max=" << BOOST_TEXT_TEXT_INSERT_MAX << "\n";
+    std::cout << "string_insert_max=" << BOOST_TEXT_STRING_INSERT_MAX << "\n";
     ::benchmark::Initialize(&argc, argv);
     if (::benchmark::ReportUnrecognizedArguments(argc, argv))
         return 1;

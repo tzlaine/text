@@ -1,4 +1,4 @@
-#include <boost/text/text.hpp>
+#include <boost/text/string.hpp>
 
 #include "strings.hpp"
 
@@ -7,43 +7,45 @@
 #include <iostream>
 
 
-void BM_text_view_ctor_dtor(benchmark::State & state)
+void BM_string_view_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::text_view(
-            strings[state.range(0)].c_str(), strings[state.range(0)].size()));
+        benchmark::DoNotOptimize(boost::text::string_view(
+            std_strings[state.range(0)].c_str(),
+            std_strings[state.range(0)].size()));
     }
 }
 
-void BM_text_ctor_dtor(benchmark::State & state)
+void BM_string_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::text(strings[state.range(0)]));
+        benchmark::DoNotOptimize(
+            boost::text::string(std_strings[state.range(0)]));
     }
 }
 
-void BM_rope_ctor_dtor(benchmark::State & state)
+void BM_unencoded_rope_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(boost::text::unencoded_rope(
-            boost::text::text_view(strings[state.range(0)])));
+            boost::text::string_view(std_strings[state.range(0)])));
     }
 }
 
-void BM_rope_view_ctor_dtor(benchmark::State & state)
+void BM_unencoded_rope_view_ctor_dtor(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(boost::text::unencoded_rope_view(
-            boost::text::text_view(strings[state.range(0)])));
+            boost::text::string_view(std_strings[state.range(0)])));
     }
 }
 
-BENCHMARK(BM_text_view_ctor_dtor) BENCHMARK_ARGS();
+BENCHMARK(BM_string_view_ctor_dtor) BENCHMARK_ARGS();
 
-BENCHMARK(BM_text_ctor_dtor) BENCHMARK_ARGS();
+BENCHMARK(BM_string_ctor_dtor) BENCHMARK_ARGS();
 
-BENCHMARK(BM_rope_ctor_dtor) BENCHMARK_ARGS();
+BENCHMARK(BM_unencoded_rope_ctor_dtor) BENCHMARK_ARGS();
 
-BENCHMARK(BM_rope_view_ctor_dtor) BENCHMARK_ARGS();
+BENCHMARK(BM_unencoded_rope_view_ctor_dtor) BENCHMARK_ARGS();
 
 BENCHMARK_MAIN()

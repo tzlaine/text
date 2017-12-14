@@ -42,8 +42,8 @@ namespace boost { namespace text {
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
 
-        /** Move-constructs an unencoded_rope from a text. */
-        explicit unencoded_rope(text && t) :
+        /** Move-constructs an unencoded_rope from a string. */
+        explicit unencoded_rope(string && t) :
             ptr_(detail::make_node(std::move(t)))
         {}
 
@@ -77,8 +77,8 @@ namespace boost { namespace text {
         /** Assignment from an unencoded_rope_view. */
         unencoded_rope & operator=(unencoded_rope_view rv);
 
-        /** Move-assignment from a text. */
-        unencoded_rope & operator=(text && t)
+        /** Move-assignment from a string. */
+        unencoded_rope & operator=(string && t)
         {
             unencoded_rope temp(std::move(t));
             swap(temp);
@@ -136,8 +136,8 @@ namespace boost { namespace text {
 
         /** Returns a substring of *this as a new unencoded_rope, taken from the
             range of chars at offsets [lo, hi).  If either of lo or hi is a
-            negative value x, x is taken to be an offset from the end, and so x +
-            size() is used instead.
+            negative value x, x is taken to be an offset from the end, and so x
+           + size() is used instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
@@ -158,7 +158,7 @@ namespace boost { namespace text {
         unencoded_rope substr(size_type cut) const;
 
         /** Visits each segment s of *this and calls f(s).  Each segment is a
-            text_view or repeated_text_view.  Depending of the operation
+            string_view or repeated_string_view.  Depending of the operation
             performed on each segment, this may be more efficient than
             iterating over [begin(), end()).
 
@@ -170,16 +170,16 @@ namespace boost { namespace text {
             detail::foreach_leaf(
                 ptr_, [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
                     switch (leaf->which_) {
-                    case detail::which::t: f(text_view(leaf->as_text())); break;
+                    case detail::which::t:
+                        f(string_view(leaf->as_string()));
+                        break;
                     case detail::which::rtv:
-                        f(leaf->as_repeated_text_view());
+                        f(leaf->as_repeated_string_view());
                         break;
                     case detail::which::ref:
                         f(leaf->as_reference().ref_);
                         break;
-                    default:
-                        assert(!"unhandled rope node case");
-                        break;
+                    default: assert(!"unhandled rope node case"); break;
                     }
                     return true;
                 });
@@ -243,7 +243,7 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding. */
-        unencoded_rope & insert(size_type at, text && t)
+        unencoded_rope & insert(size_type at, string && t)
         {
             return insert_impl(at, std::move(t), would_not_allocate);
         }
@@ -313,7 +313,7 @@ namespace boost { namespace text {
             sequence of char from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope & replace(unencoded_rope_view old_substr, text && t);
+        unencoded_rope & replace(unencoded_rope_view old_substr, string && t);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -386,7 +386,7 @@ namespace boost { namespace text {
         }
 
         /** Appends t to *this, by moving its contents into *this. */
-        unencoded_rope & operator+=(text && t);
+        unencoded_rope & operator+=(string && t);
 
         /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
@@ -423,43 +423,43 @@ namespace boost { namespace text {
 
         bool self_reference(unencoded_rope_view rv) const;
 
-        struct text_insertion
+        struct string_insertion
         {
-            explicit operator bool() const { return text_ != nullptr; }
+            explicit operator bool() const { return string_ != nullptr; }
 
-            text * text_;
+            string * string_;
             detail::found_leaf<detail::rope_tag> found_;
         };
 
-        text_insertion mutable_insertion_leaf(
+        string_insertion mutable_insertion_leaf(
             size_type at, size_type size, allocation_note_t allocation_note)
         {
             if (!ptr_)
-                return text_insertion{nullptr};
+                return string_insertion{nullptr};
 
             detail::found_leaf<detail::rope_tag> found;
             find_leaf(ptr_, at, found);
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
-                    return text_insertion{nullptr};
+                    return string_insertion{nullptr};
             }
 
             if (1 < found.leaf_->get()->refs_)
-                return text_insertion{nullptr};
+                return string_insertion{nullptr};
 
             if (found.leaf_->as_leaf()->which_ == detail::which::t) {
-                text & t =
-                    const_cast<text &>(found.leaf_->as_leaf()->as_text());
+                string & t =
+                    const_cast<string &>(found.leaf_->as_leaf()->as_string());
                 auto const inserted_size = t.size() + size;
                 if (inserted_size <= t.capacity() ||
                     (allocation_note == would_allocate &&
-                     inserted_size <= detail::text_insert_max)) {
-                    return text_insertion{&t, found};
+                     inserted_size <= detail::string_insert_max)) {
+                    return string_insertion{&t, found};
                 }
             }
 
-            return text_insertion{nullptr};
+            return string_insertion{nullptr};
         }
 
         template<typename T>
@@ -471,7 +471,7 @@ namespace boost { namespace text {
             if (t.empty())
                 return *this;
 
-            if (text_insertion insertion =
+            if (string_insertion insertion =
                     mutable_insertion_leaf(at, t.size(), allocation_note)) {
                 auto const t_size = t.size();
                 for (auto node : insertion.found_.path_) {
@@ -482,7 +482,7 @@ namespace boost { namespace text {
                         from,
                         t_size);
                 }
-                insertion.text_->insert(insertion.found_.offset_, t);
+                insertion.string_->insert(insertion.found_.offset_, t);
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
@@ -546,7 +546,7 @@ namespace boost { namespace text {
             extra_ref = ptr_;
 
         if (rv.which_ == unencoded_rope_view::which::tv) {
-            text_view tv = rv.ref_.tv_;
+            string_view tv = rv.ref_.tv_;
             bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
             if (tv_null_terminated)
                 tv = tv(0, -1);
@@ -556,14 +556,14 @@ namespace boost { namespace text {
         if (rv.which_ == unencoded_rope_view::which::rtv) {
             if (rv.ref_.rtv_.lo_ == 0 &&
                 rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size()) {
-                repeated_text_view rtv = rv.ref_.rtv_.rtv_;
+                repeated_string_view rtv = rv.ref_.rtv_.rtv_;
                 bool const rtv_null_terminated =
                     !rtv.view().empty() && rtv.view().end()[-1] == '\0';
                 if (rtv_null_terminated)
                     rtv = repeat(rtv.view()(0, -1), rtv.count());
                 return insert_impl(at, rtv, would_not_allocate);
             }
-            return insert(at, text(rv.begin(), rv.end()));
+            return insert(at, string(rv.begin(), rv.end()));
         }
 
         bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
@@ -670,7 +670,7 @@ namespace boost { namespace text {
         ptr_ = detail::btree_insert(
             ptr_,
             at,
-            detail::make_node(text(first, last)),
+            detail::make_node(string(first, last)),
             detail::encoding_breakage_ok);
 
         return *this;
@@ -688,7 +688,7 @@ namespace boost { namespace text {
         ptr_ = detail::btree_insert(
             ptr_,
             at - begin(),
-            detail::make_node(text(first, last)),
+            detail::make_node(string(first, last)),
             detail::encoding_breakage_ok);
 
         return *this;
@@ -751,7 +751,7 @@ namespace boost { namespace text {
     }
 
     inline unencoded_rope &
-    unencoded_rope::replace(unencoded_rope_view old_substr, text && t)
+    unencoded_rope::replace(unencoded_rope_view old_substr, string && t)
     {
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(t));
     }
@@ -785,7 +785,7 @@ namespace boost { namespace text {
         return insert(size(), rv);
     }
 
-    inline unencoded_rope & unencoded_rope::operator+=(text && t)
+    inline unencoded_rope & unencoded_rope::operator+=(string && t)
     {
         return insert(size(), std::move(t));
     }
@@ -941,14 +941,14 @@ namespace boost { namespace text {
 
     /** Creates a new unencoded_rope object that is the concatenation of r and
         t, by moving the contents of t into the result. */
-    inline unencoded_rope operator+(unencoded_rope r, text && t)
+    inline unencoded_rope operator+(unencoded_rope r, string && t)
     {
         return r.insert(r.size(), std::move(t));
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of t and
         r, by moving the contents of t into the result. */
-    inline unencoded_rope operator+(text && t, unencoded_rope r)
+    inline unencoded_rope operator+(string && t, unencoded_rope r)
     {
         return r.insert(0, std::move(t));
     }
@@ -966,19 +966,19 @@ namespace boost { namespace text {
         which_(which::r)
     {}
 
-    inline unencoded_rope_view::unencoded_rope_view(text const & r) noexcept :
-        ref_(text_view(r.begin(), r.size())),
+    inline unencoded_rope_view::unencoded_rope_view(string const & r) noexcept :
+        ref_(string_view(r.begin(), r.size())),
         which_(which::tv)
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
-        text const & r, int lo, int hi) :
+        string const & r, int lo, int hi) :
         ref_(r(lo, hi)),
         which_(which::tv)
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
-        repeated_text_view rtv, int lo, int hi) :
+        repeated_string_view rtv, int lo, int hi) :
         ref_(repeated_ref(rtv, lo, hi)),
         which_(which::rtv)
     {}
@@ -1071,11 +1071,11 @@ namespace boost { namespace text {
             Fn const & f)
         {
             switch (leaf->which_) {
-            case detail::which::t: f(leaf->as_text()(lo, hi)); break;
+            case detail::which::t: f(leaf->as_string()(lo, hi)); break;
             case detail::which::rtv:
                 f(detail::repeated_range{
-                    leaf->as_repeated_text_view().begin() + lo,
-                    leaf->as_repeated_text_view().begin() + hi});
+                    leaf->as_repeated_string_view().begin() + lo,
+                    leaf->as_repeated_string_view().begin() + hi});
                 break;
             case detail::which::ref:
                 f(leaf->as_reference().ref_(lo, hi));
@@ -1236,12 +1236,12 @@ namespace boost { namespace text {
         return retval += rhs;
     }
 
-    inline text & text::operator+=(unencoded_rope r)
+    inline string & string::operator+=(unencoded_rope r)
     {
         return insert(size(), r.begin(), r.end());
     }
 
-    inline text & text::operator+=(unencoded_rope_view rv)
+    inline string & string::operator+=(unencoded_rope_view rv)
     {
         return insert(size(), rv.begin(), rv.end());
     }
@@ -1252,7 +1252,7 @@ namespace boost { namespace text {
         template<typename T>
         inline void dump_tree(node_ptr<T> const & root, int key, int indent)
         {
-            std::cout << repeated_text_view("    ", indent)
+            std::cout << repeated_string_view("    ", indent)
                       << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
                       << root.get();
             if (key != -1)

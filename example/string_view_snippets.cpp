@@ -1,16 +1,16 @@
-#include <boost/text/text.hpp>
+#include <boost/text/string.hpp>
 #include <boost/text/algorithm.hpp>
 
 
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
-//[ text_view_lotsa_constexpr
-constexpr int find_spaces (boost::text::text_view tv)
+//[ string_view_lotsa_constexpr
+constexpr int find_spaces (boost::text::string_view tv)
 {
     int retval = 0;
-    boost::text::text_view space = boost::text::find_view(tv, " ");
+    boost::text::string_view space = boost::text::find_view(tv, " ");
     while (!space.empty()) {
         ++retval;
-        tv = boost::text::text_view(space.end(), tv.end() - space.end());
+        tv = boost::text::string_view(space.end(), tv.end() - space.end());
         space = boost::text::find_view(tv, " ");
     }
     return retval;
@@ -27,7 +27,7 @@ int main ()
 
 //=int main ()
 //={
-    constexpr boost::text::text_view tv =
+    constexpr boost::text::string_view tv =
         "When writing a specialization, "
         "be careful about its location; "
         "or to make it compile "
@@ -44,7 +44,7 @@ int main ()
 {
 //[ text_view_literal
 using namespace boost::text::literals;
-boost::text::text_view tv = "UDLs are, literally, the best idea."_tv;
+boost::text::string_view tv = "UDLs are, literally, the best idea."_sv;
 //]
 (void)tv;
 }

@@ -5,7 +5,7 @@
 #include <boost/function.hpp>
 #include <boost/functional/hash.hpp>
 #include <boost/optional.hpp>
-#include <boost/text/text_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 struct app_state_t;

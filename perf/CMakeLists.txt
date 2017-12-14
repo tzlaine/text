@@ -40,12 +40,12 @@ add_custom_target(perf_comparison
 )
 
 
-################################
-# text_insert_max perf testing #
-################################
-macro(add_text_insert_max_perf_executable name size)
+##################################
+# string_insert_max perf testing #
+##################################
+macro(add_string_insert_max_perf_executable name size)
     add_executable(${name}_${size} ${name}.cpp)
-    target_compile_options(${name}_${size} PRIVATE ${warnings_flag} -DBOOST_TEXT_TEXT_INSERT_MAX=${size})
+    target_compile_options(${name}_${size} PRIVATE ${warnings_flag} -DBOOST_TEXT_STRING_INSERT_MAX=${size})
     target_link_libraries(${name}_${size} text benchmark)
     set_property(TARGET ${name}_${size} PROPERTY CXX_STANDARD ${CXX_STD})
     if (clang_on_linux)
@@ -53,26 +53,26 @@ macro(add_text_insert_max_perf_executable name size)
     endif ()
 endmacro()
 
-add_text_insert_max_perf_executable(text_insert_max_perf 128)
-add_text_insert_max_perf_executable(text_insert_max_perf 256)
-add_text_insert_max_perf_executable(text_insert_max_perf 512)
-add_text_insert_max_perf_executable(text_insert_max_perf 1024)
-add_text_insert_max_perf_executable(text_insert_max_perf 2048)
-add_text_insert_max_perf_executable(text_insert_max_perf 4096)
-add_text_insert_max_perf_executable(text_insert_max_perf 8192)
-add_text_insert_max_perf_executable(text_insert_max_perf 16384)
-add_text_insert_max_perf_executable(text_insert_max_perf 32768)
-add_text_insert_max_perf_executable(text_insert_max_perf 65536)
+add_string_insert_max_perf_executable(string_insert_max_perf 128)
+add_string_insert_max_perf_executable(string_insert_max_perf 256)
+add_string_insert_max_perf_executable(string_insert_max_perf 512)
+add_string_insert_max_perf_executable(string_insert_max_perf 1024)
+add_string_insert_max_perf_executable(string_insert_max_perf 2048)
+add_string_insert_max_perf_executable(string_insert_max_perf 4096)
+add_string_insert_max_perf_executable(string_insert_max_perf 8192)
+add_string_insert_max_perf_executable(string_insert_max_perf 16384)
+add_string_insert_max_perf_executable(string_insert_max_perf 32768)
+add_string_insert_max_perf_executable(string_insert_max_perf 65536)
 
-add_custom_target(find_text_insert_max
-    COMMAND text_insert_max_perf_128
-    COMMAND text_insert_max_perf_256
-    COMMAND text_insert_max_perf_512
-    COMMAND text_insert_max_perf_1024
-    COMMAND text_insert_max_perf_2048
-    COMMAND text_insert_max_perf_4096
-    COMMAND text_insert_max_perf_8192
-    COMMAND text_insert_max_perf_16384
-    COMMAND text_insert_max_perf_32768
-    COMMAND text_insert_max_perf_65536
+add_custom_target(find_string_insert_max
+    COMMAND string_insert_max_perf_128
+    COMMAND string_insert_max_perf_256
+    COMMAND string_insert_max_perf_512
+    COMMAND string_insert_max_perf_1024
+    COMMAND string_insert_max_perf_2048
+    COMMAND string_insert_max_perf_4096
+    COMMAND string_insert_max_perf_8192
+    COMMAND string_insert_max_perf_16384
+    COMMAND string_insert_max_perf_32768
+    COMMAND string_insert_max_perf_65536
 )

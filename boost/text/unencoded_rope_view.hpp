@@ -13,8 +13,8 @@ namespace boost { namespace text {
         struct const_reverse_rope_view_iterator;
     }
 
-    /** A reference to a substring of an unencoded_rope, text, or
-        repeated_text_view.  The substring is assumed to be UTF-8 encoded,
+    /** A reference to a substring of an unencoded_rope, string, or
+        repeated_string_view.  The substring is assumed to be UTF-8 encoded,
         though it is possible to construct an unencoded_rope_view which is
         not. */
     struct unencoded_rope_view
@@ -56,7 +56,7 @@ namespace boost { namespace text {
 
         /** Constructs an unencoded_rope_view covering the entire given
             unencoded_rope.  The UTF-8 encoding is not checked. */
-        unencoded_rope_view(text const & r) noexcept;
+        unencoded_rope_view(string const & r) noexcept;
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -75,7 +75,7 @@ namespace boost { namespace text {
             valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        unencoded_rope_view(text const & r, int lo, int hi);
+        unencoded_rope_view(string const & r, int lo, int hi);
 
         /** Constructs an unencoded_rope_view from a null-terminated C string.
             The UTF-8 encoding is checked only at the beginning and end of the
@@ -86,18 +86,20 @@ namespace boost { namespace text {
             \throw std::invalid_argument if the ends of the string are not valid
             UTF-8. \post data() == c_str && size() == strlen(c_str) */
         unencoded_rope_view(char const * c_str) noexcept :
-            ref_(text_view(c_str)),
+            ref_(string_view(c_str)),
             which_(which::tv)
         {}
 
         /** Constructs an unencoded_rope_view covering the entire given
-            text_view.  The UTF-8 encoding is not checked. */
-        unencoded_rope_view(text_view tv) noexcept : ref_(tv), which_(which::tv)
+            string_view.  The UTF-8 encoding is not checked. */
+        unencoded_rope_view(string_view tv) noexcept :
+            ref_(tv),
+            which_(which::tv)
         {}
 
         /** Constructs an unencoded_rope_view covering the entire given
-            repeated_text_view.  The UTF-8 encoding is not checked. */
-        unencoded_rope_view(repeated_text_view rtv) noexcept :
+            repeated_string_view.  The UTF-8 encoding is not checked. */
+        unencoded_rope_view(repeated_string_view rtv) noexcept :
             ref_(repeated_ref(rtv, 0, rtv.size())),
             which_(which::rtv)
         {}
@@ -119,7 +121,7 @@ namespace boost { namespace text {
             valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        unencoded_rope_view(repeated_text_view rtv, int lo, int hi);
+        unencoded_rope_view(repeated_string_view rtv, int lo, int hi);
 
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
@@ -169,7 +171,7 @@ namespace boost { namespace text {
             return operator()(lo, hi);
         }
 
-        /** Returns the maximum size a text_view can have. */
+        /** Returns the maximum size a string_view can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying unencoded_rope and calls
@@ -217,13 +219,13 @@ namespace boost { namespace text {
         struct repeated_ref
         {
             repeated_ref() : rtv_(), lo_(0), hi_(0) {}
-            repeated_ref(repeated_text_view rtv, int lo, int hi) :
+            repeated_ref(repeated_string_view rtv, int lo, int hi) :
                 rtv_(rtv),
                 lo_(lo),
                 hi_(hi)
             {}
 
-            repeated_text_view rtv_;
+            repeated_string_view rtv_;
             int lo_;
             int hi_;
         };
@@ -231,7 +233,7 @@ namespace boost { namespace text {
         union ref
         {
             ref(rope_ref r) : r_(r) {}
-            ref(text_view tv) : tv_(tv) {}
+            ref(string_view tv) : tv_(tv) {}
             ref(repeated_ref rtv) : rtv_(rtv) {}
 
             ref(ref const & rhs) { memcpy(this, &rhs, sizeof(*this)); }
@@ -243,7 +245,7 @@ namespace boost { namespace text {
             }
 
             rope_ref r_;
-            text_view tv_;
+            string_view tv_;
             repeated_ref rtv_;
         };
 
@@ -306,13 +308,13 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline unencoded_rope_view repeated_text_view::
+    inline unencoded_rope_view repeated_string_view::
     operator()(int lo, int hi) const
     {
         return unencoded_rope_view(*this)(hi, lo);
     }
 
-    inline unencoded_rope_view repeated_text_view::operator()(int cut) const
+    inline unencoded_rope_view repeated_string_view::operator()(int cut) const
     {
         return unencoded_rope_view(*this)(cut);
     }

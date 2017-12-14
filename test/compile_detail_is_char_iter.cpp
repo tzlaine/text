@@ -1,6 +1,6 @@
 #include <boost/text/algorithm.hpp>
-#include <boost/text/text_view.hpp>
-#include <boost/text/text.hpp>
+#include <boost/text/string_view.hpp>
+#include <boost/text/string.hpp>
 
 #include <array>
 #include <list>
@@ -12,19 +12,19 @@ using namespace boost;
 static_assert(text::detail::is_char_iter<char *>{}, "");
 static_assert(text::detail::is_char_iter<char const *>{}, "");
 
-static_assert(text::detail::is_char_iter<text::text_view::iterator>{}, "");
+static_assert(text::detail::is_char_iter<text::string_view::iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::text_view::const_iterator>{}, "");
+    text::detail::is_char_iter<text::string_view::const_iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::text_view::reverse_iterator>{}, "");
+    text::detail::is_char_iter<text::string_view::reverse_iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::text_view::const_reverse_iterator>{}, "");
+    text::detail::is_char_iter<text::string_view::const_reverse_iterator>{}, "");
 
-static_assert(text::detail::is_char_iter<text::text::iterator>{}, "");
-static_assert(text::detail::is_char_iter<text::text::const_iterator>{}, "");
-static_assert(text::detail::is_char_iter<text::text::reverse_iterator>{}, "");
+static_assert(text::detail::is_char_iter<text::string::iterator>{}, "");
+static_assert(text::detail::is_char_iter<text::string::const_iterator>{}, "");
+static_assert(text::detail::is_char_iter<text::string::reverse_iterator>{}, "");
 static_assert(
-    text::detail::is_char_iter<text::text::const_reverse_iterator>{}, "");
+    text::detail::is_char_iter<text::string::const_reverse_iterator>{}, "");
 
 static_assert(text::detail::is_char_iter<std::string::iterator>{}, "");
 static_assert(text::detail::is_char_iter<std::string::const_iterator>{}, "");

@@ -45,10 +45,10 @@ TEST(unencoded_rope, test_empty)
 
     {
         using namespace text::literals;
-        text::unencoded_rope t2(""_t);
+        text::unencoded_rope t2(""_s);
         EXPECT_TRUE(t == t2);
 
-        text::unencoded_rope t3(u8""_t);
+        text::unencoded_rope t3(u8""_s);
         EXPECT_TRUE(t == t3);
     }
 }
@@ -143,8 +143,8 @@ TEST(unencoded_rope, test_non_empty_const_interface)
 
     {
         using namespace text::literals;
-        EXPECT_EQ(t_a, "a"_t);
-        EXPECT_EQ(t_ab, "ab"_t);
+        EXPECT_EQ(t_a, "a"_s);
+        EXPECT_EQ(t_ab, "ab"_s);
     }
 }
 
@@ -169,16 +169,16 @@ TEST(unencoded_rope, test_ctors)
     EXPECT_EQ("", t2);
 
     std::string const s("An old-school string");
-    text::unencoded_rope t5{text::text(s)};
+    text::unencoded_rope t5{text::string(s)};
     EXPECT_EQ(t5, "An old-school string");
     EXPECT_EQ("An old-school string", t5);
 
-    text::text_view const tv("a view ");
+    text::string_view const tv("a view ");
     text::unencoded_rope t6(tv);
     EXPECT_EQ(t6, "a view ");
     EXPECT_EQ("a view ", t6);
 
-    text::repeated_text_view const rtv(tv, 3);
+    text::repeated_string_view const rtv(tv, 3);
     text::unencoded_rope t7(rtv);
     EXPECT_EQ(t7, "a view a view a view ");
     EXPECT_EQ("a view a view a view ", t7);
@@ -282,17 +282,17 @@ TEST(unencoded_rope, test_assignment)
     {
         std::string const s("An old-school string");
         text::unencoded_rope t;
-        t = text::text(s);
+        t = text::string(s);
         EXPECT_EQ(t, "An old-school string");
     }
 
     {
-        text::text_view const tv("a view ");
+        text::string_view const tv("a view ");
         text::unencoded_rope t;
         t = tv;
         EXPECT_EQ(t, "a view ");
 
-        text::repeated_text_view const rtv(tv, 3);
+        text::repeated_string_view const rtv(tv, 3);
         text::unencoded_rope t2;
         t2 = rtv;
         EXPECT_EQ(t2, "a view a view a view ");
@@ -404,11 +404,11 @@ TEST(unencoded_rope, test_substr)
 {
     text::unencoded_rope const r =
         text::unencoded_rope("When writing a specialization, ") +
-        text::text("be careful about its location; ") +
-        text::text_view(
+        text::string("be careful about its location; ") +
+        text::string_view(
             "or to make it compile will be such a trial as to "
             "kindle its self-immolation") +
-        text::repeated_text_view(".", 3);
+        text::repeated_string_view(".", 3);
 
     EXPECT_EQ(r.substr(-4, -1), "n..");
 
@@ -436,8 +436,8 @@ TEST(unencoded_rope, test_substr)
 
 TEST(unencoded_rope, test_insert)
 {
-    text::text_view const tv("a view ");
-    text::repeated_text_view const rtv(tv, 3);
+    text::string_view const tv("a view ");
+    text::repeated_string_view const rtv(tv, 3);
 
     {
         text::unencoded_rope const ct("string");
@@ -568,8 +568,8 @@ TEST(unencoded_rope, test_insert)
 
     {
         char const * str = "";
-        text::text_view const tv(str, 1); // explicitly null-terminated
-        text::repeated_text_view const rtv(tv, 3);
+        text::string_view const tv(str, 1); // explicitly null-terminated
+        text::repeated_string_view const rtv(tv, 3);
 
         {
             text::unencoded_rope t("text");
@@ -593,15 +593,15 @@ TEST(unencoded_rope, test_insert_unencoded_rope_view)
         std::ptrdiff_t const at = i % 2 ? 0 : rv_rope.size();
         switch (i % 3) {
         case 0:
-            rv_rope.insert(at, text::text("text"));
+            rv_rope.insert(at, text::string("text"));
             rv_rope_as_string.insert(at, "text");
             break;
         case 1:
-            rv_rope.insert(at, text::text_view("text_view"));
+            rv_rope.insert(at, text::string_view("text_view"));
             rv_rope_as_string.insert(at, "text_view");
             break;
         case 2:
-            rv_rope.insert(at, text::repeated_text_view("rtv", 2));
+            rv_rope.insert(at, text::repeated_string_view("rtv", 2));
             rv_rope_as_string.insert(at, "rtvrtv");
             break;
         }
@@ -658,9 +658,9 @@ TEST(unencoded_rope, test_erase)
 
 TEST(unencoded_rope, test_replace)
 {
-    text::text_view const replacement("REP");
+    text::string_view const replacement("REP");
     // Explicitly null-terminated.
-    text::text_view const replacement_with_null(
+    text::string_view const replacement_with_null(
         replacement.begin(), replacement.size() + 1);
 
     {
@@ -714,7 +714,7 @@ TEST(unencoded_rope, test_replace)
         }
     }
 
-    text::repeated_text_view const really_long_replacement(replacement, 10);
+    text::repeated_string_view const really_long_replacement(replacement, 10);
 
     for (int j = 0; j <= ct.size(); ++j) {
         for (int i = 0; i <= j; ++i) {

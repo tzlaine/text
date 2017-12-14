@@ -142,7 +142,7 @@ namespace {
         }
     }
 
-    command_t insert(boost::text::text_view tv)
+    command_t insert(boost::text::string_view tv)
     {
         return [tv](
                    app_state_t state,
@@ -257,7 +257,7 @@ namespace {
                             key_ptr + 1),
                         buf);
                     return eval_input_t{
-                        insert(boost::text::text_view(buf, last - buf)), true};
+                        insert(boost::text::string_view(buf, last - buf)), true};
                 }
             }
         }

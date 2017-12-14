@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_ALGORITHM_HPP
 #define BOOST_TEXT_ALGORITHM_HPP
 
-#include <boost/text/text_view.hpp>
+#include <boost/text/string_view.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/algorithm/searching/boyer_moore.hpp>
@@ -17,7 +17,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    compare(text_view l, text_view r) noexcept
+    compare(string_view l, string_view r) noexcept
     {
         return detail::compare_impl(begin(l), end(l), begin(r), end(r));
     }
@@ -32,10 +32,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    compare(text_view l, CharRange const & r) noexcept
+    compare(string_view l, CharRange const & r) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return compare(l, text_view(r));
+        return compare(l, string_view(r));
     }
 
     /** Lexicographical compare.  Returns a value < 0 when lhs is
@@ -48,10 +48,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    compare(CharRange const & l, text_view r) noexcept
+    compare(CharRange const & l, string_view r) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return compare(text_view(l), r);
+        return compare(string_view(l), r);
     }
 
     /** Lexicographical compare.  Returns a value < 0 when lhs is
@@ -67,7 +67,7 @@ namespace boost { namespace text {
     compare(LCharRange const & l, RCharRange const & r) noexcept
         -> detail::rngs_alg_ret_t<int, LCharRange, RCharRange>
     {
-        return compare(text_view(l), text_view(r));
+        return compare(string_view(l), string_view(r));
     }
 
 
@@ -125,7 +125,7 @@ namespace boost { namespace text {
                 if (it == r_last)
                     return -1;
 
-                text_view candidate(it, p_len);
+                string_view candidate(it, p_len);
                 if (compare_impl(
                         candidate.begin(), candidate.end(), p_first, p_last) ==
                     0)
@@ -144,7 +144,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    find(text_view r, text_view p) noexcept
+    find(string_view r, string_view p) noexcept
     {
         return detail::find_impl(begin(r), end(r), begin(p), end(p));
     }
@@ -159,10 +159,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find(text_view r, CharRange const & p) noexcept
+    find(string_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find(r, text_view(p));
+        return find(r, string_view(p));
     }
 
     /** Returns the offset of the first occurance of pattern p within range r,
@@ -175,10 +175,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find(CharRange const & r, text_view p) noexcept
+    find(CharRange const & r, string_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find(text_view(r), p);
+        return find(string_view(r), p);
     }
 
     /** Returns the offset of the first occurance of pattern p within range r,
@@ -194,7 +194,7 @@ namespace boost { namespace text {
     find(CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
-        return find(text_view(r), text_view(p));
+        return find(string_view(r), string_view(p));
     }
 
 
@@ -203,38 +203,38 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR text_view find_view_impl(
+        inline BOOST_TEXT_CXX14_CONSTEXPR string_view find_view_impl(
             char const * r_first,
             char const * r_last,
             char const * p_first,
             char const * p_last) noexcept
         {
             if (p_first == p_last)
-                return text_view(r_first, 0);
+                return string_view(r_first, 0);
 
             if (r_first == r_last)
-                return text_view(nullptr, 0);
+                return string_view(nullptr, 0);
 
             int const n = find_impl(r_first, r_last, p_first, p_last);
             if (n < 0)
-                return text_view(nullptr, 0);
-            return text_view(r_first + n, p_last - p_first);
+                return string_view(nullptr, 0);
+            return string_view(r_first + n, p_last - p_first);
         }
     }
 
     /** Returns the first occurance of pattern p within range r as a
-        text_view, or text_view() if p is not found in r.  An empty p is
+        string_view, or string_view() if p is not found in r.  An empty p is
         always considered to match the beginning of r.
 
         This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR text_view
-    find_view(text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR string_view
+    find_view(string_view r, string_view p) noexcept
     {
         return detail::find_view_impl(begin(r), end(r), begin(p), end(p));
     }
 
     /** Returns the first occurance of pattern p within range r as a
-        text_view, or text_view() if p is not found in r.  An empty p is
+        string_view, or string_view() if p is not found in r.  An empty p is
         always considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
@@ -243,14 +243,14 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_view(text_view r, CharRange const & p) noexcept
-        -> detail::rng_alg_ret_t<text_view, CharRange>
+    find_view(string_view r, CharRange const & p) noexcept
+        -> detail::rng_alg_ret_t<string_view, CharRange>
     {
-        return find_view(r, text_view(p));
+        return find_view(r, string_view(p));
     }
 
     /** Returns the first occurance of pattern p within range r as a
-        text_view, or text_view() if p is not found in r.  An empty p is
+        string_view, or string_view() if p is not found in r.  An empty p is
         always considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
@@ -259,14 +259,14 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_view(CharRange const & r, text_view p) noexcept
-        -> detail::rng_alg_ret_t<text_view, CharRange>
+    find_view(CharRange const & r, string_view p) noexcept
+        -> detail::rng_alg_ret_t<string_view, CharRange>
     {
-        return find_view(text_view(r), p);
+        return find_view(string_view(r), p);
     }
 
     /** Returns the first occurance of pattern p within range r as a
-        text_view, or text_view() if p is not found in r.  An empty p is
+        string_view, or string_view() if p is not found in r.  An empty p is
         always considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
@@ -276,9 +276,9 @@ namespace boost { namespace text {
     template<typename CharRange, typename PatternCharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     find_view(CharRange const & r, PatternCharRange const & p) noexcept
-        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
+        -> detail::rngs_alg_ret_t<string_view, CharRange, PatternCharRange>
     {
-        return find_view(text_view(r), text_view(p));
+        return find_view(string_view(r), string_view(p));
     }
 
 
@@ -319,7 +319,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    find_first_of(text_view r, text_view p) noexcept
+    find_first_of(string_view r, string_view p) noexcept
     {
         return detail::find_first_of_impl(begin(r), end(r), begin(p), end(p));
     }
@@ -333,10 +333,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_first_of(text_view r, CharRange const & p) noexcept
+    find_first_of(string_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_first_of(r, text_view(p));
+        return find_first_of(r, string_view(p));
     }
 
     /** Returns the offset of the first occurance within range r of any of the
@@ -348,10 +348,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_first_of(CharRange const & r, text_view p) noexcept
+    find_first_of(CharRange const & r, string_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_first_of(text_view(r), p);
+        return find_first_of(string_view(r), p);
     }
 
     /** Returns the offset of the first occurance within range r of any of the
@@ -366,7 +366,7 @@ namespace boost { namespace text {
     find_first_of(CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
-        return find_first_of(text_view(r), text_view(p));
+        return find_first_of(string_view(r), string_view(p));
     }
 
 
@@ -406,7 +406,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    find_last_of(text_view r, text_view p) noexcept
+    find_last_of(string_view r, string_view p) noexcept
     {
         return detail::find_last_of_impl(begin(r), end(r), begin(p), end(p));
     }
@@ -420,10 +420,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_last_of(text_view r, CharRange const & p) noexcept
+    find_last_of(string_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_last_of(r, text_view(p));
+        return find_last_of(r, string_view(p));
     }
 
     /** Returns the offset of the last occurance within range r of any of the
@@ -435,10 +435,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_last_of(CharRange const & r, text_view p) noexcept
+    find_last_of(CharRange const & r, string_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_last_of(text_view(r), p);
+        return find_last_of(string_view(r), p);
     }
 
     /** Returns the offset of the last occurance within range r of any of the
@@ -453,7 +453,7 @@ namespace boost { namespace text {
     find_last_of(CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
-        return find_last_of(text_view(r), text_view(p));
+        return find_last_of(string_view(r), string_view(p));
     }
 
 
@@ -498,7 +498,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    find_first_not_of(text_view r, text_view p) noexcept
+    find_first_not_of(string_view r, string_view p) noexcept
     {
         return detail::find_first_not_of_impl(
             begin(r), end(r), begin(p), end(p));
@@ -514,10 +514,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_first_not_of(text_view r, CharRange const & p) noexcept
+    find_first_not_of(string_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_first_not_of(r, text_view(p));
+        return find_first_not_of(r, string_view(p));
     }
 
     /** Returns the offset of the first char within range r that does not
@@ -530,10 +530,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_first_not_of(CharRange const & r, text_view p) noexcept
+    find_first_not_of(CharRange const & r, string_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_first_not_of(text_view(r), p);
+        return find_first_not_of(string_view(r), p);
     }
 
     /** Returns the offset of the first char within range r that does not
@@ -549,7 +549,7 @@ namespace boost { namespace text {
     find_first_not_of(CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
-        return find_first_not_of(text_view(r), text_view(p));
+        return find_first_not_of(string_view(r), string_view(p));
     }
 
 
@@ -592,7 +592,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    find_last_not_of(text_view r, text_view p) noexcept
+    find_last_not_of(string_view r, string_view p) noexcept
     {
         return detail::find_last_not_of_impl(
             begin(r), end(r), begin(p), end(p));
@@ -607,10 +607,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_last_not_of(text_view r, CharRange const & p) noexcept
+    find_last_not_of(string_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_last_not_of(r, text_view(p));
+        return find_last_not_of(r, string_view(p));
     }
 
     /** Returns the offset of the last char within range r that does not match
@@ -622,10 +622,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    find_last_not_of(CharRange const & r, text_view p) noexcept
+    find_last_not_of(CharRange const & r, string_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return find_last_not_of(text_view(r), p);
+        return find_last_not_of(string_view(r), p);
     }
 
     /** Returns the offset of the last char within range r that does not match
@@ -640,7 +640,7 @@ namespace boost { namespace text {
     find_last_not_of(CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
-        return find_last_not_of(text_view(r), text_view(p));
+        return find_last_not_of(string_view(r), string_view(p));
     }
 
 
@@ -702,7 +702,7 @@ namespace boost { namespace text {
                 if (candidate_first == r_last)
                     return -1;
 
-                text_view candidate(candidate_first, p_len);
+                string_view candidate(candidate_first, p_len);
                 if (compare_impl(
                         candidate.begin(), candidate.end(), p_first, p_last) ==
                     0)
@@ -721,7 +721,7 @@ namespace boost { namespace text {
 
         This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR int
-    rfind(text_view r, text_view p) noexcept
+    rfind(string_view r, string_view p) noexcept
     {
         return detail::rfind_impl(begin(r), end(r), begin(p), end(p));
     }
@@ -736,10 +736,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    rfind(text_view r, CharRange const & p) noexcept
+    rfind(string_view r, CharRange const & p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return rfind(r, text_view(p));
+        return rfind(r, string_view(p));
     }
 
     /** Returns the offset of the last occurance of pattern p within range r,
@@ -752,10 +752,10 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    rfind(CharRange const & r, text_view p) noexcept
+    rfind(CharRange const & r, string_view p) noexcept
         -> detail::rng_alg_ret_t<int, CharRange>
     {
-        return rfind(text_view(r), p);
+        return rfind(string_view(r), p);
     }
 
     /** Returns the offset of the last occurance of pattern p within range r,
@@ -771,7 +771,7 @@ namespace boost { namespace text {
     rfind(CharRange const & r, PatternCharRange const & p) noexcept
         -> detail::rngs_alg_ret_t<int, CharRange, PatternCharRange>
     {
-        return rfind(text_view(r), text_view(p));
+        return rfind(string_view(r), string_view(p));
     }
 
 
@@ -780,38 +780,38 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        inline BOOST_TEXT_CXX14_CONSTEXPR text_view rfind_view_impl(
+        inline BOOST_TEXT_CXX14_CONSTEXPR string_view rfind_view_impl(
             char const * r_first,
             char const * r_last,
             char const * p_first,
             char const * p_last) noexcept
         {
             if (p_first == p_last)
-                return text_view(r_last, 0);
+                return string_view(r_last, 0);
 
             if (r_first == r_last)
-                return text_view(nullptr, 0);
+                return string_view(nullptr, 0);
 
             int const n = rfind_impl(r_first, r_last, p_first, p_last);
             if (n < 0)
-                return text_view(nullptr, 0);
-            return text_view(r_first + n, p_last - p_first);
+                return string_view(nullptr, 0);
+            return string_view(r_first + n, p_last - p_first);
         }
     }
 
-    /** Returns the last occurance of pattern p within range r as a text_view,
-        or text_view() if p is not found in r.  An empty p is always
+    /** Returns the last occurance of pattern p within range r as a string_view,
+        or string_view() if p is not found in r.  An empty p is always
         considered to match the end of r.
 
         This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR text_view
-    rfind_view(text_view r, text_view p) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR string_view
+    rfind_view(string_view r, string_view p) noexcept
     {
         return detail::rfind_view_impl(begin(r), end(r), begin(p), end(p));
     }
 
-    /** Returns the last occurance of pattern p within range r as a text_view,
-        or text_view() if p is not found in r.  An empty p is always
+    /** Returns the last occurance of pattern p within range r as a string_view,
+        or string_view() if p is not found in r.  An empty p is always
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
@@ -820,14 +820,14 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    rfind_view(text_view r, CharRange const & p) noexcept
-        -> detail::rng_alg_ret_t<text_view, CharRange>
+    rfind_view(string_view r, CharRange const & p) noexcept
+        -> detail::rng_alg_ret_t<string_view, CharRange>
     {
-        return rfind_view(r, text_view(p));
+        return rfind_view(r, string_view(p));
     }
 
-    /** Returns the last occurance of pattern p within range r as a text_view,
-        or text_view() if p is not found in r.  An empty p is always
+    /** Returns the last occurance of pattern p within range r as a string_view,
+        or string_view() if p is not found in r.  An empty p is always
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
@@ -836,14 +836,14 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
-    rfind_view(CharRange const & r, text_view p) noexcept
-        -> detail::rng_alg_ret_t<text_view, CharRange>
+    rfind_view(CharRange const & r, string_view p) noexcept
+        -> detail::rng_alg_ret_t<string_view, CharRange>
     {
-        return rfind_view(text_view(r), p);
+        return rfind_view(string_view(r), p);
     }
 
-    /** Returns the last occurance of pattern p within range r as a text_view,
-        or text_view() if p is not found in r.  An empty p is always
+    /** Returns the last occurance of pattern p within range r as a string_view,
+        or string_view() if p is not found in r.  An empty p is always
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
@@ -853,9 +853,9 @@ namespace boost { namespace text {
     template<typename CharRange, typename PatternCharRange>
     BOOST_TEXT_CXX14_CONSTEXPR auto
     rfind_view(CharRange const & r, PatternCharRange const & p) noexcept
-        -> detail::rngs_alg_ret_t<text_view, CharRange, PatternCharRange>
+        -> detail::rngs_alg_ret_t<string_view, CharRange, PatternCharRange>
     {
-        return rfind_view(text_view(r), text_view(p));
+        return rfind_view(string_view(r), string_view(p));
     }
 
 
@@ -879,7 +879,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later.
 
         \pre !r.empty() */
-    inline BOOST_TEXT_CXX14_CONSTEXPR char front(text_view r) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR char front(string_view r) noexcept
     {
         return detail::front_impl(begin(r), end(r));
     }
@@ -896,7 +896,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto front(CharRange const & r) noexcept
         -> detail::rng_alg_ret_t<char, CharRange>
     {
-        return front(text_view(r));
+        return front(string_view(r));
     }
 
     /** Returns the last char of range r.
@@ -904,7 +904,7 @@ namespace boost { namespace text {
         This function is constexpr in C++14 and later.
 
         \pre !r.empty() */
-    inline BOOST_TEXT_CXX14_CONSTEXPR char back(text_view r) noexcept
+    inline BOOST_TEXT_CXX14_CONSTEXPR char back(string_view r) noexcept
     {
         return detail::back_impl(begin(r), end(r));
     }
@@ -921,7 +921,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR auto back(CharRange const & r) noexcept
         -> detail::rng_alg_ret_t<char, CharRange>
     {
-        return back(text_view(r));
+        return back(string_view(r));
     }
 
 }}

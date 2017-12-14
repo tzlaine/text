@@ -28,16 +28,16 @@ endmacro()
 add_test_executable(detail_utility)
 add_test_executable(detail_iterator)
 add_test_executable(utf8)
-add_test_executable(text_view)
-add_test_executable(text_)
+add_test_executable(string_view)
+add_test_executable(string)
 add_test_executable(detail_btree_util)
 add_test_executable(detail_btree)
 add_test_executable(detail_btree_2)
 add_test_executable(detail_rope)
 add_test_executable(detail_rope_btree)
 add_test_executable(detail_rope_iterator)
-add_test_executable(rope_view)
-add_test_executable(rope)
+add_test_executable(unencoded_rope_view)
+add_test_executable(unencoded_rope)
 add_test_executable(common_op)
 add_test_executable(algorithm)
 
@@ -76,18 +76,18 @@ endif ()
 
 set(compile_sources
     compile_tests_main.cpp
-    compile_include_text_view_1.cpp
-    compile_include_text_view_2.cpp
-    compile_include_text_view_3.cpp
-    compile_include_text_1.cpp
-    compile_include_text_2.cpp
-    compile_include_text_3.cpp
-    compile_include_rope_view_1.cpp
-    compile_include_rope_view_2.cpp
-    compile_include_rope_view_3.cpp
-    compile_include_rope_1.cpp
-    compile_include_rope_2.cpp
-    compile_include_rope_3.cpp
+    compile_include_string_view_1.cpp
+    compile_include_string_view_2.cpp
+    compile_include_string_view_3.cpp
+    compile_include_string_1.cpp
+    compile_include_string_2.cpp
+    compile_include_string_3.cpp
+    compile_include_unencoded_rope_view_1.cpp
+    compile_include_unencoded_rope_view_2.cpp
+    compile_include_unencoded_rope_view_3.cpp
+    compile_include_unencoded_rope_1.cpp
+    compile_include_unencoded_rope_2.cpp
+    compile_include_unencoded_rope_3.cpp
     compile_include_vector_1.cpp
     compile_include_vector_2.cpp
     compile_include_algorithm_1.cpp
@@ -96,14 +96,14 @@ set(compile_sources
     compile_detail_is_char_range.cpp
 )
 
-# Set to true to compile the headers with BOOST_TEXT_DOXYGEN defiend
+# Set to true to compile the headers with BOOST_TEXT_DOXYGEN defined
 if (false)
     set(compile_sources
       ${compile_sources}
-      compile_include_text_view_doxygen.cpp
-      compile_include_text_doxygen.cpp
-      compile_include_rope_view_doxygen.cpp
-      compile_include_rope_doxygen.cpp
+      compile_include_string_view_doxygen.cpp
+      compile_include_string_doxygen.cpp
+      compile_include_unencoded_rope_view_doxygen.cpp
+      compile_include_unencoded_rope_doxygen.cpp
       compile_include_algorithm_doxygen.cpp
       compile_include_utf8_doxygen.cpp
     )

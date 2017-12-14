@@ -3,22 +3,22 @@
 
 namespace {
 
-    std::string make_string(int size) { return std::string(size, '.'); }
+    std::string make_std_string(int size) { return std::string(size, '.'); }
 
-    std::string strings[14] = {make_string(0),
-                               make_string(1 << 0),
-                               make_string(1 << 1),
-                               make_string(1 << 2),
-                               make_string(1 << 3),
-                               make_string(1 << 4),
-                               make_string(1 << 5),
-                               make_string(1 << 6),
-                               make_string(1 << 8),
-                               make_string(1 << 10),
-                               make_string(1 << 12),
-                               make_string(1 << 16),
-                               make_string(1 << 20),
-                               make_string(1 << 29)};
+    std::string std_strings[14] = {make_std_string(0),
+                                   make_std_string(1 << 0),
+                                   make_std_string(1 << 1),
+                                   make_std_string(1 << 2),
+                                   make_std_string(1 << 3),
+                                   make_std_string(1 << 4),
+                                   make_std_string(1 << 5),
+                                   make_std_string(1 << 6),
+                                   make_std_string(1 << 8),
+                                   make_std_string(1 << 10),
+                                   make_std_string(1 << 12),
+                                   make_std_string(1 << 16),
+                                   make_std_string(1 << 20),
+                                   make_std_string(1 << 29)};
 }
 
 #define BENCHMARK_ARGS()                                                       \

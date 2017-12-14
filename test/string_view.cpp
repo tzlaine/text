@@ -1,4 +1,4 @@
-#include <boost/text/text_view.hpp>
+#include <boost/text/string_view.hpp>
 
 #include <gtest/gtest.h>
 
@@ -8,9 +8,9 @@
 
 using namespace boost;
 
-TEST(text_view, test_empty)
+TEST(string_view, test_empty)
 {
-    text::text_view tv;
+    text::string_view tv;
 
     EXPECT_EQ(tv.begin(), tv.end());
     EXPECT_EQ(tv.rbegin(), tv.rend());
@@ -45,10 +45,10 @@ TEST(text_view, test_empty)
     {
         using namespace text::literals;
 
-        constexpr text::text_view tv2 = ""_tv;
+        constexpr text::string_view tv2 = ""_sv;
         EXPECT_TRUE(tv == tv2);
 
-        constexpr text::text_view tv3 = u8""_tv;
+        constexpr text::string_view tv3 = u8""_sv;
         EXPECT_TRUE(tv == tv3);
     }
 
@@ -57,12 +57,12 @@ TEST(text_view, test_empty)
 
 struct text_views
 {
-    text::text_view left;
-    text::text_view right;
+    text::string_view left;
+    text::string_view right;
 };
 
 BOOST_TEXT_CXX14_CONSTEXPR text_views
-swapped(text::text_view lhs, text::text_view rhs)
+swapped(text::string_view lhs, text::string_view rhs)
 {
     lhs.swap(rhs);
     return text_views{lhs, rhs};
@@ -70,9 +70,9 @@ swapped(text::text_view lhs, text::text_view rhs)
 
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-TEST(text_view, test_empty_constexpr)
+TEST(string_view, test_empty_constexpr)
 {
-    constexpr text::text_view tv;
+    constexpr text::string_view tv;
 
     static_assert(tv.begin() == tv.end(), "");
     static_assert(tv.rbegin() == tv.rend(), "");
@@ -106,7 +106,7 @@ TEST(text_view, test_empty_constexpr)
 
     {
         using namespace text::literals;
-        constexpr text::text_view tv2 = ""_tv;
+        constexpr text::string_view tv2 = ""_sv;
         static_assert(tv == tv2, "");
     }
 }
@@ -138,24 +138,24 @@ struct b_t
     std::array<char, 4> chars_;
 };
 
-TEST(text_view, test_char_range_ctor)
+TEST(string_view, test_char_range_ctor)
 {
     std::string const str("text");
     a_t const a = {{{'t', 'e', 'x', 't'}}};
     b_t const b = {{{'t', 'e', 'x', 't'}}};
 
-    text::text_view tv_str(str);
+    text::string_view tv_str(str);
     EXPECT_EQ(tv_str, "text");
-    text::text_view tv_a(a);
+    text::string_view tv_a(a);
     EXPECT_EQ(tv_a, "text");
-    text::text_view tv_b(b);
+    text::string_view tv_b(b);
     EXPECT_EQ(tv_b, "text");
 }
 
-TEST(text_view, test_non_empty)
+TEST(string_view, test_non_empty)
 {
-    text::text_view tv_a("a");
-    text::text_view tv_ab("ab");
+    text::string_view tv_a("a");
+    text::string_view tv_ab("ab");
 
     EXPECT_EQ(tv_a.begin() + tv_a.size(), tv_a.end());
     EXPECT_EQ(tv_a.rbegin() + tv_a.size(), tv_a.rend());
@@ -195,17 +195,17 @@ TEST(text_view, test_non_empty)
 
     {
         using namespace text::literals;
-        EXPECT_EQ(tv_a, "a"_tv);
-        EXPECT_EQ(tv_ab, u8"ab"_tv);
+        EXPECT_EQ(tv_a, "a"_sv);
+        EXPECT_EQ(tv_ab, u8"ab"_sv);
     }
 }
 
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-TEST(text_view, test_non_empty_constexpr)
+TEST(string_view, test_non_empty_constexpr)
 {
-    constexpr text::text_view tv_a("a");
-    constexpr text::text_view tv_ab("ab");
+    constexpr text::string_view tv_a("a");
+    constexpr text::string_view tv_ab("ab");
 
     static_assert(tv_a.begin() + tv_a.size() == tv_a.end(), "");
     static_assert(tv_a.rbegin() + tv_a.size() == tv_a.rend(), "");
@@ -259,18 +259,18 @@ TEST(text_view, test_non_empty_constexpr)
 
     {
         using namespace text::literals;
-        static_assert(tv_a == u8"a"_tv, "");
-        static_assert(tv_ab == "ab"_tv, "");
+        static_assert(tv_a == u8"a"_sv, "");
+        static_assert(tv_ab == "ab"_sv, "");
     }
 }
 
 #endif
 
-TEST(text_view, test_substr)
+TEST(string_view, test_substr)
 {
-    text::text_view tv_empty;
-    text::text_view tv_a("a");
-    text::text_view tv_abc("abcdefg");
+    text::string_view tv_empty;
+    text::string_view tv_a("a");
+    text::string_view tv_abc("abcdefg");
 
     EXPECT_EQ(tv_empty(0, 0), tv_empty);
 
@@ -288,21 +288,21 @@ TEST(text_view, test_substr)
     EXPECT_EQ(tv_abc(-1), "g");
     EXPECT_EQ(tv_abc(-2), "fg");
     EXPECT_EQ(tv_abc(-3), "efg");
-    EXPECT_EQ(tv_abc(0, -1), text::text_view("abcdef"));
+    EXPECT_EQ(tv_abc(0, -1), text::string_view("abcdef"));
 
-    EXPECT_EQ(tv_a(0, 1), text::text_view("a"));
+    EXPECT_EQ(tv_a(0, 1), text::string_view("a"));
 
-    EXPECT_EQ(tv_abc(0, 7), text::text_view("abcdefg"));
-    EXPECT_EQ(tv_abc(2, 5), text::text_view("cde"));
+    EXPECT_EQ(tv_abc(0, 7), text::string_view("abcdefg"));
+    EXPECT_EQ(tv_abc(2, 5), text::string_view("cde"));
 }
 
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
-TEST(text_view, test_substr_constexpr)
+TEST(string_view, test_substr_constexpr)
 {
-    constexpr text::text_view tv_empty;
-    constexpr text::text_view tv_a("a");
-    constexpr text::text_view tv_abc("abcdefg");
+    constexpr text::string_view tv_empty;
+    constexpr text::string_view tv_a("a");
+    constexpr text::string_view tv_abc("abcdefg");
 
     static_assert(tv_empty(0, 0) == tv_empty, "");
 
@@ -320,28 +320,28 @@ TEST(text_view, test_substr_constexpr)
     static_assert(tv_abc(-1) == "g", "");
     static_assert(tv_abc(-2) == "fg", "");
     static_assert(tv_abc(-3) == "efg", "");
-    static_assert(tv_abc(0, -1) == text::text_view("abcdef"), "");
+    static_assert(tv_abc(0, -1) == text::string_view("abcdef"), "");
 
-    static_assert(tv_a(0, 1) == text::text_view("a"), "");
+    static_assert(tv_a(0, 1) == text::string_view("a"), "");
 
-    static_assert(tv_abc(0, 7) == text::text_view("abcdefg"), "");
-    static_assert(tv_abc(2, 5) == text::text_view("cde"), "");
+    static_assert(tv_abc(0, 7) == text::string_view("abcdefg"), "");
+    static_assert(tv_abc(2, 5) == text::string_view("cde"), "");
 }
 
 #endif
 
-TEST(text_view, test_unformatted_output)
+TEST(string_view, test_unformatted_output)
 {
     {
         std::ostringstream oss;
-        oss << std::setw(10) << text::text_view("abc");
+        oss << std::setw(10) << text::string_view("abc");
         EXPECT_EQ(oss.str(), "abc");
     }
 
     {
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*')
-            << text::text_view("abc");
+            << text::string_view("abc");
         EXPECT_EQ(oss.str(), "abc");
     }
 }
@@ -349,15 +349,15 @@ TEST(text_view, test_unformatted_output)
 
 TEST(repeated_text_view, test_swap_and_comparisons)
 {
-    text::text_view tv_a("a");
-    text::text_view tv_ab("ab");
-    text::text_view tv_abab("abab");
+    text::string_view tv_a("a");
+    text::string_view tv_ab("ab");
+    text::string_view tv_abab("abab");
 
-    text::repeated_text_view tv_a_3(tv_a, 3);
-    text::repeated_text_view tv_ab_1(tv_ab, 1);
-    text::repeated_text_view tv_ab_2(tv_ab, 2);
-    text::repeated_text_view tv_ab_3(tv_ab, 3);
-    text::repeated_text_view tv_abab_1(tv_abab, 1);
+    text::repeated_string_view tv_a_3(tv_a, 3);
+    text::repeated_string_view tv_ab_1(tv_ab, 1);
+    text::repeated_string_view tv_ab_2(tv_ab, 2);
+    text::repeated_string_view tv_ab_3(tv_ab, 3);
+    text::repeated_string_view tv_abab_1(tv_abab, 1);
 
     {
         auto const tv_a_3_copy = tv_a_3;
@@ -394,14 +394,14 @@ TEST(repeated_text_view, test_unformatted_output)
 {
     {
         std::ostringstream oss;
-        oss << std::setw(10) << text::repeated_text_view("abc", 2);
+        oss << std::setw(10) << text::repeated_string_view("abc", 2);
         EXPECT_EQ(oss.str(), "abcabc");
     }
 
     {
         std::ostringstream oss;
         oss << std::setw(10) << std::left << std::setfill('*')
-            << text::repeated_text_view("abc", 2);
+            << text::repeated_string_view("abc", 2);
         EXPECT_EQ(oss.str(), "abcabc");
     }
 }
@@ -411,12 +411,12 @@ TEST(repeated_text_view, test_unformatted_output)
 
 struct repeated_text_views
 {
-    text::repeated_text_view left;
-    text::repeated_text_view right;
+    text::repeated_string_view left;
+    text::repeated_string_view right;
 };
 
 constexpr repeated_text_views
-swapped(text::repeated_text_view lhs, text::repeated_text_view rhs)
+swapped(text::repeated_string_view lhs, text::repeated_string_view rhs)
 {
     lhs.swap(rhs);
     return repeated_text_views{lhs, rhs};
@@ -424,15 +424,15 @@ swapped(text::repeated_text_view lhs, text::repeated_text_view rhs)
 
 TEST(repeated_text_view, test_swap_and_comparisons_constexpr)
 {
-    constexpr text::text_view tv_a("a");
-    constexpr text::text_view tv_ab("ab");
-    constexpr text::text_view tv_abab("abab");
+    constexpr text::string_view tv_a("a");
+    constexpr text::string_view tv_ab("ab");
+    constexpr text::string_view tv_abab("abab");
 
-    constexpr text::repeated_text_view tv_a_3(tv_a, 3);
-    constexpr text::repeated_text_view tv_ab_1(tv_ab, 1);
-    constexpr text::repeated_text_view tv_ab_2(tv_ab, 2);
-    constexpr text::repeated_text_view tv_ab_3(tv_ab, 3);
-    constexpr text::repeated_text_view tv_abab_1(tv_abab, 1);
+    constexpr text::repeated_string_view tv_a_3(tv_a, 3);
+    constexpr text::repeated_string_view tv_ab_1(tv_ab, 1);
+    constexpr text::repeated_string_view tv_ab_2(tv_ab, 2);
+    constexpr text::repeated_string_view tv_ab_3(tv_ab, 3);
+    constexpr text::repeated_string_view tv_abab_1(tv_abab, 1);
 
     {
         static_assert(

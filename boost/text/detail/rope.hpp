@@ -1,8 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_ROPE_HPP
 #define BOOST_TEXT_DETAIL_ROPE_HPP
 
-#include <boost/text/text_view.hpp>
-#include <boost/text/text.hpp>
+#include <boost/text/string_view.hpp>
+#include <boost/text/string.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <boost/text/detail/btree.hpp>
@@ -15,69 +15,71 @@ namespace boost { namespace text { namespace detail {
     template<>
     struct reference<rope_tag>
     {
-        reference(node_ptr<rope_tag> const & text_node, text_view ref) noexcept;
+        reference(
+            node_ptr<rope_tag> const & string_node, string_view ref) noexcept;
 
-        node_ptr<rope_tag> text_;
-        text_view ref_;
+        node_ptr<rope_tag> string_;
+        string_view ref_;
     };
 
     constexpr int rope_node_buf_size() noexcept
     {
         return max_(
-                   alignof(text),
+                   alignof(string),
                    max_(
-                       alignof(text_view),
+                       alignof(string_view),
                        max_(
-                           alignof(repeated_text_view),
+                           alignof(repeated_string_view),
                            alignof(reference<rope_tag>)))) +
                max_(
-                   sizeof(text),
+                   sizeof(string),
                    max_(
-                       sizeof(text_view),
+                       sizeof(string_view),
                        max_(
-                           sizeof(repeated_text_view),
+                           sizeof(repeated_string_view),
                            sizeof(reference<rope_tag>))));
     }
 
     enum class which : char { t, rtv, ref };
 
-    constexpr int text_insert_max = BOOST_TEXT_TEXT_INSERT_MAX;
+    constexpr int string_insert_max = BOOST_TEXT_STRING_INSERT_MAX;
 
     static_assert(sizeof(node_ptr<detail::rope_tag>) * 8 <= 64, "");
 
     template<>
     struct leaf_node_t<rope_tag> : node_t<rope_tag>
     {
-        leaf_node_t() noexcept : leaf_node_t(text_view()) {}
+        leaf_node_t() noexcept : leaf_node_t(string_view()) {}
 
-        leaf_node_t(text && t) noexcept :
+        leaf_node_t(string && t) noexcept :
             node_t(true),
             buf_ptr_(nullptr),
             which_(which::t)
         {
-            auto at = placement_address<text>(buf_, sizeof(buf_));
+            auto at = placement_address<string>(buf_, sizeof(buf_));
             assert(at);
-            buf_ptr_ = new (at) text(std::move(t));
+            buf_ptr_ = new (at) string(std::move(t));
         }
 
-        leaf_node_t(text_view tv) noexcept :
+        leaf_node_t(string_view tv) noexcept :
             node_t(true),
             buf_ptr_(nullptr),
             which_(which::t)
         {
-            auto at = placement_address<text_view>(buf_, sizeof(buf_));
+            auto at = placement_address<string_view>(buf_, sizeof(buf_));
             assert(at);
-            buf_ptr_ = new (at) text(tv);
+            buf_ptr_ = new (at) string(tv);
         }
 
-        leaf_node_t(repeated_text_view rtv) noexcept :
+        leaf_node_t(repeated_string_view rtv) noexcept :
             node_t(true),
             buf_ptr_(nullptr),
             which_(which::rtv)
         {
-            auto at = placement_address<repeated_text_view>(buf_, sizeof(buf_));
+            auto at =
+                placement_address<repeated_string_view>(buf_, sizeof(buf_));
             assert(at);
-            buf_ptr_ = new (at) repeated_text_view(rtv);
+            buf_ptr_ = new (at) repeated_string_view(rtv);
         }
 
         leaf_node_t(leaf_node_t const & rhs) :
@@ -87,17 +89,17 @@ namespace boost { namespace text { namespace detail {
         {
             switch (which_) {
             case which::t: {
-                auto at = placement_address<text>(buf_, sizeof(buf_));
+                auto at = placement_address<string>(buf_, sizeof(buf_));
                 assert(at);
-                buf_ptr_ = new (at) text(rhs.as_text());
+                buf_ptr_ = new (at) string(rhs.as_string());
                 break;
             }
             case which::rtv: {
                 auto at =
-                    placement_address<repeated_text_view>(buf_, sizeof(buf_));
+                    placement_address<repeated_string_view>(buf_, sizeof(buf_));
                 assert(at);
-                buf_ptr_ =
-                    new (at) repeated_text_view(rhs.as_repeated_text_view());
+                buf_ptr_ = new (at)
+                    repeated_string_view(rhs.as_repeated_string_view());
                 break;
             }
             case which::ref: {
@@ -121,9 +123,9 @@ namespace boost { namespace text { namespace detail {
                 return;
 
             switch (which_) {
-            case which::t: as_text().~text(); break;
+            case which::t: as_string().~string(); break;
             case which::rtv:
-                as_repeated_text_view().~repeated_text_view();
+                as_repeated_string_view().~repeated_string_view();
                 break;
             case which::ref: as_reference().~reference(); break;
             default: assert(!"unhandled rope node case"); break;
@@ -133,24 +135,24 @@ namespace boost { namespace text { namespace detail {
         int size() const noexcept
         {
             switch (which_) {
-            case which::t: return as_text().size(); break;
-            case which::rtv: return as_repeated_text_view().size(); break;
+            case which::t: return as_string().size(); break;
+            case which::rtv: return as_repeated_string_view().size(); break;
             case which::ref: return as_reference().ref_.size(); break;
             default: assert(!"unhandled rope node case"); break;
             }
             return -(1 << 30); // This should never execute.
         }
 
-        text const & as_text() const noexcept
+        string const & as_string() const noexcept
         {
             assert(which_ == which::t);
-            return *static_cast<text *>(buf_ptr_);
+            return *static_cast<string *>(buf_ptr_);
         }
 
-        repeated_text_view const & as_repeated_text_view() const noexcept
+        repeated_string_view const & as_repeated_string_view() const noexcept
         {
             assert(which_ == which::rtv);
-            return *static_cast<repeated_text_view *>(buf_ptr_);
+            return *static_cast<repeated_string_view *>(buf_ptr_);
         }
 
         reference<rope_tag> const & as_reference() const noexcept
@@ -159,16 +161,16 @@ namespace boost { namespace text { namespace detail {
             return *static_cast<reference<rope_tag> *>(buf_ptr_);
         }
 
-        text & as_text() noexcept
+        string & as_string() noexcept
         {
             assert(which_ == which::t);
-            return *static_cast<text *>(buf_ptr_);
+            return *static_cast<string *>(buf_ptr_);
         }
 
-        repeated_text_view & as_repeated_text_view() noexcept
+        repeated_string_view & as_repeated_string_view() noexcept
         {
             assert(which_ == which::rtv);
-            return *static_cast<repeated_text_view *>(buf_ptr_);
+            return *static_cast<repeated_string_view *>(buf_ptr_);
         }
 
         reference<rope_tag> & as_reference() noexcept
@@ -201,10 +203,11 @@ namespace boost { namespace text { namespace detail {
         char c = '\0';
         switch (leaf->which_) {
         case which::t:
-            c = *(leaf->as_text().cbegin() + retval.leaf_.offset_);
+            c = *(leaf->as_string().cbegin() + retval.leaf_.offset_);
             break;
         case which::rtv:
-            c = *(leaf->as_repeated_text_view().begin() + retval.leaf_.offset_);
+            c = *(
+                leaf->as_repeated_string_view().begin() + retval.leaf_.offset_);
             break;
         case which::ref:
             c = *(leaf->as_reference().ref_.begin() + retval.leaf_.offset_);
@@ -215,33 +218,33 @@ namespace boost { namespace text { namespace detail {
     }
 
     inline reference<rope_tag>::reference(
-        node_ptr<rope_tag> const & text_node, text_view ref) noexcept :
-        text_(text_node),
+        node_ptr<rope_tag> const & string_node, string_view ref) noexcept :
+        string_(string_node),
         ref_(ref)
     {
-        assert(text_node);
-        assert(text_node->leaf_);
-        assert(text_node.as_leaf()->which_ == which::t);
+        assert(string_node);
+        assert(string_node->leaf_);
+        assert(string_node.as_leaf()->which_ == which::t);
     }
 
     enum encoding_note_t { check_encoding_breakage, encoding_breakage_ok };
 
-    inline node_ptr<rope_tag> make_node(text const & t)
+    inline node_ptr<rope_tag> make_node(string const & t)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(t));
     }
 
-    inline node_ptr<rope_tag> make_node(text && t)
+    inline node_ptr<rope_tag> make_node(string && t)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(std::move(t)));
     }
 
-    inline node_ptr<rope_tag> make_node(text_view tv)
+    inline node_ptr<rope_tag> make_node(string_view tv)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(tv));
     }
 
-    inline node_ptr<rope_tag> make_node(repeated_text_view rtv)
+    inline node_ptr<rope_tag> make_node(repeated_string_view rtv)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(rtv));
     }
@@ -256,7 +259,8 @@ namespace boost { namespace text { namespace detail {
         if (encoding_note == check_encoding_breakage) {
             // TODO: Check (lo, hi)
         }
-        text_view const tv = text_view(t->as_text().begin() + lo, hi - lo);
+        string_view const tv =
+            string_view(t->as_string().begin() + lo, hi - lo);
 
         leaf_node_t<rope_tag> * leaf = nullptr;
         node_ptr<rope_tag> retval(leaf = new leaf_node_t<rope_tag>);
@@ -276,9 +280,9 @@ namespace boost { namespace text { namespace detail {
         encoding_note_t encoding_note = check_encoding_breakage)
     {
         auto const offset =
-            t.ref_.begin() - t.text_.as_leaf()->as_text().begin();
+            t.ref_.begin() - t.string_.as_leaf()->as_string().begin();
         node_ptr<rope_tag> retval = make_ref(
-            t.text_.as_leaf(), lo + offset, hi + offset, encoding_note);
+            t.string_.as_leaf(), lo + offset, hi + offset, encoding_note);
         return retval;
     }
 
@@ -302,35 +306,35 @@ namespace boost { namespace text { namespace detail {
                 return make_ref(node.as_leaf(), lo, hi, encoding_note);
             {
                 auto mut_node = node.write();
-                text & t = mut_node.as_leaf()->as_text();
+                string & t = mut_node.as_leaf()->as_string();
                 if (encoding_note == check_encoding_breakage) {
                     // TODO: Check (lo, hi)
                 }
-                t = text_view(t.begin() + lo, hi - lo);
+                t = string_view(t.begin() + lo, hi - lo);
             }
             return node;
         case which::rtv: {
-            repeated_text_view const & crtv =
-                node.as_leaf()->as_repeated_text_view();
+            repeated_string_view const & crtv =
+                node.as_leaf()->as_repeated_string_view();
             int const mod_lo = lo % crtv.view().size();
             int const mod_hi = hi % crtv.view().size();
             if (mod_lo != 0 || mod_hi != 0) {
                 if (encoding_note == check_encoding_breakage) {
                     // TODO
-                    // text_view const tv = crtv.view()(
+                    // string_view const tv = crtv.view()(
                     //    (std::min)(mod_lo, mod_hi), (std::max)(mod_lo,
                     //    mod_hi));
                     //(void)tv;
                 }
-                return make_node(text(crtv.begin() + lo, crtv.begin() + hi));
+                return make_node(string(crtv.begin() + lo, crtv.begin() + hi));
             } else {
                 auto const count = (hi - lo) / crtv.view().size();
                 if (!leaf_mutable)
-                    return make_node(repeated_text_view(crtv.view(), count));
+                    return make_node(repeated_string_view(crtv.view(), count));
                 auto mut_node = node.write();
-                repeated_text_view & rtv =
-                    mut_node.as_leaf()->as_repeated_text_view();
-                rtv = repeated_text_view(rtv.view(), count);
+                repeated_string_view & rtv =
+                    mut_node.as_leaf()->as_repeated_string_view();
+                rtv = repeated_string_view(rtv.view(), count);
             }
             return node;
         }
@@ -344,7 +348,7 @@ namespace boost { namespace text { namespace detail {
                 if (encoding_note == check_encoding_breakage) {
                     // TODO: Check ref.ref_(lo, hi);
                 }
-                ref.ref_ = text_view(ref.ref_.begin() + lo, hi - lo);
+                ref.ref_ = string_view(ref.ref_.begin() + lo, hi - lo);
             }
             return node;
         }
@@ -375,11 +379,11 @@ namespace boost { namespace text { namespace detail {
         if (leaf_mutable && node.as_leaf()->which_ == which::t) {
             {
                 auto mut_node = node.write();
-                text & t = mut_node.as_leaf()->as_text();
+                string & t = mut_node.as_leaf()->as_string();
                 if (encoding_note == check_encoding_breakage) {
                     // TODO: Check t(lo, hi)
                 }
-                t.erase(text_view(t.begin() + lo, hi - lo));
+                t.erase(string_view(t.begin() + lo, hi - lo));
             }
             retval.slice = node;
             return retval;
@@ -420,7 +424,7 @@ namespace boost { namespace text { namespace detail {
         return utf8::encoded(segment.begin(), segment.end());
     }
 
-    inline bool encoded(repeated_text_view rtv)
+    inline bool encoded(repeated_string_view rtv)
     {
         return utf8::encoded(rtv.view().begin(), rtv.view().end());
     }
@@ -437,9 +441,9 @@ namespace boost { namespace text { namespace detail {
 
     struct repeated_range
     {
-        repeated_text_view::const_iterator first, last;
-        repeated_text_view::const_iterator begin() const { return first; }
-        repeated_text_view::const_iterator end() const { return last; }
+        repeated_string_view::const_iterator first, last;
+        repeated_string_view::const_iterator begin() const { return first; }
+        repeated_string_view::const_iterator end() const { return last; }
     };
 
     inline std::ostream & operator<<(std::ostream & os, repeated_range rr)

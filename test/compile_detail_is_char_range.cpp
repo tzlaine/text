@@ -1,6 +1,6 @@
 #include <boost/text/algorithm.hpp>
-#include <boost/text/text_view.hpp>
-#include <boost/text/text.hpp>
+#include <boost/text/string_view.hpp>
+#include <boost/text/string.hpp>
 #include <boost/range/iterator_range_core.hpp>
 
 #include <array>
@@ -37,10 +37,10 @@ struct b_t
 
 using namespace boost;
 
-static_assert(text::detail::is_char_range<text::text_view>{}, "");
-static_assert(text::detail::is_char_range<text::text_view const>{}, "");
-static_assert(text::detail::is_char_range<text::text>{}, "");
-static_assert(text::detail::is_char_range<text::text const>{}, "");
+static_assert(text::detail::is_char_range<text::string_view>{}, "");
+static_assert(text::detail::is_char_range<text::string_view const>{}, "");
+static_assert(text::detail::is_char_range<text::string>{}, "");
+static_assert(text::detail::is_char_range<text::string const>{}, "");
 static_assert(text::detail::is_char_range<std::string>{}, "");
 static_assert(text::detail::is_char_range<std::string const>{}, "");
 static_assert(text::detail::is_char_range<std::vector<char>>{}, "");

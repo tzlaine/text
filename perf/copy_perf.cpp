@@ -1,46 +1,46 @@
-#include <boost/text/text.hpp>
+#include <boost/text/string.hpp>
 
-#include "text_objects.hpp"
+#include "string_objects.hpp"
 
 #include <benchmark/benchmark.h>
 
 #include <iostream>
 
 
-void BM_text_view_copy(benchmark::State & state)
+void BM_string_view_copy(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(
-            boost::text::text_view(text_views[state.range(0)]));
+            boost::text::string_view(string_views[state.range(0)]));
     }
 }
 
-void BM_text_copy(benchmark::State & state)
+void BM_string_copy(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::text(texts[state.range(0)]));
+        benchmark::DoNotOptimize(boost::text::string(strings[state.range(0)]));
     }
 }
 
-void BM_rope_copy(benchmark::State & state)
-{
-    while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(
-            boost::text::unencoded_rope(ropes[state.range(0)]));
-    }
-}
-
-void BM_rope_view_copy(benchmark::State & state)
+void BM_unencoded_rope_copy(benchmark::State & state)
 {
     while (state.KeepRunning()) {
         benchmark::DoNotOptimize(
-            boost::text::unencoded_rope_view(rope_views[state.range(0)]));
+            boost::text::unencoded_rope(unencoded_ropes[state.range(0)]));
     }
 }
 
-BENCHMARK(BM_text_view_copy) BENCHMARK_ARGS();
-BENCHMARK(BM_text_copy) BENCHMARK_ARGS();
-BENCHMARK(BM_rope_copy) BENCHMARK_ARGS();
-BENCHMARK(BM_rope_view_copy) BENCHMARK_ARGS();
+void BM_unencoded_rope_view_copy(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+        benchmark::DoNotOptimize(
+            boost::text::unencoded_rope_view(unencoded_rope_views[state.range(0)]));
+    }
+}
+
+BENCHMARK(BM_string_view_copy) BENCHMARK_ARGS();
+BENCHMARK(BM_string_copy) BENCHMARK_ARGS();
+BENCHMARK(BM_unencoded_rope_copy) BENCHMARK_ARGS();
+BENCHMARK(BM_unencoded_rope_view_copy) BENCHMARK_ARGS();
 
 BENCHMARK_MAIN()

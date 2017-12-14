@@ -1,4 +1,4 @@
-#include <boost/text/text_view.hpp>
+#include <boost/text/string_view.hpp>
 
 #include <gtest/gtest.h>
 
@@ -47,7 +47,7 @@ static_assert(text::detail::strrchr(empty, empty + 1, 't') == empty + 1, "");
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 {
-    constexpr boost::text::text_view const str_1("not empty");
+    constexpr boost::text::string_view const str_1("not empty");
 
     static_assert(
         text::detail::strrchr(str_1.begin(), str_1.begin(), 't') ==
@@ -80,7 +80,7 @@ static_assert(text::detail::strrchr(empty, empty + 1, 't') == empty + 1, "");
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
 {
-    constexpr boost::text::text_view const str_2("n", 1);
+    constexpr boost::text::string_view const str_2("n", 1);
 
     static_assert(
         text::detail::strrchr(str_2.begin(), str_2.begin(), 'n') ==
@@ -160,10 +160,10 @@ TEST(utility, test_compare_impl)
 #ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
 
     {
-        constexpr text::text_view const empty("");
-        constexpr text::text_view const non_empty_a("a");
-        constexpr text::text_view const non_empty_b("b");
-        constexpr text::text_view const non_empty_ab("ab");
+        constexpr text::string_view const empty("");
+        constexpr text::string_view const non_empty_a("a");
+        constexpr text::string_view const non_empty_b("b");
+        constexpr text::string_view const non_empty_ab("ab");
 
         static_assert(
             text::detail::compare_impl(

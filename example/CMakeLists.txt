@@ -13,8 +13,8 @@ endmacro()
 # TODO add_sample(utf8_guarantee)
 add_sample(slicing)
 
-add_sample(text_view_snippets)
-# TODO add_sample(text_snippets)
+add_sample(string_view_snippets)
+# TODO add_sample(string_snippets)
 
 add_sample(hello_world)
 # TODO add_sample(encoding)

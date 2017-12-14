@@ -21,7 +21,7 @@ struct snapshot_t
 #ifdef USE_ROPES
     boost::text::unencoded_rope content_;
 #else
-    boost::text::text content_;
+    boost::text::string content_;
 #endif
     boost::text::segmented_vector<line_size_t> line_sizes_;
     int first_row_ = 0;
@@ -92,7 +92,7 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
     int line_size = 0;
     int line_cps = 0;
     while (ifs.good()) {
-        boost::text::text chunk;
+        boost::text::string chunk;
         int const chunk_size = 1 << 16;
         chunk.resize(chunk_size, ' ');
         ifs.read(chunk.begin(), chunk_size);
@@ -109,9 +109,9 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
                 --it_for_counting_cps;
             line_cps += std::distance(
                 boost::text::utf8::to_utf32_iterator<
-                    boost::text::text::const_iterator>(prev_it),
+                    boost::text::string::const_iterator>(prev_it),
                 boost::text::utf8::to_utf32_iterator<
-                    boost::text::text::const_iterator>(it_for_counting_cps));
+                    boost::text::string::const_iterator>(it_for_counting_cps));
             if (it != chunk.end())
                 ++it;
             line_size += it - prev_it;

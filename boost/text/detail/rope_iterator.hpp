@@ -161,12 +161,12 @@ namespace boost { namespace text { namespace detail {
         {
             switch (leaf_->which_) {
             case which::t: {
-                text const * t = static_cast<text *>(leaf_->buf_ptr_);
+                string const * t = static_cast<string *>(leaf_->buf_ptr_);
                 return *(t->begin() + (n_ - leaf_start_));
             }
             case which::rtv: {
-                repeated_text_view const * rtv =
-                    static_cast<repeated_text_view *>(leaf_->buf_ptr_);
+                repeated_string_view const * rtv =
+                    static_cast<repeated_string_view *>(leaf_->buf_ptr_);
                 return *(rtv->begin() + (n_ - leaf_start_));
             }
             case which::ref: {
