@@ -1,4 +1,5 @@
 #include <boost/text/unencoded_rope.hpp>
+#include <boost/text/text.hpp>
 
 #include <gtest/gtest.h>
 

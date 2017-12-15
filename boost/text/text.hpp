@@ -2,11 +2,19 @@
 #define BOOST_TEXT_TEXT_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/utf8.hpp>
 
 #include <iterator>
 
 
 namespace boost { namespace text {
+
+    struct string_view;
+    struct string;
+    struct repeated_string_view;
+    struct rope_view;
+    struct rope;
+    struct text_view;
 
     /* TODO: Make sure we support operations on:
         char const *          checked     (=)string_view
@@ -28,6 +36,9 @@ namespace boost { namespace text {
             grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
         using reverse_iterator = std::reverse_iterator<iterator>;
         using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
+        /** Default ctor. */
+        text() {}
 
         /** Constructs a text from a string. */
         explicit text(string t);
@@ -120,31 +131,43 @@ namespace boost { namespace text {
         /** Assignment from a repeated_string_view. */
         text & operator=(repeated_string_view tv);
 
-        iterator begin() noexcept { return make_iter(str_.begin()); }
-        iterator end() noexcept { return make_iter(str_.end()); }
+        iterator begin() noexcept
+        {
+            return make_iter(str_.begin(), str_.begin(), str_.end());
+        }
+        iterator end() noexcept
+        {
+            return make_iter(str_.begin(), str_.end(), str_.end());
+        }
 
-        const_iterator begin() const noexcept { make_iter(str_.begin()); }
-        const_iterator end() const noexcept { make_iter(str_.end()); }
+        const_iterator begin() const noexcept
+        {
+            return make_iter(str_.begin(), str_.begin(), str_.end());
+        }
+        const_iterator end() const noexcept
+        {
+            return make_iter(str_.begin(), str_.end(), str_.end());
+        }
 
         const_iterator cbegin() const noexcept { return begin(); }
         const_iterator cend() const noexcept { return end(); }
 
         reverse_iterator rbegin() noexcept
         {
-            return make_reverse_iter(end() - 1);
+            return make_reverse_iter(--end());
         }
         reverse_iterator rend() noexcept
         {
-            return make_reverse_iter(begin() - 1);
+            return make_reverse_iter(--begin());
         }
 
         const_reverse_iterator rbegin() const noexcept
         {
-            return make_reverse_iter(end());
+            return make_reverse_iter(--end());
         }
         const_reverse_iterator rend() const noexcept
         {
-            return make_reverse_iter(begin());
+            return make_reverse_iter(--begin());
         }
 
         const_reverse_iterator crbegin() const noexcept { return rbegin(); }
@@ -165,7 +188,7 @@ namespace boost { namespace text {
             O(n). */
         int count_graphemes() const noexcept
         {
-            returns std::distance(begin(), end());
+            return std::distance(begin(), end());
         }
 
 #if 0 // TODO: Do this in terms of iterators, or just drop it?
@@ -296,6 +319,9 @@ namespace boost { namespace text {
         text &
         replace(text_view old_substr, text_view new_substr);
 
+        /** TODO */
+        text & replace(text_view old_substr, string_view new_substr);
+
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
@@ -352,7 +378,7 @@ namespace boost { namespace text {
             bytes.
 
             \post capacity() >= new_size + 1 */
-        void reserve(int new_size) { str_.resize(); }
+        void reserve(int new_size) { str_.reserve(new_size); }
 
         /** Reduces storage used by *this to just the amount necessary to
             contain size() chars.
@@ -410,24 +436,29 @@ namespace boost { namespace text {
         friend std::ostream &
         operator<<(std::ostream & os, text const & t)
         {
-            return os.write(t.begin(), t.size());
+            return os.write(t.str_.begin(), t.str_.size());
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        iterator make_iter(char * ptr)
+        static iterator make_iter(char * first, char * it, char * last)
         {
-            return iterator{utf8::to_utf32_iterator<char *>{ptr}};
+            return iterator{utf8::to_utf32_iterator<char *>{first},
+                            utf8::to_utf32_iterator<char *>{it},
+                            utf8::to_utf32_iterator<char *>{last}};
         }
 
-        iterator make_iter(char const * ptr)
+        static const_iterator
+        make_iter(char const * first, char const * it, char const * last)
         {
-            return iterator{utf8::to_utf32_iterator<char const *>{ptr}};
+            return const_iterator{utf8::to_utf32_iterator<char const *>{first},
+                                  utf8::to_utf32_iterator<char const *>{it},
+                                  utf8::to_utf32_iterator<char const *>{last}};
         }
 
         template<typename Iter>
-        std::reverse_iterator<Iter> make_reverse_iter(Iter it)
+        static std::reverse_iterator<Iter> make_reverse_iter(Iter it)
         {
             return std::reverse_iterator<Iter>{it};
         }
@@ -477,7 +508,8 @@ namespace boost { namespace text {
 
 }}
 
-#include <boost/text/repeated_text_view.hpp>
+#include <boost/text/string.hpp>
+#include <boost/text/text_view.hpp>
 
 namespace boost { namespace text {
 
@@ -487,7 +519,7 @@ namespace boost { namespace text {
 
             \throw std::invalid_argument if the ends of the string are not
             valid UTF-8. */
-        inline text operator"" _gt(char const * str, std::size_t len)
+        inline text operator"" _t(char const * str, std::size_t len)
         {
             assert(len < INT_MAX);
             assert(utf8::encoded(str, str + len));
@@ -497,7 +529,7 @@ namespace boost { namespace text {
         /** Creates a text from a char16_t string literal.
 
             \throw std::invalid_argument if the string is not valid UTF-16. */
-        inline text operator"" _gt(char16_t const * str, std::size_t len)
+        inline text operator"" _t(char16_t const * str, std::size_t len)
         {
             assert(len < INT_MAX / 2);
             return text(
@@ -508,7 +540,7 @@ namespace boost { namespace text {
         /** Creates a text from a char32_t string literal.
 
             \throw std::invalid_argument if the string is not valid UTF-32. */
-        inline text operator"" _gt(char32_t const * str, std::size_t len)
+        inline text operator"" _t(char32_t const * str, std::size_t len)
         {
             assert(len < INT_MAX / 4);
             return text(
@@ -521,17 +553,16 @@ namespace boost { namespace text {
 
     inline text::text(text_view tv) : str_()
     {
-        str_.insert(str_.begin(), tv.begin().base(), tv.end().base());
+        str_.insert(
+            str_.begin(), tv.begin().base().base(), tv.end().base().base());
     }
 
-    inline text::text(string_view tv) :
-        str_()
+    inline text::text(string_view tv) : str_()
     {
         str_.insert(str_.begin(), tv.begin(), tv.end());
     }
 
-    inline text::text(repeated_string_view rtv) :
-        str_()
+    inline text::text(repeated_string_view rtv) : str_()
     {
         str_.insert(str_.begin(), rtv.begin(), rtv.end());
     }
@@ -546,7 +577,8 @@ namespace boost { namespace text {
     inline text & text::operator=(text_view tv)
     {
         clear();
-        str_.insert(str_.begin(), tv.begin().base(), tv.end().base());
+        str_.insert(
+            str_.begin(), tv.begin().base().base(), tv.end().base().base());
         return *this;
     }
 
@@ -622,36 +654,38 @@ namespace boost { namespace text {
     inline text &
     text::insert(iterator at, text_view tv)
     {
-        str_.insert(at.base(), tv.begin().base(), tv.end().base());
+        str_.insert(
+            at.base().base(), tv.begin().base().base(), tv.end().base().base());
         return *this;
     }
 
     inline text & text::insert(iterator at, string_view tv)
     {
-        str_.insert(at.base(), tv);
+        str_.insert(at.base().base() - str_.begin(), tv);
         return *this;
     }
 
     inline text &
     text::insert(iterator at, repeated_string_view rtv)
     {
-        str_.insert(at.base(), rtv);
+        str_.insert(at.base().base() - str_.begin(), rtv);
         return *this;
     }
 
     inline text & text::erase(text_view tv) noexcept
     {
-        str_.erase(tv.begin().base(), tv.end().base());
+        auto const first = tv.begin().base().base();
+        auto const last = tv.end().base().base();
+        str_.erase(string_view(first, last - first));
         return *this;
     }
 
     template<typename CharRange>
-    auto
-    text::replace(text_view old_substr, CharRange const & r)
+    auto text::replace(text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        return replace(
-            old_substr.begin().base(), old_substr.end().base(), string_view(r));
+        // TODO
+        return *this;
     }
 
     inline text & text::replace(
@@ -684,6 +718,8 @@ namespace boost { namespace text {
         return *this;
     }
 
+    // TODO: Check encoding here and elsewhere?  Or perhaps just insert
+    // replacement characters....
     inline text & text::operator+=(char const * c_str)
     {
         str_ += c_str;
@@ -692,7 +728,10 @@ namespace boost { namespace text {
 
     inline text & text::operator+=(text_view tv)
     {
-        return str_.insert(size(), tv); // TODO
+        auto const first = tv.begin().base().base();
+        auto const last = tv.end().base().base();
+        str_ += string_view(first, last - first);
+        return *this;
     }
 
     inline text & text::operator+=(string_view tv)
@@ -711,18 +750,13 @@ namespace boost { namespace text {
     auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        return insert(size(), text_view(r));
-    }
-
-    inline bool text::self_reference(text_view tv) const
-    {
-        using less_t = std::less<char const *>;
-        less_t less;
-        return !less(tv.begin(), begin()) && !less(end(), tv.end());
+        // TODO
+        return *this;
     }
 
 #endif // Doxygen
 
+#if 0
     inline bool operator==(char const * lhs, text const & rhs) noexcept
     {
         return detail::compare_impl(
@@ -758,6 +792,7 @@ namespace boost { namespace text {
         return detail::compare_impl(
                    lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0;
     }
+#endif
 
 
     /** Creates a new text object that is the concatenation of t and t2. */
