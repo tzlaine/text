@@ -239,7 +239,6 @@ namespace boost { namespace text {
             empty string */
         void clear() noexcept { str_.clear(); }
 
-        // TODO: Add reverse_iterator overloads too?
         /** Inserts the sequence of char from tv into *this starting at offset
             at.
 
@@ -393,6 +392,7 @@ namespace boost { namespace text {
         /** Appends c_str to *this. */
         text & operator+=(char const * c_str);
 
+        // TODO: Is this redundant with the string_view overload?
         /** Appends tv to *this. */
         text & operator+=(string const & t); // TODO: String overloads are needed elsewhere.
 
@@ -571,7 +571,7 @@ namespace boost { namespace text {
     auto text::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        return *this = string_view(r); // TODO
+        return str_ = r;
     }
 
     inline text & text::operator=(text_view tv)
@@ -718,8 +718,6 @@ namespace boost { namespace text {
         return *this;
     }
 
-    // TODO: Check encoding here and elsewhere?  Or perhaps just insert
-    // replacement characters....
     inline text & text::operator+=(char const * c_str)
     {
         str_ += c_str;

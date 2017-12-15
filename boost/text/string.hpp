@@ -113,6 +113,7 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
+        // TODO: Loosen this to allow discontiguous ranges.
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if

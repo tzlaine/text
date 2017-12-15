@@ -46,15 +46,7 @@ namespace boost { namespace text {
             auto const len = strlen(c_str);
             first_ = make_iter(c_str, c_str, c_str + len);
             last_ = make_iter(c_str, c_str + len, c_str + len);
-            if (!utf8::encoded(c_str, c_str + len)) {
-                throw std::invalid_argument(
-                    "The given string is not valid UTF-8.");
-            }
         }
-
-        // TODO: We need a UTF8->UTF32 transcoding iterator that does not
-        // produce replacement characters, if that is faster than the existing
-        // one.
 
         /** Constructs a text_view from an array of char.  The UTF-8 encoding
             is checked only at the beginning and end of the string, to prevent
@@ -66,39 +58,6 @@ namespace boost { namespace text {
             \throw std::invalid_argument if the ends of the string are not valid
            UTF-8. \pre len >= 0 \post data() == c_str && size() == len */
         text_view(char const * c_str, int len) :
-            first_(make_iter(c_str, c_str, c_str + len)),
-            last_(make_iter(c_str, c_str + len, c_str + len))
-        {
-            assert(0 <= len);
-            if (!utf8::encoded(c_str, c_str + len)) {
-                throw std::invalid_argument(
-                    "The given string is not valid UTF-8.");
-            }
-        }
-
-        /** Constructs a text_view from a null-terminated C string, without
-            any check of UTF-8 encoding.
-
-            This function is constexpr in C++14 and later.
-
-            \pre strlen(c_str) <= max_size()
-            \post data() == c_str && size() == strlen(c_str) */
-        text_view(char const * c_str, utf8::unchecked_t) noexcept
-        {
-            auto const len = strlen(c_str);
-            first_ = make_iter(c_str, c_str, c_str + len);
-            last_ = make_iter(c_str, c_str + len, c_str + len);
-            assert(len <= max_size());
-        }
-
-        /** Constructs a text_view from an array of char, without any check of
-            UTF-8 encoding.
-
-            This function is constexpr in C++14 and later.
-
-            \pre len >= 0
-            \post data() == c_str && size() == len */
-        text_view(char const * c_str, int len, utf8::unchecked_t) noexcept :
             first_(make_iter(c_str, c_str, c_str + len)),
             last_(make_iter(c_str, c_str + len, c_str + len))
         {
@@ -148,7 +107,7 @@ namespace boost { namespace text {
             return last_.base().base() - first_.base().base();
         }
 
-#if 0
+#if 0 // TODO: Replace with iterator versions?
         /** Returns a substring of *this, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
