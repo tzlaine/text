@@ -72,8 +72,7 @@ namespace boost { namespace text {
 
         grapheme_iterator() noexcept : grapheme_{} {}
 
-        grapheme_iterator(
-            Iter first, Iter it, Sentinel last) noexcept :
+        grapheme_iterator(Iter first, Iter it, Sentinel last) noexcept :
             grapheme_{it, it},
             first_(first),
             last_(last)
@@ -82,15 +81,9 @@ namespace boost { namespace text {
                 find_next_break();
         }
 
-        reference operator*() const noexcept
-        {
-            return grapheme_;
-        }
+        reference operator*() const noexcept { return grapheme_; }
 
-        pointer operator->() const noexcept
-        {
-            return &grapheme_;
-        }
+        pointer operator->() const noexcept { return &grapheme_; }
 
         Iter base() const noexcept { return grapheme_.first_; }
 
@@ -101,7 +94,7 @@ namespace boost { namespace text {
             return *this;
         }
 
-        grapheme_iterator operator++(int) noexcept
+        grapheme_iterator operator++(int)noexcept
         {
             grapheme_iterator retval = *this;
             ++*this;
@@ -111,13 +104,14 @@ namespace boost { namespace text {
         grapheme_iterator & operator--() noexcept
         {
             grapheme_.last_ = grapheme_.first_;
-            grapheme_.first_ = find_grapheme_start(first_, --grapheme_.first_, last_);
+            grapheme_.first_ =
+                find_grapheme_start(first_, --grapheme_.first_, last_);
             break_.prop_ = grapheme_prop(*grapheme_.first_);
             break_.fsm_ = grapheme_break_fsm{};
             return *this;
         }
 
-       grapheme_iterator operator--(int) noexcept
+        grapheme_iterator operator--(int)noexcept
         {
             grapheme_iterator retval = *this;
             --*this;
@@ -142,8 +136,8 @@ namespace boost { namespace text {
         void find_next_break() noexcept
         {
             if (grapheme_.last_ != last_) {
-                break_ = grapheme_break(
-                    break_.fsm_, break_.prop_, *grapheme_.last_);
+                break_ =
+                    grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
             }
             while (grapheme_.last_ != last_) {
                 ++grapheme_.last_;
