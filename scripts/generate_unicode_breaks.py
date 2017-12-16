@@ -6,6 +6,7 @@ cpp_file_form = decls = '''\
 
 #include <algorithm>
 #include <array>
+#include <unordered_map>
 
 
 namespace boost {{ namespace text {{
@@ -24,14 +25,22 @@ static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{{{
 {2}
 }}}};
 
+static const std::unordered_map<uint32_t, {0}_t> g_{0}_map = {{
+{4}
+}};
+
 {0}_t {0}(uint32_t cp) noexcept
 {{
-    auto const it = std::lower_bound(g_{0}_intervals.begin(),
-                                     g_{0}_intervals.end(),
-                                     {0}_interval{{cp, cp + 1}});
-    if (it == g_{0}_intervals.end() || cp < it->lo_ || it->hi_ <= cp)
-        return {0}_t::Other;
-    return it->prop_;
+    auto const it = g_{0}_map.find(cp);
+    if (it == g_{0}_map.end()) {{
+        auto const it2 = std::lower_bound(g_{0}_intervals.begin(),
+                                          g_{0}_intervals.end(),
+                                          {0}_interval{{cp, cp + 1}});
+        if (it2 == g_{0}_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+            return {0}_t::Other;
+        return it2->prop_;
+    }}
+    return it->second;
 }}
 
 }}}}
@@ -40,7 +49,6 @@ static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{{{
 
 def extract_break_properties(filename, prop_):
     intervals = []
-    intervals_str = ''
     prop_enum = prop_ + '_t'
     break_prop_lines = open(filename, 'r').readlines()
     for line in break_prop_lines:
@@ -63,20 +71,30 @@ def extract_break_properties(filename, prop_):
             intervals.append(interval)
 
     intervals = sorted(intervals)
+    intervals_list = ''
+    intervals_map = ''
+    num_intervals = 0
     for interval in intervals:
-        intervals_str += '    {}_interval{{{}, {}, {}::{}}},\n'.format(
-            prop_, hex(interval[0]), hex(interval[1]), prop_enum, interval[2]
-        )
-    return (intervals_str, len(intervals))
+        if 128 < interval[1] - interval[0]:
+            num_intervals += 1
+            intervals_list += '    {}_interval{{{}, {}, {}::{}}},\n'.format(
+                prop_, hex(interval[0]), hex(interval[1]), prop_enum, interval[2]
+            )
+        else:
+            for i in range(interval[0], interval[1]):
+                intervals_map += '    {{ {}, {}::{} }},\n'.format(
+                    hex(i), prop_enum, interval[2]
+                )
+    return (intervals_list, num_intervals, intervals_map)
 
-(grapheme_break_intervals, num_grapheme_intervals) = \
+(grapheme_break_intervals, num_grapheme_intervals, grapheme_break_intervals_map) = \
     extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop')
 cpp_file = open('grapheme_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break'))
+cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', grapheme_break_intervals_map))
 
-(word_break_intervals, num_word_intervals) = \
+(word_break_intervals, num_word_intervals, word_break_intervals_map) = \
     extract_break_properties('WordBreakProperty.txt', 'word_prop')
 cpp_file = open('word_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break'))
+cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', word_break_intervals_map))
 
 # TODO: Add sentence breaks?
