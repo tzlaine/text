@@ -16,8 +16,9 @@ endmacro()
 add_perf_executable(ctor_dtor_perf)
 add_perf_executable(copy_perf)
 add_perf_executable(insert_erase_perf)
-add_perf_executable(for_find_perf)
+add_perf_executable(for_find_perf) 
 add_perf_executable(compare_boyer_moore_perf)
+add_perf_executable(grapheme_prop_lookup_perf)
 
 add_custom_target(perf
     COMMAND ctor_dtor_perf --benchmark_out=ctor_dtor_perf.json --benchmark_out_format=json
@@ -25,6 +26,7 @@ add_custom_target(perf
     COMMAND insert_erase_perf --benchmark_out=insert_erase_perf.json --benchmark_out_format=json
     COMMAND for_find_perf --benchmark_out=for_find_perf.json --benchmark_out_format=json
     COMMAND compare_boyer_moore_perf --benchmark_out=compare_boyer_moore_perf.json --benchmark_out_format=json
+    COMMAND grapheme_prop_lookup_perf --benchmark_out=grapheme_prop_lookup_perf.json --benchmark_out_format=json
 )
 
 add_custom_target(perf_snapshot
@@ -37,6 +39,7 @@ add_custom_target(perf_comparison
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/insert_erase_perf.json insert_erase_perf.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/for_find_perf.json for_find_perf.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/compare_boyer_moore_perf.json compare_boyer_moore_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/grapheme_prop_lookup_perf.json grapheme_prop_lookup_perf.json
 )
 
 
