@@ -388,6 +388,12 @@ namespace boost { namespace text {
         /** Swaps *this with rhs. */
         void swap(text & rhs) noexcept { str_.swap(rhs.str_); }
 
+        /** TODO */
+        string extract() && noexcept { return std::move(str_); }
+
+        /** TODO */
+        void replace(string && s) noexcept { str_ = std::move(s); }
+
         // TODO: Why isn't this redundant with the string_view overload?
         /** Appends c_str to *this. */
         text & operator+=(char const * c_str);
