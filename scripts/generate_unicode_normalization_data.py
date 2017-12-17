@@ -121,18 +121,19 @@ def get_decompositions(filename, cccs_dict):
             decomp = (decomp_cps, canonical)
             decomps[cp] = decomp
 
+    # Pass 2: Expand Pass-1 decompositions
     def expand_decomp(decomp, all_decomps):
         first_cp = decomp[0][0]
         if decomp[1] and first_cp in all_decomps:
             return expand_decomp((all_decomps[first_cp][0] + decomp[0][1:], True), all_decomps)
         return decomp
 
-    # Pass 2: Expand Pass-1 decompositions
     expanded_decomps = map(
         lambda item: (item[0], expand_decomp(item[1], decomps)),
         sorted(decomps.items())
     )
 
+    # Pass 3: Reorder Pass-2 decompositions uing cccs
     def reorder_cps(cps, cccs_dict):
         for i in range(1, len(cps) - 1):
             cp_a = cps[i]
@@ -147,7 +148,6 @@ def get_decompositions(filename, cccs_dict):
                 cps[i + 1] = cp_a
         return cps
 
-    # Pass 3: Reorder Pass-2 decompositions uing cccs
     decomps = map(
         lambda x: (x[0], (reorder_cps(x[1][0], cccs_dict), x[1][1])),
         expanded_decomps
