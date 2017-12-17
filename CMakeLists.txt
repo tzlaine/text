@@ -46,7 +46,8 @@ endif ()
 add_library(text
     src/grapheme_break.cpp
     src/word_break.cpp
-    src/normalization_data.cpp
+    src/normalization_data_ccc.cpp
+    src/normalization_data_canonical.cpp
 )
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(text PUBLIC boost)
