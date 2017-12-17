@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_NORMALIZATION_DATA_HPP
 #define BOOST_TEXT_NORMALIZATION_DATA_HPP
 
+#include <boost/text/utf8.hpp>
+
 #include <array>
 
 

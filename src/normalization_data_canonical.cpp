@@ -269,7 +269,7 @@ g_canonical_decomposition_map = {
     { 0x344, { {{ 0x308, 0x301 }}, 2 } },
     { 0x374, { {{ 0x2b9 }}, 1 } },
     { 0x37e, { {{ 0x3b }}, 1 } },
-    { 0x385, { {{ 0x20, 0x308, 0x301 }}, 3 } },
+    { 0x385, { {{ 0xa8, 0x301 }}, 2 } },
     { 0x386, { {{ 0x391, 0x301 }}, 2 } },
     { 0x387, { {{ 0xb7 }}, 1 } },
     { 0x388, { {{ 0x395, 0x301 }}, 2 } },
@@ -291,8 +291,8 @@ g_canonical_decomposition_map = {
     { 0x3cc, { {{ 0x3bf, 0x301 }}, 2 } },
     { 0x3cd, { {{ 0x3c5, 0x301 }}, 2 } },
     { 0x3ce, { {{ 0x3c9, 0x301 }}, 2 } },
-    { 0x3d3, { {{ 0x3a5, 0x301 }}, 2 } },
-    { 0x3d4, { {{ 0x3a5, 0x308 }}, 2 } },
+    { 0x3d3, { {{ 0x3d2, 0x301 }}, 2 } },
+    { 0x3d4, { {{ 0x3d2, 0x308 }}, 2 } },
     { 0x400, { {{ 0x415, 0x300 }}, 2 } },
     { 0x401, { {{ 0x415, 0x308 }}, 2 } },
     { 0x403, { {{ 0x413, 0x301 }}, 2 } },
@@ -580,7 +580,7 @@ g_canonical_decomposition_map = {
     { 0x1e97, { {{ 0x74, 0x308 }}, 2 } },
     { 0x1e98, { {{ 0x77, 0x30a }}, 2 } },
     { 0x1e99, { {{ 0x79, 0x30a }}, 2 } },
-    { 0x1e9b, { {{ 0x73, 0x307 }}, 2 } },
+    { 0x1e9b, { {{ 0x17f, 0x307 }}, 2 } },
     { 0x1ea0, { {{ 0x41, 0x323 }}, 2 } },
     { 0x1ea1, { {{ 0x61, 0x323 }}, 2 } },
     { 0x1ea2, { {{ 0x41, 0x309 }}, 2 } },
@@ -846,7 +846,7 @@ g_canonical_decomposition_map = {
     { 0x1fbb, { {{ 0x391, 0x301 }}, 2 } },
     { 0x1fbc, { {{ 0x391, 0x345 }}, 2 } },
     { 0x1fbe, { {{ 0x3b9 }}, 1 } },
-    { 0x1fc1, { {{ 0x20, 0x308, 0x342 }}, 3 } },
+    { 0x1fc1, { {{ 0xa8, 0x342 }}, 2 } },
     { 0x1fc2, { {{ 0x3b7, 0x300, 0x345 }}, 3 } },
     { 0x1fc3, { {{ 0x3b7, 0x345 }}, 2 } },
     { 0x1fc4, { {{ 0x3b7, 0x301, 0x345 }}, 3 } },
@@ -857,9 +857,9 @@ g_canonical_decomposition_map = {
     { 0x1fca, { {{ 0x397, 0x300 }}, 2 } },
     { 0x1fcb, { {{ 0x397, 0x301 }}, 2 } },
     { 0x1fcc, { {{ 0x397, 0x345 }}, 2 } },
-    { 0x1fcd, { {{ 0x20, 0x313, 0x300 }}, 3 } },
-    { 0x1fce, { {{ 0x20, 0x313, 0x301 }}, 3 } },
-    { 0x1fcf, { {{ 0x20, 0x313, 0x342 }}, 3 } },
+    { 0x1fcd, { {{ 0x1fbf, 0x300 }}, 2 } },
+    { 0x1fce, { {{ 0x1fbf, 0x301 }}, 2 } },
+    { 0x1fcf, { {{ 0x1fbf, 0x342 }}, 2 } },
     { 0x1fd0, { {{ 0x3b9, 0x306 }}, 2 } },
     { 0x1fd1, { {{ 0x3b9, 0x304 }}, 2 } },
     { 0x1fd2, { {{ 0x3b9, 0x308, 0x300 }}, 3 } },
@@ -870,9 +870,9 @@ g_canonical_decomposition_map = {
     { 0x1fd9, { {{ 0x399, 0x304 }}, 2 } },
     { 0x1fda, { {{ 0x399, 0x300 }}, 2 } },
     { 0x1fdb, { {{ 0x399, 0x301 }}, 2 } },
-    { 0x1fdd, { {{ 0x20, 0x314, 0x300 }}, 3 } },
-    { 0x1fde, { {{ 0x20, 0x314, 0x301 }}, 3 } },
-    { 0x1fdf, { {{ 0x20, 0x314, 0x342 }}, 3 } },
+    { 0x1fdd, { {{ 0x1ffe, 0x300 }}, 2 } },
+    { 0x1fde, { {{ 0x1ffe, 0x301 }}, 2 } },
+    { 0x1fdf, { {{ 0x1ffe, 0x342 }}, 2 } },
     { 0x1fe0, { {{ 0x3c5, 0x306 }}, 2 } },
     { 0x1fe1, { {{ 0x3c5, 0x304 }}, 2 } },
     { 0x1fe2, { {{ 0x3c5, 0x308, 0x300 }}, 3 } },
@@ -886,8 +886,8 @@ g_canonical_decomposition_map = {
     { 0x1fea, { {{ 0x3a5, 0x300 }}, 2 } },
     { 0x1feb, { {{ 0x3a5, 0x301 }}, 2 } },
     { 0x1fec, { {{ 0x3a1, 0x314 }}, 2 } },
-    { 0x1fed, { {{ 0x20, 0x308, 0x300 }}, 3 } },
-    { 0x1fee, { {{ 0x20, 0x308, 0x301 }}, 3 } },
+    { 0x1fed, { {{ 0xa8, 0x300 }}, 2 } },
+    { 0x1fee, { {{ 0xa8, 0x301 }}, 2 } },
     { 0x1fef, { {{ 0x60 }}, 1 } },
     { 0x1ff2, { {{ 0x3c9, 0x300, 0x345 }}, 3 } },
     { 0x1ff3, { {{ 0x3c9, 0x345 }}, 2 } },
@@ -899,9 +899,9 @@ g_canonical_decomposition_map = {
     { 0x1ffa, { {{ 0x3a9, 0x300 }}, 2 } },
     { 0x1ffb, { {{ 0x3a9, 0x301 }}, 2 } },
     { 0x1ffc, { {{ 0x3a9, 0x345 }}, 2 } },
-    { 0x1ffd, { {{ 0x20, 0x301 }}, 2 } },
-    { 0x2000, { {{ 0x20 }}, 1 } },
-    { 0x2001, { {{ 0x20 }}, 1 } },
+    { 0x1ffd, { {{ 0xb4 }}, 1 } },
+    { 0x2000, { {{ 0x2002 }}, 1 } },
+    { 0x2001, { {{ 0x2003 }}, 1 } },
     { 0x2126, { {{ 0x3a9 }}, 1 } },
     { 0x212a, { {{ 0x4b }}, 1 } },
     { 0x212b, { {{ 0x41, 0x30a }}, 2 } },
@@ -2076,6 +2076,33 @@ g_canonical_decomposition_map = {
 
 canonical_decomposition canonical_decompose(uint32_t cp) noexcept
 {
+    // Hangul decomposition as described in Unicode 10.0 Section 3.12.
+    if (0xAC00 <= cp && cp <= 0xD7A3) {
+        uint32_t const SBase = 0xAC00;
+        uint32_t const LBase = 0x1100;
+        uint32_t const VBase = 0x1161;
+        uint32_t const TBase = 0x11A7;
+        //uint32_t const LCount = 19;
+        uint32_t const VCount = 21;
+        uint32_t const TCount = 28;
+        uint32_t const NCount = VCount * TCount; // 588
+        //uint32_t const SCount = LCount * NCount; // 11172
+
+        auto const SIndex = cp - SBase;
+
+        auto const LIndex = SIndex / NCount;
+        auto const VIndex = (SIndex % NCount) / TCount;
+        auto const TIndex = SIndex % TCount;
+        auto const LPart = LBase + LIndex;
+        auto const VPart = VBase + VIndex;
+        if (TIndex == 0) {
+            return canonical_decomposition{{{LPart, VPart}}, 2};
+        } else {
+            auto const TPart = TBase + TIndex;
+            return canonical_decomposition{{{LPart, VPart, TPart}}, 3};
+        }
+    }
+
     auto const it = g_canonical_decomposition_map.find(cp);
     if (it == g_canonical_decomposition_map.end()) {
         return canonical_decomposition{{{cp}}, 1};

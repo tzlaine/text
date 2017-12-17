@@ -45,6 +45,33 @@ g_canonical_decomposition_map = {{
 
 canonical_decomposition canonical_decompose(uint32_t cp) noexcept
 {{
+    // Hangul decomposition as described in Unicode 10.0 Section 3.12.
+    if (0xAC00 <= cp && cp <= 0xD7A3) {{
+        uint32_t const SBase = 0xAC00;
+        uint32_t const LBase = 0x1100;
+        uint32_t const VBase = 0x1161;
+        uint32_t const TBase = 0x11A7;
+        //uint32_t const LCount = 19;
+        uint32_t const VCount = 21;
+        uint32_t const TCount = 28;
+        uint32_t const NCount = VCount * TCount; // 588
+        //uint32_t const SCount = LCount * NCount; // 11172
+
+        auto const SIndex = cp - SBase;
+
+        auto const LIndex = SIndex / NCount;
+        auto const VIndex = (SIndex % NCount) / TCount;
+        auto const TIndex = SIndex % TCount;
+        auto const LPart = LBase + LIndex;
+        auto const VPart = VBase + VIndex;
+        if (TIndex == 0) {{
+            return canonical_decomposition{{{{{{LPart, VPart}}}}, 2}};
+        }} else {{
+            auto const TPart = TBase + TIndex;
+            return canonical_decomposition{{{{{{LPart, VPart, TPart}}}}, 3}};
+        }}
+    }}
+
     auto const it = g_canonical_decomposition_map.find(cp);
     if (it == g_canonical_decomposition_map.end()) {{
         return canonical_decomposition{{{{{{cp}}}}, 1}};
@@ -124,7 +151,7 @@ def get_decompositions(filename, cccs_dict):
     # Pass 2: Expand Pass-1 decompositions
     def expand_decomp(decomp, all_decomps):
         first_cp = decomp[0][0]
-        if decomp[1] and first_cp in all_decomps:
+        if decomp[1] and first_cp in all_decomps and all_decomps[first_cp][1]:
             return expand_decomp((all_decomps[first_cp][0] + decomp[0][1:], True), all_decomps)
         return decomp
 

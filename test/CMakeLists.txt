@@ -44,7 +44,13 @@ add_test_executable(algorithm)
 file(GLOB prop_lookup_tests *_prop_lookup_??.cpp)
 file(GLOB grapheme_break_tests grapheme_break_??.cpp)
 file(GLOB grapheme_iterator_tests grapheme_iterator_??.cpp)
-set(globbed_tests ${prop_lookup_tests} ${grapheme_break_tests} ${grapheme_iterator_tests})
+file(GLOB normalize_to_nfd_tests normalize_to_nfd_???.cpp)
+set(globbed_tests
+    ${prop_lookup_tests}
+    ${grapheme_break_tests}
+    ${grapheme_iterator_tests}
+    ${normalize_to_nfd_tests}
+)
 
 foreach(test ${globbed_tests})
     get_filename_component(test_name ${test} NAME_WE)
