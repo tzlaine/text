@@ -111,7 +111,6 @@ def get_decompositions(filename, cccs_dict):
             fields = map(lambda x: x.strip(), line.split(';'))
             if fields[5] == '':
                 continue
-            #print fields[0],fields[5]
             decomp_cps = fields[5].split(' ')
             canonical = True
             if decomp_cps[0].startswith('<'):
@@ -120,19 +119,12 @@ def get_decompositions(filename, cccs_dict):
             decomp_cps = map(lambda x: int(x, 16), decomp_cps)
             cp = int(fields[0], 16)
             decomp = (decomp_cps, canonical)
-            #print decomp
             decomps[cp] = decomp
 
-    def expand_decomp(decomp, all_decomps, indent = 0):
-#        if indent != 0:
-#            print '================================================================================'
-#        if decomp[1]:
-#            print '  ' * indent, 'Expanding:',decomp
+    def expand_decomp(decomp, all_decomps):
         first_cp = decomp[0][0]
         if decomp[1] and first_cp in all_decomps:
-            return expand_decomp((all_decomps[first_cp][0] + decomp[0][1:], True), all_decomps, indent + 1)
-#        if decomp[1]:
-#            print '  ' * indent, 'To:',decomp,'\n'
+            return expand_decomp((all_decomps[first_cp][0] + decomp[0][1:], True), all_decomps)
         return decomp
 
     # Pass 2: Expand Pass-1 decompositions
@@ -140,10 +132,6 @@ def get_decompositions(filename, cccs_dict):
         lambda item: (item[0], expand_decomp(item[1], decomps)),
         sorted(decomps.items())
     )
-
-#    for e in expanded_decomps:
-#        if e[1][1]:
-#            pass #print e
 
     def reorder_cps(cps, cccs_dict):
         for i in range(1, len(cps) - 1):
