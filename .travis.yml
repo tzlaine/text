@@ -330,7 +330,7 @@ script:
         build_dir="build-$BUILD_TYPE-cxx-$CPP"
         mkdir $build_dir
         cd $build_dir
-        cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+        cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_TRAVIS=true ..
         make -j3 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
         if [ $? -ne 0 ]
         then
