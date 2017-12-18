@@ -2104,9 +2104,8 @@ canonical_decomposition canonical_decompose(uint32_t cp) noexcept
     }
 
     auto const it = g_canonical_decomposition_map.find(cp);
-    if (it == g_canonical_decomposition_map.end()) {
+    if (it == g_canonical_decomposition_map.end())
         return canonical_decomposition{{{cp}}, 1};
-    }
     return it->second;
 }
 

@@ -48,29 +48,37 @@ namespace boost { namespace text {
                 utf8::make_from_utf32_iterator(buffer.end()));
             buffer.clear();
         }
+
+        template <typename DecomposeFunc>
+        void normalize_to_decomposed(string & s, DecomposeFunc && decompose)
+        {
+            string temp;
+            utf32_range as_utf32(s);
+            container::static_vector<uint32_t, 64> buffer;
+            for (auto x : as_utf32) {
+                auto const decomp = decompose(x);
+                if (!ccc(decomp.storage_[0]))
+                    detail::flush_buffer(buffer, temp);
+                buffer.insert(buffer.end(), decomp.begin(), decomp.end());
+            }
+            detail::flush_buffer(buffer, temp);
+            if (temp.size() <= s.capacity())
+                s = temp;
+            else
+                s.swap(temp);
+        }
     }
 
     inline void normalize_to_nfd(string & s)
     {
-        string temp;
-        utf32_range as_utf32(s);
-        container::static_vector<uint32_t, 64> buffer;
-        for (auto x : as_utf32) {
-            auto const decomp = canonical_decompose(x);
-            if (!ccc(decomp.storage_[0]))
-                detail::flush_buffer(buffer, temp);
-            buffer.insert(buffer.end(), decomp.begin(), decomp.end());
-        }
-        detail::flush_buffer(buffer, temp);
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
+        detail::normalize_to_decomposed(
+            s, [](uint32_t cp) { return canonical_decompose(cp); });
     }
 
     inline void normalize_to_nfkd(string & s)
     {
-        // TODO
+        detail::normalize_to_decomposed(
+            s, [](uint32_t cp) { return compatible_decompose(cp); });
     }
 
     inline void normalize_to_nfc(string & s)

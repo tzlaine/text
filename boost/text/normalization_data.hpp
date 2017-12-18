@@ -41,6 +41,9 @@ namespace boost { namespace text {
         int size_;
     };
 
+    /** TODO */
+    compatible_decomposition compatible_decompose(uint32_t cp) noexcept;
+
     /** Returns the Canonical Combining Class for code point cp. */
     int ccc(uint32_t cp) noexcept;
 
