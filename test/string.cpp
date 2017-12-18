@@ -638,65 +638,67 @@ TEST(string, test_insert)
     text::string_view const tv("a view ");
     text::repeated_string_view const rtv(tv, 3);
 
+    int const sbo_capacity = sizeof(char *) == 8 ? 15 : 7;
+
     {
         text::string const ct("string");
 
         text::string t0 = ct;
-        EXPECT_EQ(t0.capacity(), 15);
+        EXPECT_EQ(t0.capacity(), sbo_capacity);
         t0.insert(0, tv);
         EXPECT_EQ(t0, "a view string");
         EXPECT_EQ(t0[t0.size()], '\0');
 
         text::string t1 = ct;
-        EXPECT_EQ(t1.capacity(), 15);
+        EXPECT_EQ(t1.capacity(), sbo_capacity);
         t1.insert(1, tv);
         EXPECT_EQ(t1, "sa view tring");
         EXPECT_EQ(t1[t1.size()], '\0');
 
         text::string t2 = ct;
-        EXPECT_EQ(t2.capacity(), 15);
+        EXPECT_EQ(t2.capacity(), sbo_capacity);
         t2.insert(2, tv);
         EXPECT_EQ(t2, "sta view ring");
         EXPECT_EQ(t2[t2.size()], '\0');
 
         text::string t3 = ct;
-        EXPECT_EQ(t3.capacity(), 15);
+        EXPECT_EQ(t3.capacity(), sbo_capacity);
         t3.insert(3, tv);
         EXPECT_EQ(t3, "stra view ing");
         EXPECT_EQ(t3[t3.size()], '\0');
 
         text::string t4 = ct;
-        EXPECT_EQ(t4.capacity(), 15);
+        EXPECT_EQ(t4.capacity(), sbo_capacity);
         t4.insert(4, tv);
         EXPECT_EQ(t4, "stria view ng");
         EXPECT_EQ(t4[t4.size()], '\0');
 
         text::string t5 = ct;
-        EXPECT_EQ(t5.capacity(), 15);
+        EXPECT_EQ(t5.capacity(), sbo_capacity);
         t5.insert(5, tv);
         EXPECT_EQ(t5, "strina view g");
         EXPECT_EQ(t5[t5.size()], '\0');
 
         text::string t6 = ct;
-        EXPECT_EQ(t6.capacity(), 15);
+        EXPECT_EQ(t6.capacity(), sbo_capacity);
         t6.insert(6, tv);
         EXPECT_EQ(t6, "stringa view ");
         EXPECT_EQ(t6[t6.size()], '\0');
 
         text::string t7 = ct;
-        EXPECT_EQ(t7.capacity(), 15);
+        EXPECT_EQ(t7.capacity(), sbo_capacity);
         t7.insert(6, t7(0, 3));
         EXPECT_EQ(t7, "stringstr");
         EXPECT_EQ(t7[t7.size()], '\0');
 
         text::string t8 = ct;
-        EXPECT_EQ(t8.capacity(), 15);
+        EXPECT_EQ(t8.capacity(), sbo_capacity);
         t8.insert(2, t8(0, 3));
         EXPECT_EQ(t8, "ststrring");
         EXPECT_EQ(t8[t8.size()], '\0');
 
         text::string t9 = ct;
-        EXPECT_EQ(t9.capacity(), 15);
+        EXPECT_EQ(t9.capacity(), sbo_capacity);
         t9.insert(6, t9(3, 6));
         EXPECT_EQ(t9, "stringing");
         EXPECT_EQ(t9[t9.size()], '\0');
@@ -706,61 +708,61 @@ TEST(string, test_insert)
         text::string const ct("string");
 
         text::string t0 = ct;
-        EXPECT_EQ(t0.capacity(), 15);
+        EXPECT_EQ(t0.capacity(), sbo_capacity);
         t0.insert(0, rtv);
         EXPECT_EQ(t0, "a view a view a view string");
         EXPECT_EQ(t0[t0.size()], '\0');
 
         text::string t1 = ct;
-        EXPECT_EQ(t1.capacity(), 15);
+        EXPECT_EQ(t1.capacity(), sbo_capacity);
         t1.insert(1, rtv);
         EXPECT_EQ(t1, "sa view a view a view tring");
         EXPECT_EQ(t1[t1.size()], '\0');
 
         text::string t2 = ct;
-        EXPECT_EQ(t2.capacity(), 15);
+        EXPECT_EQ(t2.capacity(), sbo_capacity);
         t2.insert(2, rtv);
         EXPECT_EQ(t2, "sta view a view a view ring");
         EXPECT_EQ(t2[t2.size()], '\0');
 
         text::string t3 = ct;
-        EXPECT_EQ(t3.capacity(), 15);
+        EXPECT_EQ(t3.capacity(), sbo_capacity);
         t3.insert(3, rtv);
         EXPECT_EQ(t3, "stra view a view a view ing");
         EXPECT_EQ(t3[t3.size()], '\0');
 
         text::string t4 = ct;
-        EXPECT_EQ(t4.capacity(), 15);
+        EXPECT_EQ(t4.capacity(), sbo_capacity);
         t4.insert(4, rtv);
         EXPECT_EQ(t4, "stria view a view a view ng");
         EXPECT_EQ(t4[t4.size()], '\0');
 
         text::string t5 = ct;
-        EXPECT_EQ(t5.capacity(), 15);
+        EXPECT_EQ(t5.capacity(), sbo_capacity);
         t5.insert(5, rtv);
         EXPECT_EQ(t5, "strina view a view a view g");
         EXPECT_EQ(t5[t5.size()], '\0');
 
         text::string t6 = ct;
-        EXPECT_EQ(t6.capacity(), 15);
+        EXPECT_EQ(t6.capacity(), sbo_capacity);
         t6.insert(6, rtv);
         EXPECT_EQ(t6, "stringa view a view a view ");
         EXPECT_EQ(t6[t6.size()], '\0');
 
         text::string t7 = ct;
-        EXPECT_EQ(t7.capacity(), 15);
+        EXPECT_EQ(t7.capacity(), sbo_capacity);
         t7.insert(6, text::repeated_string_view(t7(0, 3), 2));
         EXPECT_EQ(t7, "stringstrstr");
         EXPECT_EQ(t7[t7.size()], '\0');
 
         text::string t8 = ct;
-        EXPECT_EQ(t8.capacity(), 15);
+        EXPECT_EQ(t8.capacity(), sbo_capacity);
         t8.insert(2, text::repeated_string_view(t8(0, 3), 2));
         EXPECT_EQ(t8, "ststrstrring");
         EXPECT_EQ(t8[t8.size()], '\0');
 
         text::string t9 = ct;
-        EXPECT_EQ(t9.capacity(), 15);
+        EXPECT_EQ(t9.capacity(), sbo_capacity);
         t9.insert(6, text::repeated_string_view(t9(3, 6), 2));
         EXPECT_EQ(t9, "stringinging");
         EXPECT_EQ(t9[t9.size()], '\0');
@@ -777,43 +779,43 @@ TEST(string, test_insert)
             text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
 
         text::string t0 = ct;
-        EXPECT_EQ(t0.capacity(), 15);
+        EXPECT_EQ(t0.capacity(), sbo_capacity);
         t0.insert(0, first, last);
         EXPECT_EQ(t0, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82string");
         EXPECT_EQ(t0[t0.size()], '\0');
 
         text::string t1 = ct;
-        EXPECT_EQ(t1.capacity(), 15);
+        EXPECT_EQ(t1.capacity(), sbo_capacity);
         t1.insert(1, first, last);
         EXPECT_EQ(t1, "s\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82tring");
         EXPECT_EQ(t1[t1.size()], '\0');
 
         text::string t2 = ct;
-        EXPECT_EQ(t2.capacity(), 15);
+        EXPECT_EQ(t2.capacity(), sbo_capacity);
         t2.insert(2, first, last);
         EXPECT_EQ(t2, "st\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ring");
         EXPECT_EQ(t2[t2.size()], '\0');
 
         text::string t3 = ct;
-        EXPECT_EQ(t3.capacity(), 15);
+        EXPECT_EQ(t3.capacity(), sbo_capacity);
         t3.insert(3, first, last);
         EXPECT_EQ(t3, "str\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ing");
         EXPECT_EQ(t3[t3.size()], '\0');
 
         text::string t4 = ct;
-        EXPECT_EQ(t4.capacity(), 15);
+        EXPECT_EQ(t4.capacity(), sbo_capacity);
         t4.insert(4, first, last);
         EXPECT_EQ(t4, "stri\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82ng");
         EXPECT_EQ(t4[t4.size()], '\0');
 
         text::string t5 = ct;
-        EXPECT_EQ(t5.capacity(), 15);
+        EXPECT_EQ(t5.capacity(), sbo_capacity);
         t5.insert(5, first, last);
         EXPECT_EQ(t5, "strin\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82g");
         EXPECT_EQ(t5[t5.size()], '\0');
 
         text::string t6 = ct;
-        EXPECT_EQ(t6.capacity(), 15);
+        EXPECT_EQ(t6.capacity(), sbo_capacity);
         t6.insert(6, first, last);
         EXPECT_EQ(t6, "string\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
         EXPECT_EQ(t6[t6.size()], '\0');
