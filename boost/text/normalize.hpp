@@ -17,21 +17,27 @@ namespace boost { namespace text {
         {
             if (first == last)
                 return;
+
+            container::static_vector<int, 64> cccs(last - first);
+            std::transform(first, last, cccs.begin(), ccc);
+
             --last;
             while (first != last) {
                 auto it = first;
                 auto new_last = first;
+                auto ccc_it = cccs.begin();
                 while (it != last) {
-                    auto next = it;
-                    ++next;
-                    // TODO: Optimize to reduce these function calls.
-                    auto const ccc_a = ccc(*it);
-                    auto const ccc_b = ccc(*next);
+                    auto next = std::next(it);
+                    auto ccc_next = std::next(ccc_it);
+                    auto const ccc_a = *ccc_it;
+                    auto const ccc_b = *ccc_next;
                     if (0 < ccc_b && ccc_b < ccc_a) {
                         std::iter_swap(it, next);
+                        std::iter_swap(ccc_it, ccc_next);
                         new_last = it;
                     }
                     ++it;
+                    ++ccc_it;
                 }
                 last = new_last;
             }
