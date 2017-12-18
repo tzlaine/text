@@ -24,6 +24,7 @@ namespace boost { namespace text {
                 while (it != last) {
                     auto next = it;
                     ++next;
+                    // TODO: Optimize to reduce these function calls.
                     auto const ccc_a = ccc(*it);
                     auto const ccc_b = ccc(*next);
                     if (0 < ccc_b && ccc_b < ccc_a) {
