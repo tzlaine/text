@@ -539,6 +539,14 @@ namespace boost { namespace text { namespace utf8 {
 #endif
     };
 
+    /** Returns a from_utf32_iterator<Iter> constructed from an Iter. */
+    template<typename Iter>
+    from_utf32_iterator<Iter> make_from_utf32_iterator(Iter it)
+    {
+        return from_utf32_iterator<Iter>(it);
+    }
+
+
     /** A UTF-8 to UTF-32 converting iterator.  Set the ErrorHandler template
         parameter to control error handling.  The default ErrorHandler is
         use_replacement_character, which simply produces a replacement
@@ -834,6 +842,14 @@ namespace boost { namespace text { namespace utf8 {
 #endif
     };
 
+    /** Returns a to_utf32_iterator<Iter> constructed from an Iter. */
+    template<typename Iter>
+    to_utf32_iterator<Iter> make_to_utf32_iterator(Iter it)
+    {
+        return to_utf32_iterator<Iter>(it);
+    }
+
+
     /** A UTF-16 to UTF-8 converting iterator.  Set the ErrorHandler template
         parameter to control error handling.  The default ErrorHandler is
         use_replacement_character, which simply produces a replacement
@@ -1085,6 +1101,14 @@ namespace boost { namespace text { namespace utf8 {
             0x10000 - (high_surrogate_min << 10) - low_surrogate_min;
 #endif
     };
+
+    /** Returns a from_utf16_iterator<Iter> constructed from an Iter. */
+    template<typename Iter>
+    from_utf16_iterator<Iter> make_from_utf16_iterator(Iter it)
+    {
+        return from_utf16_iterator<Iter>(it);
+    }
+
 
     /** A UTF-8 to UTF-16 converting iterator.  Set the ErrorHandler template
         parameter to control error handling.  The default ErrorHandler is
@@ -1415,6 +1439,13 @@ namespace boost { namespace text { namespace utf8 {
         static uint16_t const low_surrogate_base = 0xdc00;
 #endif
     };
+
+    /** Returns a to_utf16_iterator<Iter> constructed from an Iter. */
+    template<typename Iter>
+    to_utf16_iterator<Iter> make_to_utf16_iterator(Iter it)
+    {
+        return to_utf16_iterator<Iter>(it);
+    }
 
 }}}
 
