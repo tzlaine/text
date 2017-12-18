@@ -4,7 +4,7 @@ include(CTest)
 
 enable_testing()
 
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR})
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -C ${CMAKE_CFG_INTDIR})
 
 set(warnings_flag)
 if (NOT MSVC)
