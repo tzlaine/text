@@ -194,7 +194,8 @@ namespace boost { namespace text {
                         // TODO: Neither of these checks can be omitted.
                         // Experiment with combining these into a single hash
                         // lookup and measure the perf impact.
-                        return !ccc(cp) && quick_check(cp) == quick_check::yes;
+                        return !ccc(cp) && quick_check(cp) ==
+                                               ::boost::text::quick_check::yes;
                     });
                 if (it != decomp.end() && !hangul_final_v(buffer, *it) &&
                     !hangul_final_t(buffer, *it)) {
