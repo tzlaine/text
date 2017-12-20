@@ -13,22 +13,80 @@ TEST(normalization, nfkc_072_000)
     // FC98;FC98;FC98;0626 062D;064A 0654 062D; 
     // (ﲘ; ﲘ; ﲘ; ئح; ي◌ٔح; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC98 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0626, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC98 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC98 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC98 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -40,22 +98,80 @@ TEST(normalization, nfkc_072_001)
     // FC99;FC99;FC99;0626 062E;064A 0654 062E; 
     // (ﲙ; ﲙ; ﲙ; ئخ; ي◌ٔخ; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC99 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0626, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC99 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC99 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC99 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x062E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -67,22 +183,80 @@ TEST(normalization, nfkc_072_002)
     // FC9A;FC9A;FC9A;0626 0645;064A 0654 0645; 
     // (ﲚ; ﲚ; ﲚ; ئم; ي◌ٔم; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC9A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0626, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC9A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC9A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC9A }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -94,22 +268,80 @@ TEST(normalization, nfkc_072_003)
     // FC9B;FC9B;FC9B;0626 0647;064A 0654 0647; 
     // (ﲛ; ﲛ; ﲛ; ئه; ي◌ٔه; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC9B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0626, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC9B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC9B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC9B }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x0647 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -121,22 +353,80 @@ TEST(normalization, nfkc_072_004)
     // FC9C;FC9C;FC9C;0628 062C;0628 062C; 
     // (ﲜ; ﲜ; ﲜ; بج; بج; ) ARABIC LIGATURE BEH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC9C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC9C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC9C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC9C }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -148,22 +438,80 @@ TEST(normalization, nfkc_072_005)
     // FC9D;FC9D;FC9D;0628 062D;0628 062D; 
     // (ﲝ; ﲝ; ﲝ; بح; بح; ) ARABIC LIGATURE BEH WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC9D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC9D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC9D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC9D }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -175,22 +523,80 @@ TEST(normalization, nfkc_072_006)
     // FC9E;FC9E;FC9E;0628 062E;0628 062E; 
     // (ﲞ; ﲞ; ﲞ; بخ; بخ; ) ARABIC LIGATURE BEH WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC9E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC9E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC9E }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC9E }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -202,22 +608,80 @@ TEST(normalization, nfkc_072_007)
     // FC9F;FC9F;FC9F;0628 0645;0628 0645; 
     // (ﲟ; ﲟ; ﲟ; بم; بم; ) ARABIC LIGATURE BEH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFC9F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFC9F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFC9F }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFC9F }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -229,22 +693,80 @@ TEST(normalization, nfkc_072_008)
     // FCA0;FCA0;FCA0;0628 0647;0628 0647; 
     // (ﲠ; ﲠ; ﲠ; به; به; ) ARABIC LIGATURE BEH WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA0 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -256,22 +778,80 @@ TEST(normalization, nfkc_072_009)
     // FCA1;FCA1;FCA1;062A 062C;062A 062C; 
     // (ﲡ; ﲡ; ﲡ; تج; تج; ) ARABIC LIGATURE TEH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA1 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -283,22 +863,80 @@ TEST(normalization, nfkc_072_010)
     // FCA2;FCA2;FCA2;062A 062D;062A 062D; 
     // (ﲢ; ﲢ; ﲢ; تح; تح; ) ARABIC LIGATURE TEH WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA2 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -310,22 +948,80 @@ TEST(normalization, nfkc_072_011)
     // FCA3;FCA3;FCA3;062A 062E;062A 062E; 
     // (ﲣ; ﲣ; ﲣ; تخ; تخ; ) ARABIC LIGATURE TEH WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA3 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -337,22 +1033,80 @@ TEST(normalization, nfkc_072_012)
     // FCA4;FCA4;FCA4;062A 0645;062A 0645; 
     // (ﲤ; ﲤ; ﲤ; تم; تم; ) ARABIC LIGATURE TEH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA4 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -364,22 +1118,80 @@ TEST(normalization, nfkc_072_013)
     // FCA5;FCA5;FCA5;062A 0647;062A 0647; 
     // (ﲥ; ﲥ; ﲥ; ته; ته; ) ARABIC LIGATURE TEH WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA5 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -391,22 +1203,80 @@ TEST(normalization, nfkc_072_014)
     // FCA6;FCA6;FCA6;062B 0645;062B 0645; 
     // (ﲦ; ﲦ; ﲦ; ثم; ثم; ) ARABIC LIGATURE THEH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062B, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA6 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062B, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062B, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -418,22 +1288,80 @@ TEST(normalization, nfkc_072_015)
     // FCA7;FCA7;FCA7;062C 062D;062C 062D; 
     // (ﲧ; ﲧ; ﲧ; جح; جح; ) ARABIC LIGATURE JEEM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062C, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA7 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062C, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062C, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -445,22 +1373,80 @@ TEST(normalization, nfkc_072_016)
     // FCA8;FCA8;FCA8;062C 0645;062C 0645; 
     // (ﲨ; ﲨ; ﲨ; جم; جم; ) ARABIC LIGATURE JEEM WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062C, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA8 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062C, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062C, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -472,22 +1458,80 @@ TEST(normalization, nfkc_072_017)
     // FCA9;FCA9;FCA9;062D 062C;062D 062C; 
     // (ﲩ; ﲩ; ﲩ; حج; حج; ) ARABIC LIGATURE HAH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCA9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062D, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCA9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCA9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCA9 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062D, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062D, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -499,22 +1543,80 @@ TEST(normalization, nfkc_072_018)
     // FCAA;FCAA;FCAA;062D 0645;062D 0645; 
     // (ﲪ; ﲪ; ﲪ; حم; حم; ) ARABIC LIGATURE HAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCAA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062D, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCAA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCAA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCAA }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062D, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062D, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -526,22 +1628,80 @@ TEST(normalization, nfkc_072_019)
     // FCAB;FCAB;FCAB;062E 062C;062E 062C; 
     // (ﲫ; ﲫ; ﲫ; خج; خج; ) ARABIC LIGATURE KHAH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCAB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062E, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCAB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCAB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCAB }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062E, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062E, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -553,22 +1713,80 @@ TEST(normalization, nfkc_072_020)
     // FCAC;FCAC;FCAC;062E 0645;062E 0645; 
     // (ﲬ; ﲬ; ﲬ; خم; خم; ) ARABIC LIGATURE KHAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCAC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062E, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCAC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCAC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCAC }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062E, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062E, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -580,22 +1798,80 @@ TEST(normalization, nfkc_072_021)
     // FCAD;FCAD;FCAD;0633 062C;0633 062C; 
     // (ﲭ; ﲭ; ﲭ; سج; سج; ) ARABIC LIGATURE SEEN WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCAD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCAD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCAD }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCAD }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -607,22 +1883,80 @@ TEST(normalization, nfkc_072_022)
     // FCAE;FCAE;FCAE;0633 062D;0633 062D; 
     // (ﲮ; ﲮ; ﲮ; سح; سح; ) ARABIC LIGATURE SEEN WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCAE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCAE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCAE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCAE }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -634,22 +1968,80 @@ TEST(normalization, nfkc_072_023)
     // FCAF;FCAF;FCAF;0633 062E;0633 062E; 
     // (ﲯ; ﲯ; ﲯ; سخ; سخ; ) ARABIC LIGATURE SEEN WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCAF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCAF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCAF }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCAF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -661,22 +2053,80 @@ TEST(normalization, nfkc_072_024)
     // FCB0;FCB0;FCB0;0633 0645;0633 0645; 
     // (ﲰ; ﲰ; ﲰ; سم; سم; ) ARABIC LIGATURE SEEN WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB0 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -688,22 +2138,80 @@ TEST(normalization, nfkc_072_025)
     // FCB1;FCB1;FCB1;0635 062D;0635 062D; 
     // (ﲱ; ﲱ; ﲱ; صح; صح; ) ARABIC LIGATURE SAD WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB1 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -715,22 +2223,80 @@ TEST(normalization, nfkc_072_026)
     // FCB2;FCB2;FCB2;0635 062E;0635 062E; 
     // (ﲲ; ﲲ; ﲲ; صخ; صخ; ) ARABIC LIGATURE SAD WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB2 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -742,22 +2308,80 @@ TEST(normalization, nfkc_072_027)
     // FCB3;FCB3;FCB3;0635 0645;0635 0645; 
     // (ﲳ; ﲳ; ﲳ; صم; صم; ) ARABIC LIGATURE SAD WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB3 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -769,22 +2393,80 @@ TEST(normalization, nfkc_072_028)
     // FCB4;FCB4;FCB4;0636 062C;0636 062C; 
     // (ﲴ; ﲴ; ﲴ; ضج; ضج; ) ARABIC LIGATURE DAD WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB4 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -796,22 +2478,80 @@ TEST(normalization, nfkc_072_029)
     // FCB5;FCB5;FCB5;0636 062D;0636 062D; 
     // (ﲵ; ﲵ; ﲵ; ضح; ضح; ) ARABIC LIGATURE DAD WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB5 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -823,22 +2563,80 @@ TEST(normalization, nfkc_072_030)
     // FCB6;FCB6;FCB6;0636 062E;0636 062E; 
     // (ﲶ; ﲶ; ﲶ; ضخ; ضخ; ) ARABIC LIGATURE DAD WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB6 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -850,22 +2648,80 @@ TEST(normalization, nfkc_072_031)
     // FCB7;FCB7;FCB7;0636 0645;0636 0645; 
     // (ﲷ; ﲷ; ﲷ; ضم; ضم; ) ARABIC LIGATURE DAD WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB7 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -877,22 +2733,80 @@ TEST(normalization, nfkc_072_032)
     // FCB8;FCB8;FCB8;0637 062D;0637 062D; 
     // (ﲸ; ﲸ; ﲸ; طح; طح; ) ARABIC LIGATURE TAH WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB8 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -904,22 +2818,80 @@ TEST(normalization, nfkc_072_033)
     // FCB9;FCB9;FCB9;0638 0645;0638 0645; 
     // (ﲹ; ﲹ; ﲹ; ظم; ظم; ) ARABIC LIGATURE ZAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCB9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0638, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCB9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCB9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCB9 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0638, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0638, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -931,22 +2903,80 @@ TEST(normalization, nfkc_072_034)
     // FCBA;FCBA;FCBA;0639 062C;0639 062C; 
     // (ﲺ; ﲺ; ﲺ; عج; عج; ) ARABIC LIGATURE AIN WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCBA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0639, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCBA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCBA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCBA }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0639, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0639, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -958,22 +2988,80 @@ TEST(normalization, nfkc_072_035)
     // FCBB;FCBB;FCBB;0639 0645;0639 0645; 
     // (ﲻ; ﲻ; ﲻ; عم; عم; ) ARABIC LIGATURE AIN WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCBB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0639, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCBB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCBB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCBB }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0639, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0639, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -985,22 +3073,80 @@ TEST(normalization, nfkc_072_036)
     // FCBC;FCBC;FCBC;063A 062C;063A 062C; 
     // (ﲼ; ﲼ; ﲼ; غج; غج; ) ARABIC LIGATURE GHAIN WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCBC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x063A, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCBC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCBC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCBC }};
+        std::array<uint32_t, 2> const c4 = {{ 0x063A, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x063A, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1012,22 +3158,80 @@ TEST(normalization, nfkc_072_037)
     // FCBD;FCBD;FCBD;063A 0645;063A 0645; 
     // (ﲽ; ﲽ; ﲽ; غم; غم; ) ARABIC LIGATURE GHAIN WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCBD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x063A, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCBD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCBD }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCBD }};
+        std::array<uint32_t, 2> const c4 = {{ 0x063A, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x063A, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1039,22 +3243,80 @@ TEST(normalization, nfkc_072_038)
     // FCBE;FCBE;FCBE;0641 062C;0641 062C; 
     // (ﲾ; ﲾ; ﲾ; فج; فج; ) ARABIC LIGATURE FEH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCBE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0641, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCBE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCBE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCBE }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0641, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0641, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1066,22 +3328,80 @@ TEST(normalization, nfkc_072_039)
     // FCBF;FCBF;FCBF;0641 062D;0641 062D; 
     // (ﲿ; ﲿ; ﲿ; فح; فح; ) ARABIC LIGATURE FEH WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCBF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0641, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCBF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCBF }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCBF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0641, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0641, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1093,22 +3413,80 @@ TEST(normalization, nfkc_072_040)
     // FCC0;FCC0;FCC0;0641 062E;0641 062E; 
     // (ﳀ; ﳀ; ﳀ; فخ; فخ; ) ARABIC LIGATURE FEH WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0641, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC0 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0641, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0641, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1120,22 +3498,80 @@ TEST(normalization, nfkc_072_041)
     // FCC1;FCC1;FCC1;0641 0645;0641 0645; 
     // (ﳁ; ﳁ; ﳁ; فم; فم; ) ARABIC LIGATURE FEH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0641, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC1 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0641, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0641, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1147,22 +3583,80 @@ TEST(normalization, nfkc_072_042)
     // FCC2;FCC2;FCC2;0642 062D;0642 062D; 
     // (ﳂ; ﳂ; ﳂ; قح; قح; ) ARABIC LIGATURE QAF WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0642, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC2 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0642, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0642, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1174,22 +3668,80 @@ TEST(normalization, nfkc_072_043)
     // FCC3;FCC3;FCC3;0642 0645;0642 0645; 
     // (ﳃ; ﳃ; ﳃ; قم; قم; ) ARABIC LIGATURE QAF WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0642, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC3 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0642, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0642, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1201,22 +3753,80 @@ TEST(normalization, nfkc_072_044)
     // FCC4;FCC4;FCC4;0643 062C;0643 062C; 
     // (ﳄ; ﳄ; ﳄ; كج; كج; ) ARABIC LIGATURE KAF WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC4 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1228,22 +3838,80 @@ TEST(normalization, nfkc_072_045)
     // FCC5;FCC5;FCC5;0643 062D;0643 062D; 
     // (ﳅ; ﳅ; ﳅ; كح; كح; ) ARABIC LIGATURE KAF WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC5 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1255,22 +3923,80 @@ TEST(normalization, nfkc_072_046)
     // FCC6;FCC6;FCC6;0643 062E;0643 062E; 
     // (ﳆ; ﳆ; ﳆ; كخ; كخ; ) ARABIC LIGATURE KAF WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC6 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1282,22 +4008,80 @@ TEST(normalization, nfkc_072_047)
     // FCC7;FCC7;FCC7;0643 0644;0643 0644; 
     // (ﳇ; ﳇ; ﳇ; كل; كل; ) ARABIC LIGATURE KAF WITH LAM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x0644 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC7 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x0644 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x0644 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1309,22 +4093,80 @@ TEST(normalization, nfkc_072_048)
     // FCC8;FCC8;FCC8;0643 0645;0643 0645; 
     // (ﳈ; ﳈ; ﳈ; كم; كم; ) ARABIC LIGATURE KAF WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC8 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1336,22 +4178,80 @@ TEST(normalization, nfkc_072_049)
     // FCC9;FCC9;FCC9;0644 062C;0644 062C; 
     // (ﳉ; ﳉ; ﳉ; لج; لج; ) ARABIC LIGATURE LAM WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCC9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0644, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCC9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCC9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCC9 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0644, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0644, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1363,22 +4263,80 @@ TEST(normalization, nfkc_072_050)
     // FCCA;FCCA;FCCA;0644 062D;0644 062D; 
     // (ﳊ; ﳊ; ﳊ; لح; لح; ) ARABIC LIGATURE LAM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCCA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0644, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCCA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCCA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCCA }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0644, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0644, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1390,22 +4348,80 @@ TEST(normalization, nfkc_072_051)
     // FCCB;FCCB;FCCB;0644 062E;0644 062E; 
     // (ﳋ; ﳋ; ﳋ; لخ; لخ; ) ARABIC LIGATURE LAM WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCCB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0644, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCCB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCCB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCCB }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0644, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0644, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1417,22 +4433,80 @@ TEST(normalization, nfkc_072_052)
     // FCCC;FCCC;FCCC;0644 0645;0644 0645; 
     // (ﳌ; ﳌ; ﳌ; لم; لم; ) ARABIC LIGATURE LAM WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCCC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0644, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCCC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCCC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCCC }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0644, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0644, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1444,22 +4518,80 @@ TEST(normalization, nfkc_072_053)
     // FCCD;FCCD;FCCD;0644 0647;0644 0647; 
     // (ﳍ; ﳍ; ﳍ; له; له; ) ARABIC LIGATURE LAM WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCCD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0644, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCCD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCCD }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCCD }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0644, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0644, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1471,22 +4603,80 @@ TEST(normalization, nfkc_072_054)
     // FCCE;FCCE;FCCE;0645 062C;0645 062C; 
     // (ﳎ; ﳎ; ﳎ; مج; مج; ) ARABIC LIGATURE MEEM WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCCE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0645, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCCE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCCE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCCE }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0645, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0645, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1498,22 +4688,80 @@ TEST(normalization, nfkc_072_055)
     // FCCF;FCCF;FCCF;0645 062D;0645 062D; 
     // (ﳏ; ﳏ; ﳏ; مح; مح; ) ARABIC LIGATURE MEEM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCCF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCCF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCCF }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCCF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0645, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1525,22 +4773,80 @@ TEST(normalization, nfkc_072_056)
     // FCD0;FCD0;FCD0;0645 062E;0645 062E; 
     // (ﳐ; ﳐ; ﳐ; مخ; مخ; ) ARABIC LIGATURE MEEM WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0645, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD0 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0645, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0645, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1552,22 +4858,80 @@ TEST(normalization, nfkc_072_057)
     // FCD1;FCD1;FCD1;0645 0645;0645 0645; 
     // (ﳑ; ﳑ; ﳑ; مم; مم; ) ARABIC LIGATURE MEEM WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0645, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD1 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0645, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0645, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1579,22 +4943,80 @@ TEST(normalization, nfkc_072_058)
     // FCD2;FCD2;FCD2;0646 062C;0646 062C; 
     // (ﳒ; ﳒ; ﳒ; نج; نج; ) ARABIC LIGATURE NOON WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD2 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1606,22 +5028,80 @@ TEST(normalization, nfkc_072_059)
     // FCD3;FCD3;FCD3;0646 062D;0646 062D; 
     // (ﳓ; ﳓ; ﳓ; نح; نح; ) ARABIC LIGATURE NOON WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD3 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1633,22 +5113,80 @@ TEST(normalization, nfkc_072_060)
     // FCD4;FCD4;FCD4;0646 062E;0646 062E; 
     // (ﳔ; ﳔ; ﳔ; نخ; نخ; ) ARABIC LIGATURE NOON WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD4 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1660,22 +5198,80 @@ TEST(normalization, nfkc_072_061)
     // FCD5;FCD5;FCD5;0646 0645;0646 0645; 
     // (ﳕ; ﳕ; ﳕ; نم; نم; ) ARABIC LIGATURE NOON WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD5 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1687,22 +5283,80 @@ TEST(normalization, nfkc_072_062)
     // FCD6;FCD6;FCD6;0646 0647;0646 0647; 
     // (ﳖ; ﳖ; ﳖ; نه; نه; ) ARABIC LIGATURE NOON WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD6 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1714,22 +5368,80 @@ TEST(normalization, nfkc_072_063)
     // FCD7;FCD7;FCD7;0647 062C;0647 062C; 
     // (ﳗ; ﳗ; ﳗ; هج; هج; ) ARABIC LIGATURE HEH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0647, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD7 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0647, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0647, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1741,22 +5453,80 @@ TEST(normalization, nfkc_072_064)
     // FCD8;FCD8;FCD8;0647 0645;0647 0645; 
     // (ﳘ; ﳘ; ﳘ; هم; هم; ) ARABIC LIGATURE HEH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0647, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD8 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0647, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0647, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1768,22 +5538,80 @@ TEST(normalization, nfkc_072_065)
     // FCD9;FCD9;FCD9;0647 0670;0647 0670; 
     // (ﳙ; ﳙ; ﳙ; ه◌ٰ; ه◌ٰ; ) ARABIC LIGATURE HEH WITH SUPERSCRIPT ALEF INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCD9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0647, 0x0670 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCD9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCD9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCD9 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0647, 0x0670 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0647, 0x0670 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1795,22 +5623,80 @@ TEST(normalization, nfkc_072_066)
     // FCDA;FCDA;FCDA;064A 062C;064A 062C; 
     // (ﳚ; ﳚ; ﳚ; يج; يج; ) ARABIC LIGATURE YEH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCDA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCDA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCDA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCDA }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1822,22 +5708,80 @@ TEST(normalization, nfkc_072_067)
     // FCDB;FCDB;FCDB;064A 062D;064A 062D; 
     // (ﳛ; ﳛ; ﳛ; يح; يح; ) ARABIC LIGATURE YEH WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCDB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCDB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCDB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCDB }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1849,22 +5793,80 @@ TEST(normalization, nfkc_072_068)
     // FCDC;FCDC;FCDC;064A 062E;064A 062E; 
     // (ﳜ; ﳜ; ﳜ; يخ; يخ; ) ARABIC LIGATURE YEH WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCDC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCDC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCDC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCDC }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1876,22 +5878,80 @@ TEST(normalization, nfkc_072_069)
     // FCDD;FCDD;FCDD;064A 0645;064A 0645; 
     // (ﳝ; ﳝ; ﳝ; يم; يم; ) ARABIC LIGATURE YEH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCDD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCDD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCDD }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCDD }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1903,22 +5963,80 @@ TEST(normalization, nfkc_072_070)
     // FCDE;FCDE;FCDE;064A 0647;064A 0647; 
     // (ﳞ; ﳞ; ﳞ; يه; يه; ) ARABIC LIGATURE YEH WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCDE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCDE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCDE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCDE }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1930,22 +6048,80 @@ TEST(normalization, nfkc_072_071)
     // FCDF;FCDF;FCDF;0626 0645;064A 0654 0645; 
     // (ﳟ; ﳟ; ﳟ; ئم; ي◌ٔم; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCDF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0626, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCDF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCDF }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCDF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1957,22 +6133,80 @@ TEST(normalization, nfkc_072_072)
     // FCE0;FCE0;FCE0;0626 0647;064A 0654 0647; 
     // (ﳠ; ﳠ; ﳠ; ئه; ي◌ٔه; ) ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0626, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE0 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0626, 0x0647 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x064A, 0x0654, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1984,22 +6218,80 @@ TEST(normalization, nfkc_072_073)
     // FCE1;FCE1;FCE1;0628 0645;0628 0645; 
     // (ﳡ; ﳡ; ﳡ; بم; بم; ) ARABIC LIGATURE BEH WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE1 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2011,22 +6303,80 @@ TEST(normalization, nfkc_072_074)
     // FCE2;FCE2;FCE2;0628 0647;0628 0647; 
     // (ﳢ; ﳢ; ﳢ; به; به; ) ARABIC LIGATURE BEH WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0628, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE2 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0628, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0628, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2038,22 +6388,80 @@ TEST(normalization, nfkc_072_075)
     // FCE3;FCE3;FCE3;062A 0645;062A 0645; 
     // (ﳣ; ﳣ; ﳣ; تم; تم; ) ARABIC LIGATURE TEH WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE3 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2065,22 +6473,80 @@ TEST(normalization, nfkc_072_076)
     // FCE4;FCE4;FCE4;062A 0647;062A 0647; 
     // (ﳤ; ﳤ; ﳤ; ته; ته; ) ARABIC LIGATURE TEH WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062A, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE4 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062A, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062A, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2092,22 +6558,80 @@ TEST(normalization, nfkc_072_077)
     // FCE5;FCE5;FCE5;062B 0645;062B 0645; 
     // (ﳥ; ﳥ; ﳥ; ثم; ثم; ) ARABIC LIGATURE THEH WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062B, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE5 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062B, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062B, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2119,22 +6643,80 @@ TEST(normalization, nfkc_072_078)
     // FCE6;FCE6;FCE6;062B 0647;062B 0647; 
     // (ﳦ; ﳦ; ﳦ; ثه; ثه; ) ARABIC LIGATURE THEH WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062B, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE6 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062B, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062B, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2146,22 +6728,80 @@ TEST(normalization, nfkc_072_079)
     // FCE7;FCE7;FCE7;0633 0645;0633 0645; 
     // (ﳧ; ﳧ; ﳧ; سم; سم; ) ARABIC LIGATURE SEEN WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE7 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2173,22 +6813,80 @@ TEST(normalization, nfkc_072_080)
     // FCE8;FCE8;FCE8;0633 0647;0633 0647; 
     // (ﳨ; ﳨ; ﳨ; سه; سه; ) ARABIC LIGATURE SEEN WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE8 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2200,22 +6898,80 @@ TEST(normalization, nfkc_072_081)
     // FCE9;FCE9;FCE9;0634 0645;0634 0645; 
     // (ﳩ; ﳩ; ﳩ; شم; شم; ) ARABIC LIGATURE SHEEN WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCE9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCE9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCE9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCE9 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2227,22 +6983,80 @@ TEST(normalization, nfkc_072_082)
     // FCEA;FCEA;FCEA;0634 0647;0634 0647; 
     // (ﳪ; ﳪ; ﳪ; شه; شه; ) ARABIC LIGATURE SHEEN WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCEA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCEA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCEA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCEA }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2254,22 +7068,80 @@ TEST(normalization, nfkc_072_083)
     // FCEB;FCEB;FCEB;0643 0644;0643 0644; 
     // (ﳫ; ﳫ; ﳫ; كل; كل; ) ARABIC LIGATURE KAF WITH LAM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCEB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x0644 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCEB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCEB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCEB }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x0644 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x0644 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2281,22 +7153,80 @@ TEST(normalization, nfkc_072_084)
     // FCEC;FCEC;FCEC;0643 0645;0643 0645; 
     // (ﳬ; ﳬ; ﳬ; كم; كم; ) ARABIC LIGATURE KAF WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCEC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0643, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCEC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCEC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCEC }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0643, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0643, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2308,22 +7238,80 @@ TEST(normalization, nfkc_072_085)
     // FCED;FCED;FCED;0644 0645;0644 0645; 
     // (ﳭ; ﳭ; ﳭ; لم; لم; ) ARABIC LIGATURE LAM WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCED }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0644, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCED }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCED }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCED }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0644, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0644, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2335,22 +7323,80 @@ TEST(normalization, nfkc_072_086)
     // FCEE;FCEE;FCEE;0646 0645;0646 0645; 
     // (ﳮ; ﳮ; ﳮ; نم; نم; ) ARABIC LIGATURE NOON WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCEE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCEE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCEE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCEE }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2362,22 +7408,80 @@ TEST(normalization, nfkc_072_087)
     // FCEF;FCEF;FCEF;0646 0647;0646 0647; 
     // (ﳯ; ﳯ; ﳯ; نه; نه; ) ARABIC LIGATURE NOON WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCEF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0646, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCEF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCEF }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCEF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0646, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0646, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2389,22 +7493,80 @@ TEST(normalization, nfkc_072_088)
     // FCF0;FCF0;FCF0;064A 0645;064A 0645; 
     // (ﳰ; ﳰ; ﳰ; يم; يم; ) ARABIC LIGATURE YEH WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF0 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF0 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2416,22 +7578,80 @@ TEST(normalization, nfkc_072_089)
     // FCF1;FCF1;FCF1;064A 0647;064A 0647; 
     // (ﳱ; ﳱ; ﳱ; يه; يه; ) ARABIC LIGATURE YEH WITH HEH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x064A, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF1 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF1 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x064A, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x064A, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2443,22 +7663,80 @@ TEST(normalization, nfkc_072_090)
     // FCF2;FCF2;FCF2;0640 064E 0651;0640 064E 0651; 
     // (ﳲ; ﳲ; ﳲ; ـ◌َ◌ّ; ـ◌َ◌ّ; ) ARABIC LIGATURE SHADDA WITH FATHA MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0640, 0x064E, 0x0651 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF2 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF2 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0640, 0x064E, 0x0651 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0640, 0x064E, 0x0651 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2470,22 +7748,80 @@ TEST(normalization, nfkc_072_091)
     // FCF3;FCF3;FCF3;0640 064F 0651;0640 064F 0651; 
     // (ﳳ; ﳳ; ﳳ; ـ◌ُ◌ّ; ـ◌ُ◌ّ; ) ARABIC LIGATURE SHADDA WITH DAMMA MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0640, 0x064F, 0x0651 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF3 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF3 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0640, 0x064F, 0x0651 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0640, 0x064F, 0x0651 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2497,22 +7833,80 @@ TEST(normalization, nfkc_072_092)
     // FCF4;FCF4;FCF4;0640 0650 0651;0640 0650 0651; 
     // (ﳴ; ﳴ; ﳴ; ـ◌ِ◌ّ; ـ◌ِ◌ّ; ) ARABIC LIGATURE SHADDA WITH KASRA MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0640, 0x0650, 0x0651 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF4 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF4 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0640, 0x0650, 0x0651 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0640, 0x0650, 0x0651 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2524,22 +7918,80 @@ TEST(normalization, nfkc_072_093)
     // FCF5;FCF5;FCF5;0637 0649;0637 0649; 
     // (ﳵ; ﳵ; ﳵ; طى; طى; ) ARABIC LIGATURE TAH WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF5 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF5 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2551,22 +8003,80 @@ TEST(normalization, nfkc_072_094)
     // FCF6;FCF6;FCF6;0637 064A;0637 064A; 
     // (ﳶ; ﳶ; ﳶ; طي; طي; ) ARABIC LIGATURE TAH WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF6 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF6 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2578,22 +8088,80 @@ TEST(normalization, nfkc_072_095)
     // FCF7;FCF7;FCF7;0639 0649;0639 0649; 
     // (ﳷ; ﳷ; ﳷ; عى; عى; ) ARABIC LIGATURE AIN WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0639, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF7 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF7 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0639, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0639, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2605,22 +8173,80 @@ TEST(normalization, nfkc_072_096)
     // FCF8;FCF8;FCF8;0639 064A;0639 064A; 
     // (ﳸ; ﳸ; ﳸ; عي; عي; ) ARABIC LIGATURE AIN WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0639, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF8 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF8 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0639, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0639, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2632,22 +8258,80 @@ TEST(normalization, nfkc_072_097)
     // FCF9;FCF9;FCF9;063A 0649;063A 0649; 
     // (ﳹ; ﳹ; ﳹ; غى; غى; ) ARABIC LIGATURE GHAIN WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCF9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x063A, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCF9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCF9 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCF9 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x063A, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x063A, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2659,22 +8343,80 @@ TEST(normalization, nfkc_072_098)
     // FCFA;FCFA;FCFA;063A 064A;063A 064A; 
     // (ﳺ; ﳺ; ﳺ; غي; غي; ) ARABIC LIGATURE GHAIN WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCFA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x063A, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCFA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCFA }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCFA }};
+        std::array<uint32_t, 2> const c4 = {{ 0x063A, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x063A, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2686,22 +8428,80 @@ TEST(normalization, nfkc_072_099)
     // FCFB;FCFB;FCFB;0633 0649;0633 0649; 
     // (ﳻ; ﳻ; ﳻ; سى; سى; ) ARABIC LIGATURE SEEN WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCFB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCFB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCFB }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCFB }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2713,22 +8513,80 @@ TEST(normalization, nfkc_072_100)
     // FCFC;FCFC;FCFC;0633 064A;0633 064A; 
     // (ﳼ; ﳼ; ﳼ; سي; سي; ) ARABIC LIGATURE SEEN WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCFC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCFC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCFC }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCFC }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2740,22 +8598,80 @@ TEST(normalization, nfkc_072_101)
     // FCFD;FCFD;FCFD;0634 0649;0634 0649; 
     // (ﳽ; ﳽ; ﳽ; شى; شى; ) ARABIC LIGATURE SHEEN WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCFD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCFD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCFD }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCFD }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2767,22 +8683,80 @@ TEST(normalization, nfkc_072_102)
     // FCFE;FCFE;FCFE;0634 064A;0634 064A; 
     // (ﳾ; ﳾ; ﳾ; شي; شي; ) ARABIC LIGATURE SHEEN WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCFE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCFE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCFE }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCFE }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2794,22 +8768,80 @@ TEST(normalization, nfkc_072_103)
     // FCFF;FCFF;FCFF;062D 0649;062D 0649; 
     // (ﳿ; ﳿ; ﳿ; حى; حى; ) ARABIC LIGATURE HAH WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFCFF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062D, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFCFF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFCFF }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFCFF }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062D, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062D, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2821,22 +8853,80 @@ TEST(normalization, nfkc_072_104)
     // FD00;FD00;FD00;062D 064A;062D 064A; 
     // (ﴀ; ﴀ; ﴀ; حي; حي; ) ARABIC LIGATURE HAH WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD00 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062D, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD00 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD00 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD00 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062D, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062D, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2848,22 +8938,80 @@ TEST(normalization, nfkc_072_105)
     // FD01;FD01;FD01;062C 0649;062C 0649; 
     // (ﴁ; ﴁ; ﴁ; جى; جى; ) ARABIC LIGATURE JEEM WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD01 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062C, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD01 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD01 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD01 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062C, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062C, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2875,22 +9023,80 @@ TEST(normalization, nfkc_072_106)
     // FD02;FD02;FD02;062C 064A;062C 064A; 
     // (ﴂ; ﴂ; ﴂ; جي; جي; ) ARABIC LIGATURE JEEM WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD02 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062C, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD02 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD02 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD02 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062C, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062C, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2902,22 +9108,80 @@ TEST(normalization, nfkc_072_107)
     // FD03;FD03;FD03;062E 0649;062E 0649; 
     // (ﴃ; ﴃ; ﴃ; خى; خى; ) ARABIC LIGATURE KHAH WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD03 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062E, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD03 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD03 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD03 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062E, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062E, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2929,22 +9193,80 @@ TEST(normalization, nfkc_072_108)
     // FD04;FD04;FD04;062E 064A;062E 064A; 
     // (ﴄ; ﴄ; ﴄ; خي; خي; ) ARABIC LIGATURE KHAH WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD04 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062E, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD04 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD04 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD04 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062E, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062E, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2956,22 +9278,80 @@ TEST(normalization, nfkc_072_109)
     // FD05;FD05;FD05;0635 0649;0635 0649; 
     // (ﴅ; ﴅ; ﴅ; صى; صى; ) ARABIC LIGATURE SAD WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD05 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD05 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD05 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD05 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2983,22 +9363,80 @@ TEST(normalization, nfkc_072_110)
     // FD06;FD06;FD06;0635 064A;0635 064A; 
     // (ﴆ; ﴆ; ﴆ; صي; صي; ) ARABIC LIGATURE SAD WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD06 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD06 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD06 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD06 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3010,22 +9448,80 @@ TEST(normalization, nfkc_072_111)
     // FD07;FD07;FD07;0636 0649;0636 0649; 
     // (ﴇ; ﴇ; ﴇ; ضى; ضى; ) ARABIC LIGATURE DAD WITH ALEF MAKSURA ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD07 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD07 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD07 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD07 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3037,22 +9533,80 @@ TEST(normalization, nfkc_072_112)
     // FD08;FD08;FD08;0636 064A;0636 064A; 
     // (ﴈ; ﴈ; ﴈ; ضي; ضي; ) ARABIC LIGATURE DAD WITH YEH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD08 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD08 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD08 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD08 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3064,22 +9618,80 @@ TEST(normalization, nfkc_072_113)
     // FD09;FD09;FD09;0634 062C;0634 062C; 
     // (ﴉ; ﴉ; ﴉ; شج; شج; ) ARABIC LIGATURE SHEEN WITH JEEM ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD09 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD09 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD09 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD09 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3091,22 +9703,80 @@ TEST(normalization, nfkc_072_114)
     // FD0A;FD0A;FD0A;0634 062D;0634 062D; 
     // (ﴊ; ﴊ; ﴊ; شح; شح; ) ARABIC LIGATURE SHEEN WITH HAH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD0A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD0A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD0A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD0A }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3118,22 +9788,80 @@ TEST(normalization, nfkc_072_115)
     // FD0B;FD0B;FD0B;0634 062E;0634 062E; 
     // (ﴋ; ﴋ; ﴋ; شخ; شخ; ) ARABIC LIGATURE SHEEN WITH KHAH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD0B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD0B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD0B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD0B }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3145,22 +9873,80 @@ TEST(normalization, nfkc_072_116)
     // FD0C;FD0C;FD0C;0634 0645;0634 0645; 
     // (ﴌ; ﴌ; ﴌ; شم; شم; ) ARABIC LIGATURE SHEEN WITH MEEM ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD0C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD0C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD0C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD0C }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3172,22 +9958,80 @@ TEST(normalization, nfkc_072_117)
     // FD0D;FD0D;FD0D;0634 0631;0634 0631; 
     // (ﴍ; ﴍ; ﴍ; شر; شر; ) ARABIC LIGATURE SHEEN WITH REH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD0D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD0D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD0D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD0D }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3199,22 +10043,80 @@ TEST(normalization, nfkc_072_118)
     // FD0E;FD0E;FD0E;0633 0631;0633 0631; 
     // (ﴎ; ﴎ; ﴎ; سر; سر; ) ARABIC LIGATURE SEEN WITH REH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD0E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD0E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD0E }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD0E }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3226,22 +10128,80 @@ TEST(normalization, nfkc_072_119)
     // FD0F;FD0F;FD0F;0635 0631;0635 0631; 
     // (ﴏ; ﴏ; ﴏ; صر; صر; ) ARABIC LIGATURE SAD WITH REH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD0F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD0F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD0F }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD0F }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3253,22 +10213,80 @@ TEST(normalization, nfkc_072_120)
     // FD10;FD10;FD10;0636 0631;0636 0631; 
     // (ﴐ; ﴐ; ﴐ; ضر; ضر; ) ARABIC LIGATURE DAD WITH REH ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD10 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD10 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD10 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD10 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3280,22 +10298,80 @@ TEST(normalization, nfkc_072_121)
     // FD11;FD11;FD11;0637 0649;0637 0649; 
     // (ﴑ; ﴑ; ﴑ; طى; طى; ) ARABIC LIGATURE TAH WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD11 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD11 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD11 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD11 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3307,22 +10383,80 @@ TEST(normalization, nfkc_072_122)
     // FD12;FD12;FD12;0637 064A;0637 064A; 
     // (ﴒ; ﴒ; ﴒ; طي; طي; ) ARABIC LIGATURE TAH WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD12 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD12 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD12 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD12 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3334,22 +10468,80 @@ TEST(normalization, nfkc_072_123)
     // FD13;FD13;FD13;0639 0649;0639 0649; 
     // (ﴓ; ﴓ; ﴓ; عى; عى; ) ARABIC LIGATURE AIN WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD13 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0639, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD13 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD13 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD13 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0639, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0639, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3361,22 +10553,80 @@ TEST(normalization, nfkc_072_124)
     // FD14;FD14;FD14;0639 064A;0639 064A; 
     // (ﴔ; ﴔ; ﴔ; عي; عي; ) ARABIC LIGATURE AIN WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD14 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0639, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD14 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD14 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD14 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0639, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0639, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3388,22 +10638,80 @@ TEST(normalization, nfkc_072_125)
     // FD15;FD15;FD15;063A 0649;063A 0649; 
     // (ﴕ; ﴕ; ﴕ; غى; غى; ) ARABIC LIGATURE GHAIN WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD15 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x063A, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD15 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD15 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD15 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x063A, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x063A, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3415,22 +10723,80 @@ TEST(normalization, nfkc_072_126)
     // FD16;FD16;FD16;063A 064A;063A 064A; 
     // (ﴖ; ﴖ; ﴖ; غي; غي; ) ARABIC LIGATURE GHAIN WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD16 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x063A, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD16 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD16 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD16 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x063A, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x063A, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3442,22 +10808,80 @@ TEST(normalization, nfkc_072_127)
     // FD17;FD17;FD17;0633 0649;0633 0649; 
     // (ﴗ; ﴗ; ﴗ; سى; سى; ) ARABIC LIGATURE SEEN WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD17 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD17 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD17 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD17 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3469,22 +10893,80 @@ TEST(normalization, nfkc_072_128)
     // FD18;FD18;FD18;0633 064A;0633 064A; 
     // (ﴘ; ﴘ; ﴘ; سي; سي; ) ARABIC LIGATURE SEEN WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD18 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD18 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD18 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD18 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3496,22 +10978,80 @@ TEST(normalization, nfkc_072_129)
     // FD19;FD19;FD19;0634 0649;0634 0649; 
     // (ﴙ; ﴙ; ﴙ; شى; شى; ) ARABIC LIGATURE SHEEN WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD19 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD19 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD19 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD19 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3523,22 +11063,80 @@ TEST(normalization, nfkc_072_130)
     // FD1A;FD1A;FD1A;0634 064A;0634 064A; 
     // (ﴚ; ﴚ; ﴚ; شي; شي; ) ARABIC LIGATURE SHEEN WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD1A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD1A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD1A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD1A }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3550,22 +11148,80 @@ TEST(normalization, nfkc_072_131)
     // FD1B;FD1B;FD1B;062D 0649;062D 0649; 
     // (ﴛ; ﴛ; ﴛ; حى; حى; ) ARABIC LIGATURE HAH WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD1B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062D, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD1B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD1B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD1B }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062D, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062D, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3577,22 +11233,80 @@ TEST(normalization, nfkc_072_132)
     // FD1C;FD1C;FD1C;062D 064A;062D 064A; 
     // (ﴜ; ﴜ; ﴜ; حي; حي; ) ARABIC LIGATURE HAH WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD1C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062D, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD1C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD1C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD1C }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062D, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062D, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3604,22 +11318,80 @@ TEST(normalization, nfkc_072_133)
     // FD1D;FD1D;FD1D;062C 0649;062C 0649; 
     // (ﴝ; ﴝ; ﴝ; جى; جى; ) ARABIC LIGATURE JEEM WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD1D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062C, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD1D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD1D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD1D }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062C, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062C, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3631,22 +11403,80 @@ TEST(normalization, nfkc_072_134)
     // FD1E;FD1E;FD1E;062C 064A;062C 064A; 
     // (ﴞ; ﴞ; ﴞ; جي; جي; ) ARABIC LIGATURE JEEM WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD1E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062C, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD1E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD1E }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD1E }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062C, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062C, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3658,22 +11488,80 @@ TEST(normalization, nfkc_072_135)
     // FD1F;FD1F;FD1F;062E 0649;062E 0649; 
     // (ﴟ; ﴟ; ﴟ; خى; خى; ) ARABIC LIGATURE KHAH WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD1F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062E, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD1F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD1F }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD1F }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062E, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062E, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3685,22 +11573,80 @@ TEST(normalization, nfkc_072_136)
     // FD20;FD20;FD20;062E 064A;062E 064A; 
     // (ﴠ; ﴠ; ﴠ; خي; خي; ) ARABIC LIGATURE KHAH WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD20 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x062E, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD20 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD20 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD20 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x062E, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x062E, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3712,22 +11658,80 @@ TEST(normalization, nfkc_072_137)
     // FD21;FD21;FD21;0635 0649;0635 0649; 
     // (ﴡ; ﴡ; ﴡ; صى; صى; ) ARABIC LIGATURE SAD WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD21 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD21 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD21 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD21 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3739,22 +11743,80 @@ TEST(normalization, nfkc_072_138)
     // FD22;FD22;FD22;0635 064A;0635 064A; 
     // (ﴢ; ﴢ; ﴢ; صي; صي; ) ARABIC LIGATURE SAD WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD22 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD22 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD22 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD22 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3766,22 +11828,80 @@ TEST(normalization, nfkc_072_139)
     // FD23;FD23;FD23;0636 0649;0636 0649; 
     // (ﴣ; ﴣ; ﴣ; ضى; ضى; ) ARABIC LIGATURE DAD WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD23 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD23 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD23 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD23 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x0649 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3793,22 +11913,80 @@ TEST(normalization, nfkc_072_140)
     // FD24;FD24;FD24;0636 064A;0636 064A; 
     // (ﴤ; ﴤ; ﴤ; ضي; ضي; ) ARABIC LIGATURE DAD WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD24 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD24 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD24 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD24 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x064A }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3820,22 +11998,80 @@ TEST(normalization, nfkc_072_141)
     // FD25;FD25;FD25;0634 062C;0634 062C; 
     // (ﴥ; ﴥ; ﴥ; شج; شج; ) ARABIC LIGATURE SHEEN WITH JEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD25 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD25 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD25 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD25 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3847,22 +12083,80 @@ TEST(normalization, nfkc_072_142)
     // FD26;FD26;FD26;0634 062D;0634 062D; 
     // (ﴦ; ﴦ; ﴦ; شح; شح; ) ARABIC LIGATURE SHEEN WITH HAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD26 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD26 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD26 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD26 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3874,22 +12168,80 @@ TEST(normalization, nfkc_072_143)
     // FD27;FD27;FD27;0634 062E;0634 062E; 
     // (ﴧ; ﴧ; ﴧ; شخ; شخ; ) ARABIC LIGATURE SHEEN WITH KHAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD27 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD27 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD27 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD27 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3901,22 +12253,80 @@ TEST(normalization, nfkc_072_144)
     // FD28;FD28;FD28;0634 0645;0634 0645; 
     // (ﴨ; ﴨ; ﴨ; شم; شم; ) ARABIC LIGATURE SHEEN WITH MEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD28 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD28 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD28 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD28 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3928,22 +12338,80 @@ TEST(normalization, nfkc_072_145)
     // FD29;FD29;FD29;0634 0631;0634 0631; 
     // (ﴩ; ﴩ; ﴩ; شر; شر; ) ARABIC LIGATURE SHEEN WITH REH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD29 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD29 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD29 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD29 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3955,22 +12423,80 @@ TEST(normalization, nfkc_072_146)
     // FD2A;FD2A;FD2A;0633 0631;0633 0631; 
     // (ﴪ; ﴪ; ﴪ; سر; سر; ) ARABIC LIGATURE SEEN WITH REH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD2A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD2A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD2A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD2A }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3982,22 +12508,80 @@ TEST(normalization, nfkc_072_147)
     // FD2B;FD2B;FD2B;0635 0631;0635 0631; 
     // (ﴫ; ﴫ; ﴫ; صر; صر; ) ARABIC LIGATURE SAD WITH REH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD2B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0635, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD2B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD2B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD2B }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0635, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0635, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4009,22 +12593,80 @@ TEST(normalization, nfkc_072_148)
     // FD2C;FD2C;FD2C;0636 0631;0636 0631; 
     // (ﴬ; ﴬ; ﴬ; ضر; ضر; ) ARABIC LIGATURE DAD WITH REH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD2C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0636, 0x0631 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD2C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD2C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD2C }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0636, 0x0631 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0636, 0x0631 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4036,22 +12678,80 @@ TEST(normalization, nfkc_072_149)
     // FD2D;FD2D;FD2D;0634 062C;0634 062C; 
     // (ﴭ; ﴭ; ﴭ; شج; شج; ) ARABIC LIGATURE SHEEN WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD2D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD2D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD2D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD2D }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4063,22 +12763,80 @@ TEST(normalization, nfkc_072_150)
     // FD2E;FD2E;FD2E;0634 062D;0634 062D; 
     // (ﴮ; ﴮ; ﴮ; شح; شح; ) ARABIC LIGATURE SHEEN WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD2E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD2E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD2E }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD2E }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4090,22 +12848,80 @@ TEST(normalization, nfkc_072_151)
     // FD2F;FD2F;FD2F;0634 062E;0634 062E; 
     // (ﴯ; ﴯ; ﴯ; شخ; شخ; ) ARABIC LIGATURE SHEEN WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD2F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD2F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD2F }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD2F }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4117,22 +12933,80 @@ TEST(normalization, nfkc_072_152)
     // FD30;FD30;FD30;0634 0645;0634 0645; 
     // (ﴰ; ﴰ; ﴰ; شم; شم; ) ARABIC LIGATURE SHEEN WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD30 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD30 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD30 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD30 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4144,22 +13018,80 @@ TEST(normalization, nfkc_072_153)
     // FD31;FD31;FD31;0633 0647;0633 0647; 
     // (ﴱ; ﴱ; ﴱ; سه; سه; ) ARABIC LIGATURE SEEN WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD31 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD31 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD31 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD31 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4171,22 +13103,80 @@ TEST(normalization, nfkc_072_154)
     // FD32;FD32;FD32;0634 0647;0634 0647; 
     // (ﴲ; ﴲ; ﴲ; شه; شه; ) ARABIC LIGATURE SHEEN WITH HEH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD32 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x0647 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD32 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD32 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD32 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x0647 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x0647 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4198,22 +13188,80 @@ TEST(normalization, nfkc_072_155)
     // FD33;FD33;FD33;0637 0645;0637 0645; 
     // (ﴳ; ﴳ; ﴳ; طم; طم; ) ARABIC LIGATURE TAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD33 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD33 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD33 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD33 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4225,22 +13273,80 @@ TEST(normalization, nfkc_072_156)
     // FD34;FD34;FD34;0633 062C;0633 062C; 
     // (ﴴ; ﴴ; ﴴ; سج; سج; ) ARABIC LIGATURE SEEN WITH JEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD34 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD34 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD34 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD34 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4252,22 +13358,80 @@ TEST(normalization, nfkc_072_157)
     // FD35;FD35;FD35;0633 062D;0633 062D; 
     // (ﴵ; ﴵ; ﴵ; سح; سح; ) ARABIC LIGATURE SEEN WITH HAH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD35 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD35 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD35 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD35 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4279,22 +13443,80 @@ TEST(normalization, nfkc_072_158)
     // FD36;FD36;FD36;0633 062E;0633 062E; 
     // (ﴶ; ﴶ; ﴶ; سخ; سخ; ) ARABIC LIGATURE SEEN WITH KHAH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD36 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0633, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD36 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD36 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD36 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0633, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0633, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4306,22 +13528,80 @@ TEST(normalization, nfkc_072_159)
     // FD37;FD37;FD37;0634 062C;0634 062C; 
     // (ﴷ; ﴷ; ﴷ; شج; شج; ) ARABIC LIGATURE SHEEN WITH JEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD37 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD37 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD37 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD37 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062C }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4333,22 +13613,80 @@ TEST(normalization, nfkc_072_160)
     // FD38;FD38;FD38;0634 062D;0634 062D; 
     // (ﴸ; ﴸ; ﴸ; شح; شح; ) ARABIC LIGATURE SHEEN WITH HAH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD38 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD38 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD38 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD38 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062D }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4360,22 +13698,80 @@ TEST(normalization, nfkc_072_161)
     // FD39;FD39;FD39;0634 062E;0634 062E; 
     // (ﴹ; ﴹ; ﴹ; شخ; شخ; ) ARABIC LIGATURE SHEEN WITH KHAH MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD39 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD39 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD39 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD39 }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0634, 0x062E }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0634, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4387,22 +13783,80 @@ TEST(normalization, nfkc_072_162)
     // FD3A;FD3A;FD3A;0637 0645;0637 0645; 
     // (ﴺ; ﴺ; ﴺ; طم; طم; ) ARABIC LIGATURE TAH WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD3A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0637, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD3A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD3A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD3A }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0637, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0637, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4414,22 +13868,80 @@ TEST(normalization, nfkc_072_163)
     // FD3B;FD3B;FD3B;0638 0645;0638 0645; 
     // (ﴻ; ﴻ; ﴻ; ظم; ظم; ) ARABIC LIGATURE ZAH WITH MEEM MEDIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD3B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0638, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD3B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD3B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD3B }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0638, 0x0645 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0638, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4441,22 +13953,80 @@ TEST(normalization, nfkc_072_164)
     // FD3C;FD3C;FD3C;0627 064B;0627 064B; 
     // (ﴼ; ﴼ; ﴼ; ا◌ً; ا◌ً; ) ARABIC LIGATURE ALEF WITH FATHATAN FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD3C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0627, 0x064B }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD3C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD3C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD3C }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0627, 0x064B }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0627, 0x064B }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4468,22 +14038,80 @@ TEST(normalization, nfkc_072_165)
     // FD3D;FD3D;FD3D;0627 064B;0627 064B; 
     // (ﴽ; ﴽ; ﴽ; ا◌ً; ا◌ً; ) ARABIC LIGATURE ALEF WITH FATHATAN ISOLATED FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD3D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x0627, 0x064B }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD3D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD3D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD3D }};
+        std::array<uint32_t, 2> const c4 = {{ 0x0627, 0x064B }};
+        std::array<uint32_t, 2> const c5 = {{ 0x0627, 0x064B }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4495,22 +14123,80 @@ TEST(normalization, nfkc_072_166)
     // FD50;FD50;FD50;062A 062C 0645;062A 062C 0645; 
     // (ﵐ; ﵐ; ﵐ; تجم; تجم; ) ARABIC LIGATURE TEH WITH JEEM WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD50 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x062C, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD50 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD50 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD50 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x062C, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x062C, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4522,22 +14208,80 @@ TEST(normalization, nfkc_072_167)
     // FD51;FD51;FD51;062A 062D 062C;062A 062D 062C; 
     // (ﵑ; ﵑ; ﵑ; تحج; تحج; ) ARABIC LIGATURE TEH WITH HAH WITH JEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD51 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x062D, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD51 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD51 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD51 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x062D, 0x062C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x062D, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4549,22 +14293,80 @@ TEST(normalization, nfkc_072_168)
     // FD52;FD52;FD52;062A 062D 062C;062A 062D 062C; 
     // (ﵒ; ﵒ; ﵒ; تحج; تحج; ) ARABIC LIGATURE TEH WITH HAH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD52 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x062D, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD52 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD52 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD52 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x062D, 0x062C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x062D, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4576,22 +14378,80 @@ TEST(normalization, nfkc_072_169)
     // FD53;FD53;FD53;062A 062D 0645;062A 062D 0645; 
     // (ﵓ; ﵓ; ﵓ; تحم; تحم; ) ARABIC LIGATURE TEH WITH HAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD53 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x062D, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD53 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD53 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD53 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x062D, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x062D, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4603,22 +14463,80 @@ TEST(normalization, nfkc_072_170)
     // FD54;FD54;FD54;062A 062E 0645;062A 062E 0645; 
     // (ﵔ; ﵔ; ﵔ; تخم; تخم; ) ARABIC LIGATURE TEH WITH KHAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD54 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x062E, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD54 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD54 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD54 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x062E, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x062E, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4630,22 +14548,80 @@ TEST(normalization, nfkc_072_171)
     // FD55;FD55;FD55;062A 0645 062C;062A 0645 062C; 
     // (ﵕ; ﵕ; ﵕ; تمج; تمج; ) ARABIC LIGATURE TEH WITH MEEM WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD55 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x0645, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD55 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD55 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD55 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x0645, 0x062C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x0645, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4657,22 +14633,80 @@ TEST(normalization, nfkc_072_172)
     // FD56;FD56;FD56;062A 0645 062D;062A 0645 062D; 
     // (ﵖ; ﵖ; ﵖ; تمح; تمح; ) ARABIC LIGATURE TEH WITH MEEM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD56 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD56 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD56 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD56 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x0645, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4684,22 +14718,80 @@ TEST(normalization, nfkc_072_173)
     // FD57;FD57;FD57;062A 0645 062E;062A 0645 062E; 
     // (ﵗ; ﵗ; ﵗ; تمخ; تمخ; ) ARABIC LIGATURE TEH WITH MEEM WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD57 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062A, 0x0645, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD57 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD57 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD57 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062A, 0x0645, 0x062E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062A, 0x0645, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4711,22 +14803,80 @@ TEST(normalization, nfkc_072_174)
     // FD58;FD58;FD58;062C 0645 062D;062C 0645 062D; 
     // (ﵘ; ﵘ; ﵘ; جمح; جمح; ) ARABIC LIGATURE JEEM WITH MEEM WITH HAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD58 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062C, 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD58 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD58 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD58 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062C, 0x0645, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062C, 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4738,22 +14888,80 @@ TEST(normalization, nfkc_072_175)
     // FD59;FD59;FD59;062C 0645 062D;062C 0645 062D; 
     // (ﵙ; ﵙ; ﵙ; جمح; جمح; ) ARABIC LIGATURE JEEM WITH MEEM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD59 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062C, 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD59 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD59 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD59 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062C, 0x0645, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062C, 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4765,22 +14973,80 @@ TEST(normalization, nfkc_072_176)
     // FD5A;FD5A;FD5A;062D 0645 064A;062D 0645 064A; 
     // (ﵚ; ﵚ; ﵚ; حمي; حمي; ) ARABIC LIGATURE HAH WITH MEEM WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD5A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062D, 0x0645, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD5A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD5A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD5A }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062D, 0x0645, 0x064A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062D, 0x0645, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4792,22 +15058,80 @@ TEST(normalization, nfkc_072_177)
     // FD5B;FD5B;FD5B;062D 0645 0649;062D 0645 0649; 
     // (ﵛ; ﵛ; ﵛ; حمى; حمى; ) ARABIC LIGATURE HAH WITH MEEM WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD5B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x062D, 0x0645, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD5B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD5B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD5B }};
+        std::array<uint32_t, 3> const c4 = {{ 0x062D, 0x0645, 0x0649 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x062D, 0x0645, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4819,22 +15143,80 @@ TEST(normalization, nfkc_072_178)
     // FD5C;FD5C;FD5C;0633 062D 062C;0633 062D 062C; 
     // (ﵜ; ﵜ; ﵜ; سحج; سحج; ) ARABIC LIGATURE SEEN WITH HAH WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD5C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x062D, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD5C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD5C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD5C }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x062D, 0x062C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x062D, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4846,22 +15228,80 @@ TEST(normalization, nfkc_072_179)
     // FD5D;FD5D;FD5D;0633 062C 062D;0633 062C 062D; 
     // (ﵝ; ﵝ; ﵝ; سجح; سجح; ) ARABIC LIGATURE SEEN WITH JEEM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD5D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x062C, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD5D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD5D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD5D }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x062C, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x062C, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4873,22 +15313,80 @@ TEST(normalization, nfkc_072_180)
     // FD5E;FD5E;FD5E;0633 062C 0649;0633 062C 0649; 
     // (ﵞ; ﵞ; ﵞ; سجى; سجى; ) ARABIC LIGATURE SEEN WITH JEEM WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD5E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x062C, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD5E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD5E }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD5E }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x062C, 0x0649 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x062C, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4900,22 +15398,80 @@ TEST(normalization, nfkc_072_181)
     // FD5F;FD5F;FD5F;0633 0645 062D;0633 0645 062D; 
     // (ﵟ; ﵟ; ﵟ; سمح; سمح; ) ARABIC LIGATURE SEEN WITH MEEM WITH HAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD5F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD5F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD5F }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD5F }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x0645, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4927,22 +15483,80 @@ TEST(normalization, nfkc_072_182)
     // FD60;FD60;FD60;0633 0645 062D;0633 0645 062D; 
     // (ﵠ; ﵠ; ﵠ; سمح; سمح; ) ARABIC LIGATURE SEEN WITH MEEM WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD60 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD60 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD60 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD60 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x0645, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4954,22 +15568,80 @@ TEST(normalization, nfkc_072_183)
     // FD61;FD61;FD61;0633 0645 062C;0633 0645 062C; 
     // (ﵡ; ﵡ; ﵡ; سمج; سمج; ) ARABIC LIGATURE SEEN WITH MEEM WITH JEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD61 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x0645, 0x062C }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD61 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD61 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD61 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x0645, 0x062C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x0645, 0x062C }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4981,22 +15653,80 @@ TEST(normalization, nfkc_072_184)
     // FD62;FD62;FD62;0633 0645 0645;0633 0645 0645; 
     // (ﵢ; ﵢ; ﵢ; سمم; سمم; ) ARABIC LIGATURE SEEN WITH MEEM WITH MEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD62 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x0645, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD62 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD62 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD62 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x0645, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x0645, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5008,22 +15738,80 @@ TEST(normalization, nfkc_072_185)
     // FD63;FD63;FD63;0633 0645 0645;0633 0645 0645; 
     // (ﵣ; ﵣ; ﵣ; سمم; سمم; ) ARABIC LIGATURE SEEN WITH MEEM WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD63 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0633, 0x0645, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD63 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD63 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD63 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0633, 0x0645, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0633, 0x0645, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5035,22 +15823,80 @@ TEST(normalization, nfkc_072_186)
     // FD64;FD64;FD64;0635 062D 062D;0635 062D 062D; 
     // (ﵤ; ﵤ; ﵤ; صحح; صحح; ) ARABIC LIGATURE SAD WITH HAH WITH HAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD64 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0635, 0x062D, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD64 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD64 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD64 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0635, 0x062D, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0635, 0x062D, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5062,22 +15908,80 @@ TEST(normalization, nfkc_072_187)
     // FD65;FD65;FD65;0635 062D 062D;0635 062D 062D; 
     // (ﵥ; ﵥ; ﵥ; صحح; صحح; ) ARABIC LIGATURE SAD WITH HAH WITH HAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD65 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0635, 0x062D, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD65 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD65 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD65 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0635, 0x062D, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0635, 0x062D, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5089,22 +15993,80 @@ TEST(normalization, nfkc_072_188)
     // FD66;FD66;FD66;0635 0645 0645;0635 0645 0645; 
     // (ﵦ; ﵦ; ﵦ; صمم; صمم; ) ARABIC LIGATURE SAD WITH MEEM WITH MEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD66 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0635, 0x0645, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD66 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD66 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD66 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0635, 0x0645, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0635, 0x0645, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5116,22 +16078,80 @@ TEST(normalization, nfkc_072_189)
     // FD67;FD67;FD67;0634 062D 0645;0634 062D 0645; 
     // (ﵧ; ﵧ; ﵧ; شحم; شحم; ) ARABIC LIGATURE SHEEN WITH HAH WITH MEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD67 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x062D, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD67 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD67 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD67 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x062D, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x062D, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5143,22 +16163,80 @@ TEST(normalization, nfkc_072_190)
     // FD68;FD68;FD68;0634 062D 0645;0634 062D 0645; 
     // (ﵨ; ﵨ; ﵨ; شحم; شحم; ) ARABIC LIGATURE SHEEN WITH HAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD68 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x062D, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD68 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD68 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD68 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x062D, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x062D, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5170,22 +16248,80 @@ TEST(normalization, nfkc_072_191)
     // FD69;FD69;FD69;0634 062C 064A;0634 062C 064A; 
     // (ﵩ; ﵩ; ﵩ; شجي; شجي; ) ARABIC LIGATURE SHEEN WITH JEEM WITH YEH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD69 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x062C, 0x064A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD69 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD69 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD69 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x062C, 0x064A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x062C, 0x064A }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5197,22 +16333,80 @@ TEST(normalization, nfkc_072_192)
     // FD6A;FD6A;FD6A;0634 0645 062E;0634 0645 062E; 
     // (ﵪ; ﵪ; ﵪ; شمخ; شمخ; ) ARABIC LIGATURE SHEEN WITH MEEM WITH KHAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD6A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x0645, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD6A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD6A }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD6A }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x0645, 0x062E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x0645, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5224,22 +16418,80 @@ TEST(normalization, nfkc_072_193)
     // FD6B;FD6B;FD6B;0634 0645 062E;0634 0645 062E; 
     // (ﵫ; ﵫ; ﵫ; شمخ; شمخ; ) ARABIC LIGATURE SHEEN WITH MEEM WITH KHAH INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD6B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x0645, 0x062E }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD6B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD6B }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD6B }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x0645, 0x062E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x0645, 0x062E }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5251,22 +16503,80 @@ TEST(normalization, nfkc_072_194)
     // FD6C;FD6C;FD6C;0634 0645 0645;0634 0645 0645; 
     // (ﵬ; ﵬ; ﵬ; شمم; شمم; ) ARABIC LIGATURE SHEEN WITH MEEM WITH MEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD6C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x0645, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD6C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD6C }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD6C }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x0645, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x0645, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5278,22 +16588,80 @@ TEST(normalization, nfkc_072_195)
     // FD6D;FD6D;FD6D;0634 0645 0645;0634 0645 0645; 
     // (ﵭ; ﵭ; ﵭ; شمم; شمم; ) ARABIC LIGATURE SHEEN WITH MEEM WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD6D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0634, 0x0645, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD6D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD6D }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD6D }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0634, 0x0645, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0634, 0x0645, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5305,22 +16673,80 @@ TEST(normalization, nfkc_072_196)
     // FD6E;FD6E;FD6E;0636 062D 0649;0636 062D 0649; 
     // (ﵮ; ﵮ; ﵮ; ضحى; ضحى; ) ARABIC LIGATURE DAD WITH HAH WITH ALEF MAKSURA FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD6E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0636, 0x062D, 0x0649 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD6E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD6E }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD6E }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0636, 0x062D, 0x0649 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0636, 0x062D, 0x0649 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5332,22 +16758,80 @@ TEST(normalization, nfkc_072_197)
     // FD6F;FD6F;FD6F;0636 062E 0645;0636 062E 0645; 
     // (ﵯ; ﵯ; ﵯ; ضخم; ضخم; ) ARABIC LIGATURE DAD WITH KHAH WITH MEEM FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD6F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0636, 0x062E, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD6F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD6F }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD6F }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0636, 0x062E, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0636, 0x062E, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5359,22 +16843,80 @@ TEST(normalization, nfkc_072_198)
     // FD70;FD70;FD70;0636 062E 0645;0636 062E 0645; 
     // (ﵰ; ﵰ; ﵰ; ضخم; ضخم; ) ARABIC LIGATURE DAD WITH KHAH WITH MEEM INITIAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD70 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0636, 0x062E, 0x0645 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD70 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD70 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD70 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0636, 0x062E, 0x0645 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0636, 0x062E, 0x0645 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5386,22 +16928,80 @@ TEST(normalization, nfkc_072_199)
     // FD71;FD71;FD71;0637 0645 062D;0637 0645 062D; 
     // (ﵱ; ﵱ; ﵱ; طمح; طمح; ) ARABIC LIGATURE TAH WITH MEEM WITH HAH FINAL FORM
     {
-        std::array<uint32_t, 1> const source = {{ 0xFD71 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x0637, 0x0645, 0x062D }};
+        std::array<uint32_t, 1> const c1 = {{ 0xFD71 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xFD71 }};
+        std::array<uint32_t, 1> const c3 = {{ 0xFD71 }};
+        std::array<uint32_t, 3> const c4 = {{ 0x0637, 0x0645, 0x062D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x0637, 0x0645, 0x062D }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }

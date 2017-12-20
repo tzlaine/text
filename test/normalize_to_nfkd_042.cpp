@@ -13,22 +13,80 @@ TEST(normalization, nfkd_042_000)
     // C360;C360;110A 1164 11BB;C360;110A 1164 11BB; 
     // (썠; 썠; 썠; 썠; 썠; ) HANGUL SYLLABLE SSYAESS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC360 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC360 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC360 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC360 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -40,22 +98,80 @@ TEST(normalization, nfkd_042_001)
     // C361;C361;110A 1164 11BC;C361;110A 1164 11BC; 
     // (썡; 썡; 썡; 썡; 썡; ) HANGUL SYLLABLE SSYAENG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC361 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC361 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC361 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC361 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -67,22 +183,80 @@ TEST(normalization, nfkd_042_002)
     // C362;C362;110A 1164 11BD;C362;110A 1164 11BD; 
     // (썢; 썢; 썢; 썢; 썢; ) HANGUL SYLLABLE SSYAEJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC362 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC362 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC362 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC362 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -94,22 +268,80 @@ TEST(normalization, nfkd_042_003)
     // C363;C363;110A 1164 11BE;C363;110A 1164 11BE; 
     // (썣; 썣; 썣; 썣; 썣; ) HANGUL SYLLABLE SSYAEC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC363 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC363 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC363 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC363 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -121,22 +353,80 @@ TEST(normalization, nfkd_042_004)
     // C364;C364;110A 1164 11BF;C364;110A 1164 11BF; 
     // (썤; 썤; 썤; 썤; 썤; ) HANGUL SYLLABLE SSYAEK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC364 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC364 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC364 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC364 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -148,22 +438,80 @@ TEST(normalization, nfkd_042_005)
     // C365;C365;110A 1164 11C0;C365;110A 1164 11C0; 
     // (썥; 썥; 썥; 썥; 썥; ) HANGUL SYLLABLE SSYAET
     {
-        std::array<uint32_t, 1> const source = {{ 0xC365 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC365 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC365 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC365 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -175,22 +523,80 @@ TEST(normalization, nfkd_042_006)
     // C366;C366;110A 1164 11C1;C366;110A 1164 11C1; 
     // (썦; 썦; 썦; 썦; 썦; ) HANGUL SYLLABLE SSYAEP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC366 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC366 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC366 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC366 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -202,22 +608,80 @@ TEST(normalization, nfkd_042_007)
     // C367;C367;110A 1164 11C2;C367;110A 1164 11C2; 
     // (썧; 썧; 썧; 썧; 썧; ) HANGUL SYLLABLE SSYAEH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC367 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1164, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC367 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC367 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1164, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC367 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1164, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -229,22 +693,80 @@ TEST(normalization, nfkd_042_008)
     // C368;C368;110A 1165;C368;110A 1165; 
     // (써; 써; 써; 써; 써; ) HANGUL SYLLABLE SSEO
     {
-        std::array<uint32_t, 1> const source = {{ 0xC368 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x1165 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC368 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC368 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x1165 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC368 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x1165 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -256,22 +778,80 @@ TEST(normalization, nfkd_042_009)
     // C369;C369;110A 1165 11A8;C369;110A 1165 11A8; 
     // (썩; 썩; 썩; 썩; 썩; ) HANGUL SYLLABLE SSEOG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC369 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC369 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC369 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC369 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -283,22 +863,80 @@ TEST(normalization, nfkd_042_010)
     // C36A;C36A;110A 1165 11A9;C36A;110A 1165 11A9; 
     // (썪; 썪; 썪; 썪; 썪; ) HANGUL SYLLABLE SSEOGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC36A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC36A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC36A }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC36A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -310,22 +948,80 @@ TEST(normalization, nfkd_042_011)
     // C36B;C36B;110A 1165 11AA;C36B;110A 1165 11AA; 
     // (썫; 썫; 썫; 썫; 썫; ) HANGUL SYLLABLE SSEOGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC36B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC36B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC36B }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC36B }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -337,22 +1033,80 @@ TEST(normalization, nfkd_042_012)
     // C36C;C36C;110A 1165 11AB;C36C;110A 1165 11AB; 
     // (썬; 썬; 썬; 썬; 썬; ) HANGUL SYLLABLE SSEON
     {
-        std::array<uint32_t, 1> const source = {{ 0xC36C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC36C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC36C }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC36C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -364,22 +1118,80 @@ TEST(normalization, nfkd_042_013)
     // C36D;C36D;110A 1165 11AC;C36D;110A 1165 11AC; 
     // (썭; 썭; 썭; 썭; 썭; ) HANGUL SYLLABLE SSEONJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC36D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC36D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC36D }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC36D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -391,22 +1203,80 @@ TEST(normalization, nfkd_042_014)
     // C36E;C36E;110A 1165 11AD;C36E;110A 1165 11AD; 
     // (썮; 썮; 썮; 썮; 썮; ) HANGUL SYLLABLE SSEONH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC36E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC36E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC36E }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC36E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -418,22 +1288,80 @@ TEST(normalization, nfkd_042_015)
     // C36F;C36F;110A 1165 11AE;C36F;110A 1165 11AE; 
     // (썯; 썯; 썯; 썯; 썯; ) HANGUL SYLLABLE SSEOD
     {
-        std::array<uint32_t, 1> const source = {{ 0xC36F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC36F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC36F }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC36F }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -445,22 +1373,80 @@ TEST(normalization, nfkd_042_016)
     // C370;C370;110A 1165 11AF;C370;110A 1165 11AF; 
     // (썰; 썰; 썰; 썰; 썰; ) HANGUL SYLLABLE SSEOL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC370 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC370 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC370 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC370 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -472,22 +1458,80 @@ TEST(normalization, nfkd_042_017)
     // C371;C371;110A 1165 11B0;C371;110A 1165 11B0; 
     // (썱; 썱; 썱; 썱; 썱; ) HANGUL SYLLABLE SSEOLG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC371 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC371 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC371 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC371 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -499,22 +1543,80 @@ TEST(normalization, nfkd_042_018)
     // C372;C372;110A 1165 11B1;C372;110A 1165 11B1; 
     // (썲; 썲; 썲; 썲; 썲; ) HANGUL SYLLABLE SSEOLM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC372 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC372 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC372 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC372 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -526,22 +1628,80 @@ TEST(normalization, nfkd_042_019)
     // C373;C373;110A 1165 11B2;C373;110A 1165 11B2; 
     // (썳; 썳; 썳; 썳; 썳; ) HANGUL SYLLABLE SSEOLB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC373 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC373 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC373 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC373 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -553,22 +1713,80 @@ TEST(normalization, nfkd_042_020)
     // C374;C374;110A 1165 11B3;C374;110A 1165 11B3; 
     // (썴; 썴; 썴; 썴; 썴; ) HANGUL SYLLABLE SSEOLS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC374 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC374 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC374 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC374 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -580,22 +1798,80 @@ TEST(normalization, nfkd_042_021)
     // C375;C375;110A 1165 11B4;C375;110A 1165 11B4; 
     // (썵; 썵; 썵; 썵; 썵; ) HANGUL SYLLABLE SSEOLT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC375 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC375 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC375 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC375 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -607,22 +1883,80 @@ TEST(normalization, nfkd_042_022)
     // C376;C376;110A 1165 11B5;C376;110A 1165 11B5; 
     // (썶; 썶; 썶; 썶; 썶; ) HANGUL SYLLABLE SSEOLP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC376 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC376 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC376 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC376 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -634,22 +1968,80 @@ TEST(normalization, nfkd_042_023)
     // C377;C377;110A 1165 11B6;C377;110A 1165 11B6; 
     // (썷; 썷; 썷; 썷; 썷; ) HANGUL SYLLABLE SSEOLH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC377 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC377 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC377 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC377 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -661,22 +2053,80 @@ TEST(normalization, nfkd_042_024)
     // C378;C378;110A 1165 11B7;C378;110A 1165 11B7; 
     // (썸; 썸; 썸; 썸; 썸; ) HANGUL SYLLABLE SSEOM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC378 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC378 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC378 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC378 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -688,22 +2138,80 @@ TEST(normalization, nfkd_042_025)
     // C379;C379;110A 1165 11B8;C379;110A 1165 11B8; 
     // (썹; 썹; 썹; 썹; 썹; ) HANGUL SYLLABLE SSEOB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC379 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC379 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC379 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC379 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -715,22 +2223,80 @@ TEST(normalization, nfkd_042_026)
     // C37A;C37A;110A 1165 11B9;C37A;110A 1165 11B9; 
     // (썺; 썺; 썺; 썺; 썺; ) HANGUL SYLLABLE SSEOBS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC37A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC37A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC37A }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC37A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -742,22 +2308,80 @@ TEST(normalization, nfkd_042_027)
     // C37B;C37B;110A 1165 11BA;C37B;110A 1165 11BA; 
     // (썻; 썻; 썻; 썻; 썻; ) HANGUL SYLLABLE SSEOS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC37B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC37B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC37B }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC37B }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -769,22 +2393,80 @@ TEST(normalization, nfkd_042_028)
     // C37C;C37C;110A 1165 11BB;C37C;110A 1165 11BB; 
     // (썼; 썼; 썼; 썼; 썼; ) HANGUL SYLLABLE SSEOSS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC37C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC37C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC37C }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC37C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -796,22 +2478,80 @@ TEST(normalization, nfkd_042_029)
     // C37D;C37D;110A 1165 11BC;C37D;110A 1165 11BC; 
     // (썽; 썽; 썽; 썽; 썽; ) HANGUL SYLLABLE SSEONG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC37D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC37D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC37D }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC37D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -823,22 +2563,80 @@ TEST(normalization, nfkd_042_030)
     // C37E;C37E;110A 1165 11BD;C37E;110A 1165 11BD; 
     // (썾; 썾; 썾; 썾; 썾; ) HANGUL SYLLABLE SSEOJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC37E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC37E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC37E }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC37E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -850,22 +2648,80 @@ TEST(normalization, nfkd_042_031)
     // C37F;C37F;110A 1165 11BE;C37F;110A 1165 11BE; 
     // (썿; 썿; 썿; 썿; 썿; ) HANGUL SYLLABLE SSEOC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC37F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC37F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC37F }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC37F }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -877,22 +2733,80 @@ TEST(normalization, nfkd_042_032)
     // C380;C380;110A 1165 11BF;C380;110A 1165 11BF; 
     // (쎀; 쎀; 쎀; 쎀; 쎀; ) HANGUL SYLLABLE SSEOK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC380 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC380 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC380 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC380 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -904,22 +2818,80 @@ TEST(normalization, nfkd_042_033)
     // C381;C381;110A 1165 11C0;C381;110A 1165 11C0; 
     // (쎁; 쎁; 쎁; 쎁; 쎁; ) HANGUL SYLLABLE SSEOT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC381 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC381 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC381 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC381 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -931,22 +2903,80 @@ TEST(normalization, nfkd_042_034)
     // C382;C382;110A 1165 11C1;C382;110A 1165 11C1; 
     // (쎂; 쎂; 쎂; 쎂; 쎂; ) HANGUL SYLLABLE SSEOP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC382 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC382 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC382 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC382 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -958,22 +2988,80 @@ TEST(normalization, nfkd_042_035)
     // C383;C383;110A 1165 11C2;C383;110A 1165 11C2; 
     // (쎃; 쎃; 쎃; 쎃; 쎃; ) HANGUL SYLLABLE SSEOH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC383 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1165, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC383 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC383 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1165, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC383 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1165, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -985,22 +3073,80 @@ TEST(normalization, nfkd_042_036)
     // C384;C384;110A 1166;C384;110A 1166; 
     // (쎄; 쎄; 쎄; 쎄; 쎄; ) HANGUL SYLLABLE SSE
     {
-        std::array<uint32_t, 1> const source = {{ 0xC384 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x1166 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC384 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC384 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x1166 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC384 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x1166 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1012,22 +3158,80 @@ TEST(normalization, nfkd_042_037)
     // C385;C385;110A 1166 11A8;C385;110A 1166 11A8; 
     // (쎅; 쎅; 쎅; 쎅; 쎅; ) HANGUL SYLLABLE SSEG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC385 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC385 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC385 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC385 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1039,22 +3243,80 @@ TEST(normalization, nfkd_042_038)
     // C386;C386;110A 1166 11A9;C386;110A 1166 11A9; 
     // (쎆; 쎆; 쎆; 쎆; 쎆; ) HANGUL SYLLABLE SSEGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC386 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC386 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC386 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC386 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1066,22 +3328,80 @@ TEST(normalization, nfkd_042_039)
     // C387;C387;110A 1166 11AA;C387;110A 1166 11AA; 
     // (쎇; 쎇; 쎇; 쎇; 쎇; ) HANGUL SYLLABLE SSEGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC387 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC387 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC387 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC387 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1093,22 +3413,80 @@ TEST(normalization, nfkd_042_040)
     // C388;C388;110A 1166 11AB;C388;110A 1166 11AB; 
     // (쎈; 쎈; 쎈; 쎈; 쎈; ) HANGUL SYLLABLE SSEN
     {
-        std::array<uint32_t, 1> const source = {{ 0xC388 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC388 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC388 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC388 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1120,22 +3498,80 @@ TEST(normalization, nfkd_042_041)
     // C389;C389;110A 1166 11AC;C389;110A 1166 11AC; 
     // (쎉; 쎉; 쎉; 쎉; 쎉; ) HANGUL SYLLABLE SSENJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC389 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC389 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC389 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC389 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1147,22 +3583,80 @@ TEST(normalization, nfkd_042_042)
     // C38A;C38A;110A 1166 11AD;C38A;110A 1166 11AD; 
     // (쎊; 쎊; 쎊; 쎊; 쎊; ) HANGUL SYLLABLE SSENH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC38A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC38A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC38A }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC38A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1174,22 +3668,80 @@ TEST(normalization, nfkd_042_043)
     // C38B;C38B;110A 1166 11AE;C38B;110A 1166 11AE; 
     // (쎋; 쎋; 쎋; 쎋; 쎋; ) HANGUL SYLLABLE SSED
     {
-        std::array<uint32_t, 1> const source = {{ 0xC38B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC38B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC38B }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC38B }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1201,22 +3753,80 @@ TEST(normalization, nfkd_042_044)
     // C38C;C38C;110A 1166 11AF;C38C;110A 1166 11AF; 
     // (쎌; 쎌; 쎌; 쎌; 쎌; ) HANGUL SYLLABLE SSEL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC38C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC38C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC38C }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC38C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1228,22 +3838,80 @@ TEST(normalization, nfkd_042_045)
     // C38D;C38D;110A 1166 11B0;C38D;110A 1166 11B0; 
     // (쎍; 쎍; 쎍; 쎍; 쎍; ) HANGUL SYLLABLE SSELG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC38D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC38D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC38D }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC38D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1255,22 +3923,80 @@ TEST(normalization, nfkd_042_046)
     // C38E;C38E;110A 1166 11B1;C38E;110A 1166 11B1; 
     // (쎎; 쎎; 쎎; 쎎; 쎎; ) HANGUL SYLLABLE SSELM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC38E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC38E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC38E }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC38E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1282,22 +4008,80 @@ TEST(normalization, nfkd_042_047)
     // C38F;C38F;110A 1166 11B2;C38F;110A 1166 11B2; 
     // (쎏; 쎏; 쎏; 쎏; 쎏; ) HANGUL SYLLABLE SSELB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC38F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC38F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC38F }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC38F }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1309,22 +4093,80 @@ TEST(normalization, nfkd_042_048)
     // C390;C390;110A 1166 11B3;C390;110A 1166 11B3; 
     // (쎐; 쎐; 쎐; 쎐; 쎐; ) HANGUL SYLLABLE SSELS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC390 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC390 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC390 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC390 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1336,22 +4178,80 @@ TEST(normalization, nfkd_042_049)
     // C391;C391;110A 1166 11B4;C391;110A 1166 11B4; 
     // (쎑; 쎑; 쎑; 쎑; 쎑; ) HANGUL SYLLABLE SSELT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC391 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC391 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC391 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC391 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1363,22 +4263,80 @@ TEST(normalization, nfkd_042_050)
     // C392;C392;110A 1166 11B5;C392;110A 1166 11B5; 
     // (쎒; 쎒; 쎒; 쎒; 쎒; ) HANGUL SYLLABLE SSELP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC392 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC392 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC392 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC392 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1390,22 +4348,80 @@ TEST(normalization, nfkd_042_051)
     // C393;C393;110A 1166 11B6;C393;110A 1166 11B6; 
     // (쎓; 쎓; 쎓; 쎓; 쎓; ) HANGUL SYLLABLE SSELH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC393 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC393 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC393 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC393 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1417,22 +4433,80 @@ TEST(normalization, nfkd_042_052)
     // C394;C394;110A 1166 11B7;C394;110A 1166 11B7; 
     // (쎔; 쎔; 쎔; 쎔; 쎔; ) HANGUL SYLLABLE SSEM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC394 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC394 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC394 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC394 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1444,22 +4518,80 @@ TEST(normalization, nfkd_042_053)
     // C395;C395;110A 1166 11B8;C395;110A 1166 11B8; 
     // (쎕; 쎕; 쎕; 쎕; 쎕; ) HANGUL SYLLABLE SSEB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC395 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC395 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC395 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC395 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1471,22 +4603,80 @@ TEST(normalization, nfkd_042_054)
     // C396;C396;110A 1166 11B9;C396;110A 1166 11B9; 
     // (쎖; 쎖; 쎖; 쎖; 쎖; ) HANGUL SYLLABLE SSEBS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC396 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC396 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC396 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC396 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1498,22 +4688,80 @@ TEST(normalization, nfkd_042_055)
     // C397;C397;110A 1166 11BA;C397;110A 1166 11BA; 
     // (쎗; 쎗; 쎗; 쎗; 쎗; ) HANGUL SYLLABLE SSES
     {
-        std::array<uint32_t, 1> const source = {{ 0xC397 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC397 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC397 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC397 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1525,22 +4773,80 @@ TEST(normalization, nfkd_042_056)
     // C398;C398;110A 1166 11BB;C398;110A 1166 11BB; 
     // (쎘; 쎘; 쎘; 쎘; 쎘; ) HANGUL SYLLABLE SSESS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC398 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC398 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC398 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC398 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1552,22 +4858,80 @@ TEST(normalization, nfkd_042_057)
     // C399;C399;110A 1166 11BC;C399;110A 1166 11BC; 
     // (쎙; 쎙; 쎙; 쎙; 쎙; ) HANGUL SYLLABLE SSENG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC399 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC399 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC399 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC399 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1579,22 +4943,80 @@ TEST(normalization, nfkd_042_058)
     // C39A;C39A;110A 1166 11BD;C39A;110A 1166 11BD; 
     // (쎚; 쎚; 쎚; 쎚; 쎚; ) HANGUL SYLLABLE SSEJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC39A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC39A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC39A }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC39A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1606,22 +5028,80 @@ TEST(normalization, nfkd_042_059)
     // C39B;C39B;110A 1166 11BE;C39B;110A 1166 11BE; 
     // (쎛; 쎛; 쎛; 쎛; 쎛; ) HANGUL SYLLABLE SSEC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC39B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC39B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC39B }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC39B }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1633,22 +5113,80 @@ TEST(normalization, nfkd_042_060)
     // C39C;C39C;110A 1166 11BF;C39C;110A 1166 11BF; 
     // (쎜; 쎜; 쎜; 쎜; 쎜; ) HANGUL SYLLABLE SSEK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC39C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC39C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC39C }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC39C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1660,22 +5198,80 @@ TEST(normalization, nfkd_042_061)
     // C39D;C39D;110A 1166 11C0;C39D;110A 1166 11C0; 
     // (쎝; 쎝; 쎝; 쎝; 쎝; ) HANGUL SYLLABLE SSET
     {
-        std::array<uint32_t, 1> const source = {{ 0xC39D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC39D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC39D }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC39D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1687,22 +5283,80 @@ TEST(normalization, nfkd_042_062)
     // C39E;C39E;110A 1166 11C1;C39E;110A 1166 11C1; 
     // (쎞; 쎞; 쎞; 쎞; 쎞; ) HANGUL SYLLABLE SSEP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC39E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC39E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC39E }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC39E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1714,22 +5368,80 @@ TEST(normalization, nfkd_042_063)
     // C39F;C39F;110A 1166 11C2;C39F;110A 1166 11C2; 
     // (쎟; 쎟; 쎟; 쎟; 쎟; ) HANGUL SYLLABLE SSEH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC39F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1166, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC39F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC39F }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1166, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC39F }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1166, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1741,22 +5453,80 @@ TEST(normalization, nfkd_042_064)
     // C3A0;C3A0;110A 1167;C3A0;110A 1167; 
     // (쎠; 쎠; 쎠; 쎠; 쎠; ) HANGUL SYLLABLE SSYEO
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x1167 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A0 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x1167 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A0 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x1167 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1768,22 +5538,80 @@ TEST(normalization, nfkd_042_065)
     // C3A1;C3A1;110A 1167 11A8;C3A1;110A 1167 11A8; 
     // (쎡; 쎡; 쎡; 쎡; 쎡; ) HANGUL SYLLABLE SSYEOG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A1 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A1 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1795,22 +5623,80 @@ TEST(normalization, nfkd_042_066)
     // C3A2;C3A2;110A 1167 11A9;C3A2;110A 1167 11A9; 
     // (쎢; 쎢; 쎢; 쎢; 쎢; ) HANGUL SYLLABLE SSYEOGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A2 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A2 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1822,22 +5708,80 @@ TEST(normalization, nfkd_042_067)
     // C3A3;C3A3;110A 1167 11AA;C3A3;110A 1167 11AA; 
     // (쎣; 쎣; 쎣; 쎣; 쎣; ) HANGUL SYLLABLE SSYEOGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1849,22 +5793,80 @@ TEST(normalization, nfkd_042_068)
     // C3A4;C3A4;110A 1167 11AB;C3A4;110A 1167 11AB; 
     // (쎤; 쎤; 쎤; 쎤; 쎤; ) HANGUL SYLLABLE SSYEON
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A4 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A4 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1876,22 +5878,80 @@ TEST(normalization, nfkd_042_069)
     // C3A5;C3A5;110A 1167 11AC;C3A5;110A 1167 11AC; 
     // (쎥; 쎥; 쎥; 쎥; 쎥; ) HANGUL SYLLABLE SSYEONJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1903,22 +5963,80 @@ TEST(normalization, nfkd_042_070)
     // C3A6;C3A6;110A 1167 11AD;C3A6;110A 1167 11AD; 
     // (쎦; 쎦; 쎦; 쎦; 쎦; ) HANGUL SYLLABLE SSYEONH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1930,22 +6048,80 @@ TEST(normalization, nfkd_042_071)
     // C3A7;C3A7;110A 1167 11AE;C3A7;110A 1167 11AE; 
     // (쎧; 쎧; 쎧; 쎧; 쎧; ) HANGUL SYLLABLE SSYEOD
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1957,22 +6133,80 @@ TEST(normalization, nfkd_042_072)
     // C3A8;C3A8;110A 1167 11AF;C3A8;110A 1167 11AF; 
     // (쎨; 쎨; 쎨; 쎨; 쎨; ) HANGUL SYLLABLE SSYEOL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A8 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A8 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -1984,22 +6218,80 @@ TEST(normalization, nfkd_042_073)
     // C3A9;C3A9;110A 1167 11B0;C3A9;110A 1167 11B0; 
     // (쎩; 쎩; 쎩; 쎩; 쎩; ) HANGUL SYLLABLE SSYEOLG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3A9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3A9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3A9 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3A9 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2011,22 +6303,80 @@ TEST(normalization, nfkd_042_074)
     // C3AA;C3AA;110A 1167 11B1;C3AA;110A 1167 11B1; 
     // (쎪; 쎪; 쎪; 쎪; 쎪; ) HANGUL SYLLABLE SSYEOLM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3AA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3AA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3AA }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3AA }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2038,22 +6388,80 @@ TEST(normalization, nfkd_042_075)
     // C3AB;C3AB;110A 1167 11B2;C3AB;110A 1167 11B2; 
     // (쎫; 쎫; 쎫; 쎫; 쎫; ) HANGUL SYLLABLE SSYEOLB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3AB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3AB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3AB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3AB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2065,22 +6473,80 @@ TEST(normalization, nfkd_042_076)
     // C3AC;C3AC;110A 1167 11B3;C3AC;110A 1167 11B3; 
     // (쎬; 쎬; 쎬; 쎬; 쎬; ) HANGUL SYLLABLE SSYEOLS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3AC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3AC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3AC }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3AC }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2092,22 +6558,80 @@ TEST(normalization, nfkd_042_077)
     // C3AD;C3AD;110A 1167 11B4;C3AD;110A 1167 11B4; 
     // (쎭; 쎭; 쎭; 쎭; 쎭; ) HANGUL SYLLABLE SSYEOLT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3AD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3AD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3AD }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3AD }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2119,22 +6643,80 @@ TEST(normalization, nfkd_042_078)
     // C3AE;C3AE;110A 1167 11B5;C3AE;110A 1167 11B5; 
     // (쎮; 쎮; 쎮; 쎮; 쎮; ) HANGUL SYLLABLE SSYEOLP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3AE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3AE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3AE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3AE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2146,22 +6728,80 @@ TEST(normalization, nfkd_042_079)
     // C3AF;C3AF;110A 1167 11B6;C3AF;110A 1167 11B6; 
     // (쎯; 쎯; 쎯; 쎯; 쎯; ) HANGUL SYLLABLE SSYEOLH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3AF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3AF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3AF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3AF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2173,22 +6813,80 @@ TEST(normalization, nfkd_042_080)
     // C3B0;C3B0;110A 1167 11B7;C3B0;110A 1167 11B7; 
     // (쎰; 쎰; 쎰; 쎰; 쎰; ) HANGUL SYLLABLE SSYEOM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B0 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B0 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2200,22 +6898,80 @@ TEST(normalization, nfkd_042_081)
     // C3B1;C3B1;110A 1167 11B8;C3B1;110A 1167 11B8; 
     // (쎱; 쎱; 쎱; 쎱; 쎱; ) HANGUL SYLLABLE SSYEOB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B1 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B1 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2227,22 +6983,80 @@ TEST(normalization, nfkd_042_082)
     // C3B2;C3B2;110A 1167 11B9;C3B2;110A 1167 11B9; 
     // (쎲; 쎲; 쎲; 쎲; 쎲; ) HANGUL SYLLABLE SSYEOBS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B2 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B2 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2254,22 +7068,80 @@ TEST(normalization, nfkd_042_083)
     // C3B3;C3B3;110A 1167 11BA;C3B3;110A 1167 11BA; 
     // (쎳; 쎳; 쎳; 쎳; 쎳; ) HANGUL SYLLABLE SSYEOS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2281,22 +7153,80 @@ TEST(normalization, nfkd_042_084)
     // C3B4;C3B4;110A 1167 11BB;C3B4;110A 1167 11BB; 
     // (쎴; 쎴; 쎴; 쎴; 쎴; ) HANGUL SYLLABLE SSYEOSS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B4 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B4 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2308,22 +7238,80 @@ TEST(normalization, nfkd_042_085)
     // C3B5;C3B5;110A 1167 11BC;C3B5;110A 1167 11BC; 
     // (쎵; 쎵; 쎵; 쎵; 쎵; ) HANGUL SYLLABLE SSYEONG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2335,22 +7323,80 @@ TEST(normalization, nfkd_042_086)
     // C3B6;C3B6;110A 1167 11BD;C3B6;110A 1167 11BD; 
     // (쎶; 쎶; 쎶; 쎶; 쎶; ) HANGUL SYLLABLE SSYEOJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2362,22 +7408,80 @@ TEST(normalization, nfkd_042_087)
     // C3B7;C3B7;110A 1167 11BE;C3B7;110A 1167 11BE; 
     // (쎷; 쎷; 쎷; 쎷; 쎷; ) HANGUL SYLLABLE SSYEOC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2389,22 +7493,80 @@ TEST(normalization, nfkd_042_088)
     // C3B8;C3B8;110A 1167 11BF;C3B8;110A 1167 11BF; 
     // (쎸; 쎸; 쎸; 쎸; 쎸; ) HANGUL SYLLABLE SSYEOK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B8 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B8 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2416,22 +7578,80 @@ TEST(normalization, nfkd_042_089)
     // C3B9;C3B9;110A 1167 11C0;C3B9;110A 1167 11C0; 
     // (쎹; 쎹; 쎹; 쎹; 쎹; ) HANGUL SYLLABLE SSYEOT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3B9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3B9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3B9 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3B9 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2443,22 +7663,80 @@ TEST(normalization, nfkd_042_090)
     // C3BA;C3BA;110A 1167 11C1;C3BA;110A 1167 11C1; 
     // (쎺; 쎺; 쎺; 쎺; 쎺; ) HANGUL SYLLABLE SSYEOP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3BA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3BA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3BA }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3BA }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2470,22 +7748,80 @@ TEST(normalization, nfkd_042_091)
     // C3BB;C3BB;110A 1167 11C2;C3BB;110A 1167 11C2; 
     // (쎻; 쎻; 쎻; 쎻; 쎻; ) HANGUL SYLLABLE SSYEOH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3BB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1167, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3BB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3BB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1167, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3BB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1167, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2497,22 +7833,80 @@ TEST(normalization, nfkd_042_092)
     // C3BC;C3BC;110A 1168;C3BC;110A 1168; 
     // (쎼; 쎼; 쎼; 쎼; 쎼; ) HANGUL SYLLABLE SSYE
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3BC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x1168 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3BC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3BC }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x1168 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3BC }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x1168 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2524,22 +7918,80 @@ TEST(normalization, nfkd_042_093)
     // C3BD;C3BD;110A 1168 11A8;C3BD;110A 1168 11A8; 
     // (쎽; 쎽; 쎽; 쎽; 쎽; ) HANGUL SYLLABLE SSYEG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3BD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3BD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3BD }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3BD }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2551,22 +8003,80 @@ TEST(normalization, nfkd_042_094)
     // C3BE;C3BE;110A 1168 11A9;C3BE;110A 1168 11A9; 
     // (쎾; 쎾; 쎾; 쎾; 쎾; ) HANGUL SYLLABLE SSYEGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3BE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3BE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3BE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3BE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2578,22 +8088,80 @@ TEST(normalization, nfkd_042_095)
     // C3BF;C3BF;110A 1168 11AA;C3BF;110A 1168 11AA; 
     // (쎿; 쎿; 쎿; 쎿; 쎿; ) HANGUL SYLLABLE SSYEGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3BF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3BF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3BF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3BF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2605,22 +8173,80 @@ TEST(normalization, nfkd_042_096)
     // C3C0;C3C0;110A 1168 11AB;C3C0;110A 1168 11AB; 
     // (쏀; 쏀; 쏀; 쏀; 쏀; ) HANGUL SYLLABLE SSYEN
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C0 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C0 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2632,22 +8258,80 @@ TEST(normalization, nfkd_042_097)
     // C3C1;C3C1;110A 1168 11AC;C3C1;110A 1168 11AC; 
     // (쏁; 쏁; 쏁; 쏁; 쏁; ) HANGUL SYLLABLE SSYENJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C1 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C1 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2659,22 +8343,80 @@ TEST(normalization, nfkd_042_098)
     // C3C2;C3C2;110A 1168 11AD;C3C2;110A 1168 11AD; 
     // (쏂; 쏂; 쏂; 쏂; 쏂; ) HANGUL SYLLABLE SSYENH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C2 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C2 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2686,22 +8428,80 @@ TEST(normalization, nfkd_042_099)
     // C3C3;C3C3;110A 1168 11AE;C3C3;110A 1168 11AE; 
     // (쏃; 쏃; 쏃; 쏃; 쏃; ) HANGUL SYLLABLE SSYED
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2713,22 +8513,80 @@ TEST(normalization, nfkd_042_100)
     // C3C4;C3C4;110A 1168 11AF;C3C4;110A 1168 11AF; 
     // (쏄; 쏄; 쏄; 쏄; 쏄; ) HANGUL SYLLABLE SSYEL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C4 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C4 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2740,22 +8598,80 @@ TEST(normalization, nfkd_042_101)
     // C3C5;C3C5;110A 1168 11B0;C3C5;110A 1168 11B0; 
     // (쏅; 쏅; 쏅; 쏅; 쏅; ) HANGUL SYLLABLE SSYELG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2767,22 +8683,80 @@ TEST(normalization, nfkd_042_102)
     // C3C6;C3C6;110A 1168 11B1;C3C6;110A 1168 11B1; 
     // (쏆; 쏆; 쏆; 쏆; 쏆; ) HANGUL SYLLABLE SSYELM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2794,22 +8768,80 @@ TEST(normalization, nfkd_042_103)
     // C3C7;C3C7;110A 1168 11B2;C3C7;110A 1168 11B2; 
     // (쏇; 쏇; 쏇; 쏇; 쏇; ) HANGUL SYLLABLE SSYELB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2821,22 +8853,80 @@ TEST(normalization, nfkd_042_104)
     // C3C8;C3C8;110A 1168 11B3;C3C8;110A 1168 11B3; 
     // (쏈; 쏈; 쏈; 쏈; 쏈; ) HANGUL SYLLABLE SSYELS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C8 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C8 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2848,22 +8938,80 @@ TEST(normalization, nfkd_042_105)
     // C3C9;C3C9;110A 1168 11B4;C3C9;110A 1168 11B4; 
     // (쏉; 쏉; 쏉; 쏉; 쏉; ) HANGUL SYLLABLE SSYELT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3C9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3C9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3C9 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3C9 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2875,22 +9023,80 @@ TEST(normalization, nfkd_042_106)
     // C3CA;C3CA;110A 1168 11B5;C3CA;110A 1168 11B5; 
     // (쏊; 쏊; 쏊; 쏊; 쏊; ) HANGUL SYLLABLE SSYELP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3CA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3CA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3CA }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3CA }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2902,22 +9108,80 @@ TEST(normalization, nfkd_042_107)
     // C3CB;C3CB;110A 1168 11B6;C3CB;110A 1168 11B6; 
     // (쏋; 쏋; 쏋; 쏋; 쏋; ) HANGUL SYLLABLE SSYELH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3CB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3CB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3CB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3CB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2929,22 +9193,80 @@ TEST(normalization, nfkd_042_108)
     // C3CC;C3CC;110A 1168 11B7;C3CC;110A 1168 11B7; 
     // (쏌; 쏌; 쏌; 쏌; 쏌; ) HANGUL SYLLABLE SSYEM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3CC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3CC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3CC }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3CC }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2956,22 +9278,80 @@ TEST(normalization, nfkd_042_109)
     // C3CD;C3CD;110A 1168 11B8;C3CD;110A 1168 11B8; 
     // (쏍; 쏍; 쏍; 쏍; 쏍; ) HANGUL SYLLABLE SSYEB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3CD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3CD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3CD }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3CD }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -2983,22 +9363,80 @@ TEST(normalization, nfkd_042_110)
     // C3CE;C3CE;110A 1168 11B9;C3CE;110A 1168 11B9; 
     // (쏎; 쏎; 쏎; 쏎; 쏎; ) HANGUL SYLLABLE SSYEBS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3CE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3CE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3CE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3CE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3010,22 +9448,80 @@ TEST(normalization, nfkd_042_111)
     // C3CF;C3CF;110A 1168 11BA;C3CF;110A 1168 11BA; 
     // (쏏; 쏏; 쏏; 쏏; 쏏; ) HANGUL SYLLABLE SSYES
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3CF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3CF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3CF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3CF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3037,22 +9533,80 @@ TEST(normalization, nfkd_042_112)
     // C3D0;C3D0;110A 1168 11BB;C3D0;110A 1168 11BB; 
     // (쏐; 쏐; 쏐; 쏐; 쏐; ) HANGUL SYLLABLE SSYESS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D0 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D0 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3064,22 +9618,80 @@ TEST(normalization, nfkd_042_113)
     // C3D1;C3D1;110A 1168 11BC;C3D1;110A 1168 11BC; 
     // (쏑; 쏑; 쏑; 쏑; 쏑; ) HANGUL SYLLABLE SSYENG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D1 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D1 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3091,22 +9703,80 @@ TEST(normalization, nfkd_042_114)
     // C3D2;C3D2;110A 1168 11BD;C3D2;110A 1168 11BD; 
     // (쏒; 쏒; 쏒; 쏒; 쏒; ) HANGUL SYLLABLE SSYEJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D2 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D2 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3118,22 +9788,80 @@ TEST(normalization, nfkd_042_115)
     // C3D3;C3D3;110A 1168 11BE;C3D3;110A 1168 11BE; 
     // (쏓; 쏓; 쏓; 쏓; 쏓; ) HANGUL SYLLABLE SSYEC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3145,22 +9873,80 @@ TEST(normalization, nfkd_042_116)
     // C3D4;C3D4;110A 1168 11BF;C3D4;110A 1168 11BF; 
     // (쏔; 쏔; 쏔; 쏔; 쏔; ) HANGUL SYLLABLE SSYEK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D4 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D4 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3172,22 +9958,80 @@ TEST(normalization, nfkd_042_117)
     // C3D5;C3D5;110A 1168 11C0;C3D5;110A 1168 11C0; 
     // (쏕; 쏕; 쏕; 쏕; 쏕; ) HANGUL SYLLABLE SSYET
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3199,22 +10043,80 @@ TEST(normalization, nfkd_042_118)
     // C3D6;C3D6;110A 1168 11C1;C3D6;110A 1168 11C1; 
     // (쏖; 쏖; 쏖; 쏖; 쏖; ) HANGUL SYLLABLE SSYEP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3226,22 +10128,80 @@ TEST(normalization, nfkd_042_119)
     // C3D7;C3D7;110A 1168 11C2;C3D7;110A 1168 11C2; 
     // (쏗; 쏗; 쏗; 쏗; 쏗; ) HANGUL SYLLABLE SSYEH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1168, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1168, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1168, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3253,22 +10213,80 @@ TEST(normalization, nfkd_042_120)
     // C3D8;C3D8;110A 1169;C3D8;110A 1169; 
     // (쏘; 쏘; 쏘; 쏘; 쏘; ) HANGUL SYLLABLE SSO
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x1169 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D8 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x1169 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D8 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x1169 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3280,22 +10298,80 @@ TEST(normalization, nfkd_042_121)
     // C3D9;C3D9;110A 1169 11A8;C3D9;110A 1169 11A8; 
     // (쏙; 쏙; 쏙; 쏙; 쏙; ) HANGUL SYLLABLE SSOG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3D9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3D9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3D9 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3D9 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3307,22 +10383,80 @@ TEST(normalization, nfkd_042_122)
     // C3DA;C3DA;110A 1169 11A9;C3DA;110A 1169 11A9; 
     // (쏚; 쏚; 쏚; 쏚; 쏚; ) HANGUL SYLLABLE SSOGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3DA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3DA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3DA }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3DA }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3334,22 +10468,80 @@ TEST(normalization, nfkd_042_123)
     // C3DB;C3DB;110A 1169 11AA;C3DB;110A 1169 11AA; 
     // (쏛; 쏛; 쏛; 쏛; 쏛; ) HANGUL SYLLABLE SSOGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3DB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3DB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3DB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3DB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3361,22 +10553,80 @@ TEST(normalization, nfkd_042_124)
     // C3DC;C3DC;110A 1169 11AB;C3DC;110A 1169 11AB; 
     // (쏜; 쏜; 쏜; 쏜; 쏜; ) HANGUL SYLLABLE SSON
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3DC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3DC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3DC }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3DC }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3388,22 +10638,80 @@ TEST(normalization, nfkd_042_125)
     // C3DD;C3DD;110A 1169 11AC;C3DD;110A 1169 11AC; 
     // (쏝; 쏝; 쏝; 쏝; 쏝; ) HANGUL SYLLABLE SSONJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3DD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3DD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3DD }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3DD }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3415,22 +10723,80 @@ TEST(normalization, nfkd_042_126)
     // C3DE;C3DE;110A 1169 11AD;C3DE;110A 1169 11AD; 
     // (쏞; 쏞; 쏞; 쏞; 쏞; ) HANGUL SYLLABLE SSONH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3DE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3DE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3DE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3DE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3442,22 +10808,80 @@ TEST(normalization, nfkd_042_127)
     // C3DF;C3DF;110A 1169 11AE;C3DF;110A 1169 11AE; 
     // (쏟; 쏟; 쏟; 쏟; 쏟; ) HANGUL SYLLABLE SSOD
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3DF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3DF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3DF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3DF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3469,22 +10893,80 @@ TEST(normalization, nfkd_042_128)
     // C3E0;C3E0;110A 1169 11AF;C3E0;110A 1169 11AF; 
     // (쏠; 쏠; 쏠; 쏠; 쏠; ) HANGUL SYLLABLE SSOL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E0 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E0 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3496,22 +10978,80 @@ TEST(normalization, nfkd_042_129)
     // C3E1;C3E1;110A 1169 11B0;C3E1;110A 1169 11B0; 
     // (쏡; 쏡; 쏡; 쏡; 쏡; ) HANGUL SYLLABLE SSOLG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E1 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E1 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3523,22 +11063,80 @@ TEST(normalization, nfkd_042_130)
     // C3E2;C3E2;110A 1169 11B1;C3E2;110A 1169 11B1; 
     // (쏢; 쏢; 쏢; 쏢; 쏢; ) HANGUL SYLLABLE SSOLM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E2 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E2 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3550,22 +11148,80 @@ TEST(normalization, nfkd_042_131)
     // C3E3;C3E3;110A 1169 11B2;C3E3;110A 1169 11B2; 
     // (쏣; 쏣; 쏣; 쏣; 쏣; ) HANGUL SYLLABLE SSOLB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3577,22 +11233,80 @@ TEST(normalization, nfkd_042_132)
     // C3E4;C3E4;110A 1169 11B3;C3E4;110A 1169 11B3; 
     // (쏤; 쏤; 쏤; 쏤; 쏤; ) HANGUL SYLLABLE SSOLS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E4 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E4 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3604,22 +11318,80 @@ TEST(normalization, nfkd_042_133)
     // C3E5;C3E5;110A 1169 11B4;C3E5;110A 1169 11B4; 
     // (쏥; 쏥; 쏥; 쏥; 쏥; ) HANGUL SYLLABLE SSOLT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3631,22 +11403,80 @@ TEST(normalization, nfkd_042_134)
     // C3E6;C3E6;110A 1169 11B5;C3E6;110A 1169 11B5; 
     // (쏦; 쏦; 쏦; 쏦; 쏦; ) HANGUL SYLLABLE SSOLP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3658,22 +11488,80 @@ TEST(normalization, nfkd_042_135)
     // C3E7;C3E7;110A 1169 11B6;C3E7;110A 1169 11B6; 
     // (쏧; 쏧; 쏧; 쏧; 쏧; ) HANGUL SYLLABLE SSOLH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3685,22 +11573,80 @@ TEST(normalization, nfkd_042_136)
     // C3E8;C3E8;110A 1169 11B7;C3E8;110A 1169 11B7; 
     // (쏨; 쏨; 쏨; 쏨; 쏨; ) HANGUL SYLLABLE SSOM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E8 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E8 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3712,22 +11658,80 @@ TEST(normalization, nfkd_042_137)
     // C3E9;C3E9;110A 1169 11B8;C3E9;110A 1169 11B8; 
     // (쏩; 쏩; 쏩; 쏩; 쏩; ) HANGUL SYLLABLE SSOB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3E9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3E9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3E9 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3E9 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3739,22 +11743,80 @@ TEST(normalization, nfkd_042_138)
     // C3EA;C3EA;110A 1169 11B9;C3EA;110A 1169 11B9; 
     // (쏪; 쏪; 쏪; 쏪; 쏪; ) HANGUL SYLLABLE SSOBS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3EA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3EA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3EA }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3EA }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3766,22 +11828,80 @@ TEST(normalization, nfkd_042_139)
     // C3EB;C3EB;110A 1169 11BA;C3EB;110A 1169 11BA; 
     // (쏫; 쏫; 쏫; 쏫; 쏫; ) HANGUL SYLLABLE SSOS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3EB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3EB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3EB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3EB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3793,22 +11913,80 @@ TEST(normalization, nfkd_042_140)
     // C3EC;C3EC;110A 1169 11BB;C3EC;110A 1169 11BB; 
     // (쏬; 쏬; 쏬; 쏬; 쏬; ) HANGUL SYLLABLE SSOSS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3EC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3EC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3EC }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3EC }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3820,22 +11998,80 @@ TEST(normalization, nfkd_042_141)
     // C3ED;C3ED;110A 1169 11BC;C3ED;110A 1169 11BC; 
     // (쏭; 쏭; 쏭; 쏭; 쏭; ) HANGUL SYLLABLE SSONG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3ED }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3ED }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3ED }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3ED }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3847,22 +12083,80 @@ TEST(normalization, nfkd_042_142)
     // C3EE;C3EE;110A 1169 11BD;C3EE;110A 1169 11BD; 
     // (쏮; 쏮; 쏮; 쏮; 쏮; ) HANGUL SYLLABLE SSOJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3EE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3EE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3EE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3EE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3874,22 +12168,80 @@ TEST(normalization, nfkd_042_143)
     // C3EF;C3EF;110A 1169 11BE;C3EF;110A 1169 11BE; 
     // (쏯; 쏯; 쏯; 쏯; 쏯; ) HANGUL SYLLABLE SSOC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3EF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3EF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3EF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3EF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3901,22 +12253,80 @@ TEST(normalization, nfkd_042_144)
     // C3F0;C3F0;110A 1169 11BF;C3F0;110A 1169 11BF; 
     // (쏰; 쏰; 쏰; 쏰; 쏰; ) HANGUL SYLLABLE SSOK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F0 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F0 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F0 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F0 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3928,22 +12338,80 @@ TEST(normalization, nfkd_042_145)
     // C3F1;C3F1;110A 1169 11C0;C3F1;110A 1169 11C0; 
     // (쏱; 쏱; 쏱; 쏱; 쏱; ) HANGUL SYLLABLE SSOT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F1 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F1 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F1 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F1 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3955,22 +12423,80 @@ TEST(normalization, nfkd_042_146)
     // C3F2;C3F2;110A 1169 11C1;C3F2;110A 1169 11C1; 
     // (쏲; 쏲; 쏲; 쏲; 쏲; ) HANGUL SYLLABLE SSOP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F2 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F2 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F2 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F2 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -3982,22 +12508,80 @@ TEST(normalization, nfkd_042_147)
     // C3F3;C3F3;110A 1169 11C2;C3F3;110A 1169 11C2; 
     // (쏳; 쏳; 쏳; 쏳; 쏳; ) HANGUL SYLLABLE SSOH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F3 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x1169, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F3 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F3 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x1169, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F3 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x1169, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4009,22 +12593,80 @@ TEST(normalization, nfkd_042_148)
     // C3F4;C3F4;110A 116A;C3F4;110A 116A; 
     // (쏴; 쏴; 쏴; 쏴; 쏴; ) HANGUL SYLLABLE SSWA
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F4 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x116A }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F4 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F4 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x116A }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F4 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x116A }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4036,22 +12678,80 @@ TEST(normalization, nfkd_042_149)
     // C3F5;C3F5;110A 116A 11A8;C3F5;110A 116A 11A8; 
     // (쏵; 쏵; 쏵; 쏵; 쏵; ) HANGUL SYLLABLE SSWAG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F5 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F5 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F5 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F5 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4063,22 +12763,80 @@ TEST(normalization, nfkd_042_150)
     // C3F6;C3F6;110A 116A 11A9;C3F6;110A 116A 11A9; 
     // (쏶; 쏶; 쏶; 쏶; 쏶; ) HANGUL SYLLABLE SSWAGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F6 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F6 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F6 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F6 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4090,22 +12848,80 @@ TEST(normalization, nfkd_042_151)
     // C3F7;C3F7;110A 116A 11AA;C3F7;110A 116A 11AA; 
     // (쏷; 쏷; 쏷; 쏷; 쏷; ) HANGUL SYLLABLE SSWAGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F7 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F7 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F7 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F7 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4117,22 +12933,80 @@ TEST(normalization, nfkd_042_152)
     // C3F8;C3F8;110A 116A 11AB;C3F8;110A 116A 11AB; 
     // (쏸; 쏸; 쏸; 쏸; 쏸; ) HANGUL SYLLABLE SSWAN
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F8 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F8 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F8 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F8 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4144,22 +13018,80 @@ TEST(normalization, nfkd_042_153)
     // C3F9;C3F9;110A 116A 11AC;C3F9;110A 116A 11AC; 
     // (쏹; 쏹; 쏹; 쏹; 쏹; ) HANGUL SYLLABLE SSWANJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3F9 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3F9 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3F9 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3F9 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4171,22 +13103,80 @@ TEST(normalization, nfkd_042_154)
     // C3FA;C3FA;110A 116A 11AD;C3FA;110A 116A 11AD; 
     // (쏺; 쏺; 쏺; 쏺; 쏺; ) HANGUL SYLLABLE SSWANH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3FA }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3FA }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3FA }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3FA }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4198,22 +13188,80 @@ TEST(normalization, nfkd_042_155)
     // C3FB;C3FB;110A 116A 11AE;C3FB;110A 116A 11AE; 
     // (쏻; 쏻; 쏻; 쏻; 쏻; ) HANGUL SYLLABLE SSWAD
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3FB }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3FB }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3FB }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3FB }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4225,22 +13273,80 @@ TEST(normalization, nfkd_042_156)
     // C3FC;C3FC;110A 116A 11AF;C3FC;110A 116A 11AF; 
     // (쏼; 쏼; 쏼; 쏼; 쏼; ) HANGUL SYLLABLE SSWAL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3FC }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3FC }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3FC }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3FC }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4252,22 +13358,80 @@ TEST(normalization, nfkd_042_157)
     // C3FD;C3FD;110A 116A 11B0;C3FD;110A 116A 11B0; 
     // (쏽; 쏽; 쏽; 쏽; 쏽; ) HANGUL SYLLABLE SSWALG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3FD }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3FD }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3FD }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3FD }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4279,22 +13443,80 @@ TEST(normalization, nfkd_042_158)
     // C3FE;C3FE;110A 116A 11B1;C3FE;110A 116A 11B1; 
     // (쏾; 쏾; 쏾; 쏾; 쏾; ) HANGUL SYLLABLE SSWALM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3FE }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3FE }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3FE }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3FE }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4306,22 +13528,80 @@ TEST(normalization, nfkd_042_159)
     // C3FF;C3FF;110A 116A 11B2;C3FF;110A 116A 11B2; 
     // (쏿; 쏿; 쏿; 쏿; 쏿; ) HANGUL SYLLABLE SSWALB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC3FF }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC3FF }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC3FF }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC3FF }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4333,22 +13613,80 @@ TEST(normalization, nfkd_042_160)
     // C400;C400;110A 116A 11B3;C400;110A 116A 11B3; 
     // (쐀; 쐀; 쐀; 쐀; 쐀; ) HANGUL SYLLABLE SSWALS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC400 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC400 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC400 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC400 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4360,22 +13698,80 @@ TEST(normalization, nfkd_042_161)
     // C401;C401;110A 116A 11B4;C401;110A 116A 11B4; 
     // (쐁; 쐁; 쐁; 쐁; 쐁; ) HANGUL SYLLABLE SSWALT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC401 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC401 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC401 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC401 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4387,22 +13783,80 @@ TEST(normalization, nfkd_042_162)
     // C402;C402;110A 116A 11B5;C402;110A 116A 11B5; 
     // (쐂; 쐂; 쐂; 쐂; 쐂; ) HANGUL SYLLABLE SSWALP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC402 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC402 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC402 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC402 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4414,22 +13868,80 @@ TEST(normalization, nfkd_042_163)
     // C403;C403;110A 116A 11B6;C403;110A 116A 11B6; 
     // (쐃; 쐃; 쐃; 쐃; 쐃; ) HANGUL SYLLABLE SSWALH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC403 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC403 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC403 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC403 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4441,22 +13953,80 @@ TEST(normalization, nfkd_042_164)
     // C404;C404;110A 116A 11B7;C404;110A 116A 11B7; 
     // (쐄; 쐄; 쐄; 쐄; 쐄; ) HANGUL SYLLABLE SSWAM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC404 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC404 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC404 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC404 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4468,22 +14038,80 @@ TEST(normalization, nfkd_042_165)
     // C405;C405;110A 116A 11B8;C405;110A 116A 11B8; 
     // (쐅; 쐅; 쐅; 쐅; 쐅; ) HANGUL SYLLABLE SSWAB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC405 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC405 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC405 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC405 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4495,22 +14123,80 @@ TEST(normalization, nfkd_042_166)
     // C406;C406;110A 116A 11B9;C406;110A 116A 11B9; 
     // (쐆; 쐆; 쐆; 쐆; 쐆; ) HANGUL SYLLABLE SSWABS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC406 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC406 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC406 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC406 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4522,22 +14208,80 @@ TEST(normalization, nfkd_042_167)
     // C407;C407;110A 116A 11BA;C407;110A 116A 11BA; 
     // (쐇; 쐇; 쐇; 쐇; 쐇; ) HANGUL SYLLABLE SSWAS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC407 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC407 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC407 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC407 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4549,22 +14293,80 @@ TEST(normalization, nfkd_042_168)
     // C408;C408;110A 116A 11BB;C408;110A 116A 11BB; 
     // (쐈; 쐈; 쐈; 쐈; 쐈; ) HANGUL SYLLABLE SSWASS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC408 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC408 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC408 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC408 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4576,22 +14378,80 @@ TEST(normalization, nfkd_042_169)
     // C409;C409;110A 116A 11BC;C409;110A 116A 11BC; 
     // (쐉; 쐉; 쐉; 쐉; 쐉; ) HANGUL SYLLABLE SSWANG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC409 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC409 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC409 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC409 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4603,22 +14463,80 @@ TEST(normalization, nfkd_042_170)
     // C40A;C40A;110A 116A 11BD;C40A;110A 116A 11BD; 
     // (쐊; 쐊; 쐊; 쐊; 쐊; ) HANGUL SYLLABLE SSWAJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC40A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC40A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC40A }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC40A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4630,22 +14548,80 @@ TEST(normalization, nfkd_042_171)
     // C40B;C40B;110A 116A 11BE;C40B;110A 116A 11BE; 
     // (쐋; 쐋; 쐋; 쐋; 쐋; ) HANGUL SYLLABLE SSWAC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC40B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC40B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC40B }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC40B }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4657,22 +14633,80 @@ TEST(normalization, nfkd_042_172)
     // C40C;C40C;110A 116A 11BF;C40C;110A 116A 11BF; 
     // (쐌; 쐌; 쐌; 쐌; 쐌; ) HANGUL SYLLABLE SSWAK
     {
-        std::array<uint32_t, 1> const source = {{ 0xC40C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11BF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC40C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC40C }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11BF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC40C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11BF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4684,22 +14718,80 @@ TEST(normalization, nfkd_042_173)
     // C40D;C40D;110A 116A 11C0;C40D;110A 116A 11C0; 
     // (쐍; 쐍; 쐍; 쐍; 쐍; ) HANGUL SYLLABLE SSWAT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC40D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11C0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC40D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC40D }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11C0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC40D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11C0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4711,22 +14803,80 @@ TEST(normalization, nfkd_042_174)
     // C40E;C40E;110A 116A 11C1;C40E;110A 116A 11C1; 
     // (쐎; 쐎; 쐎; 쐎; 쐎; ) HANGUL SYLLABLE SSWAP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC40E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11C1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC40E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC40E }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11C1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC40E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11C1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4738,22 +14888,80 @@ TEST(normalization, nfkd_042_175)
     // C40F;C40F;110A 116A 11C2;C40F;110A 116A 11C2; 
     // (쐏; 쐏; 쐏; 쐏; 쐏; ) HANGUL SYLLABLE SSWAH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC40F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116A, 0x11C2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC40F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC40F }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116A, 0x11C2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC40F }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116A, 0x11C2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4765,22 +14973,80 @@ TEST(normalization, nfkd_042_176)
     // C410;C410;110A 116B;C410;110A 116B; 
     // (쐐; 쐐; 쐐; 쐐; 쐐; ) HANGUL SYLLABLE SSWAE
     {
-        std::array<uint32_t, 1> const source = {{ 0xC410 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 2> const dest = {{ 0x110A, 0x116B }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC410 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC410 }};
+        std::array<uint32_t, 2> const c3 = {{ 0x110A, 0x116B }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC410 }};
+        std::array<uint32_t, 2> const c5 = {{ 0x110A, 0x116B }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4792,22 +15058,80 @@ TEST(normalization, nfkd_042_177)
     // C411;C411;110A 116B 11A8;C411;110A 116B 11A8; 
     // (쐑; 쐑; 쐑; 쐑; 쐑; ) HANGUL SYLLABLE SSWAEG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC411 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11A8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC411 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC411 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11A8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC411 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11A8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4819,22 +15143,80 @@ TEST(normalization, nfkd_042_178)
     // C412;C412;110A 116B 11A9;C412;110A 116B 11A9; 
     // (쐒; 쐒; 쐒; 쐒; 쐒; ) HANGUL SYLLABLE SSWAEGG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC412 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11A9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC412 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC412 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11A9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC412 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11A9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4846,22 +15228,80 @@ TEST(normalization, nfkd_042_179)
     // C413;C413;110A 116B 11AA;C413;110A 116B 11AA; 
     // (쐓; 쐓; 쐓; 쐓; 쐓; ) HANGUL SYLLABLE SSWAEGS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC413 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11AA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC413 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC413 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11AA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC413 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11AA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4873,22 +15313,80 @@ TEST(normalization, nfkd_042_180)
     // C414;C414;110A 116B 11AB;C414;110A 116B 11AB; 
     // (쐔; 쐔; 쐔; 쐔; 쐔; ) HANGUL SYLLABLE SSWAEN
     {
-        std::array<uint32_t, 1> const source = {{ 0xC414 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11AB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC414 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC414 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11AB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC414 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11AB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4900,22 +15398,80 @@ TEST(normalization, nfkd_042_181)
     // C415;C415;110A 116B 11AC;C415;110A 116B 11AC; 
     // (쐕; 쐕; 쐕; 쐕; 쐕; ) HANGUL SYLLABLE SSWAENJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC415 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11AC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC415 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC415 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11AC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC415 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11AC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4927,22 +15483,80 @@ TEST(normalization, nfkd_042_182)
     // C416;C416;110A 116B 11AD;C416;110A 116B 11AD; 
     // (쐖; 쐖; 쐖; 쐖; 쐖; ) HANGUL SYLLABLE SSWAENH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC416 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11AD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC416 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC416 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11AD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC416 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11AD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4954,22 +15568,80 @@ TEST(normalization, nfkd_042_183)
     // C417;C417;110A 116B 11AE;C417;110A 116B 11AE; 
     // (쐗; 쐗; 쐗; 쐗; 쐗; ) HANGUL SYLLABLE SSWAED
     {
-        std::array<uint32_t, 1> const source = {{ 0xC417 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11AE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC417 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC417 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11AE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC417 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11AE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -4981,22 +15653,80 @@ TEST(normalization, nfkd_042_184)
     // C418;C418;110A 116B 11AF;C418;110A 116B 11AF; 
     // (쐘; 쐘; 쐘; 쐘; 쐘; ) HANGUL SYLLABLE SSWAEL
     {
-        std::array<uint32_t, 1> const source = {{ 0xC418 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11AF }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC418 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC418 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11AF }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC418 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11AF }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5008,22 +15738,80 @@ TEST(normalization, nfkd_042_185)
     // C419;C419;110A 116B 11B0;C419;110A 116B 11B0; 
     // (쐙; 쐙; 쐙; 쐙; 쐙; ) HANGUL SYLLABLE SSWAELG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC419 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B0 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC419 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC419 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B0 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC419 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B0 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5035,22 +15823,80 @@ TEST(normalization, nfkd_042_186)
     // C41A;C41A;110A 116B 11B1;C41A;110A 116B 11B1; 
     // (쐚; 쐚; 쐚; 쐚; 쐚; ) HANGUL SYLLABLE SSWAELM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC41A }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B1 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC41A }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC41A }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B1 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC41A }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B1 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5062,22 +15908,80 @@ TEST(normalization, nfkd_042_187)
     // C41B;C41B;110A 116B 11B2;C41B;110A 116B 11B2; 
     // (쐛; 쐛; 쐛; 쐛; 쐛; ) HANGUL SYLLABLE SSWAELB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC41B }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B2 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC41B }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC41B }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B2 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC41B }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B2 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5089,22 +15993,80 @@ TEST(normalization, nfkd_042_188)
     // C41C;C41C;110A 116B 11B3;C41C;110A 116B 11B3; 
     // (쐜; 쐜; 쐜; 쐜; 쐜; ) HANGUL SYLLABLE SSWAELS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC41C }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B3 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC41C }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC41C }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B3 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC41C }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B3 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5116,22 +16078,80 @@ TEST(normalization, nfkd_042_189)
     // C41D;C41D;110A 116B 11B4;C41D;110A 116B 11B4; 
     // (쐝; 쐝; 쐝; 쐝; 쐝; ) HANGUL SYLLABLE SSWAELT
     {
-        std::array<uint32_t, 1> const source = {{ 0xC41D }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B4 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC41D }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC41D }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B4 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC41D }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B4 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5143,22 +16163,80 @@ TEST(normalization, nfkd_042_190)
     // C41E;C41E;110A 116B 11B5;C41E;110A 116B 11B5; 
     // (쐞; 쐞; 쐞; 쐞; 쐞; ) HANGUL SYLLABLE SSWAELP
     {
-        std::array<uint32_t, 1> const source = {{ 0xC41E }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B5 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC41E }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC41E }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B5 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC41E }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B5 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5170,22 +16248,80 @@ TEST(normalization, nfkd_042_191)
     // C41F;C41F;110A 116B 11B6;C41F;110A 116B 11B6; 
     // (쐟; 쐟; 쐟; 쐟; 쐟; ) HANGUL SYLLABLE SSWAELH
     {
-        std::array<uint32_t, 1> const source = {{ 0xC41F }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B6 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC41F }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC41F }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B6 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC41F }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B6 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5197,22 +16333,80 @@ TEST(normalization, nfkd_042_192)
     // C420;C420;110A 116B 11B7;C420;110A 116B 11B7; 
     // (쐠; 쐠; 쐠; 쐠; 쐠; ) HANGUL SYLLABLE SSWAEM
     {
-        std::array<uint32_t, 1> const source = {{ 0xC420 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B7 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC420 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC420 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B7 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC420 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B7 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5224,22 +16418,80 @@ TEST(normalization, nfkd_042_193)
     // C421;C421;110A 116B 11B8;C421;110A 116B 11B8; 
     // (쐡; 쐡; 쐡; 쐡; 쐡; ) HANGUL SYLLABLE SSWAEB
     {
-        std::array<uint32_t, 1> const source = {{ 0xC421 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B8 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC421 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC421 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B8 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC421 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B8 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5251,22 +16503,80 @@ TEST(normalization, nfkd_042_194)
     // C422;C422;110A 116B 11B9;C422;110A 116B 11B9; 
     // (쐢; 쐢; 쐢; 쐢; 쐢; ) HANGUL SYLLABLE SSWAEBS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC422 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11B9 }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC422 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC422 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11B9 }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC422 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11B9 }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5278,22 +16588,80 @@ TEST(normalization, nfkd_042_195)
     // C423;C423;110A 116B 11BA;C423;110A 116B 11BA; 
     // (쐣; 쐣; 쐣; 쐣; 쐣; ) HANGUL SYLLABLE SSWAES
     {
-        std::array<uint32_t, 1> const source = {{ 0xC423 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11BA }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC423 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC423 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11BA }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC423 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11BA }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5305,22 +16673,80 @@ TEST(normalization, nfkd_042_196)
     // C424;C424;110A 116B 11BB;C424;110A 116B 11BB; 
     // (쐤; 쐤; 쐤; 쐤; 쐤; ) HANGUL SYLLABLE SSWAESS
     {
-        std::array<uint32_t, 1> const source = {{ 0xC424 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11BB }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC424 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC424 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11BB }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC424 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11BB }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5332,22 +16758,80 @@ TEST(normalization, nfkd_042_197)
     // C425;C425;110A 116B 11BC;C425;110A 116B 11BC; 
     // (쐥; 쐥; 쐥; 쐥; 쐥; ) HANGUL SYLLABLE SSWAENG
     {
-        std::array<uint32_t, 1> const source = {{ 0xC425 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11BC }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC425 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC425 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11BC }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC425 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11BC }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5359,22 +16843,80 @@ TEST(normalization, nfkd_042_198)
     // C426;C426;110A 116B 11BD;C426;110A 116B 11BD; 
     // (쐦; 쐦; 쐦; 쐦; 쐦; ) HANGUL SYLLABLE SSWAEJ
     {
-        std::array<uint32_t, 1> const source = {{ 0xC426 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11BD }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC426 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC426 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11BD }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC426 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11BD }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }
@@ -5386,22 +16928,80 @@ TEST(normalization, nfkd_042_199)
     // C427;C427;110A 116B 11BE;C427;110A 116B 11BE; 
     // (쐧; 쐧; 쐧; 쐧; 쐧; ) HANGUL SYLLABLE SSWAEC
     {
-        std::array<uint32_t, 1> const source = {{ 0xC427 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 3> const dest = {{ 0x110A, 0x116B, 0x11BE }};
+        std::array<uint32_t, 1> const c1 = {{ 0xC427 }};
+        std::array<uint32_t, 1> const c2 = {{ 0xC427 }};
+        std::array<uint32_t, 3> const c3 = {{ 0x110A, 0x116B, 0x11BE }};
+        std::array<uint32_t, 1> const c4 = {{ 0xC427 }};
+        std::array<uint32_t, 3> const c5 = {{ 0x110A, 0x116B, 0x11BE }};
 
-        boost::text::normalize_to_nfkd(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkd(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c5.size());
+            auto c5_it = c5.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c5_it) << "iteration " << i;
+                ++c5_it;
+                ++i;
+            }
         }
 
     }

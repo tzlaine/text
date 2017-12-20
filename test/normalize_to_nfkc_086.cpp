@@ -13,22 +13,80 @@ TEST(normalization, nfkc_086_000)
     // 0061 0487 0315 0300 05AE 0062;0061 05AE 0487 0300 0315 0062;0061 05AE 0487 0300 0315 0062;0061 05AE 0487 0300 0315 0062;0061 05AE 0487 0300 0315 0062; 
     // (a◌҇◌̕◌̀◌֮b; a◌֮◌҇◌̀◌̕b; a◌֮◌҇◌̀◌̕b; a◌֮◌҇◌̀◌̕b; a◌֮◌҇◌̀◌̕b; ) LATIN SMALL LETTER A, COMBINING CYRILLIC POKRYTIE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0487, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0487, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0487, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0487, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0487, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0487, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0487, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -40,22 +98,80 @@ TEST(normalization, nfkc_086_001)
     // 0061 059A 0316 302A 0591 0062;0061 302A 0316 0591 059A 0062;0061 302A 0316 0591 059A 0062;0061 302A 0316 0591 059A 0062;0061 302A 0316 0591 059A 0062; 
     // (a◌֚◌̖◌〪◌֑b; a◌〪◌̖◌֑◌֚b; a◌〪◌̖◌֑◌֚b; a◌〪◌̖◌֑◌֚b; a◌〪◌̖◌֑◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT ETNAHTA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0591, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x0591, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0591, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x0591, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x0591, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x0591, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x0591, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -67,22 +183,80 @@ TEST(normalization, nfkc_086_002)
     // 0061 0591 059A 0316 302A 0062;0061 302A 0591 0316 059A 0062;0061 302A 0591 0316 059A 0062;0061 302A 0591 0316 059A 0062;0061 302A 0591 0316 059A 0062; 
     // (a◌֑◌֚◌̖◌〪b; a◌〪◌֑◌̖◌֚b; a◌〪◌֑◌̖◌֚b; a◌〪◌֑◌̖◌֚b; a◌〪◌֑◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT ETNAHTA, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0591, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0591, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0591, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0591, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0591, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0591, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0591, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -94,22 +268,80 @@ TEST(normalization, nfkc_086_003)
     // 0061 0315 0300 05AE 0592 0062;00E0 05AE 0592 0315 0062;0061 05AE 0300 0592 0315 0062;00E0 05AE 0592 0315 0062;0061 05AE 0300 0592 0315 0062; 
     // (a◌̕◌̀◌֮◌֒b; à◌֮◌֒◌̕b; a◌֮◌̀◌֒◌̕b; à◌֮◌֒◌̕b; a◌֮◌̀◌֒◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT SEGOL, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0592, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0592, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0592, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0592, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0592, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0592, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0592, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -121,22 +353,80 @@ TEST(normalization, nfkc_086_004)
     // 0061 0592 0315 0300 05AE 0062;0061 05AE 0592 0300 0315 0062;0061 05AE 0592 0300 0315 0062;0061 05AE 0592 0300 0315 0062;0061 05AE 0592 0300 0315 0062; 
     // (a◌֒◌̕◌̀◌֮b; a◌֮◌֒◌̀◌̕b; a◌֮◌֒◌̀◌̕b; a◌֮◌֒◌̀◌̕b; a◌֮◌֒◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT SEGOL, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0592, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0592, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0592, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0592, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0592, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0592, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0592, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -148,22 +438,80 @@ TEST(normalization, nfkc_086_005)
     // 0061 0315 0300 05AE 0593 0062;00E0 05AE 0593 0315 0062;0061 05AE 0300 0593 0315 0062;00E0 05AE 0593 0315 0062;0061 05AE 0300 0593 0315 0062; 
     // (a◌̕◌̀◌֮◌֓b; à◌֮◌֓◌̕b; a◌֮◌̀◌֓◌̕b; à◌֮◌֓◌̕b; a◌֮◌̀◌֓◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT SHALSHELET, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0593, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0593, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0593, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0593, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0593, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0593, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0593, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -175,22 +523,80 @@ TEST(normalization, nfkc_086_006)
     // 0061 0593 0315 0300 05AE 0062;0061 05AE 0593 0300 0315 0062;0061 05AE 0593 0300 0315 0062;0061 05AE 0593 0300 0315 0062;0061 05AE 0593 0300 0315 0062; 
     // (a◌֓◌̕◌̀◌֮b; a◌֮◌֓◌̀◌̕b; a◌֮◌֓◌̀◌̕b; a◌֮◌֓◌̀◌̕b; a◌֮◌֓◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT SHALSHELET, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0593, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0593, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0593, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0593, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0593, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0593, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0593, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -202,22 +608,80 @@ TEST(normalization, nfkc_086_007)
     // 0061 0315 0300 05AE 0594 0062;00E0 05AE 0594 0315 0062;0061 05AE 0300 0594 0315 0062;00E0 05AE 0594 0315 0062;0061 05AE 0300 0594 0315 0062; 
     // (a◌̕◌̀◌֮◌֔b; à◌֮◌֔◌̕b; a◌֮◌̀◌֔◌̕b; à◌֮◌֔◌̕b; a◌֮◌̀◌֔◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT ZAQEF QATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0594, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0594, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0594, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0594, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0594, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0594, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0594, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -229,22 +693,80 @@ TEST(normalization, nfkc_086_008)
     // 0061 0594 0315 0300 05AE 0062;0061 05AE 0594 0300 0315 0062;0061 05AE 0594 0300 0315 0062;0061 05AE 0594 0300 0315 0062;0061 05AE 0594 0300 0315 0062; 
     // (a◌֔◌̕◌̀◌֮b; a◌֮◌֔◌̀◌̕b; a◌֮◌֔◌̀◌̕b; a◌֮◌֔◌̀◌̕b; a◌֮◌֔◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT ZAQEF QATAN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0594, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0594, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0594, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0594, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0594, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0594, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0594, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -256,22 +778,80 @@ TEST(normalization, nfkc_086_009)
     // 0061 0315 0300 05AE 0595 0062;00E0 05AE 0595 0315 0062;0061 05AE 0300 0595 0315 0062;00E0 05AE 0595 0315 0062;0061 05AE 0300 0595 0315 0062; 
     // (a◌̕◌̀◌֮◌֕b; à◌֮◌֕◌̕b; a◌֮◌̀◌֕◌̕b; à◌֮◌֕◌̕b; a◌֮◌̀◌֕◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT ZAQEF GADOL, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0595, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0595, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0595, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0595, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0595, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0595, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0595, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -283,22 +863,80 @@ TEST(normalization, nfkc_086_010)
     // 0061 0595 0315 0300 05AE 0062;0061 05AE 0595 0300 0315 0062;0061 05AE 0595 0300 0315 0062;0061 05AE 0595 0300 0315 0062;0061 05AE 0595 0300 0315 0062; 
     // (a◌֕◌̕◌̀◌֮b; a◌֮◌֕◌̀◌̕b; a◌֮◌֕◌̀◌̕b; a◌֮◌֕◌̀◌̕b; a◌֮◌֕◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT ZAQEF GADOL, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0595, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0595, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0595, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0595, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0595, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0595, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0595, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -310,22 +948,80 @@ TEST(normalization, nfkc_086_011)
     // 0061 059A 0316 302A 0596 0062;0061 302A 0316 0596 059A 0062;0061 302A 0316 0596 059A 0062;0061 302A 0316 0596 059A 0062;0061 302A 0316 0596 059A 0062; 
     // (a◌֚◌̖◌〪◌֖b; a◌〪◌̖◌֖◌֚b; a◌〪◌̖◌֖◌֚b; a◌〪◌̖◌֖◌֚b; a◌〪◌̖◌֖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT TIPEHA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0596, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x0596, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0596, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x0596, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x0596, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x0596, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x0596, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -337,22 +1033,80 @@ TEST(normalization, nfkc_086_012)
     // 0061 0596 059A 0316 302A 0062;0061 302A 0596 0316 059A 0062;0061 302A 0596 0316 059A 0062;0061 302A 0596 0316 059A 0062;0061 302A 0596 0316 059A 0062; 
     // (a◌֖◌֚◌̖◌〪b; a◌〪◌֖◌̖◌֚b; a◌〪◌֖◌̖◌֚b; a◌〪◌֖◌̖◌֚b; a◌〪◌֖◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT TIPEHA, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0596, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0596, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0596, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0596, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0596, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0596, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0596, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -364,22 +1118,80 @@ TEST(normalization, nfkc_086_013)
     // 0061 0315 0300 05AE 0597 0062;00E0 05AE 0597 0315 0062;0061 05AE 0300 0597 0315 0062;00E0 05AE 0597 0315 0062;0061 05AE 0300 0597 0315 0062; 
     // (a◌̕◌̀◌֮◌֗b; à◌֮◌֗◌̕b; a◌֮◌̀◌֗◌̕b; à◌֮◌֗◌̕b; a◌֮◌̀◌֗◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT REVIA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0597, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0597, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0597, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0597, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0597, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0597, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0597, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -391,22 +1203,80 @@ TEST(normalization, nfkc_086_014)
     // 0061 0597 0315 0300 05AE 0062;0061 05AE 0597 0300 0315 0062;0061 05AE 0597 0300 0315 0062;0061 05AE 0597 0300 0315 0062;0061 05AE 0597 0300 0315 0062; 
     // (a◌֗◌̕◌̀◌֮b; a◌֮◌֗◌̀◌̕b; a◌֮◌֗◌̀◌̕b; a◌֮◌֗◌̀◌̕b; a◌֮◌֗◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT REVIA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0597, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0597, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0597, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0597, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0597, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0597, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0597, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -418,22 +1288,80 @@ TEST(normalization, nfkc_086_015)
     // 0061 0315 0300 05AE 0598 0062;00E0 05AE 0598 0315 0062;0061 05AE 0300 0598 0315 0062;00E0 05AE 0598 0315 0062;0061 05AE 0300 0598 0315 0062; 
     // (a◌̕◌̀◌֮◌֘b; à◌֮◌֘◌̕b; a◌֮◌̀◌֘◌̕b; à◌֮◌֘◌̕b; a◌֮◌̀◌֘◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT ZARQA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0598, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0598, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0598, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0598, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0598, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0598, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0598, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -445,22 +1373,80 @@ TEST(normalization, nfkc_086_016)
     // 0061 0598 0315 0300 05AE 0062;0061 05AE 0598 0300 0315 0062;0061 05AE 0598 0300 0315 0062;0061 05AE 0598 0300 0315 0062;0061 05AE 0598 0300 0315 0062; 
     // (a◌֘◌̕◌̀◌֮b; a◌֮◌֘◌̀◌̕b; a◌֮◌֘◌̀◌̕b; a◌֮◌֘◌̀◌̕b; a◌֮◌֘◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT ZARQA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0598, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0598, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0598, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0598, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0598, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0598, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0598, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -472,22 +1458,80 @@ TEST(normalization, nfkc_086_017)
     // 0061 0315 0300 05AE 0599 0062;00E0 05AE 0599 0315 0062;0061 05AE 0300 0599 0315 0062;00E0 05AE 0599 0315 0062;0061 05AE 0300 0599 0315 0062; 
     // (a◌̕◌̀◌֮◌֙b; à◌֮◌֙◌̕b; a◌֮◌̀◌֙◌̕b; à◌֮◌֙◌̕b; a◌֮◌̀◌֙◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT PASHTA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0599, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0599, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0599, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0599, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0599, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0599, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0599, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -499,22 +1543,80 @@ TEST(normalization, nfkc_086_018)
     // 0061 0599 0315 0300 05AE 0062;0061 05AE 0599 0300 0315 0062;0061 05AE 0599 0300 0315 0062;0061 05AE 0599 0300 0315 0062;0061 05AE 0599 0300 0315 0062; 
     // (a◌֙◌̕◌̀◌֮b; a◌֮◌֙◌̀◌̕b; a◌֮◌֙◌̀◌̕b; a◌֮◌֙◌̀◌̕b; a◌֮◌֙◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT PASHTA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0599, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0599, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0599, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0599, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0599, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0599, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0599, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -526,22 +1628,80 @@ TEST(normalization, nfkc_086_019)
     // 0061 302E 059A 0316 059A 0062;0061 0316 059A 059A 302E 0062;0061 0316 059A 059A 302E 0062;0061 0316 059A 059A 302E 0062;0061 0316 059A 059A 302E 0062; 
     // (a〮◌֚◌̖◌֚b; a◌̖◌֚◌֚〮b; a◌̖◌֚◌֚〮b; a◌̖◌֚◌֚〮b; a◌̖◌֚◌֚〮b; ) LATIN SMALL LETTER A, HANGUL SINGLE DOT TONE MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, HEBREW ACCENT YETIV, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x302E, 0x059A, 0x0316, 0x059A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x302E, 0x059A, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -553,22 +1713,80 @@ TEST(normalization, nfkc_086_020)
     // 0061 059A 302E 059A 0316 0062;0061 0316 059A 059A 302E 0062;0061 0316 059A 059A 302E 0062;0061 0316 059A 059A 302E 0062;0061 0316 059A 059A 302E 0062; 
     // (a◌֚〮◌֚◌̖b; a◌̖◌֚◌֚〮b; a◌̖◌֚◌֚〮b; a◌̖◌֚◌֚〮b; a◌̖◌֚◌֚〮b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, HANGUL SINGLE DOT TONE MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x302E, 0x059A, 0x0316, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x302E, 0x059A, 0x0316, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0316, 0x059A, 0x059A, 0x302E, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -580,22 +1798,80 @@ TEST(normalization, nfkc_086_021)
     // 0061 059A 0316 302A 059B 0062;0061 302A 0316 059B 059A 0062;0061 302A 0316 059B 059A 0062;0061 302A 0316 059B 059A 0062;0061 302A 0316 059B 059A 0062; 
     // (a◌֚◌̖◌〪◌֛b; a◌〪◌̖◌֛◌֚b; a◌〪◌̖◌֛◌֚b; a◌〪◌̖◌֛◌֚b; a◌〪◌̖◌֛◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT TEVIR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x059B, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x059B, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x059B, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x059B, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x059B, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x059B, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x059B, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -607,22 +1883,80 @@ TEST(normalization, nfkc_086_022)
     // 0061 059B 059A 0316 302A 0062;0061 302A 059B 0316 059A 0062;0061 302A 059B 0316 059A 0062;0061 302A 059B 0316 059A 0062;0061 302A 059B 0316 059A 0062; 
     // (a◌֛◌֚◌̖◌〪b; a◌〪◌֛◌̖◌֚b; a◌〪◌֛◌̖◌֚b; a◌〪◌֛◌̖◌֚b; a◌〪◌֛◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT TEVIR, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059B, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x059B, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059B, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x059B, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x059B, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x059B, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x059B, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -634,22 +1968,80 @@ TEST(normalization, nfkc_086_023)
     // 0061 0315 0300 05AE 059C 0062;00E0 05AE 059C 0315 0062;0061 05AE 0300 059C 0315 0062;00E0 05AE 059C 0315 0062;0061 05AE 0300 059C 0315 0062; 
     // (a◌̕◌̀◌֮◌֜b; à◌֮◌֜◌̕b; a◌֮◌̀◌֜◌̕b; à◌֮◌֜◌̕b; a◌֮◌̀◌֜◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT GERESH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059C, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x059C, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059C, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x059C, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x059C, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x059C, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x059C, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -661,22 +2053,80 @@ TEST(normalization, nfkc_086_024)
     // 0061 059C 0315 0300 05AE 0062;0061 05AE 059C 0300 0315 0062;0061 05AE 059C 0300 0315 0062;0061 05AE 059C 0300 0315 0062;0061 05AE 059C 0300 0315 0062; 
     // (a◌֜◌̕◌̀◌֮b; a◌֮◌֜◌̀◌̕b; a◌֮◌֜◌̀◌̕b; a◌֮◌֜◌̀◌̕b; a◌֮◌֜◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT GERESH, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059C, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x059C, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059C, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x059C, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x059C, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x059C, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x059C, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -688,22 +2138,80 @@ TEST(normalization, nfkc_086_025)
     // 0061 0315 0300 05AE 059D 0062;00E0 05AE 059D 0315 0062;0061 05AE 0300 059D 0315 0062;00E0 05AE 059D 0315 0062;0061 05AE 0300 059D 0315 0062; 
     // (a◌̕◌̀◌֮◌֝b; à◌֮◌֝◌̕b; a◌֮◌̀◌֝◌̕b; à◌֮◌֝◌̕b; a◌֮◌̀◌֝◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT GERESH MUQDAM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x059D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059D, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x059D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x059D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x059D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x059D, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -715,22 +2223,80 @@ TEST(normalization, nfkc_086_026)
     // 0061 059D 0315 0300 05AE 0062;0061 05AE 059D 0300 0315 0062;0061 05AE 059D 0300 0315 0062;0061 05AE 059D 0300 0315 0062;0061 05AE 059D 0300 0315 0062; 
     // (a◌֝◌̕◌̀◌֮b; a◌֮◌֝◌̀◌̕b; a◌֮◌֝◌̀◌̕b; a◌֮◌֝◌̀◌̕b; a◌֮◌֝◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT GERESH MUQDAM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059D, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x059D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059D, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x059D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x059D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x059D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x059D, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -742,22 +2308,80 @@ TEST(normalization, nfkc_086_027)
     // 0061 0315 0300 05AE 059E 0062;00E0 05AE 059E 0315 0062;0061 05AE 0300 059E 0315 0062;00E0 05AE 059E 0315 0062;0061 05AE 0300 059E 0315 0062; 
     // (a◌̕◌̀◌֮◌֞b; à◌֮◌֞◌̕b; a◌֮◌̀◌֞◌̕b; à◌֮◌֞◌̕b; a◌֮◌̀◌֞◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT GERSHAYIM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059E, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x059E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059E, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x059E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x059E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x059E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x059E, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -769,22 +2393,80 @@ TEST(normalization, nfkc_086_028)
     // 0061 059E 0315 0300 05AE 0062;0061 05AE 059E 0300 0315 0062;0061 05AE 059E 0300 0315 0062;0061 05AE 059E 0300 0315 0062;0061 05AE 059E 0300 0315 0062; 
     // (a◌֞◌̕◌̀◌֮b; a◌֮◌֞◌̀◌̕b; a◌֮◌֞◌̀◌̕b; a◌֮◌֞◌̀◌̕b; a◌֮◌֞◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT GERSHAYIM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059E, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x059E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059E, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x059E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x059E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x059E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x059E, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -796,22 +2478,80 @@ TEST(normalization, nfkc_086_029)
     // 0061 0315 0300 05AE 059F 0062;00E0 05AE 059F 0315 0062;0061 05AE 0300 059F 0315 0062;00E0 05AE 059F 0315 0062;0061 05AE 0300 059F 0315 0062; 
     // (a◌̕◌̀◌֮◌֟b; à◌֮◌֟◌̕b; a◌֮◌̀◌֟◌̕b; à◌֮◌֟◌̕b; a◌֮◌̀◌֟◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT QARNEY PARA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059F, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x059F, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x059F, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x059F, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x059F, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x059F, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x059F, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -823,22 +2563,80 @@ TEST(normalization, nfkc_086_030)
     // 0061 059F 0315 0300 05AE 0062;0061 05AE 059F 0300 0315 0062;0061 05AE 059F 0300 0315 0062;0061 05AE 059F 0300 0315 0062;0061 05AE 059F 0300 0315 0062; 
     // (a◌֟◌̕◌̀◌֮b; a◌֮◌֟◌̀◌̕b; a◌֮◌֟◌̀◌̕b; a◌֮◌֟◌̀◌̕b; a◌֮◌֟◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT QARNEY PARA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059F, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x059F, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059F, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x059F, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x059F, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x059F, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x059F, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -850,22 +2648,80 @@ TEST(normalization, nfkc_086_031)
     // 0061 0315 0300 05AE 05A0 0062;00E0 05AE 05A0 0315 0062;0061 05AE 0300 05A0 0315 0062;00E0 05AE 05A0 0315 0062;0061 05AE 0300 05A0 0315 0062; 
     // (a◌̕◌̀◌֮◌֠b; à◌֮◌֠◌̕b; a◌֮◌̀◌֠◌̕b; à◌֮◌֠◌̕b; a◌֮◌̀◌֠◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT TELISHA GEDOLA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A0, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05A0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A0, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05A0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05A0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05A0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05A0, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -877,22 +2733,80 @@ TEST(normalization, nfkc_086_032)
     // 0061 05A0 0315 0300 05AE 0062;0061 05AE 05A0 0300 0315 0062;0061 05AE 05A0 0300 0315 0062;0061 05AE 05A0 0300 0315 0062;0061 05AE 05A0 0300 0315 0062; 
     // (a◌֠◌̕◌̀◌֮b; a◌֮◌֠◌̀◌̕b; a◌֮◌֠◌̀◌̕b; a◌֮◌֠◌̀◌̕b; a◌֮◌֠◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT TELISHA GEDOLA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A0, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05A0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A0, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05A0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05A0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05A0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05A0, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -904,22 +2818,80 @@ TEST(normalization, nfkc_086_033)
     // 0061 0315 0300 05AE 05A1 0062;00E0 05AE 05A1 0315 0062;0061 05AE 0300 05A1 0315 0062;00E0 05AE 05A1 0315 0062;0061 05AE 0300 05A1 0315 0062; 
     // (a◌̕◌̀◌֮◌֡b; à◌֮◌֡◌̕b; a◌֮◌̀◌֡◌̕b; à◌֮◌֡◌̕b; a◌֮◌̀◌֡◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT PAZER, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A1, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05A1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A1, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05A1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05A1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05A1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05A1, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -931,22 +2903,80 @@ TEST(normalization, nfkc_086_034)
     // 0061 05A1 0315 0300 05AE 0062;0061 05AE 05A1 0300 0315 0062;0061 05AE 05A1 0300 0315 0062;0061 05AE 05A1 0300 0315 0062;0061 05AE 05A1 0300 0315 0062; 
     // (a◌֡◌̕◌̀◌֮b; a◌֮◌֡◌̀◌̕b; a◌֮◌֡◌̀◌̕b; a◌֮◌֡◌̀◌̕b; a◌֮◌֡◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT PAZER, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A1, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05A1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A1, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05A1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05A1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05A1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05A1, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -958,22 +2988,80 @@ TEST(normalization, nfkc_086_035)
     // 0061 059A 0316 302A 05A2 0062;0061 302A 0316 05A2 059A 0062;0061 302A 0316 05A2 059A 0062;0061 302A 0316 05A2 059A 0062;0061 302A 0316 05A2 059A 0062; 
     // (a◌֚◌̖◌〪◌֢b; a◌〪◌̖◌֢◌֚b; a◌〪◌̖◌֢◌֚b; a◌〪◌̖◌֢◌֚b; a◌〪◌̖◌֢◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT ATNAH HAFUKH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A2, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05A2, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A2, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05A2, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05A2, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05A2, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05A2, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -985,22 +3073,80 @@ TEST(normalization, nfkc_086_036)
     // 0061 05A2 059A 0316 302A 0062;0061 302A 05A2 0316 059A 0062;0061 302A 05A2 0316 059A 0062;0061 302A 05A2 0316 059A 0062;0061 302A 05A2 0316 059A 0062; 
     // (a◌֢◌֚◌̖◌〪b; a◌〪◌֢◌̖◌֚b; a◌〪◌֢◌̖◌֚b; a◌〪◌֢◌̖◌֚b; a◌〪◌֢◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT ATNAH HAFUKH, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A2, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05A2, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A2, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05A2, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05A2, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05A2, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05A2, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1012,22 +3158,80 @@ TEST(normalization, nfkc_086_037)
     // 0061 059A 0316 302A 05A3 0062;0061 302A 0316 05A3 059A 0062;0061 302A 0316 05A3 059A 0062;0061 302A 0316 05A3 059A 0062;0061 302A 0316 05A3 059A 0062; 
     // (a◌֚◌̖◌〪◌֣b; a◌〪◌̖◌֣◌֚b; a◌〪◌̖◌֣◌֚b; a◌〪◌̖◌֣◌֚b; a◌〪◌̖◌֣◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT MUNAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A3, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05A3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A3, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05A3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05A3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05A3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05A3, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1039,22 +3243,80 @@ TEST(normalization, nfkc_086_038)
     // 0061 05A3 059A 0316 302A 0062;0061 302A 05A3 0316 059A 0062;0061 302A 05A3 0316 059A 0062;0061 302A 05A3 0316 059A 0062;0061 302A 05A3 0316 059A 0062; 
     // (a◌֣◌֚◌̖◌〪b; a◌〪◌֣◌̖◌֚b; a◌〪◌֣◌̖◌֚b; a◌〪◌֣◌̖◌֚b; a◌〪◌֣◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT MUNAH, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A3, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05A3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A3, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05A3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05A3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05A3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05A3, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1066,22 +3328,80 @@ TEST(normalization, nfkc_086_039)
     // 0061 059A 0316 302A 05A4 0062;0061 302A 0316 05A4 059A 0062;0061 302A 0316 05A4 059A 0062;0061 302A 0316 05A4 059A 0062;0061 302A 0316 05A4 059A 0062; 
     // (a◌֚◌̖◌〪◌֤b; a◌〪◌̖◌֤◌֚b; a◌〪◌̖◌֤◌֚b; a◌〪◌̖◌֤◌֚b; a◌〪◌̖◌֤◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT MAHAPAKH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A4, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05A4, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A4, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05A4, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05A4, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05A4, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05A4, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1093,22 +3413,80 @@ TEST(normalization, nfkc_086_040)
     // 0061 05A4 059A 0316 302A 0062;0061 302A 05A4 0316 059A 0062;0061 302A 05A4 0316 059A 0062;0061 302A 05A4 0316 059A 0062;0061 302A 05A4 0316 059A 0062; 
     // (a◌֤◌֚◌̖◌〪b; a◌〪◌֤◌̖◌֚b; a◌〪◌֤◌̖◌֚b; a◌〪◌֤◌̖◌֚b; a◌〪◌֤◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT MAHAPAKH, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A4, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05A4, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A4, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05A4, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05A4, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05A4, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05A4, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1120,22 +3498,80 @@ TEST(normalization, nfkc_086_041)
     // 0061 059A 0316 302A 05A5 0062;0061 302A 0316 05A5 059A 0062;0061 302A 0316 05A5 059A 0062;0061 302A 0316 05A5 059A 0062;0061 302A 0316 05A5 059A 0062; 
     // (a◌֚◌̖◌〪◌֥b; a◌〪◌̖◌֥◌֚b; a◌〪◌̖◌֥◌֚b; a◌〪◌̖◌֥◌֚b; a◌〪◌̖◌֥◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT MERKHA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A5, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05A5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A5, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05A5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05A5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05A5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05A5, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1147,22 +3583,80 @@ TEST(normalization, nfkc_086_042)
     // 0061 05A5 059A 0316 302A 0062;0061 302A 05A5 0316 059A 0062;0061 302A 05A5 0316 059A 0062;0061 302A 05A5 0316 059A 0062;0061 302A 05A5 0316 059A 0062; 
     // (a◌֥◌֚◌̖◌〪b; a◌〪◌֥◌̖◌֚b; a◌〪◌֥◌̖◌֚b; a◌〪◌֥◌̖◌֚b; a◌〪◌֥◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT MERKHA, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A5, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05A5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A5, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05A5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05A5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05A5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05A5, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1174,22 +3668,80 @@ TEST(normalization, nfkc_086_043)
     // 0061 059A 0316 302A 05A6 0062;0061 302A 0316 05A6 059A 0062;0061 302A 0316 05A6 059A 0062;0061 302A 0316 05A6 059A 0062;0061 302A 0316 05A6 059A 0062; 
     // (a◌֚◌̖◌〪◌֦b; a◌〪◌̖◌֦◌֚b; a◌〪◌̖◌֦◌֚b; a◌〪◌̖◌֦◌֚b; a◌〪◌̖◌֦◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT MERKHA KEFULA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A6, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05A6, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A6, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05A6, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05A6, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05A6, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05A6, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1201,22 +3753,80 @@ TEST(normalization, nfkc_086_044)
     // 0061 05A6 059A 0316 302A 0062;0061 302A 05A6 0316 059A 0062;0061 302A 05A6 0316 059A 0062;0061 302A 05A6 0316 059A 0062;0061 302A 05A6 0316 059A 0062; 
     // (a◌֦◌֚◌̖◌〪b; a◌〪◌֦◌̖◌֚b; a◌〪◌֦◌̖◌֚b; a◌〪◌֦◌̖◌֚b; a◌〪◌֦◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT MERKHA KEFULA, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A6, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05A6, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A6, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05A6, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05A6, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05A6, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05A6, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1228,22 +3838,80 @@ TEST(normalization, nfkc_086_045)
     // 0061 059A 0316 302A 05A7 0062;0061 302A 0316 05A7 059A 0062;0061 302A 0316 05A7 059A 0062;0061 302A 0316 05A7 059A 0062;0061 302A 0316 05A7 059A 0062; 
     // (a◌֚◌̖◌〪◌֧b; a◌〪◌̖◌֧◌֚b; a◌〪◌̖◌֧◌֚b; a◌〪◌̖◌֧◌֚b; a◌〪◌̖◌֧◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT DARGA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05A7, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05A7, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05A7, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05A7, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05A7, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05A7, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1255,22 +3923,80 @@ TEST(normalization, nfkc_086_046)
     // 0061 05A7 059A 0316 302A 0062;0061 302A 05A7 0316 059A 0062;0061 302A 05A7 0316 059A 0062;0061 302A 05A7 0316 059A 0062;0061 302A 05A7 0316 059A 0062; 
     // (a◌֧◌֚◌̖◌〪b; a◌〪◌֧◌̖◌֚b; a◌〪◌֧◌̖◌֚b; a◌〪◌֧◌̖◌֚b; a◌〪◌֧◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT DARGA, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A7, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05A7, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A7, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05A7, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05A7, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05A7, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05A7, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1282,22 +4008,80 @@ TEST(normalization, nfkc_086_047)
     // 0061 0315 0300 05AE 05A8 0062;00E0 05AE 05A8 0315 0062;0061 05AE 0300 05A8 0315 0062;00E0 05AE 05A8 0315 0062;0061 05AE 0300 05A8 0315 0062; 
     // (a◌̕◌̀◌֮◌֨b; à◌֮◌֨◌̕b; a◌֮◌̀◌֨◌̕b; à◌֮◌֨◌̕b; a◌֮◌̀◌֨◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT QADMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A8, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05A8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A8, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05A8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05A8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05A8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05A8, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1309,22 +4093,80 @@ TEST(normalization, nfkc_086_048)
     // 0061 05A8 0315 0300 05AE 0062;0061 05AE 05A8 0300 0315 0062;0061 05AE 05A8 0300 0315 0062;0061 05AE 05A8 0300 0315 0062;0061 05AE 05A8 0300 0315 0062; 
     // (a◌֨◌̕◌̀◌֮b; a◌֮◌֨◌̀◌̕b; a◌֮◌֨◌̀◌̕b; a◌֮◌֨◌̀◌̕b; a◌֮◌֨◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT QADMA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A8, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05A8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A8, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05A8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05A8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05A8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05A8, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1336,22 +4178,80 @@ TEST(normalization, nfkc_086_049)
     // 0061 0315 0300 05AE 05A9 0062;00E0 05AE 05A9 0315 0062;0061 05AE 0300 05A9 0315 0062;00E0 05AE 05A9 0315 0062;0061 05AE 0300 05A9 0315 0062; 
     // (a◌̕◌̀◌֮◌֩b; à◌֮◌֩◌̕b; a◌֮◌̀◌֩◌̕b; à◌֮◌֩◌̕b; a◌֮◌̀◌֩◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT TELISHA QETANA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A9, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05A9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05A9, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05A9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05A9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05A9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05A9, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1363,22 +4263,80 @@ TEST(normalization, nfkc_086_050)
     // 0061 05A9 0315 0300 05AE 0062;0061 05AE 05A9 0300 0315 0062;0061 05AE 05A9 0300 0315 0062;0061 05AE 05A9 0300 0315 0062;0061 05AE 05A9 0300 0315 0062; 
     // (a◌֩◌̕◌̀◌֮b; a◌֮◌֩◌̀◌̕b; a◌֮◌֩◌̀◌̕b; a◌֮◌֩◌̀◌̕b; a◌֮◌֩◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT TELISHA QETANA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05A9, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05A9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05A9, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05A9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05A9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05A9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05A9, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1390,22 +4348,80 @@ TEST(normalization, nfkc_086_051)
     // 0061 059A 0316 302A 05AA 0062;0061 302A 0316 05AA 059A 0062;0061 302A 0316 05AA 059A 0062;0061 302A 0316 05AA 059A 0062;0061 302A 0316 05AA 059A 0062; 
     // (a◌֚◌̖◌〪◌֪b; a◌〪◌̖◌֪◌֚b; a◌〪◌̖◌֪◌֚b; a◌〪◌̖◌֪◌֚b; a◌〪◌̖◌֪◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW ACCENT YERAH BEN YOMO, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05AA, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05AA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05AA, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05AA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05AA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05AA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05AA, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1417,22 +4433,80 @@ TEST(normalization, nfkc_086_052)
     // 0061 05AA 059A 0316 302A 0062;0061 302A 05AA 0316 059A 0062;0061 302A 05AA 0316 059A 0062;0061 302A 05AA 0316 059A 0062;0061 302A 05AA 0316 059A 0062; 
     // (a◌֪◌֚◌̖◌〪b; a◌〪◌֪◌̖◌֚b; a◌〪◌֪◌̖◌֚b; a◌〪◌֪◌̖◌֚b; a◌〪◌֪◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YERAH BEN YOMO, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05AA, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05AA, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05AA, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05AA, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05AA, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05AA, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05AA, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1444,22 +4518,80 @@ TEST(normalization, nfkc_086_053)
     // 0061 0315 0300 05AE 05AB 0062;00E0 05AE 05AB 0315 0062;0061 05AE 0300 05AB 0315 0062;00E0 05AE 05AB 0315 0062;0061 05AE 0300 05AB 0315 0062; 
     // (a◌̕◌̀◌֮◌֫b; à◌֮◌֫◌̕b; a◌֮◌̀◌֫◌̕b; à◌֮◌֫◌̕b; a◌֮◌̀◌֫◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT OLE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05AB, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05AB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05AB, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05AB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05AB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05AB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05AB, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1471,22 +4603,80 @@ TEST(normalization, nfkc_086_054)
     // 0061 05AB 0315 0300 05AE 0062;0061 05AE 05AB 0300 0315 0062;0061 05AE 05AB 0300 0315 0062;0061 05AE 05AB 0300 0315 0062;0061 05AE 05AB 0300 0315 0062; 
     // (a◌֫◌̕◌̀◌֮b; a◌֮◌֫◌̀◌̕b; a◌֮◌֫◌̀◌̕b; a◌֮◌֫◌̀◌̕b; a◌֮◌֫◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT OLE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05AB, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05AB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05AB, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05AB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05AB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05AB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05AB, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1498,22 +4688,80 @@ TEST(normalization, nfkc_086_055)
     // 0061 0315 0300 05AE 05AC 0062;00E0 05AE 05AC 0315 0062;0061 05AE 0300 05AC 0315 0062;00E0 05AE 05AC 0315 0062;0061 05AE 0300 05AC 0315 0062; 
     // (a◌̕◌̀◌֮◌֬b; à◌֮◌֬◌̕b; a◌֮◌̀◌֬◌̕b; à◌֮◌֬◌̕b; a◌֮◌̀◌֬◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW ACCENT ILUY, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05AC, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05AC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05AC, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05AC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05AC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05AC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05AC, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1525,22 +4773,80 @@ TEST(normalization, nfkc_086_056)
     // 0061 05AC 0315 0300 05AE 0062;0061 05AE 05AC 0300 0315 0062;0061 05AE 05AC 0300 0315 0062;0061 05AE 05AC 0300 0315 0062;0061 05AE 05AC 0300 0315 0062; 
     // (a◌֬◌̕◌̀◌֮b; a◌֮◌֬◌̀◌̕b; a◌֮◌֬◌̀◌̕b; a◌֮◌֬◌̀◌̕b; a◌֮◌֬◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW ACCENT ILUY, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05AC, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05AC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05AC, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05AC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05AC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05AC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05AC, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1552,22 +4858,80 @@ TEST(normalization, nfkc_086_057)
     // 0061 302E 059A 0316 05AD 0062;0061 0316 059A 05AD 302E 0062;0061 0316 059A 05AD 302E 0062;0061 0316 059A 05AD 302E 0062;0061 0316 059A 05AD 302E 0062; 
     // (a〮◌֚◌̖◌֭b; a◌̖◌֚◌֭〮b; a◌̖◌֚◌֭〮b; a◌̖◌֚◌֭〮b; a◌̖◌֚◌֭〮b; ) LATIN SMALL LETTER A, HANGUL SINGLE DOT TONE MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, HEBREW ACCENT DEHI, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x302E, 0x059A, 0x0316, 0x05AD, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0316, 0x059A, 0x05AD, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x302E, 0x059A, 0x0316, 0x05AD, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0316, 0x059A, 0x05AD, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0316, 0x059A, 0x05AD, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0316, 0x059A, 0x05AD, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0316, 0x059A, 0x05AD, 0x302E, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1579,22 +4943,80 @@ TEST(normalization, nfkc_086_058)
     // 0061 05AD 302E 059A 0316 0062;0061 0316 05AD 059A 302E 0062;0061 0316 05AD 059A 302E 0062;0061 0316 05AD 059A 302E 0062;0061 0316 05AD 059A 302E 0062; 
     // (a◌֭〮◌֚◌̖b; a◌̖◌֭◌֚〮b; a◌̖◌֭◌֚〮b; a◌̖◌֭◌֚〮b; a◌̖◌֭◌֚〮b; ) LATIN SMALL LETTER A, HEBREW ACCENT DEHI, HANGUL SINGLE DOT TONE MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05AD, 0x302E, 0x059A, 0x0316, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0316, 0x05AD, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05AD, 0x302E, 0x059A, 0x0316, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0316, 0x05AD, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0316, 0x05AD, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0316, 0x05AD, 0x059A, 0x302E, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0316, 0x05AD, 0x059A, 0x302E, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1606,22 +5028,80 @@ TEST(normalization, nfkc_086_059)
     // 0061 0300 05AE 1D16D 05AE 0062;00E0 1D16D 05AE 05AE 0062;0061 1D16D 05AE 05AE 0300 0062;00E0 1D16D 05AE 05AE 0062;0061 1D16D 05AE 05AE 0300 0062; 
     // (a◌̀◌𝅭֮◌֮b; à𝅭◌֮◌֮b; a𝅭◌֮◌֮◌̀b; à𝅭◌֮◌֮b; a𝅭◌֮◌֮◌̀b; ) LATIN SMALL LETTER A, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, MUSICAL SYMBOL COMBINING AUGMENTATION DOT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0300, 0x05AE, 0x1D16D, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x1D16D, 0x05AE, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0300, 0x05AE, 0x1D16D, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x1D16D, 0x05AE, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x1D16D, 0x05AE, 0x05AE, 0x0300, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x1D16D, 0x05AE, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x1D16D, 0x05AE, 0x05AE, 0x0300, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1633,22 +5113,80 @@ TEST(normalization, nfkc_086_060)
     // 0061 05AE 0300 05AE 1D16D 0062;00E0 1D16D 05AE 05AE 0062;0061 1D16D 05AE 05AE 0300 0062;00E0 1D16D 05AE 05AE 0062;0061 1D16D 05AE 05AE 0300 0062; 
     // (a◌֮◌̀◌𝅭֮b; à𝅭◌֮◌֮b; a𝅭◌֮◌֮◌̀b; à𝅭◌֮◌֮b; a𝅭◌֮◌֮◌̀b; ) LATIN SMALL LETTER A, HEBREW ACCENT ZINOR, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, MUSICAL SYMBOL COMBINING AUGMENTATION DOT, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05AE, 0x0300, 0x05AE, 0x1D16D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x1D16D, 0x05AE, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05AE, 0x0300, 0x05AE, 0x1D16D, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x1D16D, 0x05AE, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x1D16D, 0x05AE, 0x05AE, 0x0300, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x1D16D, 0x05AE, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x1D16D, 0x05AE, 0x05AE, 0x0300, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1660,22 +5198,80 @@ TEST(normalization, nfkc_086_061)
     // 0061 0315 0300 05AE 05AF 0062;00E0 05AE 05AF 0315 0062;0061 05AE 0300 05AF 0315 0062;00E0 05AE 05AF 0315 0062;0061 05AE 0300 05AF 0315 0062; 
     // (a◌̕◌̀◌֮◌֯b; à◌֮◌֯◌̕b; a◌֮◌̀◌֯◌̕b; à◌֮◌֯◌̕b; a◌֮◌̀◌֯◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW MARK MASORA CIRCLE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05AF, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05AF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05AF, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05AF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05AF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05AF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05AF, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1687,22 +5283,80 @@ TEST(normalization, nfkc_086_062)
     // 0061 05AF 0315 0300 05AE 0062;0061 05AE 05AF 0300 0315 0062;0061 05AE 05AF 0300 0315 0062;0061 05AE 05AF 0300 0315 0062;0061 05AE 05AF 0300 0315 0062; 
     // (a◌֯◌̕◌̀◌֮b; a◌֮◌֯◌̀◌̕b; a◌֮◌֯◌̀◌̕b; a◌֮◌֯◌̀◌̕b; a◌֮◌֯◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW MARK MASORA CIRCLE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05AF, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05AF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05AF, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05AF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05AF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05AF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05AF, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1714,22 +5368,80 @@ TEST(normalization, nfkc_086_063)
     // 0061 05B1 05B0 094D 05B0 0062;0061 094D 05B0 05B0 05B1 0062;0061 094D 05B0 05B0 05B1 0062;0061 094D 05B0 05B0 05B1 0062;0061 094D 05B0 05B0 05B1 0062; 
     // (a◌ֱ◌ְ◌्◌ְb; a◌्◌ְ◌ְ◌ֱb; a◌्◌ְ◌ְ◌ֱb; a◌्◌ְ◌ְ◌ֱb; a◌्◌ְ◌ְ◌ֱb; ) LATIN SMALL LETTER A, HEBREW POINT HATAF SEGOL, HEBREW POINT SHEVA, DEVANAGARI SIGN VIRAMA, HEBREW POINT SHEVA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B1, 0x05B0, 0x094D, 0x05B0, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B1, 0x05B0, 0x094D, 0x05B0, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1741,22 +5453,80 @@ TEST(normalization, nfkc_086_064)
     // 0061 05B0 05B1 05B0 094D 0062;0061 094D 05B0 05B0 05B1 0062;0061 094D 05B0 05B0 05B1 0062;0061 094D 05B0 05B0 05B1 0062;0061 094D 05B0 05B0 05B1 0062; 
     // (a◌ְ◌ֱ◌ְ◌्b; a◌्◌ְ◌ְ◌ֱb; a◌्◌ְ◌ְ◌ֱb; a◌्◌ְ◌ְ◌ֱb; a◌्◌ְ◌ְ◌ֱb; ) LATIN SMALL LETTER A, HEBREW POINT SHEVA, HEBREW POINT HATAF SEGOL, HEBREW POINT SHEVA, DEVANAGARI SIGN VIRAMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B0, 0x05B1, 0x05B0, 0x094D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B0, 0x094D, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x094D, 0x05B0, 0x05B0, 0x05B1, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1768,22 +5538,80 @@ TEST(normalization, nfkc_086_065)
     // 0061 05B2 05B1 05B0 05B1 0062;0061 05B0 05B1 05B1 05B2 0062;0061 05B0 05B1 05B1 05B2 0062;0061 05B0 05B1 05B1 05B2 0062;0061 05B0 05B1 05B1 05B2 0062; 
     // (a◌ֲ◌ֱ◌ְ◌ֱb; a◌ְ◌ֱ◌ֱ◌ֲb; a◌ְ◌ֱ◌ֱ◌ֲb; a◌ְ◌ֱ◌ֱ◌ֲb; a◌ְ◌ֱ◌ֱ◌ֲb; ) LATIN SMALL LETTER A, HEBREW POINT HATAF PATAH, HEBREW POINT HATAF SEGOL, HEBREW POINT SHEVA, HEBREW POINT HATAF SEGOL, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B2, 0x05B1, 0x05B0, 0x05B1, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B2, 0x05B1, 0x05B0, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1795,22 +5623,80 @@ TEST(normalization, nfkc_086_066)
     // 0061 05B1 05B2 05B1 05B0 0062;0061 05B0 05B1 05B1 05B2 0062;0061 05B0 05B1 05B1 05B2 0062;0061 05B0 05B1 05B1 05B2 0062;0061 05B0 05B1 05B1 05B2 0062; 
     // (a◌ֱ◌ֲ◌ֱ◌ְb; a◌ְ◌ֱ◌ֱ◌ֲb; a◌ְ◌ֱ◌ֱ◌ֲb; a◌ְ◌ֱ◌ֱ◌ֲb; a◌ְ◌ֱ◌ֱ◌ֲb; ) LATIN SMALL LETTER A, HEBREW POINT HATAF SEGOL, HEBREW POINT HATAF PATAH, HEBREW POINT HATAF SEGOL, HEBREW POINT SHEVA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B1, 0x05B2, 0x05B1, 0x05B0, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B1, 0x05B0, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B0, 0x05B1, 0x05B1, 0x05B2, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1822,22 +5708,80 @@ TEST(normalization, nfkc_086_067)
     // 0061 05B3 05B2 05B1 05B2 0062;0061 05B1 05B2 05B2 05B3 0062;0061 05B1 05B2 05B2 05B3 0062;0061 05B1 05B2 05B2 05B3 0062;0061 05B1 05B2 05B2 05B3 0062; 
     // (a◌ֳ◌ֲ◌ֱ◌ֲb; a◌ֱ◌ֲ◌ֲ◌ֳb; a◌ֱ◌ֲ◌ֲ◌ֳb; a◌ֱ◌ֲ◌ֲ◌ֳb; a◌ֱ◌ֲ◌ֲ◌ֳb; ) LATIN SMALL LETTER A, HEBREW POINT HATAF QAMATS, HEBREW POINT HATAF PATAH, HEBREW POINT HATAF SEGOL, HEBREW POINT HATAF PATAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B3, 0x05B2, 0x05B1, 0x05B2, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B3, 0x05B2, 0x05B1, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1849,22 +5793,80 @@ TEST(normalization, nfkc_086_068)
     // 0061 05B2 05B3 05B2 05B1 0062;0061 05B1 05B2 05B2 05B3 0062;0061 05B1 05B2 05B2 05B3 0062;0061 05B1 05B2 05B2 05B3 0062;0061 05B1 05B2 05B2 05B3 0062; 
     // (a◌ֲ◌ֳ◌ֲ◌ֱb; a◌ֱ◌ֲ◌ֲ◌ֳb; a◌ֱ◌ֲ◌ֲ◌ֳb; a◌ֱ◌ֲ◌ֲ◌ֳb; a◌ֱ◌ֲ◌ֲ◌ֳb; ) LATIN SMALL LETTER A, HEBREW POINT HATAF PATAH, HEBREW POINT HATAF QAMATS, HEBREW POINT HATAF PATAH, HEBREW POINT HATAF SEGOL, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B2, 0x05B3, 0x05B2, 0x05B1, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B2, 0x05B1, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B1, 0x05B2, 0x05B2, 0x05B3, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1876,22 +5878,80 @@ TEST(normalization, nfkc_086_069)
     // 0061 05B4 05B3 05B2 05B3 0062;0061 05B2 05B3 05B3 05B4 0062;0061 05B2 05B3 05B3 05B4 0062;0061 05B2 05B3 05B3 05B4 0062;0061 05B2 05B3 05B3 05B4 0062; 
     // (a◌ִ◌ֳ◌ֲ◌ֳb; a◌ֲ◌ֳ◌ֳ◌ִb; a◌ֲ◌ֳ◌ֳ◌ִb; a◌ֲ◌ֳ◌ֳ◌ִb; a◌ֲ◌ֳ◌ֳ◌ִb; ) LATIN SMALL LETTER A, HEBREW POINT HIRIQ, HEBREW POINT HATAF QAMATS, HEBREW POINT HATAF PATAH, HEBREW POINT HATAF QAMATS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B4, 0x05B3, 0x05B2, 0x05B3, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B4, 0x05B3, 0x05B2, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1903,22 +5963,80 @@ TEST(normalization, nfkc_086_070)
     // 0061 05B3 05B4 05B3 05B2 0062;0061 05B2 05B3 05B3 05B4 0062;0061 05B2 05B3 05B3 05B4 0062;0061 05B2 05B3 05B3 05B4 0062;0061 05B2 05B3 05B3 05B4 0062; 
     // (a◌ֳ◌ִ◌ֳ◌ֲb; a◌ֲ◌ֳ◌ֳ◌ִb; a◌ֲ◌ֳ◌ֳ◌ִb; a◌ֲ◌ֳ◌ֳ◌ִb; a◌ֲ◌ֳ◌ֳ◌ִb; ) LATIN SMALL LETTER A, HEBREW POINT HATAF QAMATS, HEBREW POINT HIRIQ, HEBREW POINT HATAF QAMATS, HEBREW POINT HATAF PATAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B3, 0x05B4, 0x05B3, 0x05B2, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B3, 0x05B2, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B2, 0x05B3, 0x05B3, 0x05B4, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1930,22 +6048,80 @@ TEST(normalization, nfkc_086_071)
     // 0061 05B5 05B4 05B3 05B4 0062;0061 05B3 05B4 05B4 05B5 0062;0061 05B3 05B4 05B4 05B5 0062;0061 05B3 05B4 05B4 05B5 0062;0061 05B3 05B4 05B4 05B5 0062; 
     // (a◌ֵ◌ִ◌ֳ◌ִb; a◌ֳ◌ִ◌ִ◌ֵb; a◌ֳ◌ִ◌ִ◌ֵb; a◌ֳ◌ִ◌ִ◌ֵb; a◌ֳ◌ִ◌ִ◌ֵb; ) LATIN SMALL LETTER A, HEBREW POINT TSERE, HEBREW POINT HIRIQ, HEBREW POINT HATAF QAMATS, HEBREW POINT HIRIQ, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B5, 0x05B4, 0x05B3, 0x05B4, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B5, 0x05B4, 0x05B3, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1957,22 +6133,80 @@ TEST(normalization, nfkc_086_072)
     // 0061 05B4 05B5 05B4 05B3 0062;0061 05B3 05B4 05B4 05B5 0062;0061 05B3 05B4 05B4 05B5 0062;0061 05B3 05B4 05B4 05B5 0062;0061 05B3 05B4 05B4 05B5 0062; 
     // (a◌ִ◌ֵ◌ִ◌ֳb; a◌ֳ◌ִ◌ִ◌ֵb; a◌ֳ◌ִ◌ִ◌ֵb; a◌ֳ◌ִ◌ִ◌ֵb; a◌ֳ◌ִ◌ִ◌ֵb; ) LATIN SMALL LETTER A, HEBREW POINT HIRIQ, HEBREW POINT TSERE, HEBREW POINT HIRIQ, HEBREW POINT HATAF QAMATS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B4, 0x05B5, 0x05B4, 0x05B3, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B4, 0x05B3, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B3, 0x05B4, 0x05B4, 0x05B5, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -1984,22 +6218,80 @@ TEST(normalization, nfkc_086_073)
     // 0061 05B6 05B5 05B4 05B5 0062;0061 05B4 05B5 05B5 05B6 0062;0061 05B4 05B5 05B5 05B6 0062;0061 05B4 05B5 05B5 05B6 0062;0061 05B4 05B5 05B5 05B6 0062; 
     // (a◌ֶ◌ֵ◌ִ◌ֵb; a◌ִ◌ֵ◌ֵ◌ֶb; a◌ִ◌ֵ◌ֵ◌ֶb; a◌ִ◌ֵ◌ֵ◌ֶb; a◌ִ◌ֵ◌ֵ◌ֶb; ) LATIN SMALL LETTER A, HEBREW POINT SEGOL, HEBREW POINT TSERE, HEBREW POINT HIRIQ, HEBREW POINT TSERE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B6, 0x05B5, 0x05B4, 0x05B5, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B6, 0x05B5, 0x05B4, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2011,22 +6303,80 @@ TEST(normalization, nfkc_086_074)
     // 0061 05B5 05B6 05B5 05B4 0062;0061 05B4 05B5 05B5 05B6 0062;0061 05B4 05B5 05B5 05B6 0062;0061 05B4 05B5 05B5 05B6 0062;0061 05B4 05B5 05B5 05B6 0062; 
     // (a◌ֵ◌ֶ◌ֵ◌ִb; a◌ִ◌ֵ◌ֵ◌ֶb; a◌ִ◌ֵ◌ֵ◌ֶb; a◌ִ◌ֵ◌ֵ◌ֶb; a◌ִ◌ֵ◌ֵ◌ֶb; ) LATIN SMALL LETTER A, HEBREW POINT TSERE, HEBREW POINT SEGOL, HEBREW POINT TSERE, HEBREW POINT HIRIQ, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B5, 0x05B6, 0x05B5, 0x05B4, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B5, 0x05B4, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B4, 0x05B5, 0x05B5, 0x05B6, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2038,22 +6388,80 @@ TEST(normalization, nfkc_086_075)
     // 0061 05B7 05B6 05B5 05B6 0062;0061 05B5 05B6 05B6 05B7 0062;0061 05B5 05B6 05B6 05B7 0062;0061 05B5 05B6 05B6 05B7 0062;0061 05B5 05B6 05B6 05B7 0062; 
     // (a◌ַ◌ֶ◌ֵ◌ֶb; a◌ֵ◌ֶ◌ֶ◌ַb; a◌ֵ◌ֶ◌ֶ◌ַb; a◌ֵ◌ֶ◌ֶ◌ַb; a◌ֵ◌ֶ◌ֶ◌ַb; ) LATIN SMALL LETTER A, HEBREW POINT PATAH, HEBREW POINT SEGOL, HEBREW POINT TSERE, HEBREW POINT SEGOL, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B7, 0x05B6, 0x05B5, 0x05B6, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B7, 0x05B6, 0x05B5, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2065,22 +6473,80 @@ TEST(normalization, nfkc_086_076)
     // 0061 05B6 05B7 05B6 05B5 0062;0061 05B5 05B6 05B6 05B7 0062;0061 05B5 05B6 05B6 05B7 0062;0061 05B5 05B6 05B6 05B7 0062;0061 05B5 05B6 05B6 05B7 0062; 
     // (a◌ֶ◌ַ◌ֶ◌ֵb; a◌ֵ◌ֶ◌ֶ◌ַb; a◌ֵ◌ֶ◌ֶ◌ַb; a◌ֵ◌ֶ◌ֶ◌ַb; a◌ֵ◌ֶ◌ֶ◌ַb; ) LATIN SMALL LETTER A, HEBREW POINT SEGOL, HEBREW POINT PATAH, HEBREW POINT SEGOL, HEBREW POINT TSERE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B6, 0x05B7, 0x05B6, 0x05B5, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B6, 0x05B5, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B5, 0x05B6, 0x05B6, 0x05B7, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2092,22 +6558,80 @@ TEST(normalization, nfkc_086_077)
     // 0061 05B8 05B7 05B6 05B7 0062;0061 05B6 05B7 05B7 05B8 0062;0061 05B6 05B7 05B7 05B8 0062;0061 05B6 05B7 05B7 05B8 0062;0061 05B6 05B7 05B7 05B8 0062; 
     // (a◌ָ◌ַ◌ֶ◌ַb; a◌ֶ◌ַ◌ַ◌ָb; a◌ֶ◌ַ◌ַ◌ָb; a◌ֶ◌ַ◌ַ◌ָb; a◌ֶ◌ַ◌ַ◌ָb; ) LATIN SMALL LETTER A, HEBREW POINT QAMATS, HEBREW POINT PATAH, HEBREW POINT SEGOL, HEBREW POINT PATAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B8, 0x05B7, 0x05B6, 0x05B7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B8, 0x05B7, 0x05B6, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2119,22 +6643,80 @@ TEST(normalization, nfkc_086_078)
     // 0061 05B7 05B8 05B7 05B6 0062;0061 05B6 05B7 05B7 05B8 0062;0061 05B6 05B7 05B7 05B8 0062;0061 05B6 05B7 05B7 05B8 0062;0061 05B6 05B7 05B7 05B8 0062; 
     // (a◌ַ◌ָ◌ַ◌ֶb; a◌ֶ◌ַ◌ַ◌ָb; a◌ֶ◌ַ◌ַ◌ָb; a◌ֶ◌ַ◌ַ◌ָb; a◌ֶ◌ַ◌ַ◌ָb; ) LATIN SMALL LETTER A, HEBREW POINT PATAH, HEBREW POINT QAMATS, HEBREW POINT PATAH, HEBREW POINT SEGOL, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B7, 0x05B8, 0x05B7, 0x05B6, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B7, 0x05B6, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B6, 0x05B7, 0x05B7, 0x05B8, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2146,22 +6728,80 @@ TEST(normalization, nfkc_086_079)
     // 0061 05B9 05B8 05B7 05B8 0062;0061 05B7 05B8 05B8 05B9 0062;0061 05B7 05B8 05B8 05B9 0062;0061 05B7 05B8 05B8 05B9 0062;0061 05B7 05B8 05B8 05B9 0062; 
     // (a◌ֹ◌ָ◌ַ◌ָb; a◌ַ◌ָ◌ָ◌ֹb; a◌ַ◌ָ◌ָ◌ֹb; a◌ַ◌ָ◌ָ◌ֹb; a◌ַ◌ָ◌ָ◌ֹb; ) LATIN SMALL LETTER A, HEBREW POINT HOLAM, HEBREW POINT QAMATS, HEBREW POINT PATAH, HEBREW POINT QAMATS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B9, 0x05B8, 0x05B7, 0x05B8, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B9, 0x05B8, 0x05B7, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2173,22 +6813,80 @@ TEST(normalization, nfkc_086_080)
     // 0061 05B8 05B9 05B8 05B7 0062;0061 05B7 05B8 05B8 05B9 0062;0061 05B7 05B8 05B8 05B9 0062;0061 05B7 05B8 05B8 05B9 0062;0061 05B7 05B8 05B8 05B9 0062; 
     // (a◌ָ◌ֹ◌ָ◌ַb; a◌ַ◌ָ◌ָ◌ֹb; a◌ַ◌ָ◌ָ◌ֹb; a◌ַ◌ָ◌ָ◌ֹb; a◌ַ◌ָ◌ָ◌ֹb; ) LATIN SMALL LETTER A, HEBREW POINT QAMATS, HEBREW POINT HOLAM, HEBREW POINT QAMATS, HEBREW POINT PATAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B8, 0x05B9, 0x05B8, 0x05B7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B8, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B7, 0x05B8, 0x05B8, 0x05B9, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2200,22 +6898,80 @@ TEST(normalization, nfkc_086_081)
     // 0061 05BB 05B9 05B8 05B9 0062;0061 05B8 05B9 05B9 05BB 0062;0061 05B8 05B9 05B9 05BB 0062;0061 05B8 05B9 05B9 05BB 0062;0061 05B8 05B9 05B9 05BB 0062; 
     // (a◌ֻ◌ֹ◌ָ◌ֹb; a◌ָ◌ֹ◌ֹ◌ֻb; a◌ָ◌ֹ◌ֹ◌ֻb; a◌ָ◌ֹ◌ֹ◌ֻb; a◌ָ◌ֹ◌ֹ◌ֻb; ) LATIN SMALL LETTER A, HEBREW POINT QUBUTS, HEBREW POINT HOLAM, HEBREW POINT QAMATS, HEBREW POINT HOLAM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BB, 0x05B9, 0x05B8, 0x05B9, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BB, 0x05B9, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2227,22 +6983,80 @@ TEST(normalization, nfkc_086_082)
     // 0061 05B9 05BB 05B9 05B8 0062;0061 05B8 05B9 05B9 05BB 0062;0061 05B8 05B9 05B9 05BB 0062;0061 05B8 05B9 05B9 05BB 0062;0061 05B8 05B9 05B9 05BB 0062; 
     // (a◌ֹ◌ֻ◌ֹ◌ָb; a◌ָ◌ֹ◌ֹ◌ֻb; a◌ָ◌ֹ◌ֹ◌ֻb; a◌ָ◌ֹ◌ֹ◌ֻb; a◌ָ◌ֹ◌ֹ◌ֻb; ) LATIN SMALL LETTER A, HEBREW POINT HOLAM, HEBREW POINT QUBUTS, HEBREW POINT HOLAM, HEBREW POINT QAMATS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B9, 0x05BB, 0x05B9, 0x05B8, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B9, 0x05BB, 0x05B9, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B8, 0x05B9, 0x05B9, 0x05BB, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2254,22 +7068,80 @@ TEST(normalization, nfkc_086_083)
     // 0061 05BB 05B9 05B8 05BA 0062;0061 05B8 05B9 05BA 05BB 0062;0061 05B8 05B9 05BA 05BB 0062;0061 05B8 05B9 05BA 05BB 0062;0061 05B8 05B9 05BA 05BB 0062; 
     // (a◌ֻ◌ֹ◌ָ◌ֺb; a◌ָ◌ֹ◌ֺ◌ֻb; a◌ָ◌ֹ◌ֺ◌ֻb; a◌ָ◌ֹ◌ֺ◌ֻb; a◌ָ◌ֹ◌ֺ◌ֻb; ) LATIN SMALL LETTER A, HEBREW POINT QUBUTS, HEBREW POINT HOLAM, HEBREW POINT QAMATS, HEBREW POINT HOLAM HASER FOR VAV, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BB, 0x05B9, 0x05B8, 0x05BA, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B8, 0x05B9, 0x05BA, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BB, 0x05B9, 0x05B8, 0x05BA, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B8, 0x05B9, 0x05BA, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B8, 0x05B9, 0x05BA, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B8, 0x05B9, 0x05BA, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B8, 0x05B9, 0x05BA, 0x05BB, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2281,22 +7153,80 @@ TEST(normalization, nfkc_086_084)
     // 0061 05BA 05BB 05B9 05B8 0062;0061 05B8 05BA 05B9 05BB 0062;0061 05B8 05BA 05B9 05BB 0062;0061 05B8 05BA 05B9 05BB 0062;0061 05B8 05BA 05B9 05BB 0062; 
     // (a◌ֺ◌ֻ◌ֹ◌ָb; a◌ָ◌ֺ◌ֹ◌ֻb; a◌ָ◌ֺ◌ֹ◌ֻb; a◌ָ◌ֺ◌ֹ◌ֻb; a◌ָ◌ֺ◌ֹ◌ֻb; ) LATIN SMALL LETTER A, HEBREW POINT HOLAM HASER FOR VAV, HEBREW POINT QUBUTS, HEBREW POINT HOLAM, HEBREW POINT QAMATS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BA, 0x05BB, 0x05B9, 0x05B8, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B8, 0x05BA, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BA, 0x05BB, 0x05B9, 0x05B8, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B8, 0x05BA, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B8, 0x05BA, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B8, 0x05BA, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B8, 0x05BA, 0x05B9, 0x05BB, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2308,22 +7238,80 @@ TEST(normalization, nfkc_086_085)
     // 0061 05BC 05BB 05B9 05BB 0062;0061 05B9 05BB 05BB 05BC 0062;0061 05B9 05BB 05BB 05BC 0062;0061 05B9 05BB 05BB 05BC 0062;0061 05B9 05BB 05BB 05BC 0062; 
     // (a◌ּ◌ֻ◌ֹ◌ֻb; a◌ֹ◌ֻ◌ֻ◌ּb; a◌ֹ◌ֻ◌ֻ◌ּb; a◌ֹ◌ֻ◌ֻ◌ּb; a◌ֹ◌ֻ◌ֻ◌ּb; ) LATIN SMALL LETTER A, HEBREW POINT DAGESH OR MAPIQ, HEBREW POINT QUBUTS, HEBREW POINT HOLAM, HEBREW POINT QUBUTS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BC, 0x05BB, 0x05B9, 0x05BB, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BC, 0x05BB, 0x05B9, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2335,22 +7323,80 @@ TEST(normalization, nfkc_086_086)
     // 0061 05BB 05BC 05BB 05B9 0062;0061 05B9 05BB 05BB 05BC 0062;0061 05B9 05BB 05BB 05BC 0062;0061 05B9 05BB 05BB 05BC 0062;0061 05B9 05BB 05BB 05BC 0062; 
     // (a◌ֻ◌ּ◌ֻ◌ֹb; a◌ֹ◌ֻ◌ֻ◌ּb; a◌ֹ◌ֻ◌ֻ◌ּb; a◌ֹ◌ֻ◌ֻ◌ּb; a◌ֹ◌ֻ◌ֻ◌ּb; ) LATIN SMALL LETTER A, HEBREW POINT QUBUTS, HEBREW POINT DAGESH OR MAPIQ, HEBREW POINT QUBUTS, HEBREW POINT HOLAM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BB, 0x05BC, 0x05BB, 0x05B9, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BB, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B9, 0x05BB, 0x05BB, 0x05BC, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2362,22 +7408,80 @@ TEST(normalization, nfkc_086_087)
     // 0061 05BD 05BC 05BB 05BC 0062;0061 05BB 05BC 05BC 05BD 0062;0061 05BB 05BC 05BC 05BD 0062;0061 05BB 05BC 05BC 05BD 0062;0061 05BB 05BC 05BC 05BD 0062; 
     // (a◌ֽ◌ּ◌ֻ◌ּb; a◌ֻ◌ּ◌ּ◌ֽb; a◌ֻ◌ּ◌ּ◌ֽb; a◌ֻ◌ּ◌ּ◌ֽb; a◌ֻ◌ּ◌ּ◌ֽb; ) LATIN SMALL LETTER A, HEBREW POINT METEG, HEBREW POINT DAGESH OR MAPIQ, HEBREW POINT QUBUTS, HEBREW POINT DAGESH OR MAPIQ, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BD, 0x05BC, 0x05BB, 0x05BC, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BD, 0x05BC, 0x05BB, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2389,22 +7493,80 @@ TEST(normalization, nfkc_086_088)
     // 0061 05BC 05BD 05BC 05BB 0062;0061 05BB 05BC 05BC 05BD 0062;0061 05BB 05BC 05BC 05BD 0062;0061 05BB 05BC 05BC 05BD 0062;0061 05BB 05BC 05BC 05BD 0062; 
     // (a◌ּ◌ֽ◌ּ◌ֻb; a◌ֻ◌ּ◌ּ◌ֽb; a◌ֻ◌ּ◌ּ◌ֽb; a◌ֻ◌ּ◌ּ◌ֽb; a◌ֻ◌ּ◌ּ◌ֽb; ) LATIN SMALL LETTER A, HEBREW POINT DAGESH OR MAPIQ, HEBREW POINT METEG, HEBREW POINT DAGESH OR MAPIQ, HEBREW POINT QUBUTS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BC, 0x05BD, 0x05BC, 0x05BB, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BC, 0x05BB, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BB, 0x05BC, 0x05BC, 0x05BD, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2416,22 +7578,80 @@ TEST(normalization, nfkc_086_089)
     // 0061 05BF 05BD 05BC 05BD 0062;0061 05BC 05BD 05BD 05BF 0062;0061 05BC 05BD 05BD 05BF 0062;0061 05BC 05BD 05BD 05BF 0062;0061 05BC 05BD 05BD 05BF 0062; 
     // (a◌ֿ◌ֽ◌ּ◌ֽb; a◌ּ◌ֽ◌ֽ◌ֿb; a◌ּ◌ֽ◌ֽ◌ֿb; a◌ּ◌ֽ◌ֽ◌ֿb; a◌ּ◌ֽ◌ֽ◌ֿb; ) LATIN SMALL LETTER A, HEBREW POINT RAFE, HEBREW POINT METEG, HEBREW POINT DAGESH OR MAPIQ, HEBREW POINT METEG, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BF, 0x05BD, 0x05BC, 0x05BD, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BF, 0x05BD, 0x05BC, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2443,22 +7663,80 @@ TEST(normalization, nfkc_086_090)
     // 0061 05BD 05BF 05BD 05BC 0062;0061 05BC 05BD 05BD 05BF 0062;0061 05BC 05BD 05BD 05BF 0062;0061 05BC 05BD 05BD 05BF 0062;0061 05BC 05BD 05BD 05BF 0062; 
     // (a◌ֽ◌ֿ◌ֽ◌ּb; a◌ּ◌ֽ◌ֽ◌ֿb; a◌ּ◌ֽ◌ֽ◌ֿb; a◌ּ◌ֽ◌ֽ◌ֿb; a◌ּ◌ֽ◌ֽ◌ֿb; ) LATIN SMALL LETTER A, HEBREW POINT METEG, HEBREW POINT RAFE, HEBREW POINT METEG, HEBREW POINT DAGESH OR MAPIQ, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BD, 0x05BF, 0x05BD, 0x05BC, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BD, 0x05BC, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BC, 0x05BD, 0x05BD, 0x05BF, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2470,22 +7748,80 @@ TEST(normalization, nfkc_086_091)
     // 0061 05C1 05BF 05BD 05BF 0062;0061 05BD 05BF 05BF 05C1 0062;0061 05BD 05BF 05BF 05C1 0062;0061 05BD 05BF 05BF 05C1 0062;0061 05BD 05BF 05BF 05C1 0062; 
     // (a◌ׁ◌ֿ◌ֽ◌ֿb; a◌ֽ◌ֿ◌ֿ◌ׁb; a◌ֽ◌ֿ◌ֿ◌ׁb; a◌ֽ◌ֿ◌ֿ◌ׁb; a◌ֽ◌ֿ◌ֿ◌ׁb; ) LATIN SMALL LETTER A, HEBREW POINT SHIN DOT, HEBREW POINT RAFE, HEBREW POINT METEG, HEBREW POINT RAFE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C1, 0x05BF, 0x05BD, 0x05BF, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C1, 0x05BF, 0x05BD, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2497,22 +7833,80 @@ TEST(normalization, nfkc_086_092)
     // 0061 05BF 05C1 05BF 05BD 0062;0061 05BD 05BF 05BF 05C1 0062;0061 05BD 05BF 05BF 05C1 0062;0061 05BD 05BF 05BF 05C1 0062;0061 05BD 05BF 05BF 05C1 0062; 
     // (a◌ֿ◌ׁ◌ֿ◌ֽb; a◌ֽ◌ֿ◌ֿ◌ׁb; a◌ֽ◌ֿ◌ֿ◌ׁb; a◌ֽ◌ֿ◌ֿ◌ׁb; a◌ֽ◌ֿ◌ֿ◌ׁb; ) LATIN SMALL LETTER A, HEBREW POINT RAFE, HEBREW POINT SHIN DOT, HEBREW POINT RAFE, HEBREW POINT METEG, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05BF, 0x05C1, 0x05BF, 0x05BD, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05BF, 0x05C1, 0x05BF, 0x05BD, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BD, 0x05BF, 0x05BF, 0x05C1, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2524,22 +7918,80 @@ TEST(normalization, nfkc_086_093)
     // 0061 05C2 05C1 05BF 05C1 0062;0061 05BF 05C1 05C1 05C2 0062;0061 05BF 05C1 05C1 05C2 0062;0061 05BF 05C1 05C1 05C2 0062;0061 05BF 05C1 05C1 05C2 0062; 
     // (a◌ׂ◌ׁ◌ֿ◌ׁb; a◌ֿ◌ׁ◌ׁ◌ׂb; a◌ֿ◌ׁ◌ׁ◌ׂb; a◌ֿ◌ׁ◌ׁ◌ׂb; a◌ֿ◌ׁ◌ׁ◌ׂb; ) LATIN SMALL LETTER A, HEBREW POINT SIN DOT, HEBREW POINT SHIN DOT, HEBREW POINT RAFE, HEBREW POINT SHIN DOT, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C2, 0x05C1, 0x05BF, 0x05C1, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C2, 0x05C1, 0x05BF, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2551,22 +8003,80 @@ TEST(normalization, nfkc_086_094)
     // 0061 05C1 05C2 05C1 05BF 0062;0061 05BF 05C1 05C1 05C2 0062;0061 05BF 05C1 05C1 05C2 0062;0061 05BF 05C1 05C1 05C2 0062;0061 05BF 05C1 05C1 05C2 0062; 
     // (a◌ׁ◌ׂ◌ׁ◌ֿb; a◌ֿ◌ׁ◌ׁ◌ׂb; a◌ֿ◌ׁ◌ׁ◌ׂb; a◌ֿ◌ׁ◌ׁ◌ׂb; a◌ֿ◌ׁ◌ׁ◌ׂb; ) LATIN SMALL LETTER A, HEBREW POINT SHIN DOT, HEBREW POINT SIN DOT, HEBREW POINT SHIN DOT, HEBREW POINT RAFE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C1, 0x05C2, 0x05C1, 0x05BF, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C1, 0x05BF, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05BF, 0x05C1, 0x05C1, 0x05C2, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2578,22 +8088,80 @@ TEST(normalization, nfkc_086_095)
     // 0061 FB1E 05C2 05C1 05C2 0062;0061 05C1 05C2 05C2 FB1E 0062;0061 05C1 05C2 05C2 FB1E 0062;0061 05C1 05C2 05C2 FB1E 0062;0061 05C1 05C2 05C2 FB1E 0062; 
     // (a◌ﬞ◌ׂ◌ׁ◌ׂb; a◌ׁ◌ׂ◌ׂ◌ﬞb; a◌ׁ◌ׂ◌ׂ◌ﬞb; a◌ׁ◌ׂ◌ׂ◌ﬞb; a◌ׁ◌ׂ◌ׂ◌ﬞb; ) LATIN SMALL LETTER A, HEBREW POINT JUDEO-SPANISH VARIKA, HEBREW POINT SIN DOT, HEBREW POINT SHIN DOT, HEBREW POINT SIN DOT, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0xFB1E, 0x05C2, 0x05C1, 0x05C2, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0xFB1E, 0x05C2, 0x05C1, 0x05C2, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2605,22 +8173,80 @@ TEST(normalization, nfkc_086_096)
     // 0061 05C2 FB1E 05C2 05C1 0062;0061 05C1 05C2 05C2 FB1E 0062;0061 05C1 05C2 05C2 FB1E 0062;0061 05C1 05C2 05C2 FB1E 0062;0061 05C1 05C2 05C2 FB1E 0062; 
     // (a◌ׂ◌ﬞ◌ׂ◌ׁb; a◌ׁ◌ׂ◌ׂ◌ﬞb; a◌ׁ◌ׂ◌ׂ◌ﬞb; a◌ׁ◌ׂ◌ׂ◌ﬞb; a◌ׁ◌ׂ◌ׂ◌ﬞb; ) LATIN SMALL LETTER A, HEBREW POINT SIN DOT, HEBREW POINT JUDEO-SPANISH VARIKA, HEBREW POINT SIN DOT, HEBREW POINT SHIN DOT, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C2, 0xFB1E, 0x05C2, 0x05C1, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C2, 0xFB1E, 0x05C2, 0x05C1, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05C1, 0x05C2, 0x05C2, 0xFB1E, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2632,22 +8258,80 @@ TEST(normalization, nfkc_086_097)
     // 0061 0315 0300 05AE 05C4 0062;00E0 05AE 05C4 0315 0062;0061 05AE 0300 05C4 0315 0062;00E0 05AE 05C4 0315 0062;0061 05AE 0300 05C4 0315 0062; 
     // (a◌̕◌̀◌֮◌ׄb; à◌֮◌ׄ◌̕b; a◌֮◌̀◌ׄ◌̕b; à◌֮◌ׄ◌̕b; a◌֮◌̀◌ׄ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, HEBREW MARK UPPER DOT, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05C4, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x05C4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x05C4, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x05C4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x05C4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x05C4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x05C4, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2659,22 +8343,80 @@ TEST(normalization, nfkc_086_098)
     // 0061 05C4 0315 0300 05AE 0062;0061 05AE 05C4 0300 0315 0062;0061 05AE 05C4 0300 0315 0062;0061 05AE 05C4 0300 0315 0062;0061 05AE 05C4 0300 0315 0062; 
     // (a◌ׄ◌̕◌̀◌֮b; a◌֮◌ׄ◌̀◌̕b; a◌֮◌ׄ◌̀◌̕b; a◌֮◌ׄ◌̀◌̕b; a◌֮◌ׄ◌̀◌̕b; ) LATIN SMALL LETTER A, HEBREW MARK UPPER DOT, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C4, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x05C4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C4, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x05C4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x05C4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x05C4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x05C4, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2686,22 +8428,80 @@ TEST(normalization, nfkc_086_099)
     // 0061 059A 0316 302A 05C5 0062;0061 302A 0316 05C5 059A 0062;0061 302A 0316 05C5 059A 0062;0061 302A 0316 05C5 059A 0062;0061 302A 0316 05C5 059A 0062; 
     // (a◌֚◌̖◌〪◌ׅb; a◌〪◌̖◌ׅ◌֚b; a◌〪◌̖◌ׅ◌֚b; a◌〪◌̖◌ׅ◌֚b; a◌〪◌̖◌ׅ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, HEBREW MARK LOWER DOT, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05C5, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x05C5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x05C5, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x05C5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x05C5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x05C5, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x05C5, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2713,22 +8513,80 @@ TEST(normalization, nfkc_086_100)
     // 0061 05C5 059A 0316 302A 0062;0061 302A 05C5 0316 059A 0062;0061 302A 05C5 0316 059A 0062;0061 302A 05C5 0316 059A 0062;0061 302A 05C5 0316 059A 0062; 
     // (a◌ׅ◌֚◌̖◌〪b; a◌〪◌ׅ◌̖◌֚b; a◌〪◌ׅ◌̖◌֚b; a◌〪◌ׅ◌̖◌֚b; a◌〪◌ׅ◌̖◌֚b; ) LATIN SMALL LETTER A, HEBREW MARK LOWER DOT, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C5, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x05C5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C5, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x05C5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x05C5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x05C5, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x05C5, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2740,22 +8598,80 @@ TEST(normalization, nfkc_086_101)
     // 0061 05B9 05B8 05B7 05C7 0062;0061 05B7 05B8 05C7 05B9 0062;0061 05B7 05B8 05C7 05B9 0062;0061 05B7 05B8 05C7 05B9 0062;0061 05B7 05B8 05C7 05B9 0062; 
     // (a◌ֹ◌ָ◌ַ◌ׇb; a◌ַ◌ָ◌ׇ◌ֹb; a◌ַ◌ָ◌ׇ◌ֹb; a◌ַ◌ָ◌ׇ◌ֹb; a◌ַ◌ָ◌ׇ◌ֹb; ) LATIN SMALL LETTER A, HEBREW POINT HOLAM, HEBREW POINT QAMATS, HEBREW POINT PATAH, HEBREW POINT QAMATS QATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05B9, 0x05B8, 0x05B7, 0x05C7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B7, 0x05B8, 0x05C7, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05B9, 0x05B8, 0x05B7, 0x05C7, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B7, 0x05B8, 0x05C7, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B7, 0x05B8, 0x05C7, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B7, 0x05B8, 0x05C7, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B7, 0x05B8, 0x05C7, 0x05B9, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2767,22 +8683,80 @@ TEST(normalization, nfkc_086_102)
     // 0061 05C7 05B9 05B8 05B7 0062;0061 05B7 05C7 05B8 05B9 0062;0061 05B7 05C7 05B8 05B9 0062;0061 05B7 05C7 05B8 05B9 0062;0061 05B7 05C7 05B8 05B9 0062; 
     // (a◌ׇ◌ֹ◌ָ◌ַb; a◌ַ◌ׇ◌ָ◌ֹb; a◌ַ◌ׇ◌ָ◌ֹb; a◌ַ◌ׇ◌ָ◌ֹb; a◌ַ◌ׇ◌ָ◌ֹb; ) LATIN SMALL LETTER A, HEBREW POINT QAMATS QATAN, HEBREW POINT HOLAM, HEBREW POINT QAMATS, HEBREW POINT PATAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x05C7, 0x05B9, 0x05B8, 0x05B7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05B7, 0x05C7, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x05C7, 0x05B9, 0x05B8, 0x05B7, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05B7, 0x05C7, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05B7, 0x05C7, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05B7, 0x05C7, 0x05B8, 0x05B9, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05B7, 0x05C7, 0x05B8, 0x05B9, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2794,22 +8768,80 @@ TEST(normalization, nfkc_086_103)
     // 0061 0315 0300 05AE 0610 0062;00E0 05AE 0610 0315 0062;0061 05AE 0300 0610 0315 0062;00E0 05AE 0610 0315 0062;0061 05AE 0300 0610 0315 0062; 
     // (a◌̕◌̀◌֮◌ؐb; à◌֮◌ؐ◌̕b; a◌֮◌̀◌ؐ◌̕b; à◌֮◌ؐ◌̕b; a◌֮◌̀◌ؐ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SIGN SALLALLAHOU ALAYHE WASSALLAM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0610, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0610, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0610, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0610, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0610, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0610, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0610, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2821,22 +8853,80 @@ TEST(normalization, nfkc_086_104)
     // 0061 0610 0315 0300 05AE 0062;0061 05AE 0610 0300 0315 0062;0061 05AE 0610 0300 0315 0062;0061 05AE 0610 0300 0315 0062;0061 05AE 0610 0300 0315 0062; 
     // (a◌ؐ◌̕◌̀◌֮b; a◌֮◌ؐ◌̀◌̕b; a◌֮◌ؐ◌̀◌̕b; a◌֮◌ؐ◌̀◌̕b; a◌֮◌ؐ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SIGN SALLALLAHOU ALAYHE WASSALLAM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0610, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0610, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0610, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0610, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0610, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0610, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0610, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2848,22 +8938,80 @@ TEST(normalization, nfkc_086_105)
     // 0061 0315 0300 05AE 0611 0062;00E0 05AE 0611 0315 0062;0061 05AE 0300 0611 0315 0062;00E0 05AE 0611 0315 0062;0061 05AE 0300 0611 0315 0062; 
     // (a◌̕◌̀◌֮◌ؑb; à◌֮◌ؑ◌̕b; a◌֮◌̀◌ؑ◌̕b; à◌֮◌ؑ◌̕b; a◌֮◌̀◌ؑ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SIGN ALAYHE ASSALLAM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0611, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0611, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0611, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0611, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0611, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0611, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0611, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2875,22 +9023,80 @@ TEST(normalization, nfkc_086_106)
     // 0061 0611 0315 0300 05AE 0062;0061 05AE 0611 0300 0315 0062;0061 05AE 0611 0300 0315 0062;0061 05AE 0611 0300 0315 0062;0061 05AE 0611 0300 0315 0062; 
     // (a◌ؑ◌̕◌̀◌֮b; a◌֮◌ؑ◌̀◌̕b; a◌֮◌ؑ◌̀◌̕b; a◌֮◌ؑ◌̀◌̕b; a◌֮◌ؑ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SIGN ALAYHE ASSALLAM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0611, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0611, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0611, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0611, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0611, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0611, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0611, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2902,22 +9108,80 @@ TEST(normalization, nfkc_086_107)
     // 0061 0315 0300 05AE 0612 0062;00E0 05AE 0612 0315 0062;0061 05AE 0300 0612 0315 0062;00E0 05AE 0612 0315 0062;0061 05AE 0300 0612 0315 0062; 
     // (a◌̕◌̀◌֮◌ؒb; à◌֮◌ؒ◌̕b; a◌֮◌̀◌ؒ◌̕b; à◌֮◌ؒ◌̕b; a◌֮◌̀◌ؒ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SIGN RAHMATULLAH ALAYHE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0612, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0612, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0612, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0612, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0612, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0612, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0612, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2929,22 +9193,80 @@ TEST(normalization, nfkc_086_108)
     // 0061 0612 0315 0300 05AE 0062;0061 05AE 0612 0300 0315 0062;0061 05AE 0612 0300 0315 0062;0061 05AE 0612 0300 0315 0062;0061 05AE 0612 0300 0315 0062; 
     // (a◌ؒ◌̕◌̀◌֮b; a◌֮◌ؒ◌̀◌̕b; a◌֮◌ؒ◌̀◌̕b; a◌֮◌ؒ◌̀◌̕b; a◌֮◌ؒ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SIGN RAHMATULLAH ALAYHE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0612, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0612, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0612, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0612, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0612, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0612, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0612, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2956,22 +9278,80 @@ TEST(normalization, nfkc_086_109)
     // 0061 0315 0300 05AE 0613 0062;00E0 05AE 0613 0315 0062;0061 05AE 0300 0613 0315 0062;00E0 05AE 0613 0315 0062;0061 05AE 0300 0613 0315 0062; 
     // (a◌̕◌̀◌֮◌ؓb; à◌֮◌ؓ◌̕b; a◌֮◌̀◌ؓ◌̕b; à◌֮◌ؓ◌̕b; a◌֮◌̀◌ؓ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SIGN RADI ALLAHOU ANHU, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0613, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0613, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0613, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0613, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0613, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0613, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0613, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -2983,22 +9363,80 @@ TEST(normalization, nfkc_086_110)
     // 0061 0613 0315 0300 05AE 0062;0061 05AE 0613 0300 0315 0062;0061 05AE 0613 0300 0315 0062;0061 05AE 0613 0300 0315 0062;0061 05AE 0613 0300 0315 0062; 
     // (a◌ؓ◌̕◌̀◌֮b; a◌֮◌ؓ◌̀◌̕b; a◌֮◌ؓ◌̀◌̕b; a◌֮◌ؓ◌̀◌̕b; a◌֮◌ؓ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SIGN RADI ALLAHOU ANHU, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0613, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0613, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0613, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0613, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0613, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0613, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0613, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3010,22 +9448,80 @@ TEST(normalization, nfkc_086_111)
     // 0061 0315 0300 05AE 0614 0062;00E0 05AE 0614 0315 0062;0061 05AE 0300 0614 0315 0062;00E0 05AE 0614 0315 0062;0061 05AE 0300 0614 0315 0062; 
     // (a◌̕◌̀◌֮◌ؔb; à◌֮◌ؔ◌̕b; a◌֮◌̀◌ؔ◌̕b; à◌֮◌ؔ◌̕b; a◌֮◌̀◌ؔ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SIGN TAKHALLUS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0614, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0614, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0614, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0614, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0614, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0614, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0614, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3037,22 +9533,80 @@ TEST(normalization, nfkc_086_112)
     // 0061 0614 0315 0300 05AE 0062;0061 05AE 0614 0300 0315 0062;0061 05AE 0614 0300 0315 0062;0061 05AE 0614 0300 0315 0062;0061 05AE 0614 0300 0315 0062; 
     // (a◌ؔ◌̕◌̀◌֮b; a◌֮◌ؔ◌̀◌̕b; a◌֮◌ؔ◌̀◌̕b; a◌֮◌ؔ◌̀◌̕b; a◌֮◌ؔ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SIGN TAKHALLUS, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0614, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0614, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0614, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0614, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0614, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0614, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0614, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3064,22 +9618,80 @@ TEST(normalization, nfkc_086_113)
     // 0061 0315 0300 05AE 0615 0062;00E0 05AE 0615 0315 0062;0061 05AE 0300 0615 0315 0062;00E0 05AE 0615 0315 0062;0061 05AE 0300 0615 0315 0062; 
     // (a◌̕◌̀◌֮◌ؕb; à◌֮◌ؕ◌̕b; a◌֮◌̀◌ؕ◌̕b; à◌֮◌ؕ◌̕b; a◌֮◌̀◌ؕ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH TAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0615, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0615, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0615, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0615, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0615, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0615, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0615, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3091,22 +9703,80 @@ TEST(normalization, nfkc_086_114)
     // 0061 0615 0315 0300 05AE 0062;0061 05AE 0615 0300 0315 0062;0061 05AE 0615 0300 0315 0062;0061 05AE 0615 0300 0315 0062;0061 05AE 0615 0300 0315 0062; 
     // (a◌ؕ◌̕◌̀◌֮b; a◌֮◌ؕ◌̀◌̕b; a◌֮◌ؕ◌̀◌̕b; a◌֮◌ؕ◌̀◌̕b; a◌֮◌ؕ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH TAH, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0615, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0615, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0615, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0615, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0615, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0615, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0615, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3118,22 +9788,80 @@ TEST(normalization, nfkc_086_115)
     // 0061 0315 0300 05AE 0616 0062;00E0 05AE 0616 0315 0062;0061 05AE 0300 0616 0315 0062;00E0 05AE 0616 0315 0062;0061 05AE 0300 0616 0315 0062; 
     // (a◌̕◌̀◌֮◌ؖb; à◌֮◌ؖ◌̕b; a◌֮◌̀◌ؖ◌̕b; à◌֮◌ؖ◌̕b; a◌֮◌̀◌ؖ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH LIGATURE ALEF WITH LAM WITH YEH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0616, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0616, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0616, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0616, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0616, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0616, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0616, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3145,22 +9873,80 @@ TEST(normalization, nfkc_086_116)
     // 0061 0616 0315 0300 05AE 0062;0061 05AE 0616 0300 0315 0062;0061 05AE 0616 0300 0315 0062;0061 05AE 0616 0300 0315 0062;0061 05AE 0616 0300 0315 0062; 
     // (a◌ؖ◌̕◌̀◌֮b; a◌֮◌ؖ◌̀◌̕b; a◌֮◌ؖ◌̀◌̕b; a◌֮◌ؖ◌̀◌̕b; a◌֮◌ؖ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH LIGATURE ALEF WITH LAM WITH YEH, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0616, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0616, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0616, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0616, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0616, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0616, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0616, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3172,22 +9958,80 @@ TEST(normalization, nfkc_086_117)
     // 0061 0315 0300 05AE 0617 0062;00E0 05AE 0617 0315 0062;0061 05AE 0300 0617 0315 0062;00E0 05AE 0617 0315 0062;0061 05AE 0300 0617 0315 0062; 
     // (a◌̕◌̀◌֮◌ؗb; à◌֮◌ؗ◌̕b; a◌֮◌̀◌ؗ◌̕b; à◌֮◌ؗ◌̕b; a◌֮◌̀◌ؗ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH ZAIN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0617, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0617, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0617, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0617, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0617, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0617, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0617, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3199,22 +10043,80 @@ TEST(normalization, nfkc_086_118)
     // 0061 0617 0315 0300 05AE 0062;0061 05AE 0617 0300 0315 0062;0061 05AE 0617 0300 0315 0062;0061 05AE 0617 0300 0315 0062;0061 05AE 0617 0300 0315 0062; 
     // (a◌ؗ◌̕◌̀◌֮b; a◌֮◌ؗ◌̀◌̕b; a◌֮◌ؗ◌̀◌̕b; a◌֮◌ؗ◌̀◌̕b; a◌֮◌ؗ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH ZAIN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0617, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0617, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0617, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0617, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0617, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0617, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0617, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3226,22 +10128,80 @@ TEST(normalization, nfkc_086_119)
     // 0061 0619 0618 064D 0618 0062;0061 064D 0618 0618 0619 0062;0061 064D 0618 0618 0619 0062;0061 064D 0618 0618 0619 0062;0061 064D 0618 0618 0619 0062; 
     // (a◌ؙ◌ؘ◌ٍ◌ؘb; a◌ٍ◌ؘ◌ؘ◌ؙb; a◌ٍ◌ؘ◌ؘ◌ؙb; a◌ٍ◌ؘ◌ؘ◌ؙb; a◌ٍ◌ؘ◌ؘ◌ؙb; ) LATIN SMALL LETTER A, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, ARABIC KASRATAN, ARABIC SMALL FATHA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0619, 0x0618, 0x064D, 0x0618, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0619, 0x0618, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3253,22 +10213,80 @@ TEST(normalization, nfkc_086_120)
     // 0061 0618 0619 0618 064D 0062;0061 064D 0618 0618 0619 0062;0061 064D 0618 0618 0619 0062;0061 064D 0618 0618 0619 0062;0061 064D 0618 0618 0619 0062; 
     // (a◌ؘ◌ؙ◌ؘ◌ٍb; a◌ٍ◌ؘ◌ؘ◌ؙb; a◌ٍ◌ؘ◌ؘ◌ؙb; a◌ٍ◌ؘ◌ؘ◌ؙb; a◌ٍ◌ؘ◌ؘ◌ؙb; ) LATIN SMALL LETTER A, ARABIC SMALL FATHA, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, ARABIC KASRATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0618, 0x0619, 0x0618, 0x064D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0618, 0x0619, 0x0618, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064D, 0x0618, 0x0618, 0x0619, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3280,22 +10298,80 @@ TEST(normalization, nfkc_086_121)
     // 0061 061A 0619 0618 0619 0062;0061 0618 0619 0619 061A 0062;0061 0618 0619 0619 061A 0062;0061 0618 0619 0619 061A 0062;0061 0618 0619 0619 061A 0062; 
     // (a◌ؚ◌ؙ◌ؘ◌ؙb; a◌ؘ◌ؙ◌ؙ◌ؚb; a◌ؘ◌ؙ◌ؙ◌ؚb; a◌ؘ◌ؙ◌ؙ◌ؚb; a◌ؘ◌ؙ◌ؙ◌ؚb; ) LATIN SMALL LETTER A, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, ARABIC SMALL DAMMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x061A, 0x0619, 0x0618, 0x0619, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x061A, 0x0619, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3307,22 +10383,80 @@ TEST(normalization, nfkc_086_122)
     // 0061 0619 061A 0619 0618 0062;0061 0618 0619 0619 061A 0062;0061 0618 0619 0619 061A 0062;0061 0618 0619 0619 061A 0062;0061 0618 0619 0619 061A 0062; 
     // (a◌ؙ◌ؚ◌ؙ◌ؘb; a◌ؘ◌ؙ◌ؙ◌ؚb; a◌ؘ◌ؙ◌ؙ◌ؚb; a◌ؘ◌ؙ◌ؙ◌ؚb; a◌ؘ◌ؙ◌ؙ◌ؚb; ) LATIN SMALL LETTER A, ARABIC SMALL DAMMA, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0619, 0x061A, 0x0619, 0x0618, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0619, 0x061A, 0x0619, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0618, 0x0619, 0x0619, 0x061A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3334,22 +10468,80 @@ TEST(normalization, nfkc_086_123)
     // 0061 0651 061A 0619 061A 0062;0061 0619 061A 061A 0651 0062;0061 0619 061A 061A 0651 0062;0061 0619 061A 061A 0651 0062;0061 0619 061A 061A 0651 0062; 
     // (a◌ّ◌ؚ◌ؙ◌ؚb; a◌ؙ◌ؚ◌ؚ◌ّb; a◌ؙ◌ؚ◌ؚ◌ّb; a◌ؙ◌ؚ◌ؚ◌ّb; a◌ؙ◌ؚ◌ؚ◌ّb; ) LATIN SMALL LETTER A, ARABIC SHADDA, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, ARABIC SMALL KASRA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0651, 0x061A, 0x0619, 0x061A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0651, 0x061A, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3361,22 +10553,80 @@ TEST(normalization, nfkc_086_124)
     // 0061 061A 0651 061A 0619 0062;0061 0619 061A 061A 0651 0062;0061 0619 061A 061A 0651 0062;0061 0619 061A 061A 0651 0062;0061 0619 061A 061A 0651 0062; 
     // (a◌ؚ◌ّ◌ؚ◌ؙb; a◌ؙ◌ؚ◌ؚ◌ّb; a◌ؙ◌ؚ◌ؚ◌ّb; a◌ؙ◌ؚ◌ؚ◌ّb; a◌ؙ◌ؚ◌ؚ◌ّb; ) LATIN SMALL LETTER A, ARABIC SMALL KASRA, ARABIC SHADDA, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x061A, 0x0651, 0x061A, 0x0619, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x061A, 0x0651, 0x061A, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0619, 0x061A, 0x061A, 0x0651, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3388,22 +10638,80 @@ TEST(normalization, nfkc_086_125)
     // 0061 064C 064B FB1E 064B 0062;0061 FB1E 064B 064B 064C 0062;0061 FB1E 064B 064B 064C 0062;0061 FB1E 064B 064B 064C 0062;0061 FB1E 064B 064B 064C 0062; 
     // (a◌ٌ◌ً◌ﬞ◌ًb; a◌ﬞ◌ً◌ً◌ٌb; a◌ﬞ◌ً◌ً◌ٌb; a◌ﬞ◌ً◌ً◌ٌb; a◌ﬞ◌ً◌ً◌ٌb; ) LATIN SMALL LETTER A, ARABIC DAMMATAN, ARABIC FATHATAN, HEBREW POINT JUDEO-SPANISH VARIKA, ARABIC FATHATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064C, 0x064B, 0xFB1E, 0x064B, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064C, 0x064B, 0xFB1E, 0x064B, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3415,22 +10723,80 @@ TEST(normalization, nfkc_086_126)
     // 0061 064B 064C 064B FB1E 0062;0061 FB1E 064B 064B 064C 0062;0061 FB1E 064B 064B 064C 0062;0061 FB1E 064B 064B 064C 0062;0061 FB1E 064B 064B 064C 0062; 
     // (a◌ً◌ٌ◌ً◌ﬞb; a◌ﬞ◌ً◌ً◌ٌb; a◌ﬞ◌ً◌ً◌ٌb; a◌ﬞ◌ً◌ً◌ٌb; a◌ﬞ◌ً◌ً◌ٌb; ) LATIN SMALL LETTER A, ARABIC FATHATAN, ARABIC DAMMATAN, ARABIC FATHATAN, HEBREW POINT JUDEO-SPANISH VARIKA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064B, 0x064C, 0x064B, 0xFB1E, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064B, 0x064C, 0x064B, 0xFB1E, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0xFB1E, 0x064B, 0x064B, 0x064C, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3442,22 +10808,80 @@ TEST(normalization, nfkc_086_127)
     // 0061 064D 064C 064B 064C 0062;0061 064B 064C 064C 064D 0062;0061 064B 064C 064C 064D 0062;0061 064B 064C 064C 064D 0062;0061 064B 064C 064C 064D 0062; 
     // (a◌ٍ◌ٌ◌ً◌ٌb; a◌ً◌ٌ◌ٌ◌ٍb; a◌ً◌ٌ◌ٌ◌ٍb; a◌ً◌ٌ◌ٌ◌ٍb; a◌ً◌ٌ◌ٌ◌ٍb; ) LATIN SMALL LETTER A, ARABIC KASRATAN, ARABIC DAMMATAN, ARABIC FATHATAN, ARABIC DAMMATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064D, 0x064C, 0x064B, 0x064C, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064D, 0x064C, 0x064B, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3469,22 +10893,80 @@ TEST(normalization, nfkc_086_128)
     // 0061 064C 064D 064C 064B 0062;0061 064B 064C 064C 064D 0062;0061 064B 064C 064C 064D 0062;0061 064B 064C 064C 064D 0062;0061 064B 064C 064C 064D 0062; 
     // (a◌ٌ◌ٍ◌ٌ◌ًb; a◌ً◌ٌ◌ٌ◌ٍb; a◌ً◌ٌ◌ٌ◌ٍb; a◌ً◌ٌ◌ٌ◌ٍb; a◌ً◌ٌ◌ٌ◌ٍb; ) LATIN SMALL LETTER A, ARABIC DAMMATAN, ARABIC KASRATAN, ARABIC DAMMATAN, ARABIC FATHATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064C, 0x064D, 0x064C, 0x064B, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064C, 0x064D, 0x064C, 0x064B, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064B, 0x064C, 0x064C, 0x064D, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3496,22 +10978,80 @@ TEST(normalization, nfkc_086_129)
     // 0061 0618 064D 064C 064D 0062;0061 064C 064D 064D 0618 0062;0061 064C 064D 064D 0618 0062;0061 064C 064D 064D 0618 0062;0061 064C 064D 064D 0618 0062; 
     // (a◌ؘ◌ٍ◌ٌ◌ٍb; a◌ٌ◌ٍ◌ٍ◌ؘb; a◌ٌ◌ٍ◌ٍ◌ؘb; a◌ٌ◌ٍ◌ٍ◌ؘb; a◌ٌ◌ٍ◌ٍ◌ؘb; ) LATIN SMALL LETTER A, ARABIC SMALL FATHA, ARABIC KASRATAN, ARABIC DAMMATAN, ARABIC KASRATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0618, 0x064D, 0x064C, 0x064D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0618, 0x064D, 0x064C, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3523,22 +11063,80 @@ TEST(normalization, nfkc_086_130)
     // 0061 064D 0618 064D 064C 0062;0061 064C 064D 064D 0618 0062;0061 064C 064D 064D 0618 0062;0061 064C 064D 064D 0618 0062;0061 064C 064D 064D 0618 0062; 
     // (a◌ٍ◌ؘ◌ٍ◌ٌb; a◌ٌ◌ٍ◌ٍ◌ؘb; a◌ٌ◌ٍ◌ٍ◌ؘb; a◌ٌ◌ٍ◌ٍ◌ؘb; a◌ٌ◌ٍ◌ٍ◌ؘb; ) LATIN SMALL LETTER A, ARABIC KASRATAN, ARABIC SMALL FATHA, ARABIC KASRATAN, ARABIC DAMMATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064D, 0x0618, 0x064D, 0x064C, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064D, 0x0618, 0x064D, 0x064C, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064C, 0x064D, 0x064D, 0x0618, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3550,22 +11148,80 @@ TEST(normalization, nfkc_086_131)
     // 0061 0619 0618 064D 064E 0062;0061 064D 0618 064E 0619 0062;0061 064D 0618 064E 0619 0062;0061 064D 0618 064E 0619 0062;0061 064D 0618 064E 0619 0062; 
     // (a◌ؙ◌ؘ◌ٍ◌َb; a◌ٍ◌ؘ◌َ◌ؙb; a◌ٍ◌ؘ◌َ◌ؙb; a◌ٍ◌ؘ◌َ◌ؙb; a◌ٍ◌ؘ◌َ◌ؙb; ) LATIN SMALL LETTER A, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, ARABIC KASRATAN, ARABIC FATHA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0619, 0x0618, 0x064D, 0x064E, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064D, 0x0618, 0x064E, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0619, 0x0618, 0x064D, 0x064E, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064D, 0x0618, 0x064E, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064D, 0x0618, 0x064E, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064D, 0x0618, 0x064E, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064D, 0x0618, 0x064E, 0x0619, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3577,22 +11233,80 @@ TEST(normalization, nfkc_086_132)
     // 0061 064E 0619 0618 064D 0062;0061 064D 064E 0618 0619 0062;0061 064D 064E 0618 0619 0062;0061 064D 064E 0618 0619 0062;0061 064D 064E 0618 0619 0062; 
     // (a◌َ◌ؙ◌ؘ◌ٍb; a◌ٍ◌َ◌ؘ◌ؙb; a◌ٍ◌َ◌ؘ◌ؙb; a◌ٍ◌َ◌ؘ◌ؙb; a◌ٍ◌َ◌ؘ◌ؙb; ) LATIN SMALL LETTER A, ARABIC FATHA, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, ARABIC KASRATAN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064E, 0x0619, 0x0618, 0x064D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x064D, 0x064E, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064E, 0x0619, 0x0618, 0x064D, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x064D, 0x064E, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x064D, 0x064E, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x064D, 0x064E, 0x0618, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x064D, 0x064E, 0x0618, 0x0619, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3604,22 +11318,80 @@ TEST(normalization, nfkc_086_133)
     // 0061 061A 0619 0618 064F 0062;0061 0618 0619 064F 061A 0062;0061 0618 0619 064F 061A 0062;0061 0618 0619 064F 061A 0062;0061 0618 0619 064F 061A 0062; 
     // (a◌ؚ◌ؙ◌ؘ◌ُb; a◌ؘ◌ؙ◌ُ◌ؚb; a◌ؘ◌ؙ◌ُ◌ؚb; a◌ؘ◌ؙ◌ُ◌ؚb; a◌ؘ◌ؙ◌ُ◌ؚb; ) LATIN SMALL LETTER A, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, ARABIC DAMMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x061A, 0x0619, 0x0618, 0x064F, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0618, 0x0619, 0x064F, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x061A, 0x0619, 0x0618, 0x064F, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0618, 0x0619, 0x064F, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0618, 0x0619, 0x064F, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0618, 0x0619, 0x064F, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0618, 0x0619, 0x064F, 0x061A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3631,22 +11403,80 @@ TEST(normalization, nfkc_086_134)
     // 0061 064F 061A 0619 0618 0062;0061 0618 064F 0619 061A 0062;0061 0618 064F 0619 061A 0062;0061 0618 064F 0619 061A 0062;0061 0618 064F 0619 061A 0062; 
     // (a◌ُ◌ؚ◌ؙ◌ؘb; a◌ؘ◌ُ◌ؙ◌ؚb; a◌ؘ◌ُ◌ؙ◌ؚb; a◌ؘ◌ُ◌ؙ◌ؚb; a◌ؘ◌ُ◌ؙ◌ؚb; ) LATIN SMALL LETTER A, ARABIC DAMMA, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, ARABIC SMALL FATHA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x064F, 0x061A, 0x0619, 0x0618, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0618, 0x064F, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x064F, 0x061A, 0x0619, 0x0618, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0618, 0x064F, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0618, 0x064F, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0618, 0x064F, 0x0619, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0618, 0x064F, 0x0619, 0x061A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3658,22 +11488,80 @@ TEST(normalization, nfkc_086_135)
     // 0061 0651 061A 0619 0650 0062;0061 0619 061A 0650 0651 0062;0061 0619 061A 0650 0651 0062;0061 0619 061A 0650 0651 0062;0061 0619 061A 0650 0651 0062; 
     // (a◌ّ◌ؚ◌ؙ◌ِb; a◌ؙ◌ؚ◌ِ◌ّb; a◌ؙ◌ؚ◌ِ◌ّb; a◌ؙ◌ؚ◌ِ◌ّb; a◌ؙ◌ؚ◌ِ◌ّb; ) LATIN SMALL LETTER A, ARABIC SHADDA, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, ARABIC KASRA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0651, 0x061A, 0x0619, 0x0650, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0619, 0x061A, 0x0650, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0651, 0x061A, 0x0619, 0x0650, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0619, 0x061A, 0x0650, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0619, 0x061A, 0x0650, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0619, 0x061A, 0x0650, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0619, 0x061A, 0x0650, 0x0651, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3685,22 +11573,80 @@ TEST(normalization, nfkc_086_136)
     // 0061 0650 0651 061A 0619 0062;0061 0619 0650 061A 0651 0062;0061 0619 0650 061A 0651 0062;0061 0619 0650 061A 0651 0062;0061 0619 0650 061A 0651 0062; 
     // (a◌ِ◌ّ◌ؚ◌ؙb; a◌ؙ◌ِ◌ؚ◌ّb; a◌ؙ◌ِ◌ؚ◌ّb; a◌ؙ◌ِ◌ؚ◌ّb; a◌ؙ◌ِ◌ؚ◌ّb; ) LATIN SMALL LETTER A, ARABIC KASRA, ARABIC SHADDA, ARABIC SMALL KASRA, ARABIC SMALL DAMMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0650, 0x0651, 0x061A, 0x0619, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0619, 0x0650, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0650, 0x0651, 0x061A, 0x0619, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0619, 0x0650, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0619, 0x0650, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0619, 0x0650, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0619, 0x0650, 0x061A, 0x0651, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3712,22 +11658,80 @@ TEST(normalization, nfkc_086_137)
     // 0061 0652 0651 061A 0651 0062;0061 061A 0651 0651 0652 0062;0061 061A 0651 0651 0652 0062;0061 061A 0651 0651 0652 0062;0061 061A 0651 0651 0652 0062; 
     // (a◌ْ◌ّ◌ؚ◌ّb; a◌ؚ◌ّ◌ّ◌ْb; a◌ؚ◌ّ◌ّ◌ْb; a◌ؚ◌ّ◌ّ◌ْb; a◌ؚ◌ّ◌ّ◌ْb; ) LATIN SMALL LETTER A, ARABIC SUKUN, ARABIC SHADDA, ARABIC SMALL KASRA, ARABIC SHADDA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0652, 0x0651, 0x061A, 0x0651, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0652, 0x0651, 0x061A, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3739,22 +11743,80 @@ TEST(normalization, nfkc_086_138)
     // 0061 0651 0652 0651 061A 0062;0061 061A 0651 0651 0652 0062;0061 061A 0651 0651 0652 0062;0061 061A 0651 0651 0652 0062;0061 061A 0651 0651 0652 0062; 
     // (a◌ّ◌ْ◌ّ◌ؚb; a◌ؚ◌ّ◌ّ◌ْb; a◌ؚ◌ّ◌ّ◌ْb; a◌ؚ◌ّ◌ّ◌ْb; a◌ؚ◌ّ◌ّ◌ْb; ) LATIN SMALL LETTER A, ARABIC SHADDA, ARABIC SUKUN, ARABIC SHADDA, ARABIC SMALL KASRA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0651, 0x0652, 0x0651, 0x061A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0651, 0x0652, 0x0651, 0x061A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x061A, 0x0651, 0x0651, 0x0652, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3766,22 +11828,80 @@ TEST(normalization, nfkc_086_139)
     // 0061 0670 0652 0651 0652 0062;0061 0651 0652 0652 0670 0062;0061 0651 0652 0652 0670 0062;0061 0651 0652 0652 0670 0062;0061 0651 0652 0652 0670 0062; 
     // (a◌ٰ◌ْ◌ّ◌ْb; a◌ّ◌ْ◌ْ◌ٰb; a◌ّ◌ْ◌ْ◌ٰb; a◌ّ◌ْ◌ْ◌ٰb; a◌ّ◌ْ◌ْ◌ٰb; ) LATIN SMALL LETTER A, ARABIC LETTER SUPERSCRIPT ALEF, ARABIC SUKUN, ARABIC SHADDA, ARABIC SUKUN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0670, 0x0652, 0x0651, 0x0652, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0670, 0x0652, 0x0651, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3793,22 +11913,80 @@ TEST(normalization, nfkc_086_140)
     // 0061 0652 0670 0652 0651 0062;0061 0651 0652 0652 0670 0062;0061 0651 0652 0652 0670 0062;0061 0651 0652 0652 0670 0062;0061 0651 0652 0652 0670 0062; 
     // (a◌ْ◌ٰ◌ْ◌ّb; a◌ّ◌ْ◌ْ◌ٰb; a◌ّ◌ْ◌ْ◌ٰb; a◌ّ◌ْ◌ْ◌ٰb; a◌ّ◌ْ◌ْ◌ٰb; ) LATIN SMALL LETTER A, ARABIC SUKUN, ARABIC LETTER SUPERSCRIPT ALEF, ARABIC SUKUN, ARABIC SHADDA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0652, 0x0670, 0x0652, 0x0651, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0652, 0x0670, 0x0652, 0x0651, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0651, 0x0652, 0x0652, 0x0670, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3820,22 +11998,80 @@ TEST(normalization, nfkc_086_141)
     // 0061 0315 0300 05AE 0653 0062;00E0 05AE 0653 0315 0062;0061 05AE 0300 0653 0315 0062;00E0 05AE 0653 0315 0062;0061 05AE 0300 0653 0315 0062; 
     // (a◌̕◌̀◌֮◌ٓb; à◌֮◌ٓ◌̕b; a◌֮◌̀◌ٓ◌̕b; à◌֮◌ٓ◌̕b; a◌֮◌̀◌ٓ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC MADDAH ABOVE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0653, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0653, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0653, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0653, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0653, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0653, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0653, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3847,22 +12083,80 @@ TEST(normalization, nfkc_086_142)
     // 0061 0653 0315 0300 05AE 0062;0061 05AE 0653 0300 0315 0062;0061 05AE 0653 0300 0315 0062;0061 05AE 0653 0300 0315 0062;0061 05AE 0653 0300 0315 0062; 
     // (a◌ٓ◌̕◌̀◌֮b; a◌֮◌ٓ◌̀◌̕b; a◌֮◌ٓ◌̀◌̕b; a◌֮◌ٓ◌̀◌̕b; a◌֮◌ٓ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC MADDAH ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0653, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0653, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0653, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0653, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0653, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0653, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0653, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3874,22 +12168,80 @@ TEST(normalization, nfkc_086_143)
     // 0061 0315 0300 05AE 0654 0062;00E0 05AE 0654 0315 0062;0061 05AE 0300 0654 0315 0062;00E0 05AE 0654 0315 0062;0061 05AE 0300 0654 0315 0062; 
     // (a◌̕◌̀◌֮◌ٔb; à◌֮◌ٔ◌̕b; a◌֮◌̀◌ٔ◌̕b; à◌֮◌ٔ◌̕b; a◌֮◌̀◌ٔ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC HAMZA ABOVE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0654, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0654, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0654, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0654, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0654, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0654, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0654, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3901,22 +12253,80 @@ TEST(normalization, nfkc_086_144)
     // 0061 0654 0315 0300 05AE 0062;0061 05AE 0654 0300 0315 0062;0061 05AE 0654 0300 0315 0062;0061 05AE 0654 0300 0315 0062;0061 05AE 0654 0300 0315 0062; 
     // (a◌ٔ◌̕◌̀◌֮b; a◌֮◌ٔ◌̀◌̕b; a◌֮◌ٔ◌̀◌̕b; a◌֮◌ٔ◌̀◌̕b; a◌֮◌ٔ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC HAMZA ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0654, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0654, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0654, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0654, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0654, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0654, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0654, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3928,22 +12338,80 @@ TEST(normalization, nfkc_086_145)
     // 0061 059A 0316 302A 0655 0062;0061 302A 0316 0655 059A 0062;0061 302A 0316 0655 059A 0062;0061 302A 0316 0655 059A 0062;0061 302A 0316 0655 059A 0062; 
     // (a◌֚◌̖◌〪◌ٕb; a◌〪◌̖◌ٕ◌֚b; a◌〪◌̖◌ٕ◌֚b; a◌〪◌̖◌ٕ◌֚b; a◌〪◌̖◌ٕ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC HAMZA BELOW, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0655, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x0655, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0655, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x0655, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x0655, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x0655, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x0655, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3955,22 +12423,80 @@ TEST(normalization, nfkc_086_146)
     // 0061 0655 059A 0316 302A 0062;0061 302A 0655 0316 059A 0062;0061 302A 0655 0316 059A 0062;0061 302A 0655 0316 059A 0062;0061 302A 0655 0316 059A 0062; 
     // (a◌ٕ◌֚◌̖◌〪b; a◌〪◌ٕ◌̖◌֚b; a◌〪◌ٕ◌̖◌֚b; a◌〪◌ٕ◌̖◌֚b; a◌〪◌ٕ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC HAMZA BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0655, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0655, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0655, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0655, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0655, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0655, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0655, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -3982,22 +12508,80 @@ TEST(normalization, nfkc_086_147)
     // 0061 059A 0316 302A 0656 0062;0061 302A 0316 0656 059A 0062;0061 302A 0316 0656 059A 0062;0061 302A 0316 0656 059A 0062;0061 302A 0316 0656 059A 0062; 
     // (a◌֚◌̖◌〪◌ٖb; a◌〪◌̖◌ٖ◌֚b; a◌〪◌̖◌ٖ◌֚b; a◌〪◌̖◌ٖ◌֚b; a◌〪◌̖◌ٖ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC SUBSCRIPT ALEF, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0656, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x0656, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x0656, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x0656, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x0656, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x0656, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x0656, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4009,22 +12593,80 @@ TEST(normalization, nfkc_086_148)
     // 0061 0656 059A 0316 302A 0062;0061 302A 0656 0316 059A 0062;0061 302A 0656 0316 059A 0062;0061 302A 0656 0316 059A 0062;0061 302A 0656 0316 059A 0062; 
     // (a◌ٖ◌֚◌̖◌〪b; a◌〪◌ٖ◌̖◌֚b; a◌〪◌ٖ◌̖◌֚b; a◌〪◌ٖ◌̖◌֚b; a◌〪◌ٖ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC SUBSCRIPT ALEF, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0656, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0656, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0656, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0656, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0656, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0656, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0656, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4036,22 +12678,80 @@ TEST(normalization, nfkc_086_149)
     // 0061 0315 0300 05AE 0657 0062;00E0 05AE 0657 0315 0062;0061 05AE 0300 0657 0315 0062;00E0 05AE 0657 0315 0062;0061 05AE 0300 0657 0315 0062; 
     // (a◌̕◌̀◌֮◌ٗb; à◌֮◌ٗ◌̕b; a◌֮◌̀◌ٗ◌̕b; à◌֮◌ٗ◌̕b; a◌֮◌̀◌ٗ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC INVERTED DAMMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0657, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0657, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0657, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0657, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0657, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0657, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0657, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4063,22 +12763,80 @@ TEST(normalization, nfkc_086_150)
     // 0061 0657 0315 0300 05AE 0062;0061 05AE 0657 0300 0315 0062;0061 05AE 0657 0300 0315 0062;0061 05AE 0657 0300 0315 0062;0061 05AE 0657 0300 0315 0062; 
     // (a◌ٗ◌̕◌̀◌֮b; a◌֮◌ٗ◌̀◌̕b; a◌֮◌ٗ◌̀◌̕b; a◌֮◌ٗ◌̀◌̕b; a◌֮◌ٗ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC INVERTED DAMMA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0657, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0657, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0657, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0657, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0657, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0657, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0657, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4090,22 +12848,80 @@ TEST(normalization, nfkc_086_151)
     // 0061 0315 0300 05AE 0658 0062;00E0 05AE 0658 0315 0062;0061 05AE 0300 0658 0315 0062;00E0 05AE 0658 0315 0062;0061 05AE 0300 0658 0315 0062; 
     // (a◌̕◌̀◌֮◌٘b; à◌֮◌٘◌̕b; a◌֮◌̀◌٘◌̕b; à◌֮◌٘◌̕b; a◌֮◌̀◌٘◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC MARK NOON GHUNNA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0658, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0658, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0658, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0658, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0658, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0658, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0658, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4117,22 +12933,80 @@ TEST(normalization, nfkc_086_152)
     // 0061 0658 0315 0300 05AE 0062;0061 05AE 0658 0300 0315 0062;0061 05AE 0658 0300 0315 0062;0061 05AE 0658 0300 0315 0062;0061 05AE 0658 0300 0315 0062; 
     // (a◌٘◌̕◌̀◌֮b; a◌֮◌٘◌̀◌̕b; a◌֮◌٘◌̀◌̕b; a◌֮◌٘◌̀◌̕b; a◌֮◌٘◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC MARK NOON GHUNNA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0658, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0658, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0658, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0658, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0658, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0658, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0658, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4144,22 +13018,80 @@ TEST(normalization, nfkc_086_153)
     // 0061 0315 0300 05AE 0659 0062;00E0 05AE 0659 0315 0062;0061 05AE 0300 0659 0315 0062;00E0 05AE 0659 0315 0062;0061 05AE 0300 0659 0315 0062; 
     // (a◌̕◌̀◌֮◌ٙb; à◌֮◌ٙ◌̕b; a◌֮◌̀◌ٙ◌̕b; à◌֮◌ٙ◌̕b; a◌֮◌̀◌ٙ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC ZWARAKAY, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0659, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x0659, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x0659, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x0659, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x0659, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x0659, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x0659, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4171,22 +13103,80 @@ TEST(normalization, nfkc_086_154)
     // 0061 0659 0315 0300 05AE 0062;0061 05AE 0659 0300 0315 0062;0061 05AE 0659 0300 0315 0062;0061 05AE 0659 0300 0315 0062;0061 05AE 0659 0300 0315 0062; 
     // (a◌ٙ◌̕◌̀◌֮b; a◌֮◌ٙ◌̀◌̕b; a◌֮◌ٙ◌̀◌̕b; a◌֮◌ٙ◌̀◌̕b; a◌֮◌ٙ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC ZWARAKAY, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0659, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x0659, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0659, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x0659, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0659, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x0659, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0659, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4198,22 +13188,80 @@ TEST(normalization, nfkc_086_155)
     // 0061 0315 0300 05AE 065A 0062;00E0 05AE 065A 0315 0062;0061 05AE 0300 065A 0315 0062;00E0 05AE 065A 0315 0062;0061 05AE 0300 065A 0315 0062; 
     // (a◌̕◌̀◌֮◌ٚb; à◌֮◌ٚ◌̕b; a◌֮◌̀◌ٚ◌̕b; à◌֮◌ٚ◌̕b; a◌֮◌̀◌ٚ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC VOWEL SIGN SMALL V ABOVE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x065A, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065A, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x065A, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x065A, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x065A, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x065A, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4225,22 +13273,80 @@ TEST(normalization, nfkc_086_156)
     // 0061 065A 0315 0300 05AE 0062;0061 05AE 065A 0300 0315 0062;0061 05AE 065A 0300 0315 0062;0061 05AE 065A 0300 0315 0062;0061 05AE 065A 0300 0315 0062; 
     // (a◌ٚ◌̕◌̀◌֮b; a◌֮◌ٚ◌̀◌̕b; a◌֮◌ٚ◌̀◌̕b; a◌֮◌ٚ◌̀◌̕b; a◌֮◌ٚ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC VOWEL SIGN SMALL V ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x065A, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x065A, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x065A, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x065A, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x065A, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x065A, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x065A, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4252,22 +13358,80 @@ TEST(normalization, nfkc_086_157)
     // 0061 0315 0300 05AE 065B 0062;00E0 05AE 065B 0315 0062;0061 05AE 0300 065B 0315 0062;00E0 05AE 065B 0315 0062;0061 05AE 0300 065B 0315 0062; 
     // (a◌̕◌̀◌֮◌ٛb; à◌֮◌ٛ◌̕b; a◌֮◌̀◌ٛ◌̕b; à◌֮◌ٛ◌̕b; a◌֮◌̀◌ٛ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC VOWEL SIGN INVERTED SMALL V ABOVE, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065B, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x065B, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065B, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x065B, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x065B, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x065B, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x065B, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4279,22 +13443,80 @@ TEST(normalization, nfkc_086_158)
     // 0061 065B 0315 0300 05AE 0062;0061 05AE 065B 0300 0315 0062;0061 05AE 065B 0300 0315 0062;0061 05AE 065B 0300 0315 0062;0061 05AE 065B 0300 0315 0062; 
     // (a◌ٛ◌̕◌̀◌֮b; a◌֮◌ٛ◌̀◌̕b; a◌֮◌ٛ◌̀◌̕b; a◌֮◌ٛ◌̀◌̕b; a◌֮◌ٛ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC VOWEL SIGN INVERTED SMALL V ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x065B, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x065B, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x065B, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x065B, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x065B, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x065B, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x065B, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4306,22 +13528,80 @@ TEST(normalization, nfkc_086_159)
     // 0061 059A 0316 302A 065C 0062;0061 302A 0316 065C 059A 0062;0061 302A 0316 065C 059A 0062;0061 302A 0316 065C 059A 0062;0061 302A 0316 065C 059A 0062; 
     // (a◌֚◌̖◌〪◌ٜb; a◌〪◌̖◌ٜ◌֚b; a◌〪◌̖◌ٜ◌֚b; a◌〪◌̖◌ٜ◌֚b; a◌〪◌̖◌ٜ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC VOWEL SIGN DOT BELOW, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x065C, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x065C, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x065C, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x065C, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x065C, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x065C, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x065C, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4333,22 +13613,80 @@ TEST(normalization, nfkc_086_160)
     // 0061 065C 059A 0316 302A 0062;0061 302A 065C 0316 059A 0062;0061 302A 065C 0316 059A 0062;0061 302A 065C 0316 059A 0062;0061 302A 065C 0316 059A 0062; 
     // (a◌ٜ◌֚◌̖◌〪b; a◌〪◌ٜ◌̖◌֚b; a◌〪◌ٜ◌̖◌֚b; a◌〪◌ٜ◌̖◌֚b; a◌〪◌ٜ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC VOWEL SIGN DOT BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x065C, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x065C, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x065C, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x065C, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x065C, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x065C, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x065C, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4360,22 +13698,80 @@ TEST(normalization, nfkc_086_161)
     // 0061 0315 0300 05AE 065D 0062;00E0 05AE 065D 0315 0062;0061 05AE 0300 065D 0315 0062;00E0 05AE 065D 0315 0062;0061 05AE 0300 065D 0315 0062; 
     // (a◌̕◌̀◌֮◌ٝb; à◌֮◌ٝ◌̕b; a◌֮◌̀◌ٝ◌̕b; à◌֮◌ٝ◌̕b; a◌֮◌̀◌ٝ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC REVERSED DAMMA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065D, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x065D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065D, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x065D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x065D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x065D, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x065D, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4387,22 +13783,80 @@ TEST(normalization, nfkc_086_162)
     // 0061 065D 0315 0300 05AE 0062;0061 05AE 065D 0300 0315 0062;0061 05AE 065D 0300 0315 0062;0061 05AE 065D 0300 0315 0062;0061 05AE 065D 0300 0315 0062; 
     // (a◌ٝ◌̕◌̀◌֮b; a◌֮◌ٝ◌̀◌̕b; a◌֮◌ٝ◌̀◌̕b; a◌֮◌ٝ◌̀◌̕b; a◌֮◌ٝ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC REVERSED DAMMA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x065D, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x065D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x065D, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x065D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x065D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x065D, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x065D, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4414,22 +13868,80 @@ TEST(normalization, nfkc_086_163)
     // 0061 0315 0300 05AE 065E 0062;00E0 05AE 065E 0315 0062;0061 05AE 0300 065E 0315 0062;00E0 05AE 065E 0315 0062;0061 05AE 0300 065E 0315 0062; 
     // (a◌̕◌̀◌֮◌ٞb; à◌֮◌ٞ◌̕b; a◌֮◌̀◌ٞ◌̕b; à◌֮◌ٞ◌̕b; a◌֮◌̀◌ٞ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC FATHA WITH TWO DOTS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065E, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x065E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x065E, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x065E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x065E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x065E, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x065E, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4441,22 +13953,80 @@ TEST(normalization, nfkc_086_164)
     // 0061 065E 0315 0300 05AE 0062;0061 05AE 065E 0300 0315 0062;0061 05AE 065E 0300 0315 0062;0061 05AE 065E 0300 0315 0062;0061 05AE 065E 0300 0315 0062; 
     // (a◌ٞ◌̕◌̀◌֮b; a◌֮◌ٞ◌̀◌̕b; a◌֮◌ٞ◌̀◌̕b; a◌֮◌ٞ◌̀◌̕b; a◌֮◌ٞ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC FATHA WITH TWO DOTS, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x065E, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x065E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x065E, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x065E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x065E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x065E, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x065E, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4468,22 +14038,80 @@ TEST(normalization, nfkc_086_165)
     // 0061 059A 0316 302A 065F 0062;0061 302A 0316 065F 059A 0062;0061 302A 0316 065F 059A 0062;0061 302A 0316 065F 059A 0062;0061 302A 0316 065F 059A 0062; 
     // (a◌֚◌̖◌〪◌ٟb; a◌〪◌̖◌ٟ◌֚b; a◌〪◌̖◌ٟ◌֚b; a◌〪◌̖◌ٟ◌֚b; a◌〪◌̖◌ٟ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC WAVY HAMZA BELOW, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x065F, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x065F, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x065F, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x065F, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x065F, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x065F, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x065F, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4495,22 +14123,80 @@ TEST(normalization, nfkc_086_166)
     // 0061 065F 059A 0316 302A 0062;0061 302A 065F 0316 059A 0062;0061 302A 065F 0316 059A 0062;0061 302A 065F 0316 059A 0062;0061 302A 065F 0316 059A 0062; 
     // (a◌ٟ◌֚◌̖◌〪b; a◌〪◌ٟ◌̖◌֚b; a◌〪◌ٟ◌̖◌֚b; a◌〪◌ٟ◌̖◌֚b; a◌〪◌ٟ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC WAVY HAMZA BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x065F, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x065F, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x065F, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x065F, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x065F, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x065F, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x065F, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4522,22 +14208,80 @@ TEST(normalization, nfkc_086_167)
     // 0061 0711 0670 0652 0670 0062;0061 0652 0670 0670 0711 0062;0061 0652 0670 0670 0711 0062;0061 0652 0670 0670 0711 0062;0061 0652 0670 0670 0711 0062; 
     // (a◌ܑ◌ٰ◌ْ◌ٰb; a◌ْ◌ٰ◌ٰ◌ܑb; a◌ْ◌ٰ◌ٰ◌ܑb; a◌ْ◌ٰ◌ٰ◌ܑb; a◌ْ◌ٰ◌ٰ◌ܑb; ) LATIN SMALL LETTER A, SYRIAC LETTER SUPERSCRIPT ALAPH, ARABIC LETTER SUPERSCRIPT ALEF, ARABIC SUKUN, ARABIC LETTER SUPERSCRIPT ALEF, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0711, 0x0670, 0x0652, 0x0670, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0711, 0x0670, 0x0652, 0x0670, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4549,22 +14293,80 @@ TEST(normalization, nfkc_086_168)
     // 0061 0670 0711 0670 0652 0062;0061 0652 0670 0670 0711 0062;0061 0652 0670 0670 0711 0062;0061 0652 0670 0670 0711 0062;0061 0652 0670 0670 0711 0062; 
     // (a◌ٰ◌ܑ◌ٰ◌ْb; a◌ْ◌ٰ◌ٰ◌ܑb; a◌ْ◌ٰ◌ٰ◌ܑb; a◌ْ◌ٰ◌ٰ◌ܑb; a◌ْ◌ٰ◌ٰ◌ܑb; ) LATIN SMALL LETTER A, ARABIC LETTER SUPERSCRIPT ALEF, SYRIAC LETTER SUPERSCRIPT ALAPH, ARABIC LETTER SUPERSCRIPT ALEF, ARABIC SUKUN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0670, 0x0711, 0x0670, 0x0652, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0670, 0x0711, 0x0670, 0x0652, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x0652, 0x0670, 0x0670, 0x0711, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4576,22 +14378,80 @@ TEST(normalization, nfkc_086_169)
     // 0061 0315 0300 05AE 06D6 0062;00E0 05AE 06D6 0315 0062;0061 05AE 0300 06D6 0315 0062;00E0 05AE 06D6 0315 0062;0061 05AE 0300 06D6 0315 0062; 
     // (a◌̕◌̀◌֮◌ۖb; à◌֮◌ۖ◌̕b; a◌֮◌̀◌ۖ◌̕b; à◌֮◌ۖ◌̕b; a◌֮◌̀◌ۖ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D6, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06D6, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D6, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06D6, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06D6, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06D6, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06D6, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4603,22 +14463,80 @@ TEST(normalization, nfkc_086_170)
     // 0061 06D6 0315 0300 05AE 0062;0061 05AE 06D6 0300 0315 0062;0061 05AE 06D6 0300 0315 0062;0061 05AE 06D6 0300 0315 0062;0061 05AE 06D6 0300 0315 0062; 
     // (a◌ۖ◌̕◌̀◌֮b; a◌֮◌ۖ◌̀◌̕b; a◌֮◌ۖ◌̀◌̕b; a◌֮◌ۖ◌̀◌̕b; a◌֮◌ۖ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06D6, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06D6, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06D6, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06D6, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06D6, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06D6, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06D6, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4630,22 +14548,80 @@ TEST(normalization, nfkc_086_171)
     // 0061 0315 0300 05AE 06D7 0062;00E0 05AE 06D7 0315 0062;0061 05AE 0300 06D7 0315 0062;00E0 05AE 06D7 0315 0062;0061 05AE 0300 06D7 0315 0062; 
     // (a◌̕◌̀◌֮◌ۗb; à◌֮◌ۗ◌̕b; a◌֮◌̀◌ۗ◌̕b; à◌֮◌ۗ◌̕b; a◌֮◌̀◌ۗ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH LIGATURE QAF WITH LAM WITH ALEF MAKSURA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06D7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D7, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06D7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06D7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06D7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06D7, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4657,22 +14633,80 @@ TEST(normalization, nfkc_086_172)
     // 0061 06D7 0315 0300 05AE 0062;0061 05AE 06D7 0300 0315 0062;0061 05AE 06D7 0300 0315 0062;0061 05AE 06D7 0300 0315 0062;0061 05AE 06D7 0300 0315 0062; 
     // (a◌ۗ◌̕◌̀◌֮b; a◌֮◌ۗ◌̀◌̕b; a◌֮◌ۗ◌̀◌̕b; a◌֮◌ۗ◌̀◌̕b; a◌֮◌ۗ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH LIGATURE QAF WITH LAM WITH ALEF MAKSURA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06D7, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06D7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06D7, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06D7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06D7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06D7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06D7, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4684,22 +14718,80 @@ TEST(normalization, nfkc_086_173)
     // 0061 0315 0300 05AE 06D8 0062;00E0 05AE 06D8 0315 0062;0061 05AE 0300 06D8 0315 0062;00E0 05AE 06D8 0315 0062;0061 05AE 0300 06D8 0315 0062; 
     // (a◌̕◌̀◌֮◌ۘb; à◌֮◌ۘ◌̕b; a◌֮◌̀◌ۘ◌̕b; à◌֮◌ۘ◌̕b; a◌֮◌̀◌ۘ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH MEEM INITIAL FORM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D8, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06D8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D8, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06D8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06D8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06D8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06D8, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4711,22 +14803,80 @@ TEST(normalization, nfkc_086_174)
     // 0061 06D8 0315 0300 05AE 0062;0061 05AE 06D8 0300 0315 0062;0061 05AE 06D8 0300 0315 0062;0061 05AE 06D8 0300 0315 0062;0061 05AE 06D8 0300 0315 0062; 
     // (a◌ۘ◌̕◌̀◌֮b; a◌֮◌ۘ◌̀◌̕b; a◌֮◌ۘ◌̀◌̕b; a◌֮◌ۘ◌̀◌̕b; a◌֮◌ۘ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH MEEM INITIAL FORM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06D8, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06D8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06D8, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06D8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06D8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06D8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06D8, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4738,22 +14888,80 @@ TEST(normalization, nfkc_086_175)
     // 0061 0315 0300 05AE 06D9 0062;00E0 05AE 06D9 0315 0062;0061 05AE 0300 06D9 0315 0062;00E0 05AE 06D9 0315 0062;0061 05AE 0300 06D9 0315 0062; 
     // (a◌̕◌̀◌֮◌ۙb; à◌֮◌ۙ◌̕b; a◌֮◌̀◌ۙ◌̕b; à◌֮◌ۙ◌̕b; a◌֮◌̀◌ۙ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH LAM ALEF, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D9, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06D9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06D9, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06D9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06D9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06D9, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06D9, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4765,22 +14973,80 @@ TEST(normalization, nfkc_086_176)
     // 0061 06D9 0315 0300 05AE 0062;0061 05AE 06D9 0300 0315 0062;0061 05AE 06D9 0300 0315 0062;0061 05AE 06D9 0300 0315 0062;0061 05AE 06D9 0300 0315 0062; 
     // (a◌ۙ◌̕◌̀◌֮b; a◌֮◌ۙ◌̀◌̕b; a◌֮◌ۙ◌̀◌̕b; a◌֮◌ۙ◌̀◌̕b; a◌֮◌ۙ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH LAM ALEF, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06D9, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06D9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06D9, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06D9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06D9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06D9, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06D9, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4792,22 +15058,80 @@ TEST(normalization, nfkc_086_177)
     // 0061 0315 0300 05AE 06DA 0062;00E0 05AE 06DA 0315 0062;0061 05AE 0300 06DA 0315 0062;00E0 05AE 06DA 0315 0062;0061 05AE 0300 06DA 0315 0062; 
     // (a◌̕◌̀◌֮◌ۚb; à◌֮◌ۚ◌̕b; a◌֮◌̀◌ۚ◌̕b; à◌֮◌ۚ◌̕b; a◌֮◌̀◌ۚ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH JEEM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DA, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06DA, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DA, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06DA, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06DA, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06DA, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06DA, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4819,22 +15143,80 @@ TEST(normalization, nfkc_086_178)
     // 0061 06DA 0315 0300 05AE 0062;0061 05AE 06DA 0300 0315 0062;0061 05AE 06DA 0300 0315 0062;0061 05AE 06DA 0300 0315 0062;0061 05AE 06DA 0300 0315 0062; 
     // (a◌ۚ◌̕◌̀◌֮b; a◌֮◌ۚ◌̀◌̕b; a◌֮◌ۚ◌̀◌̕b; a◌֮◌ۚ◌̀◌̕b; a◌֮◌ۚ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH JEEM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06DA, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06DA, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06DA, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06DA, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06DA, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06DA, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06DA, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4846,22 +15228,80 @@ TEST(normalization, nfkc_086_179)
     // 0061 0315 0300 05AE 06DB 0062;00E0 05AE 06DB 0315 0062;0061 05AE 0300 06DB 0315 0062;00E0 05AE 06DB 0315 0062;0061 05AE 0300 06DB 0315 0062; 
     // (a◌̕◌̀◌֮◌ۛb; à◌֮◌ۛ◌̕b; a◌֮◌̀◌ۛ◌̕b; à◌֮◌ۛ◌̕b; a◌֮◌̀◌ۛ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH THREE DOTS, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DB, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06DB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DB, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06DB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06DB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06DB, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06DB, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4873,22 +15313,80 @@ TEST(normalization, nfkc_086_180)
     // 0061 06DB 0315 0300 05AE 0062;0061 05AE 06DB 0300 0315 0062;0061 05AE 06DB 0300 0315 0062;0061 05AE 06DB 0300 0315 0062;0061 05AE 06DB 0300 0315 0062; 
     // (a◌ۛ◌̕◌̀◌֮b; a◌֮◌ۛ◌̀◌̕b; a◌֮◌ۛ◌̀◌̕b; a◌֮◌ۛ◌̀◌̕b; a◌֮◌ۛ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH THREE DOTS, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06DB, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06DB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06DB, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06DB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06DB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06DB, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06DB, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4900,22 +15398,80 @@ TEST(normalization, nfkc_086_181)
     // 0061 0315 0300 05AE 06DC 0062;00E0 05AE 06DC 0315 0062;0061 05AE 0300 06DC 0315 0062;00E0 05AE 06DC 0315 0062;0061 05AE 0300 06DC 0315 0062; 
     // (a◌̕◌̀◌֮◌ۜb; à◌֮◌ۜ◌̕b; a◌֮◌̀◌ۜ◌̕b; à◌֮◌ۜ◌̕b; a◌֮◌̀◌ۜ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH SEEN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DC, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06DC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DC, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06DC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06DC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06DC, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06DC, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4927,22 +15483,80 @@ TEST(normalization, nfkc_086_182)
     // 0061 06DC 0315 0300 05AE 0062;0061 05AE 06DC 0300 0315 0062;0061 05AE 06DC 0300 0315 0062;0061 05AE 06DC 0300 0315 0062;0061 05AE 06DC 0300 0315 0062; 
     // (a◌ۜ◌̕◌̀◌֮b; a◌֮◌ۜ◌̀◌̕b; a◌֮◌ۜ◌̀◌̕b; a◌֮◌ۜ◌̀◌̕b; a◌֮◌ۜ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH SEEN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06DC, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06DC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06DC, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06DC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06DC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06DC, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06DC, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4954,22 +15568,80 @@ TEST(normalization, nfkc_086_183)
     // 0061 0315 0300 05AE 06DF 0062;00E0 05AE 06DF 0315 0062;0061 05AE 0300 06DF 0315 0062;00E0 05AE 06DF 0315 0062;0061 05AE 0300 06DF 0315 0062; 
     // (a◌̕◌̀◌֮◌۟b; à◌֮◌۟◌̕b; a◌֮◌̀◌۟◌̕b; à◌֮◌۟◌̕b; a◌֮◌̀◌۟◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH ROUNDED ZERO, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DF, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06DF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06DF, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06DF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06DF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06DF, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06DF, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -4981,22 +15653,80 @@ TEST(normalization, nfkc_086_184)
     // 0061 06DF 0315 0300 05AE 0062;0061 05AE 06DF 0300 0315 0062;0061 05AE 06DF 0300 0315 0062;0061 05AE 06DF 0300 0315 0062;0061 05AE 06DF 0300 0315 0062; 
     // (a◌۟◌̕◌̀◌֮b; a◌֮◌۟◌̀◌̕b; a◌֮◌۟◌̀◌̕b; a◌֮◌۟◌̀◌̕b; a◌֮◌۟◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH ROUNDED ZERO, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06DF, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06DF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06DF, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06DF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06DF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06DF, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06DF, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5008,22 +15738,80 @@ TEST(normalization, nfkc_086_185)
     // 0061 0315 0300 05AE 06E0 0062;00E0 05AE 06E0 0315 0062;0061 05AE 0300 06E0 0315 0062;00E0 05AE 06E0 0315 0062;0061 05AE 0300 06E0 0315 0062; 
     // (a◌̕◌̀◌֮◌۠b; à◌֮◌۠◌̕b; a◌֮◌̀◌۠◌̕b; à◌֮◌۠◌̕b; a◌֮◌̀◌۠◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH UPRIGHT RECTANGULAR ZERO, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E0, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06E0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E0, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06E0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06E0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06E0, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06E0, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5035,22 +15823,80 @@ TEST(normalization, nfkc_086_186)
     // 0061 06E0 0315 0300 05AE 0062;0061 05AE 06E0 0300 0315 0062;0061 05AE 06E0 0300 0315 0062;0061 05AE 06E0 0300 0315 0062;0061 05AE 06E0 0300 0315 0062; 
     // (a◌۠◌̕◌̀◌֮b; a◌֮◌۠◌̀◌̕b; a◌֮◌۠◌̀◌̕b; a◌֮◌۠◌̀◌̕b; a◌֮◌۠◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH UPRIGHT RECTANGULAR ZERO, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E0, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06E0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E0, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06E0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06E0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06E0, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06E0, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5062,22 +15908,80 @@ TEST(normalization, nfkc_086_187)
     // 0061 0315 0300 05AE 06E1 0062;00E0 05AE 06E1 0315 0062;0061 05AE 0300 06E1 0315 0062;00E0 05AE 06E1 0315 0062;0061 05AE 0300 06E1 0315 0062; 
     // (a◌̕◌̀◌֮◌ۡb; à◌֮◌ۡ◌̕b; a◌֮◌̀◌ۡ◌̕b; à◌֮◌ۡ◌̕b; a◌֮◌̀◌ۡ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH DOTLESS HEAD OF KHAH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E1, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06E1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E1, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06E1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06E1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06E1, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06E1, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5089,22 +15993,80 @@ TEST(normalization, nfkc_086_188)
     // 0061 06E1 0315 0300 05AE 0062;0061 05AE 06E1 0300 0315 0062;0061 05AE 06E1 0300 0315 0062;0061 05AE 06E1 0300 0315 0062;0061 05AE 06E1 0300 0315 0062; 
     // (a◌ۡ◌̕◌̀◌֮b; a◌֮◌ۡ◌̀◌̕b; a◌֮◌ۡ◌̀◌̕b; a◌֮◌ۡ◌̀◌̕b; a◌֮◌ۡ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH DOTLESS HEAD OF KHAH, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E1, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06E1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E1, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06E1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06E1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06E1, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06E1, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5116,22 +16078,80 @@ TEST(normalization, nfkc_086_189)
     // 0061 0315 0300 05AE 06E2 0062;00E0 05AE 06E2 0315 0062;0061 05AE 0300 06E2 0315 0062;00E0 05AE 06E2 0315 0062;0061 05AE 0300 06E2 0315 0062; 
     // (a◌̕◌̀◌֮◌ۢb; à◌֮◌ۢ◌̕b; a◌֮◌̀◌ۢ◌̕b; à◌֮◌ۢ◌̕b; a◌֮◌̀◌ۢ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH MEEM ISOLATED FORM, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E2, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06E2, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E2, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06E2, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06E2, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06E2, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06E2, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5143,22 +16163,80 @@ TEST(normalization, nfkc_086_190)
     // 0061 06E2 0315 0300 05AE 0062;0061 05AE 06E2 0300 0315 0062;0061 05AE 06E2 0300 0315 0062;0061 05AE 06E2 0300 0315 0062;0061 05AE 06E2 0300 0315 0062; 
     // (a◌ۢ◌̕◌̀◌֮b; a◌֮◌ۢ◌̀◌̕b; a◌֮◌ۢ◌̀◌̕b; a◌֮◌ۢ◌̀◌̕b; a◌֮◌ۢ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH MEEM ISOLATED FORM, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E2, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06E2, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E2, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06E2, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06E2, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06E2, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06E2, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5170,22 +16248,80 @@ TEST(normalization, nfkc_086_191)
     // 0061 059A 0316 302A 06E3 0062;0061 302A 0316 06E3 059A 0062;0061 302A 0316 06E3 059A 0062;0061 302A 0316 06E3 059A 0062;0061 302A 0316 06E3 059A 0062; 
     // (a◌֚◌̖◌〪◌ۣb; a◌〪◌̖◌ۣ◌֚b; a◌〪◌̖◌ۣ◌֚b; a◌〪◌̖◌ۣ◌֚b; a◌〪◌̖◌ۣ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC SMALL LOW SEEN, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x06E3, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x06E3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x06E3, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x06E3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x06E3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x06E3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x06E3, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5197,22 +16333,80 @@ TEST(normalization, nfkc_086_192)
     // 0061 06E3 059A 0316 302A 0062;0061 302A 06E3 0316 059A 0062;0061 302A 06E3 0316 059A 0062;0061 302A 06E3 0316 059A 0062;0061 302A 06E3 0316 059A 0062; 
     // (a◌ۣ◌֚◌̖◌〪b; a◌〪◌ۣ◌̖◌֚b; a◌〪◌ۣ◌̖◌֚b; a◌〪◌ۣ◌̖◌֚b; a◌〪◌ۣ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC SMALL LOW SEEN, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E3, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x06E3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E3, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x06E3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x06E3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x06E3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x06E3, 0x0316, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5224,22 +16418,80 @@ TEST(normalization, nfkc_086_193)
     // 0061 0315 0300 05AE 06E4 0062;00E0 05AE 06E4 0315 0062;0061 05AE 0300 06E4 0315 0062;00E0 05AE 06E4 0315 0062;0061 05AE 0300 06E4 0315 0062; 
     // (a◌̕◌̀◌֮◌ۤb; à◌֮◌ۤ◌̕b; a◌֮◌̀◌ۤ◌̕b; à◌֮◌ۤ◌̕b; a◌֮◌̀◌ۤ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH MADDA, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E4, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06E4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E4, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06E4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06E4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06E4, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06E4, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5251,22 +16503,80 @@ TEST(normalization, nfkc_086_194)
     // 0061 06E4 0315 0300 05AE 0062;0061 05AE 06E4 0300 0315 0062;0061 05AE 06E4 0300 0315 0062;0061 05AE 06E4 0300 0315 0062;0061 05AE 06E4 0300 0315 0062; 
     // (a◌ۤ◌̕◌̀◌֮b; a◌֮◌ۤ◌̀◌̕b; a◌֮◌ۤ◌̀◌̕b; a◌֮◌ۤ◌̀◌̕b; a◌֮◌ۤ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH MADDA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E4, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06E4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E4, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06E4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06E4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06E4, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06E4, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5278,22 +16588,80 @@ TEST(normalization, nfkc_086_195)
     // 0061 0315 0300 05AE 06E7 0062;00E0 05AE 06E7 0315 0062;0061 05AE 0300 06E7 0315 0062;00E0 05AE 06E7 0315 0062;0061 05AE 0300 06E7 0315 0062; 
     // (a◌̕◌̀◌֮◌ۧb; à◌֮◌ۧ◌̕b; a◌֮◌̀◌ۧ◌̕b; à◌֮◌ۧ◌̕b; a◌֮◌̀◌ۧ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH YEH, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E7, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06E7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E7, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06E7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06E7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06E7, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06E7, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5305,22 +16673,80 @@ TEST(normalization, nfkc_086_196)
     // 0061 06E7 0315 0300 05AE 0062;0061 05AE 06E7 0300 0315 0062;0061 05AE 06E7 0300 0315 0062;0061 05AE 06E7 0300 0315 0062;0061 05AE 06E7 0300 0315 0062; 
     // (a◌ۧ◌̕◌̀◌֮b; a◌֮◌ۧ◌̀◌̕b; a◌֮◌ۧ◌̀◌̕b; a◌֮◌ۧ◌̀◌̕b; a◌֮◌ۧ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH YEH, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E7, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06E7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E7, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06E7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06E7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06E7, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06E7, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5332,22 +16758,80 @@ TEST(normalization, nfkc_086_197)
     // 0061 0315 0300 05AE 06E8 0062;00E0 05AE 06E8 0315 0062;0061 05AE 0300 06E8 0315 0062;00E0 05AE 06E8 0315 0062;0061 05AE 0300 06E8 0315 0062; 
     // (a◌̕◌̀◌֮◌ۨb; à◌֮◌ۨ◌̕b; a◌֮◌̀◌ۨ◌̕b; à◌֮◌ۨ◌̕b; a◌֮◌̀◌ۨ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH NOON, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E8, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 5> const dest = {{ 0x00E0, 0x05AE, 0x06E8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x06E8, 0x0062 }};
+        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x06E8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x06E8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x06E8, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x06E8, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5359,22 +16843,80 @@ TEST(normalization, nfkc_086_198)
     // 0061 06E8 0315 0300 05AE 0062;0061 05AE 06E8 0300 0315 0062;0061 05AE 06E8 0300 0315 0062;0061 05AE 06E8 0300 0315 0062;0061 05AE 06E8 0300 0315 0062; 
     // (a◌ۨ◌̕◌̀◌֮b; a◌֮◌ۨ◌̀◌̕b; a◌֮◌ۨ◌̀◌̕b; a◌֮◌ۨ◌̀◌̕b; a◌֮◌ۨ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH NOON, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x06E8, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x05AE, 0x06E8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x06E8, 0x0315, 0x0300, 0x05AE, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x06E8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x06E8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x06E8, 0x0300, 0x0315, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x06E8, 0x0300, 0x0315, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }
@@ -5386,22 +16928,80 @@ TEST(normalization, nfkc_086_199)
     // 0061 059A 0316 302A 06EA 0062;0061 302A 0316 06EA 059A 0062;0061 302A 0316 06EA 059A 0062;0061 302A 0316 06EA 059A 0062;0061 302A 0316 06EA 059A 0062; 
     // (a◌֚◌̖◌〪◌۪b; a◌〪◌̖◌۪◌֚b; a◌〪◌̖◌۪◌֚b; a◌〪◌̖◌۪◌֚b; a◌〪◌̖◌۪◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC EMPTY CENTRE LOW STOP, LATIN SMALL LETTER B
     {
-        std::array<uint32_t, 6> const source = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x06EA, 0x0062 }};
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        std::array<uint32_t, 6> const dest = {{ 0x0061, 0x302A, 0x0316, 0x06EA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x06EA, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x06EA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x06EA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x06EA, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x06EA, 0x059A, 0x0062 }};
 
-        boost::text::normalize_to_nfkc(str);
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        boost::text::utf32_range utf32_range(str);
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
 
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
         }
 
     }

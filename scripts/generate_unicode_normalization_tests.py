@@ -54,47 +54,124 @@ def arrayify(cps, name):
         len(cps), name, ', '.join(cps)
     )
 
-def generate_tests(tests, normalization, field):
+def generate_test_prefix(normalization, chunk_idx, test_idx, line, comment, fields):
+    return '''
+TEST(normalization, {0}_{1:03}_{2:03})
+{{
+    // {3}
+    // {4}
+    {{
+        {5}
+        {6}
+        {7}
+        {8}
+        {9}
+'''.format(normalization, chunk_idx, test_idx, line, comment, arrayify(fields[0], 'const c1'), arrayify(fields[1], 'const c2'), arrayify(fields[2], 'const c3'), arrayify(fields[3], 'const c4'), arrayify(fields[4], 'const c5'))
+
+def generate_norm_check(normalization, from_, to_):
+    return '''
+        {{
+            boost::text::string str = boost::text::to_string({1}.begin(), {1}.end());
+            boost::text::normalize_to_{0}(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), {2}.size());
+            auto {2}_it = {2}.begin();
+            int i = 0;
+            for (auto x : utf32_range) {{
+                EXPECT_EQ(x, *{2}_it) << "iteration " << i;
+                ++{2}_it;
+                ++i;
+            }}
+        }}
+'''.format(normalization, from_, to_)
+
+def generate_nfc_tests(tests):
     for i in range(len(tests)):
         test_lines = ''
         chunk = tests[i]
         test_idx = 0
         for elem in chunk:
             (fields, line, comment) = elem
-            test_lines += '''
-TEST(normalization, {4}_{5:03}_{6:03})
-{{
-    // {0}
-    // {1}
-    {{
-        {2}
-        boost::text::string str = boost::text::to_string(source.begin(), source.end());
-        {3}
-
-        boost::text::normalize_to_{4}(str);
-
-        boost::text::utf32_range utf32_range(str);
-
-        EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), dest.size());
-
-        auto dest_it = dest.begin();
-        int i = 0;
-        for (auto x : utf32_range) {{
-            EXPECT_EQ(x, *dest_it) << "iteration " << i;
-            ++dest_it;
-            ++i;
-        }}
-'''.format(line, comment, arrayify(fields[source], 'const source'), arrayify(fields[field], 'const dest'), normalization, i, test_idx)
+            test_lines += generate_test_prefix('nfc', i, test_idx, line, comment, fields)
+            #    NFC
+            #      c2 ==  toNFC(c1) ==  toNFC(c2) ==  toNFC(c3)
+            #      c4 ==  toNFC(c4) ==  toNFC(c5)
+            test_lines += generate_norm_check('nfc', 'c1', 'c2')
+            test_lines += generate_norm_check('nfc', 'c2', 'c2')
+            test_lines += generate_norm_check('nfc', 'c3', 'c2')
+            test_lines += generate_norm_check('nfc', 'c4', 'c4')
+            test_lines += generate_norm_check('nfc', 'c5', 'c4')
             test_lines += '\n    }\n}\n\n'
             test_idx += 1
-        cpp_file = open('normalize_to_{}_{:03}.cpp'.format(normalization, i), 'w')
+        cpp_file = open('normalize_to_nfc_{:03}.cpp'.format(i), 'w')
+        cpp_file.write(test_form.format(test_lines))
+
+def generate_nfd_tests(tests):
+    for i in range(len(tests)):
+        test_lines = ''
+        chunk = tests[i]
+        test_idx = 0
+        for elem in chunk:
+            (fields, line, comment) = elem
+            test_lines += generate_test_prefix('nfd', i, test_idx, line, comment, fields)
+            #    NFD
+            #      c3 ==  toNFD(c1) ==  toNFD(c2) ==  toNFD(c3)
+            #      c5 ==  toNFD(c4) ==  toNFD(c5)
+            test_lines += generate_norm_check('nfd', 'c1', 'c3')
+            test_lines += generate_norm_check('nfd', 'c2', 'c3')
+            test_lines += generate_norm_check('nfd', 'c3', 'c3')
+            test_lines += generate_norm_check('nfd', 'c4', 'c5')
+            test_lines += generate_norm_check('nfd', 'c5', 'c5')
+            test_lines += '\n    }\n}\n\n'
+            test_idx += 1
+        cpp_file = open('normalize_to_nfd_{:03}.cpp'.format(i), 'w')
+        cpp_file.write(test_form.format(test_lines))
+
+def generate_nfkc_tests(tests):
+    for i in range(len(tests)):
+        test_lines = ''
+        chunk = tests[i]
+        test_idx = 0
+        for elem in chunk:
+            (fields, line, comment) = elem
+            test_lines += generate_test_prefix('nfkc', i, test_idx, line, comment, fields)
+            #    NFKC
+            #      c4 == toNFKC(c1) == toNFKC(c2) == toNFKC(c3) == toNFKC(c4) == toNFKC(c5)
+            test_lines += generate_norm_check('nfkc', 'c1', 'c4')
+            test_lines += generate_norm_check('nfkc', 'c2', 'c4')
+            test_lines += generate_norm_check('nfkc', 'c3', 'c4')
+            test_lines += generate_norm_check('nfkc', 'c4', 'c4')
+            test_lines += generate_norm_check('nfkc', 'c5', 'c4')
+            test_lines += '\n    }\n}\n\n'
+            test_idx += 1
+        cpp_file = open('normalize_to_nfkc_{:03}.cpp'.format(i), 'w')
+        cpp_file.write(test_form.format(test_lines))
+
+def generate_nfkd_tests(tests):
+    for i in range(len(tests)):
+        test_lines = ''
+        chunk = tests[i]
+        test_idx = 0
+        for elem in chunk:
+            (fields, line, comment) = elem
+            test_lines += generate_test_prefix('nfkd', i, test_idx, line, comment, fields)
+            #    NFKD
+            #      c5 == toNFKD(c1) == toNFKD(c2) == toNFKD(c3) == toNFKD(c4) == toNFKD(c5)
+            test_lines += generate_norm_check('nfkd', 'c1', 'c5')
+            test_lines += generate_norm_check('nfkd', 'c2', 'c5')
+            test_lines += generate_norm_check('nfkd', 'c3', 'c5')
+            test_lines += generate_norm_check('nfkd', 'c4', 'c5')
+            test_lines += generate_norm_check('nfkd', 'c5', 'c5')
+            test_lines += '\n    }\n}\n\n'
+            test_idx += 1
+        cpp_file = open('normalize_to_nfkd_{:03}.cpp'.format(i), 'w')
         cpp_file.write(test_form.format(test_lines))
 
 tests = extract_tests('NormalizationTest.txt')
-generate_tests(tests, 'nfd', NFD)
-generate_tests(tests, 'nfkd', NFKD)
-generate_tests(tests, 'nfc', NFC)
-generate_tests(tests, 'nfkc', NFKC)
+generate_nfc_tests(tests)
+generate_nfd_tests(tests)
+generate_nfkc_tests(tests)
+generate_nfkd_tests(tests)
 
 # TODO: Test all individual code points not covered in the tests above, as the
 # header at the top of NormalizationTest.txt indicates that this is required.
