@@ -49,6 +49,12 @@ add_library(text
     src/normalization_data_ccc.cpp
     src/normalization_data_canonical.cpp
     src/normalization_data_compatible.cpp
+    src/normalization_data_compose.cpp
+    src/normalization_data_quick_checks_nfc.cpp
+    src/normalization_data_quick_checks_nfd.cpp
+    src/normalization_data_quick_checks_nfkc.cpp
+    src/normalization_data_quick_checks_nfkd.cpp
+
 )
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(text PUBLIC boost)
