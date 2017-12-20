@@ -174,11 +174,8 @@ namespace boost { namespace text {
                    hangul_v(buffer.back()) && hangul_t(cp);
         }
 
-        template<typename DecomposeFunc, typename QuickCheckFunc>
-        void normalize_to_composed(
-            string & s,
-            DecomposeFunc && decompose,
-            QuickCheckFunc && quick_check)
+        template<typename DecomposeFunc>
+        void normalize_to_composed(string & s, DecomposeFunc && decompose)
         {
             string temp;
             temp.reserve(s.size());
@@ -186,8 +183,8 @@ namespace boost { namespace text {
             container::static_vector<uint32_t, 64> buffer;
             for (auto x : as_utf32) {
                 auto const decomp = decompose(x);
-                auto const it = std::find_if(
-                    decomp.begin(), decomp.end(), [&quick_check](uint32_t cp) {
+                auto const it =
+                    std::find_if(decomp.begin(), decomp.end(), [](uint32_t cp) {
                         return !ccc(cp);
                     });
                 if (it != decomp.end() && !hangul_final_v(buffer, *it) &&
@@ -222,17 +219,13 @@ namespace boost { namespace text {
     inline void normalize_to_nfc(string & s)
     {
         detail::normalize_to_composed(
-            s,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfd_code_point(cp); });
+            s, [](uint32_t cp) { return canonical_decompose(cp); });
     }
 
     inline void normalize_to_nfkc(string & s)
     {
         detail::normalize_to_composed(
-            s,
-            [](uint32_t cp) { return compatible_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfkd_code_point(cp); });
+            s, [](uint32_t cp) { return compatible_decompose(cp); });
     }
 
 }}
