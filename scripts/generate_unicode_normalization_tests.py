@@ -94,8 +94,7 @@ tests = extract_tests('NormalizationTest.txt')
 generate_tests(tests, 'nfd', NFD)
 generate_tests(tests, 'nfkd', NFKD)
 generate_tests(tests, 'nfc', NFC)
-
-# TODO: Add nfkc.
+generate_tests(tests, 'nfkc', NFKC)
 
 # TODO: Test all individual code points not covered in the tests above, as the
 # header at the top of NormalizationTest.txt indicates that this is required.

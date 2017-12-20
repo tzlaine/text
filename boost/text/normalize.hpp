@@ -124,20 +124,23 @@ namespace boost { namespace text {
                 } else {
                     auto const prev_ccc = *std::prev(ccc_it);
                     auto const ccc = *ccc_it;
-                    if (it == starter_it + 1 ||
-                        (prev_ccc != 0 && prev_ccc < ccc)) {
-                        if (auto const composition =
-                                compose_unblocked(*starter_it, *it)) {
-                            *starter_it = composition;
-                            buffer.erase(it);
-                            cccs.erase(ccc_it);
-                        } else {
-                            ++it;
-                            ++ccc_it;
-                        }
+                    uint32_t composition = 0;
+                    if ((it == starter_it + 1 ||
+                         (prev_ccc != 0 && prev_ccc < ccc)) &&
+                        (composition = compose_unblocked(*starter_it, *it))) {
+                        *starter_it = composition;
+                        buffer.erase(it);
+                        cccs.erase(ccc_it);
                     } else {
                         ++it;
                         ++ccc_it;
+                        if (it == buffer.end() &&
+                            starter_it < buffer.end() - 2) {
+                            ++starter_it;
+                            it = std::next(starter_it);
+                            ccc_it =
+                                cccs.begin() + (starter_it - buffer.begin());
+                        }
                     }
                 }
             }
