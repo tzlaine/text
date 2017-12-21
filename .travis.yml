@@ -6,104 +6,104 @@ script: cmake
 matrix:
     include:
         # OSX
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode6.4
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release
-          os: osx
-          osx_image: xcode6.4
-          compiler: clang
-
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug
-          os: osx
-          osx_image: xcode6.4
-          compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode6.4
           compiler: clang
 
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
+          os: osx
+          osx_image: xcode6.4
+          compiler: clang
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+          os: osx
+          osx_image: xcode6.4
+          compiler: clang
+
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode7.3
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode7.3
           compiler: clang
 
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode7.3
           compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode7.3
           compiler: clang
 
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release
-          os: osx
-          osx_image: xcode8
-          compiler: clang
-
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug
-          os: osx
-          osx_image: xcode8
-          compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8
           compiler: clang
 
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
+          os: osx
+          osx_image: xcode8
+          compiler: clang
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+          os: osx
+          osx_image: xcode8
+          compiler: clang
+
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8.1
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8.1
           compiler: clang
 
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8.1
           compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8.1
           compiler: clang
 
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8.2
           compiler: clang
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8.2
           compiler: clang
 
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
           osx_image: xcode8.2
           compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release
+        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
           os: osx
           osx_image: xcode8.2
           compiler: clang
 
 # TODO: Disabled for now to get the Travis build to stop failing due to timeout.
-#        - env: CPP=14 MAC_OSX=true COVERAGE=on
+#        - env: CPP=14 MAC_OSX=true COVERAGE=on JOBS=4
 #          os: osx
 #          osx_image: xcode8.2
 #          compiler: clang
 
         # Gcc
-        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Debug
+        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
@@ -115,7 +115,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release
+        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
@@ -128,7 +128,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Debug
+        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
@@ -139,7 +139,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Release
+        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
@@ -151,7 +151,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Debug
+        - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-4.9
           addons: &gcc49
@@ -162,30 +162,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Release
-          os: linux
-          compiler: gcc-4.9
-          addons: &gcc49
-            apt:
-              packages:
-                - g++-4.9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
-        - env: GCC_VERSION=4.9 CPP=11 BUILD_TYPE=Debug
-          os: linux
-          compiler: gcc-4.9
-          addons: &gcc49
-            apt:
-              packages:
-                - g++-4.9
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.9 CPP=11 BUILD_TYPE=Release
+        - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-4.9
           addons: &gcc49
@@ -197,7 +174,30 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Debug
+        - env: GCC_VERSION=4.9 CPP=11 BUILD_TYPE=Debug JOBS=4
+          os: linux
+          compiler: gcc-4.9
+          addons: &gcc49
+            apt:
+              packages:
+                - g++-4.9
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+        - env: GCC_VERSION=4.9 CPP=11 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-4.9
+          addons: &gcc49
+            apt:
+              packages:
+                - g++-4.9
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-5
           addons: &gcc5
@@ -208,7 +208,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Release
+        - env: GCC_VERSION=5 CPP=14 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-5
           addons: &gcc5
@@ -220,7 +220,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=5 CPP=11 BUILD_TYPE=Debug
+        - env: GCC_VERSION=5 CPP=11 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-5
           addons: &gcc5
@@ -231,7 +231,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=5 CPP=11 BUILD_TYPE=Release
+        - env: GCC_VERSION=5 CPP=11 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-5
           addons: &gcc5
@@ -243,7 +243,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Debug
+        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Debug JOBS=2
           os: linux
           compiler: gcc-6
           addons: &gcc6
@@ -254,7 +254,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Release
+        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-6
           addons: &gcc6
@@ -266,7 +266,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=6 CPP=11 BUILD_TYPE=Debug
+        - env: GCC_VERSION=6 CPP=11 BUILD_TYPE=Debug JOBS=4
           os: linux
           compiler: gcc-6
           addons: &gcc6
@@ -277,7 +277,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=6 CPP=11 BUILD_TYPE=Release
+        - env: GCC_VERSION=6 CPP=11 BUILD_TYPE=Release JOBS=4
           os: linux
           compiler: gcc-6
           addons: &gcc6
@@ -331,7 +331,7 @@ script:
         mkdir $build_dir
         cd $build_dir
         cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLIMIT_TESTING_FOR_TRAVIS=true ..
-        make -j3 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
+        make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make check
         if [ $? -ne 0 ]
         then
           exit 1
@@ -345,7 +345,7 @@ script:
         cd $build_dir
         cmake -DCXX_STD=${CPP} -DBOOST_ROOT=${DEPS_DIR}/boost_1_64_0 -DCMAKE_BUILD_TYPE=Debug -DBUILD_COVERAGE=true ..
         sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/llvm-cov /usr/local/bin/llvm-cov
-        make -j3 && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
+        make -j${JOBS} && CTEST_OUTPUT_ON_FAILURE=1 CTEST_PARALLEL_LEVEL=4 make coverage
         if [ $? -ne 0 ]
         then
           exit 1
