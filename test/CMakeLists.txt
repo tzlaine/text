@@ -49,7 +49,7 @@ if (NOT LIMIT_TESTING_FOR_TRAVIS)
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_???.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_???.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_???.cpp)
-    file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)  
+    file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
 endif()
 set(globbed_tests
     ${prop_lookup_tests}
