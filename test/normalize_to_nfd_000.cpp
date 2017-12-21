@@ -19,6 +19,20 @@ TEST(normalization, nfd_000_000)
         std::array<uint32_t, 1> const c4 = {{ 0x1E0A }};
         std::array<uint32_t, 2> const c5 = {{ 0x0044, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -103,6 +117,20 @@ TEST(normalization, nfd_000_001)
         std::array<uint32_t, 2> const c3 = {{ 0x0044, 0x0323 }};
         std::array<uint32_t, 1> const c4 = {{ 0x1E0C }};
         std::array<uint32_t, 2> const c5 = {{ 0x0044, 0x0323 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -189,6 +217,20 @@ TEST(normalization, nfd_000_002)
         std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -273,6 +315,20 @@ TEST(normalization, nfd_000_003)
         std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
         std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -359,6 +415,20 @@ TEST(normalization, nfd_000_004)
         std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -443,6 +513,20 @@ TEST(normalization, nfd_000_005)
         std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x0323, 0x0307 }};
         std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x0307 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x0323, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -529,6 +613,20 @@ TEST(normalization, nfd_000_006)
         std::array<uint32_t, 2> const c4 = {{ 0x1E0A, 0x031B }};
         std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x031B, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -613,6 +711,20 @@ TEST(normalization, nfd_000_007)
         std::array<uint32_t, 3> const c3 = {{ 0x0044, 0x031B, 0x0323 }};
         std::array<uint32_t, 2> const c4 = {{ 0x1E0C, 0x031B }};
         std::array<uint32_t, 3> const c5 = {{ 0x0044, 0x031B, 0x0323 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -699,6 +811,20 @@ TEST(normalization, nfd_000_008)
         std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
         std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -783,6 +909,20 @@ TEST(normalization, nfd_000_009)
         std::array<uint32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
         std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
         std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -869,6 +1009,20 @@ TEST(normalization, nfd_000_010)
         std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
         std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -953,6 +1107,20 @@ TEST(normalization, nfd_000_011)
         std::array<uint32_t, 4> const c3 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
         std::array<uint32_t, 3> const c4 = {{ 0x1E0C, 0x031B, 0x0307 }};
         std::array<uint32_t, 4> const c5 = {{ 0x0044, 0x031B, 0x0323, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -1039,6 +1207,20 @@ TEST(normalization, nfd_000_012)
         std::array<uint32_t, 1> const c4 = {{ 0x00C8 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -1123,6 +1305,20 @@ TEST(normalization, nfd_000_013)
         std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0112 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -1209,6 +1405,20 @@ TEST(normalization, nfd_000_014)
         std::array<uint32_t, 1> const c4 = {{ 0x00C8 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -1293,6 +1503,20 @@ TEST(normalization, nfd_000_015)
         std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0304 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0112 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -1379,6 +1603,20 @@ TEST(normalization, nfd_000_016)
         std::array<uint32_t, 1> const c4 = {{ 0x1E14 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -1463,6 +1701,20 @@ TEST(normalization, nfd_000_017)
         std::array<uint32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
         std::array<uint32_t, 1> const c4 = {{ 0x1E14 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -1549,6 +1801,20 @@ TEST(normalization, nfd_000_018)
         std::array<uint32_t, 2> const c4 = {{ 0x1E14, 0x0304 }};
         std::array<uint32_t, 4> const c5 = {{ 0x0045, 0x0304, 0x0300, 0x0304 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -1633,6 +1899,20 @@ TEST(normalization, nfd_000_019)
         std::array<uint32_t, 3> const c3 = {{ 0x0045, 0x0304, 0x0300 }};
         std::array<uint32_t, 1> const c4 = {{ 0x1E14 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0304, 0x0300 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -1719,6 +1999,20 @@ TEST(normalization, nfd_000_020)
         std::array<uint32_t, 2> const c4 = {{ 0x00C8, 0x0304 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0045, 0x0300, 0x0304 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -1803,6 +2097,28 @@ TEST(normalization, nfd_000_021)
         std::array<uint32_t, 8> const c3 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
         std::array<uint32_t, 8> const c4 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
         std::array<uint32_t, 8> const c5 = {{ 0x05B1, 0x05B8, 0x05B9, 0x0591, 0x05C3, 0x05B0, 0x05AC, 0x059F }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -1889,6 +2205,28 @@ TEST(normalization, nfd_000_022)
         std::array<uint32_t, 8> const c4 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
         std::array<uint32_t, 8> const c5 = {{ 0x05B0, 0x05B7, 0x05BC, 0x05A5, 0x0592, 0x05C0, 0x05AD, 0x05C4 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -1973,6 +2311,20 @@ TEST(normalization, nfd_000_023)
         std::array<uint32_t, 4> const c3 = {{ 0x1100, 0x1100, 0x1161, 0x11A8 }};
         std::array<uint32_t, 2> const c4 = {{ 0x1100, 0xAC01 }};
         std::array<uint32_t, 4> const c5 = {{ 0x1100, 0x1100, 0x1161, 0x11A8 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -2059,6 +2411,20 @@ TEST(normalization, nfd_000_024)
         std::array<uint32_t, 3> const c4 = {{ 0x1100, 0xAC01, 0x11A8 }};
         std::array<uint32_t, 5> const c5 = {{ 0x1100, 0x1100, 0x1161, 0x11A8, 0x11A8 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -2143,6 +2509,20 @@ TEST(normalization, nfd_000_025)
         std::array<uint32_t, 1> const c3 = {{ 0x00A0 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0020 }};
         std::array<uint32_t, 1> const c5 = {{ 0x0020 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -2229,6 +2609,20 @@ TEST(normalization, nfd_000_026)
         std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0308 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0308 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -2313,6 +2707,20 @@ TEST(normalization, nfd_000_027)
         std::array<uint32_t, 1> const c3 = {{ 0x00AA }};
         std::array<uint32_t, 1> const c4 = {{ 0x0061 }};
         std::array<uint32_t, 1> const c5 = {{ 0x0061 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -2399,6 +2807,20 @@ TEST(normalization, nfd_000_028)
         std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0304 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0304 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -2483,6 +2905,20 @@ TEST(normalization, nfd_000_029)
         std::array<uint32_t, 1> const c3 = {{ 0x00B2 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0032 }};
         std::array<uint32_t, 1> const c5 = {{ 0x0032 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -2569,6 +3005,20 @@ TEST(normalization, nfd_000_030)
         std::array<uint32_t, 1> const c4 = {{ 0x0033 }};
         std::array<uint32_t, 1> const c5 = {{ 0x0033 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -2653,6 +3103,20 @@ TEST(normalization, nfd_000_031)
         std::array<uint32_t, 1> const c3 = {{ 0x00B4 }};
         std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0301 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -2739,6 +3203,20 @@ TEST(normalization, nfd_000_032)
         std::array<uint32_t, 1> const c4 = {{ 0x03BC }};
         std::array<uint32_t, 1> const c5 = {{ 0x03BC }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -2823,6 +3301,20 @@ TEST(normalization, nfd_000_033)
         std::array<uint32_t, 1> const c3 = {{ 0x00B8 }};
         std::array<uint32_t, 2> const c4 = {{ 0x0020, 0x0327 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0020, 0x0327 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -2909,6 +3401,20 @@ TEST(normalization, nfd_000_034)
         std::array<uint32_t, 1> const c4 = {{ 0x0031 }};
         std::array<uint32_t, 1> const c5 = {{ 0x0031 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -2993,6 +3499,20 @@ TEST(normalization, nfd_000_035)
         std::array<uint32_t, 1> const c3 = {{ 0x00BA }};
         std::array<uint32_t, 1> const c4 = {{ 0x006F }};
         std::array<uint32_t, 1> const c5 = {{ 0x006F }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -3079,6 +3599,20 @@ TEST(normalization, nfd_000_036)
         std::array<uint32_t, 3> const c4 = {{ 0x0031, 0x2044, 0x0034 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0031, 0x2044, 0x0034 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -3163,6 +3697,20 @@ TEST(normalization, nfd_000_037)
         std::array<uint32_t, 1> const c3 = {{ 0x00BD }};
         std::array<uint32_t, 3> const c4 = {{ 0x0031, 0x2044, 0x0032 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0031, 0x2044, 0x0032 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -3249,6 +3797,20 @@ TEST(normalization, nfd_000_038)
         std::array<uint32_t, 3> const c4 = {{ 0x0033, 0x2044, 0x0034 }};
         std::array<uint32_t, 3> const c5 = {{ 0x0033, 0x2044, 0x0034 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -3333,6 +3895,20 @@ TEST(normalization, nfd_000_039)
         std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0300 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00C0 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0300 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -3419,6 +3995,20 @@ TEST(normalization, nfd_000_040)
         std::array<uint32_t, 1> const c4 = {{ 0x00C1 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -3503,6 +4093,20 @@ TEST(normalization, nfd_000_041)
         std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00C2 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -3589,6 +4193,20 @@ TEST(normalization, nfd_000_042)
         std::array<uint32_t, 1> const c4 = {{ 0x00C3 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -3673,6 +4291,20 @@ TEST(normalization, nfd_000_043)
         std::array<uint32_t, 2> const c3 = {{ 0x0041, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00C4 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -3759,6 +4391,20 @@ TEST(normalization, nfd_000_044)
         std::array<uint32_t, 1> const c4 = {{ 0x00C5 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x030A }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -3843,6 +4489,20 @@ TEST(normalization, nfd_000_045)
         std::array<uint32_t, 2> const c3 = {{ 0x0043, 0x0327 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00C7 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0327 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -3929,6 +4589,20 @@ TEST(normalization, nfd_000_046)
         std::array<uint32_t, 1> const c4 = {{ 0x00C8 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -4013,6 +4687,20 @@ TEST(normalization, nfd_000_047)
         std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00C9 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -4099,6 +4787,20 @@ TEST(normalization, nfd_000_048)
         std::array<uint32_t, 1> const c4 = {{ 0x00CA }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -4183,6 +4885,20 @@ TEST(normalization, nfd_000_049)
         std::array<uint32_t, 2> const c3 = {{ 0x0045, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00CB }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -4269,6 +4985,20 @@ TEST(normalization, nfd_000_050)
         std::array<uint32_t, 1> const c4 = {{ 0x00CC }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -4353,6 +5083,20 @@ TEST(normalization, nfd_000_051)
         std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00CD }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -4439,6 +5183,20 @@ TEST(normalization, nfd_000_052)
         std::array<uint32_t, 1> const c4 = {{ 0x00CE }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -4523,6 +5281,20 @@ TEST(normalization, nfd_000_053)
         std::array<uint32_t, 2> const c3 = {{ 0x0049, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00CF }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -4609,6 +5381,20 @@ TEST(normalization, nfd_000_054)
         std::array<uint32_t, 1> const c4 = {{ 0x00D1 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004E, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -4693,6 +5479,20 @@ TEST(normalization, nfd_000_055)
         std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0300 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00D2 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0300 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -4779,6 +5579,20 @@ TEST(normalization, nfd_000_056)
         std::array<uint32_t, 1> const c4 = {{ 0x00D3 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -4863,6 +5677,20 @@ TEST(normalization, nfd_000_057)
         std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00D4 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -4949,6 +5777,20 @@ TEST(normalization, nfd_000_058)
         std::array<uint32_t, 1> const c4 = {{ 0x00D5 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -5033,6 +5875,20 @@ TEST(normalization, nfd_000_059)
         std::array<uint32_t, 2> const c3 = {{ 0x004F, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00D6 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004F, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -5119,6 +5975,20 @@ TEST(normalization, nfd_000_060)
         std::array<uint32_t, 1> const c4 = {{ 0x00D9 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -5203,6 +6073,20 @@ TEST(normalization, nfd_000_061)
         std::array<uint32_t, 2> const c3 = {{ 0x0055, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00DA }};
         std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -5289,6 +6173,20 @@ TEST(normalization, nfd_000_062)
         std::array<uint32_t, 1> const c4 = {{ 0x00DB }};
         std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -5373,6 +6271,20 @@ TEST(normalization, nfd_000_063)
         std::array<uint32_t, 2> const c3 = {{ 0x0055, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00DC }};
         std::array<uint32_t, 2> const c5 = {{ 0x0055, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -5459,6 +6371,20 @@ TEST(normalization, nfd_000_064)
         std::array<uint32_t, 1> const c4 = {{ 0x00DD }};
         std::array<uint32_t, 2> const c5 = {{ 0x0059, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -5543,6 +6469,20 @@ TEST(normalization, nfd_000_065)
         std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0300 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00E0 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0300 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -5629,6 +6569,20 @@ TEST(normalization, nfd_000_066)
         std::array<uint32_t, 1> const c4 = {{ 0x00E1 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -5713,6 +6667,20 @@ TEST(normalization, nfd_000_067)
         std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00E2 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -5799,6 +6767,20 @@ TEST(normalization, nfd_000_068)
         std::array<uint32_t, 1> const c4 = {{ 0x00E3 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -5883,6 +6865,20 @@ TEST(normalization, nfd_000_069)
         std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00E4 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -5969,6 +6965,20 @@ TEST(normalization, nfd_000_070)
         std::array<uint32_t, 1> const c4 = {{ 0x00E5 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x030A }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -6053,6 +7063,20 @@ TEST(normalization, nfd_000_071)
         std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0327 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00E7 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0327 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -6139,6 +7163,20 @@ TEST(normalization, nfd_000_072)
         std::array<uint32_t, 1> const c4 = {{ 0x00E8 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -6223,6 +7261,20 @@ TEST(normalization, nfd_000_073)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00E9 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -6309,6 +7361,20 @@ TEST(normalization, nfd_000_074)
         std::array<uint32_t, 1> const c4 = {{ 0x00EA }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -6393,6 +7459,20 @@ TEST(normalization, nfd_000_075)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00EB }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -6479,6 +7559,20 @@ TEST(normalization, nfd_000_076)
         std::array<uint32_t, 1> const c4 = {{ 0x00EC }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -6563,6 +7657,20 @@ TEST(normalization, nfd_000_077)
         std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00ED }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -6649,6 +7757,20 @@ TEST(normalization, nfd_000_078)
         std::array<uint32_t, 1> const c4 = {{ 0x00EE }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -6733,6 +7855,20 @@ TEST(normalization, nfd_000_079)
         std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00EF }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -6819,6 +7955,20 @@ TEST(normalization, nfd_000_080)
         std::array<uint32_t, 1> const c4 = {{ 0x00F1 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006E, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -6903,6 +8053,20 @@ TEST(normalization, nfd_000_081)
         std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0300 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00F2 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0300 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -6989,6 +8153,20 @@ TEST(normalization, nfd_000_082)
         std::array<uint32_t, 1> const c4 = {{ 0x00F3 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -7073,6 +8251,20 @@ TEST(normalization, nfd_000_083)
         std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00F4 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -7159,6 +8351,20 @@ TEST(normalization, nfd_000_084)
         std::array<uint32_t, 1> const c4 = {{ 0x00F5 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -7243,6 +8449,20 @@ TEST(normalization, nfd_000_085)
         std::array<uint32_t, 2> const c3 = {{ 0x006F, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00F6 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006F, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -7329,6 +8549,20 @@ TEST(normalization, nfd_000_086)
         std::array<uint32_t, 1> const c4 = {{ 0x00F9 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0300 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -7413,6 +8647,20 @@ TEST(normalization, nfd_000_087)
         std::array<uint32_t, 2> const c3 = {{ 0x0075, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00FA }};
         std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -7499,6 +8747,20 @@ TEST(normalization, nfd_000_088)
         std::array<uint32_t, 1> const c4 = {{ 0x00FB }};
         std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -7583,6 +8845,20 @@ TEST(normalization, nfd_000_089)
         std::array<uint32_t, 2> const c3 = {{ 0x0075, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00FC }};
         std::array<uint32_t, 2> const c5 = {{ 0x0075, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -7669,6 +8945,20 @@ TEST(normalization, nfd_000_090)
         std::array<uint32_t, 1> const c4 = {{ 0x00FD }};
         std::array<uint32_t, 2> const c5 = {{ 0x0079, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -7753,6 +9043,20 @@ TEST(normalization, nfd_000_091)
         std::array<uint32_t, 2> const c3 = {{ 0x0079, 0x0308 }};
         std::array<uint32_t, 1> const c4 = {{ 0x00FF }};
         std::array<uint32_t, 2> const c5 = {{ 0x0079, 0x0308 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -7839,6 +9143,20 @@ TEST(normalization, nfd_000_092)
         std::array<uint32_t, 1> const c4 = {{ 0x0100 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0304 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -7923,6 +9241,20 @@ TEST(normalization, nfd_000_093)
         std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0304 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0101 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0304 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -8009,6 +9341,20 @@ TEST(normalization, nfd_000_094)
         std::array<uint32_t, 1> const c4 = {{ 0x0102 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0306 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -8093,6 +9439,20 @@ TEST(normalization, nfd_000_095)
         std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0306 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0103 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0306 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -8179,6 +9539,20 @@ TEST(normalization, nfd_000_096)
         std::array<uint32_t, 1> const c4 = {{ 0x0104 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0041, 0x0328 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -8263,6 +9637,20 @@ TEST(normalization, nfd_000_097)
         std::array<uint32_t, 2> const c3 = {{ 0x0061, 0x0328 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0105 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0061, 0x0328 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -8349,6 +9737,20 @@ TEST(normalization, nfd_000_098)
         std::array<uint32_t, 1> const c4 = {{ 0x0106 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -8433,6 +9835,20 @@ TEST(normalization, nfd_000_099)
         std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0107 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -8519,6 +9935,20 @@ TEST(normalization, nfd_000_100)
         std::array<uint32_t, 1> const c4 = {{ 0x0108 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -8603,6 +10033,20 @@ TEST(normalization, nfd_000_101)
         std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0109 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -8689,6 +10133,20 @@ TEST(normalization, nfd_000_102)
         std::array<uint32_t, 1> const c4 = {{ 0x010A }};
         std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -8773,6 +10231,20 @@ TEST(normalization, nfd_000_103)
         std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x0307 }};
         std::array<uint32_t, 1> const c4 = {{ 0x010B }};
         std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -8859,6 +10331,20 @@ TEST(normalization, nfd_000_104)
         std::array<uint32_t, 1> const c4 = {{ 0x010C }};
         std::array<uint32_t, 2> const c5 = {{ 0x0043, 0x030C }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -8943,6 +10429,20 @@ TEST(normalization, nfd_000_105)
         std::array<uint32_t, 2> const c3 = {{ 0x0063, 0x030C }};
         std::array<uint32_t, 1> const c4 = {{ 0x010D }};
         std::array<uint32_t, 2> const c5 = {{ 0x0063, 0x030C }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -9029,6 +10529,20 @@ TEST(normalization, nfd_000_106)
         std::array<uint32_t, 1> const c4 = {{ 0x010E }};
         std::array<uint32_t, 2> const c5 = {{ 0x0044, 0x030C }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -9113,6 +10627,20 @@ TEST(normalization, nfd_000_107)
         std::array<uint32_t, 2> const c3 = {{ 0x0064, 0x030C }};
         std::array<uint32_t, 1> const c4 = {{ 0x010F }};
         std::array<uint32_t, 2> const c5 = {{ 0x0064, 0x030C }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -9199,6 +10727,20 @@ TEST(normalization, nfd_000_108)
         std::array<uint32_t, 1> const c4 = {{ 0x0112 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0304 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -9283,6 +10825,20 @@ TEST(normalization, nfd_000_109)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0304 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0113 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0304 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -9369,6 +10925,20 @@ TEST(normalization, nfd_000_110)
         std::array<uint32_t, 1> const c4 = {{ 0x0114 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0306 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -9453,6 +11023,20 @@ TEST(normalization, nfd_000_111)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0306 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0115 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0306 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -9539,6 +11123,20 @@ TEST(normalization, nfd_000_112)
         std::array<uint32_t, 1> const c4 = {{ 0x0116 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -9623,6 +11221,20 @@ TEST(normalization, nfd_000_113)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0307 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0117 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -9709,6 +11321,20 @@ TEST(normalization, nfd_000_114)
         std::array<uint32_t, 1> const c4 = {{ 0x0118 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x0328 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -9793,6 +11419,20 @@ TEST(normalization, nfd_000_115)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x0328 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0119 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x0328 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -9879,6 +11519,20 @@ TEST(normalization, nfd_000_116)
         std::array<uint32_t, 1> const c4 = {{ 0x011A }};
         std::array<uint32_t, 2> const c5 = {{ 0x0045, 0x030C }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -9963,6 +11617,20 @@ TEST(normalization, nfd_000_117)
         std::array<uint32_t, 2> const c3 = {{ 0x0065, 0x030C }};
         std::array<uint32_t, 1> const c4 = {{ 0x011B }};
         std::array<uint32_t, 2> const c5 = {{ 0x0065, 0x030C }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -10049,6 +11717,20 @@ TEST(normalization, nfd_000_118)
         std::array<uint32_t, 1> const c4 = {{ 0x011C }};
         std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -10133,6 +11815,20 @@ TEST(normalization, nfd_000_119)
         std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x011D }};
         std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -10219,6 +11915,20 @@ TEST(normalization, nfd_000_120)
         std::array<uint32_t, 1> const c4 = {{ 0x011E }};
         std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0306 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -10303,6 +12013,20 @@ TEST(normalization, nfd_000_121)
         std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0306 }};
         std::array<uint32_t, 1> const c4 = {{ 0x011F }};
         std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0306 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -10389,6 +12113,20 @@ TEST(normalization, nfd_000_122)
         std::array<uint32_t, 1> const c4 = {{ 0x0120 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -10473,6 +12211,20 @@ TEST(normalization, nfd_000_123)
         std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0307 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0121 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0307 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -10559,6 +12311,20 @@ TEST(normalization, nfd_000_124)
         std::array<uint32_t, 1> const c4 = {{ 0x0122 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0047, 0x0327 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -10643,6 +12409,20 @@ TEST(normalization, nfd_000_125)
         std::array<uint32_t, 2> const c3 = {{ 0x0067, 0x0327 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0123 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0067, 0x0327 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -10729,6 +12509,20 @@ TEST(normalization, nfd_000_126)
         std::array<uint32_t, 1> const c4 = {{ 0x0124 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0048, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -10813,6 +12607,20 @@ TEST(normalization, nfd_000_127)
         std::array<uint32_t, 2> const c3 = {{ 0x0068, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0125 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0068, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -10899,6 +12707,20 @@ TEST(normalization, nfd_000_128)
         std::array<uint32_t, 1> const c4 = {{ 0x0128 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0303 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -10983,6 +12805,20 @@ TEST(normalization, nfd_000_129)
         std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0303 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0129 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0303 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -11069,6 +12905,20 @@ TEST(normalization, nfd_000_130)
         std::array<uint32_t, 1> const c4 = {{ 0x012A }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0304 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -11153,6 +13003,20 @@ TEST(normalization, nfd_000_131)
         std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0304 }};
         std::array<uint32_t, 1> const c4 = {{ 0x012B }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0304 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -11239,6 +13103,20 @@ TEST(normalization, nfd_000_132)
         std::array<uint32_t, 1> const c4 = {{ 0x012C }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0306 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -11323,6 +13201,20 @@ TEST(normalization, nfd_000_133)
         std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0306 }};
         std::array<uint32_t, 1> const c4 = {{ 0x012D }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0306 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -11409,6 +13301,20 @@ TEST(normalization, nfd_000_134)
         std::array<uint32_t, 1> const c4 = {{ 0x012E }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0328 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -11493,6 +13399,20 @@ TEST(normalization, nfd_000_135)
         std::array<uint32_t, 2> const c3 = {{ 0x0069, 0x0328 }};
         std::array<uint32_t, 1> const c4 = {{ 0x012F }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x0328 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -11579,6 +13499,20 @@ TEST(normalization, nfd_000_136)
         std::array<uint32_t, 1> const c4 = {{ 0x0130 }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x0307 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -11663,6 +13597,20 @@ TEST(normalization, nfd_000_137)
         std::array<uint32_t, 1> const c3 = {{ 0x0132 }};
         std::array<uint32_t, 2> const c4 = {{ 0x0049, 0x004A }};
         std::array<uint32_t, 2> const c5 = {{ 0x0049, 0x004A }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -11749,6 +13697,20 @@ TEST(normalization, nfd_000_138)
         std::array<uint32_t, 2> const c4 = {{ 0x0069, 0x006A }};
         std::array<uint32_t, 2> const c5 = {{ 0x0069, 0x006A }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -11833,6 +13795,20 @@ TEST(normalization, nfd_000_139)
         std::array<uint32_t, 2> const c3 = {{ 0x004A, 0x0302 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0134 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004A, 0x0302 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -11919,6 +13895,20 @@ TEST(normalization, nfd_000_140)
         std::array<uint32_t, 1> const c4 = {{ 0x0135 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006A, 0x0302 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12003,6 +13993,20 @@ TEST(normalization, nfd_000_141)
         std::array<uint32_t, 2> const c3 = {{ 0x004B, 0x0327 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0136 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004B, 0x0327 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -12089,6 +14093,20 @@ TEST(normalization, nfd_000_142)
         std::array<uint32_t, 1> const c4 = {{ 0x0137 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006B, 0x0327 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12173,6 +14191,20 @@ TEST(normalization, nfd_000_143)
         std::array<uint32_t, 2> const c3 = {{ 0x004C, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0139 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -12259,6 +14291,20 @@ TEST(normalization, nfd_000_144)
         std::array<uint32_t, 1> const c4 = {{ 0x013A }};
         std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12343,6 +14389,20 @@ TEST(normalization, nfd_000_145)
         std::array<uint32_t, 2> const c3 = {{ 0x004C, 0x0327 }};
         std::array<uint32_t, 1> const c4 = {{ 0x013B }};
         std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x0327 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -12429,6 +14489,20 @@ TEST(normalization, nfd_000_146)
         std::array<uint32_t, 1> const c4 = {{ 0x013C }};
         std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x0327 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12513,6 +14587,20 @@ TEST(normalization, nfd_000_147)
         std::array<uint32_t, 2> const c3 = {{ 0x004C, 0x030C }};
         std::array<uint32_t, 1> const c4 = {{ 0x013D }};
         std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x030C }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -12599,6 +14687,20 @@ TEST(normalization, nfd_000_148)
         std::array<uint32_t, 1> const c4 = {{ 0x013E }};
         std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x030C }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12683,6 +14785,20 @@ TEST(normalization, nfd_000_149)
         std::array<uint32_t, 1> const c3 = {{ 0x013F }};
         std::array<uint32_t, 2> const c4 = {{ 0x004C, 0x00B7 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004C, 0x00B7 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
@@ -12769,6 +14885,20 @@ TEST(normalization, nfd_000_150)
         std::array<uint32_t, 2> const c4 = {{ 0x006C, 0x00B7 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006C, 0x00B7 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12854,6 +14984,20 @@ TEST(normalization, nfd_000_151)
         std::array<uint32_t, 1> const c4 = {{ 0x0143 }};
         std::array<uint32_t, 2> const c5 = {{ 0x004E, 0x0301 }};
 
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
             boost::text::normalize_to_nfd(str);
@@ -12938,6 +15082,20 @@ TEST(normalization, nfd_000_152)
         std::array<uint32_t, 2> const c3 = {{ 0x006E, 0x0301 }};
         std::array<uint32_t, 1> const c4 = {{ 0x0144 }};
         std::array<uint32_t, 2> const c5 = {{ 0x006E, 0x0301 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
 
         {
             boost::text::string str = boost::text::to_string(c1.begin(), c1.end());

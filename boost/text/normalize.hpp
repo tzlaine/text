@@ -328,15 +328,14 @@ namespace boost { namespace text {
                     last,
                     buffer,
                     decompose,
-                    quick_check_,
                     [&first, last](
                         buffer_iterator buffer_first,
                         buffer_iterator buffer_last) {
                         while (first != last && buffer_first != buffer_last) {
                             if (*first++ != *buffer_first++)
                                 return false;
-                            return true;
                         }
+                        return true;
                     });
             }
             return check == quick_check::yes;
@@ -367,8 +366,8 @@ namespace boost { namespace text {
                         while (first != last && buffer_first != buffer_last) {
                             if (*first++ != *buffer_first++)
                                 return false;
-                            return true;
                         }
+                        return true;
                     });
             }
             return check == quick_check::yes;

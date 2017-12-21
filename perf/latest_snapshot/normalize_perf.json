@@ -1,0 +1,669 @@
+{
+  "context": {
+    "date": "2017-12-20 21:26:46",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_normalize_000",
+      "iterations": 5989,
+      "real_time": 121387,
+      "cpu_time": 121359,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_001",
+      "iterations": 5196,
+      "real_time": 138350,
+      "cpu_time": 138329,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_002",
+      "iterations": 4307,
+      "real_time": 168857,
+      "cpu_time": 168829,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_003",
+      "iterations": 4894,
+      "real_time": 147326,
+      "cpu_time": 147267,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_004",
+      "iterations": 4247,
+      "real_time": 164517,
+      "cpu_time": 164498,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_005",
+      "iterations": 4595,
+      "real_time": 151102,
+      "cpu_time": 151023,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_006",
+      "iterations": 4692,
+      "real_time": 147508,
+      "cpu_time": 147463,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_007",
+      "iterations": 5017,
+      "real_time": 145288,
+      "cpu_time": 145214,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_008",
+      "iterations": 4479,
+      "real_time": 160472,
+      "cpu_time": 160435,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_009",
+      "iterations": 4248,
+      "real_time": 159971,
+      "cpu_time": 159948,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_010",
+      "iterations": 4036,
+      "real_time": 183855,
+      "cpu_time": 183804,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_011",
+      "iterations": 3993,
+      "real_time": 172346,
+      "cpu_time": 172255,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_012",
+      "iterations": 4144,
+      "real_time": 170687,
+      "cpu_time": 170619,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_013",
+      "iterations": 3885,
+      "real_time": 173885,
+      "cpu_time": 173782,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_014",
+      "iterations": 4010,
+      "real_time": 171441,
+      "cpu_time": 171374,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_015",
+      "iterations": 3838,
+      "real_time": 183256,
+      "cpu_time": 183149,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_016",
+      "iterations": 3698,
+      "real_time": 188694,
+      "cpu_time": 188603,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_017",
+      "iterations": 3759,
+      "real_time": 184898,
+      "cpu_time": 184752,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_018",
+      "iterations": 4233,
+      "real_time": 167169,
+      "cpu_time": 167097,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_019",
+      "iterations": 4135,
+      "real_time": 170916,
+      "cpu_time": 170812,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_020",
+      "iterations": 4161,
+      "real_time": 176263,
+      "cpu_time": 176168,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_021",
+      "iterations": 3420,
+      "real_time": 209015,
+      "cpu_time": 208849,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_022",
+      "iterations": 3397,
+      "real_time": 208735,
+      "cpu_time": 208642,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_023",
+      "iterations": 3526,
+      "real_time": 197956,
+      "cpu_time": 197752,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_024",
+      "iterations": 4089,
+      "real_time": 170526,
+      "cpu_time": 170340,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_025",
+      "iterations": 3893,
+      "real_time": 173540,
+      "cpu_time": 173337,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_026",
+      "iterations": 3932,
+      "real_time": 179201,
+      "cpu_time": 178971,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_027",
+      "iterations": 3402,
+      "real_time": 209805,
+      "cpu_time": 209547,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_028",
+      "iterations": 3452,
+      "real_time": 210316,
+      "cpu_time": 210009,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_029",
+      "iterations": 3532,
+      "real_time": 206254,
+      "cpu_time": 205989,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_030",
+      "iterations": 3605,
+      "real_time": 207399,
+      "cpu_time": 207122,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_031",
+      "iterations": 3455,
+      "real_time": 215158,
+      "cpu_time": 215009,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_032",
+      "iterations": 3529,
+      "real_time": 197362,
+      "cpu_time": 197222,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_033",
+      "iterations": 3936,
+      "real_time": 178008,
+      "cpu_time": 177880,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_034",
+      "iterations": 3953,
+      "real_time": 174434,
+      "cpu_time": 174331,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_035",
+      "iterations": 4128,
+      "real_time": 171472,
+      "cpu_time": 171345,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_036",
+      "iterations": 3989,
+      "real_time": 171786,
+      "cpu_time": 171678,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_037",
+      "iterations": 4068,
+      "real_time": 173648,
+      "cpu_time": 173540,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_038",
+      "iterations": 4189,
+      "real_time": 172605,
+      "cpu_time": 172535,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_039",
+      "iterations": 4075,
+      "real_time": 176591,
+      "cpu_time": 176499,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_040",
+      "iterations": 4019,
+      "real_time": 176516,
+      "cpu_time": 176370,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_041",
+      "iterations": 3691,
+      "real_time": 191620,
+      "cpu_time": 191461,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_042",
+      "iterations": 3428,
+      "real_time": 207141,
+      "cpu_time": 207026,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_043",
+      "iterations": 3463,
+      "real_time": 204295,
+      "cpu_time": 204173,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_044",
+      "iterations": 3817,
+      "real_time": 185701,
+      "cpu_time": 185517,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_045",
+      "iterations": 4241,
+      "real_time": 172371,
+      "cpu_time": 172271,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_046",
+      "iterations": 4124,
+      "real_time": 170223,
+      "cpu_time": 170131,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_047",
+      "iterations": 4171,
+      "real_time": 165211,
+      "cpu_time": 165128,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_048",
+      "iterations": 4121,
+      "real_time": 168867,
+      "cpu_time": 168793,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_049",
+      "iterations": 4154,
+      "real_time": 169008,
+      "cpu_time": 168909,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_050",
+      "iterations": 4239,
+      "real_time": 165169,
+      "cpu_time": 165087,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_051",
+      "iterations": 4164,
+      "real_time": 171098,
+      "cpu_time": 170978,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_052",
+      "iterations": 4112,
+      "real_time": 168682,
+      "cpu_time": 168566,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_053",
+      "iterations": 4192,
+      "real_time": 165651,
+      "cpu_time": 165551,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_054",
+      "iterations": 4147,
+      "real_time": 167409,
+      "cpu_time": 167345,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_055",
+      "iterations": 4127,
+      "real_time": 170285,
+      "cpu_time": 170203,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_056",
+      "iterations": 4233,
+      "real_time": 166307,
+      "cpu_time": 166229,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_057",
+      "iterations": 4023,
+      "real_time": 175203,
+      "cpu_time": 175132,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_058",
+      "iterations": 4040,
+      "real_time": 173075,
+      "cpu_time": 173011,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_059",
+      "iterations": 4332,
+      "real_time": 171204,
+      "cpu_time": 171124,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_060",
+      "iterations": 4008,
+      "real_time": 170281,
+      "cpu_time": 170098,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_061",
+      "iterations": 4166,
+      "real_time": 169156,
+      "cpu_time": 168962,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_062",
+      "iterations": 4295,
+      "real_time": 173093,
+      "cpu_time": 172906,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_063",
+      "iterations": 4040,
+      "real_time": 172579,
+      "cpu_time": 172369,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_064",
+      "iterations": 4221,
+      "real_time": 169980,
+      "cpu_time": 169798,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_065",
+      "iterations": 3471,
+      "real_time": 209098,
+      "cpu_time": 208816,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_066",
+      "iterations": 3383,
+      "real_time": 207891,
+      "cpu_time": 207639,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_067",
+      "iterations": 3436,
+      "real_time": 202537,
+      "cpu_time": 202249,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_068",
+      "iterations": 4698,
+      "real_time": 151855,
+      "cpu_time": 151723,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_069",
+      "iterations": 4760,
+      "real_time": 157621,
+      "cpu_time": 157512,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_070",
+      "iterations": 4747,
+      "real_time": 147859,
+      "cpu_time": 147761,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_071",
+      "iterations": 4586,
+      "real_time": 150181,
+      "cpu_time": 150148,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_072",
+      "iterations": 5072,
+      "real_time": 144087,
+      "cpu_time": 144039,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_073",
+      "iterations": 4823,
+      "real_time": 149955,
+      "cpu_time": 149858,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_074",
+      "iterations": 5696,
+      "real_time": 118733,
+      "cpu_time": 118694,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_075",
+      "iterations": 4392,
+      "real_time": 159389,
+      "cpu_time": 159302,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_076",
+      "iterations": 4957,
+      "real_time": 138080,
+      "cpu_time": 138039,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_077",
+      "iterations": 5264,
+      "real_time": 139186,
+      "cpu_time": 139112,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_078",
+      "iterations": 5904,
+      "real_time": 121899,
+      "cpu_time": 121833,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_079",
+      "iterations": 5699,
+      "real_time": 119939,
+      "cpu_time": 119868,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_080",
+      "iterations": 5948,
+      "real_time": 123083,
+      "cpu_time": 123014,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_081",
+      "iterations": 5131,
+      "real_time": 139026,
+      "cpu_time": 138972,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_082",
+      "iterations": 4675,
+      "real_time": 154408,
+      "cpu_time": 154333,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_083",
+      "iterations": 4585,
+      "real_time": 154031,
+      "cpu_time": 153937,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_084",
+      "iterations": 3483,
+      "real_time": 205948,
+      "cpu_time": 205881,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_085",
+      "iterations": 1000,
+      "real_time": 536869,
+      "cpu_time": 536530,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_086",
+      "iterations": 1274,
+      "real_time": 564127,
+      "cpu_time": 563609,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_087",
+      "iterations": 1291,
+      "real_time": 539844,
+      "cpu_time": 539505,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_088",
+      "iterations": 1137,
+      "real_time": 622049,
+      "cpu_time": 621549,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_089",
+      "iterations": 1299,
+      "real_time": 553470,
+      "cpu_time": 553069,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_090",
+      "iterations": 1260,
+      "real_time": 553320,
+      "cpu_time": 552906,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_091",
+      "iterations": 1145,
+      "real_time": 592374,
+      "cpu_time": 591998,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_092",
+      "iterations": 1315,
+      "real_time": 576023,
+      "cpu_time": 575741,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_normalize_093",
+      "iterations": 1830,
+      "real_time": 389894,
+      "cpu_time": 389659,
+      "time_unit": "ns"
+    }
+  ]
+}
