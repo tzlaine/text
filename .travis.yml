@@ -115,7 +115,7 @@ matrix:
                 - libboost-system-dev
               sources:
                 - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release JOBS=4
+        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release JOBS=2
           os: linux
           compiler: gcc-4.8
           addons: &gcc48
