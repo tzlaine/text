@@ -261,9 +261,6 @@ namespace boost { namespace text {
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_)
         {
-            // TODO: Experiment with using normalized_quick_check() here as an
-            // optimization.
-
             string temp;
             temp.reserve(s.size());
             utf32_range as_utf32(s);
@@ -377,6 +374,18 @@ namespace boost { namespace text {
     /** TODO */
     inline void normalize_to_nfd(string & s)
     {
+        utf32_range as_utf32(s);
+        if (detail::normalized_quick_check(
+                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
+                    return quick_check_nfd_code_point(cp);
+                }) == quick_check::yes) {
+            return;
+        }
+
+        // TODO: Add a 1k code point buffer, and reuse the code point
+        // transformation in the case that the check above does not
+        // early-return.
+
         detail::normalize_to_decomposed(
             s, [](uint32_t cp) { return canonical_decompose(cp); });
     }
@@ -384,6 +393,14 @@ namespace boost { namespace text {
     /** TODO */
     inline void normalize_to_nfkd(string & s)
     {
+        utf32_range as_utf32(s);
+        if (detail::normalized_quick_check(
+                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
+                    return quick_check_nfkd_code_point(cp);
+                }) == quick_check::yes) {
+            return;
+        }
+
         detail::normalize_to_decomposed(
             s, [](uint32_t cp) { return compatible_decompose(cp); });
     }
@@ -391,6 +408,14 @@ namespace boost { namespace text {
     /** TODO */
     inline void normalize_to_nfc(string & s)
     {
+        utf32_range as_utf32(s);
+        if (detail::normalized_quick_check(
+                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
+                    return quick_check_nfc_code_point(cp);
+                }) == quick_check::yes) {
+            return;
+        }
+
         detail::normalize_to_composed(
             s,
             [](uint32_t cp) { return canonical_decompose(cp); },
@@ -400,6 +425,14 @@ namespace boost { namespace text {
     /** TODO */
     inline void normalize_to_nfkc(string & s)
     {
+        utf32_range as_utf32(s);
+        if (detail::normalized_quick_check(
+                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
+                    return quick_check_nfkc_code_point(cp);
+                }) == quick_check::yes) {
+            return;
+        }
+
         detail::normalize_to_composed(
             s,
             [](uint32_t cp) { return compatible_decompose(cp); },
