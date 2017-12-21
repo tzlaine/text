@@ -243,7 +243,7 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
-        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Debug JOBS=2
+        - env: GCC_VERSION=6 CPP=14 BUILD_TYPE=Debug JOBS=1
           os: linux
           compiler: gcc-6
           addons: &gcc6
