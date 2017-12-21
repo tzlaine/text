@@ -382,10 +382,6 @@ namespace boost { namespace text {
             return;
         }
 
-        // TODO: Add a 1k code point buffer, and reuse the code point
-        // transformation in the case that the check above does not
-        // early-return.
-
         detail::normalize_to_decomposed(
             s, [](uint32_t cp) { return canonical_decompose(cp); });
     }
