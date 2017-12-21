@@ -44,6 +44,6 @@ build_script:
  - cmd: mkdir build
  - cmd: cd build
  - cmd: SET CXXFLAGS=/DFIT_HAS_GENERIC_LAMBDA=1
- - cmd: cmake .. -G"%GENERATOR%"
+ - cmd: cmake .. -DLIMIT_TESTING_FOR_TRAVIS=true -G"%GENERATOR%"
  - cmd: cmake --build . --config %CONFIG%
  - cmd: cmake --build . --config %CONFIG% --target check
