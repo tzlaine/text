@@ -174,8 +174,7 @@ namespace boost { namespace text {
                             starter_it < buffer.end() - 2) {
                             ++starter_it;
                             it = std::next(starter_it);
-                            ccc_it =
-                                cccs.begin() + (starter_it - buffer.begin());
+                            ccc_it = cccs.begin() + (it - buffer.begin());
                         }
                     }
                 }
