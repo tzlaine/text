@@ -864,7 +864,7 @@ namespace boost { namespace text {
 
     inline string::string(string const & t) : storage_(), size_(0), heap_(false)
     {
-        insert(0, string_view(t.begin(), t.size()));
+        insert(0, string_view(t.begin(), t.size() + 1));
     }
 
     inline string::string(string_view tv) : storage_(), size_(0), heap_(false)
@@ -884,7 +884,7 @@ namespace boost { namespace text {
     {
         if (t.size() <= size()) {
             clear();
-            insert(0, string_view(t.begin(), t.size()));
+            insert(0, string_view(t.begin(), t.size() + 1));
         } else {
             string tmp(t);
             swap(tmp);
