@@ -54,8 +54,9 @@ add_library(text
     src/normalization_data_quick_checks_nfd.cpp
     src/normalization_data_quick_checks_nfkc.cpp
     src/normalization_data_quick_checks_nfkd.cpp
-
+    src/collation_data.cpp
 )
+
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(text PUBLIC boost)
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})

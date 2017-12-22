@@ -6,43 +6,83 @@
 #include <array>
 
 
+// TODO: All this stuff should go in detail.
 namespace boost { namespace text {
 
     // TODO: Experiment with changing these *_decomposition types to be a pair
-    // of iterators and a size as an optimization.
+    // of iterators as an optimization.
+
+    inline constexpr std::size_t
+    hash_combine(std::size_t seed, std::size_t x) noexcept
+    {
+        return seed ^ (x + 0x9e3779b9 + (seed << 6) + (seed >> 2));
+    }
+
+    inline constexpr std::size_t hash(uint32_t x)
+    {
+        return hash_combine(0, x);
+    }
+
+    inline constexpr std::size_t hash(uint32_t x, uint32_t y)
+    {
+        return hash_combine(x, y);
+    }
+
+    inline constexpr std::size_t
+    hash(uint32_t x, uint32_t y, uint32_t z) noexcept
+    {
+        return hash_combine(hash_combine(x, y), z);
+    }
+
+    inline constexpr std::size_t
+    hash(uint32_t x, uint32_t y, uint32_t z, uint32_t w) noexcept
+    {
+        return hash_combine(hash_combine(hash_combine(x, y), z), w);
+    }
 
     /** */
-    struct canonical_decomposition
+    template<int Capacity>
+    struct code_points
     {
-        using storage_type = std::array<uint32_t, 4>;
-        using iterator = storage_type::const_iterator;
+        using storage_type = std::array<uint32_t, Capacity>;
+        using iterator = typename storage_type::const_iterator;
 
         iterator begin() const { return storage_.begin(); }
         iterator end() const { return storage_.begin() + size_; }
 
+        friend bool operator==(
+            code_points<Capacity> const & lhs,
+            code_points<Capacity> const & rhs)
+        {
+            return lhs.size_ == rhs.size_ && std::equal(
+                                                 lhs.storage_.begin(),
+                                                 lhs.storage_.end(),
+                                                 rhs.storage_.begin());
+        }
+        friend bool operator!=(
+            code_points<Capacity> const & lhs,
+            code_points<Capacity> const & rhs)
+        {
+            return !(lhs == rhs);
+        }
+
         storage_type storage_;
         int size_;
     };
+
+    /** */
+    using canonical_decomposition = code_points<4>;
 
     /** TODO */
     canonical_decomposition canonical_decompose(uint32_t cp) noexcept;
 
     /** TODO
 
-        See http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings
-        for the source of the "18".
+        See
+       http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings for
+       the source of the "18".
     */
-    struct compatible_decomposition
-    {
-        using storage_type = std::array<uint32_t, 18>;
-        using iterator = storage_type::const_iterator;
-
-        iterator begin() const { return storage_.begin(); }
-        iterator end() const { return storage_.begin() + size_; }
-
-        storage_type storage_;
-        int size_;
-    };
+    using compatible_decomposition = code_points<18>;
 
     /** TODO */
     compatible_decomposition compatible_decompose(uint32_t cp) noexcept;
@@ -101,5 +141,22 @@ namespace boost { namespace text {
     quick_check quick_check_nfkc_code_point(uint32_t cp) noexcept;
 
 }}
+
+namespace std {
+    template<int Size>
+    struct hash<boost::text::code_points<Size>>
+    {
+        typedef boost::text::code_points<Size> argument_type;
+        typedef std::size_t result_type;
+        result_type operator()(argument_type const & cps) const noexcept
+        {
+            result_type retval = 0;
+            for (int i = 0, end = cps.size_; i < end; ++i) {
+                retval = boost::text::hash_combine(retval, cps.storage_[i]);
+            }
+            return retval;
+        }
+    };
+}
 
 #endif

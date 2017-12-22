@@ -127,7 +127,7 @@ namespace boost { namespace text {
             return 0x11a8 <= cp && cp <= 0x11c2;
         }
 
-        template<std::size_t Capacity>
+        template<bool DisallowDiscontiguous, std::size_t Capacity>
         void compose(
             container::static_vector<uint32_t, Capacity> & buffer,
             container::static_vector<int, Capacity> & cccs)
@@ -162,7 +162,8 @@ namespace boost { namespace text {
                     auto const ccc = *ccc_it;
                     uint32_t composition = 0;
                     if ((it == starter_it + 1 ||
-                         (prev_ccc != 0 && prev_ccc < ccc)) &&
+                         (!DisallowDiscontiguous &&
+                          (prev_ccc != 0 && prev_ccc < ccc))) &&
                         (composition = compose_unblocked(*starter_it, *it))) {
                         *starter_it = composition;
                         buffer.erase(it);
@@ -181,7 +182,10 @@ namespace boost { namespace text {
             }
         }
 
-        template<std::size_t Capacity, typename FlushFunc>
+        template<
+            bool DisallowDiscontiguous,
+            std::size_t Capacity,
+            typename FlushFunc>
         bool compose_and_flush_buffer(
             container::static_vector<uint32_t, Capacity> & buffer,
             FlushFunc &&
@@ -191,7 +195,7 @@ namespace boost { namespace text {
             if (!buffer.empty())
                 order_canonically(buffer.begin(), buffer.end(), cccs);
             if (2 <= buffer.size())
-                compose(buffer, cccs);
+                compose<DisallowDiscontiguous>(buffer, cccs);
             if (!flush(buffer.begin(), buffer.end()))
                 return false;
             buffer.clear();
@@ -216,6 +220,7 @@ namespace boost { namespace text {
         }
 
         template<
+            bool DisallowDiscontiguous,
             typename Iter,
             std::size_t Capacity,
             typename DecomposeFunc,
@@ -241,20 +246,27 @@ namespace boost { namespace text {
                 if (it != decomp.end() && !hangul_final_v(buffer, *it) &&
                     !hangul_final_t(buffer, *it)) {
                     buffer.insert(buffer.end(), decomp.begin(), it);
-                    if (!detail::compose_and_flush_buffer(buffer, flush))
+                    if (!detail::compose_and_flush_buffer<
+                            DisallowDiscontiguous>(buffer, flush)) {
                         return false;
+                    }
                     buffer.insert(buffer.end(), it, decomp.end());
                 } else {
                     buffer.insert(buffer.end(), decomp.begin(), decomp.end());
                 }
                 ++first;
             }
-            if (!detail::compose_and_flush_buffer(buffer, flush))
+            if (!detail::compose_and_flush_buffer<DisallowDiscontiguous>(
+                    buffer, flush)) {
                 return false;
+            }
             return true;
         }
 
-        template<typename DecomposeFunc, typename QuickCheckFunc>
+        template<
+            bool DisallowDiscontiguous,
+            typename DecomposeFunc,
+            typename QuickCheckFunc>
         void normalize_to_composed(
             string & s,
             DecomposeFunc && decompose,
@@ -268,7 +280,7 @@ namespace boost { namespace text {
             using buffer_iterator =
                 container::static_vector<uint32_t, 64>::iterator;
 
-            normalize_to_composed_impl(
+            normalize_to_composed_impl<DisallowDiscontiguous>(
                 as_utf32.begin(),
                 as_utf32.end(),
                 buffer,
@@ -374,7 +386,7 @@ namespace boost { namespace text {
                 container::static_vector<uint32_t, 64> buffer;
                 using buffer_iterator =
                     container::static_vector<uint32_t, 64>::iterator;
-                return normalize_to_composed_impl(
+                return normalize_to_composed_impl<false>(
                     first,
                     last,
                     buffer,
@@ -435,7 +447,7 @@ namespace boost { namespace text {
             return;
         }
 
-        detail::normalize_to_composed(
+        detail::normalize_to_composed<false>(
             s,
             [](uint32_t cp) { return canonical_decompose(cp); },
             [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
@@ -452,7 +464,7 @@ namespace boost { namespace text {
             return;
         }
 
-        detail::normalize_to_composed(
+        detail::normalize_to_composed<false>(
             s,
             [](uint32_t cp) { return compatible_decompose(cp); },
             [](uint32_t cp) { return quick_check_nfkc_code_point(cp); });
@@ -509,6 +521,39 @@ namespace boost { namespace text {
             last,
             [](uint32_t cp) { return compatible_decompose(cp); },
             [](uint32_t cp) { return quick_check_nfkc_code_point(cp); });
+    }
+
+    /** Returns true iff the given sequence of code points is in the
+        pseudonormalized FCC form. */
+    template<typename Iter>
+    bool pseudonormalized_fcc(Iter first, Iter last) noexcept
+    {
+        // http://www.unicode.org/notes/tn5/#FCD_Test
+        int prev_ccc = 0;
+        while (first != last) {
+            auto const cp = *first;
+            auto const decomp = canonical_decompose(cp);
+            auto const ccc_ = ccc(*decomp.begin());
+            if (ccc_ && ccc_ < prev_ccc)
+                return false;
+            prev_ccc = decomp.size_ == 1 ? ccc_ : ccc(*decomp.end());
+            ++first;
+        }
+        return false;
+    }
+
+    /** TODO */
+    inline void psuedonormalize_to_fcc(string & s)
+    {
+        // http://www.unicode.org/notes/tn5/#FCC
+        utf32_range as_utf32(s);
+        if (pseudonormalized_fcc(as_utf32.begin(), as_utf32.end()))
+            return;
+
+        detail::normalize_to_composed<true>(
+            s,
+            [](uint32_t cp) { return canonical_decompose(cp); },
+            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
     }
 
 }}
