@@ -289,6 +289,19 @@ namespace boost { namespace text {
                 s.swap(temp);
         }
 
+#if 0
+        // TODO: The logic in
+        // http://www.unicode.org/reports/tr15/tr15-45.html#Detecting_Normalization_Forms
+        // seems to indicate that if a supplementary character is encountered
+        // in normalized_quick_check(), then we should proceed as normal for
+        // this iteration, but then do a double increment of the loop control
+        // variable.  That looks wrong, so I'm leaving that out for now.
+        bool supplemantary(uint32_t cp)
+        {
+            return 0x10000 <= cp && cp <= 0x10FFFF;
+        }
+#endif
+
         // TODO: Experiment with writing out teh ccc values for reuse in case
         // the result is not quick_check::yes.
         template<typename Iter, typename QuickCheckFunc>
@@ -298,12 +311,18 @@ namespace boost { namespace text {
             quick_check retval = quick_check::yes;
             int prev_ccc = 0;
             while (first != last) {
-                auto const check = quick_check_(*first);
+                auto const cp = *first;
+#if 0
+                // See note above.
+                if (supplemantary(cp))
+                    ++first;
+#endif
+                auto const check = quick_check_(cp);
                 if (check == quick_check::no)
                     return quick_check::no;
                 if (check == quick_check::maybe)
                     retval = quick_check::maybe;
-                auto const ccc_ = ccc(*first);
+                auto const ccc_ = ccc(cp);
                 if (ccc_ && ccc_ < prev_ccc)
                     return quick_check::no;
                 prev_ccc = ccc_;
