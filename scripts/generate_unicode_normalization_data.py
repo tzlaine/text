@@ -421,78 +421,79 @@ def get_quick_checks(filename):
 
     return retval
 
-cccs_dict = cccs('DerivedCombiningClass.txt')
-item_strings = map(lambda x : '{}, {}'.format(hex(x[0]), x[1]), sorted(cccs_dict.items()))
-ccc_intervals_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-cpp_file = open('normalization_data_ccc.cpp', 'w')
-cpp_file.write(ccc_file_form.format(ccc_intervals_map))
-
-def cps_to_vec(cps):
-    return '{ {{ ' + ', '.join(map(lambda x: hex(x), cps)) + ' }}}}, {} }}'.format(len(cps))
-
-decomposition_mapping = get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
-item_strings = map(
-    lambda x : '{}, {}'.format(hex(x[0]), cps_to_vec(x[1][0])),
-    filter(lambda x: x[1][1], decomposition_mapping)
-)
-decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-cpp_file = open('normalization_data_canonical.cpp', 'w')
-cpp_file.write(canonical_file_form.format(decompositions_map))
-
-decomposition_mapping = get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_compatible)
-item_strings = map(
-    lambda x : '{}, {}'.format(hex(x[0]), cps_to_vec(x[1][0])),
-    decomposition_mapping
-)
-decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-
-cpp_file = open('normalization_data_compatible.cpp', 'w')
-cpp_file.write(compatible_file_form.format(decompositions_map))
-
-composition_mapping = get_compositions('UnicodeData.txt', 'DerivedNormalizationProps.txt')
-item_strings = map(
-    lambda x : 'key({}, {}), {}'.format(hex(x[0][0]), hex(x[0][1]), hex(x[1])),
-    composition_mapping
-)
-compositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-
-cpp_file = open('normalization_data_compose.cpp', 'w')
-cpp_file.write(compose_file_form.format(compositions_map))
-
-
-quick_check_maps = get_quick_checks('DerivedNormalizationProps.txt')
-item_strings = map(
-    lambda x : '{}'.format(hex(x[0]), x[1]),
-    sorted(quick_check_maps['NFD'].items())
-)
-nfd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
-
-cpp_file = open('normalization_data_quick_checks_nfd.cpp', 'w')
-cpp_file.write(quick_checks_set_file_form.format(nfd_strings, 'nfd'))
-
-item_strings = map(
-    lambda x : '{}'.format(hex(x[0]), x[1]),
-    sorted(quick_check_maps['NFKD'].items())
-)
-nfkd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
-
-cpp_file = open('normalization_data_quick_checks_nfkd.cpp', 'w')
-cpp_file.write(quick_checks_set_file_form.format(nfkd_strings, 'nfkd'))
-
-item_strings = map(
-    lambda x : '{}, {}'.format(hex(x[0]), x[1]),
-    sorted(quick_check_maps['NFC'].items())
-)
-nfc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-
-cpp_file = open('normalization_data_quick_checks_nfc.cpp', 'w')
-cpp_file.write(quick_checks_map_file_form.format(nfc_strings, 'nfc'))
-
-item_strings = map(
-    lambda x : '{}, {}'.format(hex(x[0]), x[1]),
-    sorted(quick_check_maps['NFKC'].items())
-)
-nfkc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-
-cpp_file = open('normalization_data_quick_checks_nfkc.cpp', 'w')
-cpp_file.write(quick_checks_map_file_form.format(nfkc_strings, 'nfkc'))
+if __name__ == "__main__":
+    cccs_dict = cccs('DerivedCombiningClass.txt')
+    item_strings = map(lambda x : '{}, {}'.format(hex(x[0]), x[1]), sorted(cccs_dict.items()))
+    ccc_intervals_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    cpp_file = open('normalization_data_ccc.cpp', 'w')
+    cpp_file.write(ccc_file_form.format(ccc_intervals_map))
+    
+    def cps_to_vec(cps):
+        return '{ {{ ' + ', '.join(map(lambda x: hex(x), cps)) + ' }}}}, {} }}'.format(len(cps))
+    
+    decomposition_mapping = get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
+    item_strings = map(
+        lambda x : '{}, {}'.format(hex(x[0]), cps_to_vec(x[1][0])),
+        filter(lambda x: x[1][1], decomposition_mapping)
+    )
+    decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    cpp_file = open('normalization_data_canonical.cpp', 'w')
+    cpp_file.write(canonical_file_form.format(decompositions_map))
+    
+    decomposition_mapping = get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_compatible)
+    item_strings = map(
+        lambda x : '{}, {}'.format(hex(x[0]), cps_to_vec(x[1][0])),
+        decomposition_mapping
+    )
+    decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    
+    cpp_file = open('normalization_data_compatible.cpp', 'w')
+    cpp_file.write(compatible_file_form.format(decompositions_map))
+    
+    composition_mapping = get_compositions('UnicodeData.txt', 'DerivedNormalizationProps.txt')
+    item_strings = map(
+        lambda x : 'key({}, {}), {}'.format(hex(x[0][0]), hex(x[0][1]), hex(x[1])),
+        composition_mapping
+    )
+    compositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    
+    cpp_file = open('normalization_data_compose.cpp', 'w')
+    cpp_file.write(compose_file_form.format(compositions_map))
+    
+    
+    quick_check_maps = get_quick_checks('DerivedNormalizationProps.txt')
+    item_strings = map(
+        lambda x : '{}'.format(hex(x[0]), x[1]),
+        sorted(quick_check_maps['NFD'].items())
+    )
+    nfd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
+    
+    cpp_file = open('normalization_data_quick_checks_nfd.cpp', 'w')
+    cpp_file.write(quick_checks_set_file_form.format(nfd_strings, 'nfd'))
+    
+    item_strings = map(
+        lambda x : '{}'.format(hex(x[0]), x[1]),
+        sorted(quick_check_maps['NFKD'].items())
+    )
+    nfkd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
+    
+    cpp_file = open('normalization_data_quick_checks_nfkd.cpp', 'w')
+    cpp_file.write(quick_checks_set_file_form.format(nfkd_strings, 'nfkd'))
+    
+    item_strings = map(
+        lambda x : '{}, {}'.format(hex(x[0]), x[1]),
+        sorted(quick_check_maps['NFC'].items())
+    )
+    nfc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    
+    cpp_file = open('normalization_data_quick_checks_nfc.cpp', 'w')
+    cpp_file.write(quick_checks_map_file_form.format(nfc_strings, 'nfc'))
+    
+    item_strings = map(
+        lambda x : '{}, {}'.format(hex(x[0]), x[1]),
+        sorted(quick_check_maps['NFKC'].items())
+    )
+    nfkc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    
+    cpp_file = open('normalization_data_quick_checks_nfkc.cpp', 'w')
+    cpp_file.write(quick_checks_map_file_form.format(nfkc_strings, 'nfkc'))
