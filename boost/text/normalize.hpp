@@ -289,22 +289,27 @@ namespace boost { namespace text {
                 s.swap(temp);
         }
 
+        // TODO: Experiment with writing out teh ccc values for reuse in case
+        // the result is not quick_check::yes.
         template<typename Iter, typename QuickCheckFunc>
         quick_check normalized_quick_check(
             Iter first, Iter last, QuickCheckFunc && quick_check_) noexcept
         {
-            bool need_full_check = false;
+            quick_check retval = quick_check::yes;
+            int prev_ccc = 0;
             while (first != last) {
                 auto const check = quick_check_(*first);
                 if (check == quick_check::no)
                     return quick_check::no;
                 if (check == quick_check::maybe)
-                    need_full_check = true;
+                    retval = quick_check::maybe;
+                auto const ccc_ = ccc(*first);
+                if (ccc_ && ccc_ < prev_ccc)
+                    return quick_check::no;
+                prev_ccc = ccc_;
                 ++first;
             }
-            if (need_full_check)
-                return quick_check::maybe;
-            return quick_check::yes;
+            return retval;
         }
 
         template<typename Iter, typename DecomposeFunc, typename QuickCheckFunc>
