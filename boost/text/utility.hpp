@@ -30,6 +30,8 @@ namespace boost { namespace text {
             last_(std::end(r))
         {}
 
+        bool empty() const noexcept { return first_ == last_; }
+
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
 
