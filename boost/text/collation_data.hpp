@@ -70,33 +70,43 @@ namespace boost { namespace text {
     };
 
     namespace detail {
-        collation_elements collation_impl(code_points<4> cps) noexcept;
+        collation_elements collation_impl_singleton_1(uint32_t cp) noexcept;
+        collation_elements collation_impl_singleton_2(uint32_t cp) noexcept;
+        collation_elements
+            collation_impl_multiple_cp_key(code_points<4> cps) noexcept;
     }
 
     /** Returns the collation elements for code point cp0. */
-    collation_elements collation(uint32_t cp0) noexcept
+    collation_elements collation(uint32_t cp) noexcept
     {
-        return detail::collation_impl(code_points<4>{{{cp0}}, 1});
+        if (cp < static_cast<int>(
+                     collation_weights::median_sigleton_collation_key)) {
+            return detail::collation_impl_singleton_1(cp);
+        } else {
+            return detail::collation_impl_singleton_2(cp);
+        }
     }
 
     /** Returns the collation elements for code points <cp0, cp1>. */
     collation_elements collation(uint32_t cp0, uint32_t cp1) noexcept
     {
-        return detail::collation_impl(code_points<4>{{{cp0, cp1}}, 2});
+        return detail::collation_impl_multiple_cp_key(
+            code_points<4>{{{cp0, cp1}}, 2});
     }
 
     /** Returns the collation elements for code points <cp0, cp1, cp2>. */
     collation_elements
     collation(uint32_t cp0, uint32_t cp1, uint32_t cp2) noexcept
     {
-        return detail::collation_impl(code_points<4>{{{cp0, cp1, cp2}}, 3});
+        return detail::collation_impl_multiple_cp_key(
+            code_points<4>{{{cp0, cp1, cp2}}, 3});
     }
 
     /** Returns the collation elements for code points <cp0, cp1, cp2, cp3>. */
     collation_elements
     collation(uint32_t cp0, uint32_t cp1, uint32_t cp2, uint32_t cp3) noexcept
     {
-        return detail::collation_impl(
+        return detail::collation_impl_multiple_cp_key(
             code_points<4>{{{cp0, cp1, cp2, cp3}}, 4});
     }
 
