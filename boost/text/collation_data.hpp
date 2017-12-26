@@ -15,7 +15,7 @@ namespace boost { namespace text {
     struct collation_element
     {
         uint16_t l1() const noexcept { return l1_; }
-        uint8_t l2() const noexcept { return l2_bias + biased_l2_; }
+        uint8_t l2() const noexcept { return uint8_t(l2_bias + biased_l2_); }
         uint8_t l3() const noexcept { return l3_; }
 
         static constexpr uint8_t l2_bias =

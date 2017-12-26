@@ -576,7 +576,12 @@ def cps_to_key(cps):
     return '{ {{ ' + ', '.join(map(lambda x: hex(x), cps)) + ' }}}}, {} }}'.format(len(cps))
 
 def ce_to_cpp(ce):
-    return '{{uint16_t({}), uint8_t({}), uint8_t({})}}'.format(hex(ce[0]), hex(ce[1]), hex(ce[2]))
+    biased_l2 = ce[1] - min_l2
+    if biased_l2 < 0:
+        biased_l2 += 256
+    return '{{uint16_t({}), uint8_t({}), uint8_t({})}}'.format(
+        hex(ce[0]), hex(biased_l2), hex(ce[2])
+    )
 
 #print collation_elements
 
