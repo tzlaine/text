@@ -4,6 +4,7 @@
 #include <boost/text/normalization_data.hpp>
 #include <boost/text/collation_weights.hpp>
 
+#include <algorithm>
 #include <unordered_map>
 
 #include <cstdint>
