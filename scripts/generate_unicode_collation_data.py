@@ -46,14 +46,12 @@ collation_elements_file_form = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-const std::array<collation_element> g_collation_elements = {{
+const std::array<collation_element, {1}> g_collation_elements = {{{{
 {0}
-}};
+}}}};
 
-namespace detail {{
-    collation_element const * g_collation_elements_first =
-        g_collation_elements.data();
-}}
+collation_element const * g_collation_elements_first =
+    g_collation_elements.data();
 
 }}}}}}
 '''
@@ -116,6 +114,7 @@ namespace detail {{
 
 def get_ducet(filename):
     ducet = {}
+    ducet_lines = {}
 
     min_var = 10000
     max_var = 0
@@ -160,6 +159,7 @@ def get_ducet(filename):
                 max_l3 = max(max_l3, e[0][2])
             collation_elements = map(lambda x: x[0], collation_elements)
             ducet[cps] = collation_elements
+            ducet_lines[cps] = (line, comment)
 
     # If you're seeing an error because of this return, it's because we could
     # not determine a range of variable weights.  Hopefully, this will never
@@ -170,7 +170,7 @@ def get_ducet(filename):
     min_l1 = min(min_var, min_non_var)
     max_l1 = max(max_var, max_non_var)
 
-    return (ducet, min_var, max_var, min_l1, max_l1, min_l2, max_l2, min_l3, max_l3)
+    return (ducet, ducet_lines, min_var, max_var, min_l1, max_l1, min_l2, max_l2, min_l3, max_l3)
 
 def ccc(cccs_dict, cp):
     if cp in cccs_dict:
@@ -465,15 +465,6 @@ class trie_node:
         self.children_.append(node)
         return node
 
-def print_node_2(trie, indent = -1):
-    if trie.cp_ == -1:
-        retval = ''
-    else:
-        retval = '{0}cp={1} coll={2}\n'.format('  ' * indent, trie.cp_, trie.collation_elements_)
-    for c in sorted(trie.children_):
-        retval += print_node(c, indent + 1)
-    return retval
-
 def trie_insert(trie, k, v):
     i = 0
     end = len(k)
@@ -498,8 +489,14 @@ def trie_insert(trie, k, v):
 def make_trie(ucet):
     trie = trie_node(-1)
 
+    # catch all the multi-cp keys
     for k,v in ucet.items():
         if 1 < len(k):
+            trie_insert(trie, k, v)
+
+    # catch all the single-cp keys that are prefixes of existing multi-cp keys
+    for k,v in ucet.items():
+        if len(k) == 1 and trie.child(k[0]) != None:
             trie_insert(trie, k, v)
 
     return trie
@@ -508,10 +505,17 @@ def print_node(trie, indent = -1):
     if trie.cp_ == -1:
         retval = ''
     else:
-        retval = '{0}cp={1} coll={2}\n'.format('  ' * indent, trie.cp_, trie.collation_elements_)
+        retval = '{0}cp={1} coll={2}\n'.format(
+            '  ' * indent, hex(trie.cp_), trie.collation_elements_
+        )
     for c in sorted(trie.children_):
         retval += print_node(c, indent + 1)
     return retval
+
+def num_descendents(trie):
+    if trie.children_ == []:
+        return 0
+    return len(trie.children_) + reduce(lambda x,y: x + num_descendents(y), trie.children_, 0)
 
 def visit_trie(trie, all_nodes, indent = 0):
     if len(trie.children_) == 0:
@@ -520,12 +524,13 @@ def visit_trie(trie, all_nodes, indent = 0):
     to_append = len(sorted_children)
     N = len(all_nodes) + to_append
     for c in sorted_children:
-        l = len(c.children_)
+        num_children = len(c.children_)
+        num_descendents_ = num_descendents(c)
         node = trie_node(c.cp_)
-        node.children_ = (N, N + l)
+        node.children_ = (N, N + num_children)
         node.collation_elements_ = c.collation_elements_
         all_nodes.append(node)
-        N += l
+        N += num_descendents_
     for c in sorted_children:
         visit_trie(c, all_nodes, indent + 1)
 
@@ -542,40 +547,15 @@ def flatten_trie(trie):
 
     return (trie_lines, len(all_nodes))
 
-cccs_dict = cccs('DerivedCombiningClass.txt')
-decomposition_mapping = \
-  get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
-decomposition_mapping = filter(lambda x: x[1][1], decomposition_mapping)
-decomposition_mapping = map(lambda x: (x[0], x[1][0]), decomposition_mapping)
-decomposition_mapping = dict(decomposition_mapping)
+def find_singleton_keys(ucet, trie):
+    non_singleton_initial_cps = set(map(lambda x: x.cp_, trie.children_))
+    singleton_keys = set()
+    for k,v in ucet.items():
+        if len(k) == 1 and k[0] not in non_singleton_initial_cps:
+            singleton_keys.add(k)
+    return singleton_keys
 
-# TODO: Consider using allkeys_CLDR.txt.
-(ducet, min_var, max_var, min_l1, max_l1, min_l2, max_l2, min_l3, max_l3) = \
-  get_ducet('allkeys.txt')
-
-# TODO: Remove if/when allkeys_CLDR.txt is used.
-ducet = add_10_contractions(ducet)
-fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
-fcc_ucet = add_canonical_closure(fcc_ucet)
-(median_single_cp_value, max_key_length) = stats(fcc_ucet)
-
-(fcc_ucet, collation_elements) = make_unique_collation_element_sequence(fcc_ucet)
-
-trie = make_trie(fcc_ucet)
-(trie_lines, num_trie_lines) = flatten_trie(trie)
-
-
-hpp_file = open('collation_weights.hpp', 'w')
-hpp_file.write(weights_header_form.format(
-    hex(min_l1), hex(max_l1), hex(min_l2), hex(max_l2),
-    hex(min_l3), hex(max_l3), hex(min_var), hex(max_var),
-    hex(median_single_cp_value), max_key_length
-))
-
-def cps_to_key(cps):
-    return '{ {{ ' + ', '.join(map(lambda x: hex(x), cps)) + ' }}}}, {} }}'.format(len(cps))
-
-def ce_to_cpp(ce):
+def ce_to_cpp(ce, min_l2):
     biased_l2 = ce[1] - min_l2
     if biased_l2 < 0:
         biased_l2 += 256
@@ -583,28 +563,69 @@ def ce_to_cpp(ce):
         hex(ce[0]), hex(biased_l2), hex(ce[2])
     )
 
-#print collation_elements
+if __name__ == "__main__":
+    cccs_dict = cccs('DerivedCombiningClass.txt')
+    decomposition_mapping = \
+      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
+    decomposition_mapping = filter(lambda x: x[1][1], decomposition_mapping)
+    decomposition_mapping = map(lambda x: (x[0], x[1][0]), decomposition_mapping)
+    decomposition_mapping = dict(decomposition_mapping)
 
-item_strings = map(ce_to_cpp, collation_elements)
-collation_elements_list = '    ' + ',\n    '.join(item_strings) + ',\n'
-cpp_file = open('collation_data_0.cpp', 'w')
-cpp_file.write(collation_elements_file_form.format(collation_elements_list))
+    # TODO: Consider using allkeys_CLDR.txt.
+    (ducet, ducet_lines, min_var, max_var, min_l1, max_l1, min_l2, max_l2, min_l3, max_l3) = \
+      get_ducet('allkeys.txt')
 
-item_strings = map(
-    lambda x : '{}, {{{}, {}}}'.format(hex(x[0][0]), x[1][0], x[1][1]),
-    sorted(filter(lambda x: len(x[0]) == 1 and x[0][0] < median_single_cp_value, fcc_ucet.items()))
-)
-decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-cpp_file = open('collation_data_1.cpp', 'w')
-cpp_file.write(singleton_key_file_form.format(decompositions_map, 1))
+    # TODO: Remove if/when allkeys_CLDR.txt is used.
+    ducet = add_10_contractions(ducet)
 
-item_strings = map(
-    lambda x : '{}, {{{}, {}}}'.format(hex(x[0][0]), x[1][0], x[1][1]),
-    sorted(filter(lambda x: len(x[0]) == 1 and median_single_cp_value <= x[0][0], fcc_ucet.items()))
-)
-decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-cpp_file = open('collation_data_2.cpp', 'w')
-cpp_file.write(singleton_key_file_form.format(decompositions_map, 2))
+    #print 'before decomps:'
+    #print (0x3c,), ducet[(0x3c,)]
 
-cpp_file = open('collation_data_3.cpp', 'w')
-cpp_file.write(multiple_cp_key_file_form.format(trie_lines, num_trie_lines, len(trie.children_)))
+    # TODO: Restore/fix this.
+    fcc_ucet = ducet
+
+    #fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
+
+    #print 'and after:'
+    #print (0x3c,), fcc_ucet[(0x3c,)]
+
+    #fcc_ucet = add_canonical_closure(fcc_ucet)
+    (median_single_cp_value, max_key_length) = stats(fcc_ucet)
+
+    (fcc_ucet, collation_elements) = make_unique_collation_element_sequence(fcc_ucet)
+
+    trie = make_trie(fcc_ucet)
+    (trie_lines, num_trie_lines) = flatten_trie(trie)
+
+    singleton_keys = find_singleton_keys(fcc_ucet, trie)
+
+    hpp_file = open('collation_weights.hpp', 'w')
+    hpp_file.write(weights_header_form.format(
+        hex(min_l1), hex(max_l1), hex(min_l2), hex(max_l2),
+        hex(min_l3), hex(max_l3), hex(min_var), hex(max_var),
+        hex(median_single_cp_value), max_key_length
+    ))
+
+    item_strings = map(lambda x: ce_to_cpp(x, min_l2), collation_elements)
+    collation_elements_list = '    ' + ',\n    '.join(item_strings) + ',\n'
+    cpp_file = open('collation_data_0.cpp', 'w')
+    cpp_file.write(collation_elements_file_form.format(collation_elements_list, len(collation_elements)))
+
+    item_strings = map(
+        lambda x : '{}, {{{}, {}}}'.format(hex(x[0][0]), x[1][0], x[1][1]),
+        sorted(filter(lambda x: x[0] in singleton_keys and x[0][0] < median_single_cp_value, fcc_ucet.items()))
+    )
+    decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    cpp_file = open('collation_data_1.cpp', 'w')
+    cpp_file.write(singleton_key_file_form.format(decompositions_map, 1))
+
+    item_strings = map(
+        lambda x : '{}, {{{}, {}}}'.format(hex(x[0][0]), x[1][0], x[1][1]),
+        sorted(filter(lambda x: x[0] in singleton_keys and median_single_cp_value <= x[0][0], fcc_ucet.items()))
+    )
+    decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
+    cpp_file = open('collation_data_2.cpp', 'w')
+    cpp_file.write(singleton_key_file_form.format(decompositions_map, 2))
+
+    cpp_file = open('collation_data_3.cpp', 'w')
+    cpp_file.write(multiple_cp_key_file_form.format(trie_lines, num_trie_lines, len(trie.children_)))

@@ -27,6 +27,16 @@ namespace boost { namespace text {
         uint8_t l3_;
     };
 
+    inline bool operator==(collation_element lhs, collation_element rhs)
+    {
+        return lhs.l1_ == rhs.l1_ && lhs.biased_l2_ == rhs.biased_l2_ &&
+               lhs.l3_ == rhs.l3_;
+    }
+    inline bool operator!=(collation_element lhs, collation_element rhs)
+    {
+        return !(lhs == rhs);
+    }
+
     static_assert(
         sizeof(collation_element) == 4,
         "Oops!  collation_element should be 32 bits.");
@@ -141,7 +151,7 @@ namespace boost { namespace text {
     {
         auto it = first;
         auto const starter = *it++;
-        auto node_it = find_trie_node(
+        auto node_it = detail::find_trie_node(
             detail::g_collation_trie_start_nodes_first,
             detail::g_collation_trie_start_nodes_last,
             starter);
@@ -150,12 +160,17 @@ namespace boost { namespace text {
 
         longest_collation_t retval{
             node_it->collation_elements_,
-            1,
-            node_it - detail::g_collation_trie_start_nodes_first};
+            node_it->collation_elements_ ? 1 : 0,
+            uint16_t(node_it - detail::g_collation_trie_start_nodes_first)};
         while (!node_it->leaf()) {
-            auto const node_it2 = find_trie_node(
-                node_it->first_child_, node_it->last_child_, *it++);
-            if (node_it2 == node_it->last_child_)
+            auto const node_it2 = detail::find_trie_node(
+                detail::g_collation_trie_start_nodes_first +
+                    node_it->first_child_,
+                detail::g_collation_trie_start_nodes_first +
+                    node_it->last_child_,
+                *it++);
+            if (node_it2 == detail::g_collation_trie_start_nodes_first +
+                                node_it->last_child_)
                 break;
             node_it = node_it2;
             if (node_it->match()) {
