@@ -513,61 +513,9 @@ def print_node(trie, indent = -1):
         retval += print_node(c, indent + 1)
     return retval
 
-def visit_trie_org(trie, all_nodes, indent = 0):
-    if len(trie.children_) == 0:
-        return 0
-    print '{0}children of {1} ********************\n'.format('  ' * indent, trie.cp_)
-    for c in trie.children_:
-        all_nodes.append(c)
-        print '{0}cp={1} coll={2}\n'.format('  ' * indent, c.cp_, c.collation_elements_)
-    print '{0}children of {1} ********************\n'.format('  ' * indent, trie.cp_)
-    for c in sorted(trie.children_):
-        visit_trie(c, indent + 1)
-    return len(trie.children_)
-
-def visit_trie_org2(trie, all_nodes, indent = 0):
-    if len(trie.children_) == 0:
-        return 0
-    #print '{0}children of {1} ********************\n'.format('  ' * indent, trie.cp_)
-    sorted_children = sorted(trie.children_)
-    for c in sorted_children:
-        all_nodes.append(c)
-        #print '{0}cp={1} coll={2}\n'.format('  ' * indent, c.cp_, c.collation_elements_)
-    #print '{0}children of {1} ********************\n'.format('  ' * indent, trie.cp_)
-    N = len(all_nodes)
-    lens = map(lambda x: visit_trie(x, all_nodes, indent + 1), sorted_children)
-    for i in range(len(lens)):
-        #print all_nodes[-i - 1].children_
-        all_nodes[-i - 1].children_ = (N, N + lens[i])
-        #print all_nodes[-i - 1].children_
-        N += lens[i]
-    return len(trie.children_)
-
-def visit_trie_org3(trie, all_nodes, offset, indent = 0):
-    if len(trie.children_) == 0:
-        return 0
-    #print '{0}children of {1} ********************\n'.format('  ' * indent, trie.cp_)
-    sorted_children = sorted(trie.children_)
-    to_append = len(sorted_children)
-    #for c in sorted_children:
-    #    print '{0}cp={1} coll={2}\n'.format('  ' * indent, c.cp_, c.collation_elements_)
-    #print '{0}children of {1} ********************\n'.format('  ' * indent, trie.cp_)
-    lens = map(lambda x: visit_trie(x, all_nodes, offset + to_append, indent + 1), sorted_children)
-    N = offset + to_append
-    for i in range(len(lens)):
-        #print all_nodes[-i - 1].children_
-        node = trie_node(sorted_children[i].cp_)
-        node.children_ = (N, N + lens[i])
-        node.collation_elements_ = sorted_children[i].collation_elements_
-        all_nodes.append(node)
-        #print all_nodes[-i - 1].children_
-        N += lens[i]
-    return len(trie.children_)
-
 def visit_trie(trie, all_nodes, indent = 0):
     if len(trie.children_) == 0:
         return
-    #print '{0}children of {1} ********************'.format('  ' * indent, trie.cp_)
     sorted_children = sorted(trie.children_)
     to_append = len(sorted_children)
     N = len(all_nodes) + to_append
@@ -578,8 +526,6 @@ def visit_trie(trie, all_nodes, indent = 0):
         node.collation_elements_ = c.collation_elements_
         all_nodes.append(node)
         N += l
-        #print '{0}cp={1} coll={2}'.format('  ' * indent, c.cp_, c.collation_elements_)
-    #print '{0}children of {1} ********************'.format('  ' * indent, trie.cp_)
     for c in sorted_children:
         visit_trie(c, all_nodes, indent + 1)
 
@@ -631,9 +577,6 @@ def cps_to_key(cps):
 
 def ce_to_cpp(ce):
     return '{{uint16_t({}), uint8_t({}), uint8_t({})}}'.format(hex(ce[0]), hex(ce[1]), hex(ce[2]))
-
-def ces_to_vec(ces):
-    return '{ {{ ' + ', '.join(map(ce_to_cpp, ces)) + ' }}}}, {} }}'.format(len(ces))
 
 #print collation_elements
 
