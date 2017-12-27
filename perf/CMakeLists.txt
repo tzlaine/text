@@ -20,6 +20,13 @@ add_perf_executable(for_find_perf)
 add_perf_executable(compare_boyer_moore_perf)
 add_perf_executable(grapheme_prop_lookup_perf)
 add_perf_executable(normalize_perf)
+add_perf_executable(collation_element_lookup_perf_000)
+add_perf_executable(collation_element_lookup_perf_001)
+add_perf_executable(collation_element_lookup_perf_002)
+add_perf_executable(collation_element_lookup_perf_003)
+add_perf_executable(collation_element_lookup_perf_004)
+add_perf_executable(collation_element_lookup_perf_005)
+add_perf_executable(collation_element_lookup_perf_006)
 
 add_custom_target(perf
     COMMAND ctor_dtor_perf --benchmark_out=ctor_dtor_perf.json --benchmark_out_format=json
@@ -27,8 +34,15 @@ add_custom_target(perf
     COMMAND insert_erase_perf --benchmark_out=insert_erase_perf.json --benchmark_out_format=json
     COMMAND for_find_perf --benchmark_out=for_find_perf.json --benchmark_out_format=json
     COMMAND compare_boyer_moore_perf --benchmark_out=compare_boyer_moore_perf.json --benchmark_out_format=json
-    COMMAND grapheme_prop_lookup_perf --benchmark_out=grapheme_prop_lookup_perf.json --benchmark_out_format=json 
-    COMMAND normalize_perf --benchmark_out=normalize_perf.json --benchmark_out_format=json 
+    COMMAND grapheme_prop_lookup_perf --benchmark_out=grapheme_prop_lookup_perf.json --benchmark_out_format=json
+    COMMAND normalize_perf --benchmark_out=normalize_perf.json --benchmark_out_format=json
+    COMMAND collation_element_lookup_perf_000 --benchmark_out=collation_element_lookup_perf_000.json --benchmark_out_format=json 
+    COMMAND collation_element_lookup_perf_001 --benchmark_out=collation_element_lookup_perf_001.json --benchmark_out_format=json 
+    COMMAND collation_element_lookup_perf_002 --benchmark_out=collation_element_lookup_perf_002.json --benchmark_out_format=json 
+    COMMAND collation_element_lookup_perf_003 --benchmark_out=collation_element_lookup_perf_003.json --benchmark_out_format=json 
+    COMMAND collation_element_lookup_perf_004 --benchmark_out=collation_element_lookup_perf_004.json --benchmark_out_format=json 
+    COMMAND collation_element_lookup_perf_005 --benchmark_out=collation_element_lookup_perf_005.json --benchmark_out_format=json 
+    COMMAND collation_element_lookup_perf_006 --benchmark_out=collation_element_lookup_perf_006.json --benchmark_out_format=json 
 )
 
 add_custom_target(perf_snapshot
@@ -43,6 +57,13 @@ add_custom_target(perf_comparison
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/compare_boyer_moore_perf.json compare_boyer_moore_perf.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/grapheme_prop_lookup_perf.json grapheme_prop_lookup_perf.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/normalize_perf.json normalize_perf.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__000.json collation_element_lookup_perf_000.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__001.json collation_element_lookup_perf_001.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__002.json collation_element_lookup_perf_002.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__003.json collation_element_lookup_perf_003.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__004.json collation_element_lookup_perf_004.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__005.json collation_element_lookup_perf_005.json
+    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_element_lookup_perf__006.json collation_element_lookup_perf_006.json
 )
 
 

@@ -489,15 +489,8 @@ def trie_insert(trie, k, v):
 def make_trie(ucet):
     trie = trie_node(-1)
 
-    # catch all the multi-cp keys
     for k,v in ucet.items():
-        if 1 < len(k):
-            trie_insert(trie, k, v)
-
-    # catch all the single-cp keys that are prefixes of existing multi-cp keys
-    for k,v in ucet.items():
-        if len(k) == 1 and trie.child(k[0]) != None:
-            trie_insert(trie, k, v)
+        trie_insert(trie, k, v)
 
     return trie
 
