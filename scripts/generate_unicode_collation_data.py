@@ -275,7 +275,7 @@ def add_10_contractions(ducet):
 
     return ducet
 
-def collation_elements_for_decomposition(cccs_dict, ducet, cps, handled_ducet_keys):
+def collation_elements_for_decomposition(cccs_dict, ducet, cps):
     longest_prefix = (cps[0],)
     for i in reversed(range(1, len(cps))):
         t = tuple(cps[0:i + 1])
@@ -285,17 +285,14 @@ def collation_elements_for_decomposition(cccs_dict, ducet, cps, handled_ducet_ke
 
     i = len(longest_prefix)
     while i < len(cps):
-        ccc_ = ccc(cccs_dict, cps[i])
-        blocked = False
-        for j in range(1, i):
-            if ccc(cccs_dict, cps[j]) <= ccc_:
-                blocked = True
-                break
+        blocked = True
+        if i == len(longest_prefix) or ccc(cccs_dict, cps[i - 1]) < ccc(cccs_dict, cps[i]):
+            blocked = False
         if not blocked:
             new_longest = longest_prefix + (cps[i],)
             if new_longest in ducet:
                 longest_prefix = new_longest
-                cps = cps[0:i] + cps[i + 1:]
+                cps = cps.pop(i)
             else:
                 i += 1
         else:
@@ -303,32 +300,31 @@ def collation_elements_for_decomposition(cccs_dict, ducet, cps, handled_ducet_ke
 
     cps = cps[len(longest_prefix):]
 
-    handled_ducet_keys.add(longest_prefix)
-
     return (ce(ducet, longest_prefix), cps)
 
 # http://www.unicode.org/reports/tr10/#Avoiding_Normalization
 def ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping):
     ucet = {}
 
-    handled_ducet_keys = set()
+    handled = set()
 
     for k,v in decomposition_mapping.items():
-        v0 = v
+        v_initial = v
         collation_elements = []
         while len(v):
             (ces, v) = collation_elements_for_decomposition(
-                cccs_dict, ducet, v, handled_ducet_keys
+                cccs_dict, ducet, v
             )
             if ces == None:
                 print hex(k),map(lambda x : hex(x), v0)
-            collation_elements += ces
+            collation_elements += ces 
         ucet[(k,)] = collation_elements
+        if 1 < len(v_initial):
+            handled.add(tuple(v_initial))
 
     for k,v in ducet.items():
-        if k in handled_ducet_keys:
-            continue
-        ucet[k] = v
+        if k not in handled:
+            ucet[k] = v
 
     return ucet
 
@@ -550,14 +546,18 @@ if __name__ == "__main__":
 
     #print 'before decomps:'
     #print (0x3c,), ducet[(0x3c,)]
+    #print len(ducet) 
 
     # TODO: Restore/fix this.
     fcc_ucet = ducet
 
-    #fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
+    fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
 
     #print 'and after:'
     #print (0x3c,), fcc_ucet[(0x3c,)]
+    #print len(fcc_ucet) 
+
+    #exit(0)
 
     #fcc_ucet = add_canonical_closure(fcc_ucet)
 

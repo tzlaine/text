@@ -524,14 +524,14 @@ TEST(collation, table_lookup_044_032)
     // 1B05 1B35 ; [.336F.0020.0002] 
     // BALINESE LETTER AKARA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b05, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b06 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x336f), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -572,14 +572,14 @@ TEST(collation, table_lookup_044_035)
     // 1B07 1B35 ; [.3371.0020.0002] 
     // BALINESE LETTER IKARA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b07, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b08 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3371), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -620,14 +620,14 @@ TEST(collation, table_lookup_044_038)
     // 1B09 1B35 ; [.3373.0020.0002] 
     // BALINESE LETTER UKARA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b09, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b0a }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3373), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -668,14 +668,14 @@ TEST(collation, table_lookup_044_041)
     // 1B0B 1B35 ; [.3375.0020.0002] 
     // BALINESE LETTER RA REPA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b0b, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b0c }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3375), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -716,14 +716,14 @@ TEST(collation, table_lookup_044_044)
     // 1B0D 1B35 ; [.3377.0020.0002] 
     // BALINESE LETTER LA LENGA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b0d, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b0e }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3377), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -796,14 +796,14 @@ TEST(collation, table_lookup_044_049)
     // 1B11 1B35 ; [.337B.0020.0002] 
     // BALINESE LETTER OKARA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b11, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b12 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x337b), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1468,14 +1468,14 @@ TEST(collation, table_lookup_044_091)
     // 1B3A 1B35 ; [.33AA.0020.0002] 
     // BALINESE VOWEL SIGN RA REPA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b3a, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b3b }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x33aa), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1516,14 +1516,14 @@ TEST(collation, table_lookup_044_094)
     // 1B3C 1B35 ; [.33AC.0020.0002] 
     // BALINESE VOWEL SIGN LA LENGA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b3c, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b3d }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x33ac), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1564,14 +1564,14 @@ TEST(collation, table_lookup_044_097)
     // 1B3E 1B35 ; [.33AF.0020.0002] 
     // BALINESE VOWEL SIGN TALING TEDUNG
 
-    uint32_t const cps[2] = { 0x1b3e, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b40 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x33af), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1596,14 +1596,14 @@ TEST(collation, table_lookup_044_099)
     // 1B3F 1B35 ; [.33B0.0020.0002] 
     // BALINESE VOWEL SIGN TALING REPA TEDUNG
 
-    uint32_t const cps[2] = { 0x1b3f, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b41 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x33b0), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1660,14 +1660,14 @@ TEST(collation, table_lookup_044_103)
     // 1B42 1B35 ; [.33B2.0020.0002] 
     // BALINESE VOWEL SIGN PEPET TEDUNG
 
-    uint32_t const cps[2] = { 0x1b42, 0x1b35 };
+    uint32_t const cps[1] = { 0x1b43 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x33b2), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

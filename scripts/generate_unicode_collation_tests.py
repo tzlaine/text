@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from generate_unicode_normalization_data import cccs
+from generate_unicode_normalization_data import expand_decomp_canonical
+from generate_unicode_normalization_data import get_decompositions
 from generate_unicode_collation_data import get_ducet
 from generate_unicode_collation_data import ce_to_cpp
 
@@ -30,17 +33,29 @@ BENCHMARK_MAIN()
 def generate_lookup_tests(ducet, ducet_lines):
     chunk_size = 150
 
+    cccs_dict = cccs('DerivedCombiningClass.txt')
+    decomposition_mapping = \
+      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
+
+    reverse_decompositions = {}
+    for k,v in decomposition_mapping:
+        if 1 < len(v[0]):
+            reverse_decompositions[tuple(v[0])] = (k,)
+
     lines = ''
     chunk = 0
     i = 0
     for k,v in sorted(ducet.items()):
+        initial_k = k
+        if k in reverse_decompositions:
+            k = reverse_decompositions[k]
         lines += '''
 TEST(collation, table_lookup_{0:03}_{1:03})
 {{
     // {2}
     // {3}
 
-    uint32_t const cps[{5}] = {{ {4} }};
+    uint32_t const cps[{5}] = {{ {4} }};{8}
     // biased L2 weight
     boost::text::collation_element const ces[{7}] = {{ {6} }};
 
@@ -51,9 +66,10 @@ TEST(collation, table_lookup_{0:03}_{1:03})
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + {7}));
 }}
 '''.format(
-    chunk, i, ducet_lines[k][0], ducet_lines[k][1],
+    chunk, i, ducet_lines[initial_k][0], ducet_lines[initial_k][1],
     ', '.join(map(lambda x: hex(x), k)), len(k),
-    ', '.join(map(lambda x: ce_to_cpp(x, min_l2), v)), len(v)
+    ', '.join(map(lambda x: ce_to_cpp(x, min_l2), v)), len(v),
+    k != initial_k and ' // Expands to the code points in the comment above.' or ''
     )
         i += 1
         if i == chunk_size:

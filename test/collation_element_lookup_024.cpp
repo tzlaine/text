@@ -1052,14 +1052,14 @@ TEST(collation, table_lookup_024_065)
     // 0ECD 0EB2 ; [.2E81.0020.0002] 
     // LAO VOWEL SIGN AM
 
-    uint32_t const cps[2] = { 0xecd, 0xeb2 };
+    uint32_t const cps[1] = { 0xeb3 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2e81), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

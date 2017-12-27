@@ -1212,14 +1212,14 @@ TEST(collation, table_lookup_137_075)
     // 115B8 115AF ; [.2C6C.0020.0002] 
     // SIDDHAM VOWEL SIGN O
 
-    uint32_t const cps[2] = { 0x115b8, 0x115af };
+    uint32_t const cps[1] = { 0x115ba }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2c6c), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1244,14 +1244,14 @@ TEST(collation, table_lookup_137_077)
     // 115B9 115AF ; [.2C6D.0020.0002] 
     // SIDDHAM VOWEL SIGN AU
 
-    uint32_t const cps[2] = { 0x115b9, 0x115af };
+    uint32_t const cps[1] = { 0x115bb }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2c6d), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

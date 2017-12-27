@@ -1852,14 +1852,14 @@ TEST(collation, table_lookup_020_115)
     // 0DD9 0DCA ; [.2989.0020.0002] 
     // SINHALA VOWEL SIGN DIGA KOMBUVA
 
-    uint32_t const cps[2] = { 0xdd9, 0xdca };
+    uint32_t const cps[1] = { 0xdda }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2989), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1868,14 +1868,14 @@ TEST(collation, table_lookup_020_116)
     // 0DD9 0DCF ; [.298B.0020.0002] 
     // SINHALA VOWEL SIGN KOMBUVA HAA AELA-PILLA
 
-    uint32_t const cps[2] = { 0xdd9, 0xdcf };
+    uint32_t const cps[1] = { 0xddc }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x298b), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1884,14 +1884,14 @@ TEST(collation, table_lookup_020_117)
     // 0DD9 0DCF 0DCA ; [.298C.0020.0002] 
     // SINHALA VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA
 
-    uint32_t const cps[3] = { 0xdd9, 0xdcf, 0xdca };
+    uint32_t const cps[1] = { 0xddd }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x298c), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 3);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 3);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1900,14 +1900,14 @@ TEST(collation, table_lookup_020_118)
     // 0DD9 0DDF ; [.298D.0020.0002] 
     // SINHALA VOWEL SIGN KOMBUVA HAA GAYANUKITTA
 
-    uint32_t const cps[2] = { 0xdd9, 0xddf };
+    uint32_t const cps[1] = { 0xdde }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x298d), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

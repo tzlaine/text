@@ -636,14 +636,14 @@ TEST(collation, table_lookup_025_039)
     // 0F71 0F72 ; [.2F25.0020.0002] 
     // TIBETAN VOWEL SIGN II
 
-    uint32_t const cps[2] = { 0xf71, 0xf72 };
+    uint32_t const cps[1] = { 0xf73 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f25), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -652,14 +652,14 @@ TEST(collation, table_lookup_025_040)
     // 0F71 0F74 ; [.2F29.0020.0002] 
     // TIBETAN VOWEL SIGN UU
 
-    uint32_t const cps[2] = { 0xf71, 0xf74 };
+    uint32_t const cps[1] = { 0xf75 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f29), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -668,14 +668,14 @@ TEST(collation, table_lookup_025_041)
     // 0F71 0F80 ; [.2F27.0020.0002] 
     // TIBETAN VOWEL SIGN REVERSED II
 
-    uint32_t const cps[2] = { 0xf71, 0xf80 };
+    uint32_t const cps[1] = { 0xf81 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f27), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1724,14 +1724,14 @@ TEST(collation, table_lookup_025_107)
     // 0FB2 0F80 ; [.2F2A.0020.0002] 
     // TIBETAN VOWEL SIGN VOCALIC R
 
-    uint32_t const cps[2] = { 0xfb2, 0xf80 };
+    uint32_t const cps[1] = { 0xf76 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f2a), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1740,14 +1740,14 @@ TEST(collation, table_lookup_025_108)
     // 0FB2 0F81 ; [.2F2B.0020.0002] 
     // TIBETAN VOWEL SIGN VOCALIC RR
 
-    uint32_t const cps[2] = { 0xfb2, 0xf81 };
+    uint32_t const cps[1] = { 0xf77 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f2b), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1788,14 +1788,14 @@ TEST(collation, table_lookup_025_111)
     // 0FB3 0F80 ; [.2F2C.0020.0002] 
     // TIBETAN VOWEL SIGN VOCALIC L
 
-    uint32_t const cps[2] = { 0xfb3, 0xf80 };
+    uint32_t const cps[1] = { 0xf78 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f2c), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1804,14 +1804,14 @@ TEST(collation, table_lookup_025_112)
     // 0FB3 0F81 ; [.2F2D.0020.0002] 
     // TIBETAN VOWEL SIGN VOCALIC LL
 
-    uint32_t const cps[2] = { 0xfb3, 0xf81 };
+    uint32_t const cps[1] = { 0xf79 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2f2d), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

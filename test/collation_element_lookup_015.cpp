@@ -1692,14 +1692,14 @@ TEST(collation, table_lookup_015_105)
     // 09C7 09BE ; [.276D.0020.0002] 
     // BENGALI VOWEL SIGN O
 
-    uint32_t const cps[2] = { 0x9c7, 0x9be };
+    uint32_t const cps[1] = { 0x9cb }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x276d), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1708,14 +1708,14 @@ TEST(collation, table_lookup_015_106)
     // 09C7 09D7 ; [.276E.0020.0002] 
     // BENGALI VOWEL SIGN AU
 
-    uint32_t const cps[2] = { 0x9c7, 0x9d7 };
+    uint32_t const cps[1] = { 0x9cc }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x276e), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

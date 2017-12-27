@@ -1868,14 +1868,14 @@ TEST(collation, table_lookup_135_116)
     // 11347 1133E ; [.2BA5.0020.0002] 
     // GRANTHA VOWEL SIGN OO
 
-    uint32_t const cps[2] = { 0x11347, 0x1133e };
+    uint32_t const cps[1] = { 0x1134b }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2ba5), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1884,14 +1884,14 @@ TEST(collation, table_lookup_135_117)
     // 11347 11357 ; [.2BA6.0020.0002] 
     // GRANTHA VOWEL SIGN AU
 
-    uint32_t const cps[2] = { 0x11347, 0x11357 };
+    uint32_t const cps[1] = { 0x1134c }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2ba6), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

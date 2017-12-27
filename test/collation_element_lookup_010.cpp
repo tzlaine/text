@@ -652,14 +652,14 @@ TEST(collation, table_lookup_010_040)
     // 0627 0653 ; [.2364.0020.0002] 
     // ARABIC LETTER ALEF WITH MADDA ABOVE
 
-    uint32_t const cps[2] = { 0x627, 0x653 };
+    uint32_t const cps[1] = { 0x622 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2364), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -668,14 +668,14 @@ TEST(collation, table_lookup_010_041)
     // 0627 0654 ; [.2365.0020.0002] 
     // ARABIC LETTER ALEF WITH HAMZA ABOVE
 
-    uint32_t const cps[2] = { 0x627, 0x654 };
+    uint32_t const cps[1] = { 0x623 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2365), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -684,14 +684,14 @@ TEST(collation, table_lookup_010_042)
     // 0627 0655 ; [.2369.0020.0002] 
     // ARABIC LETTER ALEF WITH HAMZA BELOW
 
-    uint32_t const cps[2] = { 0x627, 0x655 };
+    uint32_t const cps[1] = { 0x625 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2369), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1228,14 +1228,14 @@ TEST(collation, table_lookup_010_076)
     // 0648 0654 ; [.2368.0020.0002] 
     // ARABIC LETTER WAW WITH HAMZA ABOVE
 
-    uint32_t const cps[2] = { 0x648, 0x654 };
+    uint32_t const cps[1] = { 0x624 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2368), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -1276,14 +1276,14 @@ TEST(collation, table_lookup_010_079)
     // 064A 0654 ; [.236D.0020.0002] 
     // ARABIC LETTER YEH WITH HAMZA ABOVE
 
-    uint32_t const cps[2] = { 0x64a, 0x654 };
+    uint32_t const cps[1] = { 0x626 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x236d), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

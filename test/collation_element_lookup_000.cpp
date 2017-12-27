@@ -1244,14 +1244,14 @@ TEST(collation, table_lookup_000_077)
     // 004C 00B7 ; [.1DDD.0020.0008][.0000.0111.0002] 
     // LATIN CAPITAL LETTER L WITH MIDDLE DOT
 
-    uint32_t const cps[2] = { 0x4c, 0xb7 };
+    uint32_t const cps[1] = { 0x13f }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[2] = { {uint16_t(0x1ddd), uint8_t(0x0), uint8_t(0x8)}, {uint16_t(0x0), uint8_t(0xf1), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 2));
 }
 
@@ -1788,14 +1788,14 @@ TEST(collation, table_lookup_000_111)
     // 006C 00B7 ; [.1DDD.0020.0002][.0000.0111.0002] 
     // LATIN SMALL LETTER L WITH MIDDLE DOT
 
-    uint32_t const cps[2] = { 0x6c, 0xb7 };
+    uint32_t const cps[1] = { 0x140 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[2] = { {uint16_t(0x1ddd), uint8_t(0x0), uint8_t(0x2)}, {uint16_t(0x0), uint8_t(0xf1), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 2));
 }
 

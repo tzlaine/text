@@ -604,14 +604,14 @@ TEST(collation, table_lookup_019_037)
     // 0CBF 0CD5 ; [.28E9.0020.0002] 
     // KANNADA VOWEL SIGN II
 
-    uint32_t const cps[2] = { 0xcbf, 0xcd5 };
+    uint32_t const cps[1] = { 0xcc0 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x28e9), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -716,14 +716,14 @@ TEST(collation, table_lookup_019_044)
     // 0CC6 0CC2 ; [.28F3.0020.0002] 
     // KANNADA VOWEL SIGN O
 
-    uint32_t const cps[2] = { 0xcc6, 0xcc2 };
+    uint32_t const cps[1] = { 0xcca }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x28f3), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -732,14 +732,14 @@ TEST(collation, table_lookup_019_045)
     // 0CC6 0CC2 0CD5 ; [.28F4.0020.0002] 
     // KANNADA VOWEL SIGN OO
 
-    uint32_t const cps[3] = { 0xcc6, 0xcc2, 0xcd5 };
+    uint32_t const cps[1] = { 0xccb }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x28f4), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 3);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 3);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -748,14 +748,14 @@ TEST(collation, table_lookup_019_046)
     // 0CC6 0CD5 ; [.28F1.0020.0002] 
     // KANNADA VOWEL SIGN EE
 
-    uint32_t const cps[2] = { 0xcc6, 0xcd5 };
+    uint32_t const cps[1] = { 0xcc7 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x28f1), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -764,14 +764,14 @@ TEST(collation, table_lookup_019_047)
     // 0CC6 0CD6 ; [.28F2.0020.0002] 
     // KANNADA VOWEL SIGN AI
 
-    uint32_t const cps[2] = { 0xcc6, 0xcd6 };
+    uint32_t const cps[1] = { 0xcc8 }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x28f2), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -2268,14 +2268,14 @@ TEST(collation, table_lookup_019_141)
     // 0D46 0D3E ; [.293D.0020.0002] 
     // MALAYALAM VOWEL SIGN O
 
-    uint32_t const cps[2] = { 0xd46, 0xd3e };
+    uint32_t const cps[1] = { 0xd4a }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x293d), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -2284,14 +2284,14 @@ TEST(collation, table_lookup_019_142)
     // 0D46 0D57 ; [.293F.0020.0002] 
     // MALAYALAM VOWEL SIGN AU
 
-    uint32_t const cps[2] = { 0xd46, 0xd57 };
+    uint32_t const cps[1] = { 0xd4c }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x293f), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
@@ -2316,14 +2316,14 @@ TEST(collation, table_lookup_019_144)
     // 0D47 0D3E ; [.293E.0020.0002] 
     // MALAYALAM VOWEL SIGN OO
 
-    uint32_t const cps[2] = { 0xd47, 0xd3e };
+    uint32_t const cps[1] = { 0xd4b }; // Expands to the code points in the comment above.
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x293e), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const coll = boost::text::longest_collation(cps, cps + 2);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
     EXPECT_TRUE(coll.node_.collation_elements_);
-    EXPECT_EQ(coll.match_length_, 2);
+    EXPECT_EQ(coll.match_length_, 1);
     EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
