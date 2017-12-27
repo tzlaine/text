@@ -19,9 +19,6 @@ enum class collation_weights : int {
 
     min_variable =  0x201,  /// The minumum variable L1 collation weight.
     max_variable = 0x1c5b,  /// The maxumum variable L1 collation weight.
-
-    median_sigleton_collation_key = 0xfa05,
-    max_key_length = 3
 };
 
 }}

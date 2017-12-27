@@ -27,9 +27,6 @@ enum class collation_weights : int {{
 
     min_variable = {6:>6},  /// The minumum variable L1 collation weight.
     max_variable = {7:>6},  /// The maxumum variable L1 collation weight.
-
-    median_sigleton_collation_key = {8},
-    max_key_length = {9}
 }};
 
 }}}}
@@ -378,20 +375,6 @@ def add_canonical_closure(fcc_ucet):
 
     return new_ucet
 
-def stats(fcc_ucet):
-    max_key_length = 0
-    len_1_cps = []
-    for k,v in fcc_ucet.items():
-        if len(k) == 1:
-            len_1_cps.append(k[0])
-        if max_key_length < len(k):
-            max_key_length = len(k)
-
-    len_1_cps = sorted(len_1_cps)
-    median_single_cp_value = len_1_cps[len(len_1_cps) / 2]
-
-    return (median_single_cp_value, max_key_length)
-
 def trie_data(fcc_ucet):
     trie_initial_cps = set()
     fanouts = {}
@@ -410,11 +393,7 @@ def trie_data(fcc_ucet):
                 trie_cp_num_parents[k[i + 1]] = set()
             trie_cp_num_parents[k[i + 1]].add(k[i])
 
-#    for k,v in fanouts.items():
-#        print hex(k),map(lambda x: hex(x[0]), v)
-
     trie_cp_num_parents = map(lambda x: (x[0], len(x[1])), trie_cp_num_parents.items())
-    #print trie_cp_num_parents
     single_parent_cps = \
       sorted(map(lambda x: x[0], filter(lambda x: x[1] == 1, trie_cp_num_parents)))
 
@@ -581,7 +560,6 @@ if __name__ == "__main__":
     #print (0x3c,), fcc_ucet[(0x3c,)]
 
     #fcc_ucet = add_canonical_closure(fcc_ucet)
-    (median_single_cp_value, max_key_length) = stats(fcc_ucet)
 
     (fcc_ucet, collation_elements) = make_unique_collation_element_sequence(fcc_ucet)
 
@@ -593,8 +571,7 @@ if __name__ == "__main__":
     hpp_file = open('collation_weights.hpp', 'w')
     hpp_file.write(weights_header_form.format(
         hex(min_l1), hex(max_l1), hex(min_l2), hex(max_l2),
-        hex(min_l3), hex(max_l3), hex(min_var), hex(max_var),
-        hex(median_single_cp_value), max_key_length
+        hex(min_l3), hex(max_l3), hex(min_var), hex(max_var)
     ))
 
     item_strings = map(lambda x: ce_to_cpp(x, min_l2), collation_elements)

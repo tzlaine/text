@@ -24,6 +24,12 @@ int * canonical_closure(int * utf32_str, int len)
     }
     return results;
 }
+
+
+int foo()
+{
+    return 42;
+}
 }
 
 #ifdef TEST
