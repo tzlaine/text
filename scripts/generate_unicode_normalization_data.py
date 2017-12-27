@@ -30,9 +30,16 @@ canonical_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::unordered_map<uint32_t, canonical_decomposition> const
-g_canonical_decomposition_map = {{
+std::array<uint32_t, {1}> const g_all_canonical_decompositions_array = {{{{
 {0}
+}}}};
+
+uint32_t const * g_all_canonical_decompositions = 
+    g_all_canonical_decompositions_array.data();
+
+
+std::unordered_map<uint32_t, cp_range> const g_canonical_decomposition_map = {{
+{2}
 }};
 
 }}}}}}
@@ -50,9 +57,15 @@ compatible_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::unordered_map<uint32_t, compatible_decomposition> const
-g_compatible_decomposition_map = {{
+std::array<uint32_t, {1}> const g_all_compatible_decompositions_array = {{{{
 {0}
+}}}};
+
+uint32_t const * g_all_compatible_decompositions =
+    g_all_compatible_decompositions_array.data();
+
+std::unordered_map<uint32_t, cp_range> const g_compatible_decomposition_map = {{
+{2}
 }};
 
 }}}}}}
@@ -174,7 +187,7 @@ def expand_decomp_compatible(decomp, all_decomps):
         return expand_decomp_compatible((flat_cps, True), all_decomps)
     return decomp
 
-def get_decompositions(filename, cccs_dict, expand_decomp):
+def get_decompositions(filename, cccs_dict, expand_decomp, canonical_only):
     decomps = {}
 
     # Pass 1: Find top-level decompositions
@@ -226,7 +239,17 @@ def get_decompositions(filename, cccs_dict, expand_decomp):
         expanded_decomps
     )
 
-    return decomps
+    all_cps = []
+    final_decomps = []
+    for k,v in decomps:
+        if canonical_only and not v[1]:
+            continue
+        first = len(all_cps)
+        all_cps += map(lambda x: hex(x), v[0])
+        last = len(all_cps)
+        final_decomps.append((k, (first, last)))
+
+    return (all_cps, final_decomps)
 
 
 def get_compositions(filename, derived_normalization_props_filename):
@@ -315,73 +338,76 @@ if __name__ == "__main__":
     ccc_intervals_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_ccc.cpp', 'w')
     cpp_file.write(ccc_file_form.format(ccc_intervals_map))
-    
+
     def cps_to_vec(cps):
         return '{ {{ ' + ', '.join(map(lambda x: hex(x), cps)) + ' }}}}, {} }}'.format(len(cps))
-    
-    decomposition_mapping = get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
+
+    (all_cps, decomposition_mapping) = \
+      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical, True)
     item_strings = map(
-        lambda x : '{}, {}'.format(hex(x[0]), cps_to_vec(x[1][0])),
-        filter(lambda x: x[1][1], decomposition_mapping)
-    )
-    decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-    cpp_file = open('normalization_data_canonical.cpp', 'w')
-    cpp_file.write(canonical_file_form.format(decompositions_map))
-    
-    decomposition_mapping = get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_compatible)
-    item_strings = map(
-        lambda x : '{}, {}'.format(hex(x[0]), cps_to_vec(x[1][0])),
+        lambda x : '{}, {{{}, {}}}'.format(hex(x[0]), x[1][0], x[1][1]),
         decomposition_mapping
     )
+    all_cps_string = '    ' + ',\n    '.join(all_cps) + ',\n'
     decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-    
+    cpp_file = open('normalization_data_canonical.cpp', 'w')
+    cpp_file.write(canonical_file_form.format(all_cps_string , len(all_cps), decompositions_map))
+
+    (all_cps, decomposition_mapping) = \
+      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_compatible, False)
+    item_strings = map(
+        lambda x : '{}, {{{}, {}}}'.format(hex(x[0]), x[1][0], x[1][1]),
+        decomposition_mapping
+    )
+    all_cps_string = '    ' + ',\n    '.join(all_cps) + ',\n'
+    decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_compatible.cpp', 'w')
-    cpp_file.write(compatible_file_form.format(decompositions_map))
-    
+    cpp_file.write(compatible_file_form.format(all_cps_string , len(all_cps), decompositions_map))
+
     composition_mapping = get_compositions('UnicodeData.txt', 'DerivedNormalizationProps.txt')
     item_strings = map(
         lambda x : 'key({}, {}), {}'.format(hex(x[0][0]), hex(x[0][1]), hex(x[1])),
         composition_mapping
     )
     compositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-    
+
     cpp_file = open('normalization_data_compose.cpp', 'w')
     cpp_file.write(compose_file_form.format(compositions_map))
-    
-    
+
+
     quick_check_maps = get_quick_checks('DerivedNormalizationProps.txt')
     item_strings = map(
         lambda x : '{}'.format(hex(x[0]), x[1]),
         sorted(quick_check_maps['NFD'].items())
     )
     nfd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
-    
+
     cpp_file = open('normalization_data_quick_checks_nfd.cpp', 'w')
     cpp_file.write(quick_checks_set_file_form.format(nfd_strings, 'nfd'))
-    
+
     item_strings = map(
         lambda x : '{}'.format(hex(x[0]), x[1]),
         sorted(quick_check_maps['NFKD'].items())
     )
     nfkd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
-    
+
     cpp_file = open('normalization_data_quick_checks_nfkd.cpp', 'w')
     cpp_file.write(quick_checks_set_file_form.format(nfkd_strings, 'nfkd'))
-    
+
     item_strings = map(
         lambda x : '{}, {}'.format(hex(x[0]), x[1]),
         sorted(quick_check_maps['NFC'].items())
     )
     nfc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-    
+
     cpp_file = open('normalization_data_quick_checks_nfc.cpp', 'w')
     cpp_file.write(quick_checks_map_file_form.format(nfc_strings, 'nfc'))
-    
+
     item_strings = map(
         lambda x : '{}, {}'.format(hex(x[0]), x[1]),
         sorted(quick_check_maps['NFKC'].items())
     )
     nfkc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
-    
+
     cpp_file = open('normalization_data_quick_checks_nfkc.cpp', 'w')
     cpp_file.write(quick_checks_map_file_form.format(nfkc_strings, 'nfkc'))

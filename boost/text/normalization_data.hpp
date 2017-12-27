@@ -86,9 +86,18 @@ namespace boost { namespace text {
     enum class quick_check { yes, no, maybe };
 
     namespace detail {
-        extern std::unordered_map<uint32_t, canonical_decomposition> const
+
+        struct cp_range
+        {
+            uint16_t first_;
+            uint16_t last_;
+        };
+
+        extern uint32_t const * g_all_canonical_decompositions;
+        extern std::unordered_map<uint32_t, cp_range> const
             g_canonical_decomposition_map;
-        extern std::unordered_map<uint32_t, compatible_decomposition> const
+        extern uint32_t const * g_all_compatible_decompositions;
+        extern std::unordered_map<uint32_t, cp_range> const
             g_compatible_decomposition_map;
         extern std::unordered_map<uint64_t, uint32_t> const g_composition_map;
         extern std::unordered_map<uint32_t, int> const g_ccc_map;
@@ -152,7 +161,13 @@ namespace boost { namespace text {
         auto const it = detail::g_canonical_decomposition_map.find(cp);
         if (it == detail::g_canonical_decomposition_map.end())
             return canonical_decomposition{{{cp}}, 1};
-        return it->second;
+        canonical_decomposition retval{{},
+                                       it->second.last_ - it->second.first_};
+        std::copy(
+            detail::g_all_canonical_decompositions + it->second.first_,
+            detail::g_all_canonical_decompositions + it->second.last_,
+            retval.storage_.begin());
+        return retval;
     }
 
     /** TODO */
@@ -164,7 +179,13 @@ namespace boost { namespace text {
         auto const it = detail::g_compatible_decomposition_map.find(cp);
         if (it == detail::g_compatible_decomposition_map.end())
             return compatible_decomposition{{{cp}}, 1};
-        return it->second;
+        compatible_decomposition retval{{},
+                                        it->second.last_ - it->second.first_};
+        std::copy(
+            detail::g_all_compatible_decompositions + it->second.first_,
+            detail::g_all_compatible_decompositions + it->second.last_,
+            retval.storage_.begin());
+        return retval;
     }
 
     /** TODO */
