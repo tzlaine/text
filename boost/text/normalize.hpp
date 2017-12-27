@@ -114,6 +114,43 @@ namespace boost { namespace text {
                 s.swap(temp);
         }
 
+        inline constexpr bool hangul_syllable(uint32_t cp) noexcept
+        {
+            return 0xAC00 <= cp && cp <= 0xD7A3;
+        }
+
+        // Hangul decomposition as described in Unicode 10.0 Section 3.12.
+        template<int Capacity>
+        inline code_points<Capacity>
+        decompose_hangul_syllable(uint32_t cp) noexcept
+        {
+            assert(hangul_syllable(cp));
+
+            uint32_t const SBase = 0xAC00;
+            uint32_t const LBase = 0x1100;
+            uint32_t const VBase = 0x1161;
+            uint32_t const TBase = 0x11A7;
+            // uint32_t const LCount = 19;
+            uint32_t const VCount = 21;
+            uint32_t const TCount = 28;
+            uint32_t const NCount = VCount * TCount; // 588
+            // uint32_t const SCount = LCount * NCount; // 11172
+
+            auto const SIndex = cp - SBase;
+
+            auto const LIndex = SIndex / NCount;
+            auto const VIndex = (SIndex % NCount) / TCount;
+            auto const TIndex = SIndex % TCount;
+            auto const LPart = LBase + LIndex;
+            auto const VPart = VBase + VIndex;
+            if (TIndex == 0) {
+                return code_points<Capacity>{{{LPart, VPart}}, 2};
+            } else {
+                auto const TPart = TBase + TIndex;
+                return code_points<Capacity>{{{LPart, VPart, TPart}}, 3};
+            }
+        }
+
         inline constexpr bool hangul_l(uint32_t cp) noexcept
         {
             return 0x1100 <= cp && cp <= 0x1112;

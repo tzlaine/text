@@ -21,6 +21,13 @@ enum class collation_weights : int {
     max_variable = 0x1c5b,  /// The maxumum variable L1 collation weight.
 };
 
+namespace detail {
+    enum collation_constants : uint32_t {
+        OR_CJK_Compatibility_Ideographs = 0xfa3f,
+        OR_CJK_Unified_Ideographs_Extension_D = 0x2bfff
+    };
+}
+
 }}
 
 #endif
