@@ -6,14 +6,13 @@
 
 #include <algorithm>
 #include <unordered_map>
-#include <unordered_set>
 
 #include <cstdint>
 
 
 namespace boost { namespace text {
 
-    /** */
+    /** TODO */
     struct collation_element
     {
         uint16_t l1() const noexcept { return l1_; }
@@ -46,6 +45,7 @@ namespace boost { namespace text {
         extern collation_element const * g_collation_elements_first;
     }
 
+    /** TODO */
     struct collation_elements
     {
         using iterator = collation_element const *;
@@ -110,7 +110,9 @@ namespace boost { namespace text {
 
         inline bool operator==(collation_trie_node lhs, collation_trie_node rhs)
         {
-            return lhs.cp_ == rhs.cp_;
+            return lhs.cp_ == rhs.cp_ && lhs.first_child_ == rhs.first_child_ &&
+                   lhs.last_child_ == rhs.last_child_ &&
+                   lhs.collation_elements_ == rhs.collation_elements_;
         }
         inline bool operator!=(collation_trie_node lhs, collation_trie_node rhs)
         {
@@ -144,7 +146,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        extern std::unordered_set<detail::collation_trie_node> const
+        extern std::unordered_map<uint32_t, detail::collation_trie_node> const
             g_collation_initial_nodes;
 
         inline collation_trie_node const * find_trie_node(
@@ -185,10 +187,10 @@ namespace boost { namespace text {
         auto it = first;
         auto const starter = *it++;
         detail::collation_trie_node node{starter};
-        auto hash_it = detail::g_collation_initial_nodes.find(node);
+        auto hash_it = detail::g_collation_initial_nodes.find(starter);
         if (hash_it == detail::g_collation_initial_nodes.end())
             return longest_collation_t{{}, 0};
-        node = *hash_it;
+        node = hash_it->second;
 
         longest_collation_t retval{node, node.collation_elements_ ? 1 : 0};
         while (it != last && !node.leaf()) {
