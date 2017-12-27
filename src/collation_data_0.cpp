@@ -6,7 +6,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-const std::array<collation_element, 33720> g_collation_elements = {{
+const std::array<compressed_collation_element, 33720> g_collation_elements = {{
     {uint16_t(0x529), uint8_t(0x0), uint8_t(0x2)},
     {uint16_t(0x2331), uint8_t(0x0), uint8_t(0x2)},
     {uint16_t(0x0), uint8_t(0x3f), uint8_t(0x2)},
@@ -33730,7 +33730,7 @@ const std::array<collation_element, 33720> g_collation_elements = {{
 
 }};
 
-collation_element const * g_collation_elements_first =
+compressed_collation_element const * g_collation_elements_first =
     g_collation_elements.data();
 
 }}}

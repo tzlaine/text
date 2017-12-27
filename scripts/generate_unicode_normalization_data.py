@@ -245,7 +245,7 @@ def get_decompositions(filename, cccs_dict, expand_decomp, canonical_only):
         if canonical_only and not v[1]:
             continue
         first = len(all_cps)
-        all_cps += map(lambda x: hex(x), v[0])
+        all_cps += v[0]
         last = len(all_cps)
         final_decomps.append((k, (first, last)))
 
@@ -348,7 +348,7 @@ if __name__ == "__main__":
         lambda x : '{}, {{{}, {}}}'.format(hex(x[0]), x[1][0], x[1][1]),
         decomposition_mapping
     )
-    all_cps_string = '    ' + ',\n    '.join(all_cps) + ',\n'
+    all_cps_string = '    ' + ',\n    '.join(map(lambda x: hex(x), all_cps)) + ',\n'
     decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_canonical.cpp', 'w')
     cpp_file.write(canonical_file_form.format(all_cps_string , len(all_cps), decompositions_map))
@@ -359,7 +359,7 @@ if __name__ == "__main__":
         lambda x : '{}, {{{}, {}}}'.format(hex(x[0]), x[1][0], x[1][1]),
         decomposition_mapping
     )
-    all_cps_string = '    ' + ',\n    '.join(all_cps) + ',\n'
+    all_cps_string = '    ' + ',\n    '.join(map(lambda x: hex(x), all_cps)) + ',\n'
     decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_compatible.cpp', 'w')
     cpp_file.write(compatible_file_form.format(all_cps_string , len(all_cps), decompositions_map))

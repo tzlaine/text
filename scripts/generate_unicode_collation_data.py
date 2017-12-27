@@ -50,11 +50,11 @@ collation_elements_file_form = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-const std::array<collation_element, {1}> g_collation_elements = {{{{
+const std::array<compressed_collation_element, {1}> g_collation_elements = {{{{
 {0}
 }}}};
 
-collation_element const * g_collation_elements_first =
+compressed_collation_element const * g_collation_elements_first =
     g_collation_elements.data();
 
 }}}}}}
@@ -543,12 +543,16 @@ def ce_to_cpp(ce, min_l2):
         hex(ce[0]), hex(biased_l2), hex(ce[2])
     )
 
+def indices_to_list(indices, all_cps):
+    return all_cps[indices[0]:indices[1]]
+
 if __name__ == "__main__":
     cccs_dict = cccs('DerivedCombiningClass.txt')
-    decomposition_mapping = \
-      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
+    (all_cps, decomposition_mapping) = \
+      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical, True)
     decomposition_mapping = filter(lambda x: x[1][1], decomposition_mapping)
-    decomposition_mapping = map(lambda x: (x[0], x[1][0]), decomposition_mapping)
+    decomposition_mapping = \
+      map(lambda x: (x[0], indices_to_list(x[1], all_cps)), decomposition_mapping)
     decomposition_mapping = dict(decomposition_mapping)
 
     # TODO: Consider using allkeys_CLDR.txt.

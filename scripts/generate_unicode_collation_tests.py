@@ -30,17 +30,20 @@ lookup_perf_test_form = decls = '''\
 BENCHMARK_MAIN()
 '''
 
+def indices_to_list(indices, all_cps):
+    return all_cps[indices[0]:indices[1]]
+
 def generate_lookup_tests(ducet, ducet_lines):
     chunk_size = 150
 
     cccs_dict = cccs('DerivedCombiningClass.txt')
-    decomposition_mapping = \
-      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical)
+    (all_cps, decomposition_mapping) = \
+      get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical, True)
 
     reverse_decompositions = {}
     for k,v in decomposition_mapping:
-        if 1 < len(v[0]):
-            reverse_decompositions[tuple(v[0])] = (k,)
+        if 1 < len(v):
+            reverse_decompositions[tuple(indices_to_list(v, all_cps))] = (k,)
 
     lines = ''
     chunk = 0
@@ -57,7 +60,7 @@ TEST(collation, table_lookup_{0:03}_{1:03})
 
     uint32_t const cps[{5}] = {{ {4} }};{8}
     // biased L2 weight
-    boost::text::collation_element const ces[{7}] = {{ {6} }};
+    boost::text::compressed_collation_element const ces[{7}] = {{ {6} }};
 
     auto const coll = boost::text::longest_collation(cps, cps + {5});
 

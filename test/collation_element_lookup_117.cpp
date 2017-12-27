@@ -14,7 +14,7 @@ TEST(collation, table_lookup_117_000)
 
     uint32_t const cps[1] = { 0x100a2 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x4898), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x4898), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -30,7 +30,7 @@ TEST(collation, table_lookup_117_001)
 
     uint32_t const cps[1] = { 0x100a3 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x4899), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x4899), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -46,7 +46,7 @@ TEST(collation, table_lookup_117_002)
 
     uint32_t const cps[1] = { 0x100a4 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x489a), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x489a), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -62,7 +62,7 @@ TEST(collation, table_lookup_117_003)
 
     uint32_t const cps[1] = { 0x100a5 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x489b), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x489b), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -78,7 +78,7 @@ TEST(collation, table_lookup_117_004)
 
     uint32_t const cps[1] = { 0x100a6 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x489c), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x489c), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -94,7 +94,7 @@ TEST(collation, table_lookup_117_005)
 
     uint32_t const cps[1] = { 0x100a7 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x489d), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x489d), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -110,7 +110,7 @@ TEST(collation, table_lookup_117_006)
 
     uint32_t const cps[1] = { 0x100a8 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x489e), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x489e), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -126,7 +126,7 @@ TEST(collation, table_lookup_117_007)
 
     uint32_t const cps[1] = { 0x100a9 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x489f), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x489f), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -142,7 +142,7 @@ TEST(collation, table_lookup_117_008)
 
     uint32_t const cps[1] = { 0x100aa };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a0), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a0), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -158,7 +158,7 @@ TEST(collation, table_lookup_117_009)
 
     uint32_t const cps[1] = { 0x100ab };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a1), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a1), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -174,7 +174,7 @@ TEST(collation, table_lookup_117_010)
 
     uint32_t const cps[1] = { 0x100ac };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a2), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a2), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -190,7 +190,7 @@ TEST(collation, table_lookup_117_011)
 
     uint32_t const cps[1] = { 0x100ad };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a3), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a3), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -206,7 +206,7 @@ TEST(collation, table_lookup_117_012)
 
     uint32_t const cps[1] = { 0x100ae };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -222,7 +222,7 @@ TEST(collation, table_lookup_117_013)
 
     uint32_t const cps[1] = { 0x100af };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a5), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a5), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -238,7 +238,7 @@ TEST(collation, table_lookup_117_014)
 
     uint32_t const cps[1] = { 0x100b0 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a6), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a6), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -254,7 +254,7 @@ TEST(collation, table_lookup_117_015)
 
     uint32_t const cps[1] = { 0x100b1 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a7), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a7), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -270,7 +270,7 @@ TEST(collation, table_lookup_117_016)
 
     uint32_t const cps[1] = { 0x100b2 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -286,7 +286,7 @@ TEST(collation, table_lookup_117_017)
 
     uint32_t const cps[1] = { 0x100b3 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48a9), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48a9), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -302,7 +302,7 @@ TEST(collation, table_lookup_117_018)
 
     uint32_t const cps[1] = { 0x100b4 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48aa), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48aa), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -318,7 +318,7 @@ TEST(collation, table_lookup_117_019)
 
     uint32_t const cps[1] = { 0x100b5 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ab), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ab), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -334,7 +334,7 @@ TEST(collation, table_lookup_117_020)
 
     uint32_t const cps[1] = { 0x100b6 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ac), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ac), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -350,7 +350,7 @@ TEST(collation, table_lookup_117_021)
 
     uint32_t const cps[1] = { 0x100b7 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ad), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ad), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -366,7 +366,7 @@ TEST(collation, table_lookup_117_022)
 
     uint32_t const cps[1] = { 0x100b8 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ae), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ae), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -382,7 +382,7 @@ TEST(collation, table_lookup_117_023)
 
     uint32_t const cps[1] = { 0x100b9 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48af), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48af), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -398,7 +398,7 @@ TEST(collation, table_lookup_117_024)
 
     uint32_t const cps[1] = { 0x100ba };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b0), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b0), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -414,7 +414,7 @@ TEST(collation, table_lookup_117_025)
 
     uint32_t const cps[1] = { 0x100bb };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b1), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b1), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -430,7 +430,7 @@ TEST(collation, table_lookup_117_026)
 
     uint32_t const cps[1] = { 0x100bc };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b2), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b2), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -446,7 +446,7 @@ TEST(collation, table_lookup_117_027)
 
     uint32_t const cps[1] = { 0x100bd };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b3), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b3), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -462,7 +462,7 @@ TEST(collation, table_lookup_117_028)
 
     uint32_t const cps[1] = { 0x100be };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -478,7 +478,7 @@ TEST(collation, table_lookup_117_029)
 
     uint32_t const cps[1] = { 0x100bf };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b5), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b5), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -494,7 +494,7 @@ TEST(collation, table_lookup_117_030)
 
     uint32_t const cps[1] = { 0x100c0 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b6), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b6), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -510,7 +510,7 @@ TEST(collation, table_lookup_117_031)
 
     uint32_t const cps[1] = { 0x100c1 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b7), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b7), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -526,7 +526,7 @@ TEST(collation, table_lookup_117_032)
 
     uint32_t const cps[1] = { 0x100c2 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -542,7 +542,7 @@ TEST(collation, table_lookup_117_033)
 
     uint32_t const cps[1] = { 0x100c3 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48b9), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48b9), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -558,7 +558,7 @@ TEST(collation, table_lookup_117_034)
 
     uint32_t const cps[1] = { 0x100c4 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ba), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ba), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -574,7 +574,7 @@ TEST(collation, table_lookup_117_035)
 
     uint32_t const cps[1] = { 0x100c5 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48bb), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48bb), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -590,7 +590,7 @@ TEST(collation, table_lookup_117_036)
 
     uint32_t const cps[1] = { 0x100c6 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48bc), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48bc), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -606,7 +606,7 @@ TEST(collation, table_lookup_117_037)
 
     uint32_t const cps[1] = { 0x100c7 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48bd), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48bd), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -622,7 +622,7 @@ TEST(collation, table_lookup_117_038)
 
     uint32_t const cps[1] = { 0x100c8 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48be), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48be), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -638,7 +638,7 @@ TEST(collation, table_lookup_117_039)
 
     uint32_t const cps[1] = { 0x100c9 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48bf), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48bf), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -654,7 +654,7 @@ TEST(collation, table_lookup_117_040)
 
     uint32_t const cps[1] = { 0x100ca };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c0), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c0), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -670,7 +670,7 @@ TEST(collation, table_lookup_117_041)
 
     uint32_t const cps[1] = { 0x100cb };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c1), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c1), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -686,7 +686,7 @@ TEST(collation, table_lookup_117_042)
 
     uint32_t const cps[1] = { 0x100cc };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c2), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c2), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -702,7 +702,7 @@ TEST(collation, table_lookup_117_043)
 
     uint32_t const cps[1] = { 0x100cd };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c3), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c3), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -718,7 +718,7 @@ TEST(collation, table_lookup_117_044)
 
     uint32_t const cps[1] = { 0x100ce };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -734,7 +734,7 @@ TEST(collation, table_lookup_117_045)
 
     uint32_t const cps[1] = { 0x100cf };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c5), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c5), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -750,7 +750,7 @@ TEST(collation, table_lookup_117_046)
 
     uint32_t const cps[1] = { 0x100d0 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c6), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c6), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -766,7 +766,7 @@ TEST(collation, table_lookup_117_047)
 
     uint32_t const cps[1] = { 0x100d1 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c7), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c7), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -782,7 +782,7 @@ TEST(collation, table_lookup_117_048)
 
     uint32_t const cps[1] = { 0x100d2 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -798,7 +798,7 @@ TEST(collation, table_lookup_117_049)
 
     uint32_t const cps[1] = { 0x100d3 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48c9), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48c9), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -814,7 +814,7 @@ TEST(collation, table_lookup_117_050)
 
     uint32_t const cps[1] = { 0x100d4 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ca), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ca), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -830,7 +830,7 @@ TEST(collation, table_lookup_117_051)
 
     uint32_t const cps[1] = { 0x100d5 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48cb), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48cb), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -846,7 +846,7 @@ TEST(collation, table_lookup_117_052)
 
     uint32_t const cps[1] = { 0x100d6 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48cc), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48cc), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -862,7 +862,7 @@ TEST(collation, table_lookup_117_053)
 
     uint32_t const cps[1] = { 0x100d7 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48cd), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48cd), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -878,7 +878,7 @@ TEST(collation, table_lookup_117_054)
 
     uint32_t const cps[1] = { 0x100d8 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ce), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ce), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -894,7 +894,7 @@ TEST(collation, table_lookup_117_055)
 
     uint32_t const cps[1] = { 0x100d9 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48cf), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48cf), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -910,7 +910,7 @@ TEST(collation, table_lookup_117_056)
 
     uint32_t const cps[1] = { 0x100da };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d0), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d0), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -926,7 +926,7 @@ TEST(collation, table_lookup_117_057)
 
     uint32_t const cps[1] = { 0x100db };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d1), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d1), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -942,7 +942,7 @@ TEST(collation, table_lookup_117_058)
 
     uint32_t const cps[1] = { 0x100dc };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d2), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d2), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -958,7 +958,7 @@ TEST(collation, table_lookup_117_059)
 
     uint32_t const cps[1] = { 0x100dd };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d3), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d3), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -974,7 +974,7 @@ TEST(collation, table_lookup_117_060)
 
     uint32_t const cps[1] = { 0x100de };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -990,7 +990,7 @@ TEST(collation, table_lookup_117_061)
 
     uint32_t const cps[1] = { 0x100df };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d5), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d5), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1006,7 +1006,7 @@ TEST(collation, table_lookup_117_062)
 
     uint32_t const cps[1] = { 0x100e0 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d6), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d6), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1022,7 +1022,7 @@ TEST(collation, table_lookup_117_063)
 
     uint32_t const cps[1] = { 0x100e1 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d7), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d7), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1038,7 +1038,7 @@ TEST(collation, table_lookup_117_064)
 
     uint32_t const cps[1] = { 0x100e2 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1054,7 +1054,7 @@ TEST(collation, table_lookup_117_065)
 
     uint32_t const cps[1] = { 0x100e3 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48d9), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48d9), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1070,7 +1070,7 @@ TEST(collation, table_lookup_117_066)
 
     uint32_t const cps[1] = { 0x100e4 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48da), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48da), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1086,7 +1086,7 @@ TEST(collation, table_lookup_117_067)
 
     uint32_t const cps[1] = { 0x100e5 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48db), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48db), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1102,7 +1102,7 @@ TEST(collation, table_lookup_117_068)
 
     uint32_t const cps[1] = { 0x100e6 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48dc), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48dc), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1118,7 +1118,7 @@ TEST(collation, table_lookup_117_069)
 
     uint32_t const cps[1] = { 0x100e7 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48dd), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48dd), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1134,7 +1134,7 @@ TEST(collation, table_lookup_117_070)
 
     uint32_t const cps[1] = { 0x100e8 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48de), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48de), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1150,7 +1150,7 @@ TEST(collation, table_lookup_117_071)
 
     uint32_t const cps[1] = { 0x100e9 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48df), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48df), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1166,7 +1166,7 @@ TEST(collation, table_lookup_117_072)
 
     uint32_t const cps[1] = { 0x100ea };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e0), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e0), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1182,7 +1182,7 @@ TEST(collation, table_lookup_117_073)
 
     uint32_t const cps[1] = { 0x100eb };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e1), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e1), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1198,7 +1198,7 @@ TEST(collation, table_lookup_117_074)
 
     uint32_t const cps[1] = { 0x100ec };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e2), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e2), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1214,7 +1214,7 @@ TEST(collation, table_lookup_117_075)
 
     uint32_t const cps[1] = { 0x100ed };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e3), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e3), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1230,7 +1230,7 @@ TEST(collation, table_lookup_117_076)
 
     uint32_t const cps[1] = { 0x100ee };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1246,7 +1246,7 @@ TEST(collation, table_lookup_117_077)
 
     uint32_t const cps[1] = { 0x100ef };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e5), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e5), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1262,7 +1262,7 @@ TEST(collation, table_lookup_117_078)
 
     uint32_t const cps[1] = { 0x100f0 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e6), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e6), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1278,7 +1278,7 @@ TEST(collation, table_lookup_117_079)
 
     uint32_t const cps[1] = { 0x100f1 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e7), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e7), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1294,7 +1294,7 @@ TEST(collation, table_lookup_117_080)
 
     uint32_t const cps[1] = { 0x100f2 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1310,7 +1310,7 @@ TEST(collation, table_lookup_117_081)
 
     uint32_t const cps[1] = { 0x100f3 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48e9), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48e9), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1326,7 +1326,7 @@ TEST(collation, table_lookup_117_082)
 
     uint32_t const cps[1] = { 0x100f4 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ea), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ea), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1342,7 +1342,7 @@ TEST(collation, table_lookup_117_083)
 
     uint32_t const cps[1] = { 0x100f5 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48eb), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48eb), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1358,7 +1358,7 @@ TEST(collation, table_lookup_117_084)
 
     uint32_t const cps[1] = { 0x100f6 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ec), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ec), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1374,7 +1374,7 @@ TEST(collation, table_lookup_117_085)
 
     uint32_t const cps[1] = { 0x100f7 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ed), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ed), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1390,7 +1390,7 @@ TEST(collation, table_lookup_117_086)
 
     uint32_t const cps[1] = { 0x100f8 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ee), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ee), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1406,7 +1406,7 @@ TEST(collation, table_lookup_117_087)
 
     uint32_t const cps[1] = { 0x100f9 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48ef), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48ef), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1422,7 +1422,7 @@ TEST(collation, table_lookup_117_088)
 
     uint32_t const cps[1] = { 0x100fa };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x48f0), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x48f0), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1438,7 +1438,7 @@ TEST(collation, table_lookup_117_089)
 
     uint32_t const cps[1] = { 0x10100 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x2fb), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x2fb), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1454,7 +1454,7 @@ TEST(collation, table_lookup_117_090)
 
     uint32_t const cps[1] = { 0x10101 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x2fc), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x2fc), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1470,7 +1470,7 @@ TEST(collation, table_lookup_117_091)
 
     uint32_t const cps[1] = { 0x10102 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x2fd), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x2fd), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1486,7 +1486,7 @@ TEST(collation, table_lookup_117_092)
 
     uint32_t const cps[1] = { 0x10107 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1502,7 +1502,7 @@ TEST(collation, table_lookup_117_093)
 
     uint32_t const cps[1] = { 0x10108 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca5), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca5), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1518,7 +1518,7 @@ TEST(collation, table_lookup_117_094)
 
     uint32_t const cps[1] = { 0x10109 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca6), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca6), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1534,7 +1534,7 @@ TEST(collation, table_lookup_117_095)
 
     uint32_t const cps[1] = { 0x1010a };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca7), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca7), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1550,7 +1550,7 @@ TEST(collation, table_lookup_117_096)
 
     uint32_t const cps[1] = { 0x1010b };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1566,7 +1566,7 @@ TEST(collation, table_lookup_117_097)
 
     uint32_t const cps[1] = { 0x1010c };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca9), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca9), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1582,7 +1582,7 @@ TEST(collation, table_lookup_117_098)
 
     uint32_t const cps[1] = { 0x1010d };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1caa), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1caa), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1598,7 +1598,7 @@ TEST(collation, table_lookup_117_099)
 
     uint32_t const cps[1] = { 0x1010e };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1cab), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1cab), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1614,7 +1614,7 @@ TEST(collation, table_lookup_117_100)
 
     uint32_t const cps[1] = { 0x1010f };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1cac), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1cac), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1630,7 +1630,7 @@ TEST(collation, table_lookup_117_101)
 
     uint32_t const cps[1] = { 0x10110 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b4d), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b4d), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1646,7 +1646,7 @@ TEST(collation, table_lookup_117_102)
 
     uint32_t const cps[1] = { 0x10111 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b4e), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b4e), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1662,7 +1662,7 @@ TEST(collation, table_lookup_117_103)
 
     uint32_t const cps[1] = { 0x10112 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b4f), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b4f), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1678,7 +1678,7 @@ TEST(collation, table_lookup_117_104)
 
     uint32_t const cps[1] = { 0x10113 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b50), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b50), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1694,7 +1694,7 @@ TEST(collation, table_lookup_117_105)
 
     uint32_t const cps[1] = { 0x10114 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b51), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b51), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1710,7 +1710,7 @@ TEST(collation, table_lookup_117_106)
 
     uint32_t const cps[1] = { 0x10115 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b52), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b52), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1726,7 +1726,7 @@ TEST(collation, table_lookup_117_107)
 
     uint32_t const cps[1] = { 0x10116 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b53), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b53), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1742,7 +1742,7 @@ TEST(collation, table_lookup_117_108)
 
     uint32_t const cps[1] = { 0x10117 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b54), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b54), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1758,7 +1758,7 @@ TEST(collation, table_lookup_117_109)
 
     uint32_t const cps[1] = { 0x10118 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b55), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b55), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1774,7 +1774,7 @@ TEST(collation, table_lookup_117_110)
 
     uint32_t const cps[1] = { 0x10119 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b56), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b56), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1790,7 +1790,7 @@ TEST(collation, table_lookup_117_111)
 
     uint32_t const cps[1] = { 0x1011a };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b57), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b57), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1806,7 +1806,7 @@ TEST(collation, table_lookup_117_112)
 
     uint32_t const cps[1] = { 0x1011b };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b58), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b58), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1822,7 +1822,7 @@ TEST(collation, table_lookup_117_113)
 
     uint32_t const cps[1] = { 0x1011c };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b59), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b59), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1838,7 +1838,7 @@ TEST(collation, table_lookup_117_114)
 
     uint32_t const cps[1] = { 0x1011d };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b5a), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b5a), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1854,7 +1854,7 @@ TEST(collation, table_lookup_117_115)
 
     uint32_t const cps[1] = { 0x1011e };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b5b), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b5b), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1870,7 +1870,7 @@ TEST(collation, table_lookup_117_116)
 
     uint32_t const cps[1] = { 0x1011f };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b5c), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b5c), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1886,7 +1886,7 @@ TEST(collation, table_lookup_117_117)
 
     uint32_t const cps[1] = { 0x10120 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b5d), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b5d), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1902,7 +1902,7 @@ TEST(collation, table_lookup_117_118)
 
     uint32_t const cps[1] = { 0x10121 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b5e), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b5e), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1918,7 +1918,7 @@ TEST(collation, table_lookup_117_119)
 
     uint32_t const cps[1] = { 0x10122 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b5f), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b5f), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1934,7 +1934,7 @@ TEST(collation, table_lookup_117_120)
 
     uint32_t const cps[1] = { 0x10123 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b60), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b60), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1950,7 +1950,7 @@ TEST(collation, table_lookup_117_121)
 
     uint32_t const cps[1] = { 0x10124 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b61), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b61), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1966,7 +1966,7 @@ TEST(collation, table_lookup_117_122)
 
     uint32_t const cps[1] = { 0x10125 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b62), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b62), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1982,7 +1982,7 @@ TEST(collation, table_lookup_117_123)
 
     uint32_t const cps[1] = { 0x10126 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b63), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b63), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -1998,7 +1998,7 @@ TEST(collation, table_lookup_117_124)
 
     uint32_t const cps[1] = { 0x10127 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b64), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b64), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2014,7 +2014,7 @@ TEST(collation, table_lookup_117_125)
 
     uint32_t const cps[1] = { 0x10128 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b65), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b65), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2030,7 +2030,7 @@ TEST(collation, table_lookup_117_126)
 
     uint32_t const cps[1] = { 0x10129 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b66), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b66), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2046,7 +2046,7 @@ TEST(collation, table_lookup_117_127)
 
     uint32_t const cps[1] = { 0x1012a };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b67), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b67), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2062,7 +2062,7 @@ TEST(collation, table_lookup_117_128)
 
     uint32_t const cps[1] = { 0x1012b };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b68), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b68), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2078,7 +2078,7 @@ TEST(collation, table_lookup_117_129)
 
     uint32_t const cps[1] = { 0x1012c };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b69), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b69), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2094,7 +2094,7 @@ TEST(collation, table_lookup_117_130)
 
     uint32_t const cps[1] = { 0x1012d };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b6a), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b6a), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2110,7 +2110,7 @@ TEST(collation, table_lookup_117_131)
 
     uint32_t const cps[1] = { 0x1012e };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b6b), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b6b), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2126,7 +2126,7 @@ TEST(collation, table_lookup_117_132)
 
     uint32_t const cps[1] = { 0x1012f };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b6c), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b6c), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2142,7 +2142,7 @@ TEST(collation, table_lookup_117_133)
 
     uint32_t const cps[1] = { 0x10130 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b6d), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b6d), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2158,7 +2158,7 @@ TEST(collation, table_lookup_117_134)
 
     uint32_t const cps[1] = { 0x10131 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b6e), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b6e), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2174,7 +2174,7 @@ TEST(collation, table_lookup_117_135)
 
     uint32_t const cps[1] = { 0x10132 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b6f), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b6f), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2190,7 +2190,7 @@ TEST(collation, table_lookup_117_136)
 
     uint32_t const cps[1] = { 0x10133 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b70), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b70), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2206,7 +2206,7 @@ TEST(collation, table_lookup_117_137)
 
     uint32_t const cps[1] = { 0x10137 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf90), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf90), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2222,7 +2222,7 @@ TEST(collation, table_lookup_117_138)
 
     uint32_t const cps[1] = { 0x10138 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf91), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf91), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2238,7 +2238,7 @@ TEST(collation, table_lookup_117_139)
 
     uint32_t const cps[1] = { 0x10139 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf92), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf92), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2254,7 +2254,7 @@ TEST(collation, table_lookup_117_140)
 
     uint32_t const cps[1] = { 0x1013a };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf93), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf93), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2270,7 +2270,7 @@ TEST(collation, table_lookup_117_141)
 
     uint32_t const cps[1] = { 0x1013b };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf94), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf94), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2286,7 +2286,7 @@ TEST(collation, table_lookup_117_142)
 
     uint32_t const cps[1] = { 0x1013c };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf95), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf95), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2302,7 +2302,7 @@ TEST(collation, table_lookup_117_143)
 
     uint32_t const cps[1] = { 0x1013d };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf96), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf96), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2318,7 +2318,7 @@ TEST(collation, table_lookup_117_144)
 
     uint32_t const cps[1] = { 0x1013e };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf97), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf97), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2334,7 +2334,7 @@ TEST(collation, table_lookup_117_145)
 
     uint32_t const cps[1] = { 0x1013f };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0xf98), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0xf98), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2350,7 +2350,7 @@ TEST(collation, table_lookup_117_146)
 
     uint32_t const cps[1] = { 0x10140 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b71), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b71), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2366,7 +2366,7 @@ TEST(collation, table_lookup_117_147)
 
     uint32_t const cps[1] = { 0x10141 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1b72), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1b72), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2382,7 +2382,7 @@ TEST(collation, table_lookup_117_148)
 
     uint32_t const cps[1] = { 0x10142 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca4), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca4), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 
@@ -2398,7 +2398,7 @@ TEST(collation, table_lookup_117_149)
 
     uint32_t const cps[1] = { 0x10143 };
     // biased L2 weight
-    boost::text::collation_element const ces[1] = { {uint16_t(0x1ca8), uint8_t(0x0), uint8_t(0x2)} };
+    boost::text::compressed_collation_element const ces[1] = { {uint16_t(0x1ca8), uint8_t(0x0), uint8_t(0x2)} };
 
     auto const coll = boost::text::longest_collation(cps, cps + 1);
 

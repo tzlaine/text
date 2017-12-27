@@ -14,7 +14,7 @@
 namespace boost { namespace text {
 
     /** */
-    struct collation_element
+    struct compressed_collation_element
     {
         uint16_t l1() const noexcept { return l1_; }
         uint8_t l2() const noexcept { return uint8_t(l2_bias + biased_l2_); }
@@ -28,27 +28,53 @@ namespace boost { namespace text {
         uint8_t l3_;
     };
 
-    inline bool operator==(collation_element lhs, collation_element rhs)
+    inline bool operator==(
+        compressed_collation_element lhs, compressed_collation_element rhs)
     {
         return lhs.l1_ == rhs.l1_ && lhs.biased_l2_ == rhs.biased_l2_ &&
                lhs.l3_ == rhs.l3_;
     }
-    inline bool operator!=(collation_element lhs, collation_element rhs)
+    inline bool operator!=(
+        compressed_collation_element lhs, compressed_collation_element rhs)
     {
         return !(lhs == rhs);
     }
 
     static_assert(
-        sizeof(collation_element) == 4,
-        "Oops!  collation_element should be 32 bits.");
+        sizeof(compressed_collation_element) == 4,
+        "Oops!  compressed_collation_element should be 32 bits.");
 
-    namespace detail {
-        extern collation_element const * g_collation_elements_first;
+#if 0
+    /** */
+    struct collation_element
+    {
+        uint16_t l1_;
+        uint16_t l2_;
+        uint16_t l3_;
+        uint16_t l4_;
+        uint32_t identical_;
+    };
+
+    inline collation_element
+    to_collation_element(compressed_collation_element ce)
+    {
+        return collation_element{ce.l1(), ce.l2(), ce.l3()};
     }
 
-    struct collation_elements
+    inline collation_element to_collation_element(
+        compressed_collation_element ce, uint16_t l4, uint32_t cp = 0)
     {
-        using iterator = collation_element const *;
+        return collation_element{ce.l1(), ce.l2(), ce.l3(), l4, cp};
+    }
+#endif
+
+    namespace detail {
+        extern compressed_collation_element const * g_collation_elements_first;
+    }
+
+    struct compressed_collation_elements
+    {
+        using iterator = compressed_collation_element const *;
 
         iterator begin() const noexcept
         {
@@ -65,11 +91,13 @@ namespace boost { namespace text {
         uint16_t last_;
     };
 
-    inline bool operator==(collation_elements lhs, collation_elements rhs)
+    inline bool operator==(
+        compressed_collation_elements lhs, compressed_collation_elements rhs)
     {
         return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
     }
-    inline bool operator!=(collation_elements lhs, collation_elements rhs)
+    inline bool operator!=(
+        compressed_collation_elements lhs, compressed_collation_elements rhs)
     {
         return !(lhs == rhs);
     }
@@ -105,7 +133,7 @@ namespace boost { namespace text {
             uint16_t last_child_;
 
             // Only nonempty when this is the end of a match.
-            collation_elements collation_elements_;
+            compressed_collation_elements collation_elements_;
         };
 
         inline bool operator==(collation_trie_node lhs, collation_trie_node rhs)
@@ -120,7 +148,8 @@ namespace boost { namespace text {
 }}
 
 namespace std {
-    template<> struct hash<boost::text::detail::collation_trie_node>
+    template<>
+    struct hash<boost::text::detail::collation_trie_node>
     {
         typedef boost::text::detail::collation_trie_node argument_type;
         typedef std::size_t result_type;
@@ -136,7 +165,7 @@ namespace boost { namespace text {
     /** TODO */
     struct longest_collation_t
     {
-        detail::collation_trie_node node_; 
+        detail::collation_trie_node node_;
         int match_length_;
 
         static const uint16_t invalid_trie_node_index = 0xffff;

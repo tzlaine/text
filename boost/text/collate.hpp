@@ -11,12 +11,15 @@
 namespace boost { namespace text {
 
     /** TODO */
+    enum class variable_weighting { non_ignorable, blanked, shifted };
+
+    /** TODO */
     struct text_sort_key
     {
         using iterator = std::vector<uint32_t>::const_iterator;
 
-        explicit text_sort_key(
-            std::vector<collation_element> const & collation_element)
+        explicit text_sort_key(std::vector<compressed_collation_element> const &
+                                   collation_elements)
         {
             // TODO: Totally wrong!
             storage_.resize(collation_elements.size());
@@ -24,7 +27,7 @@ namespace boost { namespace text {
                 collation_elements.begin(),
                 collation_elements.end(),
                 storage_.begin(),
-                [](collation_element e) {
+                [](compressed_collation_element e) {
                     return uint32_t(e.l1()) << 16 | uint32_t(e.l2()) << 8 |
                            uint32_t(e.l3());
                 });
@@ -65,8 +68,8 @@ namespace boost { namespace text {
 
         // http://www.unicode.org/reports/tr10/#Derived_Collation_Elements
         template<typename Iter>
-        void
-        add_derived_elements(uint32_t cp, std::vector<collation_element> & ces)
+        void add_derived_elements(
+            uint32_t cp, std::vector<compressed_collation_element> & ces)
         {
             // TODO: if (hangul_syllable(cp)) {
             //     auto const decomp = decompose_hangul_syllable(cp);
@@ -75,19 +78,21 @@ namespace boost { namespace text {
 
             // Tangut and Tangut Components
             if (0x17000 <= cp && cp <= 0x18AFF) {
-                ces.push_back(collation_element{0xFB00, 0x0020, 0x0020});
                 ces.push_back(
-                    collation_element{(cp - 0x17000) | 0x8000, 0x0000, 0x0000});
+                    compressed_collation_element{0xFB00, 0x0020, 0x0020});
+                ces.push_back(compressed_collation_element{
+                    (cp - 0x17000) | 0x8000, 0x0000, 0x0000});
             }
 
             // Nushu
             if (0x1B170 <= cp && cp <= 0x1B2FF) {
-                ces.push_back(collation_element{0xFB00, 0x0020, 0x0020});
                 ces.push_back(
-                    collation_element{(cp - 0x1B170) | 0x8000, 0x0000, 0x0000});
+                    compressed_collation_element{0xFB00, 0x0020, 0x0020});
+                ces.push_back(compressed_collation_element{
+                    (cp - 0x1B170) | 0x8000, 0x0000, 0x0000});
             }
 
-            collation_element const BBBB{
+            compressed_collation_element const BBBB{
                 (cp & 0x7FFF) | 0x8000, 0x0000, 0x0000};
 
             // Core Han Unified Ideographs
@@ -111,8 +116,8 @@ namespace boost { namespace text {
                      CJK_Compatibility_Ideographs.begin(),
                      CJK_Compatibility_Ideographs.end(),
                      cp))) {
-                ces.push_back(
-                    collation_element{0xFB40 + (cp >> 15), 0x0020, 0x0020});
+                ces.push_back(compressed_collation_element{
+                    0xFB40 + (cp >> 15), 0x0020, 0x0020});
                 ces.push_back(BBBB);
             }
 
@@ -161,20 +166,45 @@ namespace boost { namespace text {
                      CJK_Unified_Ideographs_Extension_D.begin(),
                      CJK_Unified_Ideographs_Extension_D.end(),
                      cp))) {
-                ces.push_back(collation_element{0xFB80 + (cp >> 15), 0x0020, 0x0020});
+                ces.push_back(compressed_collation_element{
+                    0xFB80 + (cp >> 15), 0x0020, 0x0020});
                 ces.push_back(BBBB);
             }
 
             // Everything else (except Hangul; sigh).
-            ces.push_back(
-                collation_element{0xFBC0 + (cp >> 15), 0x0020, 0x0020});
+            ces.push_back(compressed_collation_element{
+                0xFBC0 + (cp >> 15), 0x0020, 0x0020});
             ces.push_back(BBBB);
+        }
+
+        inline bool ignorable(compressed_collation_element ce) noexcept
+        {
+            return ce.l1() == 0;
+        }
+
+        // http://www.unicode.org/reports/tr10/#Variable_Weighting
+        void s2_3(
+            std::vector<compressed_collation_element> & ces,
+            variable_weighting option)
+        {
+            if (option == variable_weighting::non_ignorable)
+                return;
+
+            if (option == variable_weighting::blanked) {
+                // TODO
+            } else {
+                // shifted
+                // TODO
+            }
         }
 
         // Does all of S2 except for S2.3, which is handled when building
         // the sort key.
         template<typename Iter>
-        void s2(Iter first, Iter last, std::vector<collation_element> & ces)
+        void
+        s2(Iter first,
+           Iter last,
+           std::vector<compressed_collation_element> & ces)
         {
             // S2.1 Find longest prefix that results in a collation table
             // match.
@@ -209,59 +239,58 @@ namespace boost { namespace text {
                 collation_.node_.collation_elements_.begin(),
                 collation_.node_.collation_elements_.end(),
                 std::back_inserter(ces));
-            }
-
-            inline text_sort_key collation_sort_key(string const & s)
-            {
-                std::vector<collation_element> ces;
-                utf32_range as_utf32(s);
-                // TODO: Try tuning this buffer size for perf.
-                std::array<uint32_t, 256> buffer;
-                while (!as_utf32.empty()) {
-                    auto it = as_utf32.begin();
-                    auto out_it = buffer.begin();
-                    while (it != as_utf32.end() && out_it != buffer.end()) {
-                        *out_it++ = *it;
-                        ++it;
-                    }
-                    // TODO: Only pass the portion of buffer ending at the last
-                    // ccc == 0.
-                    s2(buffer.begin(), out_it, ces);
-                    as_utf32 = utf32_range(it, as_utf32.end());
-                }
-                return text_sort_key(ces);
-            }
-
-            inline int collate(string const & lhs, string const & rhs)
-            {
-                // TODO: Do this incrementally, and bail early one the answer is
-                // certain.
-                // TODO: Do this into stack buffers to avoid allocation for
-                // small enough strings.
-                text_sort_key const lhs_sk = collation_sort_key(lhs);
-                text_sort_key const rhs_sk = collation_sort_key(rhs);
-                return lhs_sk.compare(rhs.sk);
-            }
         }
 
-        /** TODO
-            TODO: string -> text
-        */
         inline text_sort_key collation_sort_key(string const & s)
         {
-            return detail::collation_sort_key(s);
+            std::vector<compressed_collation_element> ces;
+            utf32_range as_utf32(s);
+            // TODO: Try tuning this buffer size for perf.
+            std::array<uint32_t, 256> buffer;
+            while (!as_utf32.empty()) {
+                auto it = as_utf32.begin();
+                auto out_it = buffer.begin();
+                while (it != as_utf32.end() && out_it != buffer.end()) {
+                    *out_it++ = *it;
+                    ++it;
+                }
+                // TODO: Only pass the portion of buffer ending at the last
+                // ccc == 0.
+                s2(buffer.begin(), out_it, ces);
+                as_utf32 = utf32_range(it, as_utf32.end());
+            }
+            return text_sort_key(ces);
         }
 
-        /** TODO
-            TODO: string -> text
-        */
         inline int collate(string const & lhs, string const & rhs)
         {
-            return detail::collate(lhs, rhs);
+            // TODO: Do this incrementally, and bail early once the answer
+            // is certain.
+            // TODO: Do this into stack buffers to avoid allocation for
+            // small enough strings.
+            text_sort_key const lhs_sk = collation_sort_key(lhs);
+            text_sort_key const rhs_sk = collation_sort_key(rhs);
+            return lhs_sk.compare(rhs.sk);
         }
+    }
 
-        // TODO: Tailored collation.
+    /** TODO
+        TODO: string -> text
+    */
+    inline text_sort_key collation_sort_key(string const & s)
+    {
+        return detail::collation_sort_key(s);
     }
+
+    /** TODO
+        TODO: string -> text
+    */
+    inline int collate(string const & lhs, string const & rhs)
+    {
+        return detail::collate(lhs, rhs);
     }
+
+    // TODO: Tailored collation.
+}}
 
 #endif
