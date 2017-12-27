@@ -544,23 +544,8 @@ if __name__ == "__main__":
     # TODO: Remove if/when allkeys_CLDR.txt is used.
     ducet = add_10_contractions(ducet)
 
-    #print 'before decomps:'
-    #print (0x3c,), ducet[(0x3c,)]
-    #print len(ducet) 
-
-    # TODO: Restore/fix this.
-    fcc_ucet = ducet
-
     fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
-
-    #print 'and after:'
-    #print (0x3c,), fcc_ucet[(0x3c,)]
-    #print len(fcc_ucet) 
-
-    #exit(0)
-
-    #fcc_ucet = add_canonical_closure(fcc_ucet)
-
+    fcc_ucet = add_canonical_closure(fcc_ucet)
     (fcc_ucet, collation_elements) = make_unique_collation_element_sequence(fcc_ucet)
 
     trie = make_trie(fcc_ucet)
