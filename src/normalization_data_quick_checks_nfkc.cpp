@@ -7,10 +7,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-static const std::unordered_map<uint32_t, quick_check>
-g_nfkc_quick_check_map = {
+std::unordered_map<uint32_t, quick_check> const g_nfkc_quick_check_map = {
     { 0xa0, quick_check::no },
     { 0xa8, quick_check::no },
     { 0xaa, quick_check::no },
@@ -4918,12 +4917,4 @@ g_nfkc_quick_check_map = {
 
 };
 
-quick_check quick_check_nfkc_code_point(uint32_t cp) noexcept
-{
-    auto const it = g_nfkc_quick_check_map.find(cp);
-    if (it == g_nfkc_quick_check_map.end())
-        return quick_check::yes;
-    return it->second;
-}
-
-}}
+}}}

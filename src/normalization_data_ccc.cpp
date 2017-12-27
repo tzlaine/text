@@ -6,9 +6,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-static const std::unordered_map<uint32_t, int> g_ccc_map = {
+std::unordered_map<uint32_t, int> const g_ccc_map = {
     { 0x300, 230 },
     { 0x301, 230 },
     { 0x302, 230 },
@@ -838,12 +838,4 @@ static const std::unordered_map<uint32_t, int> g_ccc_map = {
 
 };
 
-int ccc(uint32_t cp) noexcept
-{
-    auto const it = g_ccc_map.find(cp);
-    if (it == g_ccc_map.end())
-        return 0;
-    return it->second;
-}
-
-}}
+}}}

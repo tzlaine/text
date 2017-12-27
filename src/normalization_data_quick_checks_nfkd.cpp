@@ -7,10 +7,9 @@
 #include <unordered_set>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-static const std::unordered_set<uint32_t>
-g_nfkd_quick_check_set = {
+std::unordered_set<uint32_t> const g_nfkd_quick_check_set = {
     0xa0,
     0xa8,
     0xaa,
@@ -16908,12 +16907,4 @@ g_nfkd_quick_check_set = {
 
 };
 
-quick_check quick_check_nfkd_code_point(uint32_t cp) noexcept
-{
-    auto const it = g_nfkd_quick_check_set.find(cp);
-    if (it == g_nfkd_quick_check_set.end())
-        return quick_check::yes;
-    return quick_check::no;
-}
-
-}}
+}}}

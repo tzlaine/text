@@ -7,17 +7,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-namespace {
-    constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
-    {
-        return (cp0 << 32) | cp1;
-    }
-}
-
-static const std::unordered_map<uint64_t, uint32_t>
-g_composition_map = {
+std::unordered_map<uint64_t, uint32_t> const g_composition_map = {
     { key(0x3c, 0x338), 0x226e },
     { key(0x3d, 0x338), 0x2260 },
     { key(0x3e, 0x338), 0x226f },
@@ -961,12 +953,4 @@ g_composition_map = {
 
 };
 
-uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
-{
-    auto const it = g_composition_map.find(key(cp0, cp1));
-    if (it == g_composition_map.end())
-        return 0;
-    return it->second;
-}
-
-}}
+}}}

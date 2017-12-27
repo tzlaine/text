@@ -7,9 +7,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-static const std::unordered_map<uint32_t, compatible_decomposition>
+std::unordered_map<uint32_t, compatible_decomposition> const
 g_compatible_decomposition_map = {
     { 0xa0, { {{ 0x20 }}, 1 } },
     { 0xa8, { {{ 0x20, 0x308 }}, 2 } },
@@ -5736,15 +5736,4 @@ g_compatible_decomposition_map = {
 
 };
 
-compatible_decomposition compatible_decompose(uint32_t cp) noexcept
-{
-    if (detail::hangul_syllable(cp))
-        return detail::decompose_hangul_syllable<18>(cp);
-
-    auto const it = g_compatible_decomposition_map.find(cp);
-    if (it == g_compatible_decomposition_map.end())
-        return compatible_decomposition{{{cp}}, 1};
-    return it->second;
-}
-
-}}
+}}}

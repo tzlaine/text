@@ -9,21 +9,13 @@ ccc_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-static const std::unordered_map<uint32_t, int> g_ccc_map = {{
+std::unordered_map<uint32_t, int> const g_ccc_map = {{
 {0}
 }};
 
-int ccc(uint32_t cp) noexcept
-{{
-    auto const it = g_ccc_map.find(cp);
-    if (it == g_ccc_map.end())
-        return 0;
-    return it->second;
-}}
-
-}}}}
+}}}}}}
 '''
 
 canonical_file_form = decls = '''\
@@ -36,25 +28,14 @@ canonical_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-static const std::unordered_map<uint32_t, canonical_decomposition>
+std::unordered_map<uint32_t, canonical_decomposition> const
 g_canonical_decomposition_map = {{
 {0}
 }};
 
-canonical_decomposition canonical_decompose(uint32_t cp) noexcept
-{{
-    if (detail::hangul_syllable(cp))
-        return detail::decompose_hangul_syllable<4>(cp);
-
-    auto const it = g_canonical_decomposition_map.find(cp);
-    if (it == g_canonical_decomposition_map.end())
-        return canonical_decomposition{{{{{{cp}}}}, 1}};
-    return it->second;
-}}
-
-}}}}
+}}}}}}
 '''
 
 compatible_file_form = decls = '''\
@@ -67,25 +48,14 @@ compatible_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-static const std::unordered_map<uint32_t, compatible_decomposition>
+std::unordered_map<uint32_t, compatible_decomposition> const
 g_compatible_decomposition_map = {{
 {0}
 }};
 
-compatible_decomposition compatible_decompose(uint32_t cp) noexcept
-{{
-    if (detail::hangul_syllable(cp))
-        return detail::decompose_hangul_syllable<18>(cp);
-
-    auto const it = g_compatible_decomposition_map.find(cp);
-    if (it == g_compatible_decomposition_map.end())
-        return compatible_decomposition{{{{{{cp}}}}, 1}};
-    return it->second;
-}}
-
-}}}}
+}}}}}}
 '''
 
 compose_file_form = decls = '''\
@@ -98,29 +68,13 @@ compose_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-namespace {{
-    constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
-    {{
-        return (cp0 << 32) | cp1;
-    }}
-}}
-
-static const std::unordered_map<uint64_t, uint32_t>
-g_composition_map = {{
+std::unordered_map<uint64_t, uint32_t> const g_composition_map = {{
 {0}
 }};
 
-uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
-{{
-    auto const it = g_composition_map.find(key(cp0, cp1));
-    if (it == g_composition_map.end())
-        return 0;
-    return it->second;
-}}
-
-}}}}
+}}}}}}
 '''
 
 quick_checks_set_file_form = decls = '''\
@@ -133,22 +87,13 @@ quick_checks_set_file_form = decls = '''\
 #include <unordered_set>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-static const std::unordered_set<uint32_t>
-g_{1}_quick_check_set = {{
+std::unordered_set<uint32_t> const g_{1}_quick_check_set = {{
 {0}
 }};
 
-quick_check quick_check_{1}_code_point(uint32_t cp) noexcept
-{{
-    auto const it = g_{1}_quick_check_set.find(cp);
-    if (it == g_{1}_quick_check_set.end())
-        return quick_check::yes;
-    return quick_check::no;
-}}
-
-}}}}
+}}}}}}
 '''
 
 quick_checks_map_file_form = decls = '''\
@@ -161,22 +106,13 @@ quick_checks_map_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-static const std::unordered_map<uint32_t, quick_check>
-g_{1}_quick_check_map = {{
+std::unordered_map<uint32_t, quick_check> const g_{1}_quick_check_map = {{
 {0}
 }};
 
-quick_check quick_check_{1}_code_point(uint32_t cp) noexcept
-{{
-    auto const it = g_{1}_quick_check_map.find(cp);
-    if (it == g_{1}_quick_check_map.end())
-        return quick_check::yes;
-    return it->second;
-}}
-
-}}}}
+}}}}}}
 '''
 
 

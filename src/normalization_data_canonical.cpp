@@ -7,9 +7,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-static const std::unordered_map<uint32_t, canonical_decomposition>
+std::unordered_map<uint32_t, canonical_decomposition> const
 g_canonical_decomposition_map = {
     { 0xc0, { {{ 0x41, 0x300 }}, 2 } },
     { 0xc1, { {{ 0x41, 0x301 }}, 2 } },
@@ -2074,15 +2074,4 @@ g_canonical_decomposition_map = {
 
 };
 
-canonical_decomposition canonical_decompose(uint32_t cp) noexcept
-{
-    if (detail::hangul_syllable(cp))
-        return detail::decompose_hangul_syllable<4>(cp);
-
-    auto const it = g_canonical_decomposition_map.find(cp);
-    if (it == g_canonical_decomposition_map.end())
-        return canonical_decomposition{{{cp}}, 1};
-    return it->second;
-}
-
-}}
+}}}

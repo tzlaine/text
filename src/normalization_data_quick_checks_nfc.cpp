@@ -7,10 +7,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-static const std::unordered_map<uint32_t, quick_check>
-g_nfc_quick_check_map = {
+std::unordered_map<uint32_t, quick_check> const g_nfc_quick_check_map = {
     { 0x300, quick_check::maybe },
     { 0x301, quick_check::maybe },
     { 0x302, quick_check::maybe },
@@ -1244,12 +1243,4 @@ g_nfc_quick_check_map = {
 
 };
 
-quick_check quick_check_nfc_code_point(uint32_t cp) noexcept
-{
-    auto const it = g_nfc_quick_check_map.find(cp);
-    if (it == g_nfc_quick_check_map.end())
-        return quick_check::yes;
-    return it->second;
-}
-
-}}
+}}}
