@@ -16,15 +16,11 @@ TEST(collation, table_lookup_188_000)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca5), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_001)
@@ -36,15 +32,11 @@ TEST(collation, table_lookup_188_001)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca6), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_002)
@@ -56,15 +48,11 @@ TEST(collation, table_lookup_188_002)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca7), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_003)
@@ -76,15 +64,11 @@ TEST(collation, table_lookup_188_003)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca8), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_004)
@@ -96,15 +80,11 @@ TEST(collation, table_lookup_188_004)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca9), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_005)
@@ -116,15 +96,11 @@ TEST(collation, table_lookup_188_005)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1caa), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_006)
@@ -136,15 +112,11 @@ TEST(collation, table_lookup_188_006)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1cab), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_007)
@@ -156,15 +128,11 @@ TEST(collation, table_lookup_188_007)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1cac), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_008)
@@ -176,15 +144,11 @@ TEST(collation, table_lookup_188_008)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_009)
@@ -196,15 +160,11 @@ TEST(collation, table_lookup_188_009)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_010)
@@ -216,15 +176,11 @@ TEST(collation, table_lookup_188_010)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_011)
@@ -236,15 +192,11 @@ TEST(collation, table_lookup_188_011)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_012)
@@ -256,15 +208,11 @@ TEST(collation, table_lookup_188_012)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_013)
@@ -276,15 +224,11 @@ TEST(collation, table_lookup_188_013)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_014)
@@ -296,15 +240,11 @@ TEST(collation, table_lookup_188_014)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xe0), uint8_t(0x0)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_015)
@@ -316,15 +256,11 @@ TEST(collation, table_lookup_188_015)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cea), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_016)
@@ -336,15 +272,11 @@ TEST(collation, table_lookup_188_016)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3ceb), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_017)
@@ -356,15 +288,11 @@ TEST(collation, table_lookup_188_017)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cec), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_018)
@@ -376,15 +304,11 @@ TEST(collation, table_lookup_188_018)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3ced), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_019)
@@ -396,15 +320,11 @@ TEST(collation, table_lookup_188_019)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cee), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_020)
@@ -416,15 +336,11 @@ TEST(collation, table_lookup_188_020)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cef), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_021)
@@ -436,15 +352,11 @@ TEST(collation, table_lookup_188_021)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf0), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_022)
@@ -456,15 +368,11 @@ TEST(collation, table_lookup_188_022)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf1), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_023)
@@ -476,15 +384,11 @@ TEST(collation, table_lookup_188_023)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf2), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_024)
@@ -496,15 +400,11 @@ TEST(collation, table_lookup_188_024)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf3), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_025)
@@ -516,15 +416,11 @@ TEST(collation, table_lookup_188_025)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf4), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_026)
@@ -536,15 +432,11 @@ TEST(collation, table_lookup_188_026)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf5), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_027)
@@ -556,15 +448,11 @@ TEST(collation, table_lookup_188_027)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf6), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_028)
@@ -576,15 +464,11 @@ TEST(collation, table_lookup_188_028)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf7), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_029)
@@ -596,15 +480,11 @@ TEST(collation, table_lookup_188_029)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf8), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_030)
@@ -616,15 +496,11 @@ TEST(collation, table_lookup_188_030)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf9), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_031)
@@ -636,15 +512,11 @@ TEST(collation, table_lookup_188_031)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfa), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_032)
@@ -656,15 +528,11 @@ TEST(collation, table_lookup_188_032)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfb), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_033)
@@ -676,15 +544,11 @@ TEST(collation, table_lookup_188_033)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfc), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_034)
@@ -696,15 +560,11 @@ TEST(collation, table_lookup_188_034)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfd), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_035)
@@ -716,15 +576,11 @@ TEST(collation, table_lookup_188_035)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfe), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_036)
@@ -736,15 +592,11 @@ TEST(collation, table_lookup_188_036)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cff), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_037)
@@ -756,15 +608,11 @@ TEST(collation, table_lookup_188_037)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d00), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_038)
@@ -776,15 +624,11 @@ TEST(collation, table_lookup_188_038)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d01), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_039)
@@ -796,15 +640,11 @@ TEST(collation, table_lookup_188_039)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d02), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_040)
@@ -816,15 +656,11 @@ TEST(collation, table_lookup_188_040)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d03), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_041)
@@ -836,15 +672,11 @@ TEST(collation, table_lookup_188_041)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d04), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_042)
@@ -856,15 +688,11 @@ TEST(collation, table_lookup_188_042)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d05), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_043)
@@ -876,15 +704,11 @@ TEST(collation, table_lookup_188_043)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d06), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_044)
@@ -896,15 +720,11 @@ TEST(collation, table_lookup_188_044)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d07), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_045)
@@ -916,15 +736,11 @@ TEST(collation, table_lookup_188_045)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d08), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_046)
@@ -936,15 +752,11 @@ TEST(collation, table_lookup_188_046)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d09), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_047)
@@ -956,15 +768,11 @@ TEST(collation, table_lookup_188_047)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d0a), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_048)
@@ -976,15 +784,11 @@ TEST(collation, table_lookup_188_048)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d0b), uint8_t(0x0), uint8_t(0x8)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_049)
@@ -996,15 +800,11 @@ TEST(collation, table_lookup_188_049)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cea), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_050)
@@ -1016,15 +816,11 @@ TEST(collation, table_lookup_188_050)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3ceb), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_051)
@@ -1036,15 +832,11 @@ TEST(collation, table_lookup_188_051)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cec), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_052)
@@ -1056,15 +848,11 @@ TEST(collation, table_lookup_188_052)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3ced), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_053)
@@ -1076,15 +864,11 @@ TEST(collation, table_lookup_188_053)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cee), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_054)
@@ -1096,15 +880,11 @@ TEST(collation, table_lookup_188_054)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cef), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_055)
@@ -1116,15 +896,11 @@ TEST(collation, table_lookup_188_055)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf0), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_056)
@@ -1136,15 +912,11 @@ TEST(collation, table_lookup_188_056)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf1), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_057)
@@ -1156,15 +928,11 @@ TEST(collation, table_lookup_188_057)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf2), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_058)
@@ -1176,15 +944,11 @@ TEST(collation, table_lookup_188_058)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf3), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_059)
@@ -1196,15 +960,11 @@ TEST(collation, table_lookup_188_059)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf4), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_060)
@@ -1216,15 +976,11 @@ TEST(collation, table_lookup_188_060)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf5), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_061)
@@ -1236,15 +992,11 @@ TEST(collation, table_lookup_188_061)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf6), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_062)
@@ -1256,15 +1008,11 @@ TEST(collation, table_lookup_188_062)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf7), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_063)
@@ -1276,15 +1024,11 @@ TEST(collation, table_lookup_188_063)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf8), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_064)
@@ -1296,15 +1040,11 @@ TEST(collation, table_lookup_188_064)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cf9), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_065)
@@ -1316,15 +1056,11 @@ TEST(collation, table_lookup_188_065)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfa), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_066)
@@ -1336,15 +1072,11 @@ TEST(collation, table_lookup_188_066)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfb), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_067)
@@ -1356,15 +1088,11 @@ TEST(collation, table_lookup_188_067)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfc), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_068)
@@ -1376,15 +1104,11 @@ TEST(collation, table_lookup_188_068)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfd), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_069)
@@ -1396,15 +1120,11 @@ TEST(collation, table_lookup_188_069)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cfe), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_070)
@@ -1416,15 +1136,11 @@ TEST(collation, table_lookup_188_070)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3cff), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_071)
@@ -1436,15 +1152,11 @@ TEST(collation, table_lookup_188_071)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d00), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_072)
@@ -1456,15 +1168,11 @@ TEST(collation, table_lookup_188_072)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d01), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_073)
@@ -1476,15 +1184,11 @@ TEST(collation, table_lookup_188_073)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d02), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_074)
@@ -1496,15 +1200,11 @@ TEST(collation, table_lookup_188_074)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d03), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_075)
@@ -1516,15 +1216,11 @@ TEST(collation, table_lookup_188_075)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d04), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_076)
@@ -1536,15 +1232,11 @@ TEST(collation, table_lookup_188_076)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d05), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_077)
@@ -1556,15 +1248,11 @@ TEST(collation, table_lookup_188_077)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d06), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_078)
@@ -1576,15 +1264,11 @@ TEST(collation, table_lookup_188_078)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d07), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_079)
@@ -1596,15 +1280,11 @@ TEST(collation, table_lookup_188_079)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d08), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_080)
@@ -1616,15 +1296,11 @@ TEST(collation, table_lookup_188_080)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d09), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_081)
@@ -1636,15 +1312,11 @@ TEST(collation, table_lookup_188_081)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d0a), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_082)
@@ -1656,15 +1328,11 @@ TEST(collation, table_lookup_188_082)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x3d0b), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_083)
@@ -1676,15 +1344,11 @@ TEST(collation, table_lookup_188_083)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0x9d), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_084)
@@ -1696,15 +1360,11 @@ TEST(collation, table_lookup_188_084)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0x9d), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_085)
@@ -1716,15 +1376,11 @@ TEST(collation, table_lookup_188_085)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0x9d), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_086)
@@ -1736,15 +1392,11 @@ TEST(collation, table_lookup_188_086)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0x9f), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_087)
@@ -1756,15 +1408,11 @@ TEST(collation, table_lookup_188_087)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xa0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_088)
@@ -1776,15 +1424,11 @@ TEST(collation, table_lookup_188_088)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0xa1), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_089)
@@ -1796,15 +1440,11 @@ TEST(collation, table_lookup_188_089)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x0), uint8_t(0x9e), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_090)
@@ -1816,15 +1456,11 @@ TEST(collation, table_lookup_188_090)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca3), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_091)
@@ -1836,15 +1472,11 @@ TEST(collation, table_lookup_188_091)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca4), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_092)
@@ -1856,15 +1488,11 @@ TEST(collation, table_lookup_188_092)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca5), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_093)
@@ -1876,15 +1504,11 @@ TEST(collation, table_lookup_188_093)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca6), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_094)
@@ -1896,15 +1520,11 @@ TEST(collation, table_lookup_188_094)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca7), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_095)
@@ -1916,15 +1536,11 @@ TEST(collation, table_lookup_188_095)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca8), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_096)
@@ -1936,15 +1552,11 @@ TEST(collation, table_lookup_188_096)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1ca9), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_097)
@@ -1956,15 +1568,11 @@ TEST(collation, table_lookup_188_097)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1caa), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_098)
@@ -1976,15 +1584,11 @@ TEST(collation, table_lookup_188_098)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1cab), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_099)
@@ -1996,15 +1600,11 @@ TEST(collation, table_lookup_188_099)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x1cac), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_100)
@@ -2016,15 +1616,11 @@ TEST(collation, table_lookup_188_100)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x266), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_101)
@@ -2036,15 +1632,11 @@ TEST(collation, table_lookup_188_101)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x275), uint8_t(0x0), uint8_t(0x2)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_102)
@@ -2056,15 +1648,11 @@ TEST(collation, table_lookup_188_102)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2371), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_103)
@@ -2076,15 +1664,11 @@ TEST(collation, table_lookup_188_103)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2373), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_104)
@@ -2096,15 +1680,11 @@ TEST(collation, table_lookup_188_104)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x238b), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_105)
@@ -2116,15 +1696,11 @@ TEST(collation, table_lookup_188_105)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x239d), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_106)
@@ -2136,15 +1712,11 @@ TEST(collation, table_lookup_188_106)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x241d), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_107)
@@ -2156,15 +1728,11 @@ TEST(collation, table_lookup_188_107)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23ad), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_108)
@@ -2176,15 +1744,11 @@ TEST(collation, table_lookup_188_108)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2392), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_109)
@@ -2196,15 +1760,11 @@ TEST(collation, table_lookup_188_109)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23d0), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_110)
@@ -2216,15 +1776,11 @@ TEST(collation, table_lookup_188_110)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x242c), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_111)
@@ -2236,15 +1792,11 @@ TEST(collation, table_lookup_188_111)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23ed), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_112)
@@ -2256,15 +1808,11 @@ TEST(collation, table_lookup_188_112)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2402), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_113)
@@ -2276,15 +1824,11 @@ TEST(collation, table_lookup_188_113)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2409), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_114)
@@ -2296,15 +1840,11 @@ TEST(collation, table_lookup_188_114)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x240d), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_115)
@@ -2316,15 +1856,11 @@ TEST(collation, table_lookup_188_115)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23bf), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_116)
@@ -2336,15 +1872,11 @@ TEST(collation, table_lookup_188_116)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23d4), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_117)
@@ -2356,15 +1888,11 @@ TEST(collation, table_lookup_188_117)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23dc), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_118)
@@ -2376,15 +1904,11 @@ TEST(collation, table_lookup_188_118)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23ca), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_119)
@@ -2396,15 +1920,11 @@ TEST(collation, table_lookup_188_119)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23e8), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_120)
@@ -2416,15 +1936,11 @@ TEST(collation, table_lookup_188_120)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23ac), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_121)
@@ -2436,15 +1952,11 @@ TEST(collation, table_lookup_188_121)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23c0), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_122)
@@ -2456,15 +1968,11 @@ TEST(collation, table_lookup_188_122)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2383), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_123)
@@ -2476,15 +1984,11 @@ TEST(collation, table_lookup_188_123)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2384), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_124)
@@ -2496,15 +2000,11 @@ TEST(collation, table_lookup_188_124)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2393), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_125)
@@ -2516,15 +2016,11 @@ TEST(collation, table_lookup_188_125)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x239e), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_126)
@@ -2536,15 +2032,11 @@ TEST(collation, table_lookup_188_126)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23cb), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_127)
@@ -2556,15 +2048,11 @@ TEST(collation, table_lookup_188_127)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23d1), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_128)
@@ -2576,15 +2064,11 @@ TEST(collation, table_lookup_188_128)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23d5), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_129)
@@ -2596,15 +2080,11 @@ TEST(collation, table_lookup_188_129)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2372), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_130)
@@ -2616,15 +2096,11 @@ TEST(collation, table_lookup_188_130)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x240e), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_131)
@@ -2636,15 +2112,11 @@ TEST(collation, table_lookup_188_131)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23dd), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_132)
@@ -2656,15 +2128,11 @@ TEST(collation, table_lookup_188_132)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23e7), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_133)
@@ -2676,15 +2144,11 @@ TEST(collation, table_lookup_188_133)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2373), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_134)
@@ -2696,15 +2160,11 @@ TEST(collation, table_lookup_188_134)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x238b), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_135)
@@ -2716,15 +2176,11 @@ TEST(collation, table_lookup_188_135)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2417), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_136)
@@ -2736,15 +2192,11 @@ TEST(collation, table_lookup_188_136)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2392), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_137)
@@ -2756,15 +2208,11 @@ TEST(collation, table_lookup_188_137)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x242c), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_138)
@@ -2776,15 +2224,11 @@ TEST(collation, table_lookup_188_138)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23ed), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_139)
@@ -2796,15 +2240,11 @@ TEST(collation, table_lookup_188_139)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2402), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_140)
@@ -2816,15 +2256,11 @@ TEST(collation, table_lookup_188_140)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2409), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_141)
@@ -2836,15 +2272,11 @@ TEST(collation, table_lookup_188_141)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x240d), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_142)
@@ -2856,15 +2288,11 @@ TEST(collation, table_lookup_188_142)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23bf), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_143)
@@ -2876,15 +2304,11 @@ TEST(collation, table_lookup_188_143)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23d4), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_144)
@@ -2896,15 +2320,11 @@ TEST(collation, table_lookup_188_144)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23dc), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_145)
@@ -2916,15 +2336,11 @@ TEST(collation, table_lookup_188_145)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23ca), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_146)
@@ -2936,15 +2352,11 @@ TEST(collation, table_lookup_188_146)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23e8), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_147)
@@ -2956,15 +2368,11 @@ TEST(collation, table_lookup_188_147)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x23c0), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_148)
@@ -2976,15 +2384,11 @@ TEST(collation, table_lookup_188_148)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2383), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 
 TEST(collation, table_lookup_188_149)
@@ -2996,14 +2400,10 @@ TEST(collation, table_lookup_188_149)
     // biased L2 weight
     boost::text::collation_element const ces[1] = { {uint16_t(0x2384), uint8_t(0x0), uint8_t(0x5)} };
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + 1);
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + 1);
 
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 1);
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + 1));
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, 1);
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + 1));
 }
 

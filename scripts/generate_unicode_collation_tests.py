@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from generate_unicode_collation_data import get_ducet
-from generate_unicode_collation_data import trie_insert
-from generate_unicode_collation_data import make_trie
-from generate_unicode_collation_data import find_singleton_keys
 from generate_unicode_collation_data import ce_to_cpp
 
 lookup_tests_form = '''\
@@ -31,25 +28,6 @@ BENCHMARK_MAIN()
 '''
 
 def generate_lookup_tests(ducet, ducet_lines):
-    singleton_case = '''\
-    EXPECT_FALSE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, 0);
-
-    EXPECT_TRUE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, {0});
-    EXPECT_TRUE(boost::algorithm::equal(singleton_coll.collation_elements_.begin(), singleton_coll.collation_elements_.end(), ces, ces + {1}));'''
-
-    multi_case = '''\
-    EXPECT_TRUE(multi_coll.collation_elements_);
-    EXPECT_EQ(multi_coll.match_length_, {0});
-    EXPECT_TRUE(boost::algorithm::equal(multi_coll.collation_elements_.begin(), multi_coll.collation_elements_.end(), ces, ces + {1}));
-
-    EXPECT_FALSE(singleton_coll.collation_elements_);
-    EXPECT_EQ(singleton_coll.match_length_, 0);'''
-
-    trie = make_trie(ducet)
-    singleton_keys = find_singleton_keys(ducet, trie)
-
     chunk_size = 150
 
     lines = ''
@@ -66,16 +44,16 @@ TEST(collation, table_lookup_{0:03}_{1:03})
     // biased L2 weight
     boost::text::collation_element const ces[{7}] = {{ {6} }};
 
-    auto const multi_coll = boost::text::longest_collation(cps, cps + {5});
-    auto const singleton_coll = boost::text::collation(cps[0]);
+    auto const coll = boost::text::longest_collation(cps, cps + {5});
 
-{8}
+    EXPECT_TRUE(coll.node_.collation_elements_);
+    EXPECT_EQ(coll.match_length_, {5});
+    EXPECT_TRUE(boost::algorithm::equal(coll.node_.collation_elements_.begin(), coll.node_.collation_elements_.end(), ces, ces + {7}));
 }}
 '''.format(
     chunk, i, ducet_lines[k][0], ducet_lines[k][1],
     ', '.join(map(lambda x: hex(x), k)), len(k),
-    ', '.join(map(lambda x: ce_to_cpp(x, min_l2), v)), len(v),
-    k in singleton_keys and singleton_case.format(len(k), len(v)) or multi_case.format(len(k), len(v))
+    ', '.join(map(lambda x: ce_to_cpp(x, min_l2), v)), len(v)
     )
         i += 1
         if i == chunk_size:
@@ -131,7 +109,6 @@ void BM_collation_element_lookup_{0:03}(benchmark::State & state)
         for first,last in cp_ranges:
             lines += '''\
             benchmark::DoNotOptimize(boost::text::longest_collation(cps_{0:03} + {1}, cps_{0:03} + {2}));
-            benchmark::DoNotOptimize(boost::text::collation(cps_{0:03}[0]));
 '''.format(i, first, last)
         lines += '''\
     }}

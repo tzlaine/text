@@ -55,9 +55,7 @@ add_library(text
     src/normalization_data_quick_checks_nfkc.cpp
     src/normalization_data_quick_checks_nfkd.cpp
     src/collation_data_0.cpp
-    src/collation_data_1.cpp 
-    src/collation_data_2.cpp
-    src/collation_data_3.cpp
+    src/collation_data_1.cpp
 )
 
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

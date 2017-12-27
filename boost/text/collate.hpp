@@ -79,10 +79,9 @@ namespace boost { namespace text {
             // S2.1 Find longest prefix that results in a collation table
             // match.
             auto collation_ = longest_collation(first, last);
-            if (!collation_.collation_elements_)
-                collation_ = collation(cp);
             if (collation.match_length_ == 0) {
                 while (first != last) {
+                    // TODO: This should not go past next starter.
                     add_derived_elements(*first++);
                 }
                 return;
@@ -94,34 +93,21 @@ namespace boost { namespace text {
                 first, last, [](uint32_t cp) { return ccc(cp) == 0; });
 
             auto nonstarter_first = S_end;
-            while (S_last - first <
-                       static_cast<int>(collation_weights::max_key_length) &&
+            while (!collation.node_.leaf() &&
                    nonstarter_first != nonstarter_last) {
-                if (collation_.trie_node_index_ ==
-                    longest_collation_t::invalid_trie_node_index) {
-                    assert(collation.match_length_ == 1);
-                    uint32_t S_and_C[2] = {*(S_last - 1), *nonstarter_first};
-                    auto coll = longest_collation(first, last);
-                    if (coll.match_length_ == 2) {
-                        S_end = std::rotate(
-                            S_end, nonstarter_first, nonstarter_first + 1);
-                        collation_ = coll;
-                    }
-                } else {
-                    auto coll =
-                        detail::extend_collation(collation_, *nonstarter_first);
-                    if (collation_.match_length_ < coll.match_length_) {
-                        S_end = std::rotate(
-                            S_end, nonstarter_first, nonstarter_first + 1);
-                        collation_ = coll;
-                    }
+                auto coll =
+                    detail::extend_collation(collation_, *nonstarter_first);
+                if (collation_.match_length_ < coll.match_length_) {
+                    S_end = std::rotate(
+                        S_end, nonstarter_first, nonstarter_first + 1);
+                    collation_ = coll;
                 }
                 ++nonstarter_first;
             }
 
             std::copy(
-                collation_.collation_elements_.begin(),
-                collation_.collation_elements_.end(),
+                collation_.node_.collation_elements_.begin(),
+                collation_.node_.collation_elements_.end(),
                 std::back_inserter(ces));
         }
 

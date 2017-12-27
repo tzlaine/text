@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <cstdint>
 
@@ -64,21 +65,19 @@ namespace boost { namespace text {
         uint16_t last_;
     };
 
-    /** TODO */
-    struct longest_collation_t
+    inline bool operator==(collation_elements lhs, collation_elements rhs)
     {
-        collation_elements collation_elements_;
-        int match_length_;
-        uint16_t trie_node_index_;
-
-        static const uint16_t invalid_trie_node_index = 0xffff;
-    };
+        return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
+    }
+    inline bool operator!=(collation_elements lhs, collation_elements rhs)
+    {
+        return !(lhs == rhs);
+    }
 
     namespace detail {
         struct collation_trie_node;
 
-        extern collation_trie_node const * g_collation_trie_start_nodes_first;
-        extern collation_trie_node const * g_collation_trie_start_nodes_last;
+        extern collation_trie_node const * g_collation_trie_nodes;
 
         struct collation_trie_node
         {
@@ -86,11 +85,11 @@ namespace boost { namespace text {
 
             iterator begin() const noexcept
             {
-                return g_collation_trie_start_nodes_first + first_child_;
+                return g_collation_trie_nodes + first_child_;
             }
             iterator end() const noexcept
             {
-                return g_collation_trie_start_nodes_first + last_child_;
+                return g_collation_trie_nodes + last_child_;
             }
 
             bool match() const noexcept
@@ -108,6 +107,45 @@ namespace boost { namespace text {
             // Only nonempty when this is the end of a match.
             collation_elements collation_elements_;
         };
+
+        inline bool operator==(collation_trie_node lhs, collation_trie_node rhs)
+        {
+            return lhs.cp_ == rhs.cp_;
+        }
+        inline bool operator!=(collation_trie_node lhs, collation_trie_node rhs)
+        {
+            return !(lhs == rhs);
+        }
+    }
+}}
+
+namespace std {
+    template<> struct hash<boost::text::detail::collation_trie_node>
+    {
+        typedef boost::text::detail::collation_trie_node argument_type;
+        typedef std::size_t result_type;
+        result_type operator()(argument_type const & n) const noexcept
+        {
+            return n.cp_;
+        }
+    };
+}
+
+namespace boost { namespace text {
+
+    /** TODO */
+    struct longest_collation_t
+    {
+        detail::collation_trie_node node_; 
+        int match_length_;
+
+        static const uint16_t invalid_trie_node_index = 0xffff;
+    };
+
+    namespace detail {
+
+        extern std::unordered_set<detail::collation_trie_node> const
+            g_collation_initial_nodes;
 
         inline collation_trie_node const * find_trie_node(
             collation_trie_node const * first,
@@ -131,17 +169,12 @@ namespace boost { namespace text {
         inline longest_collation_t
         extend_collation(longest_collation_t prev, uint32_t cp) noexcept
         {
-            auto const node =
-                g_collation_trie_start_nodes_first[prev.trie_node_index_];
-            auto first = g_collation_trie_start_nodes_first + node.first_child_;
-            auto last = g_collation_trie_start_nodes_first + node.last_child_;
+            auto first = g_collation_trie_nodes + prev.node_.first_child_;
+            auto last = g_collation_trie_nodes + prev.node_.last_child_;
             auto const node_it = find_trie_node(first, last, cp);
             if (node_it == last || !node_it->match())
                 return prev;
-            return longest_collation_t{
-                node_it->collation_elements_,
-                prev.match_length_ + 1,
-                uint16_t(node_it - g_collation_trie_start_nodes_first)};
+            return longest_collation_t{*node_it, prev.match_length_ + 1};
         }
     }
 
@@ -151,60 +184,28 @@ namespace boost { namespace text {
     {
         auto it = first;
         auto const starter = *it++;
-        auto node_it = detail::find_trie_node(
-            detail::g_collation_trie_start_nodes_first,
-            detail::g_collation_trie_start_nodes_last,
-            starter);
-        if (node_it == detail::g_collation_trie_start_nodes_last)
-            return longest_collation_t{{0, 0}, 0, 0xffff};
+        detail::collation_trie_node node{starter};
+        auto hash_it = detail::g_collation_initial_nodes.find(node);
+        if (hash_it == detail::g_collation_initial_nodes.end())
+            return longest_collation_t{{}, 0};
+        node = *hash_it;
 
-        longest_collation_t retval{
-            node_it->collation_elements_,
-            node_it->collation_elements_ ? 1 : 0,
-            uint16_t(node_it - detail::g_collation_trie_start_nodes_first)};
-        while (!node_it->leaf()) {
-            auto const node_it2 = detail::find_trie_node(
-                detail::g_collation_trie_start_nodes_first +
-                    node_it->first_child_,
-                detail::g_collation_trie_start_nodes_first +
-                    node_it->last_child_,
+        longest_collation_t retval{node, node.collation_elements_ ? 1 : 0};
+        while (it != last && !node.leaf()) {
+            auto const node_it = detail::find_trie_node(
+                detail::g_collation_trie_nodes + node.first_child_,
+                detail::g_collation_trie_nodes + node.last_child_,
                 *it++);
-            if (node_it2 == detail::g_collation_trie_start_nodes_first +
-                                node_it->last_child_)
+            if (node_it ==
+                detail::g_collation_trie_nodes + node_it->last_child_)
                 break;
-            node_it = node_it2;
-            if (node_it->match()) {
-                retval.collation_elements_ = node_it->collation_elements_;
+            node = *node_it;
+            if (node.match()) {
+                retval.node_ = node;
                 retval.match_length_ = it - first;
-                retval.trie_node_index_ =
-                    node_it - detail::g_collation_trie_start_nodes_first;
             }
         }
         return retval;
-    }
-
-    namespace detail {
-        extern const std::unordered_map<uint32_t, collation_elements>
-            g_collation_element_table_1;
-        extern const std::unordered_map<uint32_t, collation_elements>
-            g_collation_element_table_2;
-    }
-
-    /** Returns the collation elements for code point cp, if it exists. */
-    inline longest_collation_t collation(uint32_t cp) noexcept
-    {
-        if (cp < static_cast<int>(
-                     collation_weights::median_sigleton_collation_key)) {
-            auto const it = detail::g_collation_element_table_1.find(cp);
-            if (it == detail::g_collation_element_table_1.end())
-                return longest_collation_t{{0, 0}, 0, 0xffff};
-            return longest_collation_t{it->second, 1, 0xffff};
-        } else {
-            auto const it = detail::g_collation_element_table_2.find(cp);
-            if (it == detail::g_collation_element_table_2.end())
-                return longest_collation_t{{0, 0}, 0, 0xffff};
-            return longest_collation_t{it->second, 1, 0xffff};
-        }
     }
 
 }}
