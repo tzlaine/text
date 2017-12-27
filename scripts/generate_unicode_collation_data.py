@@ -86,8 +86,7 @@ static_assert(
     "Oops!  The range of L2 collation weights must be < 256.");
 
 namespace detail {{
-    std::unordered_map<uint32_t, detail::collation_trie_node> const
-    g_collation_initial_nodes = {{
+    std::unordered_set<detail::collation_trie_node> const g_collation_initial_nodes = {{
 {0}
     }};
 }}
@@ -515,18 +514,15 @@ def flatten_trie(trie):
     num_root_children = len(trie.children_)
     i = 0
     for n in all_nodes:
+        line = '        {{ {}, {}, {}, {{ {}, {}, }} }},\n'.format(
+            hex(n.cp_),
+            n.children_[0] - num_root_children, n.children_[1] - num_root_children,
+            n.collation_elements_[0], n.collation_elements_[1]
+        )
         if i < num_root_children:
-            hash_lines += '        {{{0}, {{{0}, {1}, {2}, {{{3}, {4}}}}}}},\n'.format(
-                hex(n.cp_),
-                n.children_[0] - num_root_children, n.children_[1] - num_root_children,
-                n.collation_elements_[0], n.collation_elements_[1]
-            )
+            hash_lines += line
         else:
-            trie_lines += '        {{{}, {}, {}, {{{}, {}}}}},\n'.format(
-                hex(n.cp_),
-                n.children_[0] - num_root_children, n.children_[1] - num_root_children,
-                n.collation_elements_[0], n.collation_elements_[1]
-            )
+            trie_lines += line
         i += 1
 
     return (hash_lines, trie_lines, len(all_nodes))
