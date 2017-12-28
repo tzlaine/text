@@ -44,7 +44,6 @@ namespace boost { namespace text {
         sizeof(compressed_collation_element) == 4,
         "Oops!  compressed_collation_element should be 32 bits.");
 
-#if 0
     /** */
     struct collation_element
     {
@@ -66,7 +65,6 @@ namespace boost { namespace text {
     {
         return collation_element{ce.l1(), ce.l2(), ce.l3(), l4, cp};
     }
-#endif
 
     namespace detail {
         extern compressed_collation_element const * g_collation_elements_first;

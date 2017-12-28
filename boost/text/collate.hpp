@@ -177,24 +177,93 @@ namespace boost { namespace text {
             ces.push_back(BBBB);
         }
 
+        inline bool variable(compressed_collation_element ce) noexcept
+        {
+            auto const lo = static_cast<int>(collation_weights::min_variable);
+            auto const hi = static_cast<int>(collation_weights::max_variable);
+            return lo <= ce.l1() && ce.l1() <= hi;
+        }
+
         inline bool ignorable(compressed_collation_element ce) noexcept
         {
             return ce.l1() == 0;
         }
 
+        template<typename Iter, typename VariableFunc, typename IgnorableFunc>
+        void adjust_weights(
+            Iter first,
+            Iter last,
+            NonvariableFunc && nvfunc,
+            VariableFunc && vfunc,
+            IgnorableFunc && ifunc)
+        {
+            bool after_variable = false;
+            while (first != last) {
+                auto & ce = *first++;
+                if (variable(ce)) {
+                    vfunc(ce, after_variable);
+                    after_variable = true;
+                    while (first != last && ignorable(*first)) {
+                        ifunc(*first++);
+                        after_variable = false;
+                    }
+                } else {
+                    nvfunc(ce);
+                }
+            }
+        }
+
         // http://www.unicode.org/reports/tr10/#Variable_Weighting
-        void s2_3(
-            std::vector<compressed_collation_element> & ces,
-            variable_weighting option)
+        inline void
+        s2_3(std::vector<collation_element> & ces, variable_weighting option)
         {
             if (option == variable_weighting::non_ignorable)
                 return;
 
+            auto zero_l1_to_l4 = [](collation_element & ce, bool = false) {
+                ce.l1_ = 0;
+                ce.l2_ = 0;
+                ce.l3_ = 0;
+                ce.l4_ = 0;
+            };
+
+            auto nonvariable_shift = [](collation_element & ce) {
+                if (ce.l1_)
+                    ce.l4_ = 0xffff;
+            };
+
+            auto variable_shift = [](collation_element & ce,
+                                     bool after_variable) {
+                if (!ce.l1_ && !ce_l2_ && !ce_l3) {
+                    ce.l4_ = 0x0000;
+                } else if (!ce.l1_ && ce.l3_ && after_variable) {
+                    ce_l4_ = 0x0000;
+                } else if (ce.l1_) {
+                    ce.l4_ = ce.l1_;
+                } else if (!e.l1_ && ce.l3_ && !after_variable) {
+                    ce.l4_ = 0xffff;
+                }
+
+                ce.l1_ = 0;
+                ce.l2_ = 0;
+                ce.l3_ = 0;
+            };
+
             if (option == variable_weighting::blanked) {
-                // TODO
+                adjust_weights(
+                    ces.begin(),
+                    ces.end(),
+                    [](collation_element &) {},
+                    zero_l1_to_l4,
+                    zero_l1_to_l4);
             } else {
                 // shifted
-                // TODO
+                adjust_weights(
+                    ces.begin(),
+                    ces.end(),
+                    nonvariable_shift,
+                    variable_shift,
+                    zero_l1_to_l4);
             }
         }
 
