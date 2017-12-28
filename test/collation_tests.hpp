@@ -2,6 +2,7 @@
 #define BOOST_TEXT_TEST_COLLATION_TESTS_HPP
 
 #include <boost/text/collate.hpp>
+#include <boost/text/normalize.hpp>
 
 #include <boost/container/small_vector.hpp>
 
@@ -36,12 +37,22 @@ private:
     uint32_t const * last_;
 };
 
-// TODO: Implement this in collate.hpp.
+// TODO: Implement something like this in collate.hpp.
 std::vector<uint32_t> collate_for_tests(
     uint32_t * first,
     uint32_t * last,
     boost::text::variable_weighting weighting)
 {
+    boost::text::string str = boost::text::to_string(first, last);
+    boost::text::psuedonormalize_to_fcc(str);
+
+    boost::container::static_vector<uint32_t, 1024> buf;
+    boost::text::utf32_range as_utf32(str);
+    std::copy(as_utf32.begin(), as_utf32.end(), std::back_inserter(buf));
+
+    first = &*buf.begin(); 
+    last = &*buf.end(); 
+
     std::vector<boost::text::compressed_collation_element> cces;
     boost::text::detail::s2(first, last, cces);
 
