@@ -31,6 +31,7 @@ namespace boost { namespace text {
         using const_iterator = char const *;
         using reverse_iterator = detail::reverse_char_iterator;
         using const_reverse_iterator = detail::const_reverse_char_iterator;
+        using value_type = char;
 
         /** Default ctor.
 
