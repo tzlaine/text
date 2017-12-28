@@ -284,7 +284,6 @@ namespace boost { namespace text {
             auto collation_ = longest_collation(first, last);
             if (collation_.match_length_ == 0) {
                 while (first != last) {
-                    // TODO: This should not go past next starter.
                     add_derived_elements(*first++, ces);
                 }
                 return;
@@ -320,17 +319,26 @@ namespace boost { namespace text {
             utf32_range as_utf32(s);
             // TODO: Try tuning this buffer size for perf.
             std::array<uint32_t, 256> buffer;
+            auto buf_it = buffer.begin();
             while (!as_utf32.empty()) {
                 auto it = as_utf32.begin();
-                auto out_it = buffer.begin();
-                while (it != as_utf32.end() && out_it != buffer.end()) {
-                    *out_it++ = *it;
+                while (it != as_utf32.end() && buf_it != buffer.end()) {
+                    *buf_it++ = *it;
                     ++it;
                 }
-                // TODO: Only pass the portion of buffer ending at the last
-                // ccc == 0.
-                s2(buffer.begin(), out_it, ces);
+
+                auto s2_it = buf_it;
+                if (s2_it == buffer.end()) {
+                    while (s2_it != buffer.begin()) {
+                        if (!ccc(*--s2_it))
+                            break;
+                    }
+                    ++s2_it;
+                }
+
+                s2(buffer.begin(), buf_it, ces);
                 as_utf32 = utf32_range(it, as_utf32.end());
+                buf_it = std::copy(s2_it, buf_it, buffer.begin());
             }
             return text_sort_key(ces);
         }
