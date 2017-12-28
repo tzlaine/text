@@ -313,7 +313,7 @@ namespace boost { namespace text {
             is not checked.  To check the inserted sequence's encoding, use a
             converting iterator. */
         template<typename Iter>
-        string & insert(iterator at, Iter first, Iter last);
+        iterator insert(iterator at, Iter first, Iter last);
 
 #else
 
@@ -330,17 +330,19 @@ namespace boost { namespace text {
             if (first == last)
                 return *this;
 
-            return insert_iter_impl(at, first, last);
+            insert_iter_impl(at, first, last);
+
+            return *this;
         }
 
         template<typename Iter>
         auto insert(iterator at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<string &, Iter>
+            -> detail::char_iter_ret_t<iterator, Iter>
         {
             assert(begin() <= at && at <= end());
 
             if (first == last)
-                return *this;
+                return at;
 
             return insert_iter_impl(at - begin(), first, last);
         }
@@ -679,7 +681,7 @@ namespace boost { namespace text {
 
         template<typename Iter>
         auto insert_iter_impl(int at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<string &, Iter>
+            -> detail::char_iter_ret_t<iterator, Iter>
         {
             auto const initial_size = size_;
             try {
@@ -695,7 +697,7 @@ namespace boost { namespace text {
             std::rotate(begin() + at, begin() + initial_size, end());
             ptr()[size_] = '\0';
 
-            return *this;
+            return begin() + at + (size_ - initial_size);
         }
 
         template<typename Iter>
