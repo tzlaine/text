@@ -71,13 +71,13 @@ std::vector<uint32_t> collate_for_tests(
 
     for (auto ce : ces) {
         if (ce.l1_)
-            retval.push_back(ce.l1_);
+            l1.push_back(ce.l1_);
         if (ce.l2_)
-            retval.push_back(ce.l2_);
+            l2.push_back(ce.l2_);
         if (ce.l3_)
-            retval.push_back(ce.l3_);
+            l3.push_back(ce.l3_);
         if (ce.l4_)
-            retval.push_back(ce.l4_);
+            l4.push_back(ce.l4_);
     }
 
     retval.resize(l1.size() + l2.size() + l3.size() + l4.size() + 3);

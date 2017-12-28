@@ -279,38 +279,47 @@ namespace boost { namespace text {
            Iter last,
            std::vector<compressed_collation_element> & ces)
         {
-            // S2.1 Find longest prefix that results in a collation table
-            // match.
-            auto collation_ = longest_collation(first, last);
-            if (collation_.match_length_ == 0) {
-                while (first != last) {
+            while (first != last) {
+                // S2.1 Find longest prefix that results in a collation table
+                // match.
+                auto collation_ = longest_collation(first, last);
+                if (collation_.match_length_ == 0 && collation_.node_.leaf()) {
+                    // S2.2
                     add_derived_elements(*first++, ces);
+                    continue;
                 }
-                return;
-            }
-            auto S_last = first + collation_.match_length_;
+                first += collation_.match_length_;
 
-            // S2.1.1 Process any nonstarters following S.
-            auto nonstarter_last = std::find_if(
-                first, last, [](uint32_t cp) { return ccc(cp) == 0; });
-
-            auto nonstarter_first = S_last;
-            while (!collation_.node_.leaf() &&
-                   nonstarter_first != nonstarter_last) {
-                auto coll =
-                    detail::extend_collation(collation_, *nonstarter_first);
-                if (collation_.match_length_ < coll.match_length_) {
-                    S_last = std::rotate(
-                        S_last, nonstarter_first, nonstarter_first + 1);
-                    collation_ = coll;
+                // S2.1.1 Process any nonstarters following S.
+                auto nonstarter_last = first;
+                if (!collation_.node_.leaf()) {
+                    std::find_if(
+                        first, last, [](uint32_t cp) { return ccc(cp) == 0; });
                 }
-                ++nonstarter_first;
-            }
 
-            std::copy(
-                collation_.node_.collation_elements_.begin(),
-                collation_.node_.collation_elements_.end(),
-                std::back_inserter(ces));
+                // S2.1.2
+                auto nonstarter_first = first;
+                while (!collation_.node_.leaf() &&
+                       nonstarter_first != nonstarter_last) {
+                    auto coll =
+                        detail::extend_collation(collation_, *nonstarter_first);
+                    // S2.1.3
+                    if (collation_.match_length_ < coll.match_length_) {
+                        first = std::rotate(
+                            first, nonstarter_first, nonstarter_first + 1);
+                        collation_ = coll;
+                    }
+                    ++nonstarter_first;
+                }
+
+                // S2.3 happens elsewhere....
+
+                // S2.4
+                std::copy(
+                    collation_.node_.collation_elements_.begin(),
+                    collation_.node_.collation_elements_.end(),
+                    std::back_inserter(ces));
+            }
         }
 
         inline text_sort_key collation_sort_key(string const & s)
