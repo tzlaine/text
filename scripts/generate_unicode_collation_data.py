@@ -536,7 +536,9 @@ def find_singleton_keys(ucet, trie):
     return singleton_keys
 
 def ce_to_cpp(ce, min_l2):
-    biased_l2 = ce[1] - min_l2
+    biased_l2 = ce[1] - (min_l2  - 1)
+    if ce[1] == 0:
+        biased_l2 = 0 
     if biased_l2 < 0:
         biased_l2 += 256
     return '{{uint16_t({}), uint8_t({}), uint8_t({})}}'.format(

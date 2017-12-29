@@ -17,11 +17,14 @@ namespace boost { namespace text {
     struct compressed_collation_element
     {
         uint16_t l1() const noexcept { return l1_; }
-        uint8_t l2() const noexcept { return uint8_t(l2_bias + biased_l2_); }
+        uint16_t l2() const noexcept
+        {
+            return biased_l2_ ? uint16_t(l2_bias + biased_l2_) : 0;
+        }
         uint8_t l3() const noexcept { return l3_; }
 
-        static constexpr uint8_t l2_bias =
-            static_cast<uint8_t>(static_cast<int>(collation_weights::min_l2));
+        static constexpr uint8_t l2_bias = static_cast<uint8_t>(
+            static_cast<int>(collation_weights::min_l2) - 1);
 
         uint16_t l1_;
         uint8_t biased_l2_;
