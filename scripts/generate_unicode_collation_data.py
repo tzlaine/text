@@ -568,7 +568,6 @@ if __name__ == "__main__":
         fcc_ucet = ducet
     else:
         fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
-        fcc_ucet = add_canonical_closure(fcc_ucet)
 
     (fcc_ucet, collation_elements) = make_unique_collation_element_sequence(fcc_ucet)
 
