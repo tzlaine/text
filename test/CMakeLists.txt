@@ -52,7 +52,13 @@ if (NOT LIMIT_TESTING_FOR_TRAVIS)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
     file(GLOB collation_element_lookup_tests collation_element_lookup_???.cpp)
 endif()
-file(GLOB verbatim_collation_tests_non_ignorable verbatim_collation_test_non_ignorable_???.cpp)
+file(GLOB
+     verbatim_collation_tests_non_ignorable
+     verbatim_collation_test_non_ignorable_0??.cpp
+     verbatim_collation_test_non_ignorable_1??.cpp
+     verbatim_collation_test_non_ignorable_2??.cpp
+#TODO     verbatim_collation_test_non_ignorable_3??.cpp
+)
 set(globbed_tests
     ${prop_lookup_tests}
     ${grapheme_break_tests}

@@ -44,7 +44,11 @@ std::vector<uint32_t> collate_for_tests(
     boost::text::variable_weighting weighting)
 {
     boost::text::string str = boost::text::to_string(first, last);
+#if 0 // TODO: turn this back on when/if we can get the FCC-form to work.
     boost::text::psuedonormalize_to_fcc(str);
+#else
+    boost::text::normalize_to_nfd(str);
+#endif
 
     boost::container::static_vector<uint32_t, 1024> buf;
     boost::text::utf32_range as_utf32(str);

@@ -293,20 +293,23 @@ namespace boost { namespace text {
                 // S2.1.1 Process any nonstarters following S.
                 auto nonstarter_last = first;
                 if (!collation_.node_.leaf()) {
-                    std::find_if(
+                    nonstarter_last = std::find_if(
                         first, last, [](uint32_t cp) { return ccc(cp) == 0; });
                 }
+
+                // TODO: Optimize the ccc() calls.
 
                 // S2.1.2
                 auto nonstarter_first = first;
                 while (!collation_.node_.leaf() &&
-                       nonstarter_first != nonstarter_last) {
-                    auto coll =
-                        detail::extend_collation(collation_, *nonstarter_first);
+                       nonstarter_first != nonstarter_last &&
+                       ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first)) {
+                    auto const cp = *nonstarter_first;
+                    auto coll = detail::extend_collation(collation_, cp);
                     // S2.1.3
                     if (collation_.match_length_ < coll.match_length_) {
-                        first = std::rotate(
-                            first, nonstarter_first, nonstarter_first + 1);
+                        std::copy_backward(first, nonstarter_first, nonstarter_first + 1);
+                        *first++ = cp;
                         collation_ = coll;
                     }
                     ++nonstarter_first;
