@@ -336,8 +336,18 @@ namespace boost { namespace text {
                     ++it;
                 }
 
+                // The chunk we pass to S2 should end at the earliest
+                // contiguous starter (ccc == 0) we find sarching backward
+                // from the end.  This is because 1) we don't want to cut off
+                // trailing combining characters that may participate in
+                // longest-match determination in S2.1, and 2) in S2.3 we need
+                // to know if earlier CPs are variable-weighted or not.
                 auto s2_it = buf_it;
                 if (s2_it == buffer.end()) {
+                    while (s2_it != buffer.begin()) {
+                        if (ccc(*--s2_it))
+                            break;
+                    }
                     while (s2_it != buffer.begin()) {
                         if (!ccc(*--s2_it))
                             break;
