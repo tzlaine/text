@@ -283,7 +283,7 @@ namespace boost { namespace text {
                 // S2.1 Find longest prefix that results in a collation table
                 // match.
                 auto collation_ = longest_collation(first, last);
-                if (collation_.match_length_ == 0 && collation_.node_.leaf()) {
+                if (collation_.match_length_ == 0) {
                     // S2.2
                     add_derived_elements(*first++, ces);
                     continue;
