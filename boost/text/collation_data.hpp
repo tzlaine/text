@@ -224,7 +224,7 @@ namespace boost { namespace text {
                 detail::g_collation_trie_nodes + node.last_child_,
                 *it++);
             if (node_it ==
-                detail::g_collation_trie_nodes + node_it->last_child_)
+                detail::g_collation_trie_nodes + node.last_child_)
                 break;
             node = *node_it;
             if (node.match()) {
