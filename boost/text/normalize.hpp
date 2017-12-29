@@ -536,7 +536,7 @@ namespace boost { namespace text {
             auto const ccc_ = ccc(*decomp.begin());
             if (ccc_ && ccc_ < prev_ccc)
                 return false;
-            prev_ccc = decomp.size_ == 1 ? ccc_ : ccc(*decomp.end());
+            prev_ccc = decomp.size_ == 1 ? ccc_ : ccc(*(decomp.end() - 1));
             ++first;
         }
         return false;
