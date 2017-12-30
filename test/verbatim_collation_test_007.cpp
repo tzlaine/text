@@ -13,26 +13,28 @@ TEST(collation, verbatim_007_000)
 
     // 08D5 003F;	
     // (ࣕ) ARABIC SMALL HIGH SAD	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08D5 003F;	
     // (ࣕ) ARABIC SMALL HIGH SAD	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -44,26 +46,28 @@ TEST(collation, verbatim_007_001)
 
     // 08D6 003F;	
     // (ࣖ) ARABIC SMALL HIGH AIN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08D6 003F;	
     // (ࣖ) ARABIC SMALL HIGH AIN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -75,26 +79,28 @@ TEST(collation, verbatim_007_002)
 
     // 08D7 003F;	
     // (ࣗ) ARABIC SMALL HIGH QAF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08D7 003F;	
     // (ࣗ) ARABIC SMALL HIGH QAF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -106,26 +112,28 @@ TEST(collation, verbatim_007_003)
 
     // 08D8 003F;	
     // (ࣘ) ARABIC SMALL HIGH NOON WITH KASRA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08D8 003F;	
     // (ࣘ) ARABIC SMALL HIGH NOON WITH KASRA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -137,26 +145,28 @@ TEST(collation, verbatim_007_004)
 
     // 08D9 003F;	
     // (ࣙ) ARABIC SMALL LOW NOON WITH KASRA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08D9 003F;	
     // (ࣙ) ARABIC SMALL LOW NOON WITH KASRA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -168,26 +178,28 @@ TEST(collation, verbatim_007_005)
 
     // 08DA 003F;	
     // (ࣚ) ARABIC SMALL HIGH WORD ATH-THALATHA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08DA 003F;	
     // (ࣚ) ARABIC SMALL HIGH WORD ATH-THALATHA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -199,26 +211,28 @@ TEST(collation, verbatim_007_006)
 
     // 08DB 003F;	
     // (ࣛ) ARABIC SMALL HIGH WORD AS-SAJDA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08DB 003F;	
     // (ࣛ) ARABIC SMALL HIGH WORD AS-SAJDA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -230,26 +244,28 @@ TEST(collation, verbatim_007_007)
 
     // 08DC 003F;	
     // (ࣜ) ARABIC SMALL HIGH WORD AN-NISF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08DC 003F;	
     // (ࣜ) ARABIC SMALL HIGH WORD AN-NISF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -261,26 +277,28 @@ TEST(collation, verbatim_007_008)
 
     // 08DD 003F;	
     // (ࣝ) ARABIC SMALL HIGH WORD SAKTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08DD 003F;	
     // (ࣝ) ARABIC SMALL HIGH WORD SAKTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -292,26 +310,28 @@ TEST(collation, verbatim_007_009)
 
     // 08DE 003F;	
     // (ࣞ) ARABIC SMALL HIGH WORD QIF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08DE 003F;	
     // (ࣞ) ARABIC SMALL HIGH WORD QIF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -323,26 +343,28 @@ TEST(collation, verbatim_007_010)
 
     // 08DF 003F;	
     // (ࣟ) ARABIC SMALL HIGH WORD WAQFA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08DF 003F;	
     // (ࣟ) ARABIC SMALL HIGH WORD WAQFA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -354,26 +376,28 @@ TEST(collation, verbatim_007_011)
 
     // 08E0 003F;	
     // (࣠) ARABIC SMALL HIGH FOOTNOTE MARKER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08E0 003F;	
     // (࣠) ARABIC SMALL HIGH FOOTNOTE MARKER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -385,26 +409,28 @@ TEST(collation, verbatim_007_012)
 
     // 08E1 003F;	
     // (࣡) ARABIC SMALL HIGH SIGN SAFHA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08E1 003F;	
     // (࣡) ARABIC SMALL HIGH SIGN SAFHA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -416,26 +442,28 @@ TEST(collation, verbatim_007_013)
 
     // 08E2 003F;	
     // ('\u08E2') ARABIC DISPUTED END OF AYAH	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08E2 003F;	
     // ('\u08E2') ARABIC DISPUTED END OF AYAH	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -447,26 +475,28 @@ TEST(collation, verbatim_007_014)
 
     // 08EA 003F;	
     // (࣪) ARABIC TONE ONE DOT ABOVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08EA 003F;	
     // (࣪) ARABIC TONE ONE DOT ABOVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -478,26 +508,28 @@ TEST(collation, verbatim_007_015)
 
     // 08EB 003F;	
     // (࣫) ARABIC TONE TWO DOTS ABOVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08EB 003F;	
     // (࣫) ARABIC TONE TWO DOTS ABOVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -509,26 +541,28 @@ TEST(collation, verbatim_007_016)
 
     // 08EC 003F;	
     // (࣬) ARABIC TONE LOOP ABOVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08EC 003F;	
     // (࣬) ARABIC TONE LOOP ABOVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -540,26 +574,28 @@ TEST(collation, verbatim_007_017)
 
     // 08ED 003F;	
     // (࣭) ARABIC TONE ONE DOT BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08ED 003F;	
     // (࣭) ARABIC TONE ONE DOT BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -571,26 +607,28 @@ TEST(collation, verbatim_007_018)
 
     // 08EE 003F;	
     // (࣮) ARABIC TONE TWO DOTS BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08EE 003F;	
     // (࣮) ARABIC TONE TWO DOTS BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -602,26 +640,28 @@ TEST(collation, verbatim_007_019)
 
     // 08EF 003F;	
     // (࣯) ARABIC TONE LOOP BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08EF 003F;	
     // (࣯) ARABIC TONE LOOP BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -633,26 +673,28 @@ TEST(collation, verbatim_007_020)
 
     // 08F3 003F;	
     // (ࣳ) ARABIC SMALL HIGH WAW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 08F3 003F;	
     // (ࣳ) ARABIC SMALL HIGH WAW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -664,26 +706,28 @@ TEST(collation, verbatim_007_021)
 
     // 0951 003F;	
     // (॑) DEVANAGARI STRESS SIGN UDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0951 003F;	
     // (॑) DEVANAGARI STRESS SIGN UDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -695,26 +739,28 @@ TEST(collation, verbatim_007_022)
 
     // 0952 003F;	
     // (॒) DEVANAGARI STRESS SIGN ANUDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0952 003F;	
     // (॒) DEVANAGARI STRESS SIGN ANUDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -726,26 +772,28 @@ TEST(collation, verbatim_007_023)
 
     // 0F18 003F;	
     // (༘) TIBETAN ASTROLOGICAL SIGN -KHYUD PA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F18 003F;	
     // (༘) TIBETAN ASTROLOGICAL SIGN -KHYUD PA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -757,26 +805,28 @@ TEST(collation, verbatim_007_024)
 
     // 0F19 003F;	
     // (༙) TIBETAN ASTROLOGICAL SIGN SDONG TSHUGS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F19 003F;	
     // (༙) TIBETAN ASTROLOGICAL SIGN SDONG TSHUGS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -788,26 +838,28 @@ TEST(collation, verbatim_007_025)
 
     // 0F35 003F;	
     // (༵) TIBETAN MARK NGAS BZUNG NYI ZLA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F35 003F;	
     // (༵) TIBETAN MARK NGAS BZUNG NYI ZLA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -819,26 +871,28 @@ TEST(collation, verbatim_007_026)
 
     // 0F37 003F;	
     // (༷) TIBETAN MARK NGAS BZUNG SGOR RTAGS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F37 003F;	
     // (༷) TIBETAN MARK NGAS BZUNG SGOR RTAGS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -850,26 +904,28 @@ TEST(collation, verbatim_007_027)
 
     // 0F3E 003F;	
     // (༾) TIBETAN SIGN YAR TSHES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F3E 003F;	
     // (༾) TIBETAN SIGN YAR TSHES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -881,26 +937,28 @@ TEST(collation, verbatim_007_028)
 
     // 0F3F 003F;	
     // (༿) TIBETAN SIGN MAR TSHES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F3F 003F;	
     // (༿) TIBETAN SIGN MAR TSHES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -912,26 +970,28 @@ TEST(collation, verbatim_007_029)
 
     // 0F82 003F;	
     // (ྂ) TIBETAN SIGN NYI ZLA NAA DA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F82 003F;	
     // (ྂ) TIBETAN SIGN NYI ZLA NAA DA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -943,26 +1003,28 @@ TEST(collation, verbatim_007_030)
 
     // 0F83 003F;	
     // (ྃ) TIBETAN SIGN SNA LDAN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F83 003F;	
     // (ྃ) TIBETAN SIGN SNA LDAN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -974,26 +1036,28 @@ TEST(collation, verbatim_007_031)
 
     // 0F86 003F;	
     // (྆) TIBETAN SIGN LCI RTAGS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F86 003F;	
     // (྆) TIBETAN SIGN LCI RTAGS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1005,26 +1069,28 @@ TEST(collation, verbatim_007_032)
 
     // 0F87 003F;	
     // (྇) TIBETAN SIGN YANG RTAGS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0F87 003F;	
     // (྇) TIBETAN SIGN YANG RTAGS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1036,26 +1102,28 @@ TEST(collation, verbatim_007_033)
 
     // 0FC6 003F;	
     // (࿆) TIBETAN SYMBOL PADMA GDAN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 0FC6 003F;	
     // (࿆) TIBETAN SYMBOL PADMA GDAN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1067,26 +1135,28 @@ TEST(collation, verbatim_007_034)
 
     // 17B4 003F;	
     // (឴) KHMER VOWEL INHERENT AQ	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 17B4 003F;	
     // (឴) KHMER VOWEL INHERENT AQ	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1098,26 +1168,28 @@ TEST(collation, verbatim_007_035)
 
     // 17B5 003F;	
     // (឵) KHMER VOWEL INHERENT AA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 17B5 003F;	
     // (឵) KHMER VOWEL INHERENT AA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1129,26 +1201,28 @@ TEST(collation, verbatim_007_036)
 
     // 17D3 003F;	
     // (៓) KHMER SIGN BATHAMASAT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 17D3 003F;	
     // (៓) KHMER SIGN BATHAMASAT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1160,26 +1234,28 @@ TEST(collation, verbatim_007_037)
 
     // 180A 003F;	
     // (᠊) MONGOLIAN NIRUGU	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 180A 003F;	
     // (᠊) MONGOLIAN NIRUGU	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1191,26 +1267,28 @@ TEST(collation, verbatim_007_038)
 
     // 180B 003F;	
     // (᠋) MONGOLIAN FREE VARIATION SELECTOR ONE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 180B 003F;	
     // (᠋) MONGOLIAN FREE VARIATION SELECTOR ONE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1222,26 +1300,28 @@ TEST(collation, verbatim_007_039)
 
     // 180C 003F;	
     // (᠌) MONGOLIAN FREE VARIATION SELECTOR TWO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 180C 003F;	
     // (᠌) MONGOLIAN FREE VARIATION SELECTOR TWO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1253,26 +1333,28 @@ TEST(collation, verbatim_007_040)
 
     // 180D 003F;	
     // (᠍) MONGOLIAN FREE VARIATION SELECTOR THREE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 180D 003F;	
     // (᠍) MONGOLIAN FREE VARIATION SELECTOR THREE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1284,26 +1366,28 @@ TEST(collation, verbatim_007_041)
 
     // 180E 003F;	
     // ('\u180E') MONGOLIAN VOWEL SEPARATOR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 180E 003F;	
     // ('\u180E') MONGOLIAN VOWEL SEPARATOR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1315,26 +1399,28 @@ TEST(collation, verbatim_007_042)
 
     // 1A7F 003F;	
     // (᩿) TAI THAM COMBINING CRYPTOGRAMMIC DOT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1A7F 003F;	
     // (᩿) TAI THAM COMBINING CRYPTOGRAMMIC DOT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1346,26 +1432,28 @@ TEST(collation, verbatim_007_043)
 
     // 1B6B 003F;	
     // (᭫) BALINESE MUSICAL SYMBOL COMBINING TEGEH	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B6B 003F;	
     // (᭫) BALINESE MUSICAL SYMBOL COMBINING TEGEH	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1377,26 +1465,28 @@ TEST(collation, verbatim_007_044)
 
     // 1B6C 003F;	
     // (᭬) BALINESE MUSICAL SYMBOL COMBINING ENDEP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B6C 003F;	
     // (᭬) BALINESE MUSICAL SYMBOL COMBINING ENDEP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1408,26 +1498,28 @@ TEST(collation, verbatim_007_045)
 
     // 1B6D 003F;	
     // (᭭) BALINESE MUSICAL SYMBOL COMBINING KEMPUL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B6D 003F;	
     // (᭭) BALINESE MUSICAL SYMBOL COMBINING KEMPUL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1439,26 +1531,28 @@ TEST(collation, verbatim_007_046)
 
     // 1B6E 003F;	
     // (᭮) BALINESE MUSICAL SYMBOL COMBINING KEMPLI	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B6E 003F;	
     // (᭮) BALINESE MUSICAL SYMBOL COMBINING KEMPLI	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1470,26 +1564,28 @@ TEST(collation, verbatim_007_047)
 
     // 1B6F 003F;	
     // (᭯) BALINESE MUSICAL SYMBOL COMBINING JEGOGAN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B6F 003F;	
     // (᭯) BALINESE MUSICAL SYMBOL COMBINING JEGOGAN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1501,26 +1597,28 @@ TEST(collation, verbatim_007_048)
 
     // 1B70 003F;	
     // (᭰) BALINESE MUSICAL SYMBOL COMBINING KEMPUL WITH JEGOGAN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B70 003F;	
     // (᭰) BALINESE MUSICAL SYMBOL COMBINING KEMPUL WITH JEGOGAN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1532,26 +1630,28 @@ TEST(collation, verbatim_007_049)
 
     // 1B71 003F;	
     // (᭱) BALINESE MUSICAL SYMBOL COMBINING KEMPLI WITH JEGOGAN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B71 003F;	
     // (᭱) BALINESE MUSICAL SYMBOL COMBINING KEMPLI WITH JEGOGAN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1563,26 +1663,28 @@ TEST(collation, verbatim_007_050)
 
     // 1B72 003F;	
     // (᭲) BALINESE MUSICAL SYMBOL COMBINING BENDE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B72 003F;	
     // (᭲) BALINESE MUSICAL SYMBOL COMBINING BENDE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1594,26 +1696,28 @@ TEST(collation, verbatim_007_051)
 
     // 1B73 003F;	
     // (᭳) BALINESE MUSICAL SYMBOL COMBINING GONG	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1B73 003F;	
     // (᭳) BALINESE MUSICAL SYMBOL COMBINING GONG	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1625,26 +1729,28 @@ TEST(collation, verbatim_007_052)
 
     // 1CD0 003F;	
     // (᳐) VEDIC TONE KARSHANA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD0 003F;	
     // (᳐) VEDIC TONE KARSHANA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1656,26 +1762,28 @@ TEST(collation, verbatim_007_053)
 
     // 1CD1 003F;	
     // (᳑) VEDIC TONE SHARA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD1 003F;	
     // (᳑) VEDIC TONE SHARA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1687,26 +1795,28 @@ TEST(collation, verbatim_007_054)
 
     // 1CD2 003F;	
     // (᳒) VEDIC TONE PRENKHA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD2 003F;	
     // (᳒) VEDIC TONE PRENKHA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1718,26 +1828,28 @@ TEST(collation, verbatim_007_055)
 
     // 1CD3 003F;	
     // (᳓) VEDIC SIGN NIHSHVASA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD3 003F;	
     // (᳓) VEDIC SIGN NIHSHVASA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1749,26 +1861,28 @@ TEST(collation, verbatim_007_056)
 
     // 1CD4 003F;	
     // (᳔) VEDIC SIGN YAJURVEDIC MIDLINE SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD4 003F;	
     // (᳔) VEDIC SIGN YAJURVEDIC MIDLINE SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1780,26 +1894,28 @@ TEST(collation, verbatim_007_057)
 
     // 1CD5 003F;	
     // (᳕) VEDIC TONE YAJURVEDIC AGGRAVATED INDEPENDENT SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD5 003F;	
     // (᳕) VEDIC TONE YAJURVEDIC AGGRAVATED INDEPENDENT SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1811,26 +1927,28 @@ TEST(collation, verbatim_007_058)
 
     // 1CD6 003F;	
     // (᳖) VEDIC TONE YAJURVEDIC INDEPENDENT SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD6 003F;	
     // (᳖) VEDIC TONE YAJURVEDIC INDEPENDENT SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1842,26 +1960,28 @@ TEST(collation, verbatim_007_059)
 
     // 1CD7 003F;	
     // (᳗) VEDIC TONE YAJURVEDIC KATHAKA INDEPENDENT SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD7 003F;	
     // (᳗) VEDIC TONE YAJURVEDIC KATHAKA INDEPENDENT SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1873,26 +1993,28 @@ TEST(collation, verbatim_007_060)
 
     // 1CD8 003F;	
     // (᳘) VEDIC TONE CANDRA BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD8 003F;	
     // (᳘) VEDIC TONE CANDRA BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1904,26 +2026,28 @@ TEST(collation, verbatim_007_061)
 
     // 1CD9 003F;	
     // (᳙) VEDIC TONE YAJURVEDIC KATHAKA INDEPENDENT SVARITA SCHROEDER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CD9 003F;	
     // (᳙) VEDIC TONE YAJURVEDIC KATHAKA INDEPENDENT SVARITA SCHROEDER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1935,26 +2059,28 @@ TEST(collation, verbatim_007_062)
 
     // 1CDA 003F;	
     // (᳚) VEDIC TONE DOUBLE SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CDA 003F;	
     // (᳚) VEDIC TONE DOUBLE SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1966,26 +2092,28 @@ TEST(collation, verbatim_007_063)
 
     // 1CDB 003F;	
     // (᳛) VEDIC TONE TRIPLE SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CDB 003F;	
     // (᳛) VEDIC TONE TRIPLE SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -1997,26 +2125,28 @@ TEST(collation, verbatim_007_064)
 
     // 1CDC 003F;	
     // (᳜) VEDIC TONE KATHAKA ANUDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CDC 003F;	
     // (᳜) VEDIC TONE KATHAKA ANUDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2028,26 +2158,28 @@ TEST(collation, verbatim_007_065)
 
     // 1CDD 003F;	
     // (᳝) VEDIC TONE DOT BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CDD 003F;	
     // (᳝) VEDIC TONE DOT BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2059,26 +2191,28 @@ TEST(collation, verbatim_007_066)
 
     // 1CDE 003F;	
     // (᳞) VEDIC TONE TWO DOTS BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CDE 003F;	
     // (᳞) VEDIC TONE TWO DOTS BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2090,26 +2224,28 @@ TEST(collation, verbatim_007_067)
 
     // 1CDF 003F;	
     // (᳟) VEDIC TONE THREE DOTS BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CDF 003F;	
     // (᳟) VEDIC TONE THREE DOTS BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2121,26 +2257,28 @@ TEST(collation, verbatim_007_068)
 
     // 1CE0 003F;	
     // (᳠) VEDIC TONE RIGVEDIC KASHMIRI INDEPENDENT SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE0 003F;	
     // (᳠) VEDIC TONE RIGVEDIC KASHMIRI INDEPENDENT SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2152,26 +2290,28 @@ TEST(collation, verbatim_007_069)
 
     // 1CE1 003F;	
     // (᳡) VEDIC TONE ATHARVAVEDIC INDEPENDENT SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE1 003F;	
     // (᳡) VEDIC TONE ATHARVAVEDIC INDEPENDENT SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2183,26 +2323,28 @@ TEST(collation, verbatim_007_070)
 
     // 1CE2 003F;	
     // (᳢) VEDIC SIGN VISARGA SVARITA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE2 003F;	
     // (᳢) VEDIC SIGN VISARGA SVARITA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2214,26 +2356,28 @@ TEST(collation, verbatim_007_071)
 
     // 1CE3 003F;	
     // (᳣) VEDIC SIGN VISARGA UDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE3 003F;	
     // (᳣) VEDIC SIGN VISARGA UDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2245,26 +2389,28 @@ TEST(collation, verbatim_007_072)
 
     // 1CE4 003F;	
     // (᳤) VEDIC SIGN REVERSED VISARGA UDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE4 003F;	
     // (᳤) VEDIC SIGN REVERSED VISARGA UDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2276,26 +2422,28 @@ TEST(collation, verbatim_007_073)
 
     // 1CE5 003F;	
     // (᳥) VEDIC SIGN VISARGA ANUDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE5 003F;	
     // (᳥) VEDIC SIGN VISARGA ANUDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2307,26 +2455,28 @@ TEST(collation, verbatim_007_074)
 
     // 1CE6 003F;	
     // (᳦) VEDIC SIGN REVERSED VISARGA ANUDATTA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE6 003F;	
     // (᳦) VEDIC SIGN REVERSED VISARGA ANUDATTA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2338,26 +2488,28 @@ TEST(collation, verbatim_007_075)
 
     // 1CE7 003F;	
     // (᳧) VEDIC SIGN VISARGA UDATTA WITH TAIL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE7 003F;	
     // (᳧) VEDIC SIGN VISARGA UDATTA WITH TAIL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2369,26 +2521,28 @@ TEST(collation, verbatim_007_076)
 
     // 1CE8 003F;	
     // (᳨) VEDIC SIGN VISARGA ANUDATTA WITH TAIL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CE8 003F;	
     // (᳨) VEDIC SIGN VISARGA ANUDATTA WITH TAIL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2400,26 +2554,28 @@ TEST(collation, verbatim_007_077)
 
     // 1CF4 003F;	
     // (᳴) VEDIC TONE CANDRA ABOVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CF4 003F;	
     // (᳴) VEDIC TONE CANDRA ABOVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2431,26 +2587,28 @@ TEST(collation, verbatim_007_078)
 
     // 1CF7 003F;	
     // (᳷) VEDIC SIGN ATIKRAMA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CF7 003F;	
     // (᳷) VEDIC SIGN ATIKRAMA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2462,26 +2620,28 @@ TEST(collation, verbatim_007_079)
 
     // 1CF8 003F;	
     // (᳸) VEDIC TONE RING ABOVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CF8 003F;	
     // (᳸) VEDIC TONE RING ABOVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2493,26 +2653,28 @@ TEST(collation, verbatim_007_080)
 
     // 1CF9 003F;	
     // (᳹) VEDIC TONE DOUBLE RING ABOVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1CF9 003F;	
     // (᳹) VEDIC TONE DOUBLE RING ABOVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2524,26 +2686,28 @@ TEST(collation, verbatim_007_081)
 
     // 200B 003F;	
     // ('\u200B') ZERO WIDTH SPACE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 200B 003F;	
     // ('\u200B') ZERO WIDTH SPACE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2555,26 +2719,28 @@ TEST(collation, verbatim_007_082)
 
     // 200C 003F;	
     // ('\u200C') ZERO WIDTH NON-JOINER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 200C 003F;	
     // ('\u200C') ZERO WIDTH NON-JOINER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2586,26 +2752,28 @@ TEST(collation, verbatim_007_083)
 
     // 200D 003F;	
     // ('\u200D') ZERO WIDTH JOINER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 200D 003F;	
     // ('\u200D') ZERO WIDTH JOINER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2617,26 +2785,28 @@ TEST(collation, verbatim_007_084)
 
     // 200E 003F;	
     // ('\u200E') LEFT-TO-RIGHT MARK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 200E 003F;	
     // ('\u200E') LEFT-TO-RIGHT MARK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2648,26 +2818,28 @@ TEST(collation, verbatim_007_085)
 
     // 200F 003F;	
     // ('\u200F') RIGHT-TO-LEFT MARK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 200F 003F;	
     // ('\u200F') RIGHT-TO-LEFT MARK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2679,26 +2851,28 @@ TEST(collation, verbatim_007_086)
 
     // 202A 003F;	
     // ('\u202A') LEFT-TO-RIGHT EMBEDDING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 202A 003F;	
     // ('\u202A') LEFT-TO-RIGHT EMBEDDING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2710,26 +2884,28 @@ TEST(collation, verbatim_007_087)
 
     // 202B 003F;	
     // ('\u202B') RIGHT-TO-LEFT EMBEDDING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 202B 003F;	
     // ('\u202B') RIGHT-TO-LEFT EMBEDDING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2741,26 +2917,28 @@ TEST(collation, verbatim_007_088)
 
     // 202C 003F;	
     // ('\u202C') POP DIRECTIONAL FORMATTING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 202C 003F;	
     // ('\u202C') POP DIRECTIONAL FORMATTING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2772,26 +2950,28 @@ TEST(collation, verbatim_007_089)
 
     // 202D 003F;	
     // ('\u202D') LEFT-TO-RIGHT OVERRIDE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 202D 003F;	
     // ('\u202D') LEFT-TO-RIGHT OVERRIDE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2803,26 +2983,28 @@ TEST(collation, verbatim_007_090)
 
     // 202E 003F;	
     // ('\u202E') RIGHT-TO-LEFT OVERRIDE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 202E 003F;	
     // ('\u202E') RIGHT-TO-LEFT OVERRIDE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2834,26 +3016,28 @@ TEST(collation, verbatim_007_091)
 
     // 2060 003F;	
     // ('\u2060') WORD JOINER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2060 003F;	
     // ('\u2060') WORD JOINER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2865,26 +3049,28 @@ TEST(collation, verbatim_007_092)
 
     // 2061 003F;	
     // ('\u2061') FUNCTION APPLICATION	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2061 003F;	
     // ('\u2061') FUNCTION APPLICATION	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2896,26 +3082,28 @@ TEST(collation, verbatim_007_093)
 
     // 2062 003F;	
     // ('\u2062') INVISIBLE TIMES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2062 003F;	
     // ('\u2062') INVISIBLE TIMES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2927,26 +3115,28 @@ TEST(collation, verbatim_007_094)
 
     // 2063 003F;	
     // ('\u2063') INVISIBLE SEPARATOR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2063 003F;	
     // ('\u2063') INVISIBLE SEPARATOR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2958,26 +3148,28 @@ TEST(collation, verbatim_007_095)
 
     // 2064 003F;	
     // ('\u2064') INVISIBLE PLUS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2064 003F;	
     // ('\u2064') INVISIBLE PLUS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -2989,26 +3181,28 @@ TEST(collation, verbatim_007_096)
 
     // 2066 003F;	
     // ('\u2066') LEFT-TO-RIGHT ISOLATE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2066 003F;	
     // ('\u2066') LEFT-TO-RIGHT ISOLATE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3020,26 +3214,28 @@ TEST(collation, verbatim_007_097)
 
     // 2067 003F;	
     // ('\u2067') RIGHT-TO-LEFT ISOLATE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2067 003F;	
     // ('\u2067') RIGHT-TO-LEFT ISOLATE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3051,26 +3247,28 @@ TEST(collation, verbatim_007_098)
 
     // 2068 003F;	
     // ('\u2068') FIRST STRONG ISOLATE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2068 003F;	
     // ('\u2068') FIRST STRONG ISOLATE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3082,26 +3280,28 @@ TEST(collation, verbatim_007_099)
 
     // 2069 003F;	
     // ('\u2069') POP DIRECTIONAL ISOLATE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2069 003F;	
     // ('\u2069') POP DIRECTIONAL ISOLATE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3113,26 +3313,28 @@ TEST(collation, verbatim_007_100)
 
     // 206A 003F;	
     // ('\u206A') INHIBIT SYMMETRIC SWAPPING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 206A 003F;	
     // ('\u206A') INHIBIT SYMMETRIC SWAPPING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3144,26 +3346,28 @@ TEST(collation, verbatim_007_101)
 
     // 206B 003F;	
     // ('\u206B') ACTIVATE SYMMETRIC SWAPPING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 206B 003F;	
     // ('\u206B') ACTIVATE SYMMETRIC SWAPPING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3175,26 +3379,28 @@ TEST(collation, verbatim_007_102)
 
     // 206C 003F;	
     // ('\u206C') INHIBIT ARABIC FORM SHAPING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 206C 003F;	
     // ('\u206C') INHIBIT ARABIC FORM SHAPING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3206,26 +3412,28 @@ TEST(collation, verbatim_007_103)
 
     // 206D 003F;	
     // ('\u206D') ACTIVATE ARABIC FORM SHAPING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 206D 003F;	
     // ('\u206D') ACTIVATE ARABIC FORM SHAPING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3237,26 +3445,28 @@ TEST(collation, verbatim_007_104)
 
     // 206E 003F;	
     // ('\u206E') NATIONAL DIGIT SHAPES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 206E 003F;	
     // ('\u206E') NATIONAL DIGIT SHAPES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3268,26 +3478,28 @@ TEST(collation, verbatim_007_105)
 
     // 206F 003F;	
     // ('\u206F') NOMINAL DIGIT SHAPES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 206F 003F;	
     // ('\u206F') NOMINAL DIGIT SHAPES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3299,26 +3511,28 @@ TEST(collation, verbatim_007_106)
 
     // 2D7F 003F;	
     // (⵿) TIFINAGH CONSONANT JOINER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 2D7F 003F;	
     // (⵿) TIFINAGH CONSONANT JOINER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3330,26 +3544,28 @@ TEST(collation, verbatim_007_107)
 
     // A670 003F;	
     // (꙰) COMBINING CYRILLIC TEN MILLIONS SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A670 003F;	
     // (꙰) COMBINING CYRILLIC TEN MILLIONS SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3361,26 +3577,28 @@ TEST(collation, verbatim_007_108)
 
     // A671 003F;	
     // (꙱) COMBINING CYRILLIC HUNDRED MILLIONS SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A671 003F;	
     // (꙱) COMBINING CYRILLIC HUNDRED MILLIONS SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3392,26 +3610,28 @@ TEST(collation, verbatim_007_109)
 
     // A672 003F;	
     // (꙲) COMBINING CYRILLIC THOUSAND MILLIONS SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A672 003F;	
     // (꙲) COMBINING CYRILLIC THOUSAND MILLIONS SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3423,26 +3643,28 @@ TEST(collation, verbatim_007_110)
 
     // A8E0 003F;	
     // (꣠) COMBINING DEVANAGARI DIGIT ZERO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E0 003F;	
     // (꣠) COMBINING DEVANAGARI DIGIT ZERO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3454,26 +3676,28 @@ TEST(collation, verbatim_007_111)
 
     // A8E1 003F;	
     // (꣡) COMBINING DEVANAGARI DIGIT ONE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E1 003F;	
     // (꣡) COMBINING DEVANAGARI DIGIT ONE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3485,26 +3709,28 @@ TEST(collation, verbatim_007_112)
 
     // A8E2 003F;	
     // (꣢) COMBINING DEVANAGARI DIGIT TWO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E2 003F;	
     // (꣢) COMBINING DEVANAGARI DIGIT TWO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3516,26 +3742,28 @@ TEST(collation, verbatim_007_113)
 
     // A8E3 003F;	
     // (꣣) COMBINING DEVANAGARI DIGIT THREE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E3 003F;	
     // (꣣) COMBINING DEVANAGARI DIGIT THREE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3547,26 +3775,28 @@ TEST(collation, verbatim_007_114)
 
     // A8E4 003F;	
     // (꣤) COMBINING DEVANAGARI DIGIT FOUR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E4 003F;	
     // (꣤) COMBINING DEVANAGARI DIGIT FOUR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3578,26 +3808,28 @@ TEST(collation, verbatim_007_115)
 
     // A8E5 003F;	
     // (꣥) COMBINING DEVANAGARI DIGIT FIVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E5 003F;	
     // (꣥) COMBINING DEVANAGARI DIGIT FIVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3609,26 +3841,28 @@ TEST(collation, verbatim_007_116)
 
     // A8E6 003F;	
     // (꣦) COMBINING DEVANAGARI DIGIT SIX	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E6 003F;	
     // (꣦) COMBINING DEVANAGARI DIGIT SIX	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3640,26 +3874,28 @@ TEST(collation, verbatim_007_117)
 
     // A8E7 003F;	
     // (꣧) COMBINING DEVANAGARI DIGIT SEVEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E7 003F;	
     // (꣧) COMBINING DEVANAGARI DIGIT SEVEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3671,26 +3907,28 @@ TEST(collation, verbatim_007_118)
 
     // A8E8 003F;	
     // (꣨) COMBINING DEVANAGARI DIGIT EIGHT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E8 003F;	
     // (꣨) COMBINING DEVANAGARI DIGIT EIGHT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3702,26 +3940,28 @@ TEST(collation, verbatim_007_119)
 
     // A8E9 003F;	
     // (꣩) COMBINING DEVANAGARI DIGIT NINE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8E9 003F;	
     // (꣩) COMBINING DEVANAGARI DIGIT NINE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3733,26 +3973,28 @@ TEST(collation, verbatim_007_120)
 
     // A8EA 003F;	
     // (꣪) COMBINING DEVANAGARI LETTER A	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8EA 003F;	
     // (꣪) COMBINING DEVANAGARI LETTER A	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3764,26 +4006,28 @@ TEST(collation, verbatim_007_121)
 
     // A8EB 003F;	
     // (꣫) COMBINING DEVANAGARI LETTER U	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8EB 003F;	
     // (꣫) COMBINING DEVANAGARI LETTER U	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3795,26 +4039,28 @@ TEST(collation, verbatim_007_122)
 
     // A8EC 003F;	
     // (꣬) COMBINING DEVANAGARI LETTER KA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8EC 003F;	
     // (꣬) COMBINING DEVANAGARI LETTER KA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3826,26 +4072,28 @@ TEST(collation, verbatim_007_123)
 
     // A8ED 003F;	
     // (꣭) COMBINING DEVANAGARI LETTER NA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8ED 003F;	
     // (꣭) COMBINING DEVANAGARI LETTER NA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3857,26 +4105,28 @@ TEST(collation, verbatim_007_124)
 
     // A8EE 003F;	
     // (꣮) COMBINING DEVANAGARI LETTER PA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8EE 003F;	
     // (꣮) COMBINING DEVANAGARI LETTER PA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3888,26 +4138,28 @@ TEST(collation, verbatim_007_125)
 
     // A8EF 003F;	
     // (꣯) COMBINING DEVANAGARI LETTER RA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8EF 003F;	
     // (꣯) COMBINING DEVANAGARI LETTER RA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3919,26 +4171,28 @@ TEST(collation, verbatim_007_126)
 
     // A8F0 003F;	
     // (꣰) COMBINING DEVANAGARI LETTER VI	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8F0 003F;	
     // (꣰) COMBINING DEVANAGARI LETTER VI	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3950,26 +4204,28 @@ TEST(collation, verbatim_007_127)
 
     // A8F1 003F;	
     // (꣱) COMBINING DEVANAGARI SIGN AVAGRAHA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // A8F1 003F;	
     // (꣱) COMBINING DEVANAGARI SIGN AVAGRAHA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -3981,26 +4237,28 @@ TEST(collation, verbatim_007_128)
 
     // FE00 003F;	
     // (︀) VARIATION SELECTOR-1	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE00 003F;	
     // (︀) VARIATION SELECTOR-1	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4012,26 +4270,28 @@ TEST(collation, verbatim_007_129)
 
     // FE01 003F;	
     // (︁) VARIATION SELECTOR-2	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE01 003F;	
     // (︁) VARIATION SELECTOR-2	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4043,26 +4303,28 @@ TEST(collation, verbatim_007_130)
 
     // FE02 003F;	
     // (︂) VARIATION SELECTOR-3	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE02 003F;	
     // (︂) VARIATION SELECTOR-3	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4074,26 +4336,28 @@ TEST(collation, verbatim_007_131)
 
     // FE03 003F;	
     // (︃) VARIATION SELECTOR-4	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE03 003F;	
     // (︃) VARIATION SELECTOR-4	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4105,26 +4369,28 @@ TEST(collation, verbatim_007_132)
 
     // FE04 003F;	
     // (︄) VARIATION SELECTOR-5	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE04 003F;	
     // (︄) VARIATION SELECTOR-5	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4136,26 +4402,28 @@ TEST(collation, verbatim_007_133)
 
     // FE05 003F;	
     // (︅) VARIATION SELECTOR-6	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE05 003F;	
     // (︅) VARIATION SELECTOR-6	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4167,26 +4435,28 @@ TEST(collation, verbatim_007_134)
 
     // FE06 003F;	
     // (︆) VARIATION SELECTOR-7	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE06 003F;	
     // (︆) VARIATION SELECTOR-7	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4198,26 +4468,28 @@ TEST(collation, verbatim_007_135)
 
     // FE07 003F;	
     // (︇) VARIATION SELECTOR-8	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE07 003F;	
     // (︇) VARIATION SELECTOR-8	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4229,26 +4501,28 @@ TEST(collation, verbatim_007_136)
 
     // FE08 003F;	
     // (︈) VARIATION SELECTOR-9	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE08 003F;	
     // (︈) VARIATION SELECTOR-9	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4260,26 +4534,28 @@ TEST(collation, verbatim_007_137)
 
     // FE09 003F;	
     // (︉) VARIATION SELECTOR-10	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE09 003F;	
     // (︉) VARIATION SELECTOR-10	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4291,26 +4567,28 @@ TEST(collation, verbatim_007_138)
 
     // FE0A 003F;	
     // (︊) VARIATION SELECTOR-11	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE0A 003F;	
     // (︊) VARIATION SELECTOR-11	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4322,26 +4600,28 @@ TEST(collation, verbatim_007_139)
 
     // FE0B 003F;	
     // (︋) VARIATION SELECTOR-12	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE0B 003F;	
     // (︋) VARIATION SELECTOR-12	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4353,26 +4633,28 @@ TEST(collation, verbatim_007_140)
 
     // FE0C 003F;	
     // (︌) VARIATION SELECTOR-13	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE0C 003F;	
     // (︌) VARIATION SELECTOR-13	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4384,26 +4666,28 @@ TEST(collation, verbatim_007_141)
 
     // FE0D 003F;	
     // (︍) VARIATION SELECTOR-14	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE0D 003F;	
     // (︍) VARIATION SELECTOR-14	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4415,26 +4699,28 @@ TEST(collation, verbatim_007_142)
 
     // FE0E 003F;	
     // (︎) VARIATION SELECTOR-15	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE0E 003F;	
     // (︎) VARIATION SELECTOR-15	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4446,26 +4732,28 @@ TEST(collation, verbatim_007_143)
 
     // FE0F 003F;	
     // (️) VARIATION SELECTOR-16	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE0F 003F;	
     // (️) VARIATION SELECTOR-16	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4477,26 +4765,28 @@ TEST(collation, verbatim_007_144)
 
     // FE21 003F;	
     // (︡) COMBINING LIGATURE RIGHT HALF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE21 003F;	
     // (︡) COMBINING LIGATURE RIGHT HALF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4508,26 +4798,28 @@ TEST(collation, verbatim_007_145)
 
     // FE23 003F;	
     // (︣) COMBINING DOUBLE TILDE RIGHT HALF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE23 003F;	
     // (︣) COMBINING DOUBLE TILDE RIGHT HALF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4539,26 +4831,28 @@ TEST(collation, verbatim_007_146)
 
     // FE24 003F;	
     // (︤) COMBINING MACRON LEFT HALF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE24 003F;	
     // (︤) COMBINING MACRON LEFT HALF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4570,26 +4864,28 @@ TEST(collation, verbatim_007_147)
 
     // FE25 003F;	
     // (︥) COMBINING MACRON RIGHT HALF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE25 003F;	
     // (︥) COMBINING MACRON RIGHT HALF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4601,26 +4897,28 @@ TEST(collation, verbatim_007_148)
 
     // FE26 003F;	
     // (︦) COMBINING CONJOINING MACRON	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE26 003F;	
     // (︦) COMBINING CONJOINING MACRON	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4632,26 +4930,28 @@ TEST(collation, verbatim_007_149)
 
     // FE28 003F;	
     // (︨) COMBINING LIGATURE RIGHT HALF BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE28 003F;	
     // (︨) COMBINING LIGATURE RIGHT HALF BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4663,26 +4963,28 @@ TEST(collation, verbatim_007_150)
 
     // FE2A 003F;	
     // (︪) COMBINING TILDE RIGHT HALF BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE2A 003F;	
     // (︪) COMBINING TILDE RIGHT HALF BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4694,26 +4996,28 @@ TEST(collation, verbatim_007_151)
 
     // FE2B 003F;	
     // (︫) COMBINING MACRON LEFT HALF BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE2B 003F;	
     // (︫) COMBINING MACRON LEFT HALF BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4725,26 +5029,28 @@ TEST(collation, verbatim_007_152)
 
     // FE2C 003F;	
     // (︬) COMBINING MACRON RIGHT HALF BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE2C 003F;	
     // (︬) COMBINING MACRON RIGHT HALF BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4756,26 +5062,28 @@ TEST(collation, verbatim_007_153)
 
     // FE2D 003F;	
     // (︭) COMBINING CONJOINING MACRON BELOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE2D 003F;	
     // (︭) COMBINING CONJOINING MACRON BELOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4787,26 +5095,28 @@ TEST(collation, verbatim_007_154)
 
     // FE2F 003F;	
     // (︯) COMBINING CYRILLIC TITLO RIGHT HALF	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE2F 003F;	
     // (︯) COMBINING CYRILLIC TITLO RIGHT HALF	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4818,26 +5128,28 @@ TEST(collation, verbatim_007_155)
 
     // FE73 003F;	
     // (‎‎ﹳ‎‎) ARABIC TAIL FRAGMENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FE73 003F;	
     // (‎‎ﹳ‎‎) ARABIC TAIL FRAGMENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4849,26 +5161,28 @@ TEST(collation, verbatim_007_156)
 
     // FEFF 003F;	
     // ('\uFEFF') ZERO WIDTH NO-BREAK SPACE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FEFF 003F;	
     // ('\uFEFF') ZERO WIDTH NO-BREAK SPACE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4880,26 +5194,28 @@ TEST(collation, verbatim_007_157)
 
     // FFF9 003F;	
     // ('\uFFF9') INTERLINEAR ANNOTATION ANCHOR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FFF9 003F;	
     // ('\uFFF9') INTERLINEAR ANNOTATION ANCHOR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4911,26 +5227,28 @@ TEST(collation, verbatim_007_158)
 
     // FFFA 003F;	
     // ('\uFFFA') INTERLINEAR ANNOTATION SEPARATOR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FFFA 003F;	
     // ('\uFFFA') INTERLINEAR ANNOTATION SEPARATOR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4942,26 +5260,28 @@ TEST(collation, verbatim_007_159)
 
     // FFFB 003F;	
     // ('\uFFFB') INTERLINEAR ANNOTATION TERMINATOR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // FFFB 003F;	
     // ('\uFFFB') INTERLINEAR ANNOTATION TERMINATOR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -4973,26 +5293,28 @@ TEST(collation, verbatim_007_160)
 
     // 102E0 003F;	
     // (𐋠) COPTIC EPACT THOUSANDS MARK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 102E0 003F;	
     // (𐋠) COPTIC EPACT THOUSANDS MARK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5004,26 +5326,28 @@ TEST(collation, verbatim_007_161)
 
     // 110BD 003F;	
     // ('\U000110BD') KAITHI NUMBER SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 110BD 003F;	
     // ('\U000110BD') KAITHI NUMBER SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5035,26 +5359,28 @@ TEST(collation, verbatim_007_162)
 
     // 11366 003F;	
     // (𑍦) COMBINING GRANTHA DIGIT ZERO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11366 003F;	
     // (𑍦) COMBINING GRANTHA DIGIT ZERO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5066,26 +5392,28 @@ TEST(collation, verbatim_007_163)
 
     // 11367 003F;	
     // (𑍧) COMBINING GRANTHA DIGIT ONE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11367 003F;	
     // (𑍧) COMBINING GRANTHA DIGIT ONE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5097,26 +5425,28 @@ TEST(collation, verbatim_007_164)
 
     // 11368 003F;	
     // (𑍨) COMBINING GRANTHA DIGIT TWO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11368 003F;	
     // (𑍨) COMBINING GRANTHA DIGIT TWO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5128,26 +5458,28 @@ TEST(collation, verbatim_007_165)
 
     // 11369 003F;	
     // (𑍩) COMBINING GRANTHA DIGIT THREE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11369 003F;	
     // (𑍩) COMBINING GRANTHA DIGIT THREE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5159,26 +5491,28 @@ TEST(collation, verbatim_007_166)
 
     // 1136A 003F;	
     // (𑍪) COMBINING GRANTHA DIGIT FOUR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1136A 003F;	
     // (𑍪) COMBINING GRANTHA DIGIT FOUR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5190,26 +5524,28 @@ TEST(collation, verbatim_007_167)
 
     // 1136B 003F;	
     // (𑍫) COMBINING GRANTHA DIGIT FIVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1136B 003F;	
     // (𑍫) COMBINING GRANTHA DIGIT FIVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5221,26 +5557,28 @@ TEST(collation, verbatim_007_168)
 
     // 1136C 003F;	
     // (𑍬) COMBINING GRANTHA DIGIT SIX	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1136C 003F;	
     // (𑍬) COMBINING GRANTHA DIGIT SIX	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5252,26 +5590,28 @@ TEST(collation, verbatim_007_169)
 
     // 11370 003F;	
     // (𑍰) COMBINING GRANTHA LETTER A	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11370 003F;	
     // (𑍰) COMBINING GRANTHA LETTER A	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5283,26 +5623,28 @@ TEST(collation, verbatim_007_170)
 
     // 11371 003F;	
     // (𑍱) COMBINING GRANTHA LETTER KA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11371 003F;	
     // (𑍱) COMBINING GRANTHA LETTER KA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5314,26 +5656,28 @@ TEST(collation, verbatim_007_171)
 
     // 11372 003F;	
     // (𑍲) COMBINING GRANTHA LETTER NA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11372 003F;	
     // (𑍲) COMBINING GRANTHA LETTER NA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5345,26 +5689,28 @@ TEST(collation, verbatim_007_172)
 
     // 11373 003F;	
     // (𑍳) COMBINING GRANTHA LETTER VI	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11373 003F;	
     // (𑍳) COMBINING GRANTHA LETTER VI	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5376,26 +5722,28 @@ TEST(collation, verbatim_007_173)
 
     // 11374 003F;	
     // (𑍴) COMBINING GRANTHA LETTER PA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 11374 003F;	
     // (𑍴) COMBINING GRANTHA LETTER PA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5407,26 +5755,28 @@ TEST(collation, verbatim_007_174)
 
     // 1BCA0 003F;	
     // ('\U0001BCA0') SHORTHAND FORMAT LETTER OVERLAP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1BCA0 003F;	
     // ('\U0001BCA0') SHORTHAND FORMAT LETTER OVERLAP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5438,26 +5788,28 @@ TEST(collation, verbatim_007_175)
 
     // 1BCA1 003F;	
     // ('\U0001BCA1') SHORTHAND FORMAT CONTINUING OVERLAP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1BCA1 003F;	
     // ('\U0001BCA1') SHORTHAND FORMAT CONTINUING OVERLAP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5469,26 +5821,28 @@ TEST(collation, verbatim_007_176)
 
     // 1BCA2 003F;	
     // ('\U0001BCA2') SHORTHAND FORMAT DOWN STEP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1BCA2 003F;	
     // ('\U0001BCA2') SHORTHAND FORMAT DOWN STEP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5500,26 +5854,28 @@ TEST(collation, verbatim_007_177)
 
     // 1BCA3 003F;	
     // ('\U0001BCA3') SHORTHAND FORMAT UP STEP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1BCA3 003F;	
     // ('\U0001BCA3') SHORTHAND FORMAT UP STEP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5531,26 +5887,28 @@ TEST(collation, verbatim_007_178)
 
     // 1D165 003F;	
     // (𝅥) MUSICAL SYMBOL COMBINING STEM	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D165 003F;	
     // (𝅥) MUSICAL SYMBOL COMBINING STEM	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5562,26 +5920,28 @@ TEST(collation, verbatim_007_179)
 
     // 1D166 003F;	
     // (𝅦) MUSICAL SYMBOL COMBINING SPRECHGESANG STEM	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D166 003F;	
     // (𝅦) MUSICAL SYMBOL COMBINING SPRECHGESANG STEM	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5593,26 +5953,28 @@ TEST(collation, verbatim_007_180)
 
     // 1D167 003F;	
     // (𝅧) MUSICAL SYMBOL COMBINING TREMOLO-1	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D167 003F;	
     // (𝅧) MUSICAL SYMBOL COMBINING TREMOLO-1	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5624,26 +5986,28 @@ TEST(collation, verbatim_007_181)
 
     // 1D168 003F;	
     // (𝅨) MUSICAL SYMBOL COMBINING TREMOLO-2	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D168 003F;	
     // (𝅨) MUSICAL SYMBOL COMBINING TREMOLO-2	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5655,26 +6019,28 @@ TEST(collation, verbatim_007_182)
 
     // 1D169 003F;	
     // (𝅩) MUSICAL SYMBOL COMBINING TREMOLO-3	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D169 003F;	
     // (𝅩) MUSICAL SYMBOL COMBINING TREMOLO-3	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5686,26 +6052,28 @@ TEST(collation, verbatim_007_183)
 
     // 1D16D 003F;	
     // (𝅭) MUSICAL SYMBOL COMBINING AUGMENTATION DOT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D16D 003F;	
     // (𝅭) MUSICAL SYMBOL COMBINING AUGMENTATION DOT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5717,26 +6085,28 @@ TEST(collation, verbatim_007_184)
 
     // 1D16E 003F;	
     // (𝅮) MUSICAL SYMBOL COMBINING FLAG-1	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D16E 003F;	
     // (𝅮) MUSICAL SYMBOL COMBINING FLAG-1	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5748,26 +6118,28 @@ TEST(collation, verbatim_007_185)
 
     // 1D16F 003F;	
     // (𝅯) MUSICAL SYMBOL COMBINING FLAG-2	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D16F 003F;	
     // (𝅯) MUSICAL SYMBOL COMBINING FLAG-2	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5779,26 +6151,28 @@ TEST(collation, verbatim_007_186)
 
     // 1D170 003F;	
     // (𝅰) MUSICAL SYMBOL COMBINING FLAG-3	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D170 003F;	
     // (𝅰) MUSICAL SYMBOL COMBINING FLAG-3	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5810,26 +6184,28 @@ TEST(collation, verbatim_007_187)
 
     // 1D171 003F;	
     // (𝅱) MUSICAL SYMBOL COMBINING FLAG-4	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D171 003F;	
     // (𝅱) MUSICAL SYMBOL COMBINING FLAG-4	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5841,26 +6217,28 @@ TEST(collation, verbatim_007_188)
 
     // 1D172 003F;	
     // (𝅲) MUSICAL SYMBOL COMBINING FLAG-5	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D172 003F;	
     // (𝅲) MUSICAL SYMBOL COMBINING FLAG-5	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5872,26 +6250,28 @@ TEST(collation, verbatim_007_189)
 
     // 1D173 003F;	
     // ('\U0001D173') MUSICAL SYMBOL BEGIN BEAM	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D173 003F;	
     // ('\U0001D173') MUSICAL SYMBOL BEGIN BEAM	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5903,26 +6283,28 @@ TEST(collation, verbatim_007_190)
 
     // 1D174 003F;	
     // ('\U0001D174') MUSICAL SYMBOL END BEAM	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D174 003F;	
     // ('\U0001D174') MUSICAL SYMBOL END BEAM	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5934,26 +6316,28 @@ TEST(collation, verbatim_007_191)
 
     // 1D175 003F;	
     // ('\U0001D175') MUSICAL SYMBOL BEGIN TIE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D175 003F;	
     // ('\U0001D175') MUSICAL SYMBOL BEGIN TIE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5965,26 +6349,28 @@ TEST(collation, verbatim_007_192)
 
     // 1D176 003F;	
     // ('\U0001D176') MUSICAL SYMBOL END TIE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D176 003F;	
     // ('\U0001D176') MUSICAL SYMBOL END TIE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -5996,26 +6382,28 @@ TEST(collation, verbatim_007_193)
 
     // 1D177 003F;	
     // ('\U0001D177') MUSICAL SYMBOL BEGIN SLUR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D177 003F;	
     // ('\U0001D177') MUSICAL SYMBOL BEGIN SLUR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6027,26 +6415,28 @@ TEST(collation, verbatim_007_194)
 
     // 1D178 003F;	
     // ('\U0001D178') MUSICAL SYMBOL END SLUR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D178 003F;	
     // ('\U0001D178') MUSICAL SYMBOL END SLUR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6058,26 +6448,28 @@ TEST(collation, verbatim_007_195)
 
     // 1D179 003F;	
     // ('\U0001D179') MUSICAL SYMBOL BEGIN PHRASE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D179 003F;	
     // ('\U0001D179') MUSICAL SYMBOL BEGIN PHRASE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6089,26 +6481,28 @@ TEST(collation, verbatim_007_196)
 
     // 1D17A 003F;	
     // ('\U0001D17A') MUSICAL SYMBOL END PHRASE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D17A 003F;	
     // ('\U0001D17A') MUSICAL SYMBOL END PHRASE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6120,26 +6514,28 @@ TEST(collation, verbatim_007_197)
 
     // 1D17B 003F;	
     // (𝅻) MUSICAL SYMBOL COMBINING ACCENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D17B 003F;	
     // (𝅻) MUSICAL SYMBOL COMBINING ACCENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6151,26 +6547,28 @@ TEST(collation, verbatim_007_198)
 
     // 1D17C 003F;	
     // (𝅼) MUSICAL SYMBOL COMBINING STACCATO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D17C 003F;	
     // (𝅼) MUSICAL SYMBOL COMBINING STACCATO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6182,26 +6580,28 @@ TEST(collation, verbatim_007_199)
 
     // 1D17D 003F;	
     // (𝅽) MUSICAL SYMBOL COMBINING TENUTO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D17D 003F;	
     // (𝅽) MUSICAL SYMBOL COMBINING TENUTO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6213,26 +6613,28 @@ TEST(collation, verbatim_007_200)
 
     // 1D17E 003F;	
     // (𝅾) MUSICAL SYMBOL COMBINING STACCATISSIMO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D17E 003F;	
     // (𝅾) MUSICAL SYMBOL COMBINING STACCATISSIMO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6244,26 +6646,28 @@ TEST(collation, verbatim_007_201)
 
     // 1D17F 003F;	
     // (𝅿) MUSICAL SYMBOL COMBINING MARCATO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D17F 003F;	
     // (𝅿) MUSICAL SYMBOL COMBINING MARCATO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6275,26 +6679,28 @@ TEST(collation, verbatim_007_202)
 
     // 1D180 003F;	
     // (𝆀) MUSICAL SYMBOL COMBINING MARCATO-STACCATO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D180 003F;	
     // (𝆀) MUSICAL SYMBOL COMBINING MARCATO-STACCATO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6306,26 +6712,28 @@ TEST(collation, verbatim_007_203)
 
     // 1D181 003F;	
     // (𝆁) MUSICAL SYMBOL COMBINING ACCENT-STACCATO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D181 003F;	
     // (𝆁) MUSICAL SYMBOL COMBINING ACCENT-STACCATO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6337,26 +6745,28 @@ TEST(collation, verbatim_007_204)
 
     // 1D182 003F;	
     // (𝆂) MUSICAL SYMBOL COMBINING LOURE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D182 003F;	
     // (𝆂) MUSICAL SYMBOL COMBINING LOURE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6368,26 +6778,28 @@ TEST(collation, verbatim_007_205)
 
     // 1D185 003F;	
     // (𝆅) MUSICAL SYMBOL COMBINING DOIT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D185 003F;	
     // (𝆅) MUSICAL SYMBOL COMBINING DOIT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6399,26 +6811,28 @@ TEST(collation, verbatim_007_206)
 
     // 1D186 003F;	
     // (𝆆) MUSICAL SYMBOL COMBINING RIP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D186 003F;	
     // (𝆆) MUSICAL SYMBOL COMBINING RIP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6430,26 +6844,28 @@ TEST(collation, verbatim_007_207)
 
     // 1D187 003F;	
     // (𝆇) MUSICAL SYMBOL COMBINING FLIP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D187 003F;	
     // (𝆇) MUSICAL SYMBOL COMBINING FLIP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6461,26 +6877,28 @@ TEST(collation, verbatim_007_208)
 
     // 1D188 003F;	
     // (𝆈) MUSICAL SYMBOL COMBINING SMEAR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D188 003F;	
     // (𝆈) MUSICAL SYMBOL COMBINING SMEAR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6492,26 +6910,28 @@ TEST(collation, verbatim_007_209)
 
     // 1D189 003F;	
     // (𝆉) MUSICAL SYMBOL COMBINING BEND	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D189 003F;	
     // (𝆉) MUSICAL SYMBOL COMBINING BEND	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6523,26 +6943,28 @@ TEST(collation, verbatim_007_210)
 
     // 1D18A 003F;	
     // (𝆊) MUSICAL SYMBOL COMBINING DOUBLE TONGUE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D18A 003F;	
     // (𝆊) MUSICAL SYMBOL COMBINING DOUBLE TONGUE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6554,26 +6976,28 @@ TEST(collation, verbatim_007_211)
 
     // 1D18B 003F;	
     // (𝆋) MUSICAL SYMBOL COMBINING TRIPLE TONGUE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D18B 003F;	
     // (𝆋) MUSICAL SYMBOL COMBINING TRIPLE TONGUE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6585,26 +7009,28 @@ TEST(collation, verbatim_007_212)
 
     // 1D1AA 003F;	
     // (𝆪) MUSICAL SYMBOL COMBINING DOWN BOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D1AA 003F;	
     // (𝆪) MUSICAL SYMBOL COMBINING DOWN BOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6616,26 +7042,28 @@ TEST(collation, verbatim_007_213)
 
     // 1D1AB 003F;	
     // (𝆫) MUSICAL SYMBOL COMBINING UP BOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D1AB 003F;	
     // (𝆫) MUSICAL SYMBOL COMBINING UP BOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6647,26 +7075,28 @@ TEST(collation, verbatim_007_214)
 
     // 1D1AC 003F;	
     // (𝆬) MUSICAL SYMBOL COMBINING HARMONIC	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D1AC 003F;	
     // (𝆬) MUSICAL SYMBOL COMBINING HARMONIC	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6678,26 +7108,28 @@ TEST(collation, verbatim_007_215)
 
     // 1D1AD 003F;	
     // (𝆭) MUSICAL SYMBOL COMBINING SNAP PIZZICATO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D1AD 003F;	
     // (𝆭) MUSICAL SYMBOL COMBINING SNAP PIZZICATO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6709,26 +7141,28 @@ TEST(collation, verbatim_007_216)
 
     // 1D242 003F;	
     // (𝉂) COMBINING GREEK MUSICAL TRISEME	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D242 003F;	
     // (𝉂) COMBINING GREEK MUSICAL TRISEME	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6740,26 +7174,28 @@ TEST(collation, verbatim_007_217)
 
     // 1D243 003F;	
     // (𝉃) COMBINING GREEK MUSICAL TETRASEME	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D243 003F;	
     // (𝉃) COMBINING GREEK MUSICAL TETRASEME	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6771,26 +7207,28 @@ TEST(collation, verbatim_007_218)
 
     // 1D244 003F;	
     // (𝉄) COMBINING GREEK MUSICAL PENTASEME	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1D244 003F;	
     // (𝉄) COMBINING GREEK MUSICAL PENTASEME	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6802,26 +7240,28 @@ TEST(collation, verbatim_007_219)
 
     // 1DA00 003F;	
     // (𝨀) SIGNWRITING HEAD RIM	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA00 003F;	
     // (𝨀) SIGNWRITING HEAD RIM	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6833,26 +7273,28 @@ TEST(collation, verbatim_007_220)
 
     // 1DA01 003F;	
     // (𝨁) SIGNWRITING HEAD MOVEMENT-WALLPLANE STRAIGHT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA01 003F;	
     // (𝨁) SIGNWRITING HEAD MOVEMENT-WALLPLANE STRAIGHT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6864,26 +7306,28 @@ TEST(collation, verbatim_007_221)
 
     // 1DA02 003F;	
     // (𝨂) SIGNWRITING HEAD MOVEMENT-WALLPLANE TILT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA02 003F;	
     // (𝨂) SIGNWRITING HEAD MOVEMENT-WALLPLANE TILT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6895,26 +7339,28 @@ TEST(collation, verbatim_007_222)
 
     // 1DA03 003F;	
     // (𝨃) SIGNWRITING HEAD MOVEMENT-FLOORPLANE STRAIGHT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA03 003F;	
     // (𝨃) SIGNWRITING HEAD MOVEMENT-FLOORPLANE STRAIGHT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6926,26 +7372,28 @@ TEST(collation, verbatim_007_223)
 
     // 1DA04 003F;	
     // (𝨄) SIGNWRITING HEAD MOVEMENT-WALLPLANE CURVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA04 003F;	
     // (𝨄) SIGNWRITING HEAD MOVEMENT-WALLPLANE CURVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6957,26 +7405,28 @@ TEST(collation, verbatim_007_224)
 
     // 1DA05 003F;	
     // (𝨅) SIGNWRITING HEAD MOVEMENT-FLOORPLANE CURVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA05 003F;	
     // (𝨅) SIGNWRITING HEAD MOVEMENT-FLOORPLANE CURVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -6988,26 +7438,28 @@ TEST(collation, verbatim_007_225)
 
     // 1DA06 003F;	
     // (𝨆) SIGNWRITING HEAD MOVEMENT CIRCLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA06 003F;	
     // (𝨆) SIGNWRITING HEAD MOVEMENT CIRCLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7019,26 +7471,28 @@ TEST(collation, verbatim_007_226)
 
     // 1DA07 003F;	
     // (𝨇) SIGNWRITING FACE DIRECTION POSITION NOSE FORWARD TILTING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA07 003F;	
     // (𝨇) SIGNWRITING FACE DIRECTION POSITION NOSE FORWARD TILTING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7050,26 +7504,28 @@ TEST(collation, verbatim_007_227)
 
     // 1DA08 003F;	
     // (𝨈) SIGNWRITING FACE DIRECTION POSITION NOSE UP OR DOWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA08 003F;	
     // (𝨈) SIGNWRITING FACE DIRECTION POSITION NOSE UP OR DOWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7081,26 +7537,28 @@ TEST(collation, verbatim_007_228)
 
     // 1DA09 003F;	
     // (𝨉) SIGNWRITING FACE DIRECTION POSITION NOSE UP OR DOWN TILTING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA09 003F;	
     // (𝨉) SIGNWRITING FACE DIRECTION POSITION NOSE UP OR DOWN TILTING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7112,26 +7570,28 @@ TEST(collation, verbatim_007_229)
 
     // 1DA0A 003F;	
     // (𝨊) SIGNWRITING EYEBROWS STRAIGHT UP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA0A 003F;	
     // (𝨊) SIGNWRITING EYEBROWS STRAIGHT UP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7143,26 +7603,28 @@ TEST(collation, verbatim_007_230)
 
     // 1DA0B 003F;	
     // (𝨋) SIGNWRITING EYEBROWS STRAIGHT NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA0B 003F;	
     // (𝨋) SIGNWRITING EYEBROWS STRAIGHT NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7174,26 +7636,28 @@ TEST(collation, verbatim_007_231)
 
     // 1DA0C 003F;	
     // (𝨌) SIGNWRITING EYEBROWS STRAIGHT DOWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA0C 003F;	
     // (𝨌) SIGNWRITING EYEBROWS STRAIGHT DOWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7205,26 +7669,28 @@ TEST(collation, verbatim_007_232)
 
     // 1DA0D 003F;	
     // (𝨍) SIGNWRITING DREAMY EYEBROWS NEUTRAL DOWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA0D 003F;	
     // (𝨍) SIGNWRITING DREAMY EYEBROWS NEUTRAL DOWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7236,26 +7702,28 @@ TEST(collation, verbatim_007_233)
 
     // 1DA0E 003F;	
     // (𝨎) SIGNWRITING DREAMY EYEBROWS DOWN NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA0E 003F;	
     // (𝨎) SIGNWRITING DREAMY EYEBROWS DOWN NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7267,26 +7735,28 @@ TEST(collation, verbatim_007_234)
 
     // 1DA0F 003F;	
     // (𝨏) SIGNWRITING DREAMY EYEBROWS UP NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA0F 003F;	
     // (𝨏) SIGNWRITING DREAMY EYEBROWS UP NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7298,26 +7768,28 @@ TEST(collation, verbatim_007_235)
 
     // 1DA10 003F;	
     // (𝨐) SIGNWRITING DREAMY EYEBROWS NEUTRAL UP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA10 003F;	
     // (𝨐) SIGNWRITING DREAMY EYEBROWS NEUTRAL UP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7329,26 +7801,28 @@ TEST(collation, verbatim_007_236)
 
     // 1DA11 003F;	
     // (𝨑) SIGNWRITING FOREHEAD NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA11 003F;	
     // (𝨑) SIGNWRITING FOREHEAD NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7360,26 +7834,28 @@ TEST(collation, verbatim_007_237)
 
     // 1DA12 003F;	
     // (𝨒) SIGNWRITING FOREHEAD CONTACT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA12 003F;	
     // (𝨒) SIGNWRITING FOREHEAD CONTACT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7391,26 +7867,28 @@ TEST(collation, verbatim_007_238)
 
     // 1DA13 003F;	
     // (𝨓) SIGNWRITING FOREHEAD WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA13 003F;	
     // (𝨓) SIGNWRITING FOREHEAD WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7422,26 +7900,28 @@ TEST(collation, verbatim_007_239)
 
     // 1DA14 003F;	
     // (𝨔) SIGNWRITING EYES OPEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA14 003F;	
     // (𝨔) SIGNWRITING EYES OPEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7453,26 +7933,28 @@ TEST(collation, verbatim_007_240)
 
     // 1DA15 003F;	
     // (𝨕) SIGNWRITING EYES SQUEEZED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA15 003F;	
     // (𝨕) SIGNWRITING EYES SQUEEZED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7484,26 +7966,28 @@ TEST(collation, verbatim_007_241)
 
     // 1DA16 003F;	
     // (𝨖) SIGNWRITING EYES CLOSED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA16 003F;	
     // (𝨖) SIGNWRITING EYES CLOSED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7515,26 +7999,28 @@ TEST(collation, verbatim_007_242)
 
     // 1DA17 003F;	
     // (𝨗) SIGNWRITING EYE BLINK SINGLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA17 003F;	
     // (𝨗) SIGNWRITING EYE BLINK SINGLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7546,26 +8032,28 @@ TEST(collation, verbatim_007_243)
 
     // 1DA18 003F;	
     // (𝨘) SIGNWRITING EYE BLINK MULTIPLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA18 003F;	
     // (𝨘) SIGNWRITING EYE BLINK MULTIPLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7577,26 +8065,28 @@ TEST(collation, verbatim_007_244)
 
     // 1DA19 003F;	
     // (𝨙) SIGNWRITING EYES HALF OPEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA19 003F;	
     // (𝨙) SIGNWRITING EYES HALF OPEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7608,26 +8098,28 @@ TEST(collation, verbatim_007_245)
 
     // 1DA1A 003F;	
     // (𝨚) SIGNWRITING EYES WIDE OPEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA1A 003F;	
     // (𝨚) SIGNWRITING EYES WIDE OPEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7639,26 +8131,28 @@ TEST(collation, verbatim_007_246)
 
     // 1DA1B 003F;	
     // (𝨛) SIGNWRITING EYES HALF CLOSED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA1B 003F;	
     // (𝨛) SIGNWRITING EYES HALF CLOSED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7670,26 +8164,28 @@ TEST(collation, verbatim_007_247)
 
     // 1DA1C 003F;	
     // (𝨜) SIGNWRITING EYES WIDENING MOVEMENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA1C 003F;	
     // (𝨜) SIGNWRITING EYES WIDENING MOVEMENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7701,26 +8197,28 @@ TEST(collation, verbatim_007_248)
 
     // 1DA1D 003F;	
     // (𝨝) SIGNWRITING EYE WINK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA1D 003F;	
     // (𝨝) SIGNWRITING EYE WINK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7732,26 +8230,28 @@ TEST(collation, verbatim_007_249)
 
     // 1DA1E 003F;	
     // (𝨞) SIGNWRITING EYELASHES UP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA1E 003F;	
     // (𝨞) SIGNWRITING EYELASHES UP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7763,26 +8263,28 @@ TEST(collation, verbatim_007_250)
 
     // 1DA1F 003F;	
     // (𝨟) SIGNWRITING EYELASHES DOWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA1F 003F;	
     // (𝨟) SIGNWRITING EYELASHES DOWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7794,26 +8296,28 @@ TEST(collation, verbatim_007_251)
 
     // 1DA20 003F;	
     // (𝨠) SIGNWRITING EYELASHES FLUTTERING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA20 003F;	
     // (𝨠) SIGNWRITING EYELASHES FLUTTERING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7825,26 +8329,28 @@ TEST(collation, verbatim_007_252)
 
     // 1DA21 003F;	
     // (𝨡) SIGNWRITING EYEGAZE-WALLPLANE STRAIGHT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA21 003F;	
     // (𝨡) SIGNWRITING EYEGAZE-WALLPLANE STRAIGHT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7856,26 +8362,28 @@ TEST(collation, verbatim_007_253)
 
     // 1DA22 003F;	
     // (𝨢) SIGNWRITING EYEGAZE-WALLPLANE STRAIGHT DOUBLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA22 003F;	
     // (𝨢) SIGNWRITING EYEGAZE-WALLPLANE STRAIGHT DOUBLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7887,26 +8395,28 @@ TEST(collation, verbatim_007_254)
 
     // 1DA23 003F;	
     // (𝨣) SIGNWRITING EYEGAZE-WALLPLANE STRAIGHT ALTERNATING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA23 003F;	
     // (𝨣) SIGNWRITING EYEGAZE-WALLPLANE STRAIGHT ALTERNATING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7918,26 +8428,28 @@ TEST(collation, verbatim_007_255)
 
     // 1DA24 003F;	
     // (𝨤) SIGNWRITING EYEGAZE-FLOORPLANE STRAIGHT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA24 003F;	
     // (𝨤) SIGNWRITING EYEGAZE-FLOORPLANE STRAIGHT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7949,26 +8461,28 @@ TEST(collation, verbatim_007_256)
 
     // 1DA25 003F;	
     // (𝨥) SIGNWRITING EYEGAZE-FLOORPLANE STRAIGHT DOUBLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA25 003F;	
     // (𝨥) SIGNWRITING EYEGAZE-FLOORPLANE STRAIGHT DOUBLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -7980,26 +8494,28 @@ TEST(collation, verbatim_007_257)
 
     // 1DA26 003F;	
     // (𝨦) SIGNWRITING EYEGAZE-FLOORPLANE STRAIGHT ALTERNATING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA26 003F;	
     // (𝨦) SIGNWRITING EYEGAZE-FLOORPLANE STRAIGHT ALTERNATING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8011,26 +8527,28 @@ TEST(collation, verbatim_007_258)
 
     // 1DA27 003F;	
     // (𝨧) SIGNWRITING EYEGAZE-WALLPLANE CURVED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA27 003F;	
     // (𝨧) SIGNWRITING EYEGAZE-WALLPLANE CURVED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8042,26 +8560,28 @@ TEST(collation, verbatim_007_259)
 
     // 1DA28 003F;	
     // (𝨨) SIGNWRITING EYEGAZE-FLOORPLANE CURVED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA28 003F;	
     // (𝨨) SIGNWRITING EYEGAZE-FLOORPLANE CURVED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8073,26 +8593,28 @@ TEST(collation, verbatim_007_260)
 
     // 1DA29 003F;	
     // (𝨩) SIGNWRITING EYEGAZE-WALLPLANE CIRCLING	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA29 003F;	
     // (𝨩) SIGNWRITING EYEGAZE-WALLPLANE CIRCLING	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8104,26 +8626,28 @@ TEST(collation, verbatim_007_261)
 
     // 1DA2A 003F;	
     // (𝨪) SIGNWRITING CHEEKS PUFFED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA2A 003F;	
     // (𝨪) SIGNWRITING CHEEKS PUFFED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8135,26 +8659,28 @@ TEST(collation, verbatim_007_262)
 
     // 1DA2B 003F;	
     // (𝨫) SIGNWRITING CHEEKS NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA2B 003F;	
     // (𝨫) SIGNWRITING CHEEKS NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8166,26 +8692,28 @@ TEST(collation, verbatim_007_263)
 
     // 1DA2C 003F;	
     // (𝨬) SIGNWRITING CHEEKS SUCKED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA2C 003F;	
     // (𝨬) SIGNWRITING CHEEKS SUCKED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8197,26 +8725,28 @@ TEST(collation, verbatim_007_264)
 
     // 1DA2D 003F;	
     // (𝨭) SIGNWRITING TENSE CHEEKS HIGH	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA2D 003F;	
     // (𝨭) SIGNWRITING TENSE CHEEKS HIGH	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8228,26 +8758,28 @@ TEST(collation, verbatim_007_265)
 
     // 1DA2E 003F;	
     // (𝨮) SIGNWRITING TENSE CHEEKS MIDDLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA2E 003F;	
     // (𝨮) SIGNWRITING TENSE CHEEKS MIDDLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8259,26 +8791,28 @@ TEST(collation, verbatim_007_266)
 
     // 1DA2F 003F;	
     // (𝨯) SIGNWRITING TENSE CHEEKS LOW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA2F 003F;	
     // (𝨯) SIGNWRITING TENSE CHEEKS LOW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8290,26 +8824,28 @@ TEST(collation, verbatim_007_267)
 
     // 1DA30 003F;	
     // (𝨰) SIGNWRITING EARS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA30 003F;	
     // (𝨰) SIGNWRITING EARS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8321,26 +8857,28 @@ TEST(collation, verbatim_007_268)
 
     // 1DA31 003F;	
     // (𝨱) SIGNWRITING NOSE NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA31 003F;	
     // (𝨱) SIGNWRITING NOSE NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8352,26 +8890,28 @@ TEST(collation, verbatim_007_269)
 
     // 1DA32 003F;	
     // (𝨲) SIGNWRITING NOSE CONTACT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA32 003F;	
     // (𝨲) SIGNWRITING NOSE CONTACT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8383,26 +8923,28 @@ TEST(collation, verbatim_007_270)
 
     // 1DA33 003F;	
     // (𝨳) SIGNWRITING NOSE WRINKLES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA33 003F;	
     // (𝨳) SIGNWRITING NOSE WRINKLES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8414,26 +8956,28 @@ TEST(collation, verbatim_007_271)
 
     // 1DA34 003F;	
     // (𝨴) SIGNWRITING NOSE WIGGLES	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA34 003F;	
     // (𝨴) SIGNWRITING NOSE WIGGLES	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8445,26 +8989,28 @@ TEST(collation, verbatim_007_272)
 
     // 1DA35 003F;	
     // (𝨵) SIGNWRITING AIR BLOWING OUT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA35 003F;	
     // (𝨵) SIGNWRITING AIR BLOWING OUT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8476,26 +9022,28 @@ TEST(collation, verbatim_007_273)
 
     // 1DA36 003F;	
     // (𝨶) SIGNWRITING AIR SUCKING IN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA36 003F;	
     // (𝨶) SIGNWRITING AIR SUCKING IN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8507,26 +9055,28 @@ TEST(collation, verbatim_007_274)
 
     // 1DA3B 003F;	
     // (𝨻) SIGNWRITING MOUTH CLOSED NEUTRAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA3B 003F;	
     // (𝨻) SIGNWRITING MOUTH CLOSED NEUTRAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8538,26 +9088,28 @@ TEST(collation, verbatim_007_275)
 
     // 1DA3C 003F;	
     // (𝨼) SIGNWRITING MOUTH CLOSED FORWARD	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA3C 003F;	
     // (𝨼) SIGNWRITING MOUTH CLOSED FORWARD	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8569,26 +9121,28 @@ TEST(collation, verbatim_007_276)
 
     // 1DA3D 003F;	
     // (𝨽) SIGNWRITING MOUTH CLOSED CONTACT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA3D 003F;	
     // (𝨽) SIGNWRITING MOUTH CLOSED CONTACT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8600,26 +9154,28 @@ TEST(collation, verbatim_007_277)
 
     // 1DA3E 003F;	
     // (𝨾) SIGNWRITING MOUTH SMILE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA3E 003F;	
     // (𝨾) SIGNWRITING MOUTH SMILE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8631,26 +9187,28 @@ TEST(collation, verbatim_007_278)
 
     // 1DA3F 003F;	
     // (𝨿) SIGNWRITING MOUTH SMILE WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA3F 003F;	
     // (𝨿) SIGNWRITING MOUTH SMILE WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8662,26 +9220,28 @@ TEST(collation, verbatim_007_279)
 
     // 1DA40 003F;	
     // (𝩀) SIGNWRITING MOUTH SMILE OPEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA40 003F;	
     // (𝩀) SIGNWRITING MOUTH SMILE OPEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8693,26 +9253,28 @@ TEST(collation, verbatim_007_280)
 
     // 1DA41 003F;	
     // (𝩁) SIGNWRITING MOUTH FROWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA41 003F;	
     // (𝩁) SIGNWRITING MOUTH FROWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8724,26 +9286,28 @@ TEST(collation, verbatim_007_281)
 
     // 1DA42 003F;	
     // (𝩂) SIGNWRITING MOUTH FROWN WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA42 003F;	
     // (𝩂) SIGNWRITING MOUTH FROWN WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8755,26 +9319,28 @@ TEST(collation, verbatim_007_282)
 
     // 1DA43 003F;	
     // (𝩃) SIGNWRITING MOUTH FROWN OPEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA43 003F;	
     // (𝩃) SIGNWRITING MOUTH FROWN OPEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8786,26 +9352,28 @@ TEST(collation, verbatim_007_283)
 
     // 1DA44 003F;	
     // (𝩄) SIGNWRITING MOUTH OPEN CIRCLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA44 003F;	
     // (𝩄) SIGNWRITING MOUTH OPEN CIRCLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8817,26 +9385,28 @@ TEST(collation, verbatim_007_284)
 
     // 1DA45 003F;	
     // (𝩅) SIGNWRITING MOUTH OPEN FORWARD	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA45 003F;	
     // (𝩅) SIGNWRITING MOUTH OPEN FORWARD	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8848,26 +9418,28 @@ TEST(collation, verbatim_007_285)
 
     // 1DA46 003F;	
     // (𝩆) SIGNWRITING MOUTH OPEN WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA46 003F;	
     // (𝩆) SIGNWRITING MOUTH OPEN WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8879,26 +9451,28 @@ TEST(collation, verbatim_007_286)
 
     // 1DA47 003F;	
     // (𝩇) SIGNWRITING MOUTH OPEN OVAL	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA47 003F;	
     // (𝩇) SIGNWRITING MOUTH OPEN OVAL	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8910,26 +9484,28 @@ TEST(collation, verbatim_007_287)
 
     // 1DA48 003F;	
     // (𝩈) SIGNWRITING MOUTH OPEN OVAL WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA48 003F;	
     // (𝩈) SIGNWRITING MOUTH OPEN OVAL WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8941,26 +9517,28 @@ TEST(collation, verbatim_007_288)
 
     // 1DA49 003F;	
     // (𝩉) SIGNWRITING MOUTH OPEN OVAL YAWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA49 003F;	
     // (𝩉) SIGNWRITING MOUTH OPEN OVAL YAWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -8972,26 +9550,28 @@ TEST(collation, verbatim_007_289)
 
     // 1DA4A 003F;	
     // (𝩊) SIGNWRITING MOUTH OPEN RECTANGLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA4A 003F;	
     // (𝩊) SIGNWRITING MOUTH OPEN RECTANGLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9003,26 +9583,28 @@ TEST(collation, verbatim_007_290)
 
     // 1DA4B 003F;	
     // (𝩋) SIGNWRITING MOUTH OPEN RECTANGLE WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA4B 003F;	
     // (𝩋) SIGNWRITING MOUTH OPEN RECTANGLE WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9034,26 +9616,28 @@ TEST(collation, verbatim_007_291)
 
     // 1DA4C 003F;	
     // (𝩌) SIGNWRITING MOUTH OPEN RECTANGLE YAWN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA4C 003F;	
     // (𝩌) SIGNWRITING MOUTH OPEN RECTANGLE YAWN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9065,26 +9649,28 @@ TEST(collation, verbatim_007_292)
 
     // 1DA4D 003F;	
     // (𝩍) SIGNWRITING MOUTH KISS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA4D 003F;	
     // (𝩍) SIGNWRITING MOUTH KISS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9096,26 +9682,28 @@ TEST(collation, verbatim_007_293)
 
     // 1DA4E 003F;	
     // (𝩎) SIGNWRITING MOUTH KISS FORWARD	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA4E 003F;	
     // (𝩎) SIGNWRITING MOUTH KISS FORWARD	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9127,26 +9715,28 @@ TEST(collation, verbatim_007_294)
 
     // 1DA4F 003F;	
     // (𝩏) SIGNWRITING MOUTH KISS WRINKLED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA4F 003F;	
     // (𝩏) SIGNWRITING MOUTH KISS WRINKLED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9158,26 +9748,28 @@ TEST(collation, verbatim_007_295)
 
     // 1DA50 003F;	
     // (𝩐) SIGNWRITING MOUTH TENSE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA50 003F;	
     // (𝩐) SIGNWRITING MOUTH TENSE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9189,26 +9781,28 @@ TEST(collation, verbatim_007_296)
 
     // 1DA51 003F;	
     // (𝩑) SIGNWRITING MOUTH TENSE FORWARD	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA51 003F;	
     // (𝩑) SIGNWRITING MOUTH TENSE FORWARD	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9220,26 +9814,28 @@ TEST(collation, verbatim_007_297)
 
     // 1DA52 003F;	
     // (𝩒) SIGNWRITING MOUTH TENSE SUCKED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA52 003F;	
     // (𝩒) SIGNWRITING MOUTH TENSE SUCKED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9251,26 +9847,28 @@ TEST(collation, verbatim_007_298)
 
     // 1DA53 003F;	
     // (𝩓) SIGNWRITING LIPS PRESSED TOGETHER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA53 003F;	
     // (𝩓) SIGNWRITING LIPS PRESSED TOGETHER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9282,26 +9880,28 @@ TEST(collation, verbatim_007_299)
 
     // 1DA54 003F;	
     // (𝩔) SIGNWRITING LIP LOWER OVER UPPER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA54 003F;	
     // (𝩔) SIGNWRITING LIP LOWER OVER UPPER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9313,26 +9913,28 @@ TEST(collation, verbatim_007_300)
 
     // 1DA55 003F;	
     // (𝩕) SIGNWRITING LIP UPPER OVER LOWER	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA55 003F;	
     // (𝩕) SIGNWRITING LIP UPPER OVER LOWER	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9344,26 +9946,28 @@ TEST(collation, verbatim_007_301)
 
     // 1DA56 003F;	
     // (𝩖) SIGNWRITING MOUTH CORNERS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA56 003F;	
     // (𝩖) SIGNWRITING MOUTH CORNERS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9375,26 +9979,28 @@ TEST(collation, verbatim_007_302)
 
     // 1DA57 003F;	
     // (𝩗) SIGNWRITING MOUTH WRINKLES SINGLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA57 003F;	
     // (𝩗) SIGNWRITING MOUTH WRINKLES SINGLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9406,26 +10012,28 @@ TEST(collation, verbatim_007_303)
 
     // 1DA58 003F;	
     // (𝩘) SIGNWRITING MOUTH WRINKLES DOUBLE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA58 003F;	
     // (𝩘) SIGNWRITING MOUTH WRINKLES DOUBLE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9437,26 +10045,28 @@ TEST(collation, verbatim_007_304)
 
     // 1DA59 003F;	
     // (𝩙) SIGNWRITING TONGUE STICKING OUT FAR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA59 003F;	
     // (𝩙) SIGNWRITING TONGUE STICKING OUT FAR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9468,26 +10078,28 @@ TEST(collation, verbatim_007_305)
 
     // 1DA5A 003F;	
     // (𝩚) SIGNWRITING TONGUE LICKING LIPS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA5A 003F;	
     // (𝩚) SIGNWRITING TONGUE LICKING LIPS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9499,26 +10111,28 @@ TEST(collation, verbatim_007_306)
 
     // 1DA5B 003F;	
     // (𝩛) SIGNWRITING TONGUE TIP BETWEEN LIPS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA5B 003F;	
     // (𝩛) SIGNWRITING TONGUE TIP BETWEEN LIPS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9530,26 +10144,28 @@ TEST(collation, verbatim_007_307)
 
     // 1DA5C 003F;	
     // (𝩜) SIGNWRITING TONGUE TIP TOUCHING INSIDE MOUTH	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA5C 003F;	
     // (𝩜) SIGNWRITING TONGUE TIP TOUCHING INSIDE MOUTH	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9561,26 +10177,28 @@ TEST(collation, verbatim_007_308)
 
     // 1DA5D 003F;	
     // (𝩝) SIGNWRITING TONGUE INSIDE MOUTH RELAXED	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA5D 003F;	
     // (𝩝) SIGNWRITING TONGUE INSIDE MOUTH RELAXED	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9592,26 +10210,28 @@ TEST(collation, verbatim_007_309)
 
     // 1DA5E 003F;	
     // (𝩞) SIGNWRITING TONGUE MOVES AGAINST CHEEK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA5E 003F;	
     // (𝩞) SIGNWRITING TONGUE MOVES AGAINST CHEEK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9623,26 +10243,28 @@ TEST(collation, verbatim_007_310)
 
     // 1DA5F 003F;	
     // (𝩟) SIGNWRITING TONGUE CENTRE STICKING OUT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA5F 003F;	
     // (𝩟) SIGNWRITING TONGUE CENTRE STICKING OUT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9654,26 +10276,28 @@ TEST(collation, verbatim_007_311)
 
     // 1DA60 003F;	
     // (𝩠) SIGNWRITING TONGUE CENTRE INSIDE MOUTH	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA60 003F;	
     // (𝩠) SIGNWRITING TONGUE CENTRE INSIDE MOUTH	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9685,26 +10309,28 @@ TEST(collation, verbatim_007_312)
 
     // 1DA61 003F;	
     // (𝩡) SIGNWRITING TEETH	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA61 003F;	
     // (𝩡) SIGNWRITING TEETH	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9716,26 +10342,28 @@ TEST(collation, verbatim_007_313)
 
     // 1DA62 003F;	
     // (𝩢) SIGNWRITING TEETH MOVEMENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA62 003F;	
     // (𝩢) SIGNWRITING TEETH MOVEMENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9747,26 +10375,28 @@ TEST(collation, verbatim_007_314)
 
     // 1DA63 003F;	
     // (𝩣) SIGNWRITING TEETH ON TONGUE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA63 003F;	
     // (𝩣) SIGNWRITING TEETH ON TONGUE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9778,26 +10408,28 @@ TEST(collation, verbatim_007_315)
 
     // 1DA64 003F;	
     // (𝩤) SIGNWRITING TEETH ON TONGUE MOVEMENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA64 003F;	
     // (𝩤) SIGNWRITING TEETH ON TONGUE MOVEMENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9809,26 +10441,28 @@ TEST(collation, verbatim_007_316)
 
     // 1DA65 003F;	
     // (𝩥) SIGNWRITING TEETH ON LIPS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA65 003F;	
     // (𝩥) SIGNWRITING TEETH ON LIPS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9840,26 +10474,28 @@ TEST(collation, verbatim_007_317)
 
     // 1DA66 003F;	
     // (𝩦) SIGNWRITING TEETH ON LIPS MOVEMENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA66 003F;	
     // (𝩦) SIGNWRITING TEETH ON LIPS MOVEMENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9871,26 +10507,28 @@ TEST(collation, verbatim_007_318)
 
     // 1DA67 003F;	
     // (𝩧) SIGNWRITING TEETH BITE LIPS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA67 003F;	
     // (𝩧) SIGNWRITING TEETH BITE LIPS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9902,26 +10540,28 @@ TEST(collation, verbatim_007_319)
 
     // 1DA68 003F;	
     // (𝩨) SIGNWRITING MOVEMENT-WALLPLANE JAW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA68 003F;	
     // (𝩨) SIGNWRITING MOVEMENT-WALLPLANE JAW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9933,26 +10573,28 @@ TEST(collation, verbatim_007_320)
 
     // 1DA69 003F;	
     // (𝩩) SIGNWRITING MOVEMENT-FLOORPLANE JAW	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA69 003F;	
     // (𝩩) SIGNWRITING MOVEMENT-FLOORPLANE JAW	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9964,26 +10606,28 @@ TEST(collation, verbatim_007_321)
 
     // 1DA6A 003F;	
     // (𝩪) SIGNWRITING NECK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA6A 003F;	
     // (𝩪) SIGNWRITING NECK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -9995,26 +10639,28 @@ TEST(collation, verbatim_007_322)
 
     // 1DA6B 003F;	
     // (𝩫) SIGNWRITING HAIR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA6B 003F;	
     // (𝩫) SIGNWRITING HAIR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10026,26 +10672,28 @@ TEST(collation, verbatim_007_323)
 
     // 1DA6C 003F;	
     // (𝩬) SIGNWRITING EXCITEMENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA6C 003F;	
     // (𝩬) SIGNWRITING EXCITEMENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10057,26 +10705,28 @@ TEST(collation, verbatim_007_324)
 
     // 1DA75 003F;	
     // (𝩵) SIGNWRITING UPPER BODY TILTING FROM HIP JOINTS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA75 003F;	
     // (𝩵) SIGNWRITING UPPER BODY TILTING FROM HIP JOINTS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10088,26 +10738,28 @@ TEST(collation, verbatim_007_325)
 
     // 1DA84 003F;	
     // (𝪄) SIGNWRITING LOCATION HEAD NECK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA84 003F;	
     // (𝪄) SIGNWRITING LOCATION HEAD NECK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10119,26 +10771,28 @@ TEST(collation, verbatim_007_326)
 
     // 1DA9B 003F;	
     // (𝪛) SIGNWRITING FILL MODIFIER-2	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA9B 003F;	
     // (𝪛) SIGNWRITING FILL MODIFIER-2	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10150,26 +10804,28 @@ TEST(collation, verbatim_007_327)
 
     // 1DA9C 003F;	
     // (𝪜) SIGNWRITING FILL MODIFIER-3	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA9C 003F;	
     // (𝪜) SIGNWRITING FILL MODIFIER-3	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10181,26 +10837,28 @@ TEST(collation, verbatim_007_328)
 
     // 1DA9D 003F;	
     // (𝪝) SIGNWRITING FILL MODIFIER-4	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA9D 003F;	
     // (𝪝) SIGNWRITING FILL MODIFIER-4	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10212,26 +10870,28 @@ TEST(collation, verbatim_007_329)
 
     // 1DA9E 003F;	
     // (𝪞) SIGNWRITING FILL MODIFIER-5	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA9E 003F;	
     // (𝪞) SIGNWRITING FILL MODIFIER-5	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10243,26 +10903,28 @@ TEST(collation, verbatim_007_330)
 
     // 1DA9F 003F;	
     // (𝪟) SIGNWRITING FILL MODIFIER-6	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DA9F 003F;	
     // (𝪟) SIGNWRITING FILL MODIFIER-6	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10274,26 +10936,28 @@ TEST(collation, verbatim_007_331)
 
     // 1DAA1 003F;	
     // (𝪡) SIGNWRITING ROTATION MODIFIER-2	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA1 003F;	
     // (𝪡) SIGNWRITING ROTATION MODIFIER-2	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10305,26 +10969,28 @@ TEST(collation, verbatim_007_332)
 
     // 1DAA2 003F;	
     // (𝪢) SIGNWRITING ROTATION MODIFIER-3	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA2 003F;	
     // (𝪢) SIGNWRITING ROTATION MODIFIER-3	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10336,26 +11002,28 @@ TEST(collation, verbatim_007_333)
 
     // 1DAA3 003F;	
     // (𝪣) SIGNWRITING ROTATION MODIFIER-4	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA3 003F;	
     // (𝪣) SIGNWRITING ROTATION MODIFIER-4	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10367,26 +11035,28 @@ TEST(collation, verbatim_007_334)
 
     // 1DAA4 003F;	
     // (𝪤) SIGNWRITING ROTATION MODIFIER-5	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA4 003F;	
     // (𝪤) SIGNWRITING ROTATION MODIFIER-5	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10398,26 +11068,28 @@ TEST(collation, verbatim_007_335)
 
     // 1DAA5 003F;	
     // (𝪥) SIGNWRITING ROTATION MODIFIER-6	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA5 003F;	
     // (𝪥) SIGNWRITING ROTATION MODIFIER-6	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10429,26 +11101,28 @@ TEST(collation, verbatim_007_336)
 
     // 1DAA6 003F;	
     // (𝪦) SIGNWRITING ROTATION MODIFIER-7	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA6 003F;	
     // (𝪦) SIGNWRITING ROTATION MODIFIER-7	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10460,26 +11134,28 @@ TEST(collation, verbatim_007_337)
 
     // 1DAA7 003F;	
     // (𝪧) SIGNWRITING ROTATION MODIFIER-8	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA7 003F;	
     // (𝪧) SIGNWRITING ROTATION MODIFIER-8	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10491,26 +11167,28 @@ TEST(collation, verbatim_007_338)
 
     // 1DAA8 003F;	
     // (𝪨) SIGNWRITING ROTATION MODIFIER-9	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA8 003F;	
     // (𝪨) SIGNWRITING ROTATION MODIFIER-9	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10522,26 +11200,28 @@ TEST(collation, verbatim_007_339)
 
     // 1DAA9 003F;	
     // (𝪩) SIGNWRITING ROTATION MODIFIER-10	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAA9 003F;	
     // (𝪩) SIGNWRITING ROTATION MODIFIER-10	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10553,26 +11233,28 @@ TEST(collation, verbatim_007_340)
 
     // 1DAAA 003F;	
     // (𝪪) SIGNWRITING ROTATION MODIFIER-11	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAAA 003F;	
     // (𝪪) SIGNWRITING ROTATION MODIFIER-11	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10584,26 +11266,28 @@ TEST(collation, verbatim_007_341)
 
     // 1DAAB 003F;	
     // (𝪫) SIGNWRITING ROTATION MODIFIER-12	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAAB 003F;	
     // (𝪫) SIGNWRITING ROTATION MODIFIER-12	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10615,26 +11299,28 @@ TEST(collation, verbatim_007_342)
 
     // 1DAAC 003F;	
     // (𝪬) SIGNWRITING ROTATION MODIFIER-13	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAAC 003F;	
     // (𝪬) SIGNWRITING ROTATION MODIFIER-13	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10646,26 +11332,28 @@ TEST(collation, verbatim_007_343)
 
     // 1DAAD 003F;	
     // (𝪭) SIGNWRITING ROTATION MODIFIER-14	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAAD 003F;	
     // (𝪭) SIGNWRITING ROTATION MODIFIER-14	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10677,26 +11365,28 @@ TEST(collation, verbatim_007_344)
 
     // 1DAAE 003F;	
     // (𝪮) SIGNWRITING ROTATION MODIFIER-15	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAAE 003F;	
     // (𝪮) SIGNWRITING ROTATION MODIFIER-15	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10708,26 +11398,28 @@ TEST(collation, verbatim_007_345)
 
     // 1DAAF 003F;	
     // (𝪯) SIGNWRITING ROTATION MODIFIER-16	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1DAAF 003F;	
     // (𝪯) SIGNWRITING ROTATION MODIFIER-16	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10739,26 +11431,28 @@ TEST(collation, verbatim_007_346)
 
     // 1E8D0 003F;	
     // (𞣐) MENDE KIKAKUI COMBINING NUMBER TEENS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D0 003F;	
     // (𞣐) MENDE KIKAKUI COMBINING NUMBER TEENS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10770,26 +11464,28 @@ TEST(collation, verbatim_007_347)
 
     // 1E8D1 003F;	
     // (𞣑) MENDE KIKAKUI COMBINING NUMBER TENS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D1 003F;	
     // (𞣑) MENDE KIKAKUI COMBINING NUMBER TENS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10801,26 +11497,28 @@ TEST(collation, verbatim_007_348)
 
     // 1E8D2 003F;	
     // (𞣒) MENDE KIKAKUI COMBINING NUMBER HUNDREDS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D2 003F;	
     // (𞣒) MENDE KIKAKUI COMBINING NUMBER HUNDREDS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10832,26 +11530,28 @@ TEST(collation, verbatim_007_349)
 
     // 1E8D3 003F;	
     // (𞣓) MENDE KIKAKUI COMBINING NUMBER THOUSANDS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D3 003F;	
     // (𞣓) MENDE KIKAKUI COMBINING NUMBER THOUSANDS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10863,26 +11563,28 @@ TEST(collation, verbatim_007_350)
 
     // 1E8D4 003F;	
     // (𞣔) MENDE KIKAKUI COMBINING NUMBER TEN THOUSANDS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D4 003F;	
     // (𞣔) MENDE KIKAKUI COMBINING NUMBER TEN THOUSANDS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10894,26 +11596,28 @@ TEST(collation, verbatim_007_351)
 
     // 1E8D5 003F;	
     // (𞣕) MENDE KIKAKUI COMBINING NUMBER HUNDRED THOUSANDS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D5 003F;	
     // (𞣕) MENDE KIKAKUI COMBINING NUMBER HUNDRED THOUSANDS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10925,26 +11629,28 @@ TEST(collation, verbatim_007_352)
 
     // 1E8D6 003F;	
     // (𞣖) MENDE KIKAKUI COMBINING NUMBER MILLIONS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // 1E8D6 003F;	
     // (𞣖) MENDE KIKAKUI COMBINING NUMBER MILLIONS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10956,26 +11662,28 @@ TEST(collation, verbatim_007_353)
 
     // E0001 003F;	
     // ('\U000E0001') LANGUAGE TAG	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0001 003F;	
     // ('\U000E0001') LANGUAGE TAG	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -10987,26 +11695,28 @@ TEST(collation, verbatim_007_354)
 
     // E0020 003F;	
     // ('\U000E0020') TAG SPACE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0020 003F;	
     // ('\U000E0020') TAG SPACE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11018,26 +11728,28 @@ TEST(collation, verbatim_007_355)
 
     // E0021 003F;	
     // ('\U000E0021') TAG EXCLAMATION MARK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0021 003F;	
     // ('\U000E0021') TAG EXCLAMATION MARK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11049,26 +11761,28 @@ TEST(collation, verbatim_007_356)
 
     // E0022 003F;	
     // ('\U000E0022') TAG QUOTATION MARK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0022 003F;	
     // ('\U000E0022') TAG QUOTATION MARK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11080,26 +11794,28 @@ TEST(collation, verbatim_007_357)
 
     // E0023 003F;	
     // ('\U000E0023') TAG NUMBER SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0023 003F;	
     // ('\U000E0023') TAG NUMBER SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11111,26 +11827,28 @@ TEST(collation, verbatim_007_358)
 
     // E0024 003F;	
     // ('\U000E0024') TAG DOLLAR SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0024 003F;	
     // ('\U000E0024') TAG DOLLAR SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11142,26 +11860,28 @@ TEST(collation, verbatim_007_359)
 
     // E0025 003F;	
     // ('\U000E0025') TAG PERCENT SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0025 003F;	
     // ('\U000E0025') TAG PERCENT SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11173,26 +11893,28 @@ TEST(collation, verbatim_007_360)
 
     // E0026 003F;	
     // ('\U000E0026') TAG AMPERSAND	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0026 003F;	
     // ('\U000E0026') TAG AMPERSAND	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11204,26 +11926,28 @@ TEST(collation, verbatim_007_361)
 
     // E0027 003F;	
     // ('\U000E0027') TAG APOSTROPHE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0027 003F;	
     // ('\U000E0027') TAG APOSTROPHE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11235,26 +11959,28 @@ TEST(collation, verbatim_007_362)
 
     // E0028 003F;	
     // ('\U000E0028') TAG LEFT PARENTHESIS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0028 003F;	
     // ('\U000E0028') TAG LEFT PARENTHESIS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11266,26 +11992,28 @@ TEST(collation, verbatim_007_363)
 
     // E0029 003F;	
     // ('\U000E0029') TAG RIGHT PARENTHESIS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0029 003F;	
     // ('\U000E0029') TAG RIGHT PARENTHESIS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11297,26 +12025,28 @@ TEST(collation, verbatim_007_364)
 
     // E002A 003F;	
     // ('\U000E002A') TAG ASTERISK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E002A 003F;	
     // ('\U000E002A') TAG ASTERISK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11328,26 +12058,28 @@ TEST(collation, verbatim_007_365)
 
     // E002B 003F;	
     // ('\U000E002B') TAG PLUS SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E002B 003F;	
     // ('\U000E002B') TAG PLUS SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11359,26 +12091,28 @@ TEST(collation, verbatim_007_366)
 
     // E002C 003F;	
     // ('\U000E002C') TAG COMMA	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E002C 003F;	
     // ('\U000E002C') TAG COMMA	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11390,26 +12124,28 @@ TEST(collation, verbatim_007_367)
 
     // E002D 003F;	
     // ('\U000E002D') TAG HYPHEN-MINUS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E002D 003F;	
     // ('\U000E002D') TAG HYPHEN-MINUS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11421,26 +12157,28 @@ TEST(collation, verbatim_007_368)
 
     // E002E 003F;	
     // ('\U000E002E') TAG FULL STOP	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E002E 003F;	
     // ('\U000E002E') TAG FULL STOP	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11452,26 +12190,28 @@ TEST(collation, verbatim_007_369)
 
     // E002F 003F;	
     // ('\U000E002F') TAG SOLIDUS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E002F 003F;	
     // ('\U000E002F') TAG SOLIDUS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11483,26 +12223,28 @@ TEST(collation, verbatim_007_370)
 
     // E0030 003F;	
     // ('\U000E0030') TAG DIGIT ZERO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0030 003F;	
     // ('\U000E0030') TAG DIGIT ZERO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11514,26 +12256,28 @@ TEST(collation, verbatim_007_371)
 
     // E0031 003F;	
     // ('\U000E0031') TAG DIGIT ONE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0031 003F;	
     // ('\U000E0031') TAG DIGIT ONE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11545,26 +12289,28 @@ TEST(collation, verbatim_007_372)
 
     // E0032 003F;	
     // ('\U000E0032') TAG DIGIT TWO	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0032 003F;	
     // ('\U000E0032') TAG DIGIT TWO	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11576,26 +12322,28 @@ TEST(collation, verbatim_007_373)
 
     // E0033 003F;	
     // ('\U000E0033') TAG DIGIT THREE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0033 003F;	
     // ('\U000E0033') TAG DIGIT THREE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11607,26 +12355,28 @@ TEST(collation, verbatim_007_374)
 
     // E0034 003F;	
     // ('\U000E0034') TAG DIGIT FOUR	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0034 003F;	
     // ('\U000E0034') TAG DIGIT FOUR	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11638,26 +12388,28 @@ TEST(collation, verbatim_007_375)
 
     // E0035 003F;	
     // ('\U000E0035') TAG DIGIT FIVE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0035 003F;	
     // ('\U000E0035') TAG DIGIT FIVE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11669,26 +12421,28 @@ TEST(collation, verbatim_007_376)
 
     // E0036 003F;	
     // ('\U000E0036') TAG DIGIT SIX	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0036 003F;	
     // ('\U000E0036') TAG DIGIT SIX	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11700,26 +12454,28 @@ TEST(collation, verbatim_007_377)
 
     // E0037 003F;	
     // ('\U000E0037') TAG DIGIT SEVEN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0037 003F;	
     // ('\U000E0037') TAG DIGIT SEVEN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11731,26 +12487,28 @@ TEST(collation, verbatim_007_378)
 
     // E0038 003F;	
     // ('\U000E0038') TAG DIGIT EIGHT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0038 003F;	
     // ('\U000E0038') TAG DIGIT EIGHT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11762,26 +12520,28 @@ TEST(collation, verbatim_007_379)
 
     // E0039 003F;	
     // ('\U000E0039') TAG DIGIT NINE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0039 003F;	
     // ('\U000E0039') TAG DIGIT NINE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11793,26 +12553,28 @@ TEST(collation, verbatim_007_380)
 
     // E003A 003F;	
     // ('\U000E003A') TAG COLON	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E003A 003F;	
     // ('\U000E003A') TAG COLON	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11824,26 +12586,28 @@ TEST(collation, verbatim_007_381)
 
     // E003B 003F;	
     // ('\U000E003B') TAG SEMICOLON	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E003B 003F;	
     // ('\U000E003B') TAG SEMICOLON	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11855,26 +12619,28 @@ TEST(collation, verbatim_007_382)
 
     // E003C 003F;	
     // ('\U000E003C') TAG LESS-THAN SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E003C 003F;	
     // ('\U000E003C') TAG LESS-THAN SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11886,26 +12652,28 @@ TEST(collation, verbatim_007_383)
 
     // E003D 003F;	
     // ('\U000E003D') TAG EQUALS SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E003D 003F;	
     // ('\U000E003D') TAG EQUALS SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11917,26 +12685,28 @@ TEST(collation, verbatim_007_384)
 
     // E003E 003F;	
     // ('\U000E003E') TAG GREATER-THAN SIGN	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E003E 003F;	
     // ('\U000E003E') TAG GREATER-THAN SIGN	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11948,26 +12718,28 @@ TEST(collation, verbatim_007_385)
 
     // E003F 003F;	
     // ('\U000E003F') TAG QUESTION MARK	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E003F 003F;	
     // ('\U000E003F') TAG QUESTION MARK	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -11979,26 +12751,28 @@ TEST(collation, verbatim_007_386)
 
     // E0040 003F;	
     // ('\U000E0040') TAG COMMERCIAL AT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0040 003F;	
     // ('\U000E0040') TAG COMMERCIAL AT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12010,26 +12784,28 @@ TEST(collation, verbatim_007_387)
 
     // E0041 003F;	
     // ('\U000E0041') TAG LATIN CAPITAL LETTER A	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0041 003F;	
     // ('\U000E0041') TAG LATIN CAPITAL LETTER A	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12041,26 +12817,28 @@ TEST(collation, verbatim_007_388)
 
     // E0042 003F;	
     // ('\U000E0042') TAG LATIN CAPITAL LETTER B	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0042 003F;	
     // ('\U000E0042') TAG LATIN CAPITAL LETTER B	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12072,26 +12850,28 @@ TEST(collation, verbatim_007_389)
 
     // E0043 003F;	
     // ('\U000E0043') TAG LATIN CAPITAL LETTER C	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0043 003F;	
     // ('\U000E0043') TAG LATIN CAPITAL LETTER C	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12103,26 +12883,28 @@ TEST(collation, verbatim_007_390)
 
     // E0044 003F;	
     // ('\U000E0044') TAG LATIN CAPITAL LETTER D	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0044 003F;	
     // ('\U000E0044') TAG LATIN CAPITAL LETTER D	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12134,26 +12916,28 @@ TEST(collation, verbatim_007_391)
 
     // E0045 003F;	
     // ('\U000E0045') TAG LATIN CAPITAL LETTER E	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0045 003F;	
     // ('\U000E0045') TAG LATIN CAPITAL LETTER E	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12165,26 +12949,28 @@ TEST(collation, verbatim_007_392)
 
     // E0046 003F;	
     // ('\U000E0046') TAG LATIN CAPITAL LETTER F	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0046 003F;	
     // ('\U000E0046') TAG LATIN CAPITAL LETTER F	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12196,26 +12982,28 @@ TEST(collation, verbatim_007_393)
 
     // E0047 003F;	
     // ('\U000E0047') TAG LATIN CAPITAL LETTER G	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0047 003F;	
     // ('\U000E0047') TAG LATIN CAPITAL LETTER G	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12227,26 +13015,28 @@ TEST(collation, verbatim_007_394)
 
     // E0048 003F;	
     // ('\U000E0048') TAG LATIN CAPITAL LETTER H	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0048 003F;	
     // ('\U000E0048') TAG LATIN CAPITAL LETTER H	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12258,26 +13048,28 @@ TEST(collation, verbatim_007_395)
 
     // E0049 003F;	
     // ('\U000E0049') TAG LATIN CAPITAL LETTER I	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0049 003F;	
     // ('\U000E0049') TAG LATIN CAPITAL LETTER I	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12289,26 +13081,28 @@ TEST(collation, verbatim_007_396)
 
     // E004A 003F;	
     // ('\U000E004A') TAG LATIN CAPITAL LETTER J	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E004A 003F;	
     // ('\U000E004A') TAG LATIN CAPITAL LETTER J	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12320,26 +13114,28 @@ TEST(collation, verbatim_007_397)
 
     // E004B 003F;	
     // ('\U000E004B') TAG LATIN CAPITAL LETTER K	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E004B 003F;	
     // ('\U000E004B') TAG LATIN CAPITAL LETTER K	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12351,26 +13147,28 @@ TEST(collation, verbatim_007_398)
 
     // E004C 003F;	
     // ('\U000E004C') TAG LATIN CAPITAL LETTER L	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E004C 003F;	
     // ('\U000E004C') TAG LATIN CAPITAL LETTER L	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12382,26 +13180,28 @@ TEST(collation, verbatim_007_399)
 
     // E004D 003F;	
     // ('\U000E004D') TAG LATIN CAPITAL LETTER M	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E004D 003F;	
     // ('\U000E004D') TAG LATIN CAPITAL LETTER M	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12413,26 +13213,28 @@ TEST(collation, verbatim_007_400)
 
     // E004E 003F;	
     // ('\U000E004E') TAG LATIN CAPITAL LETTER N	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E004E 003F;	
     // ('\U000E004E') TAG LATIN CAPITAL LETTER N	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12444,26 +13246,28 @@ TEST(collation, verbatim_007_401)
 
     // E004F 003F;	
     // ('\U000E004F') TAG LATIN CAPITAL LETTER O	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E004F 003F;	
     // ('\U000E004F') TAG LATIN CAPITAL LETTER O	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12475,26 +13279,28 @@ TEST(collation, verbatim_007_402)
 
     // E0050 003F;	
     // ('\U000E0050') TAG LATIN CAPITAL LETTER P	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0050 003F;	
     // ('\U000E0050') TAG LATIN CAPITAL LETTER P	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12506,26 +13312,28 @@ TEST(collation, verbatim_007_403)
 
     // E0051 003F;	
     // ('\U000E0051') TAG LATIN CAPITAL LETTER Q	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0051 003F;	
     // ('\U000E0051') TAG LATIN CAPITAL LETTER Q	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12537,26 +13345,28 @@ TEST(collation, verbatim_007_404)
 
     // E0052 003F;	
     // ('\U000E0052') TAG LATIN CAPITAL LETTER R	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0052 003F;	
     // ('\U000E0052') TAG LATIN CAPITAL LETTER R	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12568,26 +13378,28 @@ TEST(collation, verbatim_007_405)
 
     // E0053 003F;	
     // ('\U000E0053') TAG LATIN CAPITAL LETTER S	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0053 003F;	
     // ('\U000E0053') TAG LATIN CAPITAL LETTER S	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12599,26 +13411,28 @@ TEST(collation, verbatim_007_406)
 
     // E0054 003F;	
     // ('\U000E0054') TAG LATIN CAPITAL LETTER T	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0054 003F;	
     // ('\U000E0054') TAG LATIN CAPITAL LETTER T	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12630,26 +13444,28 @@ TEST(collation, verbatim_007_407)
 
     // E0055 003F;	
     // ('\U000E0055') TAG LATIN CAPITAL LETTER U	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0055 003F;	
     // ('\U000E0055') TAG LATIN CAPITAL LETTER U	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12661,26 +13477,28 @@ TEST(collation, verbatim_007_408)
 
     // E0056 003F;	
     // ('\U000E0056') TAG LATIN CAPITAL LETTER V	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0056 003F;	
     // ('\U000E0056') TAG LATIN CAPITAL LETTER V	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12692,26 +13510,28 @@ TEST(collation, verbatim_007_409)
 
     // E0057 003F;	
     // ('\U000E0057') TAG LATIN CAPITAL LETTER W	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0057 003F;	
     // ('\U000E0057') TAG LATIN CAPITAL LETTER W	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12723,26 +13543,28 @@ TEST(collation, verbatim_007_410)
 
     // E0058 003F;	
     // ('\U000E0058') TAG LATIN CAPITAL LETTER X	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0058 003F;	
     // ('\U000E0058') TAG LATIN CAPITAL LETTER X	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12754,26 +13576,28 @@ TEST(collation, verbatim_007_411)
 
     // E0059 003F;	
     // ('\U000E0059') TAG LATIN CAPITAL LETTER Y	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0059 003F;	
     // ('\U000E0059') TAG LATIN CAPITAL LETTER Y	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12785,26 +13609,28 @@ TEST(collation, verbatim_007_412)
 
     // E005A 003F;	
     // ('\U000E005A') TAG LATIN CAPITAL LETTER Z	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E005A 003F;	
     // ('\U000E005A') TAG LATIN CAPITAL LETTER Z	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12816,26 +13642,28 @@ TEST(collation, verbatim_007_413)
 
     // E005B 003F;	
     // ('\U000E005B') TAG LEFT SQUARE BRACKET	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E005B 003F;	
     // ('\U000E005B') TAG LEFT SQUARE BRACKET	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12847,26 +13675,28 @@ TEST(collation, verbatim_007_414)
 
     // E005C 003F;	
     // ('\U000E005C') TAG REVERSE SOLIDUS	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E005C 003F;	
     // ('\U000E005C') TAG REVERSE SOLIDUS	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12878,26 +13708,28 @@ TEST(collation, verbatim_007_415)
 
     // E005D 003F;	
     // ('\U000E005D') TAG RIGHT SQUARE BRACKET	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E005D 003F;	
     // ('\U000E005D') TAG RIGHT SQUARE BRACKET	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12909,26 +13741,28 @@ TEST(collation, verbatim_007_416)
 
     // E005E 003F;	
     // ('\U000E005E') TAG CIRCUMFLEX ACCENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E005E 003F;	
     // ('\U000E005E') TAG CIRCUMFLEX ACCENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12940,26 +13774,28 @@ TEST(collation, verbatim_007_417)
 
     // E005F 003F;	
     // ('\U000E005F') TAG LOW LINE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E005F 003F;	
     // ('\U000E005F') TAG LOW LINE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -12971,26 +13807,28 @@ TEST(collation, verbatim_007_418)
 
     // E0060 003F;	
     // ('\U000E0060') TAG GRAVE ACCENT	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0060 003F;	
     // ('\U000E0060') TAG GRAVE ACCENT	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13002,26 +13840,28 @@ TEST(collation, verbatim_007_419)
 
     // E0061 003F;	
     // ('\U000E0061') TAG LATIN SMALL LETTER A	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0061 003F;	
     // ('\U000E0061') TAG LATIN SMALL LETTER A	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13033,26 +13873,28 @@ TEST(collation, verbatim_007_420)
 
     // E0062 003F;	
     // ('\U000E0062') TAG LATIN SMALL LETTER B	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0062 003F;	
     // ('\U000E0062') TAG LATIN SMALL LETTER B	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13064,26 +13906,28 @@ TEST(collation, verbatim_007_421)
 
     // E0063 003F;	
     // ('\U000E0063') TAG LATIN SMALL LETTER C	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0063 003F;	
     // ('\U000E0063') TAG LATIN SMALL LETTER C	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13095,26 +13939,28 @@ TEST(collation, verbatim_007_422)
 
     // E0064 003F;	
     // ('\U000E0064') TAG LATIN SMALL LETTER D	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0064 003F;	
     // ('\U000E0064') TAG LATIN SMALL LETTER D	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13126,26 +13972,28 @@ TEST(collation, verbatim_007_423)
 
     // E0065 003F;	
     // ('\U000E0065') TAG LATIN SMALL LETTER E	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0065 003F;	
     // ('\U000E0065') TAG LATIN SMALL LETTER E	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13157,26 +14005,28 @@ TEST(collation, verbatim_007_424)
 
     // E0066 003F;	
     // ('\U000E0066') TAG LATIN SMALL LETTER F	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0066 003F;	
     // ('\U000E0066') TAG LATIN SMALL LETTER F	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13188,26 +14038,28 @@ TEST(collation, verbatim_007_425)
 
     // E0067 003F;	
     // ('\U000E0067') TAG LATIN SMALL LETTER G	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0067 003F;	
     // ('\U000E0067') TAG LATIN SMALL LETTER G	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13219,26 +14071,28 @@ TEST(collation, verbatim_007_426)
 
     // E0068 003F;	
     // ('\U000E0068') TAG LATIN SMALL LETTER H	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0068 003F;	
     // ('\U000E0068') TAG LATIN SMALL LETTER H	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13250,26 +14104,28 @@ TEST(collation, verbatim_007_427)
 
     // E0069 003F;	
     // ('\U000E0069') TAG LATIN SMALL LETTER I	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0069 003F;	
     // ('\U000E0069') TAG LATIN SMALL LETTER I	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13281,26 +14137,28 @@ TEST(collation, verbatim_007_428)
 
     // E006A 003F;	
     // ('\U000E006A') TAG LATIN SMALL LETTER J	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E006A 003F;	
     // ('\U000E006A') TAG LATIN SMALL LETTER J	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13312,26 +14170,28 @@ TEST(collation, verbatim_007_429)
 
     // E006B 003F;	
     // ('\U000E006B') TAG LATIN SMALL LETTER K	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E006B 003F;	
     // ('\U000E006B') TAG LATIN SMALL LETTER K	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13343,26 +14203,28 @@ TEST(collation, verbatim_007_430)
 
     // E006C 003F;	
     // ('\U000E006C') TAG LATIN SMALL LETTER L	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E006C 003F;	
     // ('\U000E006C') TAG LATIN SMALL LETTER L	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13374,26 +14236,28 @@ TEST(collation, verbatim_007_431)
 
     // E006D 003F;	
     // ('\U000E006D') TAG LATIN SMALL LETTER M	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E006D 003F;	
     // ('\U000E006D') TAG LATIN SMALL LETTER M	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13405,26 +14269,28 @@ TEST(collation, verbatim_007_432)
 
     // E006E 003F;	
     // ('\U000E006E') TAG LATIN SMALL LETTER N	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E006E 003F;	
     // ('\U000E006E') TAG LATIN SMALL LETTER N	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13436,26 +14302,28 @@ TEST(collation, verbatim_007_433)
 
     // E006F 003F;	
     // ('\U000E006F') TAG LATIN SMALL LETTER O	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E006F 003F;	
     // ('\U000E006F') TAG LATIN SMALL LETTER O	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13467,26 +14335,28 @@ TEST(collation, verbatim_007_434)
 
     // E0070 003F;	
     // ('\U000E0070') TAG LATIN SMALL LETTER P	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0070 003F;	
     // ('\U000E0070') TAG LATIN SMALL LETTER P	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13498,26 +14368,28 @@ TEST(collation, verbatim_007_435)
 
     // E0071 003F;	
     // ('\U000E0071') TAG LATIN SMALL LETTER Q	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0071 003F;	
     // ('\U000E0071') TAG LATIN SMALL LETTER Q	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13529,26 +14401,28 @@ TEST(collation, verbatim_007_436)
 
     // E0072 003F;	
     // ('\U000E0072') TAG LATIN SMALL LETTER R	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0072 003F;	
     // ('\U000E0072') TAG LATIN SMALL LETTER R	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13560,26 +14434,28 @@ TEST(collation, verbatim_007_437)
 
     // E0073 003F;	
     // ('\U000E0073') TAG LATIN SMALL LETTER S	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0073 003F;	
     // ('\U000E0073') TAG LATIN SMALL LETTER S	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13591,26 +14467,28 @@ TEST(collation, verbatim_007_438)
 
     // E0074 003F;	
     // ('\U000E0074') TAG LATIN SMALL LETTER T	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0074 003F;	
     // ('\U000E0074') TAG LATIN SMALL LETTER T	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13622,26 +14500,28 @@ TEST(collation, verbatim_007_439)
 
     // E0075 003F;	
     // ('\U000E0075') TAG LATIN SMALL LETTER U	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0075 003F;	
     // ('\U000E0075') TAG LATIN SMALL LETTER U	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13653,26 +14533,28 @@ TEST(collation, verbatim_007_440)
 
     // E0076 003F;	
     // ('\U000E0076') TAG LATIN SMALL LETTER V	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0076 003F;	
     // ('\U000E0076') TAG LATIN SMALL LETTER V	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13684,26 +14566,28 @@ TEST(collation, verbatim_007_441)
 
     // E0077 003F;	
     // ('\U000E0077') TAG LATIN SMALL LETTER W	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0077 003F;	
     // ('\U000E0077') TAG LATIN SMALL LETTER W	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13715,26 +14599,28 @@ TEST(collation, verbatim_007_442)
 
     // E0078 003F;	
     // ('\U000E0078') TAG LATIN SMALL LETTER X	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0078 003F;	
     // ('\U000E0078') TAG LATIN SMALL LETTER X	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13746,26 +14632,28 @@ TEST(collation, verbatim_007_443)
 
     // E0079 003F;	
     // ('\U000E0079') TAG LATIN SMALL LETTER Y	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0079 003F;	
     // ('\U000E0079') TAG LATIN SMALL LETTER Y	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13777,26 +14665,28 @@ TEST(collation, verbatim_007_444)
 
     // E007A 003F;	
     // ('\U000E007A') TAG LATIN SMALL LETTER Z	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E007A 003F;	
     // ('\U000E007A') TAG LATIN SMALL LETTER Z	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13808,26 +14698,28 @@ TEST(collation, verbatim_007_445)
 
     // E007B 003F;	
     // ('\U000E007B') TAG LEFT CURLY BRACKET	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E007B 003F;	
     // ('\U000E007B') TAG LEFT CURLY BRACKET	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13839,26 +14731,28 @@ TEST(collation, verbatim_007_446)
 
     // E007C 003F;	
     // ('\U000E007C') TAG VERTICAL LINE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E007C 003F;	
     // ('\U000E007C') TAG VERTICAL LINE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13870,26 +14764,28 @@ TEST(collation, verbatim_007_447)
 
     // E007D 003F;	
     // ('\U000E007D') TAG RIGHT CURLY BRACKET	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E007D 003F;	
     // ('\U000E007D') TAG RIGHT CURLY BRACKET	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13901,26 +14797,28 @@ TEST(collation, verbatim_007_448)
 
     // E007E 003F;	
     // ('\U000E007E') TAG TILDE	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E007E 003F;	
     // ('\U000E007E') TAG TILDE	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13932,26 +14830,28 @@ TEST(collation, verbatim_007_449)
 
     // E007F 003F;	
     // ('\U000E007F') CANCEL TAG	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E007F 003F;	
     // ('\U000E007F') CANCEL TAG	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13963,26 +14863,28 @@ TEST(collation, verbatim_007_450)
 
     // E0100 003F;	
     // (󠄀) VARIATION SELECTOR-17	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0100 003F;	
     // (󠄀) VARIATION SELECTOR-17	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -13994,26 +14896,28 @@ TEST(collation, verbatim_007_451)
 
     // E0101 003F;	
     // (󠄁) VARIATION SELECTOR-18	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0101 003F;	
     // (󠄁) VARIATION SELECTOR-18	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14025,26 +14929,28 @@ TEST(collation, verbatim_007_452)
 
     // E0102 003F;	
     // (󠄂) VARIATION SELECTOR-19	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0102 003F;	
     // (󠄂) VARIATION SELECTOR-19	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14056,26 +14962,28 @@ TEST(collation, verbatim_007_453)
 
     // E0103 003F;	
     // (󠄃) VARIATION SELECTOR-20	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0103 003F;	
     // (󠄃) VARIATION SELECTOR-20	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14087,26 +14995,28 @@ TEST(collation, verbatim_007_454)
 
     // E0104 003F;	
     // (󠄄) VARIATION SELECTOR-21	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0104 003F;	
     // (󠄄) VARIATION SELECTOR-21	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14118,26 +15028,28 @@ TEST(collation, verbatim_007_455)
 
     // E0105 003F;	
     // (󠄅) VARIATION SELECTOR-22	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0105 003F;	
     // (󠄅) VARIATION SELECTOR-22	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14149,26 +15061,28 @@ TEST(collation, verbatim_007_456)
 
     // E0106 003F;	
     // (󠄆) VARIATION SELECTOR-23	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0106 003F;	
     // (󠄆) VARIATION SELECTOR-23	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14180,26 +15094,28 @@ TEST(collation, verbatim_007_457)
 
     // E0107 003F;	
     // (󠄇) VARIATION SELECTOR-24	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0107 003F;	
     // (󠄇) VARIATION SELECTOR-24	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14211,26 +15127,28 @@ TEST(collation, verbatim_007_458)
 
     // E0108 003F;	
     // (󠄈) VARIATION SELECTOR-25	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0108 003F;	
     // (󠄈) VARIATION SELECTOR-25	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14242,26 +15160,28 @@ TEST(collation, verbatim_007_459)
 
     // E0109 003F;	
     // (󠄉) VARIATION SELECTOR-26	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0109 003F;	
     // (󠄉) VARIATION SELECTOR-26	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14273,26 +15193,28 @@ TEST(collation, verbatim_007_460)
 
     // E010A 003F;	
     // (󠄊) VARIATION SELECTOR-27	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E010A 003F;	
     // (󠄊) VARIATION SELECTOR-27	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14304,26 +15226,28 @@ TEST(collation, verbatim_007_461)
 
     // E010B 003F;	
     // (󠄋) VARIATION SELECTOR-28	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E010B 003F;	
     // (󠄋) VARIATION SELECTOR-28	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14335,26 +15259,28 @@ TEST(collation, verbatim_007_462)
 
     // E010C 003F;	
     // (󠄌) VARIATION SELECTOR-29	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E010C 003F;	
     // (󠄌) VARIATION SELECTOR-29	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14366,26 +15292,28 @@ TEST(collation, verbatim_007_463)
 
     // E010D 003F;	
     // (󠄍) VARIATION SELECTOR-30	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E010D 003F;	
     // (󠄍) VARIATION SELECTOR-30	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14397,26 +15325,28 @@ TEST(collation, verbatim_007_464)
 
     // E010E 003F;	
     // (󠄎) VARIATION SELECTOR-31	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E010E 003F;	
     // (󠄎) VARIATION SELECTOR-31	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14428,26 +15358,28 @@ TEST(collation, verbatim_007_465)
 
     // E010F 003F;	
     // (󠄏) VARIATION SELECTOR-32	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E010F 003F;	
     // (󠄏) VARIATION SELECTOR-32	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14459,26 +15391,28 @@ TEST(collation, verbatim_007_466)
 
     // E0110 003F;	
     // (󠄐) VARIATION SELECTOR-33	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0110 003F;	
     // (󠄐) VARIATION SELECTOR-33	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14490,26 +15424,28 @@ TEST(collation, verbatim_007_467)
 
     // E0111 003F;	
     // (󠄑) VARIATION SELECTOR-34	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0111 003F;	
     // (󠄑) VARIATION SELECTOR-34	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14521,26 +15457,28 @@ TEST(collation, verbatim_007_468)
 
     // E0112 003F;	
     // (󠄒) VARIATION SELECTOR-35	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0112 003F;	
     // (󠄒) VARIATION SELECTOR-35	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14552,26 +15490,28 @@ TEST(collation, verbatim_007_469)
 
     // E0113 003F;	
     // (󠄓) VARIATION SELECTOR-36	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0113 003F;	
     // (󠄓) VARIATION SELECTOR-36	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14583,26 +15523,28 @@ TEST(collation, verbatim_007_470)
 
     // E0114 003F;	
     // (󠄔) VARIATION SELECTOR-37	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0114 003F;	
     // (󠄔) VARIATION SELECTOR-37	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14614,26 +15556,28 @@ TEST(collation, verbatim_007_471)
 
     // E0115 003F;	
     // (󠄕) VARIATION SELECTOR-38	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0115 003F;	
     // (󠄕) VARIATION SELECTOR-38	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14645,26 +15589,28 @@ TEST(collation, verbatim_007_472)
 
     // E0116 003F;	
     // (󠄖) VARIATION SELECTOR-39	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0116 003F;	
     // (󠄖) VARIATION SELECTOR-39	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14676,26 +15622,28 @@ TEST(collation, verbatim_007_473)
 
     // E0117 003F;	
     // (󠄗) VARIATION SELECTOR-40	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0117 003F;	
     // (󠄗) VARIATION SELECTOR-40	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14707,26 +15655,28 @@ TEST(collation, verbatim_007_474)
 
     // E0118 003F;	
     // (󠄘) VARIATION SELECTOR-41	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0118 003F;	
     // (󠄘) VARIATION SELECTOR-41	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14738,26 +15688,28 @@ TEST(collation, verbatim_007_475)
 
     // E0119 003F;	
     // (󠄙) VARIATION SELECTOR-42	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0119 003F;	
     // (󠄙) VARIATION SELECTOR-42	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14769,26 +15721,28 @@ TEST(collation, verbatim_007_476)
 
     // E011A 003F;	
     // (󠄚) VARIATION SELECTOR-43	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E011A 003F;	
     // (󠄚) VARIATION SELECTOR-43	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14800,26 +15754,28 @@ TEST(collation, verbatim_007_477)
 
     // E011B 003F;	
     // (󠄛) VARIATION SELECTOR-44	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E011B 003F;	
     // (󠄛) VARIATION SELECTOR-44	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14831,26 +15787,28 @@ TEST(collation, verbatim_007_478)
 
     // E011C 003F;	
     // (󠄜) VARIATION SELECTOR-45	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E011C 003F;	
     // (󠄜) VARIATION SELECTOR-45	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14862,26 +15820,28 @@ TEST(collation, verbatim_007_479)
 
     // E011D 003F;	
     // (󠄝) VARIATION SELECTOR-46	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E011D 003F;	
     // (󠄝) VARIATION SELECTOR-46	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14893,26 +15853,28 @@ TEST(collation, verbatim_007_480)
 
     // E011E 003F;	
     // (󠄞) VARIATION SELECTOR-47	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E011E 003F;	
     // (󠄞) VARIATION SELECTOR-47	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14924,26 +15886,28 @@ TEST(collation, verbatim_007_481)
 
     // E011F 003F;	
     // (󠄟) VARIATION SELECTOR-48	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E011F 003F;	
     // (󠄟) VARIATION SELECTOR-48	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14955,26 +15919,28 @@ TEST(collation, verbatim_007_482)
 
     // E0120 003F;	
     // (󠄠) VARIATION SELECTOR-49	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0120 003F;	
     // (󠄠) VARIATION SELECTOR-49	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -14986,26 +15952,28 @@ TEST(collation, verbatim_007_483)
 
     // E0121 003F;	
     // (󠄡) VARIATION SELECTOR-50	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0121 003F;	
     // (󠄡) VARIATION SELECTOR-50	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15017,26 +15985,28 @@ TEST(collation, verbatim_007_484)
 
     // E0122 003F;	
     // (󠄢) VARIATION SELECTOR-51	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0122 003F;	
     // (󠄢) VARIATION SELECTOR-51	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15048,26 +16018,28 @@ TEST(collation, verbatim_007_485)
 
     // E0123 003F;	
     // (󠄣) VARIATION SELECTOR-52	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0123 003F;	
     // (󠄣) VARIATION SELECTOR-52	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15079,26 +16051,28 @@ TEST(collation, verbatim_007_486)
 
     // E0124 003F;	
     // (󠄤) VARIATION SELECTOR-53	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0124 003F;	
     // (󠄤) VARIATION SELECTOR-53	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15110,26 +16084,28 @@ TEST(collation, verbatim_007_487)
 
     // E0125 003F;	
     // (󠄥) VARIATION SELECTOR-54	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0125 003F;	
     // (󠄥) VARIATION SELECTOR-54	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15141,26 +16117,28 @@ TEST(collation, verbatim_007_488)
 
     // E0126 003F;	
     // (󠄦) VARIATION SELECTOR-55	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0126 003F;	
     // (󠄦) VARIATION SELECTOR-55	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15172,26 +16150,28 @@ TEST(collation, verbatim_007_489)
 
     // E0127 003F;	
     // (󠄧) VARIATION SELECTOR-56	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0127 003F;	
     // (󠄧) VARIATION SELECTOR-56	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15203,26 +16183,28 @@ TEST(collation, verbatim_007_490)
 
     // E0128 003F;	
     // (󠄨) VARIATION SELECTOR-57	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0128 003F;	
     // (󠄨) VARIATION SELECTOR-57	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15234,26 +16216,28 @@ TEST(collation, verbatim_007_491)
 
     // E0129 003F;	
     // (󠄩) VARIATION SELECTOR-58	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0129 003F;	
     // (󠄩) VARIATION SELECTOR-58	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15265,26 +16249,28 @@ TEST(collation, verbatim_007_492)
 
     // E012A 003F;	
     // (󠄪) VARIATION SELECTOR-59	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E012A 003F;	
     // (󠄪) VARIATION SELECTOR-59	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15296,26 +16282,28 @@ TEST(collation, verbatim_007_493)
 
     // E012B 003F;	
     // (󠄫) VARIATION SELECTOR-60	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E012B 003F;	
     // (󠄫) VARIATION SELECTOR-60	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15327,26 +16315,28 @@ TEST(collation, verbatim_007_494)
 
     // E012C 003F;	
     // (󠄬) VARIATION SELECTOR-61	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E012C 003F;	
     // (󠄬) VARIATION SELECTOR-61	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15358,26 +16348,28 @@ TEST(collation, verbatim_007_495)
 
     // E012D 003F;	
     // (󠄭) VARIATION SELECTOR-62	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E012D 003F;	
     // (󠄭) VARIATION SELECTOR-62	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15389,26 +16381,28 @@ TEST(collation, verbatim_007_496)
 
     // E012E 003F;	
     // (󠄮) VARIATION SELECTOR-63	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E012E 003F;	
     // (󠄮) VARIATION SELECTOR-63	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15420,26 +16414,28 @@ TEST(collation, verbatim_007_497)
 
     // E012F 003F;	
     // (󠄯) VARIATION SELECTOR-64	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E012F 003F;	
     // (󠄯) VARIATION SELECTOR-64	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15451,26 +16447,28 @@ TEST(collation, verbatim_007_498)
 
     // E0130 003F;	
     // (󠄰) VARIATION SELECTOR-65	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0130 003F;	
     // (󠄰) VARIATION SELECTOR-65	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);
@@ -15482,26 +16480,28 @@ TEST(collation, verbatim_007_499)
 
     // E0131 003F;	
     // (󠄱) VARIATION SELECTOR-66	[0267 | 0020 | 0002 |]
-    uint32_t const ces_non_ignorable[6] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002, 0x0000 };
+    uint32_t const ces_non_ignorable[5] = { 0x0267, 0x0000, 0x0020, 0x0000, 0x0002 };
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
-    EXPECT_EQ(non_ignorable.size(), 6);
-    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 6))
+    EXPECT_EQ(non_ignorable.size(), 5);
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + 5))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_non_ignorable)
         << "got:      " << ce_dumper(non_ignorable);
 
     // E0131 003F;	
     // (󠄱) VARIATION SELECTOR-66	[| | | 0267 |]
-    uint32_t const ces_shifted[5] = { 0x0000, 0x0000, 0x0000, 0x0267, 0x0000 };
+    uint32_t const ces_shifted[4] = { 0x0000, 0x0000, 0x0000, 0x0267 };
 
     auto const shifted = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::shifted);
+        cps, cps + 2, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
-    EXPECT_EQ(shifted.size(), 5);
-    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 5))
+    EXPECT_EQ(shifted.size(), 4);
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + 4))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces_shifted)
         << "got:      " << ce_dumper(shifted);

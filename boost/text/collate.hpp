@@ -5,6 +5,7 @@
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
 
+#include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
@@ -12,29 +13,28 @@
 namespace boost { namespace text {
 
     /** TODO */
+    enum class collation_strength {
+        primary,
+        secondary,
+        tertiary,
+        quaternary,
+        identical
+    };
+
+    /** TODO */
     enum class variable_weighting { non_ignorable, shifted };
+
+    /** TODO */
+    enum class l2_weight_order { forward, backward };
 
     /** TODO */
     struct text_sort_key
     {
         using iterator = std::vector<uint32_t>::const_iterator;
 
-        explicit text_sort_key(
-            std::vector<collation_element> const & collation_elements)
-        {
-            // TODO: Totally wrong!
-#if 0
-            storage_.resize(collation_elements.size());
-            std::transform(
-                collation_elements.begin(),
-                collation_elements.end(),
-                storage_.begin(),
-                [](compressed_collation_element e) {
-                    return uint32_t(e.l1()) << 16 | uint32_t(e.l2()) << 8 |
-                           uint32_t(e.l3());
-                });
-#endif
-        }
+        explicit text_sort_key(std::vector<uint32_t> bytes) :
+            storage_(std::move(bytes))
+        {}
 
         iterator begin() const noexcept { return storage_.begin(); }
         iterator end() const noexcept { return storage_.end(); }
@@ -264,8 +264,8 @@ namespace boost { namespace text {
         void
         s2(Iter first,
            Iter last,
-           std::vector<collation_element> & ces,
-           variable_weighting weighting)
+           variable_weighting weighting,
+           container::small_vector<collation_element, 1024> & ces)
         {
             bool after_variable = false;
             while (first != last) {
@@ -333,10 +333,94 @@ namespace boost { namespace text {
             }
         }
 
-        inline text_sort_key
-        collation_sort_key(string const & s, variable_weighting weighting)
+        inline void
+            s3(container::small_vector<collation_element, 1024> const & ces,
+               collation_strength strength,
+               l2_weight_order l2_order,
+               std::vector<uint32_t> & bytes)
         {
-            std::vector<collation_element> ces;
+            assert(
+                strength != collation_strength::identical &&
+                "Not yet implemented!");
+
+            // TODO: Provide an API for passing in scratch space so that l[1-4]
+            // are not repeatedly realloacted.  (Same with th NFD string above.)
+            boost::container::small_vector<uint32_t, 256> l1;
+            boost::container::small_vector<uint32_t, 256> l2;
+            boost::container::small_vector<uint32_t, 256> l3;
+            boost::container::small_vector<uint32_t, 256> l4;
+            l1.reserve(ces.size());
+            if (collation_strength::primary < strength) {
+                l2.reserve(ces.size());
+                if (collation_strength::secondary < strength) {
+                    l3.reserve(ces.size());
+                    if (collation_strength::tertiary < strength)
+                        l4.reserve(ces.size());
+                }
+            }
+
+            for (auto ce : ces) {
+                if (ce.l1_)
+                    l1.push_back(ce.l1_);
+                if (collation_strength::primary < strength) {
+                    if (ce.l2_)
+                        l2.push_back(ce.l2_);
+                    if (collation_strength::secondary < strength) {
+                        if (ce.l3_)
+                            l3.push_back(ce.l3_);
+                        if (collation_strength::tertiary < strength) {
+                            if (ce.l4_)
+                                l4.push_back(ce.l4_);
+                        }
+                    }
+                }
+            }
+
+            // TODO: Needs to change under certain compression schemes.
+            int const separators = static_cast<int>(strength);
+
+            int size = l1.size();
+            if (collation_strength::primary < strength) {
+                size += l2.size();
+                if (collation_strength::secondary < strength) {
+                    size += l3.size();
+                    if (collation_strength::tertiary < strength)
+                        size += l4.size();
+                }
+            }
+            size += separators;
+
+            bytes.resize(bytes.size() + size);
+
+            auto it = bytes.end() - size;
+            it = std::copy(l1.begin(), l1.end(), it);
+            if (collation_strength::primary < strength) {
+                *it++ = 0x000;
+                if (l2_order == l2_weight_order::forward)
+                    it = std::copy(l2.begin(), l2.end(), it);
+                else
+                    it = std::copy(l2.rbegin(), l2.rend(), it);
+                if (collation_strength::secondary < strength) {
+                    *it++ = 0x000;
+                    it = std::copy(l3.begin(), l3.end(), it);
+                    if (collation_strength::tertiary < strength) {
+                        *it++ = 0x000;
+                        it = std::copy(l4.begin(), l4.end(), it);
+                    }
+                }
+            }
+            assert(it == bytes.end());
+        }
+
+        inline text_sort_key collation_sort_key(
+            string const & s,
+            collation_strength strength,
+            variable_weighting weighting,
+            l2_weight_order l2_order)
+        {
+            std::vector<uint32_t> bytes;
+            container::small_vector<collation_element, 1024> ces;
+
             utf32_range as_utf32(s);
             // TODO: Try tuning this buffer size for perf.
             std::array<uint32_t, 256> buffer;
@@ -349,11 +433,11 @@ namespace boost { namespace text {
                 }
 
                 // The chunk we pass to S2 should end at the earliest
-                // contiguous starter (ccc == 0) we find sarching backward
-                // from the end.  This is because 1) we don't want to cut
-                // off trailing combining characters that may participate in
-                // longest-match determination in S2.1, and 2) in S2.3 we
-                // need to know if earlier CPs are variable-weighted or not.
+                // contiguous starter (ccc == 0) we find searching backward
+                // from the end.  This is because 1) we don't want to cut off
+                // trailing combining characters that may participate in
+                // longest-match determination in S2.1, and 2) in S2.3 we need
+                // to know if earlier CPs are variable-weighted or not.
                 auto s2_it = buf_it;
                 if (s2_it == buffer.end()) {
                     while (s2_it != buffer.begin()) {
@@ -367,24 +451,30 @@ namespace boost { namespace text {
                     ++s2_it;
                 }
 
-                s2(buffer.begin(), buf_it, ces, weighting);
+                s2(buffer.begin(), buf_it, weighting, ces);
+                s3(ces, strength, l2_order, bytes);
+                ces.clear();
                 as_utf32 = utf32_range(it, as_utf32.end());
                 buf_it = std::copy(s2_it, buf_it, buffer.begin());
             }
-            return text_sort_key(ces);
+            return text_sort_key(std::move(bytes));
         }
 
         inline int collate(
             string const & lhs,
             string const & rhs,
-            variable_weighting weighting)
+            collation_strength strength,
+            variable_weighting weighting,
+            l2_weight_order l2_order)
         {
             // TODO: Do this incrementally, and bail early once the answer
             // is certain.
             // TODO: Do this into stack buffers to avoid allocation for
             // small enough strings.
-            text_sort_key const lhs_sk = collation_sort_key(lhs, weighting);
-            text_sort_key const rhs_sk = collation_sort_key(rhs, weighting);
+            text_sort_key const lhs_sk =
+                collation_sort_key(lhs, strength, weighting, l2_order);
+            text_sort_key const rhs_sk =
+                collation_sort_key(rhs, strength, weighting, l2_order);
             return lhs_sk.compare(rhs_sk);
         }
     }
@@ -392,19 +482,26 @@ namespace boost { namespace text {
     /** TODO
         TODO: string -> text
     */
-    inline text_sort_key
-    collation_sort_key(string const & s, variable_weighting weighting)
+    inline text_sort_key collation_sort_key(
+        string const & s,
+        collation_strength strength,
+        variable_weighting weighting,
+        l2_weight_order l2_order = l2_weight_order::forward)
     {
-        return detail::collation_sort_key(s, weighting);
+        return detail::collation_sort_key(s, strength, weighting, l2_order);
     }
 
     /** TODO
         TODO: string -> text
     */
     inline int collate(
-        string const & lhs, string const & rhs, variable_weighting weighting)
+        string const & lhs,
+        string const & rhs,
+        collation_strength strength,
+        variable_weighting weighting,
+        l2_weight_order l2_order = l2_weight_order::forward)
     {
-        return detail::collate(lhs, rhs, weighting);
+        return detail::collate(lhs, rhs, strength, weighting, l2_order);
     }
 
     // TODO: Tailored collation.

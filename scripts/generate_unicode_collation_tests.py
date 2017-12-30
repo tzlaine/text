@@ -172,6 +172,7 @@ def generate_collation_tests(non_ignorable_filename, shifted_filename):
             cps = map(lambda x: '0x' + x, line.split(';')[0].split(' '))
             ces_match = collation_elements_regex.search(shifted_comment)
             ces = ces_match.group(1).replace('|', '0000').split(' ')
+            ces = ces[:-1]
             ces_shifted = map(lambda x: '0x' + x, ces)
             shifted[tuple(cps)] = (shifted_comment, ces_shifted)
 
@@ -200,6 +201,7 @@ def generate_collation_tests(non_ignorable_filename, shifted_filename):
             cps = map(lambda x: '0x' + x, non_ignorable_line.split(';')[0].split(' '))
             ces_match = collation_elements_regex.search(non_ignorable_comment)
             ces = ces_match.group(1).replace('|', '0000').split(' ')
+            ces = ces[:-1]
             ces_non_ignorable = map(lambda x: '0x' + x, ces)
 
             (shifted_comment, ces_shifted) = shifted[tuple(cps)]
@@ -213,7 +215,8 @@ TEST(collation, verbatim_{1:03}_{2:03})
     uint32_t const ces_non_ignorable[{8}] = {{ {7} }};
 
     auto const non_ignorable = collate_for_tests(
-        cps, cps + {6}, boost::text::variable_weighting::non_ignorable);
+        cps, cps + {6}, boost::text::variable_weighting::non_ignorable,
+        boost::text::collation_strength::tertiary);
 
     EXPECT_EQ(non_ignorable.size(), {8});
     EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + {8}))
@@ -225,7 +228,8 @@ TEST(collation, verbatim_{1:03}_{2:03})
     uint32_t const ces_shifted[{10}] = {{ {9} }};
 
     auto const shifted = collate_for_tests(
-        cps, cps + {6}, boost::text::variable_weighting::shifted);
+        cps, cps + {6}, boost::text::variable_weighting::shifted,
+        boost::text::collation_strength::quaternary);
 
     EXPECT_EQ(shifted.size(), {10});
     EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + {10}))
