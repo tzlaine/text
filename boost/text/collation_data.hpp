@@ -54,7 +54,6 @@ namespace boost { namespace text {
         uint16_t l2_;
         uint16_t l3_;
         uint16_t l4_;
-        uint32_t identical_;
     };
 
     inline collation_element
@@ -63,10 +62,10 @@ namespace boost { namespace text {
         return collation_element{ce.l1(), ce.l2(), ce.l3()};
     }
 
-    inline collation_element to_collation_element(
-        compressed_collation_element ce, uint16_t l4, uint32_t cp = 0)
+    inline collation_element
+    to_collation_element(compressed_collation_element ce, uint16_t l4)
     {
-        return collation_element{ce.l1(), ce.l2(), ce.l3(), l4, cp};
+        return collation_element{ce.l1(), ce.l2(), ce.l3(), l4};
     }
 
     namespace detail {

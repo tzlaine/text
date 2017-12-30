@@ -68,12 +68,10 @@ std::vector<uint32_t> collate_for_tests(
     boost::container::small_vector<uint32_t, 256> l2;
     boost::container::small_vector<uint32_t, 256> l3;
     boost::container::small_vector<uint32_t, 256> l4;
-    boost::container::small_vector<uint32_t, 256> identical;
     l1.reserve(ces.size());
     l2.reserve(ces.size());
     l3.reserve(ces.size());
     l4.reserve(ces.size());
-    identical.reserve(ces.size());
 
     for (auto ce : ces) {
         if (ce.l1_)
@@ -82,10 +80,8 @@ std::vector<uint32_t> collate_for_tests(
             l2.push_back(ce.l2_);
         if (ce.l3_)
             l3.push_back(ce.l3_);
-        if (ce.l4_) // TODO && (l4.empty() || l4.back() != 0xffff || ce.l4_ != 0xffff))
+        if (ce.l4_)
             l4.push_back(ce.l4_);
-        if (ce.identical_)
-            identical.push_back(ce.identical_);
     }
 
     // TODO: Base this on the level selection instead.
@@ -93,8 +89,7 @@ std::vector<uint32_t> collate_for_tests(
         weighting == boost::text::variable_weighting::non_ignorable ? 3 : 4;
 
     retval.resize(
-        l1.size() + l2.size() + l3.size() + l4.size() + identical.size() +
-        separators);
+        l1.size() + l2.size() + l3.size() + l4.size() + separators);
     auto it = retval.begin();
     it = std::copy(l1.begin(), l1.end(), it);
     *it++ = 0x000;
@@ -104,10 +99,8 @@ std::vector<uint32_t> collate_for_tests(
     *it++ = 0x000;
     it = std::copy(l4.begin(), l4.end(), it);
     // TODO: Predicate on level instead.
-    if (weighting == boost::text::variable_weighting::shifted) {
+    if (weighting == boost::text::variable_weighting::shifted)
         *it++ = 0x000;
-        it = std::copy(identical.begin(), identical.end(), it);
-    }
     assert(it == retval.end());
 
     return retval;

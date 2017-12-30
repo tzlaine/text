@@ -12,7 +12,7 @@
 namespace boost { namespace text {
 
     /** TODO */
-    enum class variable_weighting { non_ignorable, blanked, shifted };
+    enum class variable_weighting { non_ignorable, shifted };
 
     /** TODO */
     struct text_sort_key
@@ -321,7 +321,7 @@ namespace boost { namespace text {
                     collation_.node_.collation_elements_.end(),
                     std::back_inserter(ces),
                     [](compressed_collation_element ce) {
-                        return collation_element{ce.l1(), ce.l2(), ce.l3()};
+                        return to_collation_element(ce);
                     });
 
                 // S2.3
