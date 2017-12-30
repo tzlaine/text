@@ -322,13 +322,15 @@ def collation_elements_for_decomposition(cccs_dict, ducet, cps):
 # http://www.unicode.org/notes/tn5/#Enumerating_Equivalent_Strings
 def add_canonical_closure(ucet, k, collation_elements):
     for k2 in canonical_closure(k):
-        ucet[k2] = collation_elements
+        if k2 not in ucet:
+            ucet[k2] = collation_elements
 
 # http://www.unicode.org/reports/tr10/#Avoiding_Normalization
 def ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping):
     ucet = {}
 
-    handled = set()
+    for k,v in ducet.items():
+        ucet[k] = v
 
     for k,v in decomposition_mapping.items():
         v_initial = v
@@ -343,12 +345,6 @@ def ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping):
         ucet[(k,)] = collation_elements
         if not vanilla_ducet:
             add_canonical_closure(ucet, (k,), collation_elements)
-        if 1 < len(v_initial):
-            handled.add(tuple(v_initial))
-
-    for k,v in ducet.items():
-        if k not in handled:
-            ucet[k] = v
 
     return ucet
 
