@@ -79,17 +79,19 @@ namespace boost { namespace text {
             // Tangut and Tangut Components
             if (0x17000 <= cp && cp <= 0x18AFF) {
                 ces.push_back(
-                    compressed_collation_element{0xFB00, 0x0020, 0x0020});
+                    compressed_collation_element{0xFB00, 0x0001, 0x0002});
                 ces.push_back(compressed_collation_element{
                     uint16_t((cp - 0x17000) | 0x8000), 0x0000, 0x0000});
+                return;
             }
 
             // Nushu
             if (0x1B170 <= cp && cp <= 0x1B2FF) {
                 ces.push_back(
-                    compressed_collation_element{0xFB00, 0x0020, 0x0020});
+                    compressed_collation_element{0xFB01, 0x0001, 0x0002});
                 ces.push_back(compressed_collation_element{
                     uint16_t((cp - 0x1B170) | 0x8000), 0x0000, 0x0000});
+                return;
             }
 
             compressed_collation_element const BBBB{
@@ -117,8 +119,9 @@ namespace boost { namespace text {
                      CJK_Compatibility_Ideographs.end(),
                      cp))) {
                 ces.push_back(compressed_collation_element{
-                    uint16_t(0xFB40 + (cp >> 15)), 0x0020, 0x0020});
+                    uint16_t(0xFB40 + (cp >> 15)), 0x0001, 0x0002});
                 ces.push_back(BBBB);
+                return;
             }
 
             std::array<uint32_t, 222> const CJK_Unified_Ideographs_Extension_D =
@@ -167,13 +170,14 @@ namespace boost { namespace text {
                      CJK_Unified_Ideographs_Extension_D.end(),
                      cp))) {
                 ces.push_back(compressed_collation_element{
-                    uint16_t(0xFB80 + (cp >> 15)), 0x0020, 0x0020});
+                    uint16_t(0xFB80 + (cp >> 15)), 0x0001, 0x0002});
                 ces.push_back(BBBB);
+                return;
             }
 
             // Everything else (except Hangul; sigh).
             ces.push_back(compressed_collation_element{
-                uint16_t(0xFBC0 + (cp >> 15)), 0x0020, 0x0020});
+                uint16_t(0xFBC0 + (cp >> 15)), 0x0001, 0x0002});
             ces.push_back(BBBB);
         }
 
