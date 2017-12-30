@@ -304,13 +304,19 @@ namespace boost { namespace text {
                 while (!collation_.node_.leaf() &&
                        nonstarter_first != nonstarter_last &&
                        ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first)) {
-                    auto const cp = *nonstarter_first;
-                    auto coll = detail::extend_collation(collation_, cp);
-                    // S2.1.3
-                    if (collation_.match_length_ < coll.match_length_) {
-                        std::copy_backward(first, nonstarter_first, nonstarter_first + 1);
-                        *first++ = cp;
-                        collation_ = coll;
+                    bool const unblocked =
+                        nonstarter_first == first + 1 ||
+                        ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first);
+                    if (unblocked) {
+                        auto const cp = *nonstarter_first;
+                        auto coll = detail::extend_collation(collation_, cp);
+                        // S2.1.3
+                        if (collation_.match_length_ < coll.match_length_) {
+                            std::copy_backward(
+                                first, nonstarter_first, nonstarter_first + 1);
+                            *first++ = cp;
+                            collation_ = coll;
+                        }
                     }
                     ++nonstarter_first;
                 }
