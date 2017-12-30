@@ -19,10 +19,11 @@ namespace boost { namespace text {
     {
         using iterator = std::vector<uint32_t>::const_iterator;
 
-        explicit text_sort_key(std::vector<compressed_collation_element> const &
-                                   collation_elements)
+        explicit text_sort_key(
+            std::vector<collation_element> const & collation_elements)
         {
             // TODO: Totally wrong!
+#if 0
             storage_.resize(collation_elements.size());
             std::transform(
                 collation_elements.begin(),
@@ -32,6 +33,7 @@ namespace boost { namespace text {
                     return uint32_t(e.l1()) << 16 | uint32_t(e.l2()) << 8 |
                            uint32_t(e.l3());
                 });
+#endif
         }
 
         iterator begin() const noexcept { return storage_.begin(); }
@@ -68,8 +70,7 @@ namespace boost { namespace text {
     namespace detail {
 
         // http://www.unicode.org/reports/tr10/#Derived_Collation_Elements
-        inline void add_derived_elements(
-            uint32_t cp, std::vector<compressed_collation_element> & ces)
+        inline void add_derived_elements(uint32_t cp, collation_element * out)
         {
             // TODO: if (hangul_syllable(cp)) {
             //     auto const decomp = decompose_hangul_syllable(cp);
@@ -78,23 +79,21 @@ namespace boost { namespace text {
 
             // Tangut and Tangut Components
             if (0x17000 <= cp && cp <= 0x18AFF) {
-                ces.push_back(
-                    compressed_collation_element{0xFB00, 0x0001, 0x0002});
-                ces.push_back(compressed_collation_element{
-                    uint16_t((cp - 0x17000) | 0x8000), 0x0000, 0x0000});
+                *out++ = collation_element{0xFB00, 0x0020, 0x0002};
+                *out++ = collation_element{
+                    uint16_t((cp - 0x17000) | 0x8000), 0x0000, 0x0000};
                 return;
             }
 
             // Nushu
             if (0x1B170 <= cp && cp <= 0x1B2FF) {
-                ces.push_back(
-                    compressed_collation_element{0xFB01, 0x0001, 0x0002});
-                ces.push_back(compressed_collation_element{
-                    uint16_t((cp - 0x1B170) | 0x8000), 0x0000, 0x0000});
+                *out++ = collation_element{0xFB01, 0x0020, 0x0002};
+                *out++ = collation_element{
+                    uint16_t((cp - 0x1B170) | 0x8000), 0x0000, 0x0000};
                 return;
             }
 
-            compressed_collation_element const BBBB{
+            collation_element const BBBB{
                 uint16_t((cp & 0x7FFF) | 0x8000), 0x0000, 0x0000};
 
             // Core Han Unified Ideographs
@@ -118,9 +117,9 @@ namespace boost { namespace text {
                      CJK_Compatibility_Ideographs.begin(),
                      CJK_Compatibility_Ideographs.end(),
                      cp))) {
-                ces.push_back(compressed_collation_element{
-                    uint16_t(0xFB40 + (cp >> 15)), 0x0001, 0x0002});
-                ces.push_back(BBBB);
+                *out++ = collation_element{
+                    uint16_t(0xFB40 + (cp >> 15)), 0x0020, 0x0002};
+                *out++ = BBBB;
                 return;
             }
 
@@ -169,16 +168,16 @@ namespace boost { namespace text {
                      CJK_Unified_Ideographs_Extension_D.begin(),
                      CJK_Unified_Ideographs_Extension_D.end(),
                      cp))) {
-                ces.push_back(compressed_collation_element{
-                    uint16_t(0xFB80 + (cp >> 15)), 0x0001, 0x0002});
-                ces.push_back(BBBB);
+                *out++ = collation_element{
+                    uint16_t(0xFB80 + (cp >> 15)), 0x0020, 0x0002};
+                *out++ = BBBB;
                 return;
             }
 
             // Everything else (except Hangul; sigh).
-            ces.push_back(compressed_collation_element{
-                uint16_t(0xFBC0 + (cp >> 15)), 0x0001, 0x0002});
-            ces.push_back(BBBB);
+            *out++ = collation_element{
+                uint16_t(0xFBC0 + (cp >> 15)), 0x0020, 0x0002};
+            *out++ = BBBB;
         }
 
         inline bool variable(collation_element ce) noexcept
@@ -193,86 +192,70 @@ namespace boost { namespace text {
             return ce.l1_ == 0;
         }
 
-        template<
-            typename Iter,
-            typename NonvariableFunc,
-            typename VariableFunc,
-            typename IgnorableFunc>
-        void adjust_weights(
-            Iter first,
-            Iter last,
-            NonvariableFunc && nvfunc,
-            VariableFunc && vfunc,
-            IgnorableFunc && ifunc)
-        {
-            bool after_variable = false;
-            while (first != last) {
-                auto & ce = *first++;
-                if (variable(ce)) {
-                    vfunc(ce, after_variable);
-                    after_variable = true;
-                    while (first != last && ignorable(*first)) {
-                        ifunc(*first++);
-                        after_variable = false;
-                    }
-                } else {
-                    nvfunc(ce);
-                }
-            }
-        }
-
         // http://www.unicode.org/reports/tr10/#Variable_Weighting
-        inline void
-        s2_3(std::vector<collation_element> & ces, variable_weighting option)
+        inline bool s2_3(
+            collation_element * first,
+            collation_element * last,
+            variable_weighting weighting,
+            bool after_variable)
         {
-            if (option == variable_weighting::non_ignorable)
-                return;
+            if (weighting == variable_weighting::non_ignorable)
+                return after_variable;
 
-            auto zero_l1_to_l4 = [](collation_element & ce, bool = false) {
-                ce.l1_ = 0;
-                ce.l2_ = 0;
-                ce.l3_ = 0;
-                ce.l4_ = 0;
-            };
+            // http://www.unicode.org/reports/tr10/#Implicit_Weights says: "If
+            // a fourth or higher weights are used, then the same pattern is
+            // followed for those weights. They are set to a non-zero value in
+            // the first collation element and zero in the second."
+            //
+            // Even though this appears in the section on implicit weights
+            // that "do not have explicit mappings in the DUCET", this
+            // apparently applies to any pair of collation elements that
+            // matches the pattern produced by the derived weight algorithm,
+            // since that's what CollationTest_SHIFTED.txt expects.
+            bool second_of_implicit_weight_pair = false;
 
-            auto nonvariable_shift = [](collation_element & ce) {
-                if (ce.l1_)
-                    ce.l4_ = 0xffff;
-            };
-
-            auto variable_shift = [](collation_element & ce,
-                                     bool after_variable) {
-                if (!ce.l1_ && !ce.l2_ && !ce.l3_) {
-                    ce.l4_ = 0x0000;
-                } else if (!ce.l1_ && ce.l3_ && after_variable) {
-                    ce.l4_ = 0x0000;
-                } else if (ce.l1_) {
+            auto it = first;
+            while (it != last) {
+                auto & ce = *it++;
+                auto const l1 = ce.l1_;
+                if (after_variable && ignorable(ce)) {
+                    ce.l1_ = 0;
+                    ce.l2_ = 0;
+                    ce.l3_ = 0;
+                    ce.l4_ = 0;
+                } else if (!ce.l1_) {
+                    if (!ce.l2_ && !ce.l3_) {
+                        ce.l4_ = 0x0000;
+                    } else if (ce.l3_) {
+                        if (after_variable)
+                            ce.l4_ = 0x0000;
+                        else
+                            ce.l4_ = 0xffff;
+                    }
+                    after_variable = false;
+                } else if (variable(ce)) {
                     ce.l4_ = ce.l1_;
-                } else if (!ce.l1_ && ce.l3_ && !after_variable) {
-                    ce.l4_ = 0xffff;
+                    ce.l1_ = 0;
+                    ce.l2_ = 0;
+                    ce.l3_ = 0;
+                    after_variable = true;
+                } else {
+                    if (ce.l1_)
+                        ce.l4_ = 0xffff;
+                    after_variable = false;
                 }
-
-                ce.l1_ = 0;
-                ce.l2_ = 0;
-                ce.l3_ = 0;
-            };
-
-            if (option == variable_weighting::blanked) {
-                adjust_weights(
-                    ces.begin(),
-                    ces.end(),
-                    [](collation_element &) {},
-                    zero_l1_to_l4,
-                    zero_l1_to_l4);
-            } else {
-                // shifted
-                adjust_weights(
-                    ces.begin(),
-                    ces.end(),
-                    nonvariable_shift,
-                    variable_shift,
-                    zero_l1_to_l4);
+                if (second_of_implicit_weight_pair) {
+                    ce.l4_ = 0;
+                    second_of_implicit_weight_pair = false;
+                }
+                second_of_implicit_weight_pair =
+                    l1 == 0xfb00 || l1 == 0xfb01 ||
+                    (l1 == 0xfb40 || l1 == 0xfb41) ||
+                    (l1 == 0xfb80 || l1 == 0xfb84 || l1 == 0xfb85) ||
+                    (0xfbc0 <= l1 && l1 <= 0xfbe1);
             }
+
+            return after_variable;
         }
 
         // Does all of S2 except for S2.3, which is handled when building
@@ -281,15 +264,22 @@ namespace boost { namespace text {
         void
         s2(Iter first,
            Iter last,
-           std::vector<compressed_collation_element> & ces)
+           std::vector<collation_element> & ces,
+           variable_weighting weighting)
         {
+            bool after_variable = false;
             while (first != last) {
-                // S2.1 Find longest prefix that results in a collation table
-                // match.
+                // S2.1 Find longest prefix that results in a collation
+                // table match.
                 auto collation_ = longest_collation(first, last);
                 if (collation_.match_length_ == 0) {
                     // S2.2
-                    add_derived_elements(*first++, ces);
+                    collation_element cces[2];
+                    add_derived_elements(*first++, cces);
+                    after_variable =
+                        s2_3(cces, cces + 2, weighting, after_variable);
+                    ces.push_back(cces[0]);
+                    ces.push_back(cces[1]);
                     continue;
                 }
                 first += collation_.match_length_;
@@ -325,19 +315,28 @@ namespace boost { namespace text {
                     ++nonstarter_first;
                 }
 
-                // S2.3 happens elsewhere....
-
                 // S2.4
-                std::copy(
+                std::transform(
                     collation_.node_.collation_elements_.begin(),
                     collation_.node_.collation_elements_.end(),
-                    std::back_inserter(ces));
+                    std::back_inserter(ces),
+                    [](compressed_collation_element ce) {
+                        return collation_element{ce.l1(), ce.l2(), ce.l3()};
+                    });
+
+                // S2.3
+                after_variable = s2_3(
+                    &*(ces.end() - collation_.node_.collation_elements_.size()),
+                    &*ces.end(),
+                    weighting,
+                    after_variable);
             }
         }
 
-        inline text_sort_key collation_sort_key(string const & s)
+        inline text_sort_key
+        collation_sort_key(string const & s, variable_weighting weighting)
         {
-            std::vector<compressed_collation_element> ces;
+            std::vector<collation_element> ces;
             utf32_range as_utf32(s);
             // TODO: Try tuning this buffer size for perf.
             std::array<uint32_t, 256> buffer;
@@ -351,10 +350,10 @@ namespace boost { namespace text {
 
                 // The chunk we pass to S2 should end at the earliest
                 // contiguous starter (ccc == 0) we find sarching backward
-                // from the end.  This is because 1) we don't want to cut off
-                // trailing combining characters that may participate in
-                // longest-match determination in S2.1, and 2) in S2.3 we need
-                // to know if earlier CPs are variable-weighted or not.
+                // from the end.  This is because 1) we don't want to cut
+                // off trailing combining characters that may participate in
+                // longest-match determination in S2.1, and 2) in S2.3 we
+                // need to know if earlier CPs are variable-weighted or not.
                 auto s2_it = buf_it;
                 if (s2_it == buffer.end()) {
                     while (s2_it != buffer.begin()) {
@@ -368,21 +367,24 @@ namespace boost { namespace text {
                     ++s2_it;
                 }
 
-                s2(buffer.begin(), buf_it, ces);
+                s2(buffer.begin(), buf_it, ces, weighting);
                 as_utf32 = utf32_range(it, as_utf32.end());
                 buf_it = std::copy(s2_it, buf_it, buffer.begin());
             }
             return text_sort_key(ces);
         }
 
-        inline int collate(string const & lhs, string const & rhs)
+        inline int collate(
+            string const & lhs,
+            string const & rhs,
+            variable_weighting weighting)
         {
             // TODO: Do this incrementally, and bail early once the answer
             // is certain.
             // TODO: Do this into stack buffers to avoid allocation for
             // small enough strings.
-            text_sort_key const lhs_sk = collation_sort_key(lhs);
-            text_sort_key const rhs_sk = collation_sort_key(rhs);
+            text_sort_key const lhs_sk = collation_sort_key(lhs, weighting);
+            text_sort_key const rhs_sk = collation_sort_key(rhs, weighting);
             return lhs_sk.compare(rhs_sk);
         }
     }
@@ -390,17 +392,19 @@ namespace boost { namespace text {
     /** TODO
         TODO: string -> text
     */
-    inline text_sort_key collation_sort_key(string const & s)
+    inline text_sort_key
+    collation_sort_key(string const & s, variable_weighting weighting)
     {
-        return detail::collation_sort_key(s);
+        return detail::collation_sort_key(s, weighting);
     }
 
     /** TODO
         TODO: string -> text
     */
-    inline int collate(string const & lhs, string const & rhs)
+    inline int collate(
+        string const & lhs, string const & rhs, variable_weighting weighting)
     {
-        return detail::collate(lhs, rhs);
+        return detail::collate(lhs, rhs, weighting);
     }
 
     // TODO: Tailored collation.

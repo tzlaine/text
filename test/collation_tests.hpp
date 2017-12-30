@@ -39,11 +39,11 @@ private:
 
 // TODO: Implement something like this in collate.hpp.
 std::vector<uint32_t> collate_for_tests(
-    uint32_t * first,
-    uint32_t * last,
+    uint32_t const * first_,
+    uint32_t const * last_,
     boost::text::variable_weighting weighting)
 {
-    boost::text::string str = boost::text::to_string(first, last);
+    boost::text::string str = boost::text::to_string(first_, last_);
 #if 0 // TODO: turn this back on when/if we can get the FCC-form to work.
     boost::text::psuedonormalize_to_fcc(str);
 #else
@@ -54,22 +54,11 @@ std::vector<uint32_t> collate_for_tests(
     boost::text::utf32_range as_utf32(str);
     std::copy(as_utf32.begin(), as_utf32.end(), std::back_inserter(buf));
 
-    first = &*buf.begin(); 
-    last = &*buf.end(); 
+    uint32_t * first = &*buf.begin();
+    uint32_t * last = &*buf.end();
 
-    std::vector<boost::text::compressed_collation_element> cces;
-    boost::text::detail::s2(first, last, cces);
-
-    std::vector<boost::text::collation_element> ces(cces.size());
-    std::transform(
-        cces.begin(),
-        cces.end(),
-        ces.begin(),
-        [](boost::text::compressed_collation_element ce) {
-            return boost::text::collation_element{ce.l1(), ce.l2(), ce.l3()};
-        });
-
-    boost::text::detail::s2_3(ces, weighting);
+    std::vector<boost::text::collation_element> ces;
+    boost::text::detail::s2(first, last, ces, weighting);
 
     std::vector<uint32_t> retval;
 
@@ -79,10 +68,12 @@ std::vector<uint32_t> collate_for_tests(
     boost::container::small_vector<uint32_t, 256> l2;
     boost::container::small_vector<uint32_t, 256> l3;
     boost::container::small_vector<uint32_t, 256> l4;
+    boost::container::small_vector<uint32_t, 256> identical;
     l1.reserve(ces.size());
     l2.reserve(ces.size());
     l3.reserve(ces.size());
     l4.reserve(ces.size());
+    identical.reserve(ces.size());
 
     for (auto ce : ces) {
         if (ce.l1_)
@@ -91,11 +82,19 @@ std::vector<uint32_t> collate_for_tests(
             l2.push_back(ce.l2_);
         if (ce.l3_)
             l3.push_back(ce.l3_);
-        if (ce.l4_)
+        if (ce.l4_) // TODO && (l4.empty() || l4.back() != 0xffff || ce.l4_ != 0xffff))
             l4.push_back(ce.l4_);
+        if (ce.identical_)
+            identical.push_back(ce.identical_);
     }
 
-    retval.resize(l1.size() + l2.size() + l3.size() + l4.size() + 3);
+    // TODO: Base this on the level selection instead.
+    int const separators =
+        weighting == boost::text::variable_weighting::non_ignorable ? 3 : 4;
+
+    retval.resize(
+        l1.size() + l2.size() + l3.size() + l4.size() + identical.size() +
+        separators);
     auto it = retval.begin();
     it = std::copy(l1.begin(), l1.end(), it);
     *it++ = 0x000;
@@ -104,6 +103,11 @@ std::vector<uint32_t> collate_for_tests(
     it = std::copy(l3.begin(), l3.end(), it);
     *it++ = 0x000;
     it = std::copy(l4.begin(), l4.end(), it);
+    // TODO: Predicate on level instead.
+    if (weighting == boost::text::variable_weighting::shifted) {
+        *it++ = 0x000;
+        it = std::copy(identical.begin(), identical.end(), it);
+    }
     assert(it == retval.end());
 
     return retval;

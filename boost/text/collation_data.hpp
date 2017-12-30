@@ -86,6 +86,7 @@ namespace boost { namespace text {
             return detail::g_collation_elements_first + last_;
         }
 
+        int size() const noexcept { return last_ - first_; }
         explicit operator bool() const noexcept { return first_ != last_; }
 
         uint16_t first_;

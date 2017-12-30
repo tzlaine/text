@@ -155,60 +155,96 @@ BENCHMARK(BM_collation_element_lookup_{0:03});
 
 collation_elements_regex = re.compile(r'\[([ |0123456789ABCDEF]+)\]')
 
-def generate_collation_tests(filename, weighting):
-    lines = open(filename, 'r').readlines()
+def generate_collation_tests(non_ignorable_filename, shifted_filename):
+    non_ignorable_lines = open(non_ignorable_filename, 'r').readlines()
+
+    shifted = {}
+
+    shifted_lines = open(shifted_filename, 'r').readlines()
+    for line in shifted_lines:
+        line = line[:-1]
+        if not line.startswith('#') and len(line) != 0:
+            comment_start = line.find('#')
+            shifted_comment = ''
+            if comment_start != -1:
+                shifted_comment = line[comment_start + 1:].strip()
+                line = line[:comment_start]
+            cps = map(lambda x: '0x' + x, line.split(';')[0].split(' '))
+            ces_match = collation_elements_regex.search(shifted_comment)
+            ces = ces_match.group(1).replace('|', '0000').split(' ')
+            ces_shifted = map(lambda x: '0x' + x, ces)
+            shifted[tuple(cps)] = (shifted_comment, ces_shifted)
+
     contents = ''
     chunk_idx = 0
     line_idx = 0 
-    for line in lines:
+    for i in range(len(non_ignorable_lines)):
+        non_ignorable_line = non_ignorable_lines[i]
         if line_idx == 500:
-            cpp_file = open('verbatim_collation_test_{0}_{1:03}.cpp'.format(weighting, chunk_idx), 'w')
+            cpp_file = open('verbatim_collation_test_{0:03}.cpp'.format(chunk_idx), 'w')
             cpp_file.write(verbatim_collation_tests_form.format(contents))
             chunk_idx += 1
             contents = ''
             line_idx = 0
-        line = line[:-1]
-        if not line.startswith('#') and len(line) != 0:
-            comment_start = line.find('#')
-            comment = ''
+        non_ignorable_line = non_ignorable_line[:-1]
+        if not non_ignorable_line.startswith('#') and len(non_ignorable_line) != 0:
+            comment_start = non_ignorable_line.find('#')
+            non_ignorable_comment = ''
             if comment_start != -1:
-                comment = line[comment_start + 1:].strip()
-                line = line[:comment_start]
-            if 'surrogate' in comment:
+                non_ignorable_comment = non_ignorable_line[comment_start + 1:].strip()
+                non_ignorable_line = non_ignorable_line[:comment_start]
+            if 'surrogate' in non_ignorable_comment:
                 continue
-            if 'noncharacter' in comment:
+            if 'noncharacter' in non_ignorable_comment:
                 continue
-            cps = map(lambda x: '0x' + x, line.split(';')[0].split(' '))
-            ces_match = collation_elements_regex.search(comment)
+            cps = map(lambda x: '0x' + x, non_ignorable_line.split(';')[0].split(' '))
+            ces_match = collation_elements_regex.search(non_ignorable_comment)
             ces = ces_match.group(1).replace('|', '0000').split(' ')
-            ces = map(lambda x: '0x' + x, ces)
+            ces_non_ignorable = map(lambda x: '0x' + x, ces)
+
+            (shifted_comment, ces_shifted) = shifted[tuple(cps)]
+
             contents += '''
-TEST(collation, {0}_{1:03}_{2:03})
+TEST(collation, verbatim_{1:03}_{2:03})
 {{
+    uint32_t const cps[{6}] = {{ {5} }};
+
     // {3}
-    // {4}
+    uint32_t const ces_non_ignorable[{8}] = {{ {7} }};
 
-    uint32_t cps[{6}] = {{ {5} }};
-    uint32_t const ces[{8}] = {{ {7} }};
+    auto const non_ignorable = collate_for_tests(
+        cps, cps + {6}, boost::text::variable_weighting::non_ignorable);
 
-    auto collation = collate_for_tests(
-        cps, cps + {6}, boost::text::variable_weighting::{0});
-
-    EXPECT_EQ(collation.size(), {8});
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + {8}))
+    EXPECT_EQ(non_ignorable.size(), {8});
+    EXPECT_TRUE(boost::algorithm::equal(non_ignorable.begin(), non_ignorable.end(), ces_non_ignorable, ces_non_ignorable + {8}))
         << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
+        << "expected: " << ce_dumper(ces_non_ignorable)
+        << "got:      " << ce_dumper(non_ignorable);
+
+    // {4}
+    uint32_t const ces_shifted[{10}] = {{ {9} }};
+
+    auto const shifted = collate_for_tests(
+        cps, cps + {6}, boost::text::variable_weighting::shifted);
+
+    EXPECT_EQ(shifted.size(), {10});
+    EXPECT_TRUE(boost::algorithm::equal(shifted.begin(), shifted.end(), ces_shifted, ces_shifted + {10}))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces_shifted)
+        << "got:      " << ce_dumper(shifted);
 }}
 '''.format(
-    weighting, chunk_idx, line_idx, line, comment,
+    None, chunk_idx, line_idx,
+    non_ignorable_line + '\n    // ' + non_ignorable_comment,
+    non_ignorable_line + '\n    // ' + shifted_comment,
     ', '.join(cps), len(cps),
-    ', '.join(ces), len(ces)
+    ', '.join(ces_non_ignorable), len(ces_non_ignorable),
+    ', '.join(ces_shifted), len(ces_shifted)
     )
             line_idx += 1
 
     if contents != '':
-        cpp_file = open('verbatim_collation_test_{0}_{1:03}.cpp'.format(weighting, chunk_idx), 'w')
+        cpp_file = open('verbatim_collation_test_{0:03}.cpp'.format(chunk_idx), 'w')
         cpp_file.write(verbatim_collation_tests_form.format(contents))
 
 # TODO: Consider using allkeys_CLDR.txt.
@@ -221,4 +257,4 @@ if '--perf' in sys.argv:
     exit(0)
 
 generate_lookup_tests(ducet, ducet_lines)
-generate_collation_tests('CollationTest_NON_IGNORABLE.txt', 'non_ignorable')
+generate_collation_tests('CollationTest_NON_IGNORABLE.txt', 'CollationTest_SHIFTED.txt')
