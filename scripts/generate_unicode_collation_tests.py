@@ -174,6 +174,10 @@ def generate_collation_tests(filename, weighting):
             if comment_start != -1:
                 comment = line[comment_start + 1:].strip()
                 line = line[:comment_start]
+            if 'surrogate' in comment:
+                continue
+            if 'noncharacter' in comment:
+                continue
             cps = map(lambda x: '0x' + x, line.split(';')[0].split(' '))
             ces_match = collation_elements_regex.search(comment)
             ces = ces_match.group(1).replace('|', '0000').split(' ')

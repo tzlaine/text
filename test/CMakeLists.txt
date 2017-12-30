@@ -57,7 +57,7 @@ file(GLOB
      verbatim_collation_test_non_ignorable_0??.cpp
      verbatim_collation_test_non_ignorable_1??.cpp
      verbatim_collation_test_non_ignorable_2??.cpp
-#TODO     verbatim_collation_test_non_ignorable_3??.cpp
+     verbatim_collation_test_non_ignorable_3??.cpp
 )
 set(globbed_tests
     ${prop_lookup_tests}

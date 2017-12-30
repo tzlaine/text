@@ -8541,11 +8541,11 @@ TEST(collation, non_ignorable_394_473)
 
 TEST(collation, non_ignorable_394_474)
 {
-    // D800 0021;	
-    // ('\uD800') <surrogate-D800>	[FBC1 D800 0261 | 0020 0020 | 0002 0002 |]
+    // E000 0021;	
+    // ('\uE000') <private-use-E000>	[FBC1 E000 0261 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD800, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD800, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE000, 0x0021 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8559,11 +8559,11 @@ TEST(collation, non_ignorable_394_474)
 
 TEST(collation, non_ignorable_394_475)
 {
-    // D800 003F;	
-    // ('\uD800') <surrogate-D800>	[FBC1 D800 0267 | 0020 0020 | 0002 0002 |]
+    // E000 003F;	
+    // ('\uE000') <private-use-E000>	[FBC1 E000 0267 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD800, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xD800, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE000, 0x003F };
+    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8577,11 +8577,11 @@ TEST(collation, non_ignorable_394_475)
 
 TEST(collation, non_ignorable_394_476)
 {
-    // D800 0061;	
-    // ('\uD800') <surrogate-D800>	[FBC1 D800 1CAD | 0020 0020 | 0002 0002 |]
+    // E000 0061;	
+    // ('\uE000') <private-use-E000>	[FBC1 E000 1CAD | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD800, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD800, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE000, 0x0061 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8595,11 +8595,11 @@ TEST(collation, non_ignorable_394_476)
 
 TEST(collation, non_ignorable_394_477)
 {
-    // D800 0041;	
-    // ('\uD800') <surrogate-D800>	[FBC1 D800 1CAD | 0020 0020 | 0002 0008 |]
+    // E000 0041;	
+    // ('\uE000') <private-use-E000>	[FBC1 E000 1CAD | 0020 0020 | 0002 0008 |]
 
-    uint32_t cps[2] = { 0xD800, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD800, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+    uint32_t cps[2] = { 0xE000, 0x0041 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8613,11 +8613,11 @@ TEST(collation, non_ignorable_394_477)
 
 TEST(collation, non_ignorable_394_478)
 {
-    // D800 0062;	
-    // ('\uD800') <surrogate-D800>	[FBC1 D800 1CC6 | 0020 0020 | 0002 0002 |]
+    // E000 0062;	
+    // ('\uE000') <private-use-E000>	[FBC1 E000 1CC6 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD800, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD800, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE000, 0x0062 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8631,11 +8631,11 @@ TEST(collation, non_ignorable_394_478)
 
 TEST(collation, non_ignorable_394_479)
 {
-    // D801 0021;	
-    // ('\uD801') <surrogate-D801>	[FBC1 D801 0261 | 0020 0020 | 0002 0002 |]
+    // E001 0021;	
+    // ('\uE001') <private-use-E001>	[FBC1 E001 0261 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD801, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD801, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE001, 0x0021 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8649,11 +8649,11 @@ TEST(collation, non_ignorable_394_479)
 
 TEST(collation, non_ignorable_394_480)
 {
-    // D801 003F;	
-    // ('\uD801') <surrogate-D801>	[FBC1 D801 0267 | 0020 0020 | 0002 0002 |]
+    // E001 003F;	
+    // ('\uE001') <private-use-E001>	[FBC1 E001 0267 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD801, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xD801, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE001, 0x003F };
+    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8667,11 +8667,11 @@ TEST(collation, non_ignorable_394_480)
 
 TEST(collation, non_ignorable_394_481)
 {
-    // D801 0061;	
-    // ('\uD801') <surrogate-D801>	[FBC1 D801 1CAD | 0020 0020 | 0002 0002 |]
+    // E001 0061;	
+    // ('\uE001') <private-use-E001>	[FBC1 E001 1CAD | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD801, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD801, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE001, 0x0061 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8685,11 +8685,11 @@ TEST(collation, non_ignorable_394_481)
 
 TEST(collation, non_ignorable_394_482)
 {
-    // D801 0041;	
-    // ('\uD801') <surrogate-D801>	[FBC1 D801 1CAD | 0020 0020 | 0002 0008 |]
+    // E001 0041;	
+    // ('\uE001') <private-use-E001>	[FBC1 E001 1CAD | 0020 0020 | 0002 0008 |]
 
-    uint32_t cps[2] = { 0xD801, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD801, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+    uint32_t cps[2] = { 0xE001, 0x0041 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8703,11 +8703,11 @@ TEST(collation, non_ignorable_394_482)
 
 TEST(collation, non_ignorable_394_483)
 {
-    // D801 0062;	
-    // ('\uD801') <surrogate-D801>	[FBC1 D801 1CC6 | 0020 0020 | 0002 0002 |]
+    // E001 0062;	
+    // ('\uE001') <private-use-E001>	[FBC1 E001 1CC6 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD801, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD801, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE001, 0x0062 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8721,11 +8721,11 @@ TEST(collation, non_ignorable_394_483)
 
 TEST(collation, non_ignorable_394_484)
 {
-    // D802 0021;	
-    // ('\uD802') <surrogate-D802>	[FBC1 D802 0261 | 0020 0020 | 0002 0002 |]
+    // E002 0021;	
+    // ('\uE002') <private-use-E002>	[FBC1 E002 0261 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD802, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD802, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE002, 0x0021 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8739,11 +8739,11 @@ TEST(collation, non_ignorable_394_484)
 
 TEST(collation, non_ignorable_394_485)
 {
-    // D802 003F;	
-    // ('\uD802') <surrogate-D802>	[FBC1 D802 0267 | 0020 0020 | 0002 0002 |]
+    // E002 003F;	
+    // ('\uE002') <private-use-E002>	[FBC1 E002 0267 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD802, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xD802, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE002, 0x003F };
+    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8757,11 +8757,11 @@ TEST(collation, non_ignorable_394_485)
 
 TEST(collation, non_ignorable_394_486)
 {
-    // D802 0061;	
-    // ('\uD802') <surrogate-D802>	[FBC1 D802 1CAD | 0020 0020 | 0002 0002 |]
+    // E002 0061;	
+    // ('\uE002') <private-use-E002>	[FBC1 E002 1CAD | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD802, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD802, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE002, 0x0061 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8775,11 +8775,11 @@ TEST(collation, non_ignorable_394_486)
 
 TEST(collation, non_ignorable_394_487)
 {
-    // D802 0041;	
-    // ('\uD802') <surrogate-D802>	[FBC1 D802 1CAD | 0020 0020 | 0002 0008 |]
+    // E002 0041;	
+    // ('\uE002') <private-use-E002>	[FBC1 E002 1CAD | 0020 0020 | 0002 0008 |]
 
-    uint32_t cps[2] = { 0xD802, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD802, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+    uint32_t cps[2] = { 0xE002, 0x0041 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8793,11 +8793,11 @@ TEST(collation, non_ignorable_394_487)
 
 TEST(collation, non_ignorable_394_488)
 {
-    // D802 0062;	
-    // ('\uD802') <surrogate-D802>	[FBC1 D802 1CC6 | 0020 0020 | 0002 0002 |]
+    // E002 0062;	
+    // ('\uE002') <private-use-E002>	[FBC1 E002 1CC6 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD802, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD802, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE002, 0x0062 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8811,11 +8811,11 @@ TEST(collation, non_ignorable_394_488)
 
 TEST(collation, non_ignorable_394_489)
 {
-    // D803 0021;	
-    // ('\uD803') <surrogate-D803>	[FBC1 D803 0261 | 0020 0020 | 0002 0002 |]
+    // E003 0021;	
+    // ('\uE003') <private-use-E003>	[FBC1 E003 0261 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD803, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD803, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE003, 0x0021 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8829,11 +8829,11 @@ TEST(collation, non_ignorable_394_489)
 
 TEST(collation, non_ignorable_394_490)
 {
-    // D803 003F;	
-    // ('\uD803') <surrogate-D803>	[FBC1 D803 0267 | 0020 0020 | 0002 0002 |]
+    // E003 003F;	
+    // ('\uE003') <private-use-E003>	[FBC1 E003 0267 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD803, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xD803, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE003, 0x003F };
+    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8847,11 +8847,11 @@ TEST(collation, non_ignorable_394_490)
 
 TEST(collation, non_ignorable_394_491)
 {
-    // D803 0061;	
-    // ('\uD803') <surrogate-D803>	[FBC1 D803 1CAD | 0020 0020 | 0002 0002 |]
+    // E003 0061;	
+    // ('\uE003') <private-use-E003>	[FBC1 E003 1CAD | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD803, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD803, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE003, 0x0061 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8865,11 +8865,11 @@ TEST(collation, non_ignorable_394_491)
 
 TEST(collation, non_ignorable_394_492)
 {
-    // D803 0041;	
-    // ('\uD803') <surrogate-D803>	[FBC1 D803 1CAD | 0020 0020 | 0002 0008 |]
+    // E003 0041;	
+    // ('\uE003') <private-use-E003>	[FBC1 E003 1CAD | 0020 0020 | 0002 0008 |]
 
-    uint32_t cps[2] = { 0xD803, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD803, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+    uint32_t cps[2] = { 0xE003, 0x0041 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8883,11 +8883,11 @@ TEST(collation, non_ignorable_394_492)
 
 TEST(collation, non_ignorable_394_493)
 {
-    // D803 0062;	
-    // ('\uD803') <surrogate-D803>	[FBC1 D803 1CC6 | 0020 0020 | 0002 0002 |]
+    // E003 0062;	
+    // ('\uE003') <private-use-E003>	[FBC1 E003 1CC6 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xD803, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xD803, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE003, 0x0062 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8901,11 +8901,11 @@ TEST(collation, non_ignorable_394_493)
 
 TEST(collation, non_ignorable_394_494)
 {
-    // DC00 0021;	
-    // ('\uDC00') <surrogate-DC00>	[FBC1 DC00 0261 | 0020 0020 | 0002 0002 |]
+    // E004 0021;	
+    // ('\uE004') <private-use-E004>	[FBC1 E004 0261 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xDC00, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDC00, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE004, 0x0021 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8919,11 +8919,11 @@ TEST(collation, non_ignorable_394_494)
 
 TEST(collation, non_ignorable_394_495)
 {
-    // DC00 003F;	
-    // ('\uDC00') <surrogate-DC00>	[FBC1 DC00 0267 | 0020 0020 | 0002 0002 |]
+    // E004 003F;	
+    // ('\uE004') <private-use-E004>	[FBC1 E004 0267 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xDC00, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xDC00, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE004, 0x003F };
+    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8937,11 +8937,11 @@ TEST(collation, non_ignorable_394_495)
 
 TEST(collation, non_ignorable_394_496)
 {
-    // DC00 0061;	
-    // ('\uDC00') <surrogate-DC00>	[FBC1 DC00 1CAD | 0020 0020 | 0002 0002 |]
+    // E004 0061;	
+    // ('\uE004') <private-use-E004>	[FBC1 E004 1CAD | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xDC00, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDC00, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE004, 0x0061 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8955,11 +8955,11 @@ TEST(collation, non_ignorable_394_496)
 
 TEST(collation, non_ignorable_394_497)
 {
-    // DC00 0041;	
-    // ('\uDC00') <surrogate-DC00>	[FBC1 DC00 1CAD | 0020 0020 | 0002 0008 |]
+    // E004 0041;	
+    // ('\uE004') <private-use-E004>	[FBC1 E004 1CAD | 0020 0020 | 0002 0008 |]
 
-    uint32_t cps[2] = { 0xDC00, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDC00, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+    uint32_t cps[2] = { 0xE004, 0x0041 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8973,11 +8973,11 @@ TEST(collation, non_ignorable_394_497)
 
 TEST(collation, non_ignorable_394_498)
 {
-    // DC00 0062;	
-    // ('\uDC00') <surrogate-DC00>	[FBC1 DC00 1CC6 | 0020 0020 | 0002 0002 |]
+    // E004 0062;	
+    // ('\uE004') <private-use-E004>	[FBC1 E004 1CC6 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xDC00, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDC00, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE004, 0x0062 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);
@@ -8991,11 +8991,11 @@ TEST(collation, non_ignorable_394_498)
 
 TEST(collation, non_ignorable_394_499)
 {
-    // DFFF 0021;	
-    // ('\uDFFF') <surrogate-DFFF>	[FBC1 DFFF 0261 | 0020 0020 | 0002 0002 |]
+    // E005 0021;	
+    // ('\uE005') <private-use-E005>	[FBC1 E005 0261 | 0020 0020 | 0002 0002 |]
 
-    uint32_t cps[2] = { 0xDFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+    uint32_t cps[2] = { 0xE005, 0x0021 };
+    uint32_t const ces[10] = { 0xFBC1, 0xE005, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
 
     auto collation = collate_for_tests(
         cps, cps + 2, boost::text::variable_weighting::non_ignorable);

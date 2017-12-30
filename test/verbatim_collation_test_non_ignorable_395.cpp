@@ -9,546 +9,6 @@
 
 TEST(collation, non_ignorable_395_000)
 {
-    // DFFF 003F;	
-    // ('\uDFFF') <surrogate-DFFF>	[FBC1 DFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xDFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_001)
-{
-    // DFFF 0061;	
-    // ('\uDFFF') <surrogate-DFFF>	[FBC1 DFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_002)
-{
-    // DFFF 0041;	
-    // ('\uDFFF') <surrogate-DFFF>	[FBC1 DFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xDFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_003)
-{
-    // DFFF 0062;	
-    // ('\uDFFF') <surrogate-DFFF>	[FBC1 DFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xDFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_004)
-{
-    // E000 0021;	
-    // ('\uE000') <private-use-E000>	[FBC1 E000 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE000, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_005)
-{
-    // E000 003F;	
-    // ('\uE000') <private-use-E000>	[FBC1 E000 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE000, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_006)
-{
-    // E000 0061;	
-    // ('\uE000') <private-use-E000>	[FBC1 E000 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE000, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_007)
-{
-    // E000 0041;	
-    // ('\uE000') <private-use-E000>	[FBC1 E000 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xE000, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_008)
-{
-    // E000 0062;	
-    // ('\uE000') <private-use-E000>	[FBC1 E000 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE000, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE000, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_009)
-{
-    // E001 0021;	
-    // ('\uE001') <private-use-E001>	[FBC1 E001 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE001, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_010)
-{
-    // E001 003F;	
-    // ('\uE001') <private-use-E001>	[FBC1 E001 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE001, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_011)
-{
-    // E001 0061;	
-    // ('\uE001') <private-use-E001>	[FBC1 E001 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE001, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_012)
-{
-    // E001 0041;	
-    // ('\uE001') <private-use-E001>	[FBC1 E001 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xE001, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_013)
-{
-    // E001 0062;	
-    // ('\uE001') <private-use-E001>	[FBC1 E001 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE001, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE001, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_014)
-{
-    // E002 0021;	
-    // ('\uE002') <private-use-E002>	[FBC1 E002 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE002, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_015)
-{
-    // E002 003F;	
-    // ('\uE002') <private-use-E002>	[FBC1 E002 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE002, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_016)
-{
-    // E002 0061;	
-    // ('\uE002') <private-use-E002>	[FBC1 E002 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE002, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_017)
-{
-    // E002 0041;	
-    // ('\uE002') <private-use-E002>	[FBC1 E002 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xE002, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_018)
-{
-    // E002 0062;	
-    // ('\uE002') <private-use-E002>	[FBC1 E002 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE002, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE002, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_019)
-{
-    // E003 0021;	
-    // ('\uE003') <private-use-E003>	[FBC1 E003 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE003, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_020)
-{
-    // E003 003F;	
-    // ('\uE003') <private-use-E003>	[FBC1 E003 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE003, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_021)
-{
-    // E003 0061;	
-    // ('\uE003') <private-use-E003>	[FBC1 E003 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE003, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_022)
-{
-    // E003 0041;	
-    // ('\uE003') <private-use-E003>	[FBC1 E003 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xE003, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_023)
-{
-    // E003 0062;	
-    // ('\uE003') <private-use-E003>	[FBC1 E003 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE003, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE003, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_024)
-{
-    // E004 0021;	
-    // ('\uE004') <private-use-E004>	[FBC1 E004 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE004, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_025)
-{
-    // E004 003F;	
-    // ('\uE004') <private-use-E004>	[FBC1 E004 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE004, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_026)
-{
-    // E004 0061;	
-    // ('\uE004') <private-use-E004>	[FBC1 E004 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE004, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_027)
-{
-    // E004 0041;	
-    // ('\uE004') <private-use-E004>	[FBC1 E004 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xE004, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_028)
-{
-    // E004 0062;	
-    // ('\uE004') <private-use-E004>	[FBC1 E004 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE004, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE004, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_029)
-{
-    // E005 0021;	
-    // ('\uE005') <private-use-E005>	[FBC1 E005 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xE005, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xE005, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_030)
-{
     // E005 003F;	
     // ('\uE005') <private-use-E005>	[FBC1 E005 0267 | 0020 0020 | 0002 0002 |]
 
@@ -565,7 +25,7 @@ TEST(collation, non_ignorable_395_030)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_031)
+TEST(collation, non_ignorable_395_001)
 {
     // E005 0061;	
     // ('\uE005') <private-use-E005>	[FBC1 E005 1CAD | 0020 0020 | 0002 0002 |]
@@ -583,7 +43,7 @@ TEST(collation, non_ignorable_395_031)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_032)
+TEST(collation, non_ignorable_395_002)
 {
     // E005 0041;	
     // ('\uE005') <private-use-E005>	[FBC1 E005 1CAD | 0020 0020 | 0002 0008 |]
@@ -601,7 +61,7 @@ TEST(collation, non_ignorable_395_032)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_033)
+TEST(collation, non_ignorable_395_003)
 {
     // E005 0062;	
     // ('\uE005') <private-use-E005>	[FBC1 E005 1CC6 | 0020 0020 | 0002 0002 |]
@@ -619,7 +79,7 @@ TEST(collation, non_ignorable_395_033)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_034)
+TEST(collation, non_ignorable_395_004)
 {
     // F8FA 0021;	
     // ('\uF8FA') <private-use-F8FA>	[FBC1 F8FA 0261 | 0020 0020 | 0002 0002 |]
@@ -637,7 +97,7 @@ TEST(collation, non_ignorable_395_034)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_035)
+TEST(collation, non_ignorable_395_005)
 {
     // F8FA 003F;	
     // ('\uF8FA') <private-use-F8FA>	[FBC1 F8FA 0267 | 0020 0020 | 0002 0002 |]
@@ -655,7 +115,7 @@ TEST(collation, non_ignorable_395_035)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_036)
+TEST(collation, non_ignorable_395_006)
 {
     // F8FA 0061;	
     // ('\uF8FA') <private-use-F8FA>	[FBC1 F8FA 1CAD | 0020 0020 | 0002 0002 |]
@@ -673,7 +133,7 @@ TEST(collation, non_ignorable_395_036)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_037)
+TEST(collation, non_ignorable_395_007)
 {
     // F8FA 0041;	
     // ('\uF8FA') <private-use-F8FA>	[FBC1 F8FA 1CAD | 0020 0020 | 0002 0008 |]
@@ -691,7 +151,7 @@ TEST(collation, non_ignorable_395_037)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_038)
+TEST(collation, non_ignorable_395_008)
 {
     // F8FA 0062;	
     // ('\uF8FA') <private-use-F8FA>	[FBC1 F8FA 1CC6 | 0020 0020 | 0002 0002 |]
@@ -709,7 +169,7 @@ TEST(collation, non_ignorable_395_038)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_039)
+TEST(collation, non_ignorable_395_009)
 {
     // F8FB 0021;	
     // ('\uF8FB') <private-use-F8FB>	[FBC1 F8FB 0261 | 0020 0020 | 0002 0002 |]
@@ -727,7 +187,7 @@ TEST(collation, non_ignorable_395_039)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_040)
+TEST(collation, non_ignorable_395_010)
 {
     // F8FB 003F;	
     // ('\uF8FB') <private-use-F8FB>	[FBC1 F8FB 0267 | 0020 0020 | 0002 0002 |]
@@ -745,7 +205,7 @@ TEST(collation, non_ignorable_395_040)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_041)
+TEST(collation, non_ignorable_395_011)
 {
     // F8FB 0061;	
     // ('\uF8FB') <private-use-F8FB>	[FBC1 F8FB 1CAD | 0020 0020 | 0002 0002 |]
@@ -763,7 +223,7 @@ TEST(collation, non_ignorable_395_041)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_042)
+TEST(collation, non_ignorable_395_012)
 {
     // F8FB 0041;	
     // ('\uF8FB') <private-use-F8FB>	[FBC1 F8FB 1CAD | 0020 0020 | 0002 0008 |]
@@ -781,7 +241,7 @@ TEST(collation, non_ignorable_395_042)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_043)
+TEST(collation, non_ignorable_395_013)
 {
     // F8FB 0062;	
     // ('\uF8FB') <private-use-F8FB>	[FBC1 F8FB 1CC6 | 0020 0020 | 0002 0002 |]
@@ -799,7 +259,7 @@ TEST(collation, non_ignorable_395_043)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_044)
+TEST(collation, non_ignorable_395_014)
 {
     // F8FC 0021;	
     // ('\uF8FC') <private-use-F8FC>	[FBC1 F8FC 0261 | 0020 0020 | 0002 0002 |]
@@ -817,7 +277,7 @@ TEST(collation, non_ignorable_395_044)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_045)
+TEST(collation, non_ignorable_395_015)
 {
     // F8FC 003F;	
     // ('\uF8FC') <private-use-F8FC>	[FBC1 F8FC 0267 | 0020 0020 | 0002 0002 |]
@@ -835,7 +295,7 @@ TEST(collation, non_ignorable_395_045)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_046)
+TEST(collation, non_ignorable_395_016)
 {
     // F8FC 0061;	
     // ('\uF8FC') <private-use-F8FC>	[FBC1 F8FC 1CAD | 0020 0020 | 0002 0002 |]
@@ -853,7 +313,7 @@ TEST(collation, non_ignorable_395_046)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_047)
+TEST(collation, non_ignorable_395_017)
 {
     // F8FC 0041;	
     // ('\uF8FC') <private-use-F8FC>	[FBC1 F8FC 1CAD | 0020 0020 | 0002 0008 |]
@@ -871,7 +331,7 @@ TEST(collation, non_ignorable_395_047)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_048)
+TEST(collation, non_ignorable_395_018)
 {
     // F8FC 0062;	
     // ('\uF8FC') <private-use-F8FC>	[FBC1 F8FC 1CC6 | 0020 0020 | 0002 0002 |]
@@ -889,7 +349,7 @@ TEST(collation, non_ignorable_395_048)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_049)
+TEST(collation, non_ignorable_395_019)
 {
     // F8FD 0021;	
     // ('\uF8FD') <private-use-F8FD>	[FBC1 F8FD 0261 | 0020 0020 | 0002 0002 |]
@@ -907,7 +367,7 @@ TEST(collation, non_ignorable_395_049)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_050)
+TEST(collation, non_ignorable_395_020)
 {
     // F8FD 003F;	
     // ('\uF8FD') <private-use-F8FD>	[FBC1 F8FD 0267 | 0020 0020 | 0002 0002 |]
@@ -925,7 +385,7 @@ TEST(collation, non_ignorable_395_050)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_051)
+TEST(collation, non_ignorable_395_021)
 {
     // F8FD 0061;	
     // ('\uF8FD') <private-use-F8FD>	[FBC1 F8FD 1CAD | 0020 0020 | 0002 0002 |]
@@ -943,7 +403,7 @@ TEST(collation, non_ignorable_395_051)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_052)
+TEST(collation, non_ignorable_395_022)
 {
     // F8FD 0041;	
     // ('\uF8FD') <private-use-F8FD>	[FBC1 F8FD 1CAD | 0020 0020 | 0002 0008 |]
@@ -961,7 +421,7 @@ TEST(collation, non_ignorable_395_052)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_053)
+TEST(collation, non_ignorable_395_023)
 {
     // F8FD 0062;	
     // ('\uF8FD') <private-use-F8FD>	[FBC1 F8FD 1CC6 | 0020 0020 | 0002 0002 |]
@@ -979,7 +439,7 @@ TEST(collation, non_ignorable_395_053)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_054)
+TEST(collation, non_ignorable_395_024)
 {
     // F8FE 0021;	
     // ('\uF8FE') <private-use-F8FE>	[FBC1 F8FE 0261 | 0020 0020 | 0002 0002 |]
@@ -997,7 +457,7 @@ TEST(collation, non_ignorable_395_054)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_055)
+TEST(collation, non_ignorable_395_025)
 {
     // F8FE 003F;	
     // ('\uF8FE') <private-use-F8FE>	[FBC1 F8FE 0267 | 0020 0020 | 0002 0002 |]
@@ -1015,7 +475,7 @@ TEST(collation, non_ignorable_395_055)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_056)
+TEST(collation, non_ignorable_395_026)
 {
     // F8FE 0061;	
     // ('\uF8FE') <private-use-F8FE>	[FBC1 F8FE 1CAD | 0020 0020 | 0002 0002 |]
@@ -1033,7 +493,7 @@ TEST(collation, non_ignorable_395_056)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_057)
+TEST(collation, non_ignorable_395_027)
 {
     // F8FE 0041;	
     // ('\uF8FE') <private-use-F8FE>	[FBC1 F8FE 1CAD | 0020 0020 | 0002 0008 |]
@@ -1051,7 +511,7 @@ TEST(collation, non_ignorable_395_057)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_058)
+TEST(collation, non_ignorable_395_028)
 {
     // F8FE 0062;	
     // ('\uF8FE') <private-use-F8FE>	[FBC1 F8FE 1CC6 | 0020 0020 | 0002 0002 |]
@@ -1069,7 +529,7 @@ TEST(collation, non_ignorable_395_058)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_059)
+TEST(collation, non_ignorable_395_029)
 {
     // F8FF 0021;	
     // ('\uF8FF') <private-use-F8FF>	[FBC1 F8FF 0261 | 0020 0020 | 0002 0002 |]
@@ -1087,7 +547,7 @@ TEST(collation, non_ignorable_395_059)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_060)
+TEST(collation, non_ignorable_395_030)
 {
     // F8FF 003F;	
     // ('\uF8FF') <private-use-F8FF>	[FBC1 F8FF 0267 | 0020 0020 | 0002 0002 |]
@@ -1105,7 +565,7 @@ TEST(collation, non_ignorable_395_060)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_061)
+TEST(collation, non_ignorable_395_031)
 {
     // F8FF 0061;	
     // ('\uF8FF') <private-use-F8FF>	[FBC1 F8FF 1CAD | 0020 0020 | 0002 0002 |]
@@ -1123,7 +583,7 @@ TEST(collation, non_ignorable_395_061)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_062)
+TEST(collation, non_ignorable_395_032)
 {
     // F8FF 0041;	
     // ('\uF8FF') <private-use-F8FF>	[FBC1 F8FF 1CAD | 0020 0020 | 0002 0008 |]
@@ -1141,7 +601,7 @@ TEST(collation, non_ignorable_395_062)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_063)
+TEST(collation, non_ignorable_395_033)
 {
     // F8FF 0062;	
     // ('\uF8FF') <private-use-F8FF>	[FBC1 F8FF 1CC6 | 0020 0020 | 0002 0002 |]
@@ -1159,367 +619,7 @@ TEST(collation, non_ignorable_395_063)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_064)
-{
-    // FDD0 0021;	
-    // ('\uFDD0') <noncharacter-FDD0>	[FBC1 FDD0 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD0, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD0, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_065)
-{
-    // FDD0 003F;	
-    // ('\uFDD0') <noncharacter-FDD0>	[FBC1 FDD0 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD0, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD0, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_066)
-{
-    // FDD0 0061;	
-    // ('\uFDD0') <noncharacter-FDD0>	[FBC1 FDD0 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD0, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD0, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_067)
-{
-    // FDD0 0041;	
-    // ('\uFDD0') <noncharacter-FDD0>	[FBC1 FDD0 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xFDD0, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD0, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_068)
-{
-    // FDD0 0062;	
-    // ('\uFDD0') <noncharacter-FDD0>	[FBC1 FDD0 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD0, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD0, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_069)
-{
-    // FDD1 0021;	
-    // ('\uFDD1') <noncharacter-FDD1>	[FBC1 FDD1 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD1, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD1, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_070)
-{
-    // FDD1 003F;	
-    // ('\uFDD1') <noncharacter-FDD1>	[FBC1 FDD1 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD1, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD1, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_071)
-{
-    // FDD1 0061;	
-    // ('\uFDD1') <noncharacter-FDD1>	[FBC1 FDD1 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD1, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD1, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_072)
-{
-    // FDD1 0041;	
-    // ('\uFDD1') <noncharacter-FDD1>	[FBC1 FDD1 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xFDD1, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD1, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_073)
-{
-    // FDD1 0062;	
-    // ('\uFDD1') <noncharacter-FDD1>	[FBC1 FDD1 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD1, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD1, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_074)
-{
-    // FDD2 0021;	
-    // ('\uFDD2') <noncharacter-FDD2>	[FBC1 FDD2 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD2, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD2, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_075)
-{
-    // FDD2 003F;	
-    // ('\uFDD2') <noncharacter-FDD2>	[FBC1 FDD2 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD2, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD2, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_076)
-{
-    // FDD2 0061;	
-    // ('\uFDD2') <noncharacter-FDD2>	[FBC1 FDD2 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD2, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD2, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_077)
-{
-    // FDD2 0041;	
-    // ('\uFDD2') <noncharacter-FDD2>	[FBC1 FDD2 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xFDD2, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD2, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_078)
-{
-    // FDD2 0062;	
-    // ('\uFDD2') <noncharacter-FDD2>	[FBC1 FDD2 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD2, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD2, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_079)
-{
-    // FDD3 0021;	
-    // ('\uFDD3') <noncharacter-FDD3>	[FBC1 FDD3 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD3, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD3, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_080)
-{
-    // FDD3 003F;	
-    // ('\uFDD3') <noncharacter-FDD3>	[FBC1 FDD3 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD3, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD3, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_081)
-{
-    // FDD3 0061;	
-    // ('\uFDD3') <noncharacter-FDD3>	[FBC1 FDD3 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD3, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD3, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_082)
-{
-    // FDD3 0041;	
-    // ('\uFDD3') <noncharacter-FDD3>	[FBC1 FDD3 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xFDD3, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD3, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_083)
-{
-    // FDD3 0062;	
-    // ('\uFDD3') <noncharacter-FDD3>	[FBC1 FDD3 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFDD3, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFDD3, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_084)
+TEST(collation, non_ignorable_395_034)
 {
     // FFF0 0021;	
     // ('\uFFF0') null	[FBC1 FFF0 0261 | 0020 0020 | 0002 0002 |]
@@ -1537,7 +637,7 @@ TEST(collation, non_ignorable_395_084)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_085)
+TEST(collation, non_ignorable_395_035)
 {
     // FFF0 003F;	
     // ('\uFFF0') null	[FBC1 FFF0 0267 | 0020 0020 | 0002 0002 |]
@@ -1555,7 +655,7 @@ TEST(collation, non_ignorable_395_085)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_086)
+TEST(collation, non_ignorable_395_036)
 {
     // FFF0 0061;	
     // ('\uFFF0') null	[FBC1 FFF0 1CAD | 0020 0020 | 0002 0002 |]
@@ -1573,7 +673,7 @@ TEST(collation, non_ignorable_395_086)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_087)
+TEST(collation, non_ignorable_395_037)
 {
     // FFF0 0041;	
     // ('\uFFF0') null	[FBC1 FFF0 1CAD | 0020 0020 | 0002 0008 |]
@@ -1591,7 +691,7 @@ TEST(collation, non_ignorable_395_087)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_088)
+TEST(collation, non_ignorable_395_038)
 {
     // FFF0 0062;	
     // ('\uFFF0') null	[FBC1 FFF0 1CC6 | 0020 0020 | 0002 0002 |]
@@ -1609,367 +709,7 @@ TEST(collation, non_ignorable_395_088)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_089)
-{
-    // FFFE 0021;	
-    // ('\uFFFE') <noncharacter-FFFE>	[FBC1 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_090)
-{
-    // FFFE 003F;	
-    // ('\uFFFE') <noncharacter-FFFE>	[FBC1 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_091)
-{
-    // FFFE 0061;	
-    // ('\uFFFE') <noncharacter-FFFE>	[FBC1 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_092)
-{
-    // FFFE 0041;	
-    // ('\uFFFE') <noncharacter-FFFE>	[FBC1 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xFFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_093)
-{
-    // FFFE 0062;	
-    // ('\uFFFE') <noncharacter-FFFE>	[FBC1 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_094)
-{
-    // FFFF 0021;	
-    // ('\uFFFF') <noncharacter-FFFF>	[FBC1 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_095)
-{
-    // FFFF 003F;	
-    // ('\uFFFF') <noncharacter-FFFF>	[FBC1 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_096)
-{
-    // FFFF 0061;	
-    // ('\uFFFF') <noncharacter-FFFF>	[FBC1 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_097)
-{
-    // FFFF 0041;	
-    // ('\uFFFF') <noncharacter-FFFF>	[FBC1 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xFFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_098)
-{
-    // FFFF 0062;	
-    // ('\uFFFF') <noncharacter-FFFF>	[FBC1 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xFFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC1, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_099)
-{
-    // 1FFFE 0021;	
-    // ('\U0001FFFE') <noncharacter-1FFFE>	[FBC3 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_100)
-{
-    // 1FFFE 003F;	
-    // ('\U0001FFFE') <noncharacter-1FFFE>	[FBC3 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_101)
-{
-    // 1FFFE 0061;	
-    // ('\U0001FFFE') <noncharacter-1FFFE>	[FBC3 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_102)
-{
-    // 1FFFE 0041;	
-    // ('\U0001FFFE') <noncharacter-1FFFE>	[FBC3 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x1FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_103)
-{
-    // 1FFFE 0062;	
-    // ('\U0001FFFE') <noncharacter-1FFFE>	[FBC3 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_104)
-{
-    // 1FFFF 0021;	
-    // ('\U0001FFFF') <noncharacter-1FFFF>	[FBC3 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_105)
-{
-    // 1FFFF 003F;	
-    // ('\U0001FFFF') <noncharacter-1FFFF>	[FBC3 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_106)
-{
-    // 1FFFF 0061;	
-    // ('\U0001FFFF') <noncharacter-1FFFF>	[FBC3 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_107)
-{
-    // 1FFFF 0041;	
-    // ('\U0001FFFF') <noncharacter-1FFFF>	[FBC3 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x1FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_108)
-{
-    // 1FFFF 0062;	
-    // ('\U0001FFFF') <noncharacter-1FFFF>	[FBC3 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x1FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC3, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_109)
+TEST(collation, non_ignorable_395_039)
 {
     // 2A6D7 0021;	
     // ('\U0002A6D7') null	[FBC5 A6D7 0261 | 0020 0020 | 0002 0002 |]
@@ -1987,7 +727,7 @@ TEST(collation, non_ignorable_395_109)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_110)
+TEST(collation, non_ignorable_395_040)
 {
     // 2A6D7 003F;	
     // ('\U0002A6D7') null	[FBC5 A6D7 0267 | 0020 0020 | 0002 0002 |]
@@ -2005,7 +745,7 @@ TEST(collation, non_ignorable_395_110)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_111)
+TEST(collation, non_ignorable_395_041)
 {
     // 2A6D7 0061;	
     // ('\U0002A6D7') null	[FBC5 A6D7 1CAD | 0020 0020 | 0002 0002 |]
@@ -2023,7 +763,7 @@ TEST(collation, non_ignorable_395_111)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_112)
+TEST(collation, non_ignorable_395_042)
 {
     // 2A6D7 0041;	
     // ('\U0002A6D7') null	[FBC5 A6D7 1CAD | 0020 0020 | 0002 0008 |]
@@ -2041,7 +781,7 @@ TEST(collation, non_ignorable_395_112)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_113)
+TEST(collation, non_ignorable_395_043)
 {
     // 2A6D7 0062;	
     // ('\U0002A6D7') null	[FBC5 A6D7 1CC6 | 0020 0020 | 0002 0002 |]
@@ -2059,7 +799,7 @@ TEST(collation, non_ignorable_395_113)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_114)
+TEST(collation, non_ignorable_395_044)
 {
     // 2B735 0021;	
     // ('\U0002B735') null	[FBC5 B735 0261 | 0020 0020 | 0002 0002 |]
@@ -2077,7 +817,7 @@ TEST(collation, non_ignorable_395_114)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_115)
+TEST(collation, non_ignorable_395_045)
 {
     // 2B735 003F;	
     // ('\U0002B735') null	[FBC5 B735 0267 | 0020 0020 | 0002 0002 |]
@@ -2095,7 +835,7 @@ TEST(collation, non_ignorable_395_115)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_116)
+TEST(collation, non_ignorable_395_046)
 {
     // 2B735 0061;	
     // ('\U0002B735') null	[FBC5 B735 1CAD | 0020 0020 | 0002 0002 |]
@@ -2113,7 +853,7 @@ TEST(collation, non_ignorable_395_116)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_117)
+TEST(collation, non_ignorable_395_047)
 {
     // 2B735 0041;	
     // ('\U0002B735') null	[FBC5 B735 1CAD | 0020 0020 | 0002 0008 |]
@@ -2131,7 +871,7 @@ TEST(collation, non_ignorable_395_117)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_118)
+TEST(collation, non_ignorable_395_048)
 {
     // 2B735 0062;	
     // ('\U0002B735') null	[FBC5 B735 1CC6 | 0020 0020 | 0002 0002 |]
@@ -2149,7 +889,7 @@ TEST(collation, non_ignorable_395_118)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_119)
+TEST(collation, non_ignorable_395_049)
 {
     // 2B81E 0021;	
     // ('\U0002B81E') null	[FBC5 B81E 0261 | 0020 0020 | 0002 0002 |]
@@ -2167,7 +907,7 @@ TEST(collation, non_ignorable_395_119)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_120)
+TEST(collation, non_ignorable_395_050)
 {
     // 2B81E 003F;	
     // ('\U0002B81E') null	[FBC5 B81E 0267 | 0020 0020 | 0002 0002 |]
@@ -2185,7 +925,7 @@ TEST(collation, non_ignorable_395_120)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_121)
+TEST(collation, non_ignorable_395_051)
 {
     // 2B81E 0061;	
     // ('\U0002B81E') null	[FBC5 B81E 1CAD | 0020 0020 | 0002 0002 |]
@@ -2203,7 +943,7 @@ TEST(collation, non_ignorable_395_121)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_122)
+TEST(collation, non_ignorable_395_052)
 {
     // 2B81E 0041;	
     // ('\U0002B81E') null	[FBC5 B81E 1CAD | 0020 0020 | 0002 0008 |]
@@ -2221,7 +961,7 @@ TEST(collation, non_ignorable_395_122)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_123)
+TEST(collation, non_ignorable_395_053)
 {
     // 2B81E 0062;	
     // ('\U0002B81E') null	[FBC5 B81E 1CC6 | 0020 0020 | 0002 0002 |]
@@ -2239,7 +979,7 @@ TEST(collation, non_ignorable_395_123)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_124)
+TEST(collation, non_ignorable_395_054)
 {
     // 2CEA2 0021;	
     // ('\U0002CEA2') null	[FBC5 CEA2 0261 | 0020 0020 | 0002 0002 |]
@@ -2257,7 +997,7 @@ TEST(collation, non_ignorable_395_124)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_125)
+TEST(collation, non_ignorable_395_055)
 {
     // 2CEA2 003F;	
     // ('\U0002CEA2') null	[FBC5 CEA2 0267 | 0020 0020 | 0002 0002 |]
@@ -2275,7 +1015,7 @@ TEST(collation, non_ignorable_395_125)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_126)
+TEST(collation, non_ignorable_395_056)
 {
     // 2CEA2 0061;	
     // ('\U0002CEA2') null	[FBC5 CEA2 1CAD | 0020 0020 | 0002 0002 |]
@@ -2293,7 +1033,7 @@ TEST(collation, non_ignorable_395_126)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_127)
+TEST(collation, non_ignorable_395_057)
 {
     // 2CEA2 0041;	
     // ('\U0002CEA2') null	[FBC5 CEA2 1CAD | 0020 0020 | 0002 0008 |]
@@ -2311,7 +1051,7 @@ TEST(collation, non_ignorable_395_127)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_128)
+TEST(collation, non_ignorable_395_058)
 {
     // 2CEA2 0062;	
     // ('\U0002CEA2') null	[FBC5 CEA2 1CC6 | 0020 0020 | 0002 0002 |]
@@ -2329,7 +1069,7 @@ TEST(collation, non_ignorable_395_128)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_129)
+TEST(collation, non_ignorable_395_059)
 {
     // 2EBE1 0021;	
     // ('\U0002EBE1') null	[FBC5 EBE1 0261 | 0020 0020 | 0002 0002 |]
@@ -2347,7 +1087,7 @@ TEST(collation, non_ignorable_395_129)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_130)
+TEST(collation, non_ignorable_395_060)
 {
     // 2EBE1 003F;	
     // ('\U0002EBE1') null	[FBC5 EBE1 0267 | 0020 0020 | 0002 0002 |]
@@ -2365,7 +1105,7 @@ TEST(collation, non_ignorable_395_130)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_131)
+TEST(collation, non_ignorable_395_061)
 {
     // 2EBE1 0061;	
     // ('\U0002EBE1') null	[FBC5 EBE1 1CAD | 0020 0020 | 0002 0002 |]
@@ -2383,7 +1123,7 @@ TEST(collation, non_ignorable_395_131)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_132)
+TEST(collation, non_ignorable_395_062)
 {
     // 2EBE1 0041;	
     // ('\U0002EBE1') null	[FBC5 EBE1 1CAD | 0020 0020 | 0002 0008 |]
@@ -2401,7 +1141,7 @@ TEST(collation, non_ignorable_395_132)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_133)
+TEST(collation, non_ignorable_395_063)
 {
     // 2EBE1 0062;	
     // ('\U0002EBE1') null	[FBC5 EBE1 1CC6 | 0020 0020 | 0002 0002 |]
@@ -2419,1807 +1159,7 @@ TEST(collation, non_ignorable_395_133)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_134)
-{
-    // 2FFFE 0021;	
-    // ('\U0002FFFE') <noncharacter-2FFFE>	[FBC5 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_135)
-{
-    // 2FFFE 003F;	
-    // ('\U0002FFFE') <noncharacter-2FFFE>	[FBC5 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_136)
-{
-    // 2FFFE 0061;	
-    // ('\U0002FFFE') <noncharacter-2FFFE>	[FBC5 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_137)
-{
-    // 2FFFE 0041;	
-    // ('\U0002FFFE') <noncharacter-2FFFE>	[FBC5 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x2FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_138)
-{
-    // 2FFFE 0062;	
-    // ('\U0002FFFE') <noncharacter-2FFFE>	[FBC5 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_139)
-{
-    // 2FFFF 0021;	
-    // ('\U0002FFFF') <noncharacter-2FFFF>	[FBC5 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_140)
-{
-    // 2FFFF 003F;	
-    // ('\U0002FFFF') <noncharacter-2FFFF>	[FBC5 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_141)
-{
-    // 2FFFF 0061;	
-    // ('\U0002FFFF') <noncharacter-2FFFF>	[FBC5 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_142)
-{
-    // 2FFFF 0041;	
-    // ('\U0002FFFF') <noncharacter-2FFFF>	[FBC5 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x2FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_143)
-{
-    // 2FFFF 0062;	
-    // ('\U0002FFFF') <noncharacter-2FFFF>	[FBC5 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x2FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC5, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_144)
-{
-    // 3FFFE 0021;	
-    // ('\U0003FFFE') <noncharacter-3FFFE>	[FBC7 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_145)
-{
-    // 3FFFE 003F;	
-    // ('\U0003FFFE') <noncharacter-3FFFE>	[FBC7 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_146)
-{
-    // 3FFFE 0061;	
-    // ('\U0003FFFE') <noncharacter-3FFFE>	[FBC7 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_147)
-{
-    // 3FFFE 0041;	
-    // ('\U0003FFFE') <noncharacter-3FFFE>	[FBC7 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x3FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_148)
-{
-    // 3FFFE 0062;	
-    // ('\U0003FFFE') <noncharacter-3FFFE>	[FBC7 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_149)
-{
-    // 3FFFF 0021;	
-    // ('\U0003FFFF') <noncharacter-3FFFF>	[FBC7 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_150)
-{
-    // 3FFFF 003F;	
-    // ('\U0003FFFF') <noncharacter-3FFFF>	[FBC7 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_151)
-{
-    // 3FFFF 0061;	
-    // ('\U0003FFFF') <noncharacter-3FFFF>	[FBC7 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_152)
-{
-    // 3FFFF 0041;	
-    // ('\U0003FFFF') <noncharacter-3FFFF>	[FBC7 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x3FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_153)
-{
-    // 3FFFF 0062;	
-    // ('\U0003FFFF') <noncharacter-3FFFF>	[FBC7 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x3FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC7, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_154)
-{
-    // 4FFFE 0021;	
-    // ('\U0004FFFE') <noncharacter-4FFFE>	[FBC9 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_155)
-{
-    // 4FFFE 003F;	
-    // ('\U0004FFFE') <noncharacter-4FFFE>	[FBC9 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_156)
-{
-    // 4FFFE 0061;	
-    // ('\U0004FFFE') <noncharacter-4FFFE>	[FBC9 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_157)
-{
-    // 4FFFE 0041;	
-    // ('\U0004FFFE') <noncharacter-4FFFE>	[FBC9 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x4FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_158)
-{
-    // 4FFFE 0062;	
-    // ('\U0004FFFE') <noncharacter-4FFFE>	[FBC9 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_159)
-{
-    // 4FFFF 0021;	
-    // ('\U0004FFFF') <noncharacter-4FFFF>	[FBC9 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_160)
-{
-    // 4FFFF 003F;	
-    // ('\U0004FFFF') <noncharacter-4FFFF>	[FBC9 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_161)
-{
-    // 4FFFF 0061;	
-    // ('\U0004FFFF') <noncharacter-4FFFF>	[FBC9 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_162)
-{
-    // 4FFFF 0041;	
-    // ('\U0004FFFF') <noncharacter-4FFFF>	[FBC9 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x4FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_163)
-{
-    // 4FFFF 0062;	
-    // ('\U0004FFFF') <noncharacter-4FFFF>	[FBC9 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x4FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBC9, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_164)
-{
-    // 5FFFE 0021;	
-    // ('\U0005FFFE') <noncharacter-5FFFE>	[FBCB FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_165)
-{
-    // 5FFFE 003F;	
-    // ('\U0005FFFE') <noncharacter-5FFFE>	[FBCB FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_166)
-{
-    // 5FFFE 0061;	
-    // ('\U0005FFFE') <noncharacter-5FFFE>	[FBCB FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_167)
-{
-    // 5FFFE 0041;	
-    // ('\U0005FFFE') <noncharacter-5FFFE>	[FBCB FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x5FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_168)
-{
-    // 5FFFE 0062;	
-    // ('\U0005FFFE') <noncharacter-5FFFE>	[FBCB FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_169)
-{
-    // 5FFFF 0021;	
-    // ('\U0005FFFF') <noncharacter-5FFFF>	[FBCB FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_170)
-{
-    // 5FFFF 003F;	
-    // ('\U0005FFFF') <noncharacter-5FFFF>	[FBCB FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_171)
-{
-    // 5FFFF 0061;	
-    // ('\U0005FFFF') <noncharacter-5FFFF>	[FBCB FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_172)
-{
-    // 5FFFF 0041;	
-    // ('\U0005FFFF') <noncharacter-5FFFF>	[FBCB FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x5FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_173)
-{
-    // 5FFFF 0062;	
-    // ('\U0005FFFF') <noncharacter-5FFFF>	[FBCB FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x5FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBCB, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_174)
-{
-    // 6FFFE 0021;	
-    // ('\U0006FFFE') <noncharacter-6FFFE>	[FBCD FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_175)
-{
-    // 6FFFE 003F;	
-    // ('\U0006FFFE') <noncharacter-6FFFE>	[FBCD FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_176)
-{
-    // 6FFFE 0061;	
-    // ('\U0006FFFE') <noncharacter-6FFFE>	[FBCD FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_177)
-{
-    // 6FFFE 0041;	
-    // ('\U0006FFFE') <noncharacter-6FFFE>	[FBCD FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x6FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_178)
-{
-    // 6FFFE 0062;	
-    // ('\U0006FFFE') <noncharacter-6FFFE>	[FBCD FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_179)
-{
-    // 6FFFF 0021;	
-    // ('\U0006FFFF') <noncharacter-6FFFF>	[FBCD FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_180)
-{
-    // 6FFFF 003F;	
-    // ('\U0006FFFF') <noncharacter-6FFFF>	[FBCD FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_181)
-{
-    // 6FFFF 0061;	
-    // ('\U0006FFFF') <noncharacter-6FFFF>	[FBCD FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_182)
-{
-    // 6FFFF 0041;	
-    // ('\U0006FFFF') <noncharacter-6FFFF>	[FBCD FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x6FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_183)
-{
-    // 6FFFF 0062;	
-    // ('\U0006FFFF') <noncharacter-6FFFF>	[FBCD FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x6FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBCD, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_184)
-{
-    // 7FFFE 0021;	
-    // ('\U0007FFFE') <noncharacter-7FFFE>	[FBCF FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_185)
-{
-    // 7FFFE 003F;	
-    // ('\U0007FFFE') <noncharacter-7FFFE>	[FBCF FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_186)
-{
-    // 7FFFE 0061;	
-    // ('\U0007FFFE') <noncharacter-7FFFE>	[FBCF FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_187)
-{
-    // 7FFFE 0041;	
-    // ('\U0007FFFE') <noncharacter-7FFFE>	[FBCF FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x7FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_188)
-{
-    // 7FFFE 0062;	
-    // ('\U0007FFFE') <noncharacter-7FFFE>	[FBCF FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_189)
-{
-    // 7FFFF 0021;	
-    // ('\U0007FFFF') <noncharacter-7FFFF>	[FBCF FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_190)
-{
-    // 7FFFF 003F;	
-    // ('\U0007FFFF') <noncharacter-7FFFF>	[FBCF FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_191)
-{
-    // 7FFFF 0061;	
-    // ('\U0007FFFF') <noncharacter-7FFFF>	[FBCF FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_192)
-{
-    // 7FFFF 0041;	
-    // ('\U0007FFFF') <noncharacter-7FFFF>	[FBCF FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x7FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_193)
-{
-    // 7FFFF 0062;	
-    // ('\U0007FFFF') <noncharacter-7FFFF>	[FBCF FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x7FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBCF, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_194)
-{
-    // 8FFFE 0021;	
-    // ('\U0008FFFE') <noncharacter-8FFFE>	[FBD1 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_195)
-{
-    // 8FFFE 003F;	
-    // ('\U0008FFFE') <noncharacter-8FFFE>	[FBD1 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_196)
-{
-    // 8FFFE 0061;	
-    // ('\U0008FFFE') <noncharacter-8FFFE>	[FBD1 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_197)
-{
-    // 8FFFE 0041;	
-    // ('\U0008FFFE') <noncharacter-8FFFE>	[FBD1 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x8FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_198)
-{
-    // 8FFFE 0062;	
-    // ('\U0008FFFE') <noncharacter-8FFFE>	[FBD1 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_199)
-{
-    // 8FFFF 0021;	
-    // ('\U0008FFFF') <noncharacter-8FFFF>	[FBD1 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_200)
-{
-    // 8FFFF 003F;	
-    // ('\U0008FFFF') <noncharacter-8FFFF>	[FBD1 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_201)
-{
-    // 8FFFF 0061;	
-    // ('\U0008FFFF') <noncharacter-8FFFF>	[FBD1 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_202)
-{
-    // 8FFFF 0041;	
-    // ('\U0008FFFF') <noncharacter-8FFFF>	[FBD1 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x8FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_203)
-{
-    // 8FFFF 0062;	
-    // ('\U0008FFFF') <noncharacter-8FFFF>	[FBD1 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x8FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD1, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_204)
-{
-    // 9FFFE 0021;	
-    // ('\U0009FFFE') <noncharacter-9FFFE>	[FBD3 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_205)
-{
-    // 9FFFE 003F;	
-    // ('\U0009FFFE') <noncharacter-9FFFE>	[FBD3 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_206)
-{
-    // 9FFFE 0061;	
-    // ('\U0009FFFE') <noncharacter-9FFFE>	[FBD3 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_207)
-{
-    // 9FFFE 0041;	
-    // ('\U0009FFFE') <noncharacter-9FFFE>	[FBD3 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x9FFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_208)
-{
-    // 9FFFE 0062;	
-    // ('\U0009FFFE') <noncharacter-9FFFE>	[FBD3 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_209)
-{
-    // 9FFFF 0021;	
-    // ('\U0009FFFF') <noncharacter-9FFFF>	[FBD3 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_210)
-{
-    // 9FFFF 003F;	
-    // ('\U0009FFFF') <noncharacter-9FFFF>	[FBD3 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_211)
-{
-    // 9FFFF 0061;	
-    // ('\U0009FFFF') <noncharacter-9FFFF>	[FBD3 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_212)
-{
-    // 9FFFF 0041;	
-    // ('\U0009FFFF') <noncharacter-9FFFF>	[FBD3 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0x9FFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_213)
-{
-    // 9FFFF 0062;	
-    // ('\U0009FFFF') <noncharacter-9FFFF>	[FBD3 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0x9FFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD3, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_214)
-{
-    // AFFFE 0021;	
-    // ('\U000AFFFE') <noncharacter-AFFFE>	[FBD5 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_215)
-{
-    // AFFFE 003F;	
-    // ('\U000AFFFE') <noncharacter-AFFFE>	[FBD5 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_216)
-{
-    // AFFFE 0061;	
-    // ('\U000AFFFE') <noncharacter-AFFFE>	[FBD5 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_217)
-{
-    // AFFFE 0041;	
-    // ('\U000AFFFE') <noncharacter-AFFFE>	[FBD5 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xAFFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_218)
-{
-    // AFFFE 0062;	
-    // ('\U000AFFFE') <noncharacter-AFFFE>	[FBD5 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_219)
-{
-    // AFFFF 0021;	
-    // ('\U000AFFFF') <noncharacter-AFFFF>	[FBD5 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_220)
-{
-    // AFFFF 003F;	
-    // ('\U000AFFFF') <noncharacter-AFFFF>	[FBD5 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_221)
-{
-    // AFFFF 0061;	
-    // ('\U000AFFFF') <noncharacter-AFFFF>	[FBD5 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_222)
-{
-    // AFFFF 0041;	
-    // ('\U000AFFFF') <noncharacter-AFFFF>	[FBD5 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xAFFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_223)
-{
-    // AFFFF 0062;	
-    // ('\U000AFFFF') <noncharacter-AFFFF>	[FBD5 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xAFFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD5, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_224)
-{
-    // BFFFE 0021;	
-    // ('\U000BFFFE') <noncharacter-BFFFE>	[FBD7 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_225)
-{
-    // BFFFE 003F;	
-    // ('\U000BFFFE') <noncharacter-BFFFE>	[FBD7 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_226)
-{
-    // BFFFE 0061;	
-    // ('\U000BFFFE') <noncharacter-BFFFE>	[FBD7 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_227)
-{
-    // BFFFE 0041;	
-    // ('\U000BFFFE') <noncharacter-BFFFE>	[FBD7 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xBFFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_228)
-{
-    // BFFFE 0062;	
-    // ('\U000BFFFE') <noncharacter-BFFFE>	[FBD7 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_229)
-{
-    // BFFFF 0021;	
-    // ('\U000BFFFF') <noncharacter-BFFFF>	[FBD7 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_230)
-{
-    // BFFFF 003F;	
-    // ('\U000BFFFF') <noncharacter-BFFFF>	[FBD7 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_231)
-{
-    // BFFFF 0061;	
-    // ('\U000BFFFF') <noncharacter-BFFFF>	[FBD7 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_232)
-{
-    // BFFFF 0041;	
-    // ('\U000BFFFF') <noncharacter-BFFFF>	[FBD7 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xBFFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_233)
-{
-    // BFFFF 0062;	
-    // ('\U000BFFFF') <noncharacter-BFFFF>	[FBD7 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xBFFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD7, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_234)
+TEST(collation, non_ignorable_395_064)
 {
     // C0000 0021;	
     // ('\U000C0000') <reserved-C0000>	[FBD8 8000 0261 | 0020 0020 | 0002 0002 |]
@@ -4237,7 +1177,7 @@ TEST(collation, non_ignorable_395_234)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_235)
+TEST(collation, non_ignorable_395_065)
 {
     // C0000 003F;	
     // ('\U000C0000') <reserved-C0000>	[FBD8 8000 0267 | 0020 0020 | 0002 0002 |]
@@ -4255,7 +1195,7 @@ TEST(collation, non_ignorable_395_235)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_236)
+TEST(collation, non_ignorable_395_066)
 {
     // C0000 0061;	
     // ('\U000C0000') <reserved-C0000>	[FBD8 8000 1CAD | 0020 0020 | 0002 0002 |]
@@ -4273,7 +1213,7 @@ TEST(collation, non_ignorable_395_236)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_237)
+TEST(collation, non_ignorable_395_067)
 {
     // C0000 0041;	
     // ('\U000C0000') <reserved-C0000>	[FBD8 8000 1CAD | 0020 0020 | 0002 0008 |]
@@ -4291,7 +1231,7 @@ TEST(collation, non_ignorable_395_237)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_238)
+TEST(collation, non_ignorable_395_068)
 {
     // C0000 0062;	
     // ('\U000C0000') <reserved-C0000>	[FBD8 8000 1CC6 | 0020 0020 | 0002 0002 |]
@@ -4309,187 +1249,7 @@ TEST(collation, non_ignorable_395_238)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_239)
-{
-    // CFFFE 0021;	
-    // ('\U000CFFFE') <noncharacter-CFFFE>	[FBD9 FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_240)
-{
-    // CFFFE 003F;	
-    // ('\U000CFFFE') <noncharacter-CFFFE>	[FBD9 FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_241)
-{
-    // CFFFE 0061;	
-    // ('\U000CFFFE') <noncharacter-CFFFE>	[FBD9 FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_242)
-{
-    // CFFFE 0041;	
-    // ('\U000CFFFE') <noncharacter-CFFFE>	[FBD9 FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xCFFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_243)
-{
-    // CFFFE 0062;	
-    // ('\U000CFFFE') <noncharacter-CFFFE>	[FBD9 FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_244)
-{
-    // CFFFF 0021;	
-    // ('\U000CFFFF') <noncharacter-CFFFF>	[FBD9 FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_245)
-{
-    // CFFFF 003F;	
-    // ('\U000CFFFF') <noncharacter-CFFFF>	[FBD9 FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_246)
-{
-    // CFFFF 0061;	
-    // ('\U000CFFFF') <noncharacter-CFFFF>	[FBD9 FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_247)
-{
-    // CFFFF 0041;	
-    // ('\U000CFFFF') <noncharacter-CFFFF>	[FBD9 FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xCFFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_248)
-{
-    // CFFFF 0062;	
-    // ('\U000CFFFF') <noncharacter-CFFFF>	[FBD9 FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xCFFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBD9, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_249)
+TEST(collation, non_ignorable_395_069)
 {
     // D0000 0021;	
     // ('\U000D0000') <reserved-D0000>	[FBDA 8000 0261 | 0020 0020 | 0002 0002 |]
@@ -4507,7 +1267,7 @@ TEST(collation, non_ignorable_395_249)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_250)
+TEST(collation, non_ignorable_395_070)
 {
     // D0000 003F;	
     // ('\U000D0000') <reserved-D0000>	[FBDA 8000 0267 | 0020 0020 | 0002 0002 |]
@@ -4525,7 +1285,7 @@ TEST(collation, non_ignorable_395_250)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_251)
+TEST(collation, non_ignorable_395_071)
 {
     // D0000 0061;	
     // ('\U000D0000') <reserved-D0000>	[FBDA 8000 1CAD | 0020 0020 | 0002 0002 |]
@@ -4543,7 +1303,7 @@ TEST(collation, non_ignorable_395_251)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_252)
+TEST(collation, non_ignorable_395_072)
 {
     // D0000 0041;	
     // ('\U000D0000') <reserved-D0000>	[FBDA 8000 1CAD | 0020 0020 | 0002 0008 |]
@@ -4561,7 +1321,7 @@ TEST(collation, non_ignorable_395_252)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_253)
+TEST(collation, non_ignorable_395_073)
 {
     // D0000 0062;	
     // ('\U000D0000') <reserved-D0000>	[FBDA 8000 1CC6 | 0020 0020 | 0002 0002 |]
@@ -4579,187 +1339,7 @@ TEST(collation, non_ignorable_395_253)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_254)
-{
-    // DFFFE 0021;	
-    // ('\U000DFFFE') <noncharacter-DFFFE>	[FBDB FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_255)
-{
-    // DFFFE 003F;	
-    // ('\U000DFFFE') <noncharacter-DFFFE>	[FBDB FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_256)
-{
-    // DFFFE 0061;	
-    // ('\U000DFFFE') <noncharacter-DFFFE>	[FBDB FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_257)
-{
-    // DFFFE 0041;	
-    // ('\U000DFFFE') <noncharacter-DFFFE>	[FBDB FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xDFFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_258)
-{
-    // DFFFE 0062;	
-    // ('\U000DFFFE') <noncharacter-DFFFE>	[FBDB FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_259)
-{
-    // DFFFF 0021;	
-    // ('\U000DFFFF') <noncharacter-DFFFF>	[FBDB FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_260)
-{
-    // DFFFF 003F;	
-    // ('\U000DFFFF') <noncharacter-DFFFF>	[FBDB FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_261)
-{
-    // DFFFF 0061;	
-    // ('\U000DFFFF') <noncharacter-DFFFF>	[FBDB FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_262)
-{
-    // DFFFF 0041;	
-    // ('\U000DFFFF') <noncharacter-DFFFF>	[FBDB FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xDFFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_263)
-{
-    // DFFFF 0062;	
-    // ('\U000DFFFF') <noncharacter-DFFFF>	[FBDB FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xDFFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBDB, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_264)
+TEST(collation, non_ignorable_395_074)
 {
     // E0000 0021;	
     // ('\U000E0000') null	[FBDC 8000 0261 | 0020 0020 | 0002 0002 |]
@@ -4777,7 +1357,7 @@ TEST(collation, non_ignorable_395_264)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_265)
+TEST(collation, non_ignorable_395_075)
 {
     // E0000 003F;	
     // ('\U000E0000') null	[FBDC 8000 0267 | 0020 0020 | 0002 0002 |]
@@ -4795,7 +1375,7 @@ TEST(collation, non_ignorable_395_265)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_266)
+TEST(collation, non_ignorable_395_076)
 {
     // E0000 0061;	
     // ('\U000E0000') null	[FBDC 8000 1CAD | 0020 0020 | 0002 0002 |]
@@ -4813,7 +1393,7 @@ TEST(collation, non_ignorable_395_266)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_267)
+TEST(collation, non_ignorable_395_077)
 {
     // E0000 0041;	
     // ('\U000E0000') null	[FBDC 8000 1CAD | 0020 0020 | 0002 0008 |]
@@ -4831,7 +1411,7 @@ TEST(collation, non_ignorable_395_267)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_268)
+TEST(collation, non_ignorable_395_078)
 {
     // E0000 0062;	
     // ('\U000E0000') null	[FBDC 8000 1CC6 | 0020 0020 | 0002 0002 |]
@@ -4849,7 +1429,7 @@ TEST(collation, non_ignorable_395_268)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_269)
+TEST(collation, non_ignorable_395_079)
 {
     // E0002 0021;	
     // ('\U000E0002') null	[FBDC 8002 0261 | 0020 0020 | 0002 0002 |]
@@ -4867,7 +1447,7 @@ TEST(collation, non_ignorable_395_269)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_270)
+TEST(collation, non_ignorable_395_080)
 {
     // E0002 003F;	
     // ('\U000E0002') null	[FBDC 8002 0267 | 0020 0020 | 0002 0002 |]
@@ -4885,7 +1465,7 @@ TEST(collation, non_ignorable_395_270)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_271)
+TEST(collation, non_ignorable_395_081)
 {
     // E0002 0061;	
     // ('\U000E0002') null	[FBDC 8002 1CAD | 0020 0020 | 0002 0002 |]
@@ -4903,7 +1483,7 @@ TEST(collation, non_ignorable_395_271)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_272)
+TEST(collation, non_ignorable_395_082)
 {
     // E0002 0041;	
     // ('\U000E0002') null	[FBDC 8002 1CAD | 0020 0020 | 0002 0008 |]
@@ -4921,7 +1501,7 @@ TEST(collation, non_ignorable_395_272)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_273)
+TEST(collation, non_ignorable_395_083)
 {
     // E0002 0062;	
     // ('\U000E0002') null	[FBDC 8002 1CC6 | 0020 0020 | 0002 0002 |]
@@ -4939,7 +1519,7 @@ TEST(collation, non_ignorable_395_273)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_274)
+TEST(collation, non_ignorable_395_084)
 {
     // E0003 0021;	
     // ('\U000E0003') null	[FBDC 8003 0261 | 0020 0020 | 0002 0002 |]
@@ -4957,7 +1537,7 @@ TEST(collation, non_ignorable_395_274)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_275)
+TEST(collation, non_ignorable_395_085)
 {
     // E0003 003F;	
     // ('\U000E0003') null	[FBDC 8003 0267 | 0020 0020 | 0002 0002 |]
@@ -4975,7 +1555,7 @@ TEST(collation, non_ignorable_395_275)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_276)
+TEST(collation, non_ignorable_395_086)
 {
     // E0003 0061;	
     // ('\U000E0003') null	[FBDC 8003 1CAD | 0020 0020 | 0002 0002 |]
@@ -4993,7 +1573,7 @@ TEST(collation, non_ignorable_395_276)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_277)
+TEST(collation, non_ignorable_395_087)
 {
     // E0003 0041;	
     // ('\U000E0003') null	[FBDC 8003 1CAD | 0020 0020 | 0002 0008 |]
@@ -5011,7 +1591,7 @@ TEST(collation, non_ignorable_395_277)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_278)
+TEST(collation, non_ignorable_395_088)
 {
     // E0003 0062;	
     // ('\U000E0003') null	[FBDC 8003 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5029,7 +1609,7 @@ TEST(collation, non_ignorable_395_278)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_279)
+TEST(collation, non_ignorable_395_089)
 {
     // E0004 0021;	
     // ('\U000E0004') null	[FBDC 8004 0261 | 0020 0020 | 0002 0002 |]
@@ -5047,7 +1627,7 @@ TEST(collation, non_ignorable_395_279)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_280)
+TEST(collation, non_ignorable_395_090)
 {
     // E0004 003F;	
     // ('\U000E0004') null	[FBDC 8004 0267 | 0020 0020 | 0002 0002 |]
@@ -5065,7 +1645,7 @@ TEST(collation, non_ignorable_395_280)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_281)
+TEST(collation, non_ignorable_395_091)
 {
     // E0004 0061;	
     // ('\U000E0004') null	[FBDC 8004 1CAD | 0020 0020 | 0002 0002 |]
@@ -5083,7 +1663,7 @@ TEST(collation, non_ignorable_395_281)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_282)
+TEST(collation, non_ignorable_395_092)
 {
     // E0004 0041;	
     // ('\U000E0004') null	[FBDC 8004 1CAD | 0020 0020 | 0002 0008 |]
@@ -5101,7 +1681,7 @@ TEST(collation, non_ignorable_395_282)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_283)
+TEST(collation, non_ignorable_395_093)
 {
     // E0004 0062;	
     // ('\U000E0004') null	[FBDC 8004 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5119,7 +1699,7 @@ TEST(collation, non_ignorable_395_283)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_284)
+TEST(collation, non_ignorable_395_094)
 {
     // E0005 0021;	
     // ('\U000E0005') null	[FBDC 8005 0261 | 0020 0020 | 0002 0002 |]
@@ -5137,7 +1717,7 @@ TEST(collation, non_ignorable_395_284)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_285)
+TEST(collation, non_ignorable_395_095)
 {
     // E0005 003F;	
     // ('\U000E0005') null	[FBDC 8005 0267 | 0020 0020 | 0002 0002 |]
@@ -5155,7 +1735,7 @@ TEST(collation, non_ignorable_395_285)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_286)
+TEST(collation, non_ignorable_395_096)
 {
     // E0005 0061;	
     // ('\U000E0005') null	[FBDC 8005 1CAD | 0020 0020 | 0002 0002 |]
@@ -5173,7 +1753,7 @@ TEST(collation, non_ignorable_395_286)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_287)
+TEST(collation, non_ignorable_395_097)
 {
     // E0005 0041;	
     // ('\U000E0005') null	[FBDC 8005 1CAD | 0020 0020 | 0002 0008 |]
@@ -5191,7 +1771,7 @@ TEST(collation, non_ignorable_395_287)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_288)
+TEST(collation, non_ignorable_395_098)
 {
     // E0005 0062;	
     // ('\U000E0005') null	[FBDC 8005 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5209,187 +1789,7 @@ TEST(collation, non_ignorable_395_288)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_289)
-{
-    // EFFFE 0021;	
-    // ('\U000EFFFE') <noncharacter-EFFFE>	[FBDD FFFE 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFE, 0x0021 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFE, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_290)
-{
-    // EFFFE 003F;	
-    // ('\U000EFFFE') <noncharacter-EFFFE>	[FBDD FFFE 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFE, 0x003F };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFE, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_291)
-{
-    // EFFFE 0061;	
-    // ('\U000EFFFE') <noncharacter-EFFFE>	[FBDD FFFE 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFE, 0x0061 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_292)
-{
-    // EFFFE 0041;	
-    // ('\U000EFFFE') <noncharacter-EFFFE>	[FBDD FFFE 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xEFFFE, 0x0041 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFE, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_293)
-{
-    // EFFFE 0062;	
-    // ('\U000EFFFE') <noncharacter-EFFFE>	[FBDD FFFE 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFE, 0x0062 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFE, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_294)
-{
-    // EFFFF 0021;	
-    // ('\U000EFFFF') <noncharacter-EFFFF>	[FBDD FFFF 0261 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFF, 0x0021 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFF, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_295)
-{
-    // EFFFF 003F;	
-    // ('\U000EFFFF') <noncharacter-EFFFF>	[FBDD FFFF 0267 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFF, 0x003F };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFF, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_296)
-{
-    // EFFFF 0061;	
-    // ('\U000EFFFF') <noncharacter-EFFFF>	[FBDD FFFF 1CAD | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFF, 0x0061 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_297)
-{
-    // EFFFF 0041;	
-    // ('\U000EFFFF') <noncharacter-EFFFF>	[FBDD FFFF 1CAD | 0020 0020 | 0002 0008 |]
-
-    uint32_t cps[2] = { 0xEFFFF, 0x0041 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFF, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_298)
-{
-    // EFFFF 0062;	
-    // ('\U000EFFFF') <noncharacter-EFFFF>	[FBDD FFFF 1CC6 | 0020 0020 | 0002 0002 |]
-
-    uint32_t cps[2] = { 0xEFFFF, 0x0062 };
-    uint32_t const ces[10] = { 0xFBDD, 0xFFFF, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
-
-    auto collation = collate_for_tests(
-        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
-
-    EXPECT_EQ(collation.size(), 10);
-    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
-        << "from:     " << ce_dumper(cps)
-        << "expected: " << ce_dumper(ces)
-        << "got:      " << ce_dumper(collation);
-}
-
-TEST(collation, non_ignorable_395_299)
+TEST(collation, non_ignorable_395_099)
 {
     // F0000 0021;	
     // ('\U000F0000') <private-use-F0000>	[FBDE 8000 0261 | 0020 0020 | 0002 0002 |]
@@ -5407,7 +1807,7 @@ TEST(collation, non_ignorable_395_299)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_300)
+TEST(collation, non_ignorable_395_100)
 {
     // F0000 003F;	
     // ('\U000F0000') <private-use-F0000>	[FBDE 8000 0267 | 0020 0020 | 0002 0002 |]
@@ -5425,7 +1825,7 @@ TEST(collation, non_ignorable_395_300)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_301)
+TEST(collation, non_ignorable_395_101)
 {
     // F0000 0061;	
     // ('\U000F0000') <private-use-F0000>	[FBDE 8000 1CAD | 0020 0020 | 0002 0002 |]
@@ -5443,7 +1843,7 @@ TEST(collation, non_ignorable_395_301)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_302)
+TEST(collation, non_ignorable_395_102)
 {
     // F0000 0041;	
     // ('\U000F0000') <private-use-F0000>	[FBDE 8000 1CAD | 0020 0020 | 0002 0008 |]
@@ -5461,7 +1861,7 @@ TEST(collation, non_ignorable_395_302)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_303)
+TEST(collation, non_ignorable_395_103)
 {
     // F0000 0062;	
     // ('\U000F0000') <private-use-F0000>	[FBDE 8000 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5479,7 +1879,7 @@ TEST(collation, non_ignorable_395_303)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_304)
+TEST(collation, non_ignorable_395_104)
 {
     // F0001 0021;	
     // ('\U000F0001') <private-use-F0001>	[FBDE 8001 0261 | 0020 0020 | 0002 0002 |]
@@ -5497,7 +1897,7 @@ TEST(collation, non_ignorable_395_304)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_305)
+TEST(collation, non_ignorable_395_105)
 {
     // F0001 003F;	
     // ('\U000F0001') <private-use-F0001>	[FBDE 8001 0267 | 0020 0020 | 0002 0002 |]
@@ -5515,7 +1915,7 @@ TEST(collation, non_ignorable_395_305)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_306)
+TEST(collation, non_ignorable_395_106)
 {
     // F0001 0061;	
     // ('\U000F0001') <private-use-F0001>	[FBDE 8001 1CAD | 0020 0020 | 0002 0002 |]
@@ -5533,7 +1933,7 @@ TEST(collation, non_ignorable_395_306)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_307)
+TEST(collation, non_ignorable_395_107)
 {
     // F0001 0041;	
     // ('\U000F0001') <private-use-F0001>	[FBDE 8001 1CAD | 0020 0020 | 0002 0008 |]
@@ -5551,7 +1951,7 @@ TEST(collation, non_ignorable_395_307)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_308)
+TEST(collation, non_ignorable_395_108)
 {
     // F0001 0062;	
     // ('\U000F0001') <private-use-F0001>	[FBDE 8001 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5569,7 +1969,7 @@ TEST(collation, non_ignorable_395_308)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_309)
+TEST(collation, non_ignorable_395_109)
 {
     // F0002 0021;	
     // ('\U000F0002') <private-use-F0002>	[FBDE 8002 0261 | 0020 0020 | 0002 0002 |]
@@ -5587,7 +1987,7 @@ TEST(collation, non_ignorable_395_309)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_310)
+TEST(collation, non_ignorable_395_110)
 {
     // F0002 003F;	
     // ('\U000F0002') <private-use-F0002>	[FBDE 8002 0267 | 0020 0020 | 0002 0002 |]
@@ -5605,7 +2005,7 @@ TEST(collation, non_ignorable_395_310)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_311)
+TEST(collation, non_ignorable_395_111)
 {
     // F0002 0061;	
     // ('\U000F0002') <private-use-F0002>	[FBDE 8002 1CAD | 0020 0020 | 0002 0002 |]
@@ -5623,7 +2023,7 @@ TEST(collation, non_ignorable_395_311)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_312)
+TEST(collation, non_ignorable_395_112)
 {
     // F0002 0041;	
     // ('\U000F0002') <private-use-F0002>	[FBDE 8002 1CAD | 0020 0020 | 0002 0008 |]
@@ -5641,7 +2041,7 @@ TEST(collation, non_ignorable_395_312)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_313)
+TEST(collation, non_ignorable_395_113)
 {
     // F0002 0062;	
     // ('\U000F0002') <private-use-F0002>	[FBDE 8002 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5659,7 +2059,7 @@ TEST(collation, non_ignorable_395_313)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_314)
+TEST(collation, non_ignorable_395_114)
 {
     // F0003 0021;	
     // ('\U000F0003') <private-use-F0003>	[FBDE 8003 0261 | 0020 0020 | 0002 0002 |]
@@ -5677,7 +2077,7 @@ TEST(collation, non_ignorable_395_314)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_315)
+TEST(collation, non_ignorable_395_115)
 {
     // F0003 003F;	
     // ('\U000F0003') <private-use-F0003>	[FBDE 8003 0267 | 0020 0020 | 0002 0002 |]
@@ -5695,7 +2095,7 @@ TEST(collation, non_ignorable_395_315)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_316)
+TEST(collation, non_ignorable_395_116)
 {
     // F0003 0061;	
     // ('\U000F0003') <private-use-F0003>	[FBDE 8003 1CAD | 0020 0020 | 0002 0002 |]
@@ -5713,7 +2113,7 @@ TEST(collation, non_ignorable_395_316)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_317)
+TEST(collation, non_ignorable_395_117)
 {
     // F0003 0041;	
     // ('\U000F0003') <private-use-F0003>	[FBDE 8003 1CAD | 0020 0020 | 0002 0008 |]
@@ -5731,7 +2131,7 @@ TEST(collation, non_ignorable_395_317)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_318)
+TEST(collation, non_ignorable_395_118)
 {
     // F0003 0062;	
     // ('\U000F0003') <private-use-F0003>	[FBDE 8003 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5749,7 +2149,7 @@ TEST(collation, non_ignorable_395_318)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_319)
+TEST(collation, non_ignorable_395_119)
 {
     // F0004 0021;	
     // ('\U000F0004') <private-use-F0004>	[FBDE 8004 0261 | 0020 0020 | 0002 0002 |]
@@ -5767,7 +2167,7 @@ TEST(collation, non_ignorable_395_319)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_320)
+TEST(collation, non_ignorable_395_120)
 {
     // F0004 003F;	
     // ('\U000F0004') <private-use-F0004>	[FBDE 8004 0267 | 0020 0020 | 0002 0002 |]
@@ -5785,7 +2185,7 @@ TEST(collation, non_ignorable_395_320)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_321)
+TEST(collation, non_ignorable_395_121)
 {
     // F0004 0061;	
     // ('\U000F0004') <private-use-F0004>	[FBDE 8004 1CAD | 0020 0020 | 0002 0002 |]
@@ -5803,7 +2203,7 @@ TEST(collation, non_ignorable_395_321)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_322)
+TEST(collation, non_ignorable_395_122)
 {
     // F0004 0041;	
     // ('\U000F0004') <private-use-F0004>	[FBDE 8004 1CAD | 0020 0020 | 0002 0008 |]
@@ -5821,7 +2221,7 @@ TEST(collation, non_ignorable_395_322)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_323)
+TEST(collation, non_ignorable_395_123)
 {
     // F0004 0062;	
     // ('\U000F0004') <private-use-F0004>	[FBDE 8004 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5839,7 +2239,7 @@ TEST(collation, non_ignorable_395_323)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_324)
+TEST(collation, non_ignorable_395_124)
 {
     // F0005 0021;	
     // ('\U000F0005') <private-use-F0005>	[FBDE 8005 0261 | 0020 0020 | 0002 0002 |]
@@ -5857,7 +2257,7 @@ TEST(collation, non_ignorable_395_324)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_325)
+TEST(collation, non_ignorable_395_125)
 {
     // F0005 003F;	
     // ('\U000F0005') <private-use-F0005>	[FBDE 8005 0267 | 0020 0020 | 0002 0002 |]
@@ -5875,7 +2275,7 @@ TEST(collation, non_ignorable_395_325)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_326)
+TEST(collation, non_ignorable_395_126)
 {
     // F0005 0061;	
     // ('\U000F0005') <private-use-F0005>	[FBDE 8005 1CAD | 0020 0020 | 0002 0002 |]
@@ -5893,7 +2293,7 @@ TEST(collation, non_ignorable_395_326)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_327)
+TEST(collation, non_ignorable_395_127)
 {
     // F0005 0041;	
     // ('\U000F0005') <private-use-F0005>	[FBDE 8005 1CAD | 0020 0020 | 0002 0008 |]
@@ -5911,7 +2311,7 @@ TEST(collation, non_ignorable_395_327)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_328)
+TEST(collation, non_ignorable_395_128)
 {
     // F0005 0062;	
     // ('\U000F0005') <private-use-F0005>	[FBDE 8005 1CC6 | 0020 0020 | 0002 0002 |]
@@ -5929,7 +2329,7 @@ TEST(collation, non_ignorable_395_328)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_329)
+TEST(collation, non_ignorable_395_129)
 {
     // F00F8 0021;	
     // ('\U000F00F8') <private-use-F00F8>	[FBDE 80F8 0261 | 0020 0020 | 0002 0002 |]
@@ -5947,7 +2347,7 @@ TEST(collation, non_ignorable_395_329)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_330)
+TEST(collation, non_ignorable_395_130)
 {
     // F00F8 003F;	
     // ('\U000F00F8') <private-use-F00F8>	[FBDE 80F8 0267 | 0020 0020 | 0002 0002 |]
@@ -5965,7 +2365,7 @@ TEST(collation, non_ignorable_395_330)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_331)
+TEST(collation, non_ignorable_395_131)
 {
     // F00F8 0061;	
     // ('\U000F00F8') <private-use-F00F8>	[FBDE 80F8 1CAD | 0020 0020 | 0002 0002 |]
@@ -5983,7 +2383,7 @@ TEST(collation, non_ignorable_395_331)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_332)
+TEST(collation, non_ignorable_395_132)
 {
     // F00F8 0041;	
     // ('\U000F00F8') <private-use-F00F8>	[FBDE 80F8 1CAD | 0020 0020 | 0002 0008 |]
@@ -6001,7 +2401,7 @@ TEST(collation, non_ignorable_395_332)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_333)
+TEST(collation, non_ignorable_395_133)
 {
     // F00F8 0062;	
     // ('\U000F00F8') <private-use-F00F8>	[FBDE 80F8 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6019,7 +2419,7 @@ TEST(collation, non_ignorable_395_333)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_334)
+TEST(collation, non_ignorable_395_134)
 {
     // F00F9 0021;	
     // ('\U000F00F9') <private-use-F00F9>	[FBDE 80F9 0261 | 0020 0020 | 0002 0002 |]
@@ -6037,7 +2437,7 @@ TEST(collation, non_ignorable_395_334)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_335)
+TEST(collation, non_ignorable_395_135)
 {
     // F00F9 003F;	
     // ('\U000F00F9') <private-use-F00F9>	[FBDE 80F9 0267 | 0020 0020 | 0002 0002 |]
@@ -6055,7 +2455,7 @@ TEST(collation, non_ignorable_395_335)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_336)
+TEST(collation, non_ignorable_395_136)
 {
     // F00F9 0061;	
     // ('\U000F00F9') <private-use-F00F9>	[FBDE 80F9 1CAD | 0020 0020 | 0002 0002 |]
@@ -6073,7 +2473,7 @@ TEST(collation, non_ignorable_395_336)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_337)
+TEST(collation, non_ignorable_395_137)
 {
     // F00F9 0041;	
     // ('\U000F00F9') <private-use-F00F9>	[FBDE 80F9 1CAD | 0020 0020 | 0002 0008 |]
@@ -6091,7 +2491,7 @@ TEST(collation, non_ignorable_395_337)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_338)
+TEST(collation, non_ignorable_395_138)
 {
     // F00F9 0062;	
     // ('\U000F00F9') <private-use-F00F9>	[FBDE 80F9 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6109,7 +2509,7 @@ TEST(collation, non_ignorable_395_338)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_339)
+TEST(collation, non_ignorable_395_139)
 {
     // F00FA 0021;	
     // ('\U000F00FA') <private-use-F00FA>	[FBDE 80FA 0261 | 0020 0020 | 0002 0002 |]
@@ -6127,7 +2527,7 @@ TEST(collation, non_ignorable_395_339)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_340)
+TEST(collation, non_ignorable_395_140)
 {
     // F00FA 003F;	
     // ('\U000F00FA') <private-use-F00FA>	[FBDE 80FA 0267 | 0020 0020 | 0002 0002 |]
@@ -6145,7 +2545,7 @@ TEST(collation, non_ignorable_395_340)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_341)
+TEST(collation, non_ignorable_395_141)
 {
     // F00FA 0061;	
     // ('\U000F00FA') <private-use-F00FA>	[FBDE 80FA 1CAD | 0020 0020 | 0002 0002 |]
@@ -6163,7 +2563,7 @@ TEST(collation, non_ignorable_395_341)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_342)
+TEST(collation, non_ignorable_395_142)
 {
     // F00FA 0041;	
     // ('\U000F00FA') <private-use-F00FA>	[FBDE 80FA 1CAD | 0020 0020 | 0002 0008 |]
@@ -6181,7 +2581,7 @@ TEST(collation, non_ignorable_395_342)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_343)
+TEST(collation, non_ignorable_395_143)
 {
     // F00FA 0062;	
     // ('\U000F00FA') <private-use-F00FA>	[FBDE 80FA 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6199,7 +2599,7 @@ TEST(collation, non_ignorable_395_343)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_344)
+TEST(collation, non_ignorable_395_144)
 {
     // F00FB 0021;	
     // ('\U000F00FB') <private-use-F00FB>	[FBDE 80FB 0261 | 0020 0020 | 0002 0002 |]
@@ -6217,7 +2617,7 @@ TEST(collation, non_ignorable_395_344)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_345)
+TEST(collation, non_ignorable_395_145)
 {
     // F00FB 003F;	
     // ('\U000F00FB') <private-use-F00FB>	[FBDE 80FB 0267 | 0020 0020 | 0002 0002 |]
@@ -6235,7 +2635,7 @@ TEST(collation, non_ignorable_395_345)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_346)
+TEST(collation, non_ignorable_395_146)
 {
     // F00FB 0061;	
     // ('\U000F00FB') <private-use-F00FB>	[FBDE 80FB 1CAD | 0020 0020 | 0002 0002 |]
@@ -6253,7 +2653,7 @@ TEST(collation, non_ignorable_395_346)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_347)
+TEST(collation, non_ignorable_395_147)
 {
     // F00FB 0041;	
     // ('\U000F00FB') <private-use-F00FB>	[FBDE 80FB 1CAD | 0020 0020 | 0002 0008 |]
@@ -6271,7 +2671,7 @@ TEST(collation, non_ignorable_395_347)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_348)
+TEST(collation, non_ignorable_395_148)
 {
     // F00FB 0062;	
     // ('\U000F00FB') <private-use-F00FB>	[FBDE 80FB 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6289,7 +2689,7 @@ TEST(collation, non_ignorable_395_348)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_349)
+TEST(collation, non_ignorable_395_149)
 {
     // F00FC 0021;	
     // ('\U000F00FC') <private-use-F00FC>	[FBDE 80FC 0261 | 0020 0020 | 0002 0002 |]
@@ -6307,7 +2707,7 @@ TEST(collation, non_ignorable_395_349)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_350)
+TEST(collation, non_ignorable_395_150)
 {
     // F00FC 003F;	
     // ('\U000F00FC') <private-use-F00FC>	[FBDE 80FC 0267 | 0020 0020 | 0002 0002 |]
@@ -6325,7 +2725,7 @@ TEST(collation, non_ignorable_395_350)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_351)
+TEST(collation, non_ignorable_395_151)
 {
     // F00FC 0061;	
     // ('\U000F00FC') <private-use-F00FC>	[FBDE 80FC 1CAD | 0020 0020 | 0002 0002 |]
@@ -6343,7 +2743,7 @@ TEST(collation, non_ignorable_395_351)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_352)
+TEST(collation, non_ignorable_395_152)
 {
     // F00FC 0041;	
     // ('\U000F00FC') <private-use-F00FC>	[FBDE 80FC 1CAD | 0020 0020 | 0002 0008 |]
@@ -6361,7 +2761,7 @@ TEST(collation, non_ignorable_395_352)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_353)
+TEST(collation, non_ignorable_395_153)
 {
     // F00FC 0062;	
     // ('\U000F00FC') <private-use-F00FC>	[FBDE 80FC 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6379,7 +2779,7 @@ TEST(collation, non_ignorable_395_353)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_354)
+TEST(collation, non_ignorable_395_154)
 {
     // F00FD 0021;	
     // ('\U000F00FD') <private-use-F00FD>	[FBDE 80FD 0261 | 0020 0020 | 0002 0002 |]
@@ -6397,7 +2797,7 @@ TEST(collation, non_ignorable_395_354)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_355)
+TEST(collation, non_ignorable_395_155)
 {
     // F00FD 003F;	
     // ('\U000F00FD') <private-use-F00FD>	[FBDE 80FD 0267 | 0020 0020 | 0002 0002 |]
@@ -6415,7 +2815,7 @@ TEST(collation, non_ignorable_395_355)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_356)
+TEST(collation, non_ignorable_395_156)
 {
     // F00FD 0061;	
     // ('\U000F00FD') <private-use-F00FD>	[FBDE 80FD 1CAD | 0020 0020 | 0002 0002 |]
@@ -6433,7 +2833,7 @@ TEST(collation, non_ignorable_395_356)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_357)
+TEST(collation, non_ignorable_395_157)
 {
     // F00FD 0041;	
     // ('\U000F00FD') <private-use-F00FD>	[FBDE 80FD 1CAD | 0020 0020 | 0002 0008 |]
@@ -6451,7 +2851,7 @@ TEST(collation, non_ignorable_395_357)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_358)
+TEST(collation, non_ignorable_395_158)
 {
     // F00FD 0062;	
     // ('\U000F00FD') <private-use-F00FD>	[FBDE 80FD 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6469,7 +2869,7 @@ TEST(collation, non_ignorable_395_358)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_359)
+TEST(collation, non_ignorable_395_159)
 {
     // FFF00 0021;	
     // ('\U000FFF00') <private-use-FFF00>	[FBDF FF00 0261 | 0020 0020 | 0002 0002 |]
@@ -6487,7 +2887,7 @@ TEST(collation, non_ignorable_395_359)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_360)
+TEST(collation, non_ignorable_395_160)
 {
     // FFF00 003F;	
     // ('\U000FFF00') <private-use-FFF00>	[FBDF FF00 0267 | 0020 0020 | 0002 0002 |]
@@ -6505,7 +2905,7 @@ TEST(collation, non_ignorable_395_360)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_361)
+TEST(collation, non_ignorable_395_161)
 {
     // FFF00 0061;	
     // ('\U000FFF00') <private-use-FFF00>	[FBDF FF00 1CAD | 0020 0020 | 0002 0002 |]
@@ -6523,7 +2923,7 @@ TEST(collation, non_ignorable_395_361)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_362)
+TEST(collation, non_ignorable_395_162)
 {
     // FFF00 0041;	
     // ('\U000FFF00') <private-use-FFF00>	[FBDF FF00 1CAD | 0020 0020 | 0002 0008 |]
@@ -6541,7 +2941,7 @@ TEST(collation, non_ignorable_395_362)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_363)
+TEST(collation, non_ignorable_395_163)
 {
     // FFF00 0062;	
     // ('\U000FFF00') <private-use-FFF00>	[FBDF FF00 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6559,7 +2959,7 @@ TEST(collation, non_ignorable_395_363)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_364)
+TEST(collation, non_ignorable_395_164)
 {
     // FFF01 0021;	
     // ('\U000FFF01') <private-use-FFF01>	[FBDF FF01 0261 | 0020 0020 | 0002 0002 |]
@@ -6577,7 +2977,7 @@ TEST(collation, non_ignorable_395_364)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_365)
+TEST(collation, non_ignorable_395_165)
 {
     // FFF01 003F;	
     // ('\U000FFF01') <private-use-FFF01>	[FBDF FF01 0267 | 0020 0020 | 0002 0002 |]
@@ -6595,7 +2995,7 @@ TEST(collation, non_ignorable_395_365)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_366)
+TEST(collation, non_ignorable_395_166)
 {
     // FFF01 0061;	
     // ('\U000FFF01') <private-use-FFF01>	[FBDF FF01 1CAD | 0020 0020 | 0002 0002 |]
@@ -6613,7 +3013,7 @@ TEST(collation, non_ignorable_395_366)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_367)
+TEST(collation, non_ignorable_395_167)
 {
     // FFF01 0041;	
     // ('\U000FFF01') <private-use-FFF01>	[FBDF FF01 1CAD | 0020 0020 | 0002 0008 |]
@@ -6631,7 +3031,7 @@ TEST(collation, non_ignorable_395_367)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_368)
+TEST(collation, non_ignorable_395_168)
 {
     // FFF01 0062;	
     // ('\U000FFF01') <private-use-FFF01>	[FBDF FF01 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6649,7 +3049,7 @@ TEST(collation, non_ignorable_395_368)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_369)
+TEST(collation, non_ignorable_395_169)
 {
     // FFF02 0021;	
     // ('\U000FFF02') <private-use-FFF02>	[FBDF FF02 0261 | 0020 0020 | 0002 0002 |]
@@ -6667,7 +3067,7 @@ TEST(collation, non_ignorable_395_369)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_370)
+TEST(collation, non_ignorable_395_170)
 {
     // FFF02 003F;	
     // ('\U000FFF02') <private-use-FFF02>	[FBDF FF02 0267 | 0020 0020 | 0002 0002 |]
@@ -6685,7 +3085,7 @@ TEST(collation, non_ignorable_395_370)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_371)
+TEST(collation, non_ignorable_395_171)
 {
     // FFF02 0061;	
     // ('\U000FFF02') <private-use-FFF02>	[FBDF FF02 1CAD | 0020 0020 | 0002 0002 |]
@@ -6703,7 +3103,7 @@ TEST(collation, non_ignorable_395_371)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_372)
+TEST(collation, non_ignorable_395_172)
 {
     // FFF02 0041;	
     // ('\U000FFF02') <private-use-FFF02>	[FBDF FF02 1CAD | 0020 0020 | 0002 0008 |]
@@ -6721,7 +3121,7 @@ TEST(collation, non_ignorable_395_372)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_373)
+TEST(collation, non_ignorable_395_173)
 {
     // FFF02 0062;	
     // ('\U000FFF02') <private-use-FFF02>	[FBDF FF02 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6739,7 +3139,7 @@ TEST(collation, non_ignorable_395_373)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_374)
+TEST(collation, non_ignorable_395_174)
 {
     // FFF03 0021;	
     // ('\U000FFF03') <private-use-FFF03>	[FBDF FF03 0261 | 0020 0020 | 0002 0002 |]
@@ -6757,7 +3157,7 @@ TEST(collation, non_ignorable_395_374)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_375)
+TEST(collation, non_ignorable_395_175)
 {
     // FFF03 003F;	
     // ('\U000FFF03') <private-use-FFF03>	[FBDF FF03 0267 | 0020 0020 | 0002 0002 |]
@@ -6775,7 +3175,7 @@ TEST(collation, non_ignorable_395_375)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_376)
+TEST(collation, non_ignorable_395_176)
 {
     // FFF03 0061;	
     // ('\U000FFF03') <private-use-FFF03>	[FBDF FF03 1CAD | 0020 0020 | 0002 0002 |]
@@ -6793,7 +3193,7 @@ TEST(collation, non_ignorable_395_376)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_377)
+TEST(collation, non_ignorable_395_177)
 {
     // FFF03 0041;	
     // ('\U000FFF03') <private-use-FFF03>	[FBDF FF03 1CAD | 0020 0020 | 0002 0008 |]
@@ -6811,7 +3211,7 @@ TEST(collation, non_ignorable_395_377)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_378)
+TEST(collation, non_ignorable_395_178)
 {
     // FFF03 0062;	
     // ('\U000FFF03') <private-use-FFF03>	[FBDF FF03 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6829,7 +3229,7 @@ TEST(collation, non_ignorable_395_378)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_379)
+TEST(collation, non_ignorable_395_179)
 {
     // FFF04 0021;	
     // ('\U000FFF04') <private-use-FFF04>	[FBDF FF04 0261 | 0020 0020 | 0002 0002 |]
@@ -6847,7 +3247,7 @@ TEST(collation, non_ignorable_395_379)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_380)
+TEST(collation, non_ignorable_395_180)
 {
     // FFF04 003F;	
     // ('\U000FFF04') <private-use-FFF04>	[FBDF FF04 0267 | 0020 0020 | 0002 0002 |]
@@ -6865,7 +3265,7 @@ TEST(collation, non_ignorable_395_380)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_381)
+TEST(collation, non_ignorable_395_181)
 {
     // FFF04 0061;	
     // ('\U000FFF04') <private-use-FFF04>	[FBDF FF04 1CAD | 0020 0020 | 0002 0002 |]
@@ -6883,7 +3283,7 @@ TEST(collation, non_ignorable_395_381)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_382)
+TEST(collation, non_ignorable_395_182)
 {
     // FFF04 0041;	
     // ('\U000FFF04') <private-use-FFF04>	[FBDF FF04 1CAD | 0020 0020 | 0002 0008 |]
@@ -6901,7 +3301,7 @@ TEST(collation, non_ignorable_395_382)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_383)
+TEST(collation, non_ignorable_395_183)
 {
     // FFF04 0062;	
     // ('\U000FFF04') <private-use-FFF04>	[FBDF FF04 1CC6 | 0020 0020 | 0002 0002 |]
@@ -6919,7 +3319,7 @@ TEST(collation, non_ignorable_395_383)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_384)
+TEST(collation, non_ignorable_395_184)
 {
     // FFF05 0021;	
     // ('\U000FFF05') <private-use-FFF05>	[FBDF FF05 0261 | 0020 0020 | 0002 0002 |]
@@ -6937,7 +3337,7 @@ TEST(collation, non_ignorable_395_384)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_385)
+TEST(collation, non_ignorable_395_185)
 {
     // FFF05 003F;	
     // ('\U000FFF05') <private-use-FFF05>	[FBDF FF05 0267 | 0020 0020 | 0002 0002 |]
@@ -6955,7 +3355,7 @@ TEST(collation, non_ignorable_395_385)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_386)
+TEST(collation, non_ignorable_395_186)
 {
     // FFF05 0061;	
     // ('\U000FFF05') <private-use-FFF05>	[FBDF FF05 1CAD | 0020 0020 | 0002 0002 |]
@@ -6973,7 +3373,7 @@ TEST(collation, non_ignorable_395_386)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_387)
+TEST(collation, non_ignorable_395_187)
 {
     // FFF05 0041;	
     // ('\U000FFF05') <private-use-FFF05>	[FBDF FF05 1CAD | 0020 0020 | 0002 0008 |]
@@ -6991,7 +3391,7 @@ TEST(collation, non_ignorable_395_387)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_388)
+TEST(collation, non_ignorable_395_188)
 {
     // FFF05 0062;	
     // ('\U000FFF05') <private-use-FFF05>	[FBDF FF05 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7009,7 +3409,7 @@ TEST(collation, non_ignorable_395_388)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_389)
+TEST(collation, non_ignorable_395_189)
 {
     // FFFF8 0021;	
     // ('\U000FFFF8') <private-use-FFFF8>	[FBDF FFF8 0261 | 0020 0020 | 0002 0002 |]
@@ -7027,7 +3427,7 @@ TEST(collation, non_ignorable_395_389)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_390)
+TEST(collation, non_ignorable_395_190)
 {
     // FFFF8 003F;	
     // ('\U000FFFF8') <private-use-FFFF8>	[FBDF FFF8 0267 | 0020 0020 | 0002 0002 |]
@@ -7045,7 +3445,7 @@ TEST(collation, non_ignorable_395_390)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_391)
+TEST(collation, non_ignorable_395_191)
 {
     // FFFF8 0061;	
     // ('\U000FFFF8') <private-use-FFFF8>	[FBDF FFF8 1CAD | 0020 0020 | 0002 0002 |]
@@ -7063,7 +3463,7 @@ TEST(collation, non_ignorable_395_391)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_392)
+TEST(collation, non_ignorable_395_192)
 {
     // FFFF8 0041;	
     // ('\U000FFFF8') <private-use-FFFF8>	[FBDF FFF8 1CAD | 0020 0020 | 0002 0008 |]
@@ -7081,7 +3481,7 @@ TEST(collation, non_ignorable_395_392)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_393)
+TEST(collation, non_ignorable_395_193)
 {
     // FFFF8 0062;	
     // ('\U000FFFF8') <private-use-FFFF8>	[FBDF FFF8 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7099,7 +3499,7 @@ TEST(collation, non_ignorable_395_393)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_394)
+TEST(collation, non_ignorable_395_194)
 {
     // FFFF9 0021;	
     // ('\U000FFFF9') <private-use-FFFF9>	[FBDF FFF9 0261 | 0020 0020 | 0002 0002 |]
@@ -7117,7 +3517,7 @@ TEST(collation, non_ignorable_395_394)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_395)
+TEST(collation, non_ignorable_395_195)
 {
     // FFFF9 003F;	
     // ('\U000FFFF9') <private-use-FFFF9>	[FBDF FFF9 0267 | 0020 0020 | 0002 0002 |]
@@ -7135,7 +3535,7 @@ TEST(collation, non_ignorable_395_395)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_396)
+TEST(collation, non_ignorable_395_196)
 {
     // FFFF9 0061;	
     // ('\U000FFFF9') <private-use-FFFF9>	[FBDF FFF9 1CAD | 0020 0020 | 0002 0002 |]
@@ -7153,7 +3553,7 @@ TEST(collation, non_ignorable_395_396)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_397)
+TEST(collation, non_ignorable_395_197)
 {
     // FFFF9 0041;	
     // ('\U000FFFF9') <private-use-FFFF9>	[FBDF FFF9 1CAD | 0020 0020 | 0002 0008 |]
@@ -7171,7 +3571,7 @@ TEST(collation, non_ignorable_395_397)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_398)
+TEST(collation, non_ignorable_395_198)
 {
     // FFFF9 0062;	
     // ('\U000FFFF9') <private-use-FFFF9>	[FBDF FFF9 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7189,7 +3589,7 @@ TEST(collation, non_ignorable_395_398)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_399)
+TEST(collation, non_ignorable_395_199)
 {
     // FFFFA 0021;	
     // ('\U000FFFFA') <private-use-FFFFA>	[FBDF FFFA 0261 | 0020 0020 | 0002 0002 |]
@@ -7207,7 +3607,7 @@ TEST(collation, non_ignorable_395_399)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_400)
+TEST(collation, non_ignorable_395_200)
 {
     // FFFFA 003F;	
     // ('\U000FFFFA') <private-use-FFFFA>	[FBDF FFFA 0267 | 0020 0020 | 0002 0002 |]
@@ -7225,7 +3625,7 @@ TEST(collation, non_ignorable_395_400)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_401)
+TEST(collation, non_ignorable_395_201)
 {
     // FFFFA 0061;	
     // ('\U000FFFFA') <private-use-FFFFA>	[FBDF FFFA 1CAD | 0020 0020 | 0002 0002 |]
@@ -7243,7 +3643,7 @@ TEST(collation, non_ignorable_395_401)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_402)
+TEST(collation, non_ignorable_395_202)
 {
     // FFFFA 0041;	
     // ('\U000FFFFA') <private-use-FFFFA>	[FBDF FFFA 1CAD | 0020 0020 | 0002 0008 |]
@@ -7261,7 +3661,7 @@ TEST(collation, non_ignorable_395_402)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_403)
+TEST(collation, non_ignorable_395_203)
 {
     // FFFFA 0062;	
     // ('\U000FFFFA') <private-use-FFFFA>	[FBDF FFFA 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7279,7 +3679,7 @@ TEST(collation, non_ignorable_395_403)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_404)
+TEST(collation, non_ignorable_395_204)
 {
     // FFFFB 0021;	
     // ('\U000FFFFB') <private-use-FFFFB>	[FBDF FFFB 0261 | 0020 0020 | 0002 0002 |]
@@ -7297,7 +3697,7 @@ TEST(collation, non_ignorable_395_404)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_405)
+TEST(collation, non_ignorable_395_205)
 {
     // FFFFB 003F;	
     // ('\U000FFFFB') <private-use-FFFFB>	[FBDF FFFB 0267 | 0020 0020 | 0002 0002 |]
@@ -7315,7 +3715,7 @@ TEST(collation, non_ignorable_395_405)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_406)
+TEST(collation, non_ignorable_395_206)
 {
     // FFFFB 0061;	
     // ('\U000FFFFB') <private-use-FFFFB>	[FBDF FFFB 1CAD | 0020 0020 | 0002 0002 |]
@@ -7333,7 +3733,7 @@ TEST(collation, non_ignorable_395_406)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_407)
+TEST(collation, non_ignorable_395_207)
 {
     // FFFFB 0041;	
     // ('\U000FFFFB') <private-use-FFFFB>	[FBDF FFFB 1CAD | 0020 0020 | 0002 0008 |]
@@ -7351,7 +3751,7 @@ TEST(collation, non_ignorable_395_407)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_408)
+TEST(collation, non_ignorable_395_208)
 {
     // FFFFB 0062;	
     // ('\U000FFFFB') <private-use-FFFFB>	[FBDF FFFB 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7369,7 +3769,7 @@ TEST(collation, non_ignorable_395_408)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_409)
+TEST(collation, non_ignorable_395_209)
 {
     // FFFFC 0021;	
     // ('\U000FFFFC') <private-use-FFFFC>	[FBDF FFFC 0261 | 0020 0020 | 0002 0002 |]
@@ -7387,7 +3787,7 @@ TEST(collation, non_ignorable_395_409)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_410)
+TEST(collation, non_ignorable_395_210)
 {
     // FFFFC 003F;	
     // ('\U000FFFFC') <private-use-FFFFC>	[FBDF FFFC 0267 | 0020 0020 | 0002 0002 |]
@@ -7405,7 +3805,7 @@ TEST(collation, non_ignorable_395_410)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_411)
+TEST(collation, non_ignorable_395_211)
 {
     // FFFFC 0061;	
     // ('\U000FFFFC') <private-use-FFFFC>	[FBDF FFFC 1CAD | 0020 0020 | 0002 0002 |]
@@ -7423,7 +3823,7 @@ TEST(collation, non_ignorable_395_411)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_412)
+TEST(collation, non_ignorable_395_212)
 {
     // FFFFC 0041;	
     // ('\U000FFFFC') <private-use-FFFFC>	[FBDF FFFC 1CAD | 0020 0020 | 0002 0008 |]
@@ -7441,7 +3841,7 @@ TEST(collation, non_ignorable_395_412)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_413)
+TEST(collation, non_ignorable_395_213)
 {
     // FFFFC 0062;	
     // ('\U000FFFFC') <private-use-FFFFC>	[FBDF FFFC 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7459,7 +3859,7 @@ TEST(collation, non_ignorable_395_413)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_414)
+TEST(collation, non_ignorable_395_214)
 {
     // FFFFD 0021;	
     // ('\U000FFFFD') <private-use-FFFFD>	[FBDF FFFD 0261 | 0020 0020 | 0002 0002 |]
@@ -7477,7 +3877,7 @@ TEST(collation, non_ignorable_395_414)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_415)
+TEST(collation, non_ignorable_395_215)
 {
     // FFFFD 003F;	
     // ('\U000FFFFD') <private-use-FFFFD>	[FBDF FFFD 0267 | 0020 0020 | 0002 0002 |]
@@ -7495,7 +3895,7 @@ TEST(collation, non_ignorable_395_415)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_416)
+TEST(collation, non_ignorable_395_216)
 {
     // FFFFD 0061;	
     // ('\U000FFFFD') <private-use-FFFFD>	[FBDF FFFD 1CAD | 0020 0020 | 0002 0002 |]
@@ -7513,7 +3913,7 @@ TEST(collation, non_ignorable_395_416)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_417)
+TEST(collation, non_ignorable_395_217)
 {
     // FFFFD 0041;	
     // ('\U000FFFFD') <private-use-FFFFD>	[FBDF FFFD 1CAD | 0020 0020 | 0002 0008 |]
@@ -7531,7 +3931,7 @@ TEST(collation, non_ignorable_395_417)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_418)
+TEST(collation, non_ignorable_395_218)
 {
     // FFFFD 0062;	
     // ('\U000FFFFD') <private-use-FFFFD>	[FBDF FFFD 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7549,7 +3949,7 @@ TEST(collation, non_ignorable_395_418)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_419)
+TEST(collation, non_ignorable_395_219)
 {
     // 100000 0021;	
     // ('\U00100000') <private-use-100000>	[FBE0 8000 0261 | 0020 0020 | 0002 0002 |]
@@ -7567,7 +3967,7 @@ TEST(collation, non_ignorable_395_419)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_420)
+TEST(collation, non_ignorable_395_220)
 {
     // 100000 003F;	
     // ('\U00100000') <private-use-100000>	[FBE0 8000 0267 | 0020 0020 | 0002 0002 |]
@@ -7585,7 +3985,7 @@ TEST(collation, non_ignorable_395_420)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_421)
+TEST(collation, non_ignorable_395_221)
 {
     // 100000 0061;	
     // ('\U00100000') <private-use-100000>	[FBE0 8000 1CAD | 0020 0020 | 0002 0002 |]
@@ -7603,7 +4003,7 @@ TEST(collation, non_ignorable_395_421)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_422)
+TEST(collation, non_ignorable_395_222)
 {
     // 100000 0041;	
     // ('\U00100000') <private-use-100000>	[FBE0 8000 1CAD | 0020 0020 | 0002 0008 |]
@@ -7621,7 +4021,7 @@ TEST(collation, non_ignorable_395_422)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_423)
+TEST(collation, non_ignorable_395_223)
 {
     // 100000 0062;	
     // ('\U00100000') <private-use-100000>	[FBE0 8000 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7639,7 +4039,7 @@ TEST(collation, non_ignorable_395_423)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_424)
+TEST(collation, non_ignorable_395_224)
 {
     // 100001 0021;	
     // ('\U00100001') <private-use-100001>	[FBE0 8001 0261 | 0020 0020 | 0002 0002 |]
@@ -7657,7 +4057,7 @@ TEST(collation, non_ignorable_395_424)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_425)
+TEST(collation, non_ignorable_395_225)
 {
     // 100001 003F;	
     // ('\U00100001') <private-use-100001>	[FBE0 8001 0267 | 0020 0020 | 0002 0002 |]
@@ -7675,7 +4075,7 @@ TEST(collation, non_ignorable_395_425)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_426)
+TEST(collation, non_ignorable_395_226)
 {
     // 100001 0061;	
     // ('\U00100001') <private-use-100001>	[FBE0 8001 1CAD | 0020 0020 | 0002 0002 |]
@@ -7693,7 +4093,7 @@ TEST(collation, non_ignorable_395_426)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_427)
+TEST(collation, non_ignorable_395_227)
 {
     // 100001 0041;	
     // ('\U00100001') <private-use-100001>	[FBE0 8001 1CAD | 0020 0020 | 0002 0008 |]
@@ -7711,7 +4111,7 @@ TEST(collation, non_ignorable_395_427)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_428)
+TEST(collation, non_ignorable_395_228)
 {
     // 100001 0062;	
     // ('\U00100001') <private-use-100001>	[FBE0 8001 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7729,7 +4129,7 @@ TEST(collation, non_ignorable_395_428)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_429)
+TEST(collation, non_ignorable_395_229)
 {
     // 100002 0021;	
     // ('\U00100002') <private-use-100002>	[FBE0 8002 0261 | 0020 0020 | 0002 0002 |]
@@ -7747,7 +4147,7 @@ TEST(collation, non_ignorable_395_429)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_430)
+TEST(collation, non_ignorable_395_230)
 {
     // 100002 003F;	
     // ('\U00100002') <private-use-100002>	[FBE0 8002 0267 | 0020 0020 | 0002 0002 |]
@@ -7765,7 +4165,7 @@ TEST(collation, non_ignorable_395_430)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_431)
+TEST(collation, non_ignorable_395_231)
 {
     // 100002 0061;	
     // ('\U00100002') <private-use-100002>	[FBE0 8002 1CAD | 0020 0020 | 0002 0002 |]
@@ -7783,7 +4183,7 @@ TEST(collation, non_ignorable_395_431)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_432)
+TEST(collation, non_ignorable_395_232)
 {
     // 100002 0041;	
     // ('\U00100002') <private-use-100002>	[FBE0 8002 1CAD | 0020 0020 | 0002 0008 |]
@@ -7801,7 +4201,7 @@ TEST(collation, non_ignorable_395_432)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_433)
+TEST(collation, non_ignorable_395_233)
 {
     // 100002 0062;	
     // ('\U00100002') <private-use-100002>	[FBE0 8002 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7819,7 +4219,7 @@ TEST(collation, non_ignorable_395_433)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_434)
+TEST(collation, non_ignorable_395_234)
 {
     // 100003 0021;	
     // ('\U00100003') <private-use-100003>	[FBE0 8003 0261 | 0020 0020 | 0002 0002 |]
@@ -7837,7 +4237,7 @@ TEST(collation, non_ignorable_395_434)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_435)
+TEST(collation, non_ignorable_395_235)
 {
     // 100003 003F;	
     // ('\U00100003') <private-use-100003>	[FBE0 8003 0267 | 0020 0020 | 0002 0002 |]
@@ -7855,7 +4255,7 @@ TEST(collation, non_ignorable_395_435)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_436)
+TEST(collation, non_ignorable_395_236)
 {
     // 100003 0061;	
     // ('\U00100003') <private-use-100003>	[FBE0 8003 1CAD | 0020 0020 | 0002 0002 |]
@@ -7873,7 +4273,7 @@ TEST(collation, non_ignorable_395_436)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_437)
+TEST(collation, non_ignorable_395_237)
 {
     // 100003 0041;	
     // ('\U00100003') <private-use-100003>	[FBE0 8003 1CAD | 0020 0020 | 0002 0008 |]
@@ -7891,7 +4291,7 @@ TEST(collation, non_ignorable_395_437)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_438)
+TEST(collation, non_ignorable_395_238)
 {
     // 100003 0062;	
     // ('\U00100003') <private-use-100003>	[FBE0 8003 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7909,7 +4309,7 @@ TEST(collation, non_ignorable_395_438)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_439)
+TEST(collation, non_ignorable_395_239)
 {
     // 100004 0021;	
     // ('\U00100004') <private-use-100004>	[FBE0 8004 0261 | 0020 0020 | 0002 0002 |]
@@ -7927,7 +4327,7 @@ TEST(collation, non_ignorable_395_439)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_440)
+TEST(collation, non_ignorable_395_240)
 {
     // 100004 003F;	
     // ('\U00100004') <private-use-100004>	[FBE0 8004 0267 | 0020 0020 | 0002 0002 |]
@@ -7945,7 +4345,7 @@ TEST(collation, non_ignorable_395_440)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_441)
+TEST(collation, non_ignorable_395_241)
 {
     // 100004 0061;	
     // ('\U00100004') <private-use-100004>	[FBE0 8004 1CAD | 0020 0020 | 0002 0002 |]
@@ -7963,7 +4363,7 @@ TEST(collation, non_ignorable_395_441)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_442)
+TEST(collation, non_ignorable_395_242)
 {
     // 100004 0041;	
     // ('\U00100004') <private-use-100004>	[FBE0 8004 1CAD | 0020 0020 | 0002 0008 |]
@@ -7981,7 +4381,7 @@ TEST(collation, non_ignorable_395_442)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_443)
+TEST(collation, non_ignorable_395_243)
 {
     // 100004 0062;	
     // ('\U00100004') <private-use-100004>	[FBE0 8004 1CC6 | 0020 0020 | 0002 0002 |]
@@ -7999,7 +4399,7 @@ TEST(collation, non_ignorable_395_443)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_444)
+TEST(collation, non_ignorable_395_244)
 {
     // 100005 0021;	
     // ('\U00100005') <private-use-100005>	[FBE0 8005 0261 | 0020 0020 | 0002 0002 |]
@@ -8017,7 +4417,7 @@ TEST(collation, non_ignorable_395_444)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_445)
+TEST(collation, non_ignorable_395_245)
 {
     // 100005 003F;	
     // ('\U00100005') <private-use-100005>	[FBE0 8005 0267 | 0020 0020 | 0002 0002 |]
@@ -8035,7 +4435,7 @@ TEST(collation, non_ignorable_395_445)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_446)
+TEST(collation, non_ignorable_395_246)
 {
     // 100005 0061;	
     // ('\U00100005') <private-use-100005>	[FBE0 8005 1CAD | 0020 0020 | 0002 0002 |]
@@ -8053,7 +4453,7 @@ TEST(collation, non_ignorable_395_446)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_447)
+TEST(collation, non_ignorable_395_247)
 {
     // 100005 0041;	
     // ('\U00100005') <private-use-100005>	[FBE0 8005 1CAD | 0020 0020 | 0002 0008 |]
@@ -8071,7 +4471,7 @@ TEST(collation, non_ignorable_395_447)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_448)
+TEST(collation, non_ignorable_395_248)
 {
     // 100005 0062;	
     // ('\U00100005') <private-use-100005>	[FBE0 8005 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8089,7 +4489,7 @@ TEST(collation, non_ignorable_395_448)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_449)
+TEST(collation, non_ignorable_395_249)
 {
     // 1000F8 0021;	
     // ('\U001000F8') <private-use-1000F8>	[FBE0 80F8 0261 | 0020 0020 | 0002 0002 |]
@@ -8107,7 +4507,7 @@ TEST(collation, non_ignorable_395_449)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_450)
+TEST(collation, non_ignorable_395_250)
 {
     // 1000F8 003F;	
     // ('\U001000F8') <private-use-1000F8>	[FBE0 80F8 0267 | 0020 0020 | 0002 0002 |]
@@ -8125,7 +4525,7 @@ TEST(collation, non_ignorable_395_450)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_451)
+TEST(collation, non_ignorable_395_251)
 {
     // 1000F8 0061;	
     // ('\U001000F8') <private-use-1000F8>	[FBE0 80F8 1CAD | 0020 0020 | 0002 0002 |]
@@ -8143,7 +4543,7 @@ TEST(collation, non_ignorable_395_451)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_452)
+TEST(collation, non_ignorable_395_252)
 {
     // 1000F8 0041;	
     // ('\U001000F8') <private-use-1000F8>	[FBE0 80F8 1CAD | 0020 0020 | 0002 0008 |]
@@ -8161,7 +4561,7 @@ TEST(collation, non_ignorable_395_452)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_453)
+TEST(collation, non_ignorable_395_253)
 {
     // 1000F8 0062;	
     // ('\U001000F8') <private-use-1000F8>	[FBE0 80F8 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8179,7 +4579,7 @@ TEST(collation, non_ignorable_395_453)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_454)
+TEST(collation, non_ignorable_395_254)
 {
     // 1000F9 0021;	
     // ('\U001000F9') <private-use-1000F9>	[FBE0 80F9 0261 | 0020 0020 | 0002 0002 |]
@@ -8197,7 +4597,7 @@ TEST(collation, non_ignorable_395_454)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_455)
+TEST(collation, non_ignorable_395_255)
 {
     // 1000F9 003F;	
     // ('\U001000F9') <private-use-1000F9>	[FBE0 80F9 0267 | 0020 0020 | 0002 0002 |]
@@ -8215,7 +4615,7 @@ TEST(collation, non_ignorable_395_455)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_456)
+TEST(collation, non_ignorable_395_256)
 {
     // 1000F9 0061;	
     // ('\U001000F9') <private-use-1000F9>	[FBE0 80F9 1CAD | 0020 0020 | 0002 0002 |]
@@ -8233,7 +4633,7 @@ TEST(collation, non_ignorable_395_456)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_457)
+TEST(collation, non_ignorable_395_257)
 {
     // 1000F9 0041;	
     // ('\U001000F9') <private-use-1000F9>	[FBE0 80F9 1CAD | 0020 0020 | 0002 0008 |]
@@ -8251,7 +4651,7 @@ TEST(collation, non_ignorable_395_457)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_458)
+TEST(collation, non_ignorable_395_258)
 {
     // 1000F9 0062;	
     // ('\U001000F9') <private-use-1000F9>	[FBE0 80F9 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8269,7 +4669,7 @@ TEST(collation, non_ignorable_395_458)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_459)
+TEST(collation, non_ignorable_395_259)
 {
     // 1000FA 0021;	
     // ('\U001000FA') <private-use-1000FA>	[FBE0 80FA 0261 | 0020 0020 | 0002 0002 |]
@@ -8287,7 +4687,7 @@ TEST(collation, non_ignorable_395_459)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_460)
+TEST(collation, non_ignorable_395_260)
 {
     // 1000FA 003F;	
     // ('\U001000FA') <private-use-1000FA>	[FBE0 80FA 0267 | 0020 0020 | 0002 0002 |]
@@ -8305,7 +4705,7 @@ TEST(collation, non_ignorable_395_460)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_461)
+TEST(collation, non_ignorable_395_261)
 {
     // 1000FA 0061;	
     // ('\U001000FA') <private-use-1000FA>	[FBE0 80FA 1CAD | 0020 0020 | 0002 0002 |]
@@ -8323,7 +4723,7 @@ TEST(collation, non_ignorable_395_461)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_462)
+TEST(collation, non_ignorable_395_262)
 {
     // 1000FA 0041;	
     // ('\U001000FA') <private-use-1000FA>	[FBE0 80FA 1CAD | 0020 0020 | 0002 0008 |]
@@ -8341,7 +4741,7 @@ TEST(collation, non_ignorable_395_462)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_463)
+TEST(collation, non_ignorable_395_263)
 {
     // 1000FA 0062;	
     // ('\U001000FA') <private-use-1000FA>	[FBE0 80FA 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8359,7 +4759,7 @@ TEST(collation, non_ignorable_395_463)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_464)
+TEST(collation, non_ignorable_395_264)
 {
     // 1000FB 0021;	
     // ('\U001000FB') <private-use-1000FB>	[FBE0 80FB 0261 | 0020 0020 | 0002 0002 |]
@@ -8377,7 +4777,7 @@ TEST(collation, non_ignorable_395_464)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_465)
+TEST(collation, non_ignorable_395_265)
 {
     // 1000FB 003F;	
     // ('\U001000FB') <private-use-1000FB>	[FBE0 80FB 0267 | 0020 0020 | 0002 0002 |]
@@ -8395,7 +4795,7 @@ TEST(collation, non_ignorable_395_465)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_466)
+TEST(collation, non_ignorable_395_266)
 {
     // 1000FB 0061;	
     // ('\U001000FB') <private-use-1000FB>	[FBE0 80FB 1CAD | 0020 0020 | 0002 0002 |]
@@ -8413,7 +4813,7 @@ TEST(collation, non_ignorable_395_466)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_467)
+TEST(collation, non_ignorable_395_267)
 {
     // 1000FB 0041;	
     // ('\U001000FB') <private-use-1000FB>	[FBE0 80FB 1CAD | 0020 0020 | 0002 0008 |]
@@ -8431,7 +4831,7 @@ TEST(collation, non_ignorable_395_467)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_468)
+TEST(collation, non_ignorable_395_268)
 {
     // 1000FB 0062;	
     // ('\U001000FB') <private-use-1000FB>	[FBE0 80FB 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8449,7 +4849,7 @@ TEST(collation, non_ignorable_395_468)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_469)
+TEST(collation, non_ignorable_395_269)
 {
     // 1000FC 0021;	
     // ('\U001000FC') <private-use-1000FC>	[FBE0 80FC 0261 | 0020 0020 | 0002 0002 |]
@@ -8467,7 +4867,7 @@ TEST(collation, non_ignorable_395_469)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_470)
+TEST(collation, non_ignorable_395_270)
 {
     // 1000FC 003F;	
     // ('\U001000FC') <private-use-1000FC>	[FBE0 80FC 0267 | 0020 0020 | 0002 0002 |]
@@ -8485,7 +4885,7 @@ TEST(collation, non_ignorable_395_470)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_471)
+TEST(collation, non_ignorable_395_271)
 {
     // 1000FC 0061;	
     // ('\U001000FC') <private-use-1000FC>	[FBE0 80FC 1CAD | 0020 0020 | 0002 0002 |]
@@ -8503,7 +4903,7 @@ TEST(collation, non_ignorable_395_471)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_472)
+TEST(collation, non_ignorable_395_272)
 {
     // 1000FC 0041;	
     // ('\U001000FC') <private-use-1000FC>	[FBE0 80FC 1CAD | 0020 0020 | 0002 0008 |]
@@ -8521,7 +4921,7 @@ TEST(collation, non_ignorable_395_472)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_473)
+TEST(collation, non_ignorable_395_273)
 {
     // 1000FC 0062;	
     // ('\U001000FC') <private-use-1000FC>	[FBE0 80FC 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8539,7 +4939,7 @@ TEST(collation, non_ignorable_395_473)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_474)
+TEST(collation, non_ignorable_395_274)
 {
     // 1000FD 0021;	
     // ('\U001000FD') <private-use-1000FD>	[FBE0 80FD 0261 | 0020 0020 | 0002 0002 |]
@@ -8557,7 +4957,7 @@ TEST(collation, non_ignorable_395_474)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_475)
+TEST(collation, non_ignorable_395_275)
 {
     // 1000FD 003F;	
     // ('\U001000FD') <private-use-1000FD>	[FBE0 80FD 0267 | 0020 0020 | 0002 0002 |]
@@ -8575,7 +4975,7 @@ TEST(collation, non_ignorable_395_475)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_476)
+TEST(collation, non_ignorable_395_276)
 {
     // 1000FD 0061;	
     // ('\U001000FD') <private-use-1000FD>	[FBE0 80FD 1CAD | 0020 0020 | 0002 0002 |]
@@ -8593,7 +4993,7 @@ TEST(collation, non_ignorable_395_476)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_477)
+TEST(collation, non_ignorable_395_277)
 {
     // 1000FD 0041;	
     // ('\U001000FD') <private-use-1000FD>	[FBE0 80FD 1CAD | 0020 0020 | 0002 0008 |]
@@ -8611,7 +5011,7 @@ TEST(collation, non_ignorable_395_477)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_478)
+TEST(collation, non_ignorable_395_278)
 {
     // 1000FD 0062;	
     // ('\U001000FD') <private-use-1000FD>	[FBE0 80FD 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8629,7 +5029,7 @@ TEST(collation, non_ignorable_395_478)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_479)
+TEST(collation, non_ignorable_395_279)
 {
     // 10FF00 0021;	
     // ('\U0010FF00') <private-use-10FF00>	[FBE1 FF00 0261 | 0020 0020 | 0002 0002 |]
@@ -8647,7 +5047,7 @@ TEST(collation, non_ignorable_395_479)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_480)
+TEST(collation, non_ignorable_395_280)
 {
     // 10FF00 003F;	
     // ('\U0010FF00') <private-use-10FF00>	[FBE1 FF00 0267 | 0020 0020 | 0002 0002 |]
@@ -8665,7 +5065,7 @@ TEST(collation, non_ignorable_395_480)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_481)
+TEST(collation, non_ignorable_395_281)
 {
     // 10FF00 0061;	
     // ('\U0010FF00') <private-use-10FF00>	[FBE1 FF00 1CAD | 0020 0020 | 0002 0002 |]
@@ -8683,7 +5083,7 @@ TEST(collation, non_ignorable_395_481)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_482)
+TEST(collation, non_ignorable_395_282)
 {
     // 10FF00 0041;	
     // ('\U0010FF00') <private-use-10FF00>	[FBE1 FF00 1CAD | 0020 0020 | 0002 0008 |]
@@ -8701,7 +5101,7 @@ TEST(collation, non_ignorable_395_482)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_483)
+TEST(collation, non_ignorable_395_283)
 {
     // 10FF00 0062;	
     // ('\U0010FF00') <private-use-10FF00>	[FBE1 FF00 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8719,7 +5119,7 @@ TEST(collation, non_ignorable_395_483)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_484)
+TEST(collation, non_ignorable_395_284)
 {
     // 10FF01 0021;	
     // ('\U0010FF01') <private-use-10FF01>	[FBE1 FF01 0261 | 0020 0020 | 0002 0002 |]
@@ -8737,7 +5137,7 @@ TEST(collation, non_ignorable_395_484)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_485)
+TEST(collation, non_ignorable_395_285)
 {
     // 10FF01 003F;	
     // ('\U0010FF01') <private-use-10FF01>	[FBE1 FF01 0267 | 0020 0020 | 0002 0002 |]
@@ -8755,7 +5155,7 @@ TEST(collation, non_ignorable_395_485)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_486)
+TEST(collation, non_ignorable_395_286)
 {
     // 10FF01 0061;	
     // ('\U0010FF01') <private-use-10FF01>	[FBE1 FF01 1CAD | 0020 0020 | 0002 0002 |]
@@ -8773,7 +5173,7 @@ TEST(collation, non_ignorable_395_486)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_487)
+TEST(collation, non_ignorable_395_287)
 {
     // 10FF01 0041;	
     // ('\U0010FF01') <private-use-10FF01>	[FBE1 FF01 1CAD | 0020 0020 | 0002 0008 |]
@@ -8791,7 +5191,7 @@ TEST(collation, non_ignorable_395_487)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_488)
+TEST(collation, non_ignorable_395_288)
 {
     // 10FF01 0062;	
     // ('\U0010FF01') <private-use-10FF01>	[FBE1 FF01 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8809,7 +5209,7 @@ TEST(collation, non_ignorable_395_488)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_489)
+TEST(collation, non_ignorable_395_289)
 {
     // 10FF02 0021;	
     // ('\U0010FF02') <private-use-10FF02>	[FBE1 FF02 0261 | 0020 0020 | 0002 0002 |]
@@ -8827,7 +5227,7 @@ TEST(collation, non_ignorable_395_489)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_490)
+TEST(collation, non_ignorable_395_290)
 {
     // 10FF02 003F;	
     // ('\U0010FF02') <private-use-10FF02>	[FBE1 FF02 0267 | 0020 0020 | 0002 0002 |]
@@ -8845,7 +5245,7 @@ TEST(collation, non_ignorable_395_490)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_491)
+TEST(collation, non_ignorable_395_291)
 {
     // 10FF02 0061;	
     // ('\U0010FF02') <private-use-10FF02>	[FBE1 FF02 1CAD | 0020 0020 | 0002 0002 |]
@@ -8863,7 +5263,7 @@ TEST(collation, non_ignorable_395_491)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_492)
+TEST(collation, non_ignorable_395_292)
 {
     // 10FF02 0041;	
     // ('\U0010FF02') <private-use-10FF02>	[FBE1 FF02 1CAD | 0020 0020 | 0002 0008 |]
@@ -8881,7 +5281,7 @@ TEST(collation, non_ignorable_395_492)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_493)
+TEST(collation, non_ignorable_395_293)
 {
     // 10FF02 0062;	
     // ('\U0010FF02') <private-use-10FF02>	[FBE1 FF02 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8899,7 +5299,7 @@ TEST(collation, non_ignorable_395_493)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_494)
+TEST(collation, non_ignorable_395_294)
 {
     // 10FF03 0021;	
     // ('\U0010FF03') <private-use-10FF03>	[FBE1 FF03 0261 | 0020 0020 | 0002 0002 |]
@@ -8917,7 +5317,7 @@ TEST(collation, non_ignorable_395_494)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_495)
+TEST(collation, non_ignorable_395_295)
 {
     // 10FF03 003F;	
     // ('\U0010FF03') <private-use-10FF03>	[FBE1 FF03 0267 | 0020 0020 | 0002 0002 |]
@@ -8935,7 +5335,7 @@ TEST(collation, non_ignorable_395_495)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_496)
+TEST(collation, non_ignorable_395_296)
 {
     // 10FF03 0061;	
     // ('\U0010FF03') <private-use-10FF03>	[FBE1 FF03 1CAD | 0020 0020 | 0002 0002 |]
@@ -8953,7 +5353,7 @@ TEST(collation, non_ignorable_395_496)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_497)
+TEST(collation, non_ignorable_395_297)
 {
     // 10FF03 0041;	
     // ('\U0010FF03') <private-use-10FF03>	[FBE1 FF03 1CAD | 0020 0020 | 0002 0008 |]
@@ -8971,7 +5371,7 @@ TEST(collation, non_ignorable_395_497)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_498)
+TEST(collation, non_ignorable_395_298)
 {
     // 10FF03 0062;	
     // ('\U0010FF03') <private-use-10FF03>	[FBE1 FF03 1CC6 | 0020 0020 | 0002 0002 |]
@@ -8989,7 +5389,7 @@ TEST(collation, non_ignorable_395_498)
         << "got:      " << ce_dumper(collation);
 }
 
-TEST(collation, non_ignorable_395_499)
+TEST(collation, non_ignorable_395_299)
 {
     // 10FF04 0021;	
     // ('\U0010FF04') <private-use-10FF04>	[FBE1 FF04 0261 | 0020 0020 | 0002 0002 |]
@@ -9002,6 +5402,798 @@ TEST(collation, non_ignorable_395_499)
 
     EXPECT_EQ(collation.size(), 10);
     EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_300)
+{
+    // 10FF04 003F;	
+    // ('\U0010FF04') <private-use-10FF04>	[FBE1 FF04 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF04, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF04, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_301)
+{
+    // 10FF04 0061;	
+    // ('\U0010FF04') <private-use-10FF04>	[FBE1 FF04 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF04, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF04, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_302)
+{
+    // 10FF04 0041;	
+    // ('\U0010FF04') <private-use-10FF04>	[FBE1 FF04 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FF04, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF04, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_303)
+{
+    // 10FF04 0062;	
+    // ('\U0010FF04') <private-use-10FF04>	[FBE1 FF04 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF04, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF04, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_304)
+{
+    // 10FF05 0021;	
+    // ('\U0010FF05') <private-use-10FF05>	[FBE1 FF05 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF05, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF05, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_305)
+{
+    // 10FF05 003F;	
+    // ('\U0010FF05') <private-use-10FF05>	[FBE1 FF05 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF05, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF05, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_306)
+{
+    // 10FF05 0061;	
+    // ('\U0010FF05') <private-use-10FF05>	[FBE1 FF05 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF05, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF05, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_307)
+{
+    // 10FF05 0041;	
+    // ('\U0010FF05') <private-use-10FF05>	[FBE1 FF05 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FF05, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF05, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_308)
+{
+    // 10FF05 0062;	
+    // ('\U0010FF05') <private-use-10FF05>	[FBE1 FF05 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FF05, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFF05, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_309)
+{
+    // 10FFF8 0021;	
+    // ('\U0010FFF8') <private-use-10FFF8>	[FBE1 FFF8 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF8, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF8, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_310)
+{
+    // 10FFF8 003F;	
+    // ('\U0010FFF8') <private-use-10FFF8>	[FBE1 FFF8 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF8, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF8, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_311)
+{
+    // 10FFF8 0061;	
+    // ('\U0010FFF8') <private-use-10FFF8>	[FBE1 FFF8 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF8, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF8, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_312)
+{
+    // 10FFF8 0041;	
+    // ('\U0010FFF8') <private-use-10FFF8>	[FBE1 FFF8 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FFF8, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF8, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_313)
+{
+    // 10FFF8 0062;	
+    // ('\U0010FFF8') <private-use-10FFF8>	[FBE1 FFF8 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF8, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF8, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_314)
+{
+    // 10FFF9 0021;	
+    // ('\U0010FFF9') <private-use-10FFF9>	[FBE1 FFF9 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF9, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF9, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_315)
+{
+    // 10FFF9 003F;	
+    // ('\U0010FFF9') <private-use-10FFF9>	[FBE1 FFF9 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF9, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF9, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_316)
+{
+    // 10FFF9 0061;	
+    // ('\U0010FFF9') <private-use-10FFF9>	[FBE1 FFF9 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF9, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF9, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_317)
+{
+    // 10FFF9 0041;	
+    // ('\U0010FFF9') <private-use-10FFF9>	[FBE1 FFF9 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FFF9, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF9, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_318)
+{
+    // 10FFF9 0062;	
+    // ('\U0010FFF9') <private-use-10FFF9>	[FBE1 FFF9 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFF9, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFF9, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_319)
+{
+    // 10FFFA 0021;	
+    // ('\U0010FFFA') <private-use-10FFFA>	[FBE1 FFFA 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFA, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFA, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_320)
+{
+    // 10FFFA 003F;	
+    // ('\U0010FFFA') <private-use-10FFFA>	[FBE1 FFFA 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFA, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFA, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_321)
+{
+    // 10FFFA 0061;	
+    // ('\U0010FFFA') <private-use-10FFFA>	[FBE1 FFFA 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFA, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFA, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_322)
+{
+    // 10FFFA 0041;	
+    // ('\U0010FFFA') <private-use-10FFFA>	[FBE1 FFFA 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FFFA, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFA, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_323)
+{
+    // 10FFFA 0062;	
+    // ('\U0010FFFA') <private-use-10FFFA>	[FBE1 FFFA 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFA, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFA, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_324)
+{
+    // 10FFFB 0021;	
+    // ('\U0010FFFB') <private-use-10FFFB>	[FBE1 FFFB 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFB, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFB, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_325)
+{
+    // 10FFFB 003F;	
+    // ('\U0010FFFB') <private-use-10FFFB>	[FBE1 FFFB 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFB, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFB, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_326)
+{
+    // 10FFFB 0061;	
+    // ('\U0010FFFB') <private-use-10FFFB>	[FBE1 FFFB 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFB, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFB, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_327)
+{
+    // 10FFFB 0041;	
+    // ('\U0010FFFB') <private-use-10FFFB>	[FBE1 FFFB 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FFFB, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFB, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_328)
+{
+    // 10FFFB 0062;	
+    // ('\U0010FFFB') <private-use-10FFFB>	[FBE1 FFFB 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFB, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFB, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_329)
+{
+    // 10FFFC 0021;	
+    // ('\U0010FFFC') <private-use-10FFFC>	[FBE1 FFFC 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFC, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFC, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_330)
+{
+    // 10FFFC 003F;	
+    // ('\U0010FFFC') <private-use-10FFFC>	[FBE1 FFFC 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFC, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFC, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_331)
+{
+    // 10FFFC 0061;	
+    // ('\U0010FFFC') <private-use-10FFFC>	[FBE1 FFFC 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFC, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFC, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_332)
+{
+    // 10FFFC 0041;	
+    // ('\U0010FFFC') <private-use-10FFFC>	[FBE1 FFFC 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FFFC, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFC, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_333)
+{
+    // 10FFFC 0062;	
+    // ('\U0010FFFC') <private-use-10FFFC>	[FBE1 FFFC 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFC, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFC, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_334)
+{
+    // 10FFFD 0021;	
+    // ('\U0010FFFD') <private-use-10FFFD>	[FBE1 FFFD 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFD, 0x0021 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFD, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_335)
+{
+    // 10FFFD 003F;	
+    // ('\U0010FFFD') <private-use-10FFFD>	[FBE1 FFFD 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFD, 0x003F };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFD, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_336)
+{
+    // 10FFFD 0061;	
+    // ('\U0010FFFD') <private-use-10FFFD>	[FBE1 FFFD 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFD, 0x0061 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFD, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_337)
+{
+    // 10FFFD 0041;	
+    // ('\U0010FFFD') <private-use-10FFFD>	[FBE1 FFFD 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0x10FFFD, 0x0041 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFD, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_338)
+{
+    // 10FFFD 0062;	
+    // ('\U0010FFFD') <private-use-10FFFD>	[FBE1 FFFD 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0x10FFFD, 0x0062 };
+    uint32_t const ces[10] = { 0xFBE1, 0xFFFD, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 10);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 10))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_339)
+{
+    // FFFD 0021;	
+    // (�) REPLACEMENT CHARACTER	[FFFD 0261 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0xFFFD, 0x0021 };
+    uint32_t const ces[9] = { 0xFFFD, 0x0261, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 9);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 9))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_340)
+{
+    // FFFD 003F;	
+    // (�) REPLACEMENT CHARACTER	[FFFD 0267 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0xFFFD, 0x003F };
+    uint32_t const ces[9] = { 0xFFFD, 0x0267, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 9);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 9))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_341)
+{
+    // FFFD 0061;	
+    // (�) REPLACEMENT CHARACTER	[FFFD 1CAD | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0xFFFD, 0x0061 };
+    uint32_t const ces[9] = { 0xFFFD, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 9);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 9))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_342)
+{
+    // FFFD 0041;	
+    // (�) REPLACEMENT CHARACTER	[FFFD 1CAD | 0020 0020 | 0002 0008 |]
+
+    uint32_t cps[2] = { 0xFFFD, 0x0041 };
+    uint32_t const ces[9] = { 0xFFFD, 0x1CAD, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0008, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 9);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 9))
+        << "from:     " << ce_dumper(cps)
+        << "expected: " << ce_dumper(ces)
+        << "got:      " << ce_dumper(collation);
+}
+
+TEST(collation, non_ignorable_395_343)
+{
+    // FFFD 0062;	
+    // (�) REPLACEMENT CHARACTER	[FFFD 1CC6 | 0020 0020 | 0002 0002 |]
+
+    uint32_t cps[2] = { 0xFFFD, 0x0062 };
+    uint32_t const ces[9] = { 0xFFFD, 0x1CC6, 0x0000, 0x0020, 0x0020, 0x0000, 0x0002, 0x0002, 0x0000 };
+
+    auto collation = collate_for_tests(
+        cps, cps + 2, boost::text::variable_weighting::non_ignorable);
+
+    EXPECT_EQ(collation.size(), 9);
+    EXPECT_TRUE(boost::algorithm::equal(collation.begin(), collation.end(), ces, ces + 9))
         << "from:     " << ce_dumper(cps)
         << "expected: " << ce_dumper(ces)
         << "got:      " << ce_dumper(collation);
