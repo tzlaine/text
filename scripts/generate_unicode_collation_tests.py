@@ -374,6 +374,24 @@ if '--perf' in sys.argv:
     generate_lookup_perf_test(ducet)
     exit(0)
 
+# TODO: May or not be necessary; these are the test borken when using DUCET
+# data and applying the well-formedness-repairing Tibetan tailorings.
+verbatim_tests_broken_by_adding_10_tibetan_tailorings = [
+    '0F76 0F71 0334;',
+    '0F76 0334 0F71 0F80;',
+    '0F76 0334 0F80 0F71;',
+    '0FB2 0334 0F81;',
+    '0F78 0F71 0334;',
+    '0FB3 0334 0F71 0F80;',
+    '0FB3 0334 0F80 0F71;',
+    '0FB3 0F71 0334 0F80;'
+]
+
+relative_shifted_tests_broken_by_adding_10_tibetan_tailorings = [
+    '0F77 0021;',
+    '0F79 0021;'
+]
+
 generate_lookup_tests(ducet, ducet_lines)
 generate_verbatim_collation_tests('CollationTest_NON_IGNORABLE.txt', 'CollationTest_SHIFTED.txt')
 generate_relative_collation_tests('CollationTest_NON_IGNORABLE.txt', 'non_ignorable')
