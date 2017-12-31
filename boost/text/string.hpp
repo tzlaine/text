@@ -941,12 +941,14 @@ namespace boost { namespace text {
 
     inline string & string::insert(int at, char c)
     {
-        return insert(at, string_view(&c, 1));
+        char chars[2] = {c, 0};
+        return insert(at, string_view(chars, 2));
     }
 
     inline string::iterator string::insert(iterator at, char c)
     {
-        return insert(at, string_view(&c, 1));
+        char chars[2] = {c, 0};
+        return insert(at, string_view(chars, 2));
     }
 
     template<typename CharRange>
