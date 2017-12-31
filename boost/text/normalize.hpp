@@ -398,6 +398,8 @@ namespace boost { namespace text {
         }
     }
 
+    // TODO: This produces different results than the string& overload.  The
+    // output contains code points above 0xffffff.
     /** TODO */
     template<typename Iter, typename OutIter>
     inline OutIter normalize_to_nfd(Iter first, Iter last, OutIter out)

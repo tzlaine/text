@@ -9,6 +9,9 @@
 #include <boost/container/static_vector.hpp>
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
+#include <iomanip>
+#include <ostream>
+
 
 namespace boost { namespace text {
 
@@ -32,6 +35,7 @@ namespace boost { namespace text {
     {
         using iterator = std::vector<uint32_t>::const_iterator;
 
+        text_sort_key() {}
         explicit text_sort_key(std::vector<uint32_t> bytes) :
             storage_(std::move(bytes))
         {}
@@ -59,6 +63,23 @@ namespace boost { namespace text {
                 return 0;
             }
         }
+
+#ifndef NDEBUG
+        friend std::ostream &
+        operator<<(std::ostream & os, text_sort_key const & k)
+        {
+            os << std::hex;
+            bool first = true;
+            for (auto x : k.storage_) {
+                if (!first)
+                    os << ", ";
+                os << "0x" << std::setfill('0') << std::setw(4) << x;
+                first = false;
+            }
+            os << std::dec;
+            return os;
+        }
+#endif
 
     private:
         std::vector<uint32_t> storage_;
@@ -333,16 +354,16 @@ namespace boost { namespace text {
             }
         }
 
-        inline void
+        template<typename Iter>
+        void
             s3(container::small_vector<collation_element, 1024> const & ces,
                collation_strength strength,
                l2_weight_order l2_order,
+               Iter cps_first,
+               Iter cps_last,
+               int cps_size,
                std::vector<uint32_t> & bytes)
         {
-            assert(
-                strength != collation_strength::identical &&
-                "Not yet implemented!");
-
             // TODO: Provide an API for passing in scratch space so that l[1-4]
             // are not repeatedly realloacted.  (Same with th NFD string above.)
             boost::container::small_vector<uint32_t, 256> l1;
@@ -384,8 +405,11 @@ namespace boost { namespace text {
                 size += l2.size();
                 if (collation_strength::secondary < strength) {
                     size += l3.size();
-                    if (collation_strength::tertiary < strength)
+                    if (collation_strength::tertiary < strength) {
                         size += l4.size();
+                        if (collation_strength::quaternary < strength)
+                            size += cps_size;
+                    }
                 }
             }
             size += separators;
@@ -406,6 +430,10 @@ namespace boost { namespace text {
                     if (collation_strength::tertiary < strength) {
                         *it++ = 0x000;
                         it = std::copy(l4.begin(), l4.end(), it);
+                        if (collation_strength::quaternary < strength) {
+                            *it++ = 0x000;
+                            it = std::copy(cps_first, cps_last, it);
+                        }
                     }
                 }
             }
@@ -426,10 +454,10 @@ namespace boost { namespace text {
             // TODO: Try tuning this buffer size for perf.
             std::array<uint32_t, 256> buffer;
             auto buf_it = buffer.begin();
-            while (first != last) {
-                while (first != last && buf_it != buffer.end()) {
-                    *buf_it++ = *first;
-                    ++first;
+            auto it = first;
+            while (it != last) {
+                for (; it != last && buf_it != buffer.end(); ++buf_it, ++it) {
+                    *buf_it = *it;
                 }
 
                 // The chunk we pass to S2 should end at the earliest
@@ -441,20 +469,30 @@ namespace boost { namespace text {
                 auto s2_it = buf_it;
                 if (s2_it == buffer.end()) {
                     while (s2_it != buffer.begin()) {
+                        --it;
                         if (ccc(*--s2_it))
                             break;
                     }
                     while (s2_it != buffer.begin()) {
+                        --it;
                         if (!ccc(*--s2_it))
                             break;
                     }
                     ++s2_it;
+                    ++it;
                 }
 
-                s2(buffer.begin(), buf_it, weighting, ces);
-                s3(ces, strength, l2_order, bytes);
+                s2(buffer.begin(), s2_it, weighting, ces);
+                s3(ces,
+                   strength,
+                   l2_order,
+                   first,
+                   it,
+                   s2_it - buffer.begin(),
+                   bytes);
                 ces.clear();
                 buf_it = std::copy(s2_it, buf_it, buffer.begin());
+                first = it;
             }
             return text_sort_key(std::move(bytes));
         }

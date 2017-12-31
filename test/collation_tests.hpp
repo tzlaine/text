@@ -61,7 +61,14 @@ std::vector<uint32_t> collate_for_tests(
 
     std::vector<uint32_t> retval;
     boost::text::detail::s3(
-        ces, strength, boost::text::l2_weight_order::forward, retval);
+        ces,
+        strength,
+        boost::text::l2_weight_order::forward,
+        first,
+        last,
+        last - first,
+        retval);
+
     return retval;
 }
 

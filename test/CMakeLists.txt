@@ -51,8 +51,8 @@ if (NOT LIMIT_TESTING_FOR_TRAVIS)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_???.cpp)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
     file(GLOB collation_element_lookup_tests collation_element_lookup_???.cpp)
+    file(GLOB verbatim_collation_tests_non_ignorable verbatim_collation_test_???.cpp)
 endif()
-file(GLOB verbatim_collation_tests_non_ignorable verbatim_collation_test_???.cpp)
 set(globbed_tests
     ${prop_lookup_tests}
     ${grapheme_break_tests}
@@ -71,6 +71,23 @@ foreach(test ${globbed_tests})
 endforeach()
 
 add_test_executable(normalization_idempotence)
+add_test_executable(relative_collation_test_non_ignorable_0)
+add_test_executable(relative_collation_test_non_ignorable_1)
+add_test_executable(relative_collation_test_non_ignorable_2)
+add_test_executable(relative_collation_test_non_ignorable_3)
+add_test_executable(relative_collation_test_non_ignorable_4)
+add_test_executable(relative_collation_test_non_ignorable_5)
+add_test_executable(relative_collation_test_non_ignorable_6)
+add_test_executable(relative_collation_test_non_ignorable_7)
+add_test_executable(relative_collation_test_shifted_0)
+add_test_executable(relative_collation_test_shifted_1)
+add_test_executable(relative_collation_test_shifted_2)
+add_test_executable(relative_collation_test_shifted_3)
+add_test_executable(relative_collation_test_shifted_4)
+add_test_executable(relative_collation_test_shifted_5)
+add_test_executable(relative_collation_test_shifted_6)
+add_test_executable(relative_collation_test_shifted_7)
+add_test_executable(relative_collation_test_shifted_8)
 
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).
