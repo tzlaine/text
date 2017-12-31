@@ -469,30 +469,28 @@ namespace boost { namespace text {
                 auto s2_it = buf_it;
                 if (s2_it == buffer.end()) {
                     while (s2_it != buffer.begin()) {
-                        --it;
                         if (ccc(*--s2_it))
                             break;
                     }
                     while (s2_it != buffer.begin()) {
-                        --it;
                         if (!ccc(*--s2_it))
                             break;
                     }
                     ++s2_it;
-                    ++it;
                 }
 
+                auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
                 s2(buffer.begin(), s2_it, weighting, ces);
                 s3(ces,
                    strength,
                    l2_order,
                    first,
-                   it,
+                   end_of_raw_input,
                    s2_it - buffer.begin(),
                    bytes);
                 ces.clear();
                 buf_it = std::copy(s2_it, buf_it, buffer.begin());
-                first = it;
+                first = end_of_raw_input;
             }
             return text_sort_key(std::move(bytes));
         }
