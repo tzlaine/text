@@ -412,8 +412,10 @@ namespace boost { namespace text {
             assert(it == bytes.end());
         }
 
-        inline text_sort_key collation_sort_key(
-            string const & s,
+        template<typename Iter>
+        text_sort_key collation_sort_key(
+            Iter first,
+            Iter last,
             collation_strength strength,
             variable_weighting weighting,
             l2_weight_order l2_order)
@@ -421,15 +423,13 @@ namespace boost { namespace text {
             std::vector<uint32_t> bytes;
             container::small_vector<collation_element, 1024> ces;
 
-            utf32_range as_utf32(s);
             // TODO: Try tuning this buffer size for perf.
             std::array<uint32_t, 256> buffer;
             auto buf_it = buffer.begin();
-            while (!as_utf32.empty()) {
-                auto it = as_utf32.begin();
-                while (it != as_utf32.end() && buf_it != buffer.end()) {
-                    *buf_it++ = *it;
-                    ++it;
+            while (first != last) {
+                while (first != last && buf_it != buffer.end()) {
+                    *buf_it++ = *first;
+                    ++first;
                 }
 
                 // The chunk we pass to S2 should end at the earliest
@@ -454,15 +454,17 @@ namespace boost { namespace text {
                 s2(buffer.begin(), buf_it, weighting, ces);
                 s3(ces, strength, l2_order, bytes);
                 ces.clear();
-                as_utf32 = utf32_range(it, as_utf32.end());
                 buf_it = std::copy(s2_it, buf_it, buffer.begin());
             }
             return text_sort_key(std::move(bytes));
         }
 
-        inline int collate(
-            string const & lhs,
-            string const & rhs,
+        template<typename Iter1, typename Iter2>
+        int collate(
+            Iter1 lhs_first,
+            Iter1 lhs_last,
+            Iter2 rhs_first,
+            Iter2 rhs_last,
             collation_strength strength,
             variable_weighting weighting,
             l2_weight_order l2_order)
@@ -471,12 +473,27 @@ namespace boost { namespace text {
             // is certain.
             // TODO: Do this into stack buffers to avoid allocation for
             // small enough strings.
-            text_sort_key const lhs_sk =
-                collation_sort_key(lhs, strength, weighting, l2_order);
-            text_sort_key const rhs_sk =
-                collation_sort_key(rhs, strength, weighting, l2_order);
+            text_sort_key const lhs_sk = detail::collation_sort_key(
+                lhs_first, lhs_last, strength, weighting, l2_order);
+            text_sort_key const rhs_sk = detail::collation_sort_key(
+                rhs_first, rhs_last, strength, weighting, l2_order);
             return lhs_sk.compare(rhs_sk);
         }
+    }
+
+    /** TODO
+        TODO: string -> text
+    */
+    template<typename Iter>
+    text_sort_key collation_sort_key(
+        Iter first,
+        Iter last,
+        collation_strength strength,
+        variable_weighting weighting,
+        l2_weight_order l2_order = l2_weight_order::forward)
+    {
+        return detail::collation_sort_key(
+            first, last, strength, weighting, l2_order);
     }
 
     /** TODO
@@ -488,7 +505,32 @@ namespace boost { namespace text {
         variable_weighting weighting,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
-        return detail::collation_sort_key(s, strength, weighting, l2_order);
+        utf32_range as_utf32(s);
+        return detail::collation_sort_key(
+            as_utf32.begin(), as_utf32.end(), strength, weighting, l2_order);
+    }
+
+    /** TODO
+        TODO: string -> text
+    */
+    template<typename Iter1, typename Iter2>
+    int collate(
+        Iter1 lhs_first,
+        Iter1 lhs_last,
+        Iter2 rhs_first,
+        Iter2 rhs_last,
+        collation_strength strength,
+        variable_weighting weighting,
+        l2_weight_order l2_order = l2_weight_order::forward)
+    {
+        return detail::collate(
+            lhs_first,
+            lhs_last,
+            rhs_first,
+            rhs_last,
+            strength,
+            weighting,
+            l2_order);
     }
 
     /** TODO
@@ -501,7 +543,16 @@ namespace boost { namespace text {
         variable_weighting weighting,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
-        return detail::collate(lhs, rhs, strength, weighting, l2_order);
+        utf32_range lhs_as_utf32(rhs);
+        utf32_range rhs_as_utf32(lhs);
+        return detail::collate(
+            lhs_as_utf32.begin(),
+            lhs_as_utf32.end(),
+            rhs_as_utf32.begin(),
+            rhs_as_utf32.end(),
+            strength,
+            weighting,
+            l2_order);
     }
 
     // TODO: Tailored collation.
