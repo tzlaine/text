@@ -84,34 +84,28 @@ namespace boost { namespace text {
             return true;
         }
 
-        template<typename DecomposeFunc>
-        void normalize_to_decomposed(string & s, DecomposeFunc && decompose)
+        template<typename Iter, typename OutIter, typename DecomposeFunc>
+        OutIter normalize_to_decomposed(
+            Iter first, Iter last, OutIter out, DecomposeFunc && decompose)
         {
-            string temp;
-            temp.reserve(s.size());
-            utf32_range as_utf32(s);
-
             container::static_vector<uint32_t, 64> buffer;
             using buffer_iterator =
                 container::static_vector<uint32_t, 64>::iterator;
 
             normalize_to_decomposed_impl(
-                as_utf32.begin(),
-                as_utf32.end(),
+                first,
+                last,
                 buffer,
                 decompose,
-                [&temp](buffer_iterator first, buffer_iterator last) {
-                    temp.insert(
-                        temp.size(),
+                [&out](buffer_iterator first, buffer_iterator last) {
+                    out = std::copy(
                         utf8::make_from_utf32_iterator(first),
-                        utf8::make_from_utf32_iterator(last));
+                        utf8::make_from_utf32_iterator(last),
+                        out);
                     return true;
                 });
 
-            if (temp.size() <= s.capacity())
-                s = temp;
-            else
-                s.swap(temp);
+            return out;
         }
 
         inline constexpr bool hangul_l(uint32_t cp) noexcept
@@ -265,39 +259,37 @@ namespace boost { namespace text {
 
         template<
             bool DisallowDiscontiguous,
+            typename Iter,
+            typename OutIter,
             typename DecomposeFunc,
             typename QuickCheckFunc>
-        void normalize_to_composed(
-            string & s,
+        OutIter normalize_to_composed(
+            Iter first,
+            Iter last,
+            OutIter out,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_)
         {
-            string temp;
-            temp.reserve(s.size());
-            utf32_range as_utf32(s);
             container::static_vector<uint32_t, 64> buffer;
 
             using buffer_iterator =
                 container::static_vector<uint32_t, 64>::iterator;
 
             normalize_to_composed_impl<DisallowDiscontiguous>(
-                as_utf32.begin(),
-                as_utf32.end(),
+                first,
+                last,
                 buffer,
                 decompose,
                 quick_check_,
-                [&temp](buffer_iterator first, buffer_iterator last) {
-                    temp.insert(
-                        temp.size(),
+                [&out](buffer_iterator first, buffer_iterator last) {
+                    out = std::copy(
                         utf8::make_from_utf32_iterator(first),
-                        utf8::make_from_utf32_iterator(last));
+                        utf8::make_from_utf32_iterator(last),
+                        out);
                     return true;
                 });
 
-            if (temp.size() <= s.capacity())
-                s = temp;
-            else
-                s.swap(temp);
+            return out;
         }
 
 #if 0
@@ -407,6 +399,16 @@ namespace boost { namespace text {
     }
 
     /** TODO */
+    template<typename Iter, typename OutIter>
+    inline OutIter normalize_to_nfd(Iter first, Iter last, OutIter out)
+    {
+        return detail::normalize_to_decomposed(
+            first, last, out, [](uint32_t cp) {
+                return canonical_decompose(cp);
+            });
+    }
+
+    /** TODO */
     inline void normalize_to_nfd(string & s)
     {
         utf32_range as_utf32(s);
@@ -417,8 +419,26 @@ namespace boost { namespace text {
             return;
         }
 
-        detail::normalize_to_decomposed(
-            s, [](uint32_t cp) { return canonical_decompose(cp); });
+        string temp;
+        temp.reserve(s.size());
+
+        normalize_to_nfd(
+            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+
+        if (temp.size() <= s.capacity())
+            s = temp;
+        else
+            s.swap(temp);
+    }
+
+    /** TODO */
+    template<typename Iter, typename OutIter>
+    inline OutIter normalize_to_nfkd(Iter first, Iter last, OutIter out)
+    {
+        return detail::normalize_to_decomposed(
+            first, last, out, [](uint32_t cp) {
+                return compatible_decompose(cp);
+            });
     }
 
     /** TODO */
@@ -432,8 +452,28 @@ namespace boost { namespace text {
             return;
         }
 
-        detail::normalize_to_decomposed(
-            s, [](uint32_t cp) { return compatible_decompose(cp); });
+        string temp;
+        temp.reserve(s.size());
+
+        normalize_to_nfkd(
+            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+
+        if (temp.size() <= s.capacity())
+            s = temp;
+        else
+            s.swap(temp);
+    }
+
+    /** TODO */
+    template<typename Iter, typename OutIter>
+    inline OutIter normalize_to_nfc(Iter first, Iter last, OutIter out)
+    {
+        return detail::normalize_to_composed<false>(
+            first,
+            last,
+            out,
+            [](uint32_t cp) { return canonical_decompose(cp); },
+            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
     }
 
     /** TODO */
@@ -447,10 +487,28 @@ namespace boost { namespace text {
             return;
         }
 
-        detail::normalize_to_composed<false>(
-            s,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
+        string temp;
+        temp.reserve(temp.size());
+
+        normalize_to_nfc(
+            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+
+        if (temp.size() <= s.capacity())
+            s = temp;
+        else
+            s.swap(temp);
+    }
+
+    /** TODO */
+    template<typename Iter, typename OutIter>
+    inline OutIter normalize_to_nfkc(Iter first, Iter last, OutIter out)
+    {
+        return detail::normalize_to_composed<false>(
+            first,
+            last,
+            out,
+            [](uint32_t cp) { return compatible_decompose(cp); },
+            [](uint32_t cp) { return quick_check_nfkc_code_point(cp); });
     }
 
     /** TODO */
@@ -464,10 +522,16 @@ namespace boost { namespace text {
             return;
         }
 
-        detail::normalize_to_composed<false>(
-            s,
-            [](uint32_t cp) { return compatible_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfkc_code_point(cp); });
+        string temp;
+        temp.reserve(s.size());
+
+        normalize_to_nfkc(
+            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+
+        if (temp.size() <= s.capacity())
+            s = temp;
+        else
+            s.swap(temp);
     }
 
     // TODO: Create a uint32 iterator concept and apply it below.
@@ -524,9 +588,9 @@ namespace boost { namespace text {
     }
 
     /** Returns true iff the given sequence of code points is in the
-        pseudonormalized FCC form. */
+        pseudonormalized FCD form. */
     template<typename Iter>
-    bool pseudonormalized_fcc(Iter first, Iter last) noexcept
+    bool pseudonormalized_fcd(Iter first, Iter last) noexcept
     {
         // http://www.unicode.org/notes/tn5/#FCD_Test
         int prev_ccc = 0;
@@ -543,17 +607,35 @@ namespace boost { namespace text {
     }
 
     /** TODO */
+    template<typename Iter, typename OutIter>
+    inline OutIter psuedonormalize_to_fcc(Iter first, Iter last, OutIter out)
+    {
+        return detail::normalize_to_composed<true>(
+            first,
+            last,
+            out,
+            [](uint32_t cp) { return canonical_decompose(cp); },
+            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
+    }
+
+    /** TODO */
     inline void psuedonormalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC
         utf32_range as_utf32(s);
-        if (pseudonormalized_fcc(as_utf32.begin(), as_utf32.end()))
+        if (pseudonormalized_fcd(as_utf32.begin(), as_utf32.end()))
             return;
 
-        detail::normalize_to_composed<true>(
-            s,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
+        string temp;
+        temp.reserve(s.size());
+
+        psuedonormalize_to_fcc(
+            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+
+        if (temp.size() <= s.capacity())
+            s = temp;
+        else
+            s.swap(temp);
     }
 
 }}
