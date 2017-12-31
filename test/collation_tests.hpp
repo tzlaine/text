@@ -44,7 +44,7 @@ std::vector<uint32_t> collate_for_tests(
 {
     boost::text::string str = boost::text::to_string(first_, last_);
 #if 0 // TODO: turn this back on when/if we can get the FCC-form to work.
-    boost::text::psuedonormalize_to_fcc(str);
+    boost::text::pseudonormalize_to_fcc(str);
 #else
     boost::text::normalize_to_nfd(str);
 #endif

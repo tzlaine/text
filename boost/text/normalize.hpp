@@ -610,7 +610,7 @@ namespace boost { namespace text {
 
     /** TODO */
     template<typename Iter, typename OutIter>
-    inline OutIter psuedonormalize_to_fcc(Iter first, Iter last, OutIter out)
+    inline OutIter pseudonormalize_to_fcc(Iter first, Iter last, OutIter out)
     {
         return detail::normalize_to_composed<true>(
             first,
@@ -621,7 +621,7 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    inline void psuedonormalize_to_fcc(string & s)
+    inline void pseudonormalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC
         utf32_range as_utf32(s);
@@ -631,7 +631,7 @@ namespace boost { namespace text {
         string temp;
         temp.reserve(s.size());
 
-        psuedonormalize_to_fcc(
+        pseudonormalize_to_fcc(
             as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
