@@ -81,7 +81,7 @@ TEST(collation, relative_{4}_{5})
 
         str = boost::text::to_string(
             g_cps.begin() + r.first, g_cps.begin() + r.second);
-        boost::text::normalize_to_nfd(str);
+        boost::text::pseudonormalize_to_fcc(str);
         boost::text::utf32_range as_utf32(str);
         curr_cps.assign(as_utf32.begin(), as_utf32.end());
 

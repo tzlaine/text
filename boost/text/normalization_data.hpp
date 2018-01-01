@@ -44,10 +44,14 @@ namespace boost { namespace text {
     struct code_points
     {
         using storage_type = std::array<uint32_t, Capacity>;
-        using iterator = typename storage_type::const_iterator;
+        using iterator = typename storage_type::iterator;
+        using const_iterator = typename storage_type::const_iterator;
 
-        iterator begin() const { return storage_.begin(); }
-        iterator end() const { return storage_.begin() + size_; }
+        const_iterator begin() const { return storage_.begin(); }
+        const_iterator end() const { return storage_.begin() + size_; }
+
+        iterator begin() { return storage_.begin(); }
+        iterator end() { return storage_.begin() + size_; }
 
         friend bool operator==(
             code_points<Capacity> const & lhs,

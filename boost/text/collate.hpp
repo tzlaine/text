@@ -2,6 +2,7 @@
 #define BOOST_TEXT_COLLATE_HPP
 
 #include <boost/text/collation_data.hpp>
+#include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
 
@@ -45,7 +46,7 @@ namespace boost { namespace text {
 
         int compare(text_sort_key const & rhs) const noexcept
         {
-            auto const pair = boost::algorithm::mismatch(
+            auto const pair = algorithm::mismatch(
                 begin(), end(), rhs.begin(), rhs.end());
             if (pair.first == end()) {
                 if (pair.second == rhs.end())
@@ -90,20 +91,31 @@ namespace boost { namespace text {
     // and some variable naming comes from there.
     namespace detail {
 
+        template<typename Iter>
+        void
+        s2(Iter first,
+           Iter last,
+           variable_weighting weighting,
+           container::small_vector<collation_element, 1024> & ces);
+
         // http://www.unicode.org/reports/tr10/#Derived_Collation_Elements
-        inline void add_derived_elements(uint32_t cp, collation_element * out)
+        template<typename OutIter>
+        inline OutIter add_derived_elements(
+            uint32_t cp, variable_weighting weighting, OutIter out)
         {
-            // TODO: if (hangul_syllable(cp)) {
-            //     auto const decomp = decompose_hangul_syllable(cp);
-            //     ...
-            //}
+            if (hangul_syllable(cp)) {
+                auto cps = decompose_hangul_syllable<3>(cp);
+                container::small_vector<collation_element, 1024> ces;
+                s2(cps.begin(), cps.end(), weighting, ces);
+                return std::copy(ces.begin(), ces.end(), out);
+            }
 
             // Tangut and Tangut Components
             if (0x17000 <= cp && cp <= 0x18AFF) {
                 *out++ = collation_element{0xFB00, 0x0020, 0x0002};
                 *out++ = collation_element{
                     uint16_t((cp - 0x17000) | 0x8000), 0x0000, 0x0000};
-                return;
+                return out;
             }
 
             // Nushu
@@ -111,7 +123,7 @@ namespace boost { namespace text {
                 *out++ = collation_element{0xFB01, 0x0020, 0x0002};
                 *out++ = collation_element{
                     uint16_t((cp - 0x1B170) | 0x8000), 0x0000, 0x0000};
-                return;
+                return out;
             }
 
             collation_element const BBBB{
@@ -141,7 +153,7 @@ namespace boost { namespace text {
                 *out++ = collation_element{
                     uint16_t(0xFB40 + (cp >> 15)), 0x0020, 0x0002};
                 *out++ = BBBB;
-                return;
+                return out;
             }
 
             std::array<uint32_t, 222> const CJK_Unified_Ideographs_Extension_D =
@@ -192,13 +204,13 @@ namespace boost { namespace text {
                 *out++ = collation_element{
                     uint16_t(0xFB80 + (cp >> 15)), 0x0020, 0x0002};
                 *out++ = BBBB;
-                return;
+                return out;
             }
 
-            // Everything else (except Hangul; sigh).
             *out++ = collation_element{
                 uint16_t(0xFBC0 + (cp >> 15)), 0x0020, 0x0002};
             *out++ = BBBB;
+            return out;
         }
 
         inline bool variable(collation_element ce) noexcept
@@ -279,8 +291,6 @@ namespace boost { namespace text {
             return after_variable;
         }
 
-        // Does all of S2 except for S2.3, which is handled when building
-        // the sort key.
         template<typename Iter>
         void
         s2(Iter first,
@@ -295,12 +305,12 @@ namespace boost { namespace text {
                 auto collation_ = longest_collation(first, last);
                 if (collation_.match_length_ == 0) {
                     // S2.2
-                    collation_element cces[2];
-                    add_derived_elements(*first++, cces);
+                    collation_element cces[32];
+                    auto const cces_end =
+                        add_derived_elements(*first++, weighting, cces);
                     after_variable =
-                        s2_3(cces, cces + 2, weighting, after_variable);
-                    ces.push_back(cces[0]);
-                    ces.push_back(cces[1]);
+                        s2_3(cces, cces_end, weighting, after_variable);
+                    std::copy(cces, cces_end, std::back_inserter(ces));
                     continue;
                 }
                 first += collation_.match_length_;
@@ -365,11 +375,11 @@ namespace boost { namespace text {
                std::vector<uint32_t> & bytes)
         {
             // TODO: Provide an API for passing in scratch space so that l[1-4]
-            // are not repeatedly realloacted.  (Same with th NFD string above.)
-            boost::container::small_vector<uint32_t, 256> l1;
-            boost::container::small_vector<uint32_t, 256> l2;
-            boost::container::small_vector<uint32_t, 256> l3;
-            boost::container::small_vector<uint32_t, 256> l4;
+            // are not repeatedly realloacted.  (Same with the NFD string above.)
+            container::small_vector<uint32_t, 256> l1;
+            container::small_vector<uint32_t, 256> l2;
+            container::small_vector<uint32_t, 256> l3;
+            container::small_vector<uint32_t, 256> l4;
             l1.reserve(ces.size());
             if (collation_strength::primary < strength) {
                 l2.reserve(ces.size());
@@ -400,6 +410,10 @@ namespace boost { namespace text {
             // TODO: Needs to change under certain compression schemes.
             int const separators = static_cast<int>(strength);
 
+            container::small_vector<uint32_t, 256> nfd;
+            if (collation_strength::quaternary < strength)
+                normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
+
             int size = l1.size();
             if (collation_strength::primary < strength) {
                 size += l2.size();
@@ -408,7 +422,7 @@ namespace boost { namespace text {
                     if (collation_strength::tertiary < strength) {
                         size += l4.size();
                         if (collation_strength::quaternary < strength)
-                            size += cps_size;
+                            size += nfd.size();
                     }
                 }
             }
@@ -419,20 +433,20 @@ namespace boost { namespace text {
             auto it = bytes.end() - size;
             it = std::copy(l1.begin(), l1.end(), it);
             if (collation_strength::primary < strength) {
-                *it++ = 0x000;
+                *it++ = 0x0000;
                 if (l2_order == l2_weight_order::forward)
                     it = std::copy(l2.begin(), l2.end(), it);
                 else
                     it = std::copy(l2.rbegin(), l2.rend(), it);
                 if (collation_strength::secondary < strength) {
-                    *it++ = 0x000;
+                    *it++ = 0x0000;
                     it = std::copy(l3.begin(), l3.end(), it);
                     if (collation_strength::tertiary < strength) {
-                        *it++ = 0x000;
+                        *it++ = 0x0000;
                         it = std::copy(l4.begin(), l4.end(), it);
                         if (collation_strength::quaternary < strength) {
-                            *it++ = 0x000;
-                            it = std::copy(cps_first, cps_last, it);
+                            *it++ = 0x0000;
+                            it = std::copy(nfd.begin(), nfd.end(), it);
                         }
                     }
                 }

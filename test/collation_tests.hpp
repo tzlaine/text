@@ -13,9 +13,8 @@ struct ce_dumper
     ce_dumper(uint32_t const (&ces)[N]) : first_(ces), last_(ces + N)
     {}
 
-    ce_dumper(std::vector<uint32_t> const & ces) :
-        first_(&*ces.begin()),
-        last_(&*ces.end())
+    template<typename Range>
+    ce_dumper(Range const & r) : first_(&*r.begin()), last_(&*r.end())
     {}
 
     friend std::ostream & operator<<(std::ostream & os, ce_dumper d)
@@ -35,7 +34,6 @@ private:
     uint32_t const * last_;
 };
 
-// TODO: Implement something like this in collate.hpp.
 std::vector<uint32_t> collate_for_tests(
     uint32_t const * first_,
     uint32_t const * last_,
@@ -43,11 +41,7 @@ std::vector<uint32_t> collate_for_tests(
     boost::text::collation_strength strength)
 {
     boost::text::string str = boost::text::to_string(first_, last_);
-#if 0 // TODO: turn this back on when/if we can get the FCC-form to work.
     boost::text::pseudonormalize_to_fcc(str);
-#else
-    boost::text::normalize_to_nfd(str);
-#endif
 
     boost::container::static_vector<uint32_t, 1024> buf;
     boost::text::utf32_range as_utf32(str);
