@@ -45,7 +45,7 @@ TEST(collation, relative_shifted_0)
             boost::text::variable_weighting::shifted);
 
         if (!first) {
-            EXPECT_LE(prev_key.compare(curr_key), 0)
+            EXPECT_LE(compare(prev_key, curr_key), 0)
                 << "prev un-norm cps: " << ce_dumper(prev_un_norm)
                 << "prev_cps (NFD):   " << ce_dumper(prev_cps)
                 << "prev_key:         " << ce_dumper(prev_key) << "\n"

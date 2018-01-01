@@ -41,30 +41,32 @@ namespace boost { namespace text {
         iterator begin() const noexcept { return storage_.begin(); }
         iterator end() const noexcept { return storage_.end(); }
 
-        int compare(text_sort_key const & rhs) const noexcept
-        {
-            auto const pair = algorithm::mismatch(
-                begin(), end(), rhs.begin(), rhs.end());
-            if (pair.first == end()) {
-                if (pair.second == rhs.end())
-                    return 0;
-                return -1;
-            } else {
-                if (pair.second == rhs.end())
-                    return 1;
-                auto const lhs_element = *pair.first;
-                auto const rhs_element = *pair.second;
-                if (lhs_element < rhs_element)
-                    return -1;
-                if (rhs_element < lhs_element)
-                    return 1;
-                return 0;
-            }
-        }
-
     private:
         std::vector<uint32_t> storage_;
     };
+
+    /** TODO */
+    inline int
+    compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
+    {
+        auto const pair =
+            algorithm::mismatch(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        if (pair.first == lhs.end()) {
+            if (pair.second == rhs.end())
+                return 0;
+            return -1;
+        } else {
+            if (pair.second == rhs.end())
+                return 1;
+            auto const lhs_element = *pair.first;
+            auto const rhs_element = *pair.second;
+            if (lhs_element < rhs_element)
+                return -1;
+            if (rhs_element < lhs_element)
+                return 1;
+            return 0;
+        }
+    }
 
     // The code in this file implements the UCA as described in
     // http://www.unicode.org/reports/tr10/#Main_Algorithm .  The numbering
@@ -507,7 +509,7 @@ namespace boost { namespace text {
                 lhs_first, lhs_last, strength, weighting, l2_order);
             text_sort_key const rhs_sk = detail::collation_sort_key(
                 rhs_first, rhs_last, strength, weighting, l2_order);
-            return lhs_sk.compare(rhs_sk);
+            return compare(lhs_sk, rhs_sk);
         }
     }
 
