@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2017-12-26 17:35:40",
+    "date": "2018-01-01 12:40:02",
     "num_cpus": 8,
     "mhz_per_cpu": 2300,
     "cpu_scaling_enabled": false,
@@ -9,392 +9,392 @@
   "benchmarks": [
     {
       "name": "BM_string_view_ctor_dtor/0",
-      "iterations": 346099459,
+      "iterations": 346771557,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/1",
-      "iterations": 325216850,
+      "iterations": 335202486,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/2",
-      "iterations": 337968328,
+      "iterations": 341283616,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/3",
-      "iterations": 315096735,
+      "iterations": 334561653,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/4",
-      "iterations": 309446974,
+      "iterations": 336894793,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/5",
-      "iterations": 352265064,
+      "iterations": 347244614,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/6",
-      "iterations": 333227018,
+      "iterations": 324865181,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/7",
-      "iterations": 342376977,
+      "iterations": 335612301,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/8",
-      "iterations": 339614586,
+      "iterations": 354444737,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/9",
-      "iterations": 322185708,
+      "iterations": 342214617,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/10",
-      "iterations": 335498095,
+      "iterations": 330047008,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/11",
-      "iterations": 321988602,
+      "iterations": 325449702,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/12",
-      "iterations": 348113226,
+      "iterations": 349923017,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_view_ctor_dtor/13",
-      "iterations": 345256180,
+      "iterations": 332517873,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/0",
-      "iterations": 122294240,
-      "real_time": 6,
-      "cpu_time": 6,
+      "iterations": 125058063,
+      "real_time": 5,
+      "cpu_time": 5,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/1",
-      "iterations": 42623929,
+      "iterations": 45265840,
       "real_time": 15,
       "cpu_time": 15,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/2",
-      "iterations": 42584256,
-      "real_time": 16,
-      "cpu_time": 16,
+      "iterations": 41645100,
+      "real_time": 17,
+      "cpu_time": 17,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/3",
-      "iterations": 38427756,
+      "iterations": 37548008,
       "real_time": 18,
       "cpu_time": 18,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/4",
-      "iterations": 42278957,
+      "iterations": 42517782,
       "real_time": 16,
       "cpu_time": 16,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/5",
-      "iterations": 7903978,
-      "real_time": 89,
-      "cpu_time": 89,
+      "iterations": 7686648,
+      "real_time": 88,
+      "cpu_time": 88,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/6",
-      "iterations": 7701194,
-      "real_time": 89,
-      "cpu_time": 89,
+      "iterations": 7381163,
+      "real_time": 90,
+      "cpu_time": 90,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/7",
-      "iterations": 7257045,
+      "iterations": 7367180,
       "real_time": 93,
       "cpu_time": 93,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/8",
-      "iterations": 4083919,
-      "real_time": 174,
-      "cpu_time": 173,
+      "iterations": 4138926,
+      "real_time": 169,
+      "cpu_time": 169,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/9",
-      "iterations": 5545345,
-      "real_time": 120,
-      "cpu_time": 120,
+      "iterations": 5707204,
+      "real_time": 121,
+      "cpu_time": 121,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/10",
-      "iterations": 3600138,
-      "real_time": 193,
-      "cpu_time": 193,
+      "iterations": 3436561,
+      "real_time": 194,
+      "cpu_time": 194,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/11",
-      "iterations": 251665,
-      "real_time": 2761,
-      "cpu_time": 2761,
+      "iterations": 247881,
+      "real_time": 2763,
+      "cpu_time": 2763,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/12",
-      "iterations": 11705,
-      "real_time": 59053,
-      "cpu_time": 59038,
+      "iterations": 11296,
+      "real_time": 58474,
+      "cpu_time": 58474,
       "time_unit": "ns"
     },
     {
       "name": "BM_string_ctor_dtor/13",
       "iterations": 2,
-      "real_time": 307843474,
-      "cpu_time": 307831000,
+      "real_time": 333726956,
+      "cpu_time": 333718500,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/0",
-      "iterations": 67085793,
+      "iterations": 69327523,
       "real_time": 10,
       "cpu_time": 10,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/1",
-      "iterations": 5541350,
+      "iterations": 5718954,
       "real_time": 122,
       "cpu_time": 122,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/2",
-      "iterations": 5732114,
-      "real_time": 122,
-      "cpu_time": 122,
-      "time_unit": "ns"
-    },
-    {
-      "name": "BM_unencoded_rope_ctor_dtor/3",
-      "iterations": 5662835,
-      "real_time": 123,
-      "cpu_time": 123,
-      "time_unit": "ns"
-    },
-    {
-      "name": "BM_unencoded_rope_ctor_dtor/4",
-      "iterations": 5489981,
+      "iterations": 5587662,
       "real_time": 121,
       "cpu_time": 121,
       "time_unit": "ns"
     },
     {
+      "name": "BM_unencoded_rope_ctor_dtor/3",
+      "iterations": 5514720,
+      "real_time": 125,
+      "cpu_time": 125,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_unencoded_rope_ctor_dtor/4",
+      "iterations": 5577823,
+      "real_time": 120,
+      "cpu_time": 120,
+      "time_unit": "ns"
+    },
+    {
       "name": "BM_unencoded_rope_ctor_dtor/5",
-      "iterations": 2502404,
-      "real_time": 276,
-      "cpu_time": 276,
+      "iterations": 2603353,
+      "real_time": 272,
+      "cpu_time": 272,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/6",
-      "iterations": 2567234,
-      "real_time": 271,
-      "cpu_time": 271,
+      "iterations": 2761679,
+      "real_time": 275,
+      "cpu_time": 275,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/7",
-      "iterations": 2516103,
-      "real_time": 276,
-      "cpu_time": 276,
+      "iterations": 2502708,
+      "real_time": 275,
+      "cpu_time": 275,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/8",
-      "iterations": 2507325,
+      "iterations": 2698244,
       "real_time": 278,
       "cpu_time": 278,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/9",
-      "iterations": 3078412,
-      "real_time": 230,
-      "cpu_time": 230,
+      "iterations": 2820011,
+      "real_time": 235,
+      "cpu_time": 235,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/10",
-      "iterations": 2283857,
-      "real_time": 305,
-      "cpu_time": 305,
+      "iterations": 2269470,
+      "real_time": 306,
+      "cpu_time": 306,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/11",
-      "iterations": 220301,
-      "real_time": 3214,
-      "cpu_time": 3212,
+      "iterations": 236307,
+      "real_time": 2913,
+      "cpu_time": 2913,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/12",
-      "iterations": 10985,
-      "real_time": 62230,
-      "cpu_time": 62186,
+      "iterations": 11321,
+      "real_time": 59098,
+      "cpu_time": 59094,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_ctor_dtor/13",
       "iterations": 2,
-      "real_time": 308230724,
-      "cpu_time": 308215000,
+      "real_time": 331779135,
+      "cpu_time": 331746500,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/0",
-      "iterations": 278109965,
+      "iterations": 304436510,
       "real_time": 2,
       "cpu_time": 2,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/1",
-      "iterations": 219010760,
+      "iterations": 223407345,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/2",
-      "iterations": 223322529,
+      "iterations": 232663263,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/3",
-      "iterations": 226919823,
+      "iterations": 229535289,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/4",
-      "iterations": 219286567,
+      "iterations": 227109769,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/5",
-      "iterations": 221090799,
+      "iterations": 227238789,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/6",
-      "iterations": 227539421,
+      "iterations": 224810036,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/7",
-      "iterations": 228971428,
+      "iterations": 227025800,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/8",
-      "iterations": 222281497,
+      "iterations": 217058975,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/9",
-      "iterations": 229122820,
+      "iterations": 227702997,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/10",
-      "iterations": 227329560,
+      "iterations": 225313669,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/11",
-      "iterations": 227775608,
+      "iterations": 228898052,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/12",
-      "iterations": 223532192,
+      "iterations": 221112448,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
     },
     {
       "name": "BM_unencoded_rope_view_ctor_dtor/13",
-      "iterations": 222483552,
+      "iterations": 223871050,
       "real_time": 3,
       "cpu_time": 3,
       "time_unit": "ns"
