@@ -98,10 +98,7 @@ namespace boost { namespace text {
                 buffer,
                 decompose,
                 [&out](buffer_iterator first, buffer_iterator last) {
-                    out = std::copy(
-                        utf8::make_from_utf32_iterator(first),
-                        utf8::make_from_utf32_iterator(last),
-                        out);
+                    out = std::copy(first, last, out);
                     return true;
                 });
 
@@ -282,10 +279,7 @@ namespace boost { namespace text {
                 decompose,
                 quick_check_,
                 [&out](buffer_iterator first, buffer_iterator last) {
-                    out = std::copy(
-                        utf8::make_from_utf32_iterator(first),
-                        utf8::make_from_utf32_iterator(last),
-                        out);
+                    out = std::copy(first, last, out);
                     return true;
                 });
 
@@ -398,8 +392,6 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: This produces different results than the string& overload.  The
-    // output contains code points above 0xffffff.
     /** TODO */
     template<typename Iter, typename OutIter>
     inline OutIter normalize_to_nfd(Iter first, Iter last, OutIter out)
@@ -434,7 +426,9 @@ namespace boost { namespace text {
         temp.reserve(s.size());
 
         normalize_to_nfd(
-            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+            as_utf32.begin(),
+            as_utf32.end(),
+            utf8::from_utf32_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -476,7 +470,9 @@ namespace boost { namespace text {
         temp.reserve(s.size());
 
         normalize_to_nfkd(
-            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+            as_utf32.begin(),
+            as_utf32.end(),
+            utf8::from_utf32_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -520,7 +516,9 @@ namespace boost { namespace text {
         temp.reserve(temp.size());
 
         normalize_to_nfc(
-            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+            as_utf32.begin(),
+            as_utf32.end(),
+            utf8::from_utf32_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -566,7 +564,9 @@ namespace boost { namespace text {
         temp.reserve(s.size());
 
         normalize_to_nfkc(
-            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+            as_utf32.begin(),
+            as_utf32.end(),
+            utf8::from_utf32_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
@@ -736,7 +736,9 @@ namespace boost { namespace text {
         temp.reserve(s.size());
 
         pseudonormalize_to_fcc(
-            as_utf32.begin(), as_utf32.end(), std::inserter(temp, temp.end()));
+            as_utf32.begin(),
+            as_utf32.end(),
+            utf8::from_utf32_inserter(temp, temp.end()));
 
         if (temp.size() <= s.capacity())
             s = temp;
