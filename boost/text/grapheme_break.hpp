@@ -105,7 +105,7 @@ namespace boost { namespace text {
     {
         // Note that RI.RI was changed to '1' since that case is handled in
         // the grapheme break FSM.
-        
+
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html.
 constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 //  Other CR LF Ctrl Ext Pre SpcMk L  V  T  LV LVT RI E_Bse E_Mod ZWJ GAZ EBG
@@ -143,7 +143,6 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     inline grapheme_break_t
     grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp) noexcept
     {
-
         auto const cp_prop = grapheme_prop(cp);
         if (fsm.no_break(cp_prop)) {
             return grapheme_break_t(false, cp_prop, fsm);
@@ -154,7 +153,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     }
 
     /** Searches backward to find the start of the grapheme in which \a
-        current is found, without searching before \a first or into \a
+        current is found, without searching before \a first or after \a
         last. */
     template<typename Iter, typename Sentinel>
     Iter find_grapheme_start(Iter first, Iter current, Sentinel last) noexcept
