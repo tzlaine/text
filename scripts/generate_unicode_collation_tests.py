@@ -143,7 +143,7 @@ TEST(collation, table_lookup_{0:03}_{1:03})
 
     uint32_t const cps[{5}] = {{ {4} }};{8}
     // biased L2 weight
-    boost::text::compressed_collation_element const ces[{7}] = {{ {6} }};
+    boost::text::detail::compressed_collation_element const ces[{7}] = {{ {6} }};
 
     auto const coll = boost::text::detail::longest_collation(cps, cps + {5});
 
