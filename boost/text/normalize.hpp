@@ -411,6 +411,15 @@ namespace boost { namespace text {
     }
 
     /** TODO */
+    template<typename CodePointRange, typename OutIter>
+    inline OutIter normalize_to_nfd(CodePointRange const & r, OutIter out)
+    {
+        using std::begin;
+        using std::end;
+        return normalize_to_nfd(begin(r), end(r), out);
+    }
+
+    /** TODO */
     inline void normalize_to_nfd(string & s)
     {
         utf32_range as_utf32(s);
@@ -441,6 +450,15 @@ namespace boost { namespace text {
             first, last, out, [](uint32_t cp) {
                 return detail::compatible_decompose(cp);
             });
+    }
+
+    /** TODO */
+    template<typename CodePointRange, typename OutIter>
+    inline OutIter normalize_to_nfkd(CodePointRange const & r, OutIter out)
+    {
+        using std::begin;
+        using std::end;
+        return normalize_to_nfkd(begin(r), end(r), out);
     }
 
     /** TODO */
@@ -479,6 +497,15 @@ namespace boost { namespace text {
     }
 
     /** TODO */
+    template<typename CodePointRange, typename OutIter>
+    inline OutIter normalize_to_nfc(CodePointRange const & r, OutIter out)
+    {
+        using std::begin;
+        using std::end;
+        return normalize_to_nfc(begin(r), end(r), out);
+    }
+
+    /** TODO */
     inline void normalize_to_nfc(string & s)
     {
         utf32_range as_utf32(s);
@@ -513,6 +540,15 @@ namespace boost { namespace text {
             [](uint32_t cp) {
                 return detail::quick_check_nfkc_code_point(cp);
             });
+    }
+
+    /** TODO */
+    template<typename CodePointRange, typename OutIter>
+    inline OutIter normalize_to_nfkc(CodePointRange const & r, OutIter out)
+    {
+        using std::begin;
+        using std::end;
+        return normalize_to_nfkc(begin(r), end(r), out);
     }
 
     /** TODO */
@@ -555,6 +591,16 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfd_code_point(cp); });
     }
 
+    /** Returns true iff the given range of code points is normalized
+        NFD. */
+    template<typename CodePointRange>
+    bool normalized_nfd(CodePointRange const & r) noexcept
+    {
+        using std::begin;
+        using std::end;
+        return normalized_nfd(begin(r), end(r));
+    }
+
     /** Returns true iff the given sequence of code points is normalized
         NFKD. */
     template<typename Iter>
@@ -569,6 +615,16 @@ namespace boost { namespace text {
             });
     }
 
+    /** Returns true iff the given range of code points is normalized
+        NFKD. */
+    template<typename CodePointRange>
+    bool normalized_nfkd(CodePointRange const & r) noexcept
+    {
+        using std::begin;
+        using std::end;
+        return normalized_nfkd(begin(r), end(r));
+    }
+
     /** Returns true iff the given sequence of code points is normalized
         NFC. */
     template<typename Iter>
@@ -579,6 +635,16 @@ namespace boost { namespace text {
             last,
             [](uint32_t cp) { return detail::canonical_decompose(cp); },
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
+    }
+
+    /** Returns true iff the given range of code points is normalized
+        NFC. */
+    template<typename CodePointRange>
+    bool normalized_nfc(CodePointRange const & r) noexcept
+    {
+        using std::begin;
+        using std::end;
+        return normalized_nfc(begin(r), end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -593,6 +659,16 @@ namespace boost { namespace text {
             [](uint32_t cp) {
                 return detail::quick_check_nfkc_code_point(cp);
             });
+    }
+
+    /** Returns true iff the given range of code points is normalized
+        NFKC. */
+    template<typename CodePointRange>
+    bool normalized_nfkc(CodePointRange const & r) noexcept
+    {
+        using std::begin;
+        using std::end;
+        return normalized_nfkc(begin(r), end(r));
     }
 
     /** Returns true iff the given sequence of code points is in the
@@ -615,6 +691,16 @@ namespace boost { namespace text {
         return false;
     }
 
+    /** Returns true iff the given range of code points is in the
+        pseudonormalized FCD form. */
+    template<typename CodePointRange>
+    bool pseudonormalized_fcd(CodePointRange const & r) noexcept
+    {
+        using std::begin;
+        using std::end;
+        return pseudonormalized_fcd(begin(r), end(r));
+    }
+
     /** TODO */
     template<typename Iter, typename OutIter>
     inline OutIter pseudonormalize_to_fcc(Iter first, Iter last, OutIter out)
@@ -625,6 +711,17 @@ namespace boost { namespace text {
             out,
             [](uint32_t cp) { return detail::canonical_decompose(cp); },
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
+    }
+
+    // TODO: Document CodePointRange.
+
+    /** TODO */
+    template<typename CodePointRange, typename OutIter>
+    inline OutIter pseudonormalize_to_fcc(CodePointRange const & r, OutIter out)
+    {
+        using std::begin;
+        using std::end;
+        return pseudonormalize_to_fcc(begin(r), end(r), out);
     }
 
     /** TODO */

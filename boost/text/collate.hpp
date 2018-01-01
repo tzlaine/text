@@ -357,7 +357,8 @@ namespace boost { namespace text {
                std::vector<uint32_t> & bytes)
         {
             // TODO: Provide an API for passing in scratch space so that l[1-4]
-            // are not repeatedly realloacted.  (Same with the NFD string above.)
+            // are not repeatedly realloacted.  (Same with the NFD string
+            // above.)
             container::small_vector<uint32_t, 256> l1;
             container::small_vector<uint32_t, 256> l2;
             container::small_vector<uint32_t, 256> l3;
@@ -513,9 +514,7 @@ namespace boost { namespace text {
         }
     }
 
-    /** TODO
-        TODO: string -> text
-    */
+    /** TODO */
     template<typename Iter>
     text_sort_key collation_sort_key(
         Iter first,
@@ -528,23 +527,21 @@ namespace boost { namespace text {
             first, last, strength, weighting, l2_order);
     }
 
-    /** TODO
-        TODO: string -> text
-    */
-    inline text_sort_key collation_sort_key(
-        string const & s,
+    /** TODO */
+    template<typename CodePointRange>
+    text_sort_key collation_sort_key(
+        CodePointRange const & r,
         collation_strength strength,
         variable_weighting weighting,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
-        utf32_range as_utf32(s);
-        return detail::collation_sort_key(
-            as_utf32.begin(), as_utf32.end(), strength, weighting, l2_order);
+        using std::begin;
+        using std::end;
+        return collation_sort_key(
+            begin(r), end(r), strength, weighting, l2_order);
     }
 
-    /** TODO
-        TODO: string -> text
-    */
+    /** TODO */
     template<typename Iter1, typename Iter2>
     int collate(
         Iter1 lhs_first,
@@ -565,23 +562,22 @@ namespace boost { namespace text {
             l2_order);
     }
 
-    /** TODO
-        TODO: string -> text
-    */
-    inline int collate(
-        string const & lhs,
-        string const & rhs,
+    /** TODO */
+    template<typename CodePointRange1, typename CodePointRange2>
+    int collate(
+        CodePointRange1 const & r1,
+        CodePointRange1 const & r2,
         collation_strength strength,
         variable_weighting weighting,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
-        utf32_range lhs_as_utf32(rhs);
-        utf32_range rhs_as_utf32(lhs);
-        return detail::collate(
-            lhs_as_utf32.begin(),
-            lhs_as_utf32.end(),
-            rhs_as_utf32.begin(),
-            rhs_as_utf32.end(),
+        using std::begin;
+        using std::end;
+        return collate(
+            begin(r1),
+            end(r1),
+            begin(r2),
+            end(r2),
             strength,
             weighting,
             l2_order);
