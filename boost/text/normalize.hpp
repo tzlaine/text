@@ -1,9 +1,9 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
-#include <boost/text/normalization_data.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
+#include <boost/text/detail/normalization_data.hpp>
 
 #include <boost/container/static_vector.hpp>
 
@@ -406,7 +406,7 @@ namespace boost { namespace text {
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
-                return canonical_decompose(cp);
+                return detail::canonical_decompose(cp);
             });
     }
 
@@ -416,8 +416,8 @@ namespace boost { namespace text {
         utf32_range as_utf32(s);
         if (detail::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return quick_check_nfd_code_point(cp);
-                }) == quick_check::yes) {
+                    return detail::quick_check_nfd_code_point(cp);
+                }) == detail::quick_check::yes) {
             return;
         }
 
@@ -439,7 +439,7 @@ namespace boost { namespace text {
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
-                return compatible_decompose(cp);
+                return detail::compatible_decompose(cp);
             });
     }
 
@@ -449,8 +449,8 @@ namespace boost { namespace text {
         utf32_range as_utf32(s);
         if (detail::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return quick_check_nfkd_code_point(cp);
-                }) == quick_check::yes) {
+                    return detail::quick_check_nfkd_code_point(cp);
+                }) == detail::quick_check::yes) {
             return;
         }
 
@@ -474,8 +474,8 @@ namespace boost { namespace text {
             first,
             last,
             out,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
     /** TODO */
@@ -484,8 +484,8 @@ namespace boost { namespace text {
         utf32_range as_utf32(s);
         if (detail::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return quick_check_nfc_code_point(cp);
-                }) == quick_check::yes) {
+                    return detail::quick_check_nfc_code_point(cp);
+                }) == detail::quick_check::yes) {
             return;
         }
 
@@ -509,8 +509,10 @@ namespace boost { namespace text {
             first,
             last,
             out,
-            [](uint32_t cp) { return compatible_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfkc_code_point(cp); });
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
+            [](uint32_t cp) {
+                return detail::quick_check_nfkc_code_point(cp);
+            });
     }
 
     /** TODO */
@@ -519,8 +521,8 @@ namespace boost { namespace text {
         utf32_range as_utf32(s);
         if (detail::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return quick_check_nfkc_code_point(cp);
-                }) == quick_check::yes) {
+                    return detail::quick_check_nfkc_code_point(cp);
+                }) == detail::quick_check::yes) {
             return;
         }
 
@@ -549,8 +551,8 @@ namespace boost { namespace text {
         return detail::normalized_decomposed(
             first,
             last,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfd_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfd_code_point(cp); });
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -561,8 +563,10 @@ namespace boost { namespace text {
         return detail::normalized_decomposed(
             first,
             last,
-            [](uint32_t cp) { return compatible_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfkd_code_point(cp); });
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
+            [](uint32_t cp) {
+                return detail::quick_check_nfkd_code_point(cp);
+            });
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -573,8 +577,8 @@ namespace boost { namespace text {
         return detail::normalized_composed(
             first,
             last,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -585,8 +589,10 @@ namespace boost { namespace text {
         return detail::normalized_composed(
             first,
             last,
-            [](uint32_t cp) { return compatible_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfkc_code_point(cp); });
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
+            [](uint32_t cp) {
+                return detail::quick_check_nfkc_code_point(cp);
+            });
     }
 
     /** Returns true iff the given sequence of code points is in the
@@ -598,11 +604,12 @@ namespace boost { namespace text {
         int prev_ccc = 0;
         while (first != last) {
             auto const cp = *first;
-            auto const decomp = canonical_decompose(cp);
-            auto const ccc_ = ccc(*decomp.begin());
-            if (ccc_ && ccc_ < prev_ccc)
+            auto const decomp = detail::canonical_decompose(cp);
+            auto const ccc = detail::ccc(*decomp.begin());
+            if (ccc && ccc < prev_ccc)
                 return false;
-            prev_ccc = decomp.size_ == 1 ? ccc_ : ccc(*(decomp.end() - 1));
+            prev_ccc =
+                decomp.size_ == 1 ? ccc : detail::ccc(*(decomp.end() - 1));
             ++first;
         }
         return false;
@@ -616,8 +623,8 @@ namespace boost { namespace text {
             first,
             last,
             out,
-            [](uint32_t cp) { return canonical_decompose(cp); },
-            [](uint32_t cp) { return quick_check_nfc_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
     /** TODO */

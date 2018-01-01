@@ -1,5 +1,5 @@
-#ifndef BOOST_TEXT_NORMALIZATION_DATA_HPP
-#define BOOST_TEXT_NORMALIZATION_DATA_HPP
+#ifndef BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
+#define BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 
 #include <boost/text/utf8.hpp>
 
@@ -8,12 +8,9 @@
 #include <unordered_set>
 
 
-// TODO: All this stuff should go in detail.
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-    // TODO: Experiment with changing these *_decomposition types to be a pair
-    // of iterators as an optimization.
-
+    // TODO: Cruft?
     inline constexpr std::size_t
     hash_combine(std::size_t seed, std::size_t x) noexcept
     {
@@ -39,7 +36,6 @@ namespace boost { namespace text {
         return hash_combine(hash_combine(hash_combine(x, y), z), w);
     }
 
-    /** */
     template<int Capacity>
     struct code_points
     {
@@ -73,14 +69,11 @@ namespace boost { namespace text {
         int size_;
     };
 
-    /** */
     using canonical_decomposition = code_points<4>;
 
-    /** TODO
-
-        See
+    /** See
        http://www.unicode.org/reports/tr44/#Character_Decomposition_Mappings for
-       the source of the "18".
+        the source of the "18".
     */
     using compatible_decomposition = code_points<18>;
 
@@ -89,74 +82,69 @@ namespace boost { namespace text {
         possible and a full check must be performed. */
     enum class quick_check { yes, no, maybe };
 
-    namespace detail {
+    struct cp_range
+    {
+        uint16_t first_;
+        uint16_t last_;
+    };
 
-        struct cp_range
-        {
-            uint16_t first_;
-            uint16_t last_;
-        };
+    extern uint32_t const * g_all_canonical_decompositions;
+    extern std::unordered_map<uint32_t, cp_range> const
+        g_canonical_decomposition_map;
+    extern uint32_t const * g_all_compatible_decompositions;
+    extern std::unordered_map<uint32_t, cp_range> const
+        g_compatible_decomposition_map;
+    extern std::unordered_map<uint64_t, uint32_t> const g_composition_map;
+    extern std::unordered_map<uint32_t, int> const g_ccc_map;
 
-        extern uint32_t const * g_all_canonical_decompositions;
-        extern std::unordered_map<uint32_t, cp_range> const
-            g_canonical_decomposition_map;
-        extern uint32_t const * g_all_compatible_decompositions;
-        extern std::unordered_map<uint32_t, cp_range> const
-            g_compatible_decomposition_map;
-        extern std::unordered_map<uint64_t, uint32_t> const g_composition_map;
-        extern std::unordered_map<uint32_t, int> const g_ccc_map;
+    extern std::unordered_set<uint32_t> const g_nfd_quick_check_set;
+    extern std::unordered_set<uint32_t> const g_nfkd_quick_check_set;
+    extern std::unordered_map<uint32_t, quick_check> const
+        g_nfc_quick_check_map;
+    extern std::unordered_map<uint32_t, quick_check> const
+        g_nfkc_quick_check_map;
 
-        extern std::unordered_set<uint32_t> const g_nfd_quick_check_set;
-        extern std::unordered_set<uint32_t> const g_nfkd_quick_check_set;
-        extern std::unordered_map<uint32_t, quick_check> const
-            g_nfc_quick_check_map;
-        extern std::unordered_map<uint32_t, quick_check> const
-            g_nfkc_quick_check_map;
+    inline constexpr bool hangul_syllable(uint32_t cp) noexcept
+    {
+        return 0xAC00 <= cp && cp <= 0xD7A3;
+    }
 
-        inline constexpr bool hangul_syllable(uint32_t cp) noexcept
-        {
-            return 0xAC00 <= cp && cp <= 0xD7A3;
-        }
+    // Hangul decomposition as described in Unicode 10.0 Section 3.12.
+    template<int Capacity>
+    inline code_points<Capacity> decompose_hangul_syllable(uint32_t cp) noexcept
+    {
+        assert(hangul_syllable(cp));
 
-        // Hangul decomposition as described in Unicode 10.0 Section 3.12.
-        template<int Capacity>
-        inline code_points<Capacity>
-        decompose_hangul_syllable(uint32_t cp) noexcept
-        {
-            assert(hangul_syllable(cp));
+        uint32_t const SBase = 0xAC00;
+        uint32_t const LBase = 0x1100;
+        uint32_t const VBase = 0x1161;
+        uint32_t const TBase = 0x11A7;
+        // uint32_t const LCount = 19;
+        uint32_t const VCount = 21;
+        uint32_t const TCount = 28;
+        uint32_t const NCount = VCount * TCount; // 588
+        // uint32_t const SCount = LCount * NCount; // 11172
 
-            uint32_t const SBase = 0xAC00;
-            uint32_t const LBase = 0x1100;
-            uint32_t const VBase = 0x1161;
-            uint32_t const TBase = 0x11A7;
-            // uint32_t const LCount = 19;
-            uint32_t const VCount = 21;
-            uint32_t const TCount = 28;
-            uint32_t const NCount = VCount * TCount; // 588
-            // uint32_t const SCount = LCount * NCount; // 11172
+        auto const SIndex = cp - SBase;
 
-            auto const SIndex = cp - SBase;
-
-            auto const LIndex = SIndex / NCount;
-            auto const VIndex = (SIndex % NCount) / TCount;
-            auto const TIndex = SIndex % TCount;
-            auto const LPart = LBase + LIndex;
-            auto const VPart = VBase + VIndex;
-            if (TIndex == 0) {
-                return code_points<Capacity>{{{LPart, VPart}}, 2};
-            } else {
-                auto const TPart = TBase + TIndex;
-                return code_points<Capacity>{{{LPart, VPart, TPart}}, 3};
-            }
-        }
-
-        inline constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
-        {
-            return (cp0 << 32) | cp1;
+        auto const LIndex = SIndex / NCount;
+        auto const VIndex = (SIndex % NCount) / TCount;
+        auto const TIndex = SIndex % TCount;
+        auto const LPart = LBase + LIndex;
+        auto const VPart = VBase + VIndex;
+        if (TIndex == 0) {
+            return code_points<Capacity>{{{LPart, VPart}}, 2};
+        } else {
+            auto const TPart = TBase + TIndex;
+            return code_points<Capacity>{{{LPart, VPart, TPart}}, 3};
         }
     }
 
-    /** TODO */
+    inline constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
+    {
+        return (cp0 << 32) | cp1;
+    }
+
     inline canonical_decomposition canonical_decompose(uint32_t cp) noexcept
     {
         if (detail::hangul_syllable(cp))
@@ -174,7 +162,6 @@ namespace boost { namespace text {
         return retval;
     }
 
-    /** TODO */
     inline compatible_decomposition compatible_decompose(uint32_t cp) noexcept
     {
         if (detail::hangul_syllable(cp))
@@ -192,7 +179,6 @@ namespace boost { namespace text {
         return retval;
     }
 
-    /** TODO */
     inline uint32_t
     compose_hangul(uint32_t cp0, uint32_t cp1, uint32_t cp2 = 0) noexcept
     {
@@ -218,7 +204,6 @@ namespace boost { namespace text {
         }
     }
 
-    /** TODO */
     inline uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
     {
         auto const it = detail::g_composition_map.find(detail::key(cp0, cp1));
@@ -227,7 +212,6 @@ namespace boost { namespace text {
         return it->second;
     }
 
-    /** Returns the Canonical Combining Class for code point cp. */
     inline int ccc(uint32_t cp) noexcept
     {
         auto const it = detail::g_ccc_map.find(cp);
@@ -276,19 +260,19 @@ namespace boost { namespace text {
         return it->second;
     }
 
-}}
+}}}
 
 namespace std {
     template<int Size>
-    struct hash<boost::text::code_points<Size>>
+    struct hash<boost::text::detail::code_points<Size>>
     {
-        typedef boost::text::code_points<Size> argument_type;
+        typedef boost::text::detail::code_points<Size> argument_type;
         typedef std::size_t result_type;
         result_type operator()(argument_type const & cps) const noexcept
         {
             result_type retval = 0;
             for (int i = 0, end = cps.size_; i < end; ++i) {
-                retval = boost::text::hash_combine(retval, cps.storage_[i]);
+                retval = boost::text::detail::hash_combine(retval, cps.storage_[i]);
             }
             return retval;
         }

@@ -50,7 +50,7 @@ std::vector<uint32_t> collate_for_tests(
     uint32_t * first = &*buf.begin();
     uint32_t * last = &*buf.end();
 
-    boost::container::small_vector<boost::text::collation_element, 1024> ces;
+    boost::container::small_vector<boost::text::detail::collation_element, 1024> ces;
     boost::text::detail::s2(first, last, weighting, ces);
 
     std::vector<uint32_t> retval;

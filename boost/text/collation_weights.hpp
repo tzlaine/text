@@ -2,6 +2,8 @@
 #ifndef BOOST_TEXT_COLLATION_WEIGHTS_HPP
 #define BOOST_TEXT_COLLATION_WEIGHTS_HPP
 
+#include <cstdint>
+
 
 namespace boost { namespace text {
 

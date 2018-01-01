@@ -1,10 +1,10 @@
 #ifndef BOOST_TEXT_COLLATE_HPP
 #define BOOST_TEXT_COLLATE_HPP
 
-#include <boost/text/collation_data.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
+#include <boost/text/detail/collation_data.hpp>
 
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
