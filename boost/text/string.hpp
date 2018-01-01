@@ -22,18 +22,21 @@ namespace boost { namespace text {
     struct unencoded_rope;
     struct unencoded_rope_view;
 
-    // TODO: Add assign, push_back, pop_back, and anything else required for
-    // SequenceContainer.
+    // TODO: Document that string is not quite a SequenceContainer.  Missing:
+    // {const_,}reference; {difference,size}_type; X(n, t) (constructing a
+    // sequence of n copies of t); a.insert(p,n,t) (insert n copies of t at
+    // p); a.insert(p, il) (insert initializer_list); assign() (because we
+    // have range-based assignemnt).
 
     /** A mutable contiguous null-terminated sequence of char.  Strongly
         exception safe. */
     struct string
     {
+        using value_type = char;
         using iterator = char *;
         using const_iterator = char const *;
         using reverse_iterator = detail::reverse_char_iterator;
         using const_reverse_iterator = detail::const_reverse_char_iterator;
-        using value_type = char;
 
         /** Default ctor.
 
