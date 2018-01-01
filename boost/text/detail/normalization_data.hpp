@@ -10,32 +10,6 @@
 
 namespace boost { namespace text { namespace detail {
 
-    // TODO: Cruft?
-    inline constexpr std::size_t
-    hash_combine(std::size_t seed, std::size_t x) noexcept
-    {
-        return seed ^ (x + 0x9e3779b9 + (seed << 6) + (seed >> 2));
-    }
-
-    inline constexpr std::size_t hash(uint32_t x) { return hash_combine(0, x); }
-
-    inline constexpr std::size_t hash(uint32_t x, uint32_t y)
-    {
-        return hash_combine(x, y);
-    }
-
-    inline constexpr std::size_t
-    hash(uint32_t x, uint32_t y, uint32_t z) noexcept
-    {
-        return hash_combine(hash_combine(x, y), z);
-    }
-
-    inline constexpr std::size_t
-    hash(uint32_t x, uint32_t y, uint32_t z, uint32_t w) noexcept
-    {
-        return hash_combine(hash_combine(hash_combine(x, y), z), w);
-    }
-
     template<int Capacity>
     struct code_points
     {
@@ -261,22 +235,5 @@ namespace boost { namespace text { namespace detail {
     }
 
 }}}
-
-namespace std {
-    template<int Size>
-    struct hash<boost::text::detail::code_points<Size>>
-    {
-        typedef boost::text::detail::code_points<Size> argument_type;
-        typedef std::size_t result_type;
-        result_type operator()(argument_type const & cps) const noexcept
-        {
-            result_type retval = 0;
-            for (int i = 0, end = cps.size_; i < end; ++i) {
-                retval = boost::text::detail::hash_combine(retval, cps.storage_[i]);
-            }
-            return retval;
-        }
-    };
-}
 
 #endif

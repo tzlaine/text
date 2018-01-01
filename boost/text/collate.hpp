@@ -10,9 +10,6 @@
 #include <boost/container/static_vector.hpp>
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
-#include <iomanip>
-#include <ostream>
-
 
 namespace boost { namespace text {
 
@@ -64,23 +61,6 @@ namespace boost { namespace text {
                 return 0;
             }
         }
-
-#ifndef NDEBUG
-        friend std::ostream &
-        operator<<(std::ostream & os, text_sort_key const & k)
-        {
-            os << std::hex;
-            bool first = true;
-            for (auto x : k.storage_) {
-                if (!first)
-                    os << ", ";
-                os << "0x" << std::setfill('0') << std::setw(4) << x;
-                first = false;
-            }
-            os << std::dec;
-            return os;
-        }
-#endif
 
     private:
         std::vector<uint32_t> storage_;

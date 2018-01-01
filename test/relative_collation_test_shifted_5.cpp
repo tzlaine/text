@@ -48,14 +48,10 @@ TEST(collation, relative_shifted_5)
             EXPECT_LE(prev_key.compare(curr_key), 0)
                 << "prev un-norm cps: " << ce_dumper(prev_un_norm)
                 << "prev_cps (NFD):   " << ce_dumper(prev_cps)
-#ifndef NDEBUG
-                << "prev_key:         " << prev_key << "\n"
-#endif
+                << "prev_key:         " << ce_dumper(prev_key) << "\n"
                 << "curr un-norm cps: " << ce_dumper(curr_un_norm)
                 << "curr_cps (NFD):   " << ce_dumper(curr_cps)
-#ifndef NDEBUG
-                << "curr_key:         " << curr_key << "\n"
-#endif
+                << "curr_key:         " << ce_dumper(curr_key) << "\n"
             ;
         }
 
