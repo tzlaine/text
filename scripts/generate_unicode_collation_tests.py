@@ -63,7 +63,6 @@ std::array<std::pair<uint32_t, uint32_t>, {3}> const g_cp_ranges = {{{{
 
 TEST(collation, relative_{4}_{5})
 {{
-    boost::text::string str;
     std::vector<uint32_t> prev_un_norm;
     std::vector<uint32_t> prev_cps;
     boost::text::text_sort_key prev_key;
@@ -79,25 +78,22 @@ TEST(collation, relative_{4}_{5})
         curr_un_norm.assign(
             g_cps.begin() + r.first, g_cps.begin() + r.second);
 
-        str = boost::text::to_string(
-            g_cps.begin() + r.first, g_cps.begin() + r.second);
-        boost::text::pseudonormalize_to_fcc(str);
-        boost::text::utf32_range as_utf32(str);
-        curr_cps.assign(as_utf32.begin(), as_utf32.end());
+        curr_cps.clear();
+        boost::text::pseudonormalize_to_fcc(
+            curr_un_norm, std::back_inserter(curr_cps));
 
         curr_key = boost::text::collation_sort_key(
-            curr_cps.begin(),
-            curr_cps.end(),
+            curr_cps,
             boost::text::collation_strength::identical,
             boost::text::variable_weighting::{4});
 
         if (!first) {{
             EXPECT_LE(compare(prev_key, curr_key), 0)
                 << "prev un-norm cps: " << ce_dumper(prev_un_norm)
-                << "prev_cps (NFD):   " << ce_dumper(prev_cps)
+                << "prev_cps (FCC):   " << ce_dumper(prev_cps)
                 << "prev_key:         " << ce_dumper(prev_key) << "\\n"
                 << "curr un-norm cps: " << ce_dumper(curr_un_norm)
-                << "curr_cps (NFD):   " << ce_dumper(curr_cps)
+                << "curr_cps (FCC):   " << ce_dumper(curr_cps)
                 << "curr_key:         " << ce_dumper(curr_key) << "\\n"
             ;
         }}
