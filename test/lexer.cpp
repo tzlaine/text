@@ -8,6 +8,9 @@
 // correctly.
 
 
+char const fail_0[] = "\\u";
+char const fail_1[] = "\\UG";
+
 char const * all_cases[] = {
     case_3_3,    case_3_6_a,  case_3_6_b,  case_3_6_c,  case_3_6_d,
     case_3_6_e,  case_3_6_f,  case_3_6_g,  case_3_6_h,  case_3_6_i,
@@ -15,7 +18,7 @@ char const * all_cases[] = {
     case_3_6_o,  case_3_6_p,  case_3_7,    case_3_9_a,  case_3_9_b,
     case_3_9_c,  case_3_9_d,  case_3_10_a, case_3_10_b, case_3_10_c,
     case_3_11,   case_3_12_a, case_3_12_b, case_3_12_c, case_3_12_d,
-    case_3_12_e, case_3_12_f, case_3_13};
+    case_3_12_e, case_3_12_f, case_3_13,   fail_0,      fail_1};
 
 
 int main()
@@ -25,13 +28,18 @@ int main()
     for (; it != end; ++it) {
         char const * const str_begin = *it;
         char const * const str_end = str_begin + strlen(str_begin);
-        auto const lines_and_tokens =
-            boost::text::detail::lex(str_begin, str_end);
+        try {
+            auto const lines_and_tokens = boost::text::detail::lex(
+                str_begin, str_end, [](boost::text::string const & s) {
+                    std::cout << "error: " << s << "\n";
+                });
 #ifndef NDEBUG
-        dump(std::cout, lines_and_tokens, *it);
+            dump(std::cout, lines_and_tokens, *it);
+#endif
+        } catch (boost::text::detail::lex_error const & e) {
+        }
         std::cout << "========================================================="
                      "=======================\n";
-#endif
     }
     return 0;
 }

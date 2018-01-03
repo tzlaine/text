@@ -9,6 +9,12 @@
 #include <iomanip>
 
 
+namespace boost { namespace text {
+
+    using parser_diagnostic_callback = std::function<void(string const &)>;
+
+}}
+
 namespace boost { namespace text { namespace detail {
 
     enum class token_kind {
@@ -193,10 +199,14 @@ namespace boost { namespace text { namespace detail {
     }
 #endif
 
-    template<typename Iter>
-    lines_and_tokens lex(Iter first, Iter const last)
+    inline lines_and_tokens
+    lex(char const * first,
+        char const * const last,
+        parser_diagnostic_callback errors)
     {
         lines_and_tokens retval;
+
+        auto const initial_first = first;
 
         retval.line_starts_.push_back(0);
 
@@ -208,10 +218,31 @@ namespace boost { namespace text { namespace detail {
 
         char buf[1024];
 
-        auto check_end = [&first, last, &line, &column](char const * msg) {
-            if (first == last)
-                throw lex_error(msg, line, column);
+        auto report_error = [&retval, &initial_first, &last, &line, &errors](
+                                char const * msg, int column) {
+            if (errors) {
+                string str(msg);
+                if (str.empty() || str[-1] != '\n')
+                    str += '\n';
+                auto const line_end = std::find(
+                    initial_first + retval.line_starts_[line], last, '\n');
+                str.insert(
+                    str.end(),
+                    initial_first + retval.line_starts_[line],
+                    line_end);
+                str += '\n';
+                str += repeated_string_view(" ", column);
+                str += "^\n";
+                errors(str);
+            }
+            throw lex_error(msg, line, column);
         };
+
+        auto check_end =
+            [&first, last, &line, &column, &report_error](char const * msg) {
+                if (first == last)
+                    report_error(msg, column);
+            };
 
         auto consume =
             [&first, &buf, check_end, &column, &char_index](
@@ -307,10 +338,8 @@ namespace boost { namespace text { namespace detail {
                 char const c = consume_one(
                     "\\r at end of input (must be followed by \\n)");
                 if (c != '\n') {
-                    throw lex_error(
-                        "Stray \\r without following \\n",
-                        line,
-                        initial_column);
+                    report_error(
+                        "Stray \\r without following \\n", initial_column);
                 }
                 newline();
             } else if (initial_char == '\n') {
@@ -327,11 +356,9 @@ namespace boost { namespace text { namespace detail {
                     auto buf_end = consume(
                         4, "Incomplete \\uNNNN hexidecimal escape sequence");
                     if (!std::all_of(buf, buf_end, is_hex)) {
-                        throw lex_error(
+                        report_error(
                             "Non-hexidecimal digit in \\uNNNN hexidecimal "
-                            "escape "
-                            "sequence",
-                            line,
+                            "escape sequence",
                             initial_column);
                     }
                     *buf_end = '\0';
@@ -344,11 +371,9 @@ namespace boost { namespace text { namespace detail {
                         "Incomplete \\UNNNNNNNN hexidecimal escape "
                         "sequence");
                     if (!std::all_of(buf, buf_end, is_hex)) {
-                        throw lex_error(
-                            "Non-hexidecimal digit in \\UNNNNNNNN "
-                            "hexidecimal "
+                        report_error(
+                            "Non-hexidecimal digit in \\UNNNNNNNN hexidecimal "
                             "escape sequence",
-                            line,
                             initial_column);
                     }
                     *buf_end = '\0';
@@ -363,10 +388,9 @@ namespace boost { namespace text { namespace detail {
                         "(at "
                         "least one hexidecimal digit must follow '\\x')");
                     if (!is_hex(local_buf[0])) {
-                        throw lex_error(
+                        report_error(
                             "Non-octal hexidecimal in \\xN[N] hexidecimal "
                             "escape sequence",
-                            line,
                             initial_column);
                     }
                     if (first != last && is_hex(*first))
@@ -382,10 +406,9 @@ namespace boost { namespace text { namespace detail {
                         "Incomplete \\oN[N][N] octal escape sequence (at "
                         "least one octal digit must follow '\\o')");
                     if (!is_octal(local_buf[0])) {
-                        throw lex_error(
-                            "Non-octal digit in \\oN[N][N] octal "
-                            "escape sequence",
-                            line,
+                        report_error(
+                            "Non-octal digit in \\oN[N][N] octal escape "
+                            "sequence",
                             initial_column);
                     }
                     if (first != last && is_octal(*first))
@@ -448,10 +471,8 @@ namespace boost { namespace text { namespace detail {
                 // UTF-8 encoded code point.
                 auto const code_units = utf8::code_point_bytes(initial_char);
                 if (code_units < 0) {
-                    throw lex_error(
-                        "Invalid initial UTF-8 code unit",
-                        line,
-                        initial_column);
+                    report_error(
+                        "Invalid initial UTF-8 code unit", initial_column);
                 }
                 *buf = initial_char;
                 if (1 < code_units) {
