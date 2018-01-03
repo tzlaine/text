@@ -122,13 +122,16 @@ namespace boost { namespace text {
 
         constexpr int size() const noexcept { return size_; }
 
-        /** Returns the i-th char of *this (not a reference).
+        /** Returns the char (not a reference) of *this at index i, or the
+            char at index -i when i < 0.
 
             This function is constexpr in C++14 and later.
 
-            \pre i < size() */
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
         BOOST_TEXT_CXX14_CONSTEXPR char operator[](int i) const noexcept
         {
+            if (i < 0)
+                i += size_;
             assert(i < size_);
             return data_[i];
         }

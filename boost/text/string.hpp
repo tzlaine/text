@@ -183,11 +183,15 @@ namespace boost { namespace text {
             null-terminated empty string. */
         int capacity() const noexcept { return cap() - 1; }
 
-        /** Returns the i-th char of *this (not a reference).
+        // TODO: Document this in the top-level docs.
+        /** Returns the char (not a reference) of *this at index i, or the
+            char at index -i when i < 0.
 
-            \pre 0 <= i && i < size() */
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
         char operator[](int i) const noexcept
         {
+            if (i < 0)
+                i += size_;
 #ifndef BOOST_TEXT_TESTING
             assert(0 <= i && i < size_);
 #endif
