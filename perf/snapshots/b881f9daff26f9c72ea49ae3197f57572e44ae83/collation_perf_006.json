@@ -1,0 +1,193 @@
+{
+  "context": {
+    "date": "2018-01-01 13:07:30",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_collation_600",
+      "iterations": 79550,
+      "real_time": 8492,
+      "cpu_time": 8492,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_601",
+      "iterations": 75205,
+      "real_time": 8579,
+      "cpu_time": 8577,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_602",
+      "iterations": 82058,
+      "real_time": 8443,
+      "cpu_time": 8442,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_603",
+      "iterations": 80468,
+      "real_time": 8449,
+      "cpu_time": 8449,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_604",
+      "iterations": 77470,
+      "real_time": 8521,
+      "cpu_time": 8521,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_605",
+      "iterations": 81471,
+      "real_time": 8447,
+      "cpu_time": 8446,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_606",
+      "iterations": 80988,
+      "real_time": 8605,
+      "cpu_time": 8604,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_607",
+      "iterations": 79401,
+      "real_time": 8560,
+      "cpu_time": 8560,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_608",
+      "iterations": 75327,
+      "real_time": 9236,
+      "cpu_time": 9235,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_609",
+      "iterations": 71383,
+      "real_time": 9675,
+      "cpu_time": 9675,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_610",
+      "iterations": 69896,
+      "real_time": 10050,
+      "cpu_time": 9978,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_611",
+      "iterations": 67402,
+      "real_time": 9709,
+      "cpu_time": 9707,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_612",
+      "iterations": 68538,
+      "real_time": 9720,
+      "cpu_time": 9719,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_613",
+      "iterations": 65776,
+      "real_time": 9720,
+      "cpu_time": 9717,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_614",
+      "iterations": 65930,
+      "real_time": 9730,
+      "cpu_time": 9730,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_615",
+      "iterations": 70457,
+      "real_time": 9721,
+      "cpu_time": 9720,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_616",
+      "iterations": 68337,
+      "real_time": 9738,
+      "cpu_time": 9737,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_617",
+      "iterations": 72147,
+      "real_time": 9850,
+      "cpu_time": 9831,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_618",
+      "iterations": 69370,
+      "real_time": 9643,
+      "cpu_time": 9643,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_619",
+      "iterations": 73837,
+      "real_time": 8995,
+      "cpu_time": 8994,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_620",
+      "iterations": 79755,
+      "real_time": 8392,
+      "cpu_time": 8392,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_621",
+      "iterations": 75779,
+      "real_time": 8498,
+      "cpu_time": 8497,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_622",
+      "iterations": 78938,
+      "real_time": 8441,
+      "cpu_time": 8440,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_623",
+      "iterations": 76876,
+      "real_time": 8429,
+      "cpu_time": 8429,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_624",
+      "iterations": 79631,
+      "real_time": 8318,
+      "cpu_time": 8318,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_625",
+      "iterations": 80871,
+      "real_time": 8443,
+      "cpu_time": 8441,
+      "time_unit": "ns"
+    }
+  ]
+}

@@ -219,7 +219,7 @@ BENCHMARK(BM_collation_element_lookup_{0:03});
     cpp_file.write(perf_test_form.format(lines))
 
 def generate_collation_perf_test(ducet):
-    chunk_size = 50
+    chunk_size = 100
     chunks_per_file = 100
 
     chunk_arrays = []
@@ -257,11 +257,10 @@ uint32_t cps_{0:03}[] = {{
 void BM_collation_{0:03}(benchmark::State & state)
 {{
     while (state.KeepRunning()) {{
-'''.format(i, ', '.join(map(lambda x: hex(x), cps)), len(cps), '// TODO')
-        for first,last in cp_ranges:
-            lines += '''\
-            benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_{0:03} + {1}, cps_{0:03} + {2}, boost::text::collation_strength::quaternary, boost::text::variable_weighting::shifted));
-'''.format(i, first, last)
+'''.format(i, ', '.join(map(lambda x: hex(x), cps)), len(cps))
+        lines += '''\
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_{0:03}, cps_{0:03} + {2}, boost::text::collation_strength::quaternary, boost::text::variable_weighting::shifted));
+'''.format(i, cp_ranges[0][0], cp_ranges[-1][1])
         lines += '''\
     }}
 }}

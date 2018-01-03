@@ -31,9 +31,6 @@ add_perf_executable(collation_perf_000)
 add_perf_executable(collation_perf_001)
 add_perf_executable(collation_perf_002)
 add_perf_executable(collation_perf_003)
-add_perf_executable(collation_perf_004)
-add_perf_executable(collation_perf_005)
-add_perf_executable(collation_perf_006)
 
 add_custom_target(perf
     COMMAND ctor_dtor_perf --benchmark_out=ctor_dtor_perf.json --benchmark_out_format=json
@@ -52,13 +49,10 @@ add_custom_target(perf
     COMMAND collation_element_lookup_perf_005 --benchmark_out=collation_element_lookup_perf_005.json --benchmark_out_format=json 
     COMMAND collation_element_lookup_perf_006 --benchmark_out=collation_element_lookup_perf_006.json --benchmark_out_format=json 
 
-    COMMAND collation_perf_000 --benchmark_out=collation_perf_000.json --benchmark_out_format=json 
-    COMMAND collation_perf_001 --benchmark_out=collation_perf_001.json --benchmark_out_format=json 
-    COMMAND collation_perf_002 --benchmark_out=collation_perf_002.json --benchmark_out_format=json 
-    COMMAND collation_perf_003 --benchmark_out=collation_perf_003.json --benchmark_out_format=json 
-    COMMAND collation_perf_004 --benchmark_out=collation_perf_004.json --benchmark_out_format=json 
-    COMMAND collation_perf_005 --benchmark_out=collation_perf_005.json --benchmark_out_format=json 
-    COMMAND collation_perf_006 --benchmark_out=collation_perf_006.json --benchmark_out_format=json 
+    COMMAND collation_perf_000 --benchmark_out=collation_perf_000.json --benchmark_out_format=json
+    COMMAND collation_perf_001 --benchmark_out=collation_perf_001.json --benchmark_out_format=json
+    COMMAND collation_perf_002 --benchmark_out=collation_perf_002.json --benchmark_out_format=json
+    COMMAND collation_perf_003 --benchmark_out=collation_perf_003.json --benchmark_out_format=json
 )
 
 add_custom_target(perf_snapshot
@@ -86,9 +80,6 @@ add_custom_target(perf_comparison
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_001.json collation_perf_001.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_002.json collation_perf_002.json
     COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_003.json collation_perf_003.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_004.json collation_perf_004.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_005.json collation_perf_005.json
-    COMMAND ${CMAKE_SOURCE_DIR}/benchmark-v1.2.0/tools/compare_bench.py ${CMAKE_SOURCE_DIR}/perf/latest_snapshot/collation_perf_006.json collation_perf_006.json
 )
 
 
