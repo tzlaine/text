@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_DETAIL_LEXER_HPP
 #define BOOST_TEXT_DETAIL_LEXER_HPP
 
+#include <boost/text/string.hpp>
 #include <boost/text/utf8.hpp>
 #include <boost/text/utility.hpp>
 
@@ -75,7 +76,7 @@ namespace boost { namespace text { namespace detail {
             line_(line),
             column_(column)
         {}
-        token(std::string identifier, int line, int column) :
+        token(string identifier, int line, int column) :
             kind_(token_kind::identifier),
             cp_(),
             identifier_(std::move(identifier)),
@@ -89,7 +90,7 @@ namespace boost { namespace text { namespace detail {
             assert(kind_ == token_kind::code_point);
             return cp_;
         }
-        std::string const & identifier() const { return identifier_; }
+        string const & identifier() const { return identifier_; }
         int line() const { return line_; }
         int column() const { return column_; }
 
@@ -106,7 +107,7 @@ namespace boost { namespace text { namespace detail {
             return tok.kind() == kind;
         }
 
-        friend bool operator==(token const & tok, std::string const & id)
+        friend bool operator==(token const & tok, string const & id)
         {
             return tok.kind() == token_kind::identifier &&
                    tok.identifier() == id;
@@ -128,24 +129,24 @@ namespace boost { namespace text { namespace detail {
     private:
         token_kind kind_;
         uint32_t cp_;
-        std::string identifier_;
+        string identifier_;
         int line_;
         int column_;
     };
 
     struct lex_error : std::exception
     {
-        lex_error(std::string const & msg, int line, int column) :
+        lex_error(string_view msg, int line, int column) :
             msg_(msg),
             line_(line),
             column_(column)
         {}
-        char const * what() const noexcept { return msg_.c_str(); }
+        char const * what() const noexcept { return msg_.begin(); }
         int line() const { return line_; }
         int column() const { return column_; }
 
     private:
-        std::string msg_;
+        string msg_;
         int line_;
         int column_;
     };
@@ -158,19 +159,19 @@ namespace boost { namespace text { namespace detail {
 
 #ifndef NDEBUG
     std::ostream &
-    dump(std::ostream & os, lines_and_tokens const & lat, std::string const & str)
+    dump(std::ostream & os, lines_and_tokens const & lat, string_view str)
     {
         auto tok_it = lat.tokens_.begin();
         for (int i = 0, end = lat.line_starts_.size(); i < end; ++i) {
             bool const last_line = end <= i + 1;
             auto tok_end = lat.tokens_.end();
             if (last_line) {
-                os << (str.c_str() + lat.line_starts_[i]);
-                if (str.back() != '\n')
+                os << (str.begin() + lat.line_starts_[i]);
+                if (str[-1] != '\n')
                     os << "\n";
             } else {
                 os.write(
-                    str.c_str() + lat.line_starts_[i],
+                    str.begin() + lat.line_starts_[i],
                     lat.line_starts_[i + 1] - lat.line_starts_[i]);
                 if (str[lat.line_starts_[i + 1] - 1] != '\n')
                     os << "\n";
@@ -284,7 +285,7 @@ namespace boost { namespace text { namespace detail {
         };
 
         auto push_identifier =
-            [&retval, &line, &initial_column](std::string identifier) {
+            [&retval, &line, &initial_column](string identifier) {
                 retval.tokens_.push_back(
                     token(std::move(identifier), line, initial_column));
             };
@@ -437,7 +438,7 @@ namespace boost { namespace text { namespace detail {
                     kind = static_cast<token_kind>(static_cast<int>(kind) + 4);
                 push(kind);
             } else if (1 <= brackets_nesting && is_id_char(initial_char)) {
-                std::string identifier;
+                string identifier;
                 identifier += initial_char;
                 while (first != last && is_id_char(*first)) {
                     identifier += consume_one("");
