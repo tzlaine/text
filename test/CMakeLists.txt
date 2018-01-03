@@ -89,6 +89,8 @@ add_test_executable(relative_collation_test_shifted_6)
 add_test_executable(relative_collation_test_shifted_7)
 add_test_executable(relative_collation_test_shifted_8)
 
+add_test_executable(lexer)
+
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).
 #file(GLOB word_break_tests word_break_??.cpp)  

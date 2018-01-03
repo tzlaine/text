@@ -22,6 +22,7 @@ namespace boost { namespace text {
         using iterator = utf8::to_utf32_iterator<char const *>;
 
         utf32_range() : first_(nullptr), last_(nullptr) {}
+        utf32_range(char const * f, char const * l) : first_(f), last_(l) {}
         utf32_range(iterator f, iterator l) : first_(f), last_(l) {}
         /** TODO: This is the discontiguous CharRange. */
         template<typename CharRange>
