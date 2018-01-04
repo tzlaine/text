@@ -242,11 +242,16 @@ namespace boost { namespace text {
             ptr()[0] = '\0';
         }
 
-        /** Returns a reference to the i-th char of *this. */
+        /** Returns a reference to the char at index i, or the
+            char at index -i when i < 0.
+
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
         char & operator[](int i) noexcept
         {
+            if (i < 0)
+                i += size_;
 #ifndef BOOST_TEXT_TESTING
-            assert(0 <= 0 && i < size_);
+            assert(0 <= i && i < size_);
 #endif
             return ptr()[i];
         }
