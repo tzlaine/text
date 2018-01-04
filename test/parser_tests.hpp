@@ -25,8 +25,11 @@ seq_dumper<Seq> dump(Seq const & seq)
     return seq_dumper<Seq>(seq);
 }
 
-char const case_3_3[] = R"([caseLevel on]
+char const case_3_3[] = R"( [caseLevel on]
     &c < k)";
+
+char const case_3_5_a[] = "&'\\u0020'='\\u3000'";
+char const case_3_5_b[] = "&'\\u0022'<<<x";
 
 char const case_3_6_a[] = "& Z";
 char const case_3_6_b[] = "& a < b";

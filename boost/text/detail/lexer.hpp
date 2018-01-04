@@ -11,7 +11,26 @@
 
 namespace boost { namespace text {
 
+    // TODO: These should go in parser_fwd.hpp.
+
     using parser_diagnostic_callback = std::function<void(string const &)>;
+
+    struct parse_error : std::exception
+    {
+        parse_error(string_view msg, int line, int column) :
+            msg_(msg),
+            line_(line),
+            column_(column)
+        {}
+        char const * what() const noexcept { return msg_.begin(); }
+        int line() const { return line_; }
+        int column() const { return column_; }
+
+    private:
+        string msg_;
+        int line_;
+        int column_;
+    };
 
 }}
 
@@ -19,13 +38,12 @@ namespace boost { namespace text { namespace detail {
 
     enum class token_kind {
         code_point,
-        quote,
         and_,
         or_,
         slash,
-        equal,
         open_bracket,
         close_bracket,
+        equal,
         primary_before,
         secondary_before,
         tertiary_before,
@@ -44,7 +62,6 @@ namespace boost { namespace text { namespace detail {
     case token_kind::x: os << #x; break
         switch (kind) {
             CASE(code_point);
-            CASE(quote);
             CASE(and_);
             CASE(or_);
             CASE(slash);
@@ -113,7 +130,7 @@ namespace boost { namespace text { namespace detail {
             return tok.kind() == kind;
         }
 
-        friend bool operator==(token const & tok, string const & id)
+        friend bool operator==(token const & tok, string_view id)
         {
             return tok.kind() == token_kind::identifier &&
                    tok.identifier() == id;
@@ -140,27 +157,13 @@ namespace boost { namespace text { namespace detail {
         int column_;
     };
 
-    struct lex_error : std::exception
-    {
-        lex_error(string_view msg, int line, int column) :
-            msg_(msg),
-            line_(line),
-            column_(column)
-        {}
-        char const * what() const noexcept { return msg_.begin(); }
-        int line() const { return line_; }
-        int column() const { return column_; }
-
-    private:
-        string msg_;
-        int line_;
-        int column_;
-    };
+    using tokens_t = std::vector<token>;
+    using token_iter = tokens_t::const_iterator;
 
     struct lines_and_tokens
     {
         std::vector<int> line_starts_;
-        std::vector<token> tokens_;
+        tokens_t tokens_;
     };
 
 #ifndef NDEBUG
@@ -215,11 +218,11 @@ namespace boost { namespace text { namespace detail {
         int column = 0;
         int initial_column = column;
         int brackets_nesting = 0;
+        bool in_quote = false;
 
         char buf[1024];
 
-        auto report_error = [&retval, &initial_first, &last, &line, &errors](
-                                char const * msg, int column) {
+        auto report_error = [&](string_view msg, int column) {
             if (errors) {
                 string str(msg);
                 if (str.empty() || str[-1] != '\n')
@@ -235,21 +238,27 @@ namespace boost { namespace text { namespace detail {
                 str += "^\n";
                 errors(str);
             }
-            throw lex_error(msg, line, column);
+            throw parse_error(msg, line, column);
         };
 
-        auto check_end =
-            [&first, last, &line, &column, &report_error](char const * msg) {
-                if (first == last)
-                    report_error(msg, column);
-            };
+        auto check_not_at_end = [&](string_view msg) {
+            if (first == last)
+                report_error(msg, column);
+        };
+
+        auto check_not_in_quote = [&](string_view sv) {
+            string msg("Unquoted newline character ");
+            msg += sv;
+            msg += " may not appear inside of a quote";
+            if (in_quote)
+                report_error(msg, column);
+        };
 
         auto consume =
-            [&first, &buf, check_end, &column, &char_index](
-                int n, char const * end_msg, char * buf_ptr = nullptr) {
+            [&](int n, string_view end_msg, char * buf_ptr = nullptr) {
                 char * buf_ = buf_ptr ? buf_ptr : buf;
                 while (n) {
-                    check_end(end_msg);
+                    check_not_at_end(end_msg);
                     *buf_++ = *first++;
                     ++column;
                     ++char_index;
@@ -258,16 +267,36 @@ namespace boost { namespace text { namespace detail {
                 return buf_;
             };
 
-        auto consume_one = [consume](char const * end_msg) {
+        auto consume_one = [&](string_view end_msg) {
             return *(consume(1, end_msg) - 1);
         };
 
-        auto consume_if_equals = [&first, last, consume_one](char c) {
+        auto consume_if_equals = [&](char c) {
             bool retval = false;
             if (first != last && *first == c) {
                 consume_one("");
                 retval = true;
             }
+            return retval;
+        };
+
+        auto is_space = [&](char initial_char) {
+            auto const code_units = utf8::code_point_bytes(initial_char);
+            if (code_units < 0 || last - first < code_units - 1)
+                return false;
+            utf32_range as_utf32(first - 1, first - 1 + code_units);
+            uint32_t const cp = *as_utf32.begin();
+
+            // Unicode Pattern_White_Space
+            // See
+            // http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5B:Pattern_White_Space:%5D&abb=on&g=
+            // Intentionally leaves out \r (0xd) and \n (0xa) for line tracking
+            // purposes.
+            auto const retval = (0x9 <= cp && cp <= 0xc && cp != 0xa) ||
+                                cp == 0x20 || cp == 0x85 || cp == 0x200e ||
+                                cp == 0x200f || cp == 0x2028 || cp == 0x2029;
+            if (retval)
+                consume(code_units - 1, "");
             return retval;
         };
 
@@ -301,33 +330,32 @@ namespace boost { namespace text { namespace detail {
             return x;
         };
 
-        auto newline = [&line, &column, &retval, &char_index]() {
+        auto newline = [&]() {
             ++line;
             column = 0;
             retval.line_starts_.push_back(char_index);
         };
 
-        auto push = [&retval, &line, &initial_column](token_kind kind) {
+        auto push = [&](token_kind kind) {
             retval.tokens_.push_back(token(kind, line, initial_column));
         };
 
-        auto push_cp = [&retval, &line, &initial_column](uint32_t cp) {
+        auto push_cp = [&](uint32_t cp) {
             retval.tokens_.push_back(token(cp, line, initial_column));
         };
 
-        auto push_identifier =
-            [&retval, &line, &initial_column](string identifier) {
-                retval.tokens_.push_back(
-                    token(std::move(identifier), line, initial_column));
-            };
+        auto push_identifier = [&](string id) {
+            retval.tokens_.push_back(
+                token(std::move(id), line, initial_column));
+        };
 
         while (first != last) {
             initial_column = column;
             char const initial_char = consume_one("");
 
-            if (initial_char == ' ' || initial_char == '\t') {
+            if (!in_quote && is_space(initial_char)) {
                 continue;
-            } else if (initial_char == '#') {
+            } else if (!in_quote && initial_char == '#') {
                 while (first != last && *first != '\n') {
                     consume_one("");
                 }
@@ -335,6 +363,7 @@ namespace boost { namespace text { namespace detail {
                     consume_one("");
                 newline();
             } else if (initial_char == '\r') {
+                check_not_in_quote("\\r");
                 char const c = consume_one(
                     "\\r at end of input (must be followed by \\n)");
                 if (c != '\n') {
@@ -343,6 +372,7 @@ namespace boost { namespace text { namespace detail {
                 }
                 newline();
             } else if (initial_char == '\n') {
+                check_not_in_quote("\\n");
                 newline();
             } else if (initial_char == '\\') {
                 // The escape-handling logic here is derived from the
@@ -431,22 +461,27 @@ namespace boost { namespace text { namespace detail {
                 case '\\': push_cp(0x5c); break;
                 }
             } else if (initial_char == '\'') {
-                push(token_kind::quote);
-            } else if (initial_char == '&') {
+                if (first != last && *first == '\'') {
+                    consume_one("");
+                    push_cp('\'');
+                } else {
+                    in_quote = !in_quote;
+                }
+            } else if (!in_quote && initial_char == '&') {
                 push(token_kind::and_);
-            } else if (initial_char == '|') {
+            } else if (!in_quote && initial_char == '|') {
                 push(token_kind::or_);
-            } else if (initial_char == '/') {
+            } else if (!in_quote && initial_char == '/') {
                 push(token_kind::slash);
-            } else if (initial_char == '=') {
+            } else if (!in_quote && initial_char == '=') {
                 push(token_kind::equal);
-            } else if (initial_char == '[') {
+            } else if (!in_quote && initial_char == '[') {
                 push(token_kind::open_bracket);
                 ++brackets_nesting;
-            } else if (initial_char == ']') {
+            } else if (!in_quote && initial_char == ']') {
                 push(token_kind::close_bracket);
                 --brackets_nesting;
-            } else if (initial_char == '<') {
+            } else if (!in_quote && initial_char == '<') {
                 token_kind kind = token_kind::primary_before;
                 if (consume_if_equals('<')) {
                     kind = token_kind::secondary_before;
@@ -460,13 +495,15 @@ namespace boost { namespace text { namespace detail {
                 if (consume_if_equals('*'))
                     kind = static_cast<token_kind>(static_cast<int>(kind) + 4);
                 push(kind);
-            } else if (1 <= brackets_nesting && is_id_char(initial_char)) {
-                string identifier;
-                identifier += initial_char;
+            } else if (
+                !in_quote && brackets_nesting == 1 &&
+                is_id_char(initial_char)) {
+                string str;
+                str += initial_char;
                 while (first != last && is_id_char(*first)) {
-                    identifier += consume_one("");
+                    str += consume_one("");
                 }
-                push_identifier(std::move(identifier));
+                push_identifier(std::move(str));
             } else {
                 // UTF-8 encoded code point.
                 auto const code_units = utf8::code_point_bytes(initial_char);
