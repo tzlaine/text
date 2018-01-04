@@ -275,7 +275,7 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
-    // relation-op = "=" | "<" | "<<" | "<<<" ;
+    // relation-op = "=" | "<" | "<<" | "<<<" | "<*" | "<<*" | "<<<*" ;
     // relation = relation-op, cp-sequence, (([prefix], extension) |
     // ([extension], prefix)) ;
     struct relation_t
@@ -288,15 +288,48 @@ namespace boost { namespace text { namespace detail {
     inline optional<relation_t> relation(token_iter & it, token_iter end)
     {
         auto const op = next_tok(it, end);
-        if (!op || op < token_kind::equal || token_kind::quaternary_before < op)
+        if (!op) {
             return {};
+        } else if (
+            token_kind::equal <= op && op <= token_kind::quaternary_before) {
+            auto seq = next_cp_seq(it, end);
+            if (!seq) {
+                // TODO: Error!
+                return {};
+            }
+            return relation_t{
+                op, std::move(seq), prefix_and_extension(it, end)};
+        } else if (
+            token_kind::primary_before_star <= op &&
+            op <= token_kind::quaternary_before_star) {
+            cp_seq_t seq;
+            auto range = next_cp_range(it, end);
+            if (!range)
+                // TODO: Error!
+                return {};
 
-        auto seq = next_cp_seq(it, end);
-        if (!seq) {
+            auto check_ccc_0_and_append = [&seq](cp_range_t r) {
+                for (auto cp = r.first_, cp_end = r.last_; cp < cp_end; ++cp) {
+                    if (ccc(cp)) {
+                        seq.push_back(cp);
+                    } else {
+                        // TODO: Error!
+                    }
+                }
+            };
+
+            check_ccc_0_and_append(*range);
+
+            while (range) {
+                if ((range = next_cp_range(it, end)))
+                    check_ccc_0_and_append(*range);
+            }
+
+            return relation_t{op, std::move(seq)};
+        } else {
             // TODO: Error!
+            return {};
         }
-
-        return relation_t{op, std::move(seq), prefix_and_extension(it, end)};
     }
 
     // TODO: There seems to be no way to differentiate a quoted or escaped
@@ -304,86 +337,39 @@ namespace boost { namespace text { namespace detail {
     // address this.
 
     // reset = cp-sequence | logical-position ;
-    // before-rule = "&", before-strength, reset, relation ;
-    inline bool before_rule(
+    // rule-chain = "&", [before-strength], reset, relation, {relation} ;
+    inline bool rule_chain(
         token_iter & it,
         token_iter end,
-        int strength,
+        int before_strength_,
         cp_seq_t const & reset,
         collation_tailoring & tailoring)
     {
-        return false;
-    }
-
-    // abberviated-op = "<*", "<<*", "<<<*" ;
-    // abberviated-rule = "&", reset, abbreviated-op, cp-range, {cp-range} ;
-    inline bool abbreviated_rule(
-        token_iter & it,
-        token_iter end,
-        cp_seq_t const & reset,
-        collation_tailoring & tailoring)
-    {
-        scoped_token_iter rollback(it);
-
-        auto relation = next_tok(it, end);
-        if (!relation || *relation < token_kind::primary_before_star ||
-            token_kind::quaternary_before_star < *relation) {
-            return false;
-        }
-
-        auto check_ccc_0 = [](cp_range_t r) {
-            for (auto cp = r.first_, cp_end = r.last_; cp < cp_end; ++cp) {
-                if (!ccc(cp)) {
-                    // TODO: Error!
-                }
-            }
-        };
-
-        auto lhs_range = next_cp_range(it, end);
-        if (!lhs_range)
-            // TODO: Error!
-            return false;
-
-        check_ccc_0(*lhs_range);
-
-        // TODO: Record "lhs relation cps" somewhere.
-        rollback.release();
-
-        while (lhs_range) {
-            if ((lhs_range = next_cp_range(it, end)))
-                check_ccc_0(*lhs_range);
-            // TODO: Record "lhs relation cps" somewhere.
-        }
-
-        return true;
-    }
-
-    // after-rule = "&", reset, relation, {relation} ;
-    inline bool after_rule(
-        token_iter & it,
-        token_iter end,
-        cp_seq_t const & reset,
-        collation_tailoring & tailoring)
-    {
-        scoped_token_iter rollback(it);
-
         auto rel = relation(it, end);
         if (!rel)
             return false;
 
         // TODO: Record "reset relation" somehwere.
-        rollback.release();
 
-        cp_seq_t current_lhs(std::move(rel->cps_));
+        // TODO: Don't forget to record this as a before-relation if 0 <
+        // before_strength_.
+
+        cp_seq_t current_seq(std::move(rel->cps_));
+        cp_seq_t current_prefix;
+        if (rel->prefix_and_extension_.prefix_)
+            current_prefix = std::move(*rel->prefix_and_extension_.prefix_);
+
         while ((rel = relation(it, end))) {
-            // TODO: Record "current_lhs relation" somehwere.
-            current_lhs.swap(rel->cps_);
+            // TODO: Record "current_seq current_prefix relation" somehwere.
+            current_seq.swap(rel->cps_);
+            current_prefix.clear();
+            if (rel->prefix_and_extension_.prefix_)
+                current_prefix = std::move(*rel->prefix_and_extension_.prefix_);
         }
 
         return true;
     }
 
-    // rule = before-rule | abbreviated-rule | after-rule ;
     inline void
     rule(token_iter & it, token_iter end, collation_tailoring & tailoring)
     {
@@ -401,15 +387,8 @@ namespace boost { namespace text { namespace detail {
             lhs.push_back(*cp);
         }
 
-        if (strength) {
-            if (!before_rule(it, end, strength, lhs, tailoring)) {
-                // Error!
-            }
-        } else {
-            if (!abbreviated_rule(it, end, lhs, tailoring) &&
-                !after_rule(it, end, lhs, tailoring)) {
-                // TODO: Error!
-            }
+        if (!rule_chain(it, end, strength, lhs, tailoring)) {
+            // Error!
         }
     }
 
