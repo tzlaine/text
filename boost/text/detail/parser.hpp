@@ -14,14 +14,36 @@ namespace boost { namespace text { namespace detail {
     // U+FFFD..U+FFFF ? ; nfd-inert-cp = ? A valid Unicode code point not in
     // the range U+FFFD..U+FFFF with ccc=0 ? ;
 
+    using cp_seq_t = std::vector<uint32_t>;
+    using optional_cp_seq_t = optional<cp_seq_t>;
+
+    struct prefix_and_extension_t
+    {
+        optional_cp_seq_t prefix_;
+        optional_cp_seq_t extension_;
+    };
+
+    struct relation_t
+    {
+        token_kind op_;
+        cp_seq_t cps_;
+        prefix_and_extension_t prefix_and_extension_;
+    };
+
+    using reset_callback =
+        std::function<void(cp_seq_t const & seq, int before_strength)>;
+    using relation_callback = std::function<void(relation_t const &)>;
+
     struct collation_tailoring_interface
     {
+        reset_callback reset_;
+        relation_callback relation_;
+
+        // TODO: options, etc.
+
         parser_diagnostic_callback errors_;
         parser_diagnostic_callback warnings_;
     };
-
-    using cp_seq_t = std::vector<uint32_t>;
-    using optional_cp_seq_t = optional<cp_seq_t>;
 
     struct one_token_parse_error : parse_error
     {
@@ -282,12 +304,6 @@ namespace boost { namespace text { namespace detail {
         return optional_cp_seq_t(std::move(seq));
     }
 
-    struct prefix_and_extension_t
-    {
-        optional_cp_seq_t prefix_;
-        optional_cp_seq_t extension_;
-    };
-
     inline prefix_and_extension_t
     prefix_and_extension(token_iter & it, token_iter end)
     {
@@ -308,13 +324,6 @@ namespace boost { namespace text { namespace detail {
     // relation-op = "=" | "<" | "<<" | "<<<" | "<*" | "<<*" | "<<<*" ;
     // relation = relation-op, cp-sequence, (([prefix], extension) |
     // ([extension], prefix)) ;
-    struct relation_t
-    {
-        token_kind op_;
-        cp_seq_t cps_;
-        prefix_and_extension_t prefix_and_extension_;
-    };
-
     inline optional<relation_t> relation(token_iter & it, token_iter end)
     {
         auto const op_it = it;
@@ -333,8 +342,8 @@ namespace boost { namespace text { namespace detail {
             return relation_t{
                 *op, std::move(seq), prefix_and_extension(it, end)};
         } else if (
-            token_kind::primary_before_star <= op &&
-            op <= token_kind::equal_star) {
+            token_kind::equal_star <= op &&
+            op <= token_kind::quaternary_before_star) {
             cp_seq_t seq;
             auto const start_of_range_it = it;
             auto range = next_cp_range(it, end);
@@ -367,8 +376,8 @@ namespace boost { namespace text { namespace detail {
             return relation_t{*op, std::move(seq)};
         } else {
             throw one_token_parse_error(
-                "Expected one of '<', '<<', '<<<', '=', '<*', '<<*', '<<<*', "
-                "or '=*' here",
+                "Expected one of '<', '<<', '<<<', '<<<<', '=', '<*', '<<*', "
+                "'<<<*', '<<<<*', or '=*' here",
                 op_it);
         }
     }
@@ -401,15 +410,23 @@ namespace boost { namespace text { namespace detail {
                 rel_it);
         }
 
-        // TODO: Record "reset relation" somehwere.
+        auto record = [&]() {
+            tailoring.reset_(reset, before_strength_);
+            if (rel->op_ < token_kind::primary_before_star) {
+                tailoring.relation_(*rel);
+            } else {
+                cp_seq_t cps = std::move(rel->cps_);
+                rel->op_ =
+                    static_cast<token_kind>(static_cast<int>(rel->op_) - 5);
+                for (auto cp : cps) {
+                    rel->cps_.clear();
+                    rel->cps_.push_back(cp);
+                    tailoring.relation_(*rel);
+                }
+            }
+        };
 
-        // TODO: Don't forget to record this as a before-relation if 0 <
-        // before_strength_.
-
-        cp_seq_t current_seq(std::move(rel->cps_));
-        cp_seq_t current_prefix;
-        if (rel->prefix_and_extension_.prefix_)
-            current_prefix = std::move(*rel->prefix_and_extension_.prefix_);
+        record();
 
         while (rel) {
             rel_it = it;
@@ -420,12 +437,7 @@ namespace boost { namespace text { namespace detail {
                     "relation operator is '=' or '=*'",
                     rel_it);
             }
-
-            // TODO: Record "current_seq current_prefix relation" somehwere.
-            current_seq.swap(rel->cps_);
-            current_prefix.clear();
-            if (rel->prefix_and_extension_.prefix_)
-                current_prefix = std::move(*rel->prefix_and_extension_.prefix_);
+            record();
         }
 
         return true;
@@ -475,6 +487,7 @@ namespace boost { namespace text { namespace detail {
 
         auto identifier = next_identifier(it, end);
         if (!identifier) {
+            // TODO: This list is far too short!
             throw one_token_parse_error(
                 "Expected one 'import', 'optimize', or 'suppressContractions' "
                 "here",
@@ -549,6 +562,8 @@ namespace boost { namespace text { namespace detail {
 
             // TODO: Record the suppression.
         } else {
+            // TODO: This list is far too short!
+            // TODO: This leaves out all the options ([strength 2], etc.)!
             throw one_token_parse_error(
                 "Expected one 'import', 'optimize', or 'suppressContractions' "
                 "here",

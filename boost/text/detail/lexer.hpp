@@ -56,11 +56,11 @@ namespace boost { namespace text { namespace detail {
         secondary_before,
         tertiary_before,
         quaternary_before,
+        equal_star,
         primary_before_star,
         secondary_before_star,
         tertiary_before_star,
         quaternary_before_star,
-        equal_star,
         identifier
     };
 
@@ -477,7 +477,7 @@ namespace boost { namespace text { namespace detail {
                     }
                     if (consume_if_equals('*'))
                         kind =
-                            static_cast<token_kind>(static_cast<int>(kind) + 4);
+                            static_cast<token_kind>(static_cast<int>(kind) + 5);
                     push(kind);
                 } else if (initial_char == '#') {
                     while (first != last && *first != '\n') {
