@@ -38,6 +38,14 @@ namespace boost { namespace text { namespace detail {
 
     enum class token_kind {
         code_point,
+
+        // Code point ranges like "x-y" appear after abbreviated relations,
+        // but "-" is fine as a regular code point elsewhere.  The lexer does
+        // not have the necessary context to distinguish these two cases.  To
+        // resolve this, a "-" inside quotes or escaped ("\-") is treated as a
+        // regular code point, but is otherwise a special dash token.
+        dash,
+
         and_,
         or_,
         slash,
@@ -52,6 +60,7 @@ namespace boost { namespace text { namespace detail {
         secondary_before_star,
         tertiary_before_star,
         quaternary_before_star,
+        equal_star,
         identifier
     };
 
@@ -62,6 +71,7 @@ namespace boost { namespace text { namespace detail {
     case token_kind::x: os << #x; break
         switch (kind) {
             CASE(code_point);
+            CASE(dash);
             CASE(and_);
             CASE(or_);
             CASE(slash);
@@ -76,6 +86,7 @@ namespace boost { namespace text { namespace detail {
             CASE(secondary_before_star);
             CASE(tertiary_before_star);
             CASE(quaternary_before_star);
+            CASE(equal_star);
             CASE(identifier);
         }
 #    undef CASE
@@ -202,10 +213,57 @@ namespace boost { namespace text { namespace detail {
     }
 #endif
 
+    enum class diag_kind { error, warning, note };
+
+    inline string parse_diagnostic(
+        diag_kind kind,
+        string_view msg,
+        int line,
+        int column,
+        string_view sv,
+        std::vector<int> const & line_starts,
+        string_view filename = string_view())
+    {
+        auto to_string = [](int i) {
+            std::ostringstream os;
+            os << i;
+            return string(os.str());
+        };
+
+        string str;
+        if (!filename.empty()) {
+            str += filename;
+            str += ":";
+        }
+        str += to_string(line + 1);
+        str += ":";
+        str += to_string(column);
+        str += ":";
+        if (kind == diag_kind::error)
+            str += "error: ";
+        else if (kind == diag_kind::warning)
+            str += "warning: ";
+        else
+            str += "note: ";
+        str += msg;
+        if (str.empty() || str[-1] != '\n')
+            str += '\n';
+
+        auto const line_start = sv.begin() + line_starts[line];
+        auto const line_end = std::find(line_start, sv.end(), '\n');
+        str.insert(str.end(), line_start, line_end);
+        str += '\n';
+        str += repeated_string_view(" ", column);
+        str += "^\n";
+
+        return str;
+    }
+
     inline lines_and_tokens
     lex(char const * first,
         char const * const last,
-        parser_diagnostic_callback errors)
+        parser_diagnostic_callback errors,
+        string_view filename = "")
     {
         lines_and_tokens retval;
 
@@ -224,19 +282,14 @@ namespace boost { namespace text { namespace detail {
 
         auto report_error = [&](string_view msg, int column) {
             if (errors) {
-                string str(msg);
-                if (str.empty() || str[-1] != '\n')
-                    str += '\n';
-                auto const line_end = std::find(
-                    initial_first + retval.line_starts_[line], last, '\n');
-                str.insert(
-                    str.end(),
-                    initial_first + retval.line_starts_[line],
-                    line_end);
-                str += '\n';
-                str += repeated_string_view(" ", column);
-                str += "^\n";
-                errors(str);
+                errors(parse_diagnostic(
+                    diag_kind::error,
+                    msg,
+                    line,
+                    column,
+                    string_view(initial_first, last - initial_first),
+                    retval.line_starts_,
+                    filename));
             }
             throw parse_error(msg, line, column);
         };
@@ -247,9 +300,9 @@ namespace boost { namespace text { namespace detail {
         };
 
         auto check_not_in_quote = [&](string_view sv) {
-            string msg("Unquoted newline character ");
+            string msg("Unquoted newline character '");
             msg += sv;
-            msg += " may not appear inside of a quote";
+            msg += "' may not appear inside of a quote";
             if (in_quote)
                 report_error(msg, column);
         };
@@ -283,7 +336,7 @@ namespace boost { namespace text { namespace detail {
         auto is_space = [&](char initial_char) {
             auto const code_units = utf8::code_point_bytes(initial_char);
             if (code_units < 0 || last - first < code_units - 1)
-                return false;
+                return 0;
             utf32_range as_utf32(first - 1, first - 1 + code_units);
             uint32_t const cp = *as_utf32.begin();
 
@@ -292,12 +345,25 @@ namespace boost { namespace text { namespace detail {
             // http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5B:Pattern_White_Space:%5D&abb=on&g=
             // Intentionally leaves out \r (0xd) and \n (0xa) for line tracking
             // purposes.
-            auto const retval = (0x9 <= cp && cp <= 0xc && cp != 0xa) ||
-                                cp == 0x20 || cp == 0x85 || cp == 0x200e ||
-                                cp == 0x200f || cp == 0x2028 || cp == 0x2029;
+            auto retval = 0;
+            if ((0x9 <= cp && cp <= 0xc && cp != 0xa) || cp == 0x20 ||
+                cp == 0x85 || cp == 0x200e || cp == 0x200f || cp == 0x2028 ||
+                cp == 0x2029) {
+                retval = cp;
+            }
             if (retval)
                 consume(code_units - 1, "");
             return retval;
+        };
+
+        auto is_syntax_char = [](char c) {
+            // \u0021-\u002F \u003A-\u0040 \u005B-\u0060 \u007B-\u007E
+            // Intentionally leaves out 0x21 (' '), 0x27 ('\''), 0x2d ('-'),
+            // and 0x5c ('\\'), which are all handled specially.
+            return (0x22 <= c && c <= 0x2f && c != 0x27 && c != 0x2d) ||
+                   (0x3a <= c && c <= 0x40) ||
+                   (0x5b <= c && c <= 0x60 && c != 0x5c) ||
+                   (0x7b <= c && c <= 0x7e);
         };
 
         auto is_id_char = [](char c) {
@@ -349,26 +415,90 @@ namespace boost { namespace text { namespace detail {
                 token(std::move(id), line, initial_column));
         };
 
+        auto lex_utf8 = [&](char initial_char) {
+            // UTF-8 encoded code point.
+            auto const code_units = utf8::code_point_bytes(initial_char);
+            if (code_units < 0)
+                report_error("Invalid initial UTF-8 code unit", initial_column);
+            *buf = initial_char;
+            if (1 < code_units) {
+                consume(code_units - 1, "Incomplete UTF-8 sequence", buf + 1);
+            }
+            utf32_range as_utf32(buf, buf + code_units);
+            auto const cp = *as_utf32.begin();
+            if (!in_quote && cp == '-')
+                push(token_kind::dash);
+            else
+                push_cp(cp);
+            // Treat this cp as a single column for error reporting purposes,
+            // even though this looks weird for wide glyphs, such as in East
+            // Asian scripts.
+            column = initial_column + 1;
+        };
+
         while (first != last) {
             initial_column = column;
             char const initial_char = consume_one("");
 
-            if (!in_quote && is_space(initial_char)) {
-                continue;
-            } else if (!in_quote && initial_char == '#') {
-                while (first != last && *first != '\n') {
-                    consume_one("");
+            if (is_syntax_char(initial_char)) {
+                if (in_quote) {
+                    push_cp(initial_char);
+                } else if (initial_char == '&') {
+                    push(token_kind::and_);
+                } else if (initial_char == '|') {
+                    push(token_kind::or_);
+                } else if (initial_char == '/') {
+                    push(token_kind::slash);
+                } else if (initial_char == '=') {
+                    if (consume_if_equals('*'))
+                        push(token_kind::equal_star);
+                    else
+                        push(token_kind::equal); // TODO
+                } else if (initial_char == '[') {
+                    push(token_kind::open_bracket);
+                    ++brackets_nesting;
+                } else if (initial_char == ']') {
+                    push(token_kind::close_bracket);
+                    if (--brackets_nesting < 0) {
+                        report_error("Too many close-brackets", initial_column);
+                    }
+                } else if (initial_char == '<') {
+                    token_kind kind = token_kind::primary_before;
+                    if (consume_if_equals('<')) {
+                        kind = token_kind::secondary_before;
+                        if (consume_if_equals('<')) {
+                            kind = token_kind::tertiary_before;
+                            if (consume_if_equals('<')) {
+                                kind = token_kind::quaternary_before;
+                            }
+                        }
+                    }
+                    if (consume_if_equals('*'))
+                        kind =
+                            static_cast<token_kind>(static_cast<int>(kind) + 4);
+                    push(kind);
+                } else if (initial_char == '#') {
+                    while (first != last && *first != '\n') {
+                        consume_one("");
+                    }
+                    if (first != last)
+                        consume_one("");
+                    newline();
+                } else {
+                    string msg("Unescaped syntax character \'");
+                    msg += initial_char;
+                    msg += "\'";
+                    report_error(msg, initial_column);
                 }
-                if (first != last)
-                    consume_one("");
-                newline();
+            } else if (!in_quote && is_space(initial_char)) {
+                continue;
             } else if (initial_char == '\r') {
                 check_not_in_quote("\\r");
                 char const c = consume_one(
-                    "\\r at end of input (must be followed by \\n)");
+                    "'\\r' at end of input (must be followed by '\\n')");
                 if (c != '\n') {
                     report_error(
-                        "Stray \\r without following \\n", initial_column);
+                        "Stray '\\r' without following '\\n'", initial_column);
                 }
                 newline();
             } else if (initial_char == '\n') {
@@ -384,10 +514,10 @@ namespace boost { namespace text { namespace detail {
                 switch (c) {
                 case 'u': {
                     auto buf_end = consume(
-                        4, "Incomplete \\uNNNN hexidecimal escape sequence");
+                        4, "Incomplete '\\uNNNN' hexidecimal escape sequence");
                     if (!std::all_of(buf, buf_end, is_hex)) {
                         report_error(
-                            "Non-hexidecimal digit in \\uNNNN hexidecimal "
+                            "Non-hexidecimal digit in '\\uNNNN' hexidecimal "
                             "escape sequence",
                             initial_column);
                     }
@@ -398,11 +528,11 @@ namespace boost { namespace text { namespace detail {
                 case 'U': {
                     auto buf_end = consume(
                         8,
-                        "Incomplete \\UNNNNNNNN hexidecimal escape "
+                        "Incomplete '\\UNNNNNNNN' hexidecimal escape "
                         "sequence");
                     if (!std::all_of(buf, buf_end, is_hex)) {
                         report_error(
-                            "Non-hexidecimal digit in \\UNNNNNNNN hexidecimal "
+                            "Non-hexidecimal digit in '\\UNNNNNNNN' hexidecimal "
                             "escape sequence",
                             initial_column);
                     }
@@ -414,12 +544,11 @@ namespace boost { namespace text { namespace detail {
                     char local_buf[4] = {0};
                     auto local_buf_end = local_buf;
                     *local_buf_end++ = consume_one(
-                        "Incomplete \\xN[N] hexidecimal escape sequence "
-                        "(at "
-                        "least one hexidecimal digit must follow '\\x')");
+                        "Incomplete '\\xN[N]' hexidecimal escape sequence "
+                        "(at least one hexidecimal digit must follow '\\x')");
                     if (!is_hex(local_buf[0])) {
                         report_error(
-                            "Non-octal hexidecimal in \\xN[N] hexidecimal "
+                            "Non-octal hexidecimal in '\\xN[N]' hexidecimal "
                             "escape sequence",
                             initial_column);
                     }
@@ -433,11 +562,11 @@ namespace boost { namespace text { namespace detail {
                     char local_buf[4] = {0};
                     auto local_buf_end = local_buf;
                     *local_buf_end++ = consume_one(
-                        "Incomplete \\oN[N][N] octal escape sequence (at "
+                        "Incomplete '\\oN[N][N]' octal escape sequence (at "
                         "least one octal digit must follow '\\o')");
                     if (!is_octal(local_buf[0])) {
                         report_error(
-                            "Non-octal digit in \\oN[N][N] octal escape "
+                            "Non-octal digit in '\\oN[N][N]' octal escape "
                             "sequence",
                             initial_column);
                     }
@@ -459,6 +588,8 @@ namespace boost { namespace text { namespace detail {
                 case '\'': push_cp(0x27); break;
                 case '?': push_cp(0x3f); break;
                 case '\\': push_cp(0x5c); break;
+                case '-': push_cp(c); break;
+                default: lex_utf8(c); break;
                 }
             } else if (initial_char == '\'') {
                 if (first != last && *first == '\'') {
@@ -467,34 +598,6 @@ namespace boost { namespace text { namespace detail {
                 } else {
                     in_quote = !in_quote;
                 }
-            } else if (!in_quote && initial_char == '&') {
-                push(token_kind::and_);
-            } else if (!in_quote && initial_char == '|') {
-                push(token_kind::or_);
-            } else if (!in_quote && initial_char == '/') {
-                push(token_kind::slash);
-            } else if (!in_quote && initial_char == '=') {
-                push(token_kind::equal);
-            } else if (!in_quote && initial_char == '[') {
-                push(token_kind::open_bracket);
-                ++brackets_nesting;
-            } else if (!in_quote && initial_char == ']') {
-                push(token_kind::close_bracket);
-                --brackets_nesting;
-            } else if (!in_quote && initial_char == '<') {
-                token_kind kind = token_kind::primary_before;
-                if (consume_if_equals('<')) {
-                    kind = token_kind::secondary_before;
-                    if (consume_if_equals('<')) {
-                        kind = token_kind::tertiary_before;
-                        if (consume_if_equals('<')) {
-                            kind = token_kind::quaternary_before;
-                        }
-                    }
-                }
-                if (consume_if_equals('*'))
-                    kind = static_cast<token_kind>(static_cast<int>(kind) + 4);
-                push(kind);
             } else if (
                 !in_quote && brackets_nesting == 1 &&
                 is_id_char(initial_char)) {
@@ -505,26 +608,17 @@ namespace boost { namespace text { namespace detail {
                 }
                 push_identifier(std::move(str));
             } else {
-                // UTF-8 encoded code point.
-                auto const code_units = utf8::code_point_bytes(initial_char);
-                if (code_units < 0) {
-                    report_error(
-                        "Invalid initial UTF-8 code unit", initial_column);
-                }
-                *buf = initial_char;
-                if (1 < code_units) {
-                    consume(
-                        code_units - 1, "Incomplete UTF-8 sequence", buf + 1);
-                }
-                utf32_range as_utf32(buf, buf + code_units);
-                push_cp(*as_utf32.begin());
-                // Treat this cp as a single column, even though this looks
-                // weird for wide glyphs in East Asian scripts.
-                column = initial_column + 1;
+                lex_utf8(initial_char);
             }
         }
 
-        if (retval.tokens_.back() == 0)
+        if (in_quote)
+            report_error("Close-quote missing at end of input", column);
+
+        if (0 < brackets_nesting)
+            report_error("Close-bracket(s) missing at end of input", column);
+
+        if (!retval.tokens_.empty() && retval.tokens_.back() == 0)
             retval.tokens_.pop_back();
 
         return retval;
