@@ -460,7 +460,9 @@ namespace boost { namespace text { namespace detail {
                 } else if (initial_char == ']') {
                     push(token_kind::close_bracket);
                     if (--brackets_nesting < 0) {
-                        report_error("Too many close-brackets", initial_column);
+                        report_error(
+                            "Close bracket without matching open bracket",
+                            initial_column);
                     }
                 } else if (initial_char == '<') {
                     token_kind kind = token_kind::primary_before;
@@ -613,10 +615,10 @@ namespace boost { namespace text { namespace detail {
         }
 
         if (in_quote)
-            report_error("Close-quote missing at end of input", column);
+            report_error("Close quote missing at end of input", column);
 
         if (0 < brackets_nesting)
-            report_error("Close-bracket(s) missing at end of input", column);
+            report_error("Close bracket(s) missing at end of input", column);
 
         if (!retval.tokens_.empty() && retval.tokens_.back() == 0)
             retval.tokens_.pop_back();
