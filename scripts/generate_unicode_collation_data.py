@@ -36,7 +36,21 @@ enum class collation_weights : int {{
 namespace detail {{
     enum collation_constants : uint32_t {{
         OR_CJK_Compatibility_Ideographs = {8},
-        OR_CJK_Unified_Ideographs_Extension_D = {9}
+        OR_CJK_Unified_Ideographs_Extension_D = {9},
+
+        no_secondary_ignorables = 0xffffffff,
+
+        first_tertiary_ignorable = {10},
+        last_tertiary_ignorable = {11},
+        first_secondary_ignorable = {12},
+        last_secondary_ignorable = {13},
+        first_primary_ignorable = {14},
+        last_primary_ignorable = {15},
+        first_variable = {16},
+        last_variable = {17},
+        first_regular = {18},
+        last_regular = {19},
+        first_implicit = {20}
     }};
 }}
 
@@ -534,6 +548,122 @@ def find_singleton_keys(ucet, trie):
             singleton_keys.add(k)
     return singleton_keys
 
+def find_logical_positions(ucet, min_var, max_var):
+    logical_positions = {}
+
+    # first tertiary igorable is fixed at 0
+    logical_positions["first 3"] = 0
+
+    dbg = False
+
+    if dbg:
+        print 'min_var=',min_var,'(',hex(min_var),')'
+        print 'max_var=',max_var,'(',hex(max_var),')'
+
+    if dbg:
+        print "first 3",hex(0),[[0,0,0]]
+
+    weight_sorted_ucet = sorted(ucet.items(), key=lambda x: (x[1], x[0]))
+
+    i = 0
+    while weight_sorted_ucet[i][1][0] == [0,0,0]:
+        i += 1
+    if 1 < len(weight_sorted_ucet[i - 1][0]):
+        raise Exception("Oops!")
+    logical_positions["last 3"] = hex(weight_sorted_ucet[i - 1][0][0])
+
+    if dbg:
+        print "last 3",logical_positions["last 3"],weight_sorted_ucet[i - 1][1]
+
+    if weight_sorted_ucet[i][1][0][0] != 0 or weight_sorted_ucet[i][1][0][1] != 0:
+        print 'Secondary ignorables not found!  Using sentinel value no_secondary_ignorables.'
+        logical_positions["first 2"] = 'no_secondary_ignorables'
+        logical_positions["last 2"] = 'no_secondary_ignorables'
+        if dbg:
+            print "first 2",'0xfffffff0'
+            print "last 2",'0xfffffff0'
+    else:
+        if 1 < len(weight_sorted_ucet[i][0]):
+            raise Exception("Oops!")
+        logical_positions["first 2"] = hex(weight_sorted_ucet[i][0][0])
+
+        if dbg:
+            print "first 2",logical_positions["first 3"],weight_sorted_ucet[i][1]
+
+        while weight_sorted_ucet[i][1][0][0] == 0 and weight_sorted_ucet[i][1][0][1] == 0:
+            i += 1
+        if 1 < len(weight_sorted_ucet[i - 1][0]):
+            raise Exception("Oops!")
+        logical_positions["last 2"] = hex(weight_sorted_ucet[i - 1][0][0])
+
+        if dbg:
+            print "last 2",logical_positions["last 2"],weight_sorted_ucet[i - 1][1]
+
+    if weight_sorted_ucet[i][1][0][0] != 0:
+        raise Exception("First primary ignorable not found!")
+    if 1 < len(weight_sorted_ucet[i][0]):
+        raise Exception("Oops!")
+    logical_positions["first 1"] = hex(weight_sorted_ucet[i][0][0])
+
+    if dbg:
+        print "first 1",logical_positions["first 1"],weight_sorted_ucet[i][1]
+
+    while weight_sorted_ucet[i][1][0][0] == 0:
+        i += 1
+    if 1 < len(weight_sorted_ucet[i - 1][0]):
+        raise Exception("Oops!")
+    logical_positions["last 1"] = hex(weight_sorted_ucet[i - 1][0][0])
+
+    if dbg:
+        print "last 1",logical_positions["last 1"],weight_sorted_ucet[i - 1][1]
+
+    if weight_sorted_ucet[i][1][0][0] != min_var:
+        raise Exception("First variable not found!")
+    if 1 < len(weight_sorted_ucet[i][0]):
+        raise Exception("Oops!")
+    logical_positions["first var"] = hex(weight_sorted_ucet[i][0][0])
+
+    if dbg:
+        print "first var",logical_positions["first var"],weight_sorted_ucet[i][1]
+
+    while weight_sorted_ucet[i][1][0][0] != max_var:
+        i += 1
+    if weight_sorted_ucet[i][1][0][0] != max_var:
+        print weight_sorted_ucet[i][1]
+        raise Exception("Last variable not found!")
+    if 1 < len(weight_sorted_ucet[-1][0]):
+        raise Exception("Oops!")
+    logical_positions["last var"] = hex(weight_sorted_ucet[i][0][0])
+
+    if dbg:
+        print "last var",logical_positions["last var"],weight_sorted_ucet[i][1]
+
+    i += 1
+
+    if weight_sorted_ucet[i][1][0][0] <= max_var:
+        raise Exception("First regular not found!")
+    if 1 < len(weight_sorted_ucet[i][0]):
+        raise Exception("Oops!")
+    logical_positions["first reg"] = hex(weight_sorted_ucet[i][0][0])
+
+    if dbg:
+        print "first reg",logical_positions["first reg"],weight_sorted_ucet[i][1]
+
+    if weight_sorted_ucet[-1][1][0][0] == 0:
+        raise Exception("Last regular not found!")
+    if 1 < len(weight_sorted_ucet[-1][0]):
+        raise Exception("Oops!")
+    logical_positions["last reg"] = hex(weight_sorted_ucet[-1][0][0])
+
+    if dbg:
+        print "last reg",logical_positions["last reg"],weight_sorted_ucet[-1][1]
+
+    # Implicit weight values are fixed for a particular version of Unicode.
+    # This is for Unicode 10.
+    logical_positions["first implicit"] = '0x17000'
+
+    return logical_positions
+
 def ce_to_cpp(ce, min_l2):
     biased_l2 = ce[1] - (min_l2  - 1)
     if ce[1] == 0:
@@ -569,6 +699,8 @@ if __name__ == "__main__":
     else:
         fcc_ucet = ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping)
 
+    logical_positions = find_logical_positions(fcc_ucet, min_var, max_var)
+
     (fcc_ucet, collation_elements) = make_unique_collation_element_sequence(fcc_ucet)
 
     trie = make_trie(fcc_ucet)
@@ -581,7 +713,18 @@ if __name__ == "__main__":
         hex(min_l1), hex(max_l1), hex(min_l2), hex(max_l2),
         hex(min_l3), hex(max_l3), hex(min_var), hex(max_var),
         hex(OR_CJK_Compatibility_Ideographs),
-        hex(OR_CJK_Unified_Ideographs_Extension_D)
+        hex(OR_CJK_Unified_Ideographs_Extension_D),
+        logical_positions["first 3"],
+        logical_positions["last 3"],
+        logical_positions["first 2"],
+        logical_positions["last 2"],
+        logical_positions["first 1"],
+        logical_positions["last 1"],
+        logical_positions["first var"],
+        logical_positions["last var"],
+        logical_positions["first reg"],
+        logical_positions["last reg"],
+        logical_positions["first implicit"]
     ))
 
     item_strings = map(lambda x: ce_to_cpp(x, min_l2), collation_elements)

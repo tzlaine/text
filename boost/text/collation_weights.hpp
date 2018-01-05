@@ -26,7 +26,21 @@ enum class collation_weights : int {
 namespace detail {
     enum collation_constants : uint32_t {
         OR_CJK_Compatibility_Ideographs = 0xfa3f,
-        OR_CJK_Unified_Ideographs_Extension_D = 0x2bfff
+        OR_CJK_Unified_Ideographs_Extension_D = 0x2bfff,
+
+        no_secondary_ignorables = 0xffffffff,
+
+        first_tertiary_ignorable = 0,
+        last_tertiary_ignorable = 0xe01ef,
+        first_secondary_ignorable = no_secondary_ignorables,
+        last_secondary_ignorable = no_secondary_ignorables,
+        first_primary_ignorable = 0x332,
+        last_primary_ignorable = 0x101fd,
+        first_variable = 0x9,
+        last_variable = 0x1d371,
+        first_regular = 0x2d0,
+        last_regular = 0xfffd,
+        first_implicit = 0x17000
     };
 }
 
