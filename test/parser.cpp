@@ -430,7 +430,39 @@ TEST(parser, exceptions)
     }
 
     {
-        text::string_view sv = "[reorder foo] [reorder bar]";
+        text::string_view sv = "[reorder space] [reorder punct]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder Common]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder Inherited]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder Zzzz others]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder rando_calrissian]";
         EXPECT_THROW(
             text::detail::parse(
                 sv.begin(), sv.end(), callbacks, "<test-string>"),
@@ -554,7 +586,8 @@ TEST(parser, options)
 
     {
         std::vector<text::string> result;
-        std::vector<text::string> const expected = {"foo", "others", "bar"};
+        std::vector<text::string> const expected = {
+            "space", "punct", "symbol", "currency", "digit"};
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
@@ -568,7 +601,30 @@ TEST(parser, options)
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
 
-        text::string_view sv = "[reorder foo others bar]";
+        text::string_view sv = "[reorder others]";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(result, expected);
+    }
+
+    {
+        std::vector<text::string> result;
+        std::vector<text::string> const expected = {
+            "space", "currency", "digit", "symbol", "punct"};
+        text::detail::collation_tailoring_interface callbacks = {
+            [](text::detail::cp_seq_t const & reset_, bool before_) {},
+            [](text::detail::relation_t const & rel) {},
+            [](text::collation_strength strength) {},
+            [](text::variable_weighting weighting) {},
+            [](text::l2_weight_order order) {},
+            [](text::detail::cp_seq_t const & suppressions) {},
+            [&result](std::vector<text::string> && reorderings) {
+                result = std::move(reorderings);
+            },
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; }};
+
+        text::string_view sv = "[reorder symbol others punct]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected);

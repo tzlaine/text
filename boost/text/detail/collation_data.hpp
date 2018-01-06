@@ -2,6 +2,7 @@
 #define BOOST_TEXT_DETAIL_COLLATION_DATA_HPP
 
 #include <boost/text/collation_weights.hpp>
+#include <boost/text/string_view.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
 #include <algorithm>
@@ -223,6 +224,12 @@ namespace boost { namespace text { namespace detail {
             }
         }
         return retval;
+    }
+
+    inline bool script_code(string_view s)
+    {
+        // TODO
+        return false;
     }
 
 }}}

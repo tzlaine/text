@@ -3,7 +3,7 @@
 
 #include <boost/text/collation_weights.hpp>
 #include <boost/text/parser_fwd.hpp>
-#include <boost/text/detail/normalization_data.hpp>
+#include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/lexer.hpp>
 
 
@@ -643,17 +643,75 @@ namespace boost { namespace text { namespace detail {
                     end);
             }
 
+            // These are intentionally reversed.
+            std::array<string_view, 5> const core_groups = {
+                {"digit", "currency", "symbol", "punct", "space"}};
+
+            auto core_group = [&](string_view s) {
+                return std::find(core_groups.begin(), core_groups.end(), s) !=
+                       core_groups.end();
+            };
+            auto others_group = [](string_view s) {
+                return s == "others" || s == "Zzzz";
+            };
+
             std::vector<string> reorderings;
             optional<string> str;
             while ((str = next_identifier(it, end))) {
+                if (*str == "Common") {
+                    throw one_token_parse_error(
+                        "Script code 'Common' may not be used in reorderings",
+                        std::prev(it),
+                        end);
+                } else if (*str == "Inherited") {
+                    throw one_token_parse_error(
+                        "Script code 'Inherited' may not be used in "
+                        "reorderings",
+                        std::prev(it),
+                        end);
+                } else if (
+                    !others_group(*str) && !core_group(*str) &&
+                    !script_code(*str)) {
+                    throw one_token_parse_error(
+                        "Unknown script code", std::prev(it), end);
+                }
                 reorderings.push_back(std::move(*str));
             }
+
             if (reorderings.empty()) {
                 throw one_token_parse_error(
                     "Expected reorder-code here", it, end);
             }
-            tailoring.reorder_(std::move(reorderings));
+
             require_close_bracket(open_bracket_it);
+
+            for (auto group : core_groups) {
+                if (std::count(reorderings.begin(), reorderings.end(), group) ==
+                    0) {
+                    reorderings.insert(reorderings.begin(), string(group));
+                }
+            }
+
+            auto const others_it = std::find_if(
+                reorderings.begin(), reorderings.end(), others_group);
+            if (others_it == reorderings.end()) {
+                // TODO: Append all reordering groups not explicitly mentioned
+                // in reorderings to the end of reorderings.
+            } else {
+                reorderings.erase(others_it);
+                auto const next_others_it = std::find_if(
+                    reorderings.begin(), reorderings.end(), others_group);
+                if (next_others_it != reorderings.end()) {
+                    throw one_token_parse_error(
+                        "The 'others'/'Zzzz' group must appear at most once",
+                        open_bracket_it,
+                        end);
+                }
+                // TODO: Insert all reordering groups not explicitly mentioned
+                // in reorderings at other_it.
+            }
+
+            tailoring.reorder_(std::move(reorderings));
 
             return open_bracket_it;
         } else {
