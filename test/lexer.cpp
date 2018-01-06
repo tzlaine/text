@@ -122,8 +122,8 @@ int main()
             "<test-string>");
 #ifndef NDEBUG
         dump(std::cout, lines_and_tokens, sv);
-#endif
         std::cout << dump(lines_and_tokens.tokens_) << "\n";
+#endif
         std::cout << "========================================================="
                      "=======================\n";
     }
@@ -137,8 +137,8 @@ int main()
             "<test-string>");
 #ifndef NDEBUG
         dump(std::cout, lines_and_tokens, sv);
-#endif
         std::cout << dump(lines_and_tokens.tokens_) << "\n";
+#endif
         std::cout << "========================================================="
                      "=======================\n";
     }
@@ -152,8 +152,8 @@ int main()
             "<test-string>");
 #ifndef NDEBUG
         dump(std::cout, lines_and_tokens, sv);
-#endif
         std::cout << dump(lines_and_tokens.tokens_) << "\n";
+#endif
         std::cout << "========================================================="
                      "=======================\n";
     }
