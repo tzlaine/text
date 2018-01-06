@@ -2,10 +2,9 @@
 #define BOOST_TEXT_DETAIL_PARSER_HPP
 
 #include <boost/text/collation_weights.hpp>
+#include <boost/text/parser_fwd.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/lexer.hpp>
-
-#include <boost/optional.hpp>
 
 
 namespace boost { namespace text { namespace detail {
@@ -13,37 +12,6 @@ namespace boost { namespace text { namespace detail {
     // code-point = ? A valid Unicode code point not in the range
     // U+FFFD..U+FFFF ? ; nfd-inert-cp = ? A valid Unicode code point not in
     // the range U+FFFD..U+FFFF with ccc=0 ? ;
-
-    using cp_seq_t = std::vector<uint32_t>;
-    using optional_cp_seq_t = optional<cp_seq_t>;
-
-    struct prefix_and_extension_t
-    {
-        optional_cp_seq_t prefix_;
-        optional_cp_seq_t extension_;
-    };
-
-    struct relation_t
-    {
-        token_kind op_;
-        cp_seq_t cps_;
-        prefix_and_extension_t prefix_and_extension_;
-    };
-
-    using reset_callback =
-        std::function<void(cp_seq_t const & seq, int before_strength)>;
-    using relation_callback = std::function<void(relation_t const &)>;
-
-    struct collation_tailoring_interface
-    {
-        reset_callback reset_;
-        relation_callback relation_;
-
-        // TODO: options, etc.
-
-        parser_diagnostic_callback errors_;
-        parser_diagnostic_callback warnings_;
-    };
 
     struct one_token_parse_error : parse_error
     {
@@ -331,7 +299,7 @@ namespace boost { namespace text { namespace detail {
         if (!op) {
             return {};
         } else if (
-            token_kind::equal <= op && op <= token_kind::quaternary_before) {
+            token_kind::primary_before <= op && op <= token_kind::equal) {
             auto seq = next_cp_seq(it, end);
             if (seq.empty()) {
                 throw one_token_parse_error(
@@ -342,8 +310,8 @@ namespace boost { namespace text { namespace detail {
             return relation_t{
                 *op, std::move(seq), prefix_and_extension(it, end)};
         } else if (
-            token_kind::equal_star <= op &&
-            op <= token_kind::quaternary_before_star) {
+            token_kind::primary_before_star <= op &&
+            op <= token_kind::equal_star) {
             cp_seq_t seq;
             auto const start_of_range_it = it;
             auto range = next_cp_range(it, end);
@@ -385,8 +353,8 @@ namespace boost { namespace text { namespace detail {
     inline bool strength_matches_op(int str, token_kind op) noexcept
     {
         return str == 0 || op == token_kind::equal ||
-               str ==
-                   static_cast<int>(op) - static_cast<int>(token_kind::equal);
+               str - 1 ==
+                   static_cast<int>(op) - static_cast<int>(token_kind::primary_before);
     }
 
     // reset = cp-sequence | logical-position ;

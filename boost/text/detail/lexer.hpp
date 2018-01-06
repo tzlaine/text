@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_DETAIL_LEXER_HPP
 #define BOOST_TEXT_DETAIL_LEXER_HPP
 
+#include <boost/text/parser_fwd.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utf8.hpp>
 #include <boost/text/utility.hpp>
@@ -9,90 +10,7 @@
 #include <iomanip>
 
 
-namespace boost { namespace text {
-
-    // TODO: These should go in parser_fwd.hpp.
-
-    using parser_diagnostic_callback = std::function<void(string const &)>;
-
-    struct parse_error : std::exception
-    {
-        parse_error(string_view msg, int line, int column) :
-            msg_(msg),
-            line_(line),
-            column_(column)
-        {}
-        char const * what() const noexcept { return msg_.begin(); }
-        int line() const { return line_; }
-        int column() const { return column_; }
-
-    private:
-        string msg_;
-        int line_;
-        int column_;
-    };
-
-}}
-
 namespace boost { namespace text { namespace detail {
-
-    enum class token_kind {
-        code_point,
-
-        // Code point ranges like "x-y" appear after abbreviated relations,
-        // but "-" is fine as a regular code point elsewhere.  The lexer does
-        // not have the necessary context to distinguish these two cases.  To
-        // resolve this, a "-" inside quotes or escaped ("\-") is treated as a
-        // regular code point, but is otherwise a special dash token.
-        dash,
-
-        and_,
-        or_,
-        slash,
-        open_bracket,
-        close_bracket,
-        equal,
-        primary_before,
-        secondary_before,
-        tertiary_before,
-        quaternary_before,
-        equal_star,
-        primary_before_star,
-        secondary_before_star,
-        tertiary_before_star,
-        quaternary_before_star,
-        identifier
-    };
-
-#ifndef NDEBUG
-    inline std::ostream & operator<<(std::ostream & os, token_kind kind)
-    {
-#    define CASE(x)                                                            \
-    case token_kind::x: os << #x; break
-        switch (kind) {
-            CASE(code_point);
-            CASE(dash);
-            CASE(and_);
-            CASE(or_);
-            CASE(slash);
-            CASE(equal);
-            CASE(open_bracket);
-            CASE(close_bracket);
-            CASE(primary_before);
-            CASE(secondary_before);
-            CASE(tertiary_before);
-            CASE(quaternary_before);
-            CASE(primary_before_star);
-            CASE(secondary_before_star);
-            CASE(tertiary_before_star);
-            CASE(quaternary_before_star);
-            CASE(equal_star);
-            CASE(identifier);
-        }
-#    undef CASE
-        return os;
-    }
-#endif
 
     struct token
     {
@@ -263,7 +181,7 @@ namespace boost { namespace text { namespace detail {
     lex(char const * first,
         char const * const last,
         parser_diagnostic_callback errors,
-        string_view filename = "")
+        string_view filename)
     {
         lines_and_tokens retval;
 
@@ -453,7 +371,7 @@ namespace boost { namespace text { namespace detail {
                     if (consume_if_equals('*'))
                         push(token_kind::equal_star);
                     else
-                        push(token_kind::equal); // TODO
+                        push(token_kind::equal);
                 } else if (initial_char == '[') {
                     push(token_kind::open_bracket);
                     ++brackets_nesting;
@@ -534,7 +452,8 @@ namespace boost { namespace text { namespace detail {
                         "sequence");
                     if (!std::all_of(buf, buf_end, is_hex)) {
                         report_error(
-                            "Non-hexidecimal digit in '\\UNNNNNNNN' hexidecimal "
+                            "Non-hexidecimal digit in '\\UNNNNNNNN' "
+                            "hexidecimal "
                             "escape sequence",
                             initial_column);
                     }
