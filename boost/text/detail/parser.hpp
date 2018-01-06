@@ -243,9 +243,6 @@ namespace boost { namespace text { namespace detail {
         if (!require(it, end, token_kind::open_bracket))
             return 0;
 
-        // TODO: These need to be symbolic, because they may change as the
-        // tailoring proceeds.
-
         uint32_t position;
         if (require(it, end, "first", "tertiary", "ignorable"))
             position = first_tertiary_ignorable;

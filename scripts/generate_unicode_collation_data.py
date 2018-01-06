@@ -38,19 +38,33 @@ namespace detail {{
         OR_CJK_Compatibility_Ideographs = {8},
         OR_CJK_Unified_Ideographs_Extension_D = {9},
 
-        no_secondary_ignorables = 0xffffffff,
+        // Symbolic sentinel values produced by the parser.
+        first_tertiary_ignorable = 0xfffffff4,
+        last_tertiary_ignorable = 0xfffffff5,
+        first_secondary_ignorable = 0xfffffff6,
+        last_secondary_ignorable = 0xfffffff7,
+        first_primary_ignorable = 0xfffffff8,
+        last_primary_ignorable = 0xfffffff9,
+        first_variable = 0xfffffffa,
+        last_variable = 0xfffffffb,
+        first_regular = 0xfffffffc,
+        last_regular = 0xfffffffd,
+        first_implicit = 0xffffffe,
 
-        first_tertiary_ignorable = {10},
-        last_tertiary_ignorable = {11},
-        first_secondary_ignorable = {12},
-        last_secondary_ignorable = {13},
-        first_primary_ignorable = {14},
-        last_primary_ignorable = {15},
-        first_variable = {16},
-        last_variable = {17},
-        first_regular = {18},
-        last_regular = {19},
-        first_implicit = {20}
+        invalid_code_point = 0xffffffff,
+        no_secondary_ignorables = invalid_code_point,
+
+        initial_first_tertiary_ignorable = {10},
+        initial_last_tertiary_ignorable = {11},
+        initial_first_secondary_ignorable = {12},
+        initial_last_secondary_ignorable = {13},
+        initial_first_primary_ignorable = {14},
+        initial_last_primary_ignorable = {15},
+        initial_first_variable = {16},
+        initial_last_variable = {17},
+        initial_first_regular = {18},
+        initial_last_regular = {19},
+        initial_first_implicit = {20}
     }};
 }}
 

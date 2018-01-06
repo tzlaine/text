@@ -28,19 +28,33 @@ namespace detail {
         OR_CJK_Compatibility_Ideographs = 0xfa3f,
         OR_CJK_Unified_Ideographs_Extension_D = 0x2bfff,
 
-        no_secondary_ignorables = 0xffffffff,
+        // Symbolic sentinel values produced by the parser.
+        first_tertiary_ignorable = 0xfffffff4,
+        last_tertiary_ignorable = 0xfffffff5,
+        first_secondary_ignorable = 0xfffffff6,
+        last_secondary_ignorable = 0xfffffff7,
+        first_primary_ignorable = 0xfffffff8,
+        last_primary_ignorable = 0xfffffff9,
+        first_variable = 0xfffffffa,
+        last_variable = 0xfffffffb,
+        first_regular = 0xfffffffc,
+        last_regular = 0xfffffffd,
+        first_implicit = 0xffffffe,
 
-        first_tertiary_ignorable = 0,
-        last_tertiary_ignorable = 0xe01ef,
-        first_secondary_ignorable = no_secondary_ignorables,
-        last_secondary_ignorable = no_secondary_ignorables,
-        first_primary_ignorable = 0x332,
-        last_primary_ignorable = 0x101fd,
-        first_variable = 0x9,
-        last_variable = 0x1d371,
-        first_regular = 0x2d0,
-        last_regular = 0xfffd,
-        first_implicit = 0x17000
+        invalid_code_point = 0xffffffff,
+        no_secondary_ignorables = invalid_code_point,
+
+        initial_first_tertiary_ignorable = 0,
+        initial_last_tertiary_ignorable = 0xe01ef,
+        initial_first_secondary_ignorable = no_secondary_ignorables,
+        initial_last_secondary_ignorable = no_secondary_ignorables,
+        initial_first_primary_ignorable = 0x332,
+        initial_last_primary_ignorable = 0x101fd,
+        initial_first_variable = 0x9,
+        initial_last_variable = 0x1d371,
+        initial_first_regular = 0x2d0,
+        initial_last_regular = 0xfffd,
+        initial_first_implicit = 0x17000
     };
 }
 
