@@ -533,7 +533,7 @@ TEST(detail_btree, test_btree_erase)
         EXPECT_EQ(size(root.get()), 1);
     }
 
-#if 0 // This test expects to split the node, but that doesn't really work     \
+#if 0 // This test expects to split the node, but that doesn't really work
       // with std::vector.
     {
         node_ptr<int> root = make_node(std::vector<int>(9, 9));
