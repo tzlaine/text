@@ -15,8 +15,9 @@ namespace boost { namespace text { namespace detail {
 
     struct one_token_parse_error : parse_error
     {
-        one_token_parse_error(string_view msg, token_iter it) :
-            parse_error(msg, it->line(), it->column())
+        one_token_parse_error(string_view msg, token_iter it, token_iter end) :
+            parse_error(
+                msg, it == end ? -1 : it->line(), it == end ? -1 : it->column())
         {}
     };
 
@@ -26,8 +27,12 @@ namespace boost { namespace text { namespace detail {
             string_view msg,
             token_iter it,
             string_view prev_msg,
-            token_iter prev_it) :
-            parse_error(msg, it->line(), it->column()),
+            token_iter prev_it,
+            token_iter end) :
+            parse_error(
+                msg,
+                it == end ? -1 : it->line(),
+                it == end ? -1 : it->column()),
             prev_msg_(prev_msg),
             prev_line_(prev_it->line()),
             prev_column_(prev_it->column())
@@ -56,16 +61,12 @@ namespace boost { namespace text { namespace detail {
                 it_ = initial_it_;
         }
         void release() { released_ = true; }
+
     private:
         token_iter & it_;
         token_iter initial_it_;
         bool released_;
     };
-
-    inline token_iter guarded(token_iter it, token_iter end)
-    {
-        return it == end ? --it : it;
-    }
 
     inline bool require(token_iter & it, token_iter end, token_kind kind)
     {
@@ -137,7 +138,8 @@ namespace boost { namespace text { namespace detail {
             throw one_token_parse_error(
                 "U+FFFD..U+FFFF are not tailorable, and nothing can tailor to "
                 "them.",
-                it);
+                it,
+                end);
         }
         return (it++)->cp();
     }
@@ -163,7 +165,8 @@ namespace boost { namespace text { namespace detail {
             throw one_token_parse_error(
                 "Expected code point after dash; did you forget to escape or "
                 "quote the dash?",
-                guarded(it, end));
+                it,
+                end);
         }
 
         return cp_range_t{*lo, *hi};
@@ -201,14 +204,16 @@ namespace boost { namespace text { namespace detail {
         else if (require(it, end, "3"))
             retval = 3;
         else
-            throw one_token_parse_error("Expected '1', '2', or '3' here", it);
+            throw one_token_parse_error(
+                "Expected '1', '2', or '3' here", it, end);
 
         if (!require(it, end, token_kind::close_bracket)) {
             throw two_token_parse_error(
                 "Expected close bracket here",
-                guarded(it, end),
+                it,
                 "to match previous open bracket",
-                open_bracket_it);
+                open_bracket_it,
+                end);
         }
 
         rollback.release();
@@ -264,25 +269,29 @@ namespace boost { namespace text { namespace detail {
         else if (require(it, end, "last", "implicit"))
             throw one_token_parse_error(
                 "Logical position [last implicit] is not supported",
-                open_bracket_it);
+                open_bracket_it,
+                end);
         else if (require(it, end, "first", "trailing"))
             throw one_token_parse_error(
                 "Logical position [first trailing] is not supported",
-                open_bracket_it);
+                open_bracket_it,
+                end);
         else if (require(it, end, "last", "trailing"))
             throw one_token_parse_error(
                 "Logical position [last trailing] is not supported",
-                open_bracket_it);
+                open_bracket_it,
+                end);
         else
             throw one_token_parse_error(
-                "Unknown logical position", open_bracket_it);
+                "Unknown logical position", open_bracket_it, end);
 
         if (!require(it, end, token_kind::close_bracket)) {
             throw two_token_parse_error(
                 "Expected close bracket here",
-                guarded(it, end),
+                it,
                 "to match previous open bracket",
-                open_bracket_it);
+                open_bracket_it,
+                end);
         }
 
         return position;
@@ -299,7 +308,8 @@ namespace boost { namespace text { namespace detail {
         if (seq.empty()) {
             throw one_token_parse_error(
                 "Expected one or more code points to the right of the operator",
-                guarded(it, end));
+                it,
+                end);
         }
         return optional_cp_seq_t(std::move(seq));
     }
@@ -337,7 +347,8 @@ namespace boost { namespace text { namespace detail {
                 throw one_token_parse_error(
                     "Expected one or more code points to the right of the "
                     "operator",
-                    guarded(it, end));
+                    it,
+                    end);
             }
             return relation_t{
                 *op, std::move(seq), prefix_and_extension(it, end)};
@@ -351,7 +362,8 @@ namespace boost { namespace text { namespace detail {
                 throw one_token_parse_error(
                     "Expected one or more code points to the right of the "
                     "operator",
-                    guarded(it, end));
+                    it,
+                    end);
             }
 
             auto check_ccc_0_and_append = [&](cp_range_t r) {
@@ -362,7 +374,8 @@ namespace boost { namespace text { namespace detail {
                         throw one_token_parse_error(
                             "All code points following an abbreviated relation "
                             "operator must be ccc=0",
-                            start_of_range_it);
+                            start_of_range_it,
+                            end);
                     }
                 }
             };
@@ -378,7 +391,8 @@ namespace boost { namespace text { namespace detail {
             throw one_token_parse_error(
                 "Expected one of '<', '<<', '<<<', '<<<<', '=', '<*', '<<*', "
                 "'<<<*', '<<<<*', or '=*' here",
-                op_it);
+                op_it,
+                end);
         }
     }
 
@@ -410,7 +424,8 @@ namespace boost { namespace text { namespace detail {
             throw one_token_parse_error(
                 "Relation strength must match S in [before S], unless the "
                 "relation operator is '=' or '=*'",
-                rel_it);
+                rel_it,
+                end);
         }
 
         auto record = [&]() {
@@ -436,7 +451,8 @@ namespace boost { namespace text { namespace detail {
                 throw one_token_parse_error(
                     "Relation strength must match S in [before S], unless the "
                     "relation operator is '=' or '=*'",
-                    rel_it);
+                    rel_it,
+                    end);
             }
             record();
         }
@@ -461,14 +477,15 @@ namespace boost { namespace text { namespace detail {
             if (!cp) {
                 throw one_token_parse_error(
                     "Expected code points or a logical position after '&' here",
-                    guarded(it, end));
+                    it,
+                    end);
             }
             lhs.push_back(*cp);
         }
 
         if (!rule_chain(it, end, strength, lhs, tailoring)) {
             throw one_token_parse_error(
-                "Expected one or more relation operators here", guarded(it, end));
+                "Expected one or more relation operators here", it, end);
         }
     }
 
@@ -493,7 +510,8 @@ namespace boost { namespace text { namespace detail {
                     "Expected close bracket here",
                     it,
                     "to match previous open bracket",
-                    prev_it);
+                    prev_it,
+                    end);
             }
         };
 
@@ -504,29 +522,22 @@ namespace boost { namespace text { namespace detail {
         "'caseLevel', 'caseFirst'"
 #endif
 
+        auto const identifier_it = it;
         auto identifier = next_identifier(it, end);
         if (!identifier) {
-            throw one_token_parse_error(expected_msg, it);
+            throw one_token_parse_error(expected_msg, identifier_it, end);
         } else if (*identifier == "import") {
             throw one_token_parse_error(
                 "[import ...] is not supported; manually copy and paste into a "
                 "single input",
-                it);
+                it,
+                end);
         } else if (*identifier == "optimize") {
-            if (tailoring.warnings_) {
-                tailoring.warnings_(parse_diagnostic(
-                    diag_kind::warning,
-                    "[optimize ...] is not supported; ignoring...",
-                    it->line(),
-                    it->column(),
-                    string_view(first, last - first),
-                    line_starts,
-                    filename));
-            }
-
             auto const inner_open_bracket_it = it;
-            if (!require(it, end, token_kind::open_bracket))
-                throw one_token_parse_error("Expect open bracket here", it);
+            if (!require(it, end, token_kind::open_bracket)) {
+                throw one_token_parse_error(
+                    "Expect open bracket here", it, end);
+            }
 
             it = std::find_if(it, end, [](token const & t) {
                 return t.kind() == token_kind::close_bracket;
@@ -534,12 +545,24 @@ namespace boost { namespace text { namespace detail {
 
             require_close_bracket(inner_open_bracket_it);
             require_close_bracket(open_bracket_it);
+
+            if (tailoring.warnings_) {
+                tailoring.warnings_(parse_diagnostic(
+                    diag_kind::warning,
+                    "[optimize ...] is not supported; ignoring...",
+                    open_bracket_it->line(),
+                    open_bracket_it->column(),
+                    string_view(first, last - first),
+                    line_starts,
+                    filename));
+            }
         } else if (*identifier == "suppressContractions") {
             // TODO: Document that this only supports code points and "-" code
             // point ranges.
             auto const inner_open_bracket_it = it;
             if (!require(it, end, token_kind::open_bracket))
-                throw one_token_parse_error("Expect open bracket here", it);
+                throw one_token_parse_error(
+                    "Expect open bracket here", it, end);
 
             cp_seq_t seq;
             auto range = next_cp_range(it, end);
@@ -547,7 +570,8 @@ namespace boost { namespace text { namespace detail {
                 throw one_token_parse_error(
                     "Expect one or more code points or ranges of code points "
                     "here",
-                    it);
+                    it,
+                    end);
             }
 
             auto append_cps = [&seq](cp_range_t r) {
@@ -580,7 +604,7 @@ namespace boost { namespace text { namespace detail {
                 strength = collation_strength::identical;
             else
                 throw one_token_parse_error(
-                    "Expected '1, '2', '3', '4,' or 'I' here", it);
+                    "Expected '1, '2', '3', '4,' or 'I' here", it, end);
             require_close_bracket(open_bracket_it);
             tailoring.collation_strength_(strength);
         } else if (*identifier == "alternate") {
@@ -591,13 +615,13 @@ namespace boost { namespace text { namespace detail {
                 weighting = variable_weighting::shifted;
             else
                 throw one_token_parse_error(
-                    "Expected 'non-ignorable' or 'shifted' here", it);
+                    "Expected 'non-ignorable' or 'shifted' here", it, end);
             require_close_bracket(open_bracket_it);
             tailoring.variable_weighting_(weighting);
         } else if (*identifier == "backwards") {
             if (!require(it, end, "2")) {
                 throw one_token_parse_error(
-                    "Only '[backwards 2]' is supported", it);
+                    "Only '[backwards 2]' is supported", it, end);
             }
             tailoring.l2_weight_order_(l2_weight_order::backward);
             require_close_bracket(open_bracket_it);
@@ -612,10 +636,11 @@ namespace boost { namespace text { namespace detail {
         } else if (*identifier == "reorder") {
             if (prev_reorder) {
                 throw two_token_parse_error(
-                    "Only one '[reorder ...]' may appear at most once",
+                    "'[reorder ...]' may appear at most once",
                     open_bracket_it,
                     "previous one was here",
-                    *prev_reorder);
+                    *prev_reorder,
+                    end);
             }
 
             std::vector<string> reorderings;
@@ -623,14 +648,16 @@ namespace boost { namespace text { namespace detail {
             while ((str = next_identifier(it, end))) {
                 reorderings.push_back(std::move(*str));
             }
-            if (reorderings.empty())
-                throw one_token_parse_error("Expected reorder-code here", it);
+            if (reorderings.empty()) {
+                throw one_token_parse_error(
+                    "Expected reorder-code here", it, end);
+            }
             tailoring.reorder_(std::move(reorderings));
             require_close_bracket(open_bracket_it);
 
             return open_bracket_it;
         } else {
-            throw one_token_parse_error(expected_msg, it);
+            throw one_token_parse_error(expected_msg, identifier_it, end);
         }
 
         return {};
@@ -670,7 +697,8 @@ namespace boost { namespace text { namespace detail {
                     throw one_token_parse_error(
                         "Illegal token; expected a rule ('& ...') or an "
                         "option/special ('[...]')",
-                        it);
+                        it,
+                        end);
                 }
             }
         } catch (two_token_parse_error const & e) {

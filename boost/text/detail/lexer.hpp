@@ -148,6 +148,11 @@ namespace boost { namespace text { namespace detail {
             return string(os.str());
         };
 
+        if (line < 0 || column < 0) {
+            line = line_starts.size() - 2;
+            column = line_starts.back();
+        }
+
         string str;
         if (!filename.empty()) {
             str += filename;
@@ -538,6 +543,8 @@ namespace boost { namespace text { namespace detail {
 
         if (!retval.tokens_.empty() && retval.tokens_.back() == 0)
             retval.tokens_.pop_back();
+
+        retval.line_starts_.push_back(last - initial_first);
 
         return retval;
     }

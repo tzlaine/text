@@ -20,6 +20,7 @@ TEST(parser, failures)
         [](text::string const & s) { std::cout << s; },
         [](text::string const & s) { std::cout << s; }};
 
+    // Exceptions produced by parse() itself.
     {
         text::string_view sv = "";
         EXPECT_THROW(
@@ -36,6 +37,7 @@ TEST(parser, failures)
             text::parse_error);
     }
 
+    // Exceptions produced by parse_rule()
     {
         text::string_view sv = "& \\ufffd < a";
         EXPECT_THROW(
@@ -194,5 +196,244 @@ TEST(parser, failures)
             text::parse_error);
     }
 
-    // TODO: Exceptions originating from parse_option().
+    // Exceptions produced by parse_option().
+    {
+        text::string_view sv = "[]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[foo]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[|]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[import foo]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[import";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[optimize [foo";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[optimize [foo]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[optimize [";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[optimize";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[optimize []";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[suppressContractions [foo";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[suppressContractions [foo]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[suppressContractions";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[suppressContractions [";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[suppressContractions []";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[strength]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[strength";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[strength foo]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[strength I";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[alternate]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[alternate";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[alternate foo]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[alternate shifted";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[backwards]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[backwards";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[backwards 1]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[backwards 2";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "[reorder foo] [reorder bar]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
 }
