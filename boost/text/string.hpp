@@ -51,6 +51,9 @@ namespace boost { namespace text {
             swap(rhs);
         }
 
+        /** Constructs a string from a null-terminated string. */
+        string(char const * c_str);
+
         /** Constructs a string from a string_view. */
         explicit string(string_view tv);
 
@@ -843,6 +846,11 @@ namespace boost { namespace text {
         insert(0, string_view(t.begin(), t.size() + 1));
     }
 
+    inline string::string(char const * c_str) : storage_(), size_(0), heap_(false)
+    {
+        insert(0, string_view(c_str));
+    }
+
     inline string::string(string_view tv) : storage_(), size_(0), heap_(false)
     {
         insert(0, tv);
@@ -1251,38 +1259,56 @@ namespace boost { namespace text {
 
     inline bool operator==(char const * lhs, string const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) == 0;
+        return rhs.compare(string_view(lhs)) == 0;
+    }
+    inline bool operator==(string const & lhs, char const * rhs) noexcept
+    {
+        return lhs.compare(string_view(rhs)) == 0;
     }
 
     inline bool operator!=(char const * lhs, string const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) != 0;
+        return rhs.compare(string_view(lhs)) != 0;
+    }
+    inline bool operator!=(string const & lhs, char const * rhs) noexcept
+    {
+        return lhs.compare(string_view(rhs)) != 0;
     }
 
     inline bool operator<(char const * lhs, string const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) < 0;
+        return rhs.compare(string_view(lhs)) > 0;
+    }
+    inline bool operator<(string const & lhs, char const * rhs) noexcept
+    {
+        return lhs.compare(string_view(rhs)) < 0;
     }
 
     inline bool operator<=(char const * lhs, string const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) <= 0;
+        return rhs.compare(string_view(lhs)) >= 0;
+    }
+    inline bool operator<=(string const & lhs, char const * rhs) noexcept
+    {
+        return lhs.compare(string_view(rhs)) <= 0;
     }
 
     inline bool operator>(char const * lhs, string const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) > 0;
+        return rhs.compare(string_view(lhs)) < 0;
+    }
+    inline bool operator>(string const & lhs, char const * rhs) noexcept
+    {
+        return lhs.compare(string_view(rhs)) > 0;
     }
 
     inline bool operator>=(char const * lhs, string const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs, lhs + strlen(lhs), rhs.begin(), rhs.end()) >= 0;
+        return rhs.compare(string_view(lhs)) <= 0;
+    }
+    inline bool operator>=(string const & lhs, char const * rhs) noexcept
+    {
+        return lhs.compare(string_view(rhs)) >= 0;
     }
 
 

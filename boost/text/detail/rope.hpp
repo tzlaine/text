@@ -249,6 +249,11 @@ namespace boost { namespace text { namespace detail {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(rtv));
     }
 
+    inline node_ptr<rope_tag> make_node(char const * c_str)
+    {
+        return make_node(string_view(c_str));
+    }
+
     inline node_ptr<rope_tag> make_ref(
         leaf_node_t<rope_tag> const * t,
         std::ptrdiff_t lo,

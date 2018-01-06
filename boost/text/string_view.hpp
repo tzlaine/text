@@ -250,9 +250,37 @@ namespace boost { namespace text {
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator==(char const * lhs, string_view rhs) noexcept
+    {
+        return string_view(lhs) == rhs;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator==(string_view lhs, char const * rhs) noexcept
+    {
+        return lhs == string_view(rhs);
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator!=(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) != 0;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator!=(char const * lhs, string_view rhs) noexcept
+    {
+        return string_view(lhs) != rhs;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator!=(string_view lhs, char const * rhs) noexcept
+    {
+        return lhs != string_view(rhs);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -264,9 +292,37 @@ namespace boost { namespace text {
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator<(char const * lhs, string_view rhs) noexcept
+    {
+        return string_view(lhs) < rhs;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator<(string_view lhs, char const * rhs) noexcept
+    {
+        return lhs < string_view(rhs);
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator<=(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) <= 0;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator<=(char const * lhs, string_view rhs) noexcept
+    {
+        return string_view(lhs) <= rhs;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator<=(string_view lhs, char const * rhs) noexcept
+    {
+        return lhs <= string_view(rhs);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -278,9 +334,37 @@ namespace boost { namespace text {
 
     /** This function is constexpr in C++14 and later. */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator>(char const * lhs, string_view rhs) noexcept
+    {
+        return string_view(lhs) > rhs;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator>(string_view lhs, char const * rhs) noexcept
+    {
+        return lhs > string_view(rhs);
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator>=(string_view lhs, string_view rhs) noexcept
     {
         return lhs.compare(rhs) >= 0;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator>=(char const * lhs, string_view rhs) noexcept
+    {
+        return string_view(lhs) >= rhs;
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator>=(string_view lhs, char const * rhs) noexcept
+    {
+        return lhs >= string_view(rhs);
     }
 
     inline constexpr string_view::iterator begin(string_view tv) noexcept

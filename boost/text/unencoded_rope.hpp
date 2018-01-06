@@ -40,6 +40,9 @@ namespace boost { namespace text {
         unencoded_rope(unencoded_rope const & rhs) = default;
         unencoded_rope(unencoded_rope && rhs) noexcept = default;
 
+        /** Constructs an unencoded_rope from a null-terminated string. */
+        explicit unencoded_rope(char const * c_str);
+
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
 
@@ -231,6 +234,13 @@ namespace boost { namespace text {
         }
 
         void clear() { ptr_ = detail::node_ptr<detail::rope_tag>(); }
+
+        /** Inserts the null-terminated string into *this starting at offset
+            at.
+
+            \throw std::invalid_argument if insertion at offset at would break
+            UTF-8 encoding. */
+        unencoded_rope & insert(size_type at, char const * c_str);
 
         /** Inserts the sequence of char from rv into *this starting at offset
             at.
@@ -512,6 +522,11 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
+    inline unencoded_rope::unencoded_rope(char const * c_str) : ptr_(nullptr)
+    {
+        insert(0, unencoded_rope_view(c_str));
+    }
+
     inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
         ptr_(nullptr)
     {
@@ -532,6 +547,12 @@ namespace boost { namespace text {
     inline int unencoded_rope::compare(unencoded_rope rhs) const noexcept
     {
         return unencoded_rope_view(*this).compare(rhs);
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(size_type at, char const * c_str)
+    {
+        return insert(at, unencoded_rope_view(c_str));
     }
 
     inline unencoded_rope &
