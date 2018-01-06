@@ -43,6 +43,30 @@ namespace boost { namespace text { namespace detail {
         int prev_column_;
     };
 
+    struct scoped_token_iter
+    {
+        scoped_token_iter(token_iter & it) :
+            it_(it),
+            initial_it_(it),
+            released_(false)
+        {}
+        ~scoped_token_iter()
+        {
+            if (!released_)
+                it_ = initial_it_;
+        }
+        void release() { released_ = true; }
+    private:
+        token_iter & it_;
+        token_iter initial_it_;
+        bool released_;
+    };
+
+    inline token_iter guarded(token_iter it, token_iter end)
+    {
+        return it == end ? --it : it;
+    }
+
     inline bool require(token_iter & it, token_iter end, token_kind kind)
     {
         if (it == end)
@@ -66,15 +90,15 @@ namespace boost { namespace text { namespace detail {
     template<typename T, typename... Ts>
     inline bool require_impl(token_iter & it, token_iter end, T t, Ts... ts)
     {
-        if (require_impl(it, end) && require_impl(it, end, ts...))
+        if (require(it, end, t) && require_impl(it, end, ts...))
             return true;
         return false;
     }
-    template<typename T, typename... Ts>
-    inline bool require(token_iter & it, token_iter end, T t, Ts... ts)
+    template<typename T0, typename T1, typename... Ts>
+    inline bool require(token_iter & it, token_iter end, T0 t0, T1 t1, Ts... ts)
     {
         auto const initial_it = it;
-        if (!require_impl(it, end, t, ts...)) {
+        if (!require_impl(it, end, t0, t1, ts...)) {
             it = initial_it;
             return false;
         }
@@ -139,7 +163,7 @@ namespace boost { namespace text { namespace detail {
             throw one_token_parse_error(
                 "Expected code point after dash; did you forget to escape or "
                 "quote the dash?",
-                it);
+                guarded(it, end));
         }
 
         return cp_range_t{*lo, *hi};
@@ -160,6 +184,8 @@ namespace boost { namespace text { namespace detail {
     // before-strength = "[", "before", ("1" | "2" | "3"), "]" ;
     inline int before_strength(token_iter & it, token_iter end)
     {
+        scoped_token_iter rollback(it);
+
         auto const open_bracket_it = it;
         if (!require(it, end, token_kind::open_bracket))
             return 0;
@@ -180,10 +206,12 @@ namespace boost { namespace text { namespace detail {
         if (!require(it, end, token_kind::close_bracket)) {
             throw two_token_parse_error(
                 "Expected close bracket here",
-                it,
+                guarded(it, end),
                 "to match previous open bracket",
                 open_bracket_it);
         }
+
+        rollback.release();
 
         return retval;
     }
@@ -235,20 +263,24 @@ namespace boost { namespace text { namespace detail {
             position = first_implicit;
         else if (require(it, end, "last", "implicit"))
             throw one_token_parse_error(
-                "Logical position [last implicit] is not supported", it);
+                "Logical position [last implicit] is not supported",
+                open_bracket_it);
         else if (require(it, end, "first", "trailing"))
             throw one_token_parse_error(
-                "Logical position [first trailing] is not supported", it);
+                "Logical position [first trailing] is not supported",
+                open_bracket_it);
         else if (require(it, end, "last", "trailing"))
             throw one_token_parse_error(
-                "Logical position [last trailing] is not supported", it);
+                "Logical position [last trailing] is not supported",
+                open_bracket_it);
         else
-            throw one_token_parse_error("Unknown logical position", it);
+            throw one_token_parse_error(
+                "Unknown logical position", open_bracket_it);
 
         if (!require(it, end, token_kind::close_bracket)) {
             throw two_token_parse_error(
                 "Expected close bracket here",
-                it,
+                guarded(it, end),
                 "to match previous open bracket",
                 open_bracket_it);
         }
@@ -266,8 +298,8 @@ namespace boost { namespace text { namespace detail {
         auto seq = next_cp_seq(it, end);
         if (seq.empty()) {
             throw one_token_parse_error(
-                "Expected one or more code points to the right of an operator",
-                it);
+                "Expected one or more code points to the right of the operator",
+                guarded(it, end));
         }
         return optional_cp_seq_t(std::move(seq));
     }
@@ -303,9 +335,9 @@ namespace boost { namespace text { namespace detail {
             auto seq = next_cp_seq(it, end);
             if (seq.empty()) {
                 throw one_token_parse_error(
-                    "Expected one or more code points to the right of an "
+                    "Expected one or more code points to the right of the "
                     "operator",
-                    it);
+                    guarded(it, end));
             }
             return relation_t{
                 *op, std::move(seq), prefix_and_extension(it, end)};
@@ -317,14 +349,14 @@ namespace boost { namespace text { namespace detail {
             auto range = next_cp_range(it, end);
             if (!range) {
                 throw one_token_parse_error(
-                    "Expected one or more code points to the right of an "
+                    "Expected one or more code points to the right of the "
                     "operator",
-                    it);
+                    guarded(it, end));
             }
 
             auto check_ccc_0_and_append = [&](cp_range_t r) {
                 for (auto cp = r.first_, cp_end = r.last_; cp < cp_end; ++cp) {
-                    if (ccc(cp)) {
+                    if (!ccc(cp)) {
                         seq.push_back(cp);
                     } else {
                         throw one_token_parse_error(
@@ -353,8 +385,11 @@ namespace boost { namespace text { namespace detail {
     inline bool strength_matches_op(int str, token_kind op) noexcept
     {
         return str == 0 || op == token_kind::equal ||
+               op == token_kind::equal_star ||
                str - 1 == static_cast<int>(op) -
-                              static_cast<int>(token_kind::primary_before);
+                              static_cast<int>(token_kind::primary_before) ||
+               str - 1 == static_cast<int>(op) -
+                              static_cast<int>(token_kind::primary_before_star);
     }
 
     // reset = cp-sequence | logical-position ;
@@ -396,9 +431,7 @@ namespace boost { namespace text { namespace detail {
 
         record();
 
-        while (rel) {
-            rel_it = it;
-            rel = relation(it, end);
+        while (rel_it = it, rel = relation(it, end)) {
             if (!strength_matches_op(before_strength_, rel->op_)) {
                 throw one_token_parse_error(
                     "Relation strength must match S in [before S], unless the "
@@ -428,14 +461,14 @@ namespace boost { namespace text { namespace detail {
             if (!cp) {
                 throw one_token_parse_error(
                     "Expected code points or a logical position after '&' here",
-                    it);
+                    guarded(it, end));
             }
             lhs.push_back(*cp);
         }
 
         if (!rule_chain(it, end, strength, lhs, tailoring)) {
             throw one_token_parse_error(
-                "Expected one or more relation operators here", it);
+                "Expected one or more relation operators here", guarded(it, end));
         }
     }
 
@@ -613,6 +646,11 @@ namespace boost { namespace text { namespace detail {
 
         optional<token_iter> prev_reorder;
         try {
+            if (lat.tokens_.empty()) {
+                throw parse_error(
+                    "Tailoring must contain at least one rule or option", 0, 0);
+            }
+
             auto it = lat.tokens_.begin();
             auto const end = lat.tokens_.end();
             while (it != end) {

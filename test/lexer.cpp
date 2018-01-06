@@ -49,7 +49,6 @@ char const * failure_cases[] = {
 
     // Unbalanced elements:
     "'",
-    "[",
     "]",
     "[]]",
 };

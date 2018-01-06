@@ -536,9 +536,6 @@ namespace boost { namespace text { namespace detail {
         if (in_quote)
             report_error("Close quote missing at end of input", column);
 
-        if (0 < brackets_nesting)
-            report_error("Close bracket(s) missing at end of input", column);
-
         if (!retval.tokens_.empty() && retval.tokens_.back() == 0)
             retval.tokens_.pop_back();
 

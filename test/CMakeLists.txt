@@ -90,6 +90,7 @@ add_test_executable(relative_collation_test_shifted_7)
 add_test_executable(relative_collation_test_shifted_8)
 
 add_test_executable(lexer)
+add_test_executable(parser)
 
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).
