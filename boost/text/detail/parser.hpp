@@ -353,8 +353,8 @@ namespace boost { namespace text { namespace detail {
     inline bool strength_matches_op(int str, token_kind op) noexcept
     {
         return str == 0 || op == token_kind::equal ||
-               str - 1 ==
-                   static_cast<int>(op) - static_cast<int>(token_kind::primary_before);
+               str - 1 == static_cast<int>(op) -
+                              static_cast<int>(token_kind::primary_before);
     }
 
     // reset = cp-sequence | logical-position ;
@@ -411,7 +411,7 @@ namespace boost { namespace text { namespace detail {
         return true;
     }
 
-    inline void rule(
+    inline void parse_rule(
         token_iter & it,
         token_iter end,
         collation_tailoring_interface & tailoring)
@@ -439,27 +439,41 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    inline void option(
+    inline optional<token_iter> parse_option(
         token_iter & it,
         token_iter end,
         char const * const first,
         char const * const last,
         collation_tailoring_interface & tailoring,
         std::vector<int> const & line_starts,
-        string_view filename)
+        string_view filename,
+        optional<token_iter> prev_reorder)
     {
         auto const open_bracket_it = it;
         if (!require(it, end, token_kind::open_bracket)) {
             assert(!"Something has gone horribly wrong.");
         }
 
+        auto require_close_bracket = [&](token_iter prev_it) {
+            if (!require(it, end, token_kind::close_bracket)) {
+                throw two_token_parse_error(
+                    "Expected close bracket here",
+                    it,
+                    "to match previous open bracket",
+                    prev_it);
+            }
+        };
+
+        string_view const expected_msg =
+            "Expected one 'strength', 'alternate', backwards', 'reorder', "
+            "'import', 'optimize', or 'suppressContractions' here";
+#if 0 // TODO: Add once they are added below:
+        "'caseLevel', 'caseFirst'"
+#endif
+
         auto identifier = next_identifier(it, end);
         if (!identifier) {
-            // TODO: This list is far too short!
-            throw one_token_parse_error(
-                "Expected one 'import', 'optimize', or 'suppressContractions' "
-                "here",
-                it);
+            throw one_token_parse_error(expected_msg, it);
         } else if (*identifier == "import") {
             throw one_token_parse_error(
                 "[import ...] is not supported; manually copy and paste into a "
@@ -484,14 +498,9 @@ namespace boost { namespace text { namespace detail {
             it = std::find_if(it, end, [](token const & t) {
                 return t.kind() == token_kind::close_bracket;
             });
-            if (it == end) {
-                throw two_token_parse_error(
-                    "Expected close bracket here",
-                    it,
-                    "to match previous open bracket",
-                    inner_open_bracket_it);
-            }
-            ++it;
+
+            require_close_bracket(inner_open_bracket_it);
+            require_close_bracket(open_bracket_it);
         } else if (*identifier == "suppressContractions") {
             // TODO: Document that this only supports code points and "-" code
             // point ranges.
@@ -520,56 +529,105 @@ namespace boost { namespace text { namespace detail {
                 append_cps(*range);
             }
 
-            if (!require(it, end, token_kind::close_bracket)) {
+            require_close_bracket(inner_open_bracket_it);
+            require_close_bracket(open_bracket_it);
+
+            tailoring.suppress_(seq);
+        } else if (*identifier == "strength") {
+            auto strength = collation_strength::primary;
+            if (require(it, end, "1"))
+                strength = collation_strength::primary;
+            else if (require(it, end, "2"))
+                strength = collation_strength::secondary;
+            else if (require(it, end, "3"))
+                strength = collation_strength::tertiary;
+            else if (require(it, end, "4"))
+                strength = collation_strength::quaternary;
+            else if (require(it, end, "I"))
+                strength = collation_strength::identical;
+            else
+                throw one_token_parse_error(
+                    "Expected '1, '2', '3', '4,' or 'I' here", it);
+            require_close_bracket(open_bracket_it);
+            tailoring.collation_strength_(strength);
+        } else if (*identifier == "alternate") {
+            auto weighting = variable_weighting::non_ignorable;
+            if (require(it, end, "non-ignorable"))
+                weighting = variable_weighting::non_ignorable;
+            else if (require(it, end, "shifted"))
+                weighting = variable_weighting::shifted;
+            else
+                throw one_token_parse_error(
+                    "Expected 'non-ignorable' or 'shifted' here", it);
+            require_close_bracket(open_bracket_it);
+            tailoring.variable_weighting_(weighting);
+        } else if (*identifier == "backwards") {
+            if (!require(it, end, "2")) {
+                throw one_token_parse_error(
+                    "Only '[backwards 2]' is supported", it);
+            }
+            tailoring.l2_weight_order_(l2_weight_order::backward);
+            require_close_bracket(open_bracket_it);
+#if 0 // TODO
+        } else if (*identifier == "caseLevel") {
+            // on,off
+            require_close_bracket(open_bracket_it);
+        } else if (*identifier == "caseFirst") {
+            // upper,lower
+            require_close_bracket(open_bracket_it);
+#endif
+        } else if (*identifier == "reorder") {
+            if (prev_reorder) {
                 throw two_token_parse_error(
-                    "Expected close bracket here",
-                    it,
-                    "to match previous open bracket",
-                    inner_open_bracket_it);
+                    "Only one '[reorder ...]' may appear at most once",
+                    open_bracket_it,
+                    "previous one was here",
+                    *prev_reorder);
             }
 
-            // TODO: Record the suppression.
+            std::vector<string> reorderings;
+            optional<string> str;
+            while ((str = next_identifier(it, end))) {
+                reorderings.push_back(std::move(*str));
+            }
+            if (reorderings.empty())
+                throw one_token_parse_error("Expected reorder-code here", it);
+            tailoring.reorder_(std::move(reorderings));
+            require_close_bracket(open_bracket_it);
+
+            return open_bracket_it;
         } else {
-            // TODO: This list is far too short!
-            // TODO: This leaves out all the options ([strength 2], etc.)!
-            throw one_token_parse_error(
-                "Expected one 'import', 'optimize', or 'suppressContractions' "
-                "here",
-                it);
+            throw one_token_parse_error(expected_msg, it);
         }
 
-        if (!require(it, end, token_kind::close_bracket)) {
-            throw two_token_parse_error(
-                "Expected close bracket here",
-                it,
-                "to match previous open bracket",
-                open_bracket_it);
-        }
+        return {};
     }
 
-    inline bool parse_impl(
+    inline void parse(
         char const * first,
         char const * const last,
         collation_tailoring_interface & tailoring,
-        string_view filename = "")
+        string_view filename)
     {
-        auto const lat = lex(first, last, tailoring.errors_);
+        auto const lat = lex(first, last, tailoring.errors_, filename);
 
+        optional<token_iter> prev_reorder;
         try {
             auto it = lat.tokens_.begin();
             auto const end = lat.tokens_.end();
             while (it != end) {
                 if (*it == token_kind::and_) {
-                    rule(it, end, tailoring);
+                    parse_rule(it, end, tailoring);
                 } else if (*it == token_kind::open_bracket) {
-                    option(
+                    prev_reorder = parse_option(
                         it,
                         end,
                         first,
                         last,
                         tailoring,
                         lat.line_starts_,
-                        filename);
+                        filename,
+                        prev_reorder);
                 } else {
                     throw one_token_parse_error(
                         "Illegal token; expected a rule ('& ...') or an "
@@ -596,7 +654,7 @@ namespace boost { namespace text { namespace detail {
                     lat.line_starts_,
                     filename));
             }
-            return false;
+            throw;
         } catch (parse_error const & e) {
             if (tailoring.errors_) {
                 tailoring.errors_(parse_diagnostic(
@@ -608,10 +666,8 @@ namespace boost { namespace text { namespace detail {
                     lat.line_starts_,
                     filename));
             }
-            return false;
+            throw;
         }
-
-        return true;
     }
 
 }}}
