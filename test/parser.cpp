@@ -463,7 +463,7 @@ TEST(parser, options)
     }
 
     {
-        text::collation_strength result;
+        text::collation_strength result = text::collation_strength::identical;
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
@@ -504,7 +504,7 @@ TEST(parser, options)
     }
 
     {
-        text::variable_weighting result;
+        text::variable_weighting result = text::variable_weighting::shifted;
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
@@ -532,7 +532,7 @@ TEST(parser, options)
     }
 
     {
-        text::l2_weight_order result;
+        text::l2_weight_order result = text::l2_weight_order::forward;
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
@@ -572,5 +572,237 @@ TEST(parser, options)
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected);
+    }
+}
+
+TEST(parser, rules)
+{
+    {
+        text::detail::cp_seq_t reset_result;
+        bool before_result = true;
+        text::detail::relation_t relation_result;
+        text::detail::cp_seq_t const abc = {'a', 'b', 'c'};
+        text::detail::cp_seq_t const xyz = {'x', 'y', 'z'};
+        text::detail::cp_seq_t const _123 = {'1', '2', '3'};
+        text::detail::cp_seq_t const foo = {'f', 'o', 'o'};
+        text::detail::cp_seq_t const last_regular = {
+            text::detail::last_regular};
+
+        text::detail::collation_tailoring_interface callbacks = {
+            [&](text::detail::cp_seq_t const & reset_, bool before_) {
+                reset_result = reset_;
+                before_result = before_;
+            },
+            [&](text::detail::relation_t const & rel) {
+                relation_result = rel;
+            },
+            [](text::collation_strength strength) {},
+            [](text::variable_weighting weighting) {},
+            [](text::l2_weight_order order) {},
+            [](text::detail::cp_seq_t const & suppressions) {},
+            [](std::vector<text::string> && reorderings) {},
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; }};
+
+        text::string_view sv;
+
+        // Testing operators and before/after.
+
+        sv = "& a = b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
+
+        sv = "& [before 1] a = b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
+
+        sv = "& a < b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+
+        sv = "& [before 1] a < b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+
+        sv = "& a << b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+
+        sv = "& [before 2] a << b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+
+        sv = "& a <<< b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+
+        sv = "& [before 3] a <<< b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+
+        sv = "& a <<<< b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::quaternary_before);
+
+
+        sv = "& a =* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
+
+        sv = "& [before 1] a =* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::equal);
+
+        sv = "& a <* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+
+        sv = "& [before 1] a <* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+
+        sv = "& a <<* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+
+        sv = "& [before 2] a <<* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+
+        sv = "& a <<<* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+
+        sv = "& [before 3] a <<<* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, true);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+
+        sv = "& a <<<<* b";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::quaternary_before);
+
+
+        // Testing prefixes and extensions.
+
+        sv = "& abc < xyz | 123 / foo";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, abc);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(relation_result.cps_, xyz);
+        EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, _123);
+        EXPECT_EQ(relation_result.prefix_and_extension_.extension_, foo);
+
+        sv = "& abc < xyz / foo | 123";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, abc);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(relation_result.cps_, xyz);
+        EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, _123);
+        EXPECT_EQ(relation_result.prefix_and_extension_.extension_, foo);
+
+        sv = "& abc < xyz | 123";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, abc);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(relation_result.cps_, xyz);
+        EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, _123);
+        EXPECT_EQ(
+            relation_result.prefix_and_extension_.extension_,
+            text::detail::optional_cp_seq_t());
+
+        sv = "& abc < xyz / foo";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, abc);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(relation_result.cps_, xyz);
+        EXPECT_EQ(
+            relation_result.prefix_and_extension_.prefix_,
+            text::detail::optional_cp_seq_t());
+        EXPECT_EQ(relation_result.prefix_and_extension_.extension_, foo);
+
+        sv = "& abc < xyz";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, abc);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(relation_result.cps_, xyz);
+        EXPECT_EQ(
+            relation_result.prefix_and_extension_.prefix_,
+            text::detail::optional_cp_seq_t());
+        EXPECT_EQ(
+            relation_result.prefix_and_extension_.extension_,
+            text::detail::optional_cp_seq_t());
+
+
+        // Testing full rules.
+
+        sv = "& abc < xyz | 123 / foo << foo";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, abc);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+        EXPECT_EQ(relation_result.cps_, foo);
+        EXPECT_EQ(
+            relation_result.prefix_and_extension_.prefix_,
+            text::detail::optional_cp_seq_t());
+        EXPECT_EQ(
+            relation_result.prefix_and_extension_.extension_,
+            text::detail::optional_cp_seq_t());
+
+        sv = "& [last regular] < bar < xyz | foo / 123";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(reset_result, last_regular);
+        EXPECT_EQ(before_result, false);
+        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(relation_result.cps_, xyz);
+        EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, foo);
+        EXPECT_EQ(relation_result.prefix_and_extension_.extension_, _123);
     }
 }
