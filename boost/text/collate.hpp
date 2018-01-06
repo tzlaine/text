@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_COLLATE_HPP
 #define BOOST_TEXT_COLLATE_HPP
 
+#include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
@@ -12,21 +13,6 @@
 
 
 namespace boost { namespace text {
-
-    /** TODO */
-    enum class collation_strength {
-        primary,
-        secondary,
-        tertiary,
-        quaternary,
-        identical
-    };
-
-    /** TODO */
-    enum class variable_weighting { non_ignorable, shifted };
-
-    /** TODO */
-    enum class l2_weight_order { forward, backward };
 
     /** TODO */
     struct text_sort_key

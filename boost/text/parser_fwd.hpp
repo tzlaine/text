@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_PARSER_FWD_HPP
 #define BOOST_TEXT_PARSER_FWD_HPP
 
-#include <boost/text/collate.hpp>
+#include <boost/text/collation_fwd.hpp>
 #include <boost/text/string.hpp>
 
 #include <boost/optional.hpp>
