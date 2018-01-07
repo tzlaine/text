@@ -4,7 +4,7 @@
 #include <benchmark/benchmark.h>
 
 uint32_t cps_600[] = {
-0x1f747, 0x1f748, 0x1f749, 0x1f74a, 0x1f74b, 0x1f74c, 0x1f74d, 0x1f74e, 0x1f74f, 0x1f750, 0x1f751, 0x1f752, 0x1f753, 0x1f754, 0x1f755, 0x1f756, 0x1f757, 0x1f758, 0x1f759, 0x1f75a, 0x1f75b, 0x1f75c, 0x1f75d, 0x1f75e, 0x1f75f, 0x1f760, 0x1f761, 0x1f762, 0x1f763, 0x1f764, 0x1f765, 0x1f766, 0x1f767, 0x1f768, 0x1f769, 0x1f76a, 0x1f76b, 0x1f76c, 0x1f76d, 0x1f76e, 0x1f76f, 0x1f770, 0x1f771, 0x1f772, 0x1f773, 0x1f780, 0x1f781, 0x1f782, 0x1f783, 0x1f784
+0x18218, 0x18219, 0x1821a, 0x1821b, 0x1821c, 0x1821d, 0x1821e, 0x1821f, 0x18220, 0x18221, 0x18222, 0x18223, 0x18224, 0x18225, 0x18226, 0x18227, 0x18228, 0x18229, 0x1822a, 0x1822b, 0x1822c, 0x1822d, 0x1822e, 0x1822f, 0x18230, 0x18231, 0x18232, 0x18233, 0x18234, 0x18235, 0x18236, 0x18237, 0x18238, 0x18239, 0x1823a, 0x1823b, 0x1823c, 0x1823d, 0x1823e, 0x1823f, 0x18240, 0x18241, 0x18242, 0x18243, 0x18244, 0x18245, 0x18246, 0x18247, 0x18248, 0x18249
 };
 
 void BM_collation_element_lookup_600(benchmark::State & state)
@@ -65,7 +65,7 @@ void BM_collation_element_lookup_600(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_600);
 
 uint32_t cps_601[] = {
-0x1f785, 0x1f786, 0x1f787, 0x1f788, 0x1f789, 0x1f78a, 0x1f78b, 0x1f78c, 0x1f78d, 0x1f78e, 0x1f78f, 0x1f790, 0x1f791, 0x1f792, 0x1f793, 0x1f794, 0x1f795, 0x1f796, 0x1f797, 0x1f798, 0x1f799, 0x1f79a, 0x1f79b, 0x1f79c, 0x1f79d, 0x1f79e, 0x1f79f, 0x1f7a0, 0x1f7a1, 0x1f7a2, 0x1f7a3, 0x1f7a4, 0x1f7a5, 0x1f7a6, 0x1f7a7, 0x1f7a8, 0x1f7a9, 0x1f7aa, 0x1f7ab, 0x1f7ac, 0x1f7ad, 0x1f7ae, 0x1f7af, 0x1f7b0, 0x1f7b1, 0x1f7b2, 0x1f7b3, 0x1f7b4, 0x1f7b5, 0x1f7b6
+0x1824a, 0x1824b, 0x1824c, 0x1824d, 0x1824e, 0x1824f, 0x18250, 0x18251, 0x18252, 0x18253, 0x18254, 0x18255, 0x18256, 0x18257, 0x18258, 0x18259, 0x1825a, 0x1825b, 0x1825c, 0x1825d, 0x1825e, 0x1825f, 0x18260, 0x18261, 0x18262, 0x18263, 0x18264, 0x18265, 0x18266, 0x18267, 0x18268, 0x18269, 0x1826a, 0x1826b, 0x1826c, 0x1826d, 0x1826e, 0x1826f, 0x18270, 0x18271, 0x18272, 0x18273, 0x18274, 0x18275, 0x18276, 0x18277, 0x18278, 0x18279, 0x1827a, 0x1827b
 };
 
 void BM_collation_element_lookup_601(benchmark::State & state)
@@ -126,7 +126,7 @@ void BM_collation_element_lookup_601(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_601);
 
 uint32_t cps_602[] = {
-0x1f7b7, 0x1f7b8, 0x1f7b9, 0x1f7ba, 0x1f7bb, 0x1f7bc, 0x1f7bd, 0x1f7be, 0x1f7bf, 0x1f7c0, 0x1f7c1, 0x1f7c2, 0x1f7c3, 0x1f7c4, 0x1f7c5, 0x1f7c6, 0x1f7c7, 0x1f7c8, 0x1f7c9, 0x1f7ca, 0x1f7cb, 0x1f7cc, 0x1f7cd, 0x1f7ce, 0x1f7cf, 0x1f7d0, 0x1f7d1, 0x1f7d2, 0x1f7d3, 0x1f7d4, 0x1f800, 0x1f801, 0x1f802, 0x1f803, 0x1f804, 0x1f805, 0x1f806, 0x1f807, 0x1f808, 0x1f809, 0x1f80a, 0x1f80b, 0x1f810, 0x1f811, 0x1f812, 0x1f813, 0x1f814, 0x1f815, 0x1f816, 0x1f817
+0x1827c, 0x1827d, 0x1827e, 0x1827f, 0x18280, 0x18281, 0x18282, 0x18283, 0x18284, 0x18285, 0x18286, 0x18287, 0x18288, 0x18289, 0x1828a, 0x1828b, 0x1828c, 0x1828d, 0x1828e, 0x1828f, 0x18290, 0x18291, 0x18292, 0x18293, 0x18294, 0x18295, 0x18296, 0x18297, 0x18298, 0x18299, 0x1829a, 0x1829b, 0x1829c, 0x1829d, 0x1829e, 0x1829f, 0x182a0, 0x182a1, 0x182a2, 0x182a3, 0x182a4, 0x182a5, 0x182a6, 0x182a7, 0x182a8, 0x182a9, 0x182aa, 0x182ab, 0x182ac, 0x182ad
 };
 
 void BM_collation_element_lookup_602(benchmark::State & state)
@@ -187,7 +187,7 @@ void BM_collation_element_lookup_602(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_602);
 
 uint32_t cps_603[] = {
-0x1f818, 0x1f819, 0x1f81a, 0x1f81b, 0x1f81c, 0x1f81d, 0x1f81e, 0x1f81f, 0x1f820, 0x1f821, 0x1f822, 0x1f823, 0x1f824, 0x1f825, 0x1f826, 0x1f827, 0x1f828, 0x1f829, 0x1f82a, 0x1f82b, 0x1f82c, 0x1f82d, 0x1f82e, 0x1f82f, 0x1f830, 0x1f831, 0x1f832, 0x1f833, 0x1f834, 0x1f835, 0x1f836, 0x1f837, 0x1f838, 0x1f839, 0x1f83a, 0x1f83b, 0x1f83c, 0x1f83d, 0x1f83e, 0x1f83f, 0x1f840, 0x1f841, 0x1f842, 0x1f843, 0x1f844, 0x1f845, 0x1f846, 0x1f847, 0x1f850, 0x1f851
+0x182ae, 0x182af, 0x182b0, 0x182b1, 0x182b2, 0x182b3, 0x182b4, 0x182b5, 0x182b6, 0x182b7, 0x182b8, 0x182b9, 0x182ba, 0x182bb, 0x182bc, 0x182bd, 0x182be, 0x182bf, 0x182c0, 0x182c1, 0x182c2, 0x182c3, 0x182c4, 0x182c5, 0x182c6, 0x182c7, 0x182c8, 0x182c9, 0x182ca, 0x182cb, 0x182cc, 0x182cd, 0x182ce, 0x182cf, 0x182d0, 0x182d1, 0x182d2, 0x182d3, 0x182d4, 0x182d5, 0x182d6, 0x182d7, 0x182d8, 0x182d9, 0x182da, 0x182db, 0x182dc, 0x182dd, 0x182de, 0x182df
 };
 
 void BM_collation_element_lookup_603(benchmark::State & state)
@@ -248,7 +248,7 @@ void BM_collation_element_lookup_603(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_603);
 
 uint32_t cps_604[] = {
-0x1f852, 0x1f853, 0x1f854, 0x1f855, 0x1f856, 0x1f857, 0x1f858, 0x1f859, 0x1f860, 0x1f861, 0x1f862, 0x1f863, 0x1f864, 0x1f865, 0x1f866, 0x1f867, 0x1f868, 0x1f869, 0x1f86a, 0x1f86b, 0x1f86c, 0x1f86d, 0x1f86e, 0x1f86f, 0x1f870, 0x1f871, 0x1f872, 0x1f873, 0x1f874, 0x1f875, 0x1f876, 0x1f877, 0x1f878, 0x1f879, 0x1f87a, 0x1f87b, 0x1f87c, 0x1f87d, 0x1f87e, 0x1f87f, 0x1f880, 0x1f881, 0x1f882, 0x1f883, 0x1f884, 0x1f885, 0x1f886, 0x1f887, 0x1f890, 0x1f891
+0x182e0, 0x182e1, 0x182e2, 0x182e3, 0x182e4, 0x182e5, 0x182e6, 0x182e7, 0x182e8, 0x182e9, 0x182ea, 0x182eb, 0x182ec, 0x182ed, 0x182ee, 0x182ef, 0x182f0, 0x182f1, 0x182f2, 0x182f3, 0x182f4, 0x182f5, 0x182f6, 0x182f7, 0x182f8, 0x182f9, 0x182fa, 0x182fb, 0x182fc, 0x182fd, 0x182fe, 0x182ff, 0x18300, 0x18301, 0x18302, 0x18303, 0x18304, 0x18305, 0x18306, 0x18307, 0x18308, 0x18309, 0x1830a, 0x1830b, 0x1830c, 0x1830d, 0x1830e, 0x1830f, 0x18310, 0x18311
 };
 
 void BM_collation_element_lookup_604(benchmark::State & state)
@@ -309,7 +309,7 @@ void BM_collation_element_lookup_604(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_604);
 
 uint32_t cps_605[] = {
-0x1f892, 0x1f893, 0x1f894, 0x1f895, 0x1f896, 0x1f897, 0x1f898, 0x1f899, 0x1f89a, 0x1f89b, 0x1f89c, 0x1f89d, 0x1f89e, 0x1f89f, 0x1f8a0, 0x1f8a1, 0x1f8a2, 0x1f8a3, 0x1f8a4, 0x1f8a5, 0x1f8a6, 0x1f8a7, 0x1f8a8, 0x1f8a9, 0x1f8aa, 0x1f8ab, 0x1f8ac, 0x1f8ad, 0x1f900, 0x1f901, 0x1f902, 0x1f903, 0x1f904, 0x1f905, 0x1f906, 0x1f907, 0x1f908, 0x1f909, 0x1f90a, 0x1f90b, 0x1f910, 0x1f911, 0x1f912, 0x1f913, 0x1f914, 0x1f915, 0x1f916, 0x1f917, 0x1f918, 0x1f919
+0x18312, 0x18313, 0x18314, 0x18315, 0x18316, 0x18317, 0x18318, 0x18319, 0x1831a, 0x1831b, 0x1831c, 0x1831d, 0x1831e, 0x1831f, 0x18320, 0x18321, 0x18322, 0x18323, 0x18324, 0x18325, 0x18326, 0x18327, 0x18328, 0x18329, 0x1832a, 0x1832b, 0x1832c, 0x1832d, 0x1832e, 0x1832f, 0x18330, 0x18331, 0x18332, 0x18333, 0x18334, 0x18335, 0x18336, 0x18337, 0x18338, 0x18339, 0x1833a, 0x1833b, 0x1833c, 0x1833d, 0x1833e, 0x1833f, 0x18340, 0x18341, 0x18342, 0x18343
 };
 
 void BM_collation_element_lookup_605(benchmark::State & state)
@@ -370,7 +370,7 @@ void BM_collation_element_lookup_605(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_605);
 
 uint32_t cps_606[] = {
-0x1f91a, 0x1f91b, 0x1f91c, 0x1f91d, 0x1f91e, 0x1f91f, 0x1f920, 0x1f921, 0x1f922, 0x1f923, 0x1f924, 0x1f925, 0x1f926, 0x1f927, 0x1f928, 0x1f929, 0x1f92a, 0x1f92b, 0x1f92c, 0x1f92d, 0x1f92e, 0x1f92f, 0x1f930, 0x1f931, 0x1f932, 0x1f933, 0x1f934, 0x1f935, 0x1f936, 0x1f937, 0x1f938, 0x1f939, 0x1f93a, 0x1f93b, 0x1f93c, 0x1f93d, 0x1f93e, 0x1f940, 0x1f941, 0x1f942, 0x1f943, 0x1f944, 0x1f945, 0x1f946, 0x1f947, 0x1f948, 0x1f949, 0x1f94a, 0x1f94b, 0x1f94c
+0x18344, 0x18345, 0x18346, 0x18347, 0x18348, 0x18349, 0x1834a, 0x1834b, 0x1834c, 0x1834d, 0x1834e, 0x1834f, 0x18350, 0x18351, 0x18352, 0x18353, 0x18354, 0x18355, 0x18356, 0x18357, 0x18358, 0x18359, 0x1835a, 0x1835b, 0x1835c, 0x1835d, 0x1835e, 0x1835f, 0x18360, 0x18361, 0x18362, 0x18363, 0x18364, 0x18365, 0x18366, 0x18367, 0x18368, 0x18369, 0x1836a, 0x1836b, 0x1836c, 0x1836d, 0x1836e, 0x1836f, 0x18370, 0x18371, 0x18372, 0x18373, 0x18374, 0x18375
 };
 
 void BM_collation_element_lookup_606(benchmark::State & state)
@@ -431,7 +431,7 @@ void BM_collation_element_lookup_606(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_606);
 
 uint32_t cps_607[] = {
-0x1f950, 0x1f951, 0x1f952, 0x1f953, 0x1f954, 0x1f955, 0x1f956, 0x1f957, 0x1f958, 0x1f959, 0x1f95a, 0x1f95b, 0x1f95c, 0x1f95d, 0x1f95e, 0x1f95f, 0x1f960, 0x1f961, 0x1f962, 0x1f963, 0x1f964, 0x1f965, 0x1f966, 0x1f967, 0x1f968, 0x1f969, 0x1f96a, 0x1f96b, 0x1f980, 0x1f981, 0x1f982, 0x1f983, 0x1f984, 0x1f985, 0x1f986, 0x1f987, 0x1f988, 0x1f989, 0x1f98a, 0x1f98b, 0x1f98c, 0x1f98d, 0x1f98e, 0x1f98f, 0x1f990, 0x1f991, 0x1f992, 0x1f993, 0x1f994, 0x1f995
+0x18376, 0x18377, 0x18378, 0x18379, 0x1837a, 0x1837b, 0x1837c, 0x1837d, 0x1837e, 0x1837f, 0x18380, 0x18381, 0x18382, 0x18383, 0x18384, 0x18385, 0x18386, 0x18387, 0x18388, 0x18389, 0x1838a, 0x1838b, 0x1838c, 0x1838d, 0x1838e, 0x1838f, 0x18390, 0x18391, 0x18392, 0x18393, 0x18394, 0x18395, 0x18396, 0x18397, 0x18398, 0x18399, 0x1839a, 0x1839b, 0x1839c, 0x1839d, 0x1839e, 0x1839f, 0x183a0, 0x183a1, 0x183a2, 0x183a3, 0x183a4, 0x183a5, 0x183a6, 0x183a7
 };
 
 void BM_collation_element_lookup_607(benchmark::State & state)
@@ -492,7 +492,7 @@ void BM_collation_element_lookup_607(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_607);
 
 uint32_t cps_608[] = {
-0x1f996, 0x1f997, 0x1f9c0, 0x1f9d0, 0x1f9d1, 0x1f9d2, 0x1f9d3, 0x1f9d4, 0x1f9d5, 0x1f9d6, 0x1f9d7, 0x1f9d8, 0x1f9d9, 0x1f9da, 0x1f9db, 0x1f9dc, 0x1f9dd, 0x1f9de, 0x1f9df, 0x1f9e0, 0x1f9e1, 0x1f9e2, 0x1f9e3, 0x1f9e4, 0x1f9e5, 0x1f9e6, 0x2f800, 0x2f801, 0x2f802, 0x2f803, 0x2f804, 0x2f805, 0x2f806, 0x2f807, 0x2f808, 0x2f809, 0x2f80a, 0x2f80b, 0x2f80c, 0x2f80d, 0x2f80e, 0x2f80f, 0x2f810, 0x2f811, 0x2f812, 0x2f813, 0x2f814, 0x2f815, 0x2f816, 0x2f817
+0x183a8, 0x183a9, 0x183aa, 0x183ab, 0x183ac, 0x183ad, 0x183ae, 0x183af, 0x183b0, 0x183b1, 0x183b2, 0x183b3, 0x183b4, 0x183b5, 0x183b6, 0x183b7, 0x183b8, 0x183b9, 0x183ba, 0x183bb, 0x183bc, 0x183bd, 0x183be, 0x183bf, 0x183c0, 0x183c1, 0x183c2, 0x183c3, 0x183c4, 0x183c5, 0x183c6, 0x183c7, 0x183c8, 0x183c9, 0x183ca, 0x183cb, 0x183cc, 0x183cd, 0x183ce, 0x183cf, 0x183d0, 0x183d1, 0x183d2, 0x183d3, 0x183d4, 0x183d5, 0x183d6, 0x183d7, 0x183d8, 0x183d9
 };
 
 void BM_collation_element_lookup_608(benchmark::State & state)
@@ -553,7 +553,7 @@ void BM_collation_element_lookup_608(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_608);
 
 uint32_t cps_609[] = {
-0x2f818, 0x2f819, 0x2f81a, 0x2f81b, 0x2f81c, 0x2f81d, 0x2f81e, 0x2f81f, 0x2f820, 0x2f821, 0x2f822, 0x2f823, 0x2f824, 0x2f825, 0x2f826, 0x2f827, 0x2f828, 0x2f829, 0x2f82a, 0x2f82b, 0x2f82c, 0x2f82d, 0x2f82e, 0x2f82f, 0x2f830, 0x2f831, 0x2f832, 0x2f833, 0x2f834, 0x2f835, 0x2f836, 0x2f837, 0x2f838, 0x2f839, 0x2f83a, 0x2f83b, 0x2f83c, 0x2f83d, 0x2f83e, 0x2f83f, 0x2f840, 0x2f841, 0x2f842, 0x2f843, 0x2f844, 0x2f845, 0x2f846, 0x2f847, 0x2f848, 0x2f849
+0x183da, 0x183db, 0x183dc, 0x183dd, 0x183de, 0x183df, 0x183e0, 0x183e1, 0x183e2, 0x183e3, 0x183e4, 0x183e5, 0x183e6, 0x183e7, 0x183e8, 0x183e9, 0x183ea, 0x183eb, 0x183ec, 0x183ed, 0x183ee, 0x183ef, 0x183f0, 0x183f1, 0x183f2, 0x183f3, 0x183f4, 0x183f5, 0x183f6, 0x183f7, 0x183f8, 0x183f9, 0x183fa, 0x183fb, 0x183fc, 0x183fd, 0x183fe, 0x183ff, 0x18400, 0x18401, 0x18402, 0x18403, 0x18404, 0x18405, 0x18406, 0x18407, 0x18408, 0x18409, 0x1840a, 0x1840b
 };
 
 void BM_collation_element_lookup_609(benchmark::State & state)
@@ -614,7 +614,7 @@ void BM_collation_element_lookup_609(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_609);
 
 uint32_t cps_610[] = {
-0x2f84a, 0x2f84b, 0x2f84c, 0x2f84d, 0x2f84e, 0x2f84f, 0x2f850, 0x2f851, 0x2f852, 0x2f853, 0x2f854, 0x2f855, 0x2f856, 0x2f857, 0x2f858, 0x2f859, 0x2f85a, 0x2f85b, 0x2f85c, 0x2f85d, 0x2f85e, 0x2f85f, 0x2f860, 0x2f861, 0x2f862, 0x2f863, 0x2f864, 0x2f865, 0x2f866, 0x2f867, 0x2f868, 0x2f869, 0x2f86a, 0x2f86b, 0x2f86c, 0x2f86d, 0x2f86e, 0x2f86f, 0x2f870, 0x2f871, 0x2f872, 0x2f873, 0x2f874, 0x2f875, 0x2f876, 0x2f877, 0x2f878, 0x2f879, 0x2f87a, 0x2f87b
+0x1840c, 0x1840d, 0x1840e, 0x1840f, 0x18410, 0x18411, 0x18412, 0x18413, 0x18414, 0x18415, 0x18416, 0x18417, 0x18418, 0x18419, 0x1841a, 0x1841b, 0x1841c, 0x1841d, 0x1841e, 0x1841f, 0x18420, 0x18421, 0x18422, 0x18423, 0x18424, 0x18425, 0x18426, 0x18427, 0x18428, 0x18429, 0x1842a, 0x1842b, 0x1842c, 0x1842d, 0x1842e, 0x1842f, 0x18430, 0x18431, 0x18432, 0x18433, 0x18434, 0x18435, 0x18436, 0x18437, 0x18438, 0x18439, 0x1843a, 0x1843b, 0x1843c, 0x1843d
 };
 
 void BM_collation_element_lookup_610(benchmark::State & state)
@@ -675,7 +675,7 @@ void BM_collation_element_lookup_610(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_610);
 
 uint32_t cps_611[] = {
-0x2f87c, 0x2f87d, 0x2f87e, 0x2f87f, 0x2f880, 0x2f881, 0x2f882, 0x2f883, 0x2f884, 0x2f885, 0x2f886, 0x2f887, 0x2f888, 0x2f889, 0x2f88a, 0x2f88b, 0x2f88c, 0x2f88d, 0x2f88e, 0x2f88f, 0x2f890, 0x2f891, 0x2f892, 0x2f893, 0x2f894, 0x2f895, 0x2f896, 0x2f897, 0x2f898, 0x2f899, 0x2f89a, 0x2f89b, 0x2f89c, 0x2f89d, 0x2f89e, 0x2f89f, 0x2f8a0, 0x2f8a1, 0x2f8a2, 0x2f8a3, 0x2f8a4, 0x2f8a5, 0x2f8a6, 0x2f8a7, 0x2f8a8, 0x2f8a9, 0x2f8aa, 0x2f8ab, 0x2f8ac, 0x2f8ad
+0x1843e, 0x1843f, 0x18440, 0x18441, 0x18442, 0x18443, 0x18444, 0x18445, 0x18446, 0x18447, 0x18448, 0x18449, 0x1844a, 0x1844b, 0x1844c, 0x1844d, 0x1844e, 0x1844f, 0x18450, 0x18451, 0x18452, 0x18453, 0x18454, 0x18455, 0x18456, 0x18457, 0x18458, 0x18459, 0x1845a, 0x1845b, 0x1845c, 0x1845d, 0x1845e, 0x1845f, 0x18460, 0x18461, 0x18462, 0x18463, 0x18464, 0x18465, 0x18466, 0x18467, 0x18468, 0x18469, 0x1846a, 0x1846b, 0x1846c, 0x1846d, 0x1846e, 0x1846f
 };
 
 void BM_collation_element_lookup_611(benchmark::State & state)
@@ -736,7 +736,7 @@ void BM_collation_element_lookup_611(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_611);
 
 uint32_t cps_612[] = {
-0x2f8ae, 0x2f8af, 0x2f8b0, 0x2f8b1, 0x2f8b2, 0x2f8b3, 0x2f8b4, 0x2f8b5, 0x2f8b6, 0x2f8b7, 0x2f8b8, 0x2f8b9, 0x2f8ba, 0x2f8bb, 0x2f8bc, 0x2f8bd, 0x2f8be, 0x2f8bf, 0x2f8c0, 0x2f8c1, 0x2f8c2, 0x2f8c3, 0x2f8c4, 0x2f8c5, 0x2f8c6, 0x2f8c7, 0x2f8c8, 0x2f8c9, 0x2f8ca, 0x2f8cb, 0x2f8cc, 0x2f8cd, 0x2f8ce, 0x2f8cf, 0x2f8d0, 0x2f8d1, 0x2f8d2, 0x2f8d3, 0x2f8d4, 0x2f8d5, 0x2f8d6, 0x2f8d7, 0x2f8d8, 0x2f8d9, 0x2f8da, 0x2f8db, 0x2f8dc, 0x2f8dd, 0x2f8de, 0x2f8df
+0x18470, 0x18471, 0x18472, 0x18473, 0x18474, 0x18475, 0x18476, 0x18477, 0x18478, 0x18479, 0x1847a, 0x1847b, 0x1847c, 0x1847d, 0x1847e, 0x1847f, 0x18480, 0x18481, 0x18482, 0x18483, 0x18484, 0x18485, 0x18486, 0x18487, 0x18488, 0x18489, 0x1848a, 0x1848b, 0x1848c, 0x1848d, 0x1848e, 0x1848f, 0x18490, 0x18491, 0x18492, 0x18493, 0x18494, 0x18495, 0x18496, 0x18497, 0x18498, 0x18499, 0x1849a, 0x1849b, 0x1849c, 0x1849d, 0x1849e, 0x1849f, 0x184a0, 0x184a1
 };
 
 void BM_collation_element_lookup_612(benchmark::State & state)
@@ -797,7 +797,7 @@ void BM_collation_element_lookup_612(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_612);
 
 uint32_t cps_613[] = {
-0x2f8e0, 0x2f8e1, 0x2f8e2, 0x2f8e3, 0x2f8e4, 0x2f8e5, 0x2f8e6, 0x2f8e7, 0x2f8e8, 0x2f8e9, 0x2f8ea, 0x2f8eb, 0x2f8ec, 0x2f8ed, 0x2f8ee, 0x2f8ef, 0x2f8f0, 0x2f8f1, 0x2f8f2, 0x2f8f3, 0x2f8f4, 0x2f8f5, 0x2f8f6, 0x2f8f7, 0x2f8f8, 0x2f8f9, 0x2f8fa, 0x2f8fb, 0x2f8fc, 0x2f8fd, 0x2f8fe, 0x2f8ff, 0x2f900, 0x2f901, 0x2f902, 0x2f903, 0x2f904, 0x2f905, 0x2f906, 0x2f907, 0x2f908, 0x2f909, 0x2f90a, 0x2f90b, 0x2f90c, 0x2f90d, 0x2f90e, 0x2f90f, 0x2f910, 0x2f911
+0x184a2, 0x184a3, 0x184a4, 0x184a5, 0x184a6, 0x184a7, 0x184a8, 0x184a9, 0x184aa, 0x184ab, 0x184ac, 0x184ad, 0x184ae, 0x184af, 0x184b0, 0x184b1, 0x184b2, 0x184b3, 0x184b4, 0x184b5, 0x184b6, 0x184b7, 0x184b8, 0x184b9, 0x184ba, 0x184bb, 0x184bc, 0x184bd, 0x184be, 0x184bf, 0x184c0, 0x184c1, 0x184c2, 0x184c3, 0x184c4, 0x184c5, 0x184c6, 0x184c7, 0x184c8, 0x184c9, 0x184ca, 0x184cb, 0x184cc, 0x184cd, 0x184ce, 0x184cf, 0x184d0, 0x184d1, 0x184d2, 0x184d3
 };
 
 void BM_collation_element_lookup_613(benchmark::State & state)
@@ -858,7 +858,7 @@ void BM_collation_element_lookup_613(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_613);
 
 uint32_t cps_614[] = {
-0x2f912, 0x2f913, 0x2f914, 0x2f915, 0x2f916, 0x2f917, 0x2f918, 0x2f919, 0x2f91a, 0x2f91b, 0x2f91c, 0x2f91d, 0x2f91e, 0x2f91f, 0x2f920, 0x2f921, 0x2f922, 0x2f923, 0x2f924, 0x2f925, 0x2f926, 0x2f927, 0x2f928, 0x2f929, 0x2f92a, 0x2f92b, 0x2f92c, 0x2f92d, 0x2f92e, 0x2f92f, 0x2f930, 0x2f931, 0x2f932, 0x2f933, 0x2f934, 0x2f935, 0x2f936, 0x2f937, 0x2f938, 0x2f939, 0x2f93a, 0x2f93b, 0x2f93c, 0x2f93d, 0x2f93e, 0x2f93f, 0x2f940, 0x2f941, 0x2f942, 0x2f943
+0x184d4, 0x184d5, 0x184d6, 0x184d7, 0x184d8, 0x184d9, 0x184da, 0x184db, 0x184dc, 0x184dd, 0x184de, 0x184df, 0x184e0, 0x184e1, 0x184e2, 0x184e3, 0x184e4, 0x184e5, 0x184e6, 0x184e7, 0x184e8, 0x184e9, 0x184ea, 0x184eb, 0x184ec, 0x184ed, 0x184ee, 0x184ef, 0x184f0, 0x184f1, 0x184f2, 0x184f3, 0x184f4, 0x184f5, 0x184f6, 0x184f7, 0x184f8, 0x184f9, 0x184fa, 0x184fb, 0x184fc, 0x184fd, 0x184fe, 0x184ff, 0x18500, 0x18501, 0x18502, 0x18503, 0x18504, 0x18505
 };
 
 void BM_collation_element_lookup_614(benchmark::State & state)
@@ -919,7 +919,7 @@ void BM_collation_element_lookup_614(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_614);
 
 uint32_t cps_615[] = {
-0x2f944, 0x2f945, 0x2f946, 0x2f947, 0x2f948, 0x2f949, 0x2f94a, 0x2f94b, 0x2f94c, 0x2f94d, 0x2f94e, 0x2f94f, 0x2f950, 0x2f951, 0x2f952, 0x2f953, 0x2f954, 0x2f955, 0x2f956, 0x2f957, 0x2f958, 0x2f959, 0x2f95a, 0x2f95b, 0x2f95c, 0x2f95d, 0x2f95e, 0x2f95f, 0x2f960, 0x2f961, 0x2f962, 0x2f963, 0x2f964, 0x2f965, 0x2f966, 0x2f967, 0x2f968, 0x2f969, 0x2f96a, 0x2f96b, 0x2f96c, 0x2f96d, 0x2f96e, 0x2f96f, 0x2f970, 0x2f971, 0x2f972, 0x2f973, 0x2f974, 0x2f975
+0x18506, 0x18507, 0x18508, 0x18509, 0x1850a, 0x1850b, 0x1850c, 0x1850d, 0x1850e, 0x1850f, 0x18510, 0x18511, 0x18512, 0x18513, 0x18514, 0x18515, 0x18516, 0x18517, 0x18518, 0x18519, 0x1851a, 0x1851b, 0x1851c, 0x1851d, 0x1851e, 0x1851f, 0x18520, 0x18521, 0x18522, 0x18523, 0x18524, 0x18525, 0x18526, 0x18527, 0x18528, 0x18529, 0x1852a, 0x1852b, 0x1852c, 0x1852d, 0x1852e, 0x1852f, 0x18530, 0x18531, 0x18532, 0x18533, 0x18534, 0x18535, 0x18536, 0x18537
 };
 
 void BM_collation_element_lookup_615(benchmark::State & state)
@@ -980,7 +980,7 @@ void BM_collation_element_lookup_615(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_615);
 
 uint32_t cps_616[] = {
-0x2f976, 0x2f977, 0x2f978, 0x2f979, 0x2f97a, 0x2f97b, 0x2f97c, 0x2f97d, 0x2f97e, 0x2f97f, 0x2f980, 0x2f981, 0x2f982, 0x2f983, 0x2f984, 0x2f985, 0x2f986, 0x2f987, 0x2f988, 0x2f989, 0x2f98a, 0x2f98b, 0x2f98c, 0x2f98d, 0x2f98e, 0x2f98f, 0x2f990, 0x2f991, 0x2f992, 0x2f993, 0x2f994, 0x2f995, 0x2f996, 0x2f997, 0x2f998, 0x2f999, 0x2f99a, 0x2f99b, 0x2f99c, 0x2f99d, 0x2f99e, 0x2f99f, 0x2f9a0, 0x2f9a1, 0x2f9a2, 0x2f9a3, 0x2f9a4, 0x2f9a5, 0x2f9a6, 0x2f9a7
+0x18538, 0x18539, 0x1853a, 0x1853b, 0x1853c, 0x1853d, 0x1853e, 0x1853f, 0x18540, 0x18541, 0x18542, 0x18543, 0x18544, 0x18545, 0x18546, 0x18547, 0x18548, 0x18549, 0x1854a, 0x1854b, 0x1854c, 0x1854d, 0x1854e, 0x1854f, 0x18550, 0x18551, 0x18552, 0x18553, 0x18554, 0x18555, 0x18556, 0x18557, 0x18558, 0x18559, 0x1855a, 0x1855b, 0x1855c, 0x1855d, 0x1855e, 0x1855f, 0x18560, 0x18561, 0x18562, 0x18563, 0x18564, 0x18565, 0x18566, 0x18567, 0x18568, 0x18569
 };
 
 void BM_collation_element_lookup_616(benchmark::State & state)
@@ -1041,7 +1041,7 @@ void BM_collation_element_lookup_616(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_616);
 
 uint32_t cps_617[] = {
-0x2f9a8, 0x2f9a9, 0x2f9aa, 0x2f9ab, 0x2f9ac, 0x2f9ad, 0x2f9ae, 0x2f9af, 0x2f9b0, 0x2f9b1, 0x2f9b2, 0x2f9b3, 0x2f9b4, 0x2f9b5, 0x2f9b6, 0x2f9b7, 0x2f9b8, 0x2f9b9, 0x2f9ba, 0x2f9bb, 0x2f9bc, 0x2f9bd, 0x2f9be, 0x2f9bf, 0x2f9c0, 0x2f9c1, 0x2f9c2, 0x2f9c3, 0x2f9c4, 0x2f9c5, 0x2f9c6, 0x2f9c7, 0x2f9c8, 0x2f9c9, 0x2f9ca, 0x2f9cb, 0x2f9cc, 0x2f9cd, 0x2f9ce, 0x2f9cf, 0x2f9d0, 0x2f9d1, 0x2f9d2, 0x2f9d3, 0x2f9d4, 0x2f9d5, 0x2f9d6, 0x2f9d7, 0x2f9d8, 0x2f9d9
+0x1856a, 0x1856b, 0x1856c, 0x1856d, 0x1856e, 0x1856f, 0x18570, 0x18571, 0x18572, 0x18573, 0x18574, 0x18575, 0x18576, 0x18577, 0x18578, 0x18579, 0x1857a, 0x1857b, 0x1857c, 0x1857d, 0x1857e, 0x1857f, 0x18580, 0x18581, 0x18582, 0x18583, 0x18584, 0x18585, 0x18586, 0x18587, 0x18588, 0x18589, 0x1858a, 0x1858b, 0x1858c, 0x1858d, 0x1858e, 0x1858f, 0x18590, 0x18591, 0x18592, 0x18593, 0x18594, 0x18595, 0x18596, 0x18597, 0x18598, 0x18599, 0x1859a, 0x1859b
 };
 
 void BM_collation_element_lookup_617(benchmark::State & state)
@@ -1102,7 +1102,7 @@ void BM_collation_element_lookup_617(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_617);
 
 uint32_t cps_618[] = {
-0x2f9da, 0x2f9db, 0x2f9dc, 0x2f9dd, 0x2f9de, 0x2f9df, 0x2f9e0, 0x2f9e1, 0x2f9e2, 0x2f9e3, 0x2f9e4, 0x2f9e5, 0x2f9e6, 0x2f9e7, 0x2f9e8, 0x2f9e9, 0x2f9ea, 0x2f9eb, 0x2f9ec, 0x2f9ed, 0x2f9ee, 0x2f9ef, 0x2f9f0, 0x2f9f1, 0x2f9f2, 0x2f9f3, 0x2f9f4, 0x2f9f5, 0x2f9f6, 0x2f9f7, 0x2f9f8, 0x2f9f9, 0x2f9fa, 0x2f9fb, 0x2f9fc, 0x2f9fd, 0x2f9fe, 0x2f9ff, 0x2fa00, 0x2fa01, 0x2fa02, 0x2fa03, 0x2fa04, 0x2fa05, 0x2fa06, 0x2fa07, 0x2fa08, 0x2fa09, 0x2fa0a, 0x2fa0b
+0x1859c, 0x1859d, 0x1859e, 0x1859f, 0x185a0, 0x185a1, 0x185a2, 0x185a3, 0x185a4, 0x185a5, 0x185a6, 0x185a7, 0x185a8, 0x185a9, 0x185aa, 0x185ab, 0x185ac, 0x185ad, 0x185ae, 0x185af, 0x185b0, 0x185b1, 0x185b2, 0x185b3, 0x185b4, 0x185b5, 0x185b6, 0x185b7, 0x185b8, 0x185b9, 0x185ba, 0x185bb, 0x185bc, 0x185bd, 0x185be, 0x185bf, 0x185c0, 0x185c1, 0x185c2, 0x185c3, 0x185c4, 0x185c5, 0x185c6, 0x185c7, 0x185c8, 0x185c9, 0x185ca, 0x185cb, 0x185cc, 0x185cd
 };
 
 void BM_collation_element_lookup_618(benchmark::State & state)
@@ -1163,7 +1163,7 @@ void BM_collation_element_lookup_618(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_618);
 
 uint32_t cps_619[] = {
-0x2fa0c, 0x2fa0d, 0x2fa0e, 0x2fa0f, 0x2fa10, 0x2fa11, 0x2fa12, 0x2fa13, 0x2fa14, 0x2fa15, 0x2fa16, 0x2fa17, 0x2fa18, 0x2fa19, 0x2fa1a, 0x2fa1b, 0x2fa1c, 0x2fa1d, 0xe0001, 0xe0020, 0xe0021, 0xe0022, 0xe0023, 0xe0024, 0xe0025, 0xe0026, 0xe0027, 0xe0028, 0xe0029, 0xe002a, 0xe002b, 0xe002c, 0xe002d, 0xe002e, 0xe002f, 0xe0030, 0xe0031, 0xe0032, 0xe0033, 0xe0034, 0xe0035, 0xe0036, 0xe0037, 0xe0038, 0xe0039, 0xe003a, 0xe003b, 0xe003c, 0xe003d, 0xe003e
+0x185ce, 0x185cf, 0x185d0, 0x185d1, 0x185d2, 0x185d3, 0x185d4, 0x185d5, 0x185d6, 0x185d7, 0x185d8, 0x185d9, 0x185da, 0x185db, 0x185dc, 0x185dd, 0x185de, 0x185df, 0x185e0, 0x185e1, 0x185e2, 0x185e3, 0x185e4, 0x185e5, 0x185e6, 0x185e7, 0x185e8, 0x185e9, 0x185ea, 0x185eb, 0x185ec, 0x185ed, 0x185ee, 0x185ef, 0x185f0, 0x185f1, 0x185f2, 0x185f3, 0x185f4, 0x185f5, 0x185f6, 0x185f7, 0x185f8, 0x185f9, 0x185fa, 0x185fb, 0x185fc, 0x185fd, 0x185fe, 0x185ff
 };
 
 void BM_collation_element_lookup_619(benchmark::State & state)
@@ -1224,7 +1224,7 @@ void BM_collation_element_lookup_619(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_619);
 
 uint32_t cps_620[] = {
-0xe003f, 0xe0040, 0xe0041, 0xe0042, 0xe0043, 0xe0044, 0xe0045, 0xe0046, 0xe0047, 0xe0048, 0xe0049, 0xe004a, 0xe004b, 0xe004c, 0xe004d, 0xe004e, 0xe004f, 0xe0050, 0xe0051, 0xe0052, 0xe0053, 0xe0054, 0xe0055, 0xe0056, 0xe0057, 0xe0058, 0xe0059, 0xe005a, 0xe005b, 0xe005c, 0xe005d, 0xe005e, 0xe005f, 0xe0060, 0xe0061, 0xe0062, 0xe0063, 0xe0064, 0xe0065, 0xe0066, 0xe0067, 0xe0068, 0xe0069, 0xe006a, 0xe006b, 0xe006c, 0xe006d, 0xe006e, 0xe006f, 0xe0070
+0x18600, 0x18601, 0x18602, 0x18603, 0x18604, 0x18605, 0x18606, 0x18607, 0x18608, 0x18609, 0x1860a, 0x1860b, 0x1860c, 0x1860d, 0x1860e, 0x1860f, 0x18610, 0x18611, 0x18612, 0x18613, 0x18614, 0x18615, 0x18616, 0x18617, 0x18618, 0x18619, 0x1861a, 0x1861b, 0x1861c, 0x1861d, 0x1861e, 0x1861f, 0x18620, 0x18621, 0x18622, 0x18623, 0x18624, 0x18625, 0x18626, 0x18627, 0x18628, 0x18629, 0x1862a, 0x1862b, 0x1862c, 0x1862d, 0x1862e, 0x1862f, 0x18630, 0x18631
 };
 
 void BM_collation_element_lookup_620(benchmark::State & state)
@@ -1285,7 +1285,7 @@ void BM_collation_element_lookup_620(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_620);
 
 uint32_t cps_621[] = {
-0xe0071, 0xe0072, 0xe0073, 0xe0074, 0xe0075, 0xe0076, 0xe0077, 0xe0078, 0xe0079, 0xe007a, 0xe007b, 0xe007c, 0xe007d, 0xe007e, 0xe007f, 0xe0100, 0xe0101, 0xe0102, 0xe0103, 0xe0104, 0xe0105, 0xe0106, 0xe0107, 0xe0108, 0xe0109, 0xe010a, 0xe010b, 0xe010c, 0xe010d, 0xe010e, 0xe010f, 0xe0110, 0xe0111, 0xe0112, 0xe0113, 0xe0114, 0xe0115, 0xe0116, 0xe0117, 0xe0118, 0xe0119, 0xe011a, 0xe011b, 0xe011c, 0xe011d, 0xe011e, 0xe011f, 0xe0120, 0xe0121, 0xe0122
+0x18632, 0x18633, 0x18634, 0x18635, 0x18636, 0x18637, 0x18638, 0x18639, 0x1863a, 0x1863b, 0x1863c, 0x1863d, 0x1863e, 0x1863f, 0x18640, 0x18641, 0x18642, 0x18643, 0x18644, 0x18645, 0x18646, 0x18647, 0x18648, 0x18649, 0x1864a, 0x1864b, 0x1864c, 0x1864d, 0x1864e, 0x1864f, 0x18650, 0x18651, 0x18652, 0x18653, 0x18654, 0x18655, 0x18656, 0x18657, 0x18658, 0x18659, 0x1865a, 0x1865b, 0x1865c, 0x1865d, 0x1865e, 0x1865f, 0x18660, 0x18661, 0x18662, 0x18663
 };
 
 void BM_collation_element_lookup_621(benchmark::State & state)
@@ -1346,7 +1346,7 @@ void BM_collation_element_lookup_621(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_621);
 
 uint32_t cps_622[] = {
-0xe0123, 0xe0124, 0xe0125, 0xe0126, 0xe0127, 0xe0128, 0xe0129, 0xe012a, 0xe012b, 0xe012c, 0xe012d, 0xe012e, 0xe012f, 0xe0130, 0xe0131, 0xe0132, 0xe0133, 0xe0134, 0xe0135, 0xe0136, 0xe0137, 0xe0138, 0xe0139, 0xe013a, 0xe013b, 0xe013c, 0xe013d, 0xe013e, 0xe013f, 0xe0140, 0xe0141, 0xe0142, 0xe0143, 0xe0144, 0xe0145, 0xe0146, 0xe0147, 0xe0148, 0xe0149, 0xe014a, 0xe014b, 0xe014c, 0xe014d, 0xe014e, 0xe014f, 0xe0150, 0xe0151, 0xe0152, 0xe0153, 0xe0154
+0x18664, 0x18665, 0x18666, 0x18667, 0x18668, 0x18669, 0x1866a, 0x1866b, 0x1866c, 0x1866d, 0x1866e, 0x1866f, 0x18670, 0x18671, 0x18672, 0x18673, 0x18674, 0x18675, 0x18676, 0x18677, 0x18678, 0x18679, 0x1867a, 0x1867b, 0x1867c, 0x1867d, 0x1867e, 0x1867f, 0x18680, 0x18681, 0x18682, 0x18683, 0x18684, 0x18685, 0x18686, 0x18687, 0x18688, 0x18689, 0x1868a, 0x1868b, 0x1868c, 0x1868d, 0x1868e, 0x1868f, 0x18690, 0x18691, 0x18692, 0x18693, 0x18694, 0x18695
 };
 
 void BM_collation_element_lookup_622(benchmark::State & state)
@@ -1407,7 +1407,7 @@ void BM_collation_element_lookup_622(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_622);
 
 uint32_t cps_623[] = {
-0xe0155, 0xe0156, 0xe0157, 0xe0158, 0xe0159, 0xe015a, 0xe015b, 0xe015c, 0xe015d, 0xe015e, 0xe015f, 0xe0160, 0xe0161, 0xe0162, 0xe0163, 0xe0164, 0xe0165, 0xe0166, 0xe0167, 0xe0168, 0xe0169, 0xe016a, 0xe016b, 0xe016c, 0xe016d, 0xe016e, 0xe016f, 0xe0170, 0xe0171, 0xe0172, 0xe0173, 0xe0174, 0xe0175, 0xe0176, 0xe0177, 0xe0178, 0xe0179, 0xe017a, 0xe017b, 0xe017c, 0xe017d, 0xe017e, 0xe017f, 0xe0180, 0xe0181, 0xe0182, 0xe0183, 0xe0184, 0xe0185, 0xe0186
+0x18696, 0x18697, 0x18698, 0x18699, 0x1869a, 0x1869b, 0x1869c, 0x1869d, 0x1869e, 0x1869f, 0x186a0, 0x186a1, 0x186a2, 0x186a3, 0x186a4, 0x186a5, 0x186a6, 0x186a7, 0x186a8, 0x186a9, 0x186aa, 0x186ab, 0x186ac, 0x186ad, 0x186ae, 0x186af, 0x186b0, 0x186b1, 0x186b2, 0x186b3, 0x186b4, 0x186b5, 0x186b6, 0x186b7, 0x186b8, 0x186b9, 0x186ba, 0x186bb, 0x186bc, 0x186bd, 0x186be, 0x186bf, 0x186c0, 0x186c1, 0x186c2, 0x186c3, 0x186c4, 0x186c5, 0x186c6, 0x186c7
 };
 
 void BM_collation_element_lookup_623(benchmark::State & state)
@@ -1468,7 +1468,7 @@ void BM_collation_element_lookup_623(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_623);
 
 uint32_t cps_624[] = {
-0xe0187, 0xe0188, 0xe0189, 0xe018a, 0xe018b, 0xe018c, 0xe018d, 0xe018e, 0xe018f, 0xe0190, 0xe0191, 0xe0192, 0xe0193, 0xe0194, 0xe0195, 0xe0196, 0xe0197, 0xe0198, 0xe0199, 0xe019a, 0xe019b, 0xe019c, 0xe019d, 0xe019e, 0xe019f, 0xe01a0, 0xe01a1, 0xe01a2, 0xe01a3, 0xe01a4, 0xe01a5, 0xe01a6, 0xe01a7, 0xe01a8, 0xe01a9, 0xe01aa, 0xe01ab, 0xe01ac, 0xe01ad, 0xe01ae, 0xe01af, 0xe01b0, 0xe01b1, 0xe01b2, 0xe01b3, 0xe01b4, 0xe01b5, 0xe01b6, 0xe01b7, 0xe01b8
+0x186c8, 0x186c9, 0x186ca, 0x186cb, 0x186cc, 0x186cd, 0x186ce, 0x186cf, 0x186d0, 0x186d1, 0x186d2, 0x186d3, 0x186d4, 0x186d5, 0x186d6, 0x186d7, 0x186d8, 0x186d9, 0x186da, 0x186db, 0x186dc, 0x186dd, 0x186de, 0x186df, 0x186e0, 0x186e1, 0x186e2, 0x186e3, 0x186e4, 0x186e5, 0x186e6, 0x186e7, 0x186e8, 0x186e9, 0x186ea, 0x186eb, 0x186ec, 0x186ed, 0x186ee, 0x186ef, 0x186f0, 0x186f1, 0x186f2, 0x186f3, 0x186f4, 0x186f5, 0x186f6, 0x186f7, 0x186f8, 0x186f9
 };
 
 void BM_collation_element_lookup_624(benchmark::State & state)
@@ -1529,7 +1529,7 @@ void BM_collation_element_lookup_624(benchmark::State & state)
 BENCHMARK(BM_collation_element_lookup_624);
 
 uint32_t cps_625[] = {
-0xe01b9, 0xe01ba, 0xe01bb, 0xe01bc, 0xe01bd, 0xe01be, 0xe01bf, 0xe01c0, 0xe01c1, 0xe01c2, 0xe01c3, 0xe01c4, 0xe01c5, 0xe01c6, 0xe01c7, 0xe01c8, 0xe01c9, 0xe01ca, 0xe01cb, 0xe01cc, 0xe01cd, 0xe01ce, 0xe01cf, 0xe01d0, 0xe01d1, 0xe01d2, 0xe01d3, 0xe01d4, 0xe01d5, 0xe01d6, 0xe01d7, 0xe01d8, 0xe01d9, 0xe01da, 0xe01db, 0xe01dc, 0xe01dd, 0xe01de, 0xe01df, 0xe01e0, 0xe01e1, 0xe01e2, 0xe01e3, 0xe01e4, 0xe01e5, 0xe01e6, 0xe01e7, 0xe01e8, 0xe01e9, 0xe01ea
+0x186fa, 0x186fb, 0x186fc, 0x186fd, 0x186fe, 0x186ff, 0x18700, 0x18701, 0x18702, 0x18703, 0x18704, 0x18705, 0x18706, 0x18707, 0x18708, 0x18709, 0x1870a, 0x1870b, 0x1870c, 0x1870d, 0x1870e, 0x1870f, 0x18710, 0x18711, 0x18712, 0x18713, 0x18714, 0x18715, 0x18716, 0x18717, 0x18718, 0x18719, 0x1871a, 0x1871b, 0x1871c, 0x1871d, 0x1871e, 0x1871f, 0x18720, 0x18721, 0x18722, 0x18723, 0x18724, 0x18725, 0x18726, 0x18727, 0x18728, 0x18729, 0x1872a, 0x1872b
 };
 
 void BM_collation_element_lookup_625(benchmark::State & state)
@@ -1588,6 +1588,4520 @@ void BM_collation_element_lookup_625(benchmark::State & state)
     }
 }
 BENCHMARK(BM_collation_element_lookup_625);
+
+uint32_t cps_626[] = {
+0x1872c, 0x1872d, 0x1872e, 0x1872f, 0x18730, 0x18731, 0x18732, 0x18733, 0x18734, 0x18735, 0x18736, 0x18737, 0x18738, 0x18739, 0x1873a, 0x1873b, 0x1873c, 0x1873d, 0x1873e, 0x1873f, 0x18740, 0x18741, 0x18742, 0x18743, 0x18744, 0x18745, 0x18746, 0x18747, 0x18748, 0x18749, 0x1874a, 0x1874b, 0x1874c, 0x1874d, 0x1874e, 0x1874f, 0x18750, 0x18751, 0x18752, 0x18753, 0x18754, 0x18755, 0x18756, 0x18757, 0x18758, 0x18759, 0x1875a, 0x1875b, 0x1875c, 0x1875d
+};
+
+void BM_collation_element_lookup_626(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 0, cps_626 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 1, cps_626 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 2, cps_626 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 3, cps_626 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 4, cps_626 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 5, cps_626 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 6, cps_626 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 7, cps_626 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 8, cps_626 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 9, cps_626 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 10, cps_626 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 11, cps_626 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 12, cps_626 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 13, cps_626 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 14, cps_626 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 15, cps_626 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 16, cps_626 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 17, cps_626 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 18, cps_626 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 19, cps_626 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 20, cps_626 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 21, cps_626 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 22, cps_626 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 23, cps_626 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 24, cps_626 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 25, cps_626 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 26, cps_626 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 27, cps_626 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 28, cps_626 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 29, cps_626 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 30, cps_626 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 31, cps_626 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 32, cps_626 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 33, cps_626 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 34, cps_626 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 35, cps_626 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 36, cps_626 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 37, cps_626 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 38, cps_626 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 39, cps_626 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 40, cps_626 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 41, cps_626 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 42, cps_626 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 43, cps_626 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 44, cps_626 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 45, cps_626 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 46, cps_626 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 47, cps_626 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 48, cps_626 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_626 + 49, cps_626 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_626);
+
+uint32_t cps_627[] = {
+0x1875e, 0x1875f, 0x18760, 0x18761, 0x18762, 0x18763, 0x18764, 0x18765, 0x18766, 0x18767, 0x18768, 0x18769, 0x1876a, 0x1876b, 0x1876c, 0x1876d, 0x1876e, 0x1876f, 0x18770, 0x18771, 0x18772, 0x18773, 0x18774, 0x18775, 0x18776, 0x18777, 0x18778, 0x18779, 0x1877a, 0x1877b, 0x1877c, 0x1877d, 0x1877e, 0x1877f, 0x18780, 0x18781, 0x18782, 0x18783, 0x18784, 0x18785, 0x18786, 0x18787, 0x18788, 0x18789, 0x1878a, 0x1878b, 0x1878c, 0x1878d, 0x1878e, 0x1878f
+};
+
+void BM_collation_element_lookup_627(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 0, cps_627 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 1, cps_627 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 2, cps_627 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 3, cps_627 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 4, cps_627 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 5, cps_627 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 6, cps_627 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 7, cps_627 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 8, cps_627 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 9, cps_627 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 10, cps_627 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 11, cps_627 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 12, cps_627 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 13, cps_627 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 14, cps_627 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 15, cps_627 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 16, cps_627 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 17, cps_627 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 18, cps_627 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 19, cps_627 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 20, cps_627 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 21, cps_627 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 22, cps_627 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 23, cps_627 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 24, cps_627 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 25, cps_627 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 26, cps_627 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 27, cps_627 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 28, cps_627 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 29, cps_627 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 30, cps_627 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 31, cps_627 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 32, cps_627 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 33, cps_627 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 34, cps_627 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 35, cps_627 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 36, cps_627 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 37, cps_627 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 38, cps_627 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 39, cps_627 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 40, cps_627 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 41, cps_627 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 42, cps_627 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 43, cps_627 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 44, cps_627 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 45, cps_627 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 46, cps_627 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 47, cps_627 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 48, cps_627 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_627 + 49, cps_627 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_627);
+
+uint32_t cps_628[] = {
+0x18790, 0x18791, 0x18792, 0x18793, 0x18794, 0x18795, 0x18796, 0x18797, 0x18798, 0x18799, 0x1879a, 0x1879b, 0x1879c, 0x1879d, 0x1879e, 0x1879f, 0x187a0, 0x187a1, 0x187a2, 0x187a3, 0x187a4, 0x187a5, 0x187a6, 0x187a7, 0x187a8, 0x187a9, 0x187aa, 0x187ab, 0x187ac, 0x187ad, 0x187ae, 0x187af, 0x187b0, 0x187b1, 0x187b2, 0x187b3, 0x187b4, 0x187b5, 0x187b6, 0x187b7, 0x187b8, 0x187b9, 0x187ba, 0x187bb, 0x187bc, 0x187bd, 0x187be, 0x187bf, 0x187c0, 0x187c1
+};
+
+void BM_collation_element_lookup_628(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 0, cps_628 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 1, cps_628 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 2, cps_628 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 3, cps_628 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 4, cps_628 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 5, cps_628 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 6, cps_628 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 7, cps_628 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 8, cps_628 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 9, cps_628 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 10, cps_628 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 11, cps_628 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 12, cps_628 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 13, cps_628 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 14, cps_628 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 15, cps_628 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 16, cps_628 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 17, cps_628 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 18, cps_628 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 19, cps_628 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 20, cps_628 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 21, cps_628 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 22, cps_628 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 23, cps_628 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 24, cps_628 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 25, cps_628 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 26, cps_628 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 27, cps_628 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 28, cps_628 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 29, cps_628 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 30, cps_628 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 31, cps_628 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 32, cps_628 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 33, cps_628 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 34, cps_628 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 35, cps_628 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 36, cps_628 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 37, cps_628 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 38, cps_628 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 39, cps_628 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 40, cps_628 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 41, cps_628 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 42, cps_628 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 43, cps_628 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 44, cps_628 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 45, cps_628 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 46, cps_628 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 47, cps_628 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 48, cps_628 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_628 + 49, cps_628 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_628);
+
+uint32_t cps_629[] = {
+0x187c2, 0x187c3, 0x187c4, 0x187c5, 0x187c6, 0x187c7, 0x187c8, 0x187c9, 0x187ca, 0x187cb, 0x187cc, 0x187cd, 0x187ce, 0x187cf, 0x187d0, 0x187d1, 0x187d2, 0x187d3, 0x187d4, 0x187d5, 0x187d6, 0x187d7, 0x187d8, 0x187d9, 0x187da, 0x187db, 0x187dc, 0x187dd, 0x187de, 0x187df, 0x187e0, 0x187e1, 0x187e2, 0x187e3, 0x187e4, 0x187e5, 0x187e6, 0x187e7, 0x187e8, 0x187e9, 0x187ea, 0x187eb, 0x187ec, 0x18800, 0x18801, 0x18802, 0x18803, 0x18804, 0x18805, 0x18806
+};
+
+void BM_collation_element_lookup_629(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 0, cps_629 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 1, cps_629 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 2, cps_629 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 3, cps_629 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 4, cps_629 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 5, cps_629 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 6, cps_629 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 7, cps_629 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 8, cps_629 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 9, cps_629 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 10, cps_629 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 11, cps_629 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 12, cps_629 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 13, cps_629 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 14, cps_629 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 15, cps_629 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 16, cps_629 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 17, cps_629 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 18, cps_629 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 19, cps_629 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 20, cps_629 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 21, cps_629 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 22, cps_629 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 23, cps_629 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 24, cps_629 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 25, cps_629 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 26, cps_629 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 27, cps_629 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 28, cps_629 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 29, cps_629 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 30, cps_629 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 31, cps_629 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 32, cps_629 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 33, cps_629 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 34, cps_629 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 35, cps_629 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 36, cps_629 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 37, cps_629 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 38, cps_629 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 39, cps_629 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 40, cps_629 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 41, cps_629 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 42, cps_629 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 43, cps_629 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 44, cps_629 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 45, cps_629 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 46, cps_629 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 47, cps_629 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 48, cps_629 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_629 + 49, cps_629 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_629);
+
+uint32_t cps_630[] = {
+0x18807, 0x18808, 0x18809, 0x1880a, 0x1880b, 0x1880c, 0x1880d, 0x1880e, 0x1880f, 0x18810, 0x18811, 0x18812, 0x18813, 0x18814, 0x18815, 0x18816, 0x18817, 0x18818, 0x18819, 0x1881a, 0x1881b, 0x1881c, 0x1881d, 0x1881e, 0x1881f, 0x18820, 0x18821, 0x18822, 0x18823, 0x18824, 0x18825, 0x18826, 0x18827, 0x18828, 0x18829, 0x1882a, 0x1882b, 0x1882c, 0x1882d, 0x1882e, 0x1882f, 0x18830, 0x18831, 0x18832, 0x18833, 0x18834, 0x18835, 0x18836, 0x18837, 0x18838
+};
+
+void BM_collation_element_lookup_630(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 0, cps_630 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 1, cps_630 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 2, cps_630 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 3, cps_630 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 4, cps_630 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 5, cps_630 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 6, cps_630 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 7, cps_630 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 8, cps_630 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 9, cps_630 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 10, cps_630 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 11, cps_630 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 12, cps_630 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 13, cps_630 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 14, cps_630 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 15, cps_630 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 16, cps_630 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 17, cps_630 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 18, cps_630 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 19, cps_630 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 20, cps_630 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 21, cps_630 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 22, cps_630 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 23, cps_630 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 24, cps_630 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 25, cps_630 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 26, cps_630 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 27, cps_630 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 28, cps_630 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 29, cps_630 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 30, cps_630 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 31, cps_630 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 32, cps_630 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 33, cps_630 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 34, cps_630 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 35, cps_630 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 36, cps_630 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 37, cps_630 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 38, cps_630 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 39, cps_630 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 40, cps_630 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 41, cps_630 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 42, cps_630 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 43, cps_630 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 44, cps_630 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 45, cps_630 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 46, cps_630 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 47, cps_630 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 48, cps_630 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_630 + 49, cps_630 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_630);
+
+uint32_t cps_631[] = {
+0x18839, 0x1883a, 0x1883b, 0x1883c, 0x1883d, 0x1883e, 0x1883f, 0x18840, 0x18841, 0x18842, 0x18843, 0x18844, 0x18845, 0x18846, 0x18847, 0x18848, 0x18849, 0x1884a, 0x1884b, 0x1884c, 0x1884d, 0x1884e, 0x1884f, 0x18850, 0x18851, 0x18852, 0x18853, 0x18854, 0x18855, 0x18856, 0x18857, 0x18858, 0x18859, 0x1885a, 0x1885b, 0x1885c, 0x1885d, 0x1885e, 0x1885f, 0x18860, 0x18861, 0x18862, 0x18863, 0x18864, 0x18865, 0x18866, 0x18867, 0x18868, 0x18869, 0x1886a
+};
+
+void BM_collation_element_lookup_631(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 0, cps_631 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 1, cps_631 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 2, cps_631 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 3, cps_631 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 4, cps_631 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 5, cps_631 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 6, cps_631 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 7, cps_631 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 8, cps_631 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 9, cps_631 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 10, cps_631 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 11, cps_631 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 12, cps_631 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 13, cps_631 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 14, cps_631 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 15, cps_631 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 16, cps_631 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 17, cps_631 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 18, cps_631 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 19, cps_631 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 20, cps_631 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 21, cps_631 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 22, cps_631 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 23, cps_631 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 24, cps_631 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 25, cps_631 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 26, cps_631 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 27, cps_631 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 28, cps_631 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 29, cps_631 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 30, cps_631 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 31, cps_631 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 32, cps_631 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 33, cps_631 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 34, cps_631 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 35, cps_631 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 36, cps_631 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 37, cps_631 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 38, cps_631 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 39, cps_631 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 40, cps_631 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 41, cps_631 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 42, cps_631 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 43, cps_631 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 44, cps_631 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 45, cps_631 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 46, cps_631 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 47, cps_631 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 48, cps_631 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_631 + 49, cps_631 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_631);
+
+uint32_t cps_632[] = {
+0x1886b, 0x1886c, 0x1886d, 0x1886e, 0x1886f, 0x18870, 0x18871, 0x18872, 0x18873, 0x18874, 0x18875, 0x18876, 0x18877, 0x18878, 0x18879, 0x1887a, 0x1887b, 0x1887c, 0x1887d, 0x1887e, 0x1887f, 0x18880, 0x18881, 0x18882, 0x18883, 0x18884, 0x18885, 0x18886, 0x18887, 0x18888, 0x18889, 0x1888a, 0x1888b, 0x1888c, 0x1888d, 0x1888e, 0x1888f, 0x18890, 0x18891, 0x18892, 0x18893, 0x18894, 0x18895, 0x18896, 0x18897, 0x18898, 0x18899, 0x1889a, 0x1889b, 0x1889c
+};
+
+void BM_collation_element_lookup_632(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 0, cps_632 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 1, cps_632 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 2, cps_632 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 3, cps_632 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 4, cps_632 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 5, cps_632 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 6, cps_632 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 7, cps_632 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 8, cps_632 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 9, cps_632 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 10, cps_632 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 11, cps_632 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 12, cps_632 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 13, cps_632 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 14, cps_632 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 15, cps_632 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 16, cps_632 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 17, cps_632 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 18, cps_632 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 19, cps_632 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 20, cps_632 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 21, cps_632 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 22, cps_632 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 23, cps_632 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 24, cps_632 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 25, cps_632 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 26, cps_632 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 27, cps_632 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 28, cps_632 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 29, cps_632 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 30, cps_632 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 31, cps_632 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 32, cps_632 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 33, cps_632 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 34, cps_632 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 35, cps_632 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 36, cps_632 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 37, cps_632 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 38, cps_632 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 39, cps_632 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 40, cps_632 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 41, cps_632 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 42, cps_632 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 43, cps_632 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 44, cps_632 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 45, cps_632 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 46, cps_632 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 47, cps_632 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 48, cps_632 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_632 + 49, cps_632 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_632);
+
+uint32_t cps_633[] = {
+0x1889d, 0x1889e, 0x1889f, 0x188a0, 0x188a1, 0x188a2, 0x188a3, 0x188a4, 0x188a5, 0x188a6, 0x188a7, 0x188a8, 0x188a9, 0x188aa, 0x188ab, 0x188ac, 0x188ad, 0x188ae, 0x188af, 0x188b0, 0x188b1, 0x188b2, 0x188b3, 0x188b4, 0x188b5, 0x188b6, 0x188b7, 0x188b8, 0x188b9, 0x188ba, 0x188bb, 0x188bc, 0x188bd, 0x188be, 0x188bf, 0x188c0, 0x188c1, 0x188c2, 0x188c3, 0x188c4, 0x188c5, 0x188c6, 0x188c7, 0x188c8, 0x188c9, 0x188ca, 0x188cb, 0x188cc, 0x188cd, 0x188ce
+};
+
+void BM_collation_element_lookup_633(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 0, cps_633 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 1, cps_633 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 2, cps_633 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 3, cps_633 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 4, cps_633 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 5, cps_633 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 6, cps_633 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 7, cps_633 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 8, cps_633 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 9, cps_633 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 10, cps_633 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 11, cps_633 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 12, cps_633 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 13, cps_633 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 14, cps_633 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 15, cps_633 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 16, cps_633 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 17, cps_633 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 18, cps_633 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 19, cps_633 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 20, cps_633 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 21, cps_633 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 22, cps_633 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 23, cps_633 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 24, cps_633 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 25, cps_633 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 26, cps_633 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 27, cps_633 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 28, cps_633 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 29, cps_633 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 30, cps_633 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 31, cps_633 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 32, cps_633 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 33, cps_633 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 34, cps_633 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 35, cps_633 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 36, cps_633 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 37, cps_633 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 38, cps_633 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 39, cps_633 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 40, cps_633 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 41, cps_633 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 42, cps_633 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 43, cps_633 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 44, cps_633 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 45, cps_633 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 46, cps_633 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 47, cps_633 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 48, cps_633 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_633 + 49, cps_633 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_633);
+
+uint32_t cps_634[] = {
+0x188cf, 0x188d0, 0x188d1, 0x188d2, 0x188d3, 0x188d4, 0x188d5, 0x188d6, 0x188d7, 0x188d8, 0x188d9, 0x188da, 0x188db, 0x188dc, 0x188dd, 0x188de, 0x188df, 0x188e0, 0x188e1, 0x188e2, 0x188e3, 0x188e4, 0x188e5, 0x188e6, 0x188e7, 0x188e8, 0x188e9, 0x188ea, 0x188eb, 0x188ec, 0x188ed, 0x188ee, 0x188ef, 0x188f0, 0x188f1, 0x188f2, 0x188f3, 0x188f4, 0x188f5, 0x188f6, 0x188f7, 0x188f8, 0x188f9, 0x188fa, 0x188fb, 0x188fc, 0x188fd, 0x188fe, 0x188ff, 0x18900
+};
+
+void BM_collation_element_lookup_634(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 0, cps_634 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 1, cps_634 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 2, cps_634 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 3, cps_634 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 4, cps_634 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 5, cps_634 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 6, cps_634 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 7, cps_634 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 8, cps_634 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 9, cps_634 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 10, cps_634 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 11, cps_634 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 12, cps_634 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 13, cps_634 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 14, cps_634 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 15, cps_634 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 16, cps_634 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 17, cps_634 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 18, cps_634 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 19, cps_634 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 20, cps_634 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 21, cps_634 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 22, cps_634 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 23, cps_634 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 24, cps_634 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 25, cps_634 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 26, cps_634 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 27, cps_634 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 28, cps_634 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 29, cps_634 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 30, cps_634 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 31, cps_634 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 32, cps_634 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 33, cps_634 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 34, cps_634 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 35, cps_634 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 36, cps_634 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 37, cps_634 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 38, cps_634 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 39, cps_634 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 40, cps_634 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 41, cps_634 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 42, cps_634 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 43, cps_634 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 44, cps_634 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 45, cps_634 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 46, cps_634 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 47, cps_634 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 48, cps_634 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_634 + 49, cps_634 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_634);
+
+uint32_t cps_635[] = {
+0x18901, 0x18902, 0x18903, 0x18904, 0x18905, 0x18906, 0x18907, 0x18908, 0x18909, 0x1890a, 0x1890b, 0x1890c, 0x1890d, 0x1890e, 0x1890f, 0x18910, 0x18911, 0x18912, 0x18913, 0x18914, 0x18915, 0x18916, 0x18917, 0x18918, 0x18919, 0x1891a, 0x1891b, 0x1891c, 0x1891d, 0x1891e, 0x1891f, 0x18920, 0x18921, 0x18922, 0x18923, 0x18924, 0x18925, 0x18926, 0x18927, 0x18928, 0x18929, 0x1892a, 0x1892b, 0x1892c, 0x1892d, 0x1892e, 0x1892f, 0x18930, 0x18931, 0x18932
+};
+
+void BM_collation_element_lookup_635(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 0, cps_635 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 1, cps_635 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 2, cps_635 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 3, cps_635 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 4, cps_635 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 5, cps_635 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 6, cps_635 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 7, cps_635 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 8, cps_635 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 9, cps_635 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 10, cps_635 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 11, cps_635 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 12, cps_635 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 13, cps_635 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 14, cps_635 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 15, cps_635 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 16, cps_635 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 17, cps_635 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 18, cps_635 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 19, cps_635 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 20, cps_635 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 21, cps_635 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 22, cps_635 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 23, cps_635 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 24, cps_635 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 25, cps_635 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 26, cps_635 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 27, cps_635 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 28, cps_635 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 29, cps_635 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 30, cps_635 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 31, cps_635 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 32, cps_635 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 33, cps_635 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 34, cps_635 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 35, cps_635 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 36, cps_635 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 37, cps_635 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 38, cps_635 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 39, cps_635 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 40, cps_635 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 41, cps_635 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 42, cps_635 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 43, cps_635 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 44, cps_635 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 45, cps_635 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 46, cps_635 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 47, cps_635 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 48, cps_635 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_635 + 49, cps_635 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_635);
+
+uint32_t cps_636[] = {
+0x18933, 0x18934, 0x18935, 0x18936, 0x18937, 0x18938, 0x18939, 0x1893a, 0x1893b, 0x1893c, 0x1893d, 0x1893e, 0x1893f, 0x18940, 0x18941, 0x18942, 0x18943, 0x18944, 0x18945, 0x18946, 0x18947, 0x18948, 0x18949, 0x1894a, 0x1894b, 0x1894c, 0x1894d, 0x1894e, 0x1894f, 0x18950, 0x18951, 0x18952, 0x18953, 0x18954, 0x18955, 0x18956, 0x18957, 0x18958, 0x18959, 0x1895a, 0x1895b, 0x1895c, 0x1895d, 0x1895e, 0x1895f, 0x18960, 0x18961, 0x18962, 0x18963, 0x18964
+};
+
+void BM_collation_element_lookup_636(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 0, cps_636 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 1, cps_636 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 2, cps_636 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 3, cps_636 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 4, cps_636 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 5, cps_636 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 6, cps_636 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 7, cps_636 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 8, cps_636 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 9, cps_636 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 10, cps_636 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 11, cps_636 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 12, cps_636 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 13, cps_636 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 14, cps_636 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 15, cps_636 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 16, cps_636 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 17, cps_636 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 18, cps_636 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 19, cps_636 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 20, cps_636 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 21, cps_636 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 22, cps_636 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 23, cps_636 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 24, cps_636 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 25, cps_636 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 26, cps_636 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 27, cps_636 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 28, cps_636 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 29, cps_636 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 30, cps_636 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 31, cps_636 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 32, cps_636 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 33, cps_636 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 34, cps_636 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 35, cps_636 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 36, cps_636 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 37, cps_636 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 38, cps_636 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 39, cps_636 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 40, cps_636 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 41, cps_636 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 42, cps_636 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 43, cps_636 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 44, cps_636 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 45, cps_636 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 46, cps_636 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 47, cps_636 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 48, cps_636 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_636 + 49, cps_636 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_636);
+
+uint32_t cps_637[] = {
+0x18965, 0x18966, 0x18967, 0x18968, 0x18969, 0x1896a, 0x1896b, 0x1896c, 0x1896d, 0x1896e, 0x1896f, 0x18970, 0x18971, 0x18972, 0x18973, 0x18974, 0x18975, 0x18976, 0x18977, 0x18978, 0x18979, 0x1897a, 0x1897b, 0x1897c, 0x1897d, 0x1897e, 0x1897f, 0x18980, 0x18981, 0x18982, 0x18983, 0x18984, 0x18985, 0x18986, 0x18987, 0x18988, 0x18989, 0x1898a, 0x1898b, 0x1898c, 0x1898d, 0x1898e, 0x1898f, 0x18990, 0x18991, 0x18992, 0x18993, 0x18994, 0x18995, 0x18996
+};
+
+void BM_collation_element_lookup_637(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 0, cps_637 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 1, cps_637 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 2, cps_637 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 3, cps_637 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 4, cps_637 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 5, cps_637 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 6, cps_637 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 7, cps_637 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 8, cps_637 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 9, cps_637 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 10, cps_637 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 11, cps_637 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 12, cps_637 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 13, cps_637 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 14, cps_637 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 15, cps_637 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 16, cps_637 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 17, cps_637 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 18, cps_637 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 19, cps_637 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 20, cps_637 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 21, cps_637 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 22, cps_637 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 23, cps_637 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 24, cps_637 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 25, cps_637 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 26, cps_637 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 27, cps_637 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 28, cps_637 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 29, cps_637 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 30, cps_637 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 31, cps_637 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 32, cps_637 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 33, cps_637 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 34, cps_637 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 35, cps_637 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 36, cps_637 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 37, cps_637 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 38, cps_637 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 39, cps_637 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 40, cps_637 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 41, cps_637 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 42, cps_637 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 43, cps_637 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 44, cps_637 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 45, cps_637 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 46, cps_637 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 47, cps_637 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 48, cps_637 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_637 + 49, cps_637 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_637);
+
+uint32_t cps_638[] = {
+0x18997, 0x18998, 0x18999, 0x1899a, 0x1899b, 0x1899c, 0x1899d, 0x1899e, 0x1899f, 0x189a0, 0x189a1, 0x189a2, 0x189a3, 0x189a4, 0x189a5, 0x189a6, 0x189a7, 0x189a8, 0x189a9, 0x189aa, 0x189ab, 0x189ac, 0x189ad, 0x189ae, 0x189af, 0x189b0, 0x189b1, 0x189b2, 0x189b3, 0x189b4, 0x189b5, 0x189b6, 0x189b7, 0x189b8, 0x189b9, 0x189ba, 0x189bb, 0x189bc, 0x189bd, 0x189be, 0x189bf, 0x189c0, 0x189c1, 0x189c2, 0x189c3, 0x189c4, 0x189c5, 0x189c6, 0x189c7, 0x189c8
+};
+
+void BM_collation_element_lookup_638(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 0, cps_638 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 1, cps_638 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 2, cps_638 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 3, cps_638 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 4, cps_638 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 5, cps_638 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 6, cps_638 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 7, cps_638 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 8, cps_638 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 9, cps_638 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 10, cps_638 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 11, cps_638 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 12, cps_638 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 13, cps_638 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 14, cps_638 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 15, cps_638 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 16, cps_638 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 17, cps_638 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 18, cps_638 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 19, cps_638 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 20, cps_638 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 21, cps_638 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 22, cps_638 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 23, cps_638 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 24, cps_638 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 25, cps_638 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 26, cps_638 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 27, cps_638 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 28, cps_638 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 29, cps_638 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 30, cps_638 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 31, cps_638 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 32, cps_638 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 33, cps_638 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 34, cps_638 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 35, cps_638 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 36, cps_638 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 37, cps_638 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 38, cps_638 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 39, cps_638 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 40, cps_638 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 41, cps_638 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 42, cps_638 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 43, cps_638 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 44, cps_638 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 45, cps_638 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 46, cps_638 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 47, cps_638 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 48, cps_638 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_638 + 49, cps_638 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_638);
+
+uint32_t cps_639[] = {
+0x189c9, 0x189ca, 0x189cb, 0x189cc, 0x189cd, 0x189ce, 0x189cf, 0x189d0, 0x189d1, 0x189d2, 0x189d3, 0x189d4, 0x189d5, 0x189d6, 0x189d7, 0x189d8, 0x189d9, 0x189da, 0x189db, 0x189dc, 0x189dd, 0x189de, 0x189df, 0x189e0, 0x189e1, 0x189e2, 0x189e3, 0x189e4, 0x189e5, 0x189e6, 0x189e7, 0x189e8, 0x189e9, 0x189ea, 0x189eb, 0x189ec, 0x189ed, 0x189ee, 0x189ef, 0x189f0, 0x189f1, 0x189f2, 0x189f3, 0x189f4, 0x189f5, 0x189f6, 0x189f7, 0x189f8, 0x189f9, 0x189fa
+};
+
+void BM_collation_element_lookup_639(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 0, cps_639 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 1, cps_639 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 2, cps_639 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 3, cps_639 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 4, cps_639 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 5, cps_639 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 6, cps_639 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 7, cps_639 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 8, cps_639 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 9, cps_639 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 10, cps_639 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 11, cps_639 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 12, cps_639 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 13, cps_639 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 14, cps_639 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 15, cps_639 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 16, cps_639 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 17, cps_639 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 18, cps_639 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 19, cps_639 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 20, cps_639 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 21, cps_639 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 22, cps_639 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 23, cps_639 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 24, cps_639 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 25, cps_639 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 26, cps_639 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 27, cps_639 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 28, cps_639 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 29, cps_639 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 30, cps_639 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 31, cps_639 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 32, cps_639 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 33, cps_639 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 34, cps_639 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 35, cps_639 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 36, cps_639 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 37, cps_639 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 38, cps_639 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 39, cps_639 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 40, cps_639 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 41, cps_639 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 42, cps_639 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 43, cps_639 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 44, cps_639 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 45, cps_639 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 46, cps_639 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 47, cps_639 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 48, cps_639 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_639 + 49, cps_639 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_639);
+
+uint32_t cps_640[] = {
+0x189fb, 0x189fc, 0x189fd, 0x189fe, 0x189ff, 0x18a00, 0x18a01, 0x18a02, 0x18a03, 0x18a04, 0x18a05, 0x18a06, 0x18a07, 0x18a08, 0x18a09, 0x18a0a, 0x18a0b, 0x18a0c, 0x18a0d, 0x18a0e, 0x18a0f, 0x18a10, 0x18a11, 0x18a12, 0x18a13, 0x18a14, 0x18a15, 0x18a16, 0x18a17, 0x18a18, 0x18a19, 0x18a1a, 0x18a1b, 0x18a1c, 0x18a1d, 0x18a1e, 0x18a1f, 0x18a20, 0x18a21, 0x18a22, 0x18a23, 0x18a24, 0x18a25, 0x18a26, 0x18a27, 0x18a28, 0x18a29, 0x18a2a, 0x18a2b, 0x18a2c
+};
+
+void BM_collation_element_lookup_640(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 0, cps_640 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 1, cps_640 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 2, cps_640 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 3, cps_640 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 4, cps_640 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 5, cps_640 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 6, cps_640 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 7, cps_640 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 8, cps_640 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 9, cps_640 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 10, cps_640 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 11, cps_640 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 12, cps_640 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 13, cps_640 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 14, cps_640 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 15, cps_640 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 16, cps_640 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 17, cps_640 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 18, cps_640 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 19, cps_640 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 20, cps_640 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 21, cps_640 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 22, cps_640 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 23, cps_640 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 24, cps_640 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 25, cps_640 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 26, cps_640 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 27, cps_640 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 28, cps_640 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 29, cps_640 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 30, cps_640 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 31, cps_640 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 32, cps_640 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 33, cps_640 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 34, cps_640 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 35, cps_640 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 36, cps_640 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 37, cps_640 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 38, cps_640 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 39, cps_640 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 40, cps_640 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 41, cps_640 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 42, cps_640 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 43, cps_640 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 44, cps_640 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 45, cps_640 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 46, cps_640 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 47, cps_640 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 48, cps_640 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_640 + 49, cps_640 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_640);
+
+uint32_t cps_641[] = {
+0x18a2d, 0x18a2e, 0x18a2f, 0x18a30, 0x18a31, 0x18a32, 0x18a33, 0x18a34, 0x18a35, 0x18a36, 0x18a37, 0x18a38, 0x18a39, 0x18a3a, 0x18a3b, 0x18a3c, 0x18a3d, 0x18a3e, 0x18a3f, 0x18a40, 0x18a41, 0x18a42, 0x18a43, 0x18a44, 0x18a45, 0x18a46, 0x18a47, 0x18a48, 0x18a49, 0x18a4a, 0x18a4b, 0x18a4c, 0x18a4d, 0x18a4e, 0x18a4f, 0x18a50, 0x18a51, 0x18a52, 0x18a53, 0x18a54, 0x18a55, 0x18a56, 0x18a57, 0x18a58, 0x18a59, 0x18a5a, 0x18a5b, 0x18a5c, 0x18a5d, 0x18a5e
+};
+
+void BM_collation_element_lookup_641(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 0, cps_641 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 1, cps_641 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 2, cps_641 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 3, cps_641 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 4, cps_641 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 5, cps_641 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 6, cps_641 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 7, cps_641 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 8, cps_641 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 9, cps_641 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 10, cps_641 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 11, cps_641 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 12, cps_641 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 13, cps_641 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 14, cps_641 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 15, cps_641 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 16, cps_641 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 17, cps_641 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 18, cps_641 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 19, cps_641 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 20, cps_641 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 21, cps_641 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 22, cps_641 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 23, cps_641 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 24, cps_641 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 25, cps_641 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 26, cps_641 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 27, cps_641 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 28, cps_641 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 29, cps_641 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 30, cps_641 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 31, cps_641 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 32, cps_641 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 33, cps_641 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 34, cps_641 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 35, cps_641 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 36, cps_641 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 37, cps_641 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 38, cps_641 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 39, cps_641 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 40, cps_641 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 41, cps_641 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 42, cps_641 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 43, cps_641 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 44, cps_641 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 45, cps_641 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 46, cps_641 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 47, cps_641 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 48, cps_641 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_641 + 49, cps_641 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_641);
+
+uint32_t cps_642[] = {
+0x18a5f, 0x18a60, 0x18a61, 0x18a62, 0x18a63, 0x18a64, 0x18a65, 0x18a66, 0x18a67, 0x18a68, 0x18a69, 0x18a6a, 0x18a6b, 0x18a6c, 0x18a6d, 0x18a6e, 0x18a6f, 0x18a70, 0x18a71, 0x18a72, 0x18a73, 0x18a74, 0x18a75, 0x18a76, 0x18a77, 0x18a78, 0x18a79, 0x18a7a, 0x18a7b, 0x18a7c, 0x18a7d, 0x18a7e, 0x18a7f, 0x18a80, 0x18a81, 0x18a82, 0x18a83, 0x18a84, 0x18a85, 0x18a86, 0x18a87, 0x18a88, 0x18a89, 0x18a8a, 0x18a8b, 0x18a8c, 0x18a8d, 0x18a8e, 0x18a8f, 0x18a90
+};
+
+void BM_collation_element_lookup_642(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 0, cps_642 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 1, cps_642 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 2, cps_642 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 3, cps_642 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 4, cps_642 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 5, cps_642 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 6, cps_642 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 7, cps_642 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 8, cps_642 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 9, cps_642 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 10, cps_642 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 11, cps_642 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 12, cps_642 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 13, cps_642 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 14, cps_642 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 15, cps_642 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 16, cps_642 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 17, cps_642 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 18, cps_642 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 19, cps_642 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 20, cps_642 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 21, cps_642 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 22, cps_642 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 23, cps_642 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 24, cps_642 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 25, cps_642 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 26, cps_642 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 27, cps_642 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 28, cps_642 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 29, cps_642 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 30, cps_642 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 31, cps_642 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 32, cps_642 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 33, cps_642 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 34, cps_642 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 35, cps_642 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 36, cps_642 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 37, cps_642 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 38, cps_642 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 39, cps_642 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 40, cps_642 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 41, cps_642 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 42, cps_642 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 43, cps_642 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 44, cps_642 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 45, cps_642 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 46, cps_642 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 47, cps_642 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 48, cps_642 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_642 + 49, cps_642 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_642);
+
+uint32_t cps_643[] = {
+0x18a91, 0x18a92, 0x18a93, 0x18a94, 0x18a95, 0x18a96, 0x18a97, 0x18a98, 0x18a99, 0x18a9a, 0x18a9b, 0x18a9c, 0x18a9d, 0x18a9e, 0x18a9f, 0x18aa0, 0x18aa1, 0x18aa2, 0x18aa3, 0x18aa4, 0x18aa5, 0x18aa6, 0x18aa7, 0x18aa8, 0x18aa9, 0x18aaa, 0x18aab, 0x18aac, 0x18aad, 0x18aae, 0x18aaf, 0x18ab0, 0x18ab1, 0x18ab2, 0x18ab3, 0x18ab4, 0x18ab5, 0x18ab6, 0x18ab7, 0x18ab8, 0x18ab9, 0x18aba, 0x18abb, 0x18abc, 0x18abd, 0x18abe, 0x18abf, 0x18ac0, 0x18ac1, 0x18ac2
+};
+
+void BM_collation_element_lookup_643(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 0, cps_643 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 1, cps_643 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 2, cps_643 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 3, cps_643 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 4, cps_643 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 5, cps_643 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 6, cps_643 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 7, cps_643 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 8, cps_643 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 9, cps_643 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 10, cps_643 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 11, cps_643 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 12, cps_643 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 13, cps_643 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 14, cps_643 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 15, cps_643 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 16, cps_643 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 17, cps_643 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 18, cps_643 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 19, cps_643 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 20, cps_643 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 21, cps_643 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 22, cps_643 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 23, cps_643 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 24, cps_643 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 25, cps_643 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 26, cps_643 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 27, cps_643 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 28, cps_643 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 29, cps_643 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 30, cps_643 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 31, cps_643 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 32, cps_643 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 33, cps_643 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 34, cps_643 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 35, cps_643 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 36, cps_643 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 37, cps_643 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 38, cps_643 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 39, cps_643 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 40, cps_643 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 41, cps_643 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 42, cps_643 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 43, cps_643 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 44, cps_643 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 45, cps_643 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 46, cps_643 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 47, cps_643 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 48, cps_643 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_643 + 49, cps_643 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_643);
+
+uint32_t cps_644[] = {
+0x18ac3, 0x18ac4, 0x18ac5, 0x18ac6, 0x18ac7, 0x18ac8, 0x18ac9, 0x18aca, 0x18acb, 0x18acc, 0x18acd, 0x18ace, 0x18acf, 0x18ad0, 0x18ad1, 0x18ad2, 0x18ad3, 0x18ad4, 0x18ad5, 0x18ad6, 0x18ad7, 0x18ad8, 0x18ad9, 0x18ada, 0x18adb, 0x18adc, 0x18add, 0x18ade, 0x18adf, 0x18ae0, 0x18ae1, 0x18ae2, 0x18ae3, 0x18ae4, 0x18ae5, 0x18ae6, 0x18ae7, 0x18ae8, 0x18ae9, 0x18aea, 0x18aeb, 0x18aec, 0x18aed, 0x18aee, 0x18aef, 0x18af0, 0x18af1, 0x18af2, 0x1b000, 0x1b001
+};
+
+void BM_collation_element_lookup_644(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 0, cps_644 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 1, cps_644 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 2, cps_644 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 3, cps_644 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 4, cps_644 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 5, cps_644 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 6, cps_644 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 7, cps_644 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 8, cps_644 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 9, cps_644 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 10, cps_644 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 11, cps_644 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 12, cps_644 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 13, cps_644 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 14, cps_644 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 15, cps_644 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 16, cps_644 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 17, cps_644 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 18, cps_644 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 19, cps_644 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 20, cps_644 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 21, cps_644 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 22, cps_644 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 23, cps_644 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 24, cps_644 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 25, cps_644 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 26, cps_644 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 27, cps_644 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 28, cps_644 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 29, cps_644 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 30, cps_644 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 31, cps_644 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 32, cps_644 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 33, cps_644 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 34, cps_644 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 35, cps_644 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 36, cps_644 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 37, cps_644 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 38, cps_644 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 39, cps_644 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 40, cps_644 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 41, cps_644 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 42, cps_644 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 43, cps_644 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 44, cps_644 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 45, cps_644 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 46, cps_644 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 47, cps_644 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 48, cps_644 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_644 + 49, cps_644 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_644);
+
+uint32_t cps_645[] = {
+0x1b002, 0x1b003, 0x1b004, 0x1b005, 0x1b006, 0x1b007, 0x1b008, 0x1b009, 0x1b00a, 0x1b00b, 0x1b00c, 0x1b00d, 0x1b00e, 0x1b00f, 0x1b010, 0x1b011, 0x1b012, 0x1b013, 0x1b014, 0x1b015, 0x1b016, 0x1b017, 0x1b018, 0x1b019, 0x1b01a, 0x1b01b, 0x1b01c, 0x1b01d, 0x1b01e, 0x1b01f, 0x1b020, 0x1b021, 0x1b022, 0x1b023, 0x1b024, 0x1b025, 0x1b026, 0x1b027, 0x1b028, 0x1b029, 0x1b02a, 0x1b02b, 0x1b02c, 0x1b02d, 0x1b02e, 0x1b02f, 0x1b030, 0x1b031, 0x1b032, 0x1b033
+};
+
+void BM_collation_element_lookup_645(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 0, cps_645 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 1, cps_645 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 2, cps_645 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 3, cps_645 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 4, cps_645 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 5, cps_645 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 6, cps_645 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 7, cps_645 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 8, cps_645 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 9, cps_645 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 10, cps_645 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 11, cps_645 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 12, cps_645 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 13, cps_645 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 14, cps_645 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 15, cps_645 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 16, cps_645 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 17, cps_645 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 18, cps_645 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 19, cps_645 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 20, cps_645 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 21, cps_645 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 22, cps_645 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 23, cps_645 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 24, cps_645 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 25, cps_645 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 26, cps_645 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 27, cps_645 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 28, cps_645 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 29, cps_645 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 30, cps_645 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 31, cps_645 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 32, cps_645 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 33, cps_645 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 34, cps_645 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 35, cps_645 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 36, cps_645 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 37, cps_645 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 38, cps_645 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 39, cps_645 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 40, cps_645 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 41, cps_645 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 42, cps_645 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 43, cps_645 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 44, cps_645 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 45, cps_645 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 46, cps_645 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 47, cps_645 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 48, cps_645 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_645 + 49, cps_645 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_645);
+
+uint32_t cps_646[] = {
+0x1b034, 0x1b035, 0x1b036, 0x1b037, 0x1b038, 0x1b039, 0x1b03a, 0x1b03b, 0x1b03c, 0x1b03d, 0x1b03e, 0x1b03f, 0x1b040, 0x1b041, 0x1b042, 0x1b043, 0x1b044, 0x1b045, 0x1b046, 0x1b047, 0x1b048, 0x1b049, 0x1b04a, 0x1b04b, 0x1b04c, 0x1b04d, 0x1b04e, 0x1b04f, 0x1b050, 0x1b051, 0x1b052, 0x1b053, 0x1b054, 0x1b055, 0x1b056, 0x1b057, 0x1b058, 0x1b059, 0x1b05a, 0x1b05b, 0x1b05c, 0x1b05d, 0x1b05e, 0x1b05f, 0x1b060, 0x1b061, 0x1b062, 0x1b063, 0x1b064, 0x1b065
+};
+
+void BM_collation_element_lookup_646(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 0, cps_646 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 1, cps_646 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 2, cps_646 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 3, cps_646 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 4, cps_646 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 5, cps_646 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 6, cps_646 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 7, cps_646 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 8, cps_646 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 9, cps_646 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 10, cps_646 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 11, cps_646 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 12, cps_646 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 13, cps_646 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 14, cps_646 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 15, cps_646 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 16, cps_646 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 17, cps_646 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 18, cps_646 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 19, cps_646 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 20, cps_646 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 21, cps_646 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 22, cps_646 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 23, cps_646 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 24, cps_646 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 25, cps_646 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 26, cps_646 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 27, cps_646 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 28, cps_646 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 29, cps_646 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 30, cps_646 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 31, cps_646 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 32, cps_646 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 33, cps_646 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 34, cps_646 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 35, cps_646 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 36, cps_646 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 37, cps_646 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 38, cps_646 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 39, cps_646 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 40, cps_646 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 41, cps_646 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 42, cps_646 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 43, cps_646 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 44, cps_646 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 45, cps_646 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 46, cps_646 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 47, cps_646 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 48, cps_646 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_646 + 49, cps_646 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_646);
+
+uint32_t cps_647[] = {
+0x1b066, 0x1b067, 0x1b068, 0x1b069, 0x1b06a, 0x1b06b, 0x1b06c, 0x1b06d, 0x1b06e, 0x1b06f, 0x1b070, 0x1b071, 0x1b072, 0x1b073, 0x1b074, 0x1b075, 0x1b076, 0x1b077, 0x1b078, 0x1b079, 0x1b07a, 0x1b07b, 0x1b07c, 0x1b07d, 0x1b07e, 0x1b07f, 0x1b080, 0x1b081, 0x1b082, 0x1b083, 0x1b084, 0x1b085, 0x1b086, 0x1b087, 0x1b088, 0x1b089, 0x1b08a, 0x1b08b, 0x1b08c, 0x1b08d, 0x1b08e, 0x1b08f, 0x1b090, 0x1b091, 0x1b092, 0x1b093, 0x1b094, 0x1b095, 0x1b096, 0x1b097
+};
+
+void BM_collation_element_lookup_647(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 0, cps_647 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 1, cps_647 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 2, cps_647 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 3, cps_647 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 4, cps_647 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 5, cps_647 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 6, cps_647 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 7, cps_647 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 8, cps_647 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 9, cps_647 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 10, cps_647 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 11, cps_647 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 12, cps_647 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 13, cps_647 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 14, cps_647 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 15, cps_647 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 16, cps_647 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 17, cps_647 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 18, cps_647 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 19, cps_647 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 20, cps_647 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 21, cps_647 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 22, cps_647 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 23, cps_647 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 24, cps_647 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 25, cps_647 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 26, cps_647 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 27, cps_647 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 28, cps_647 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 29, cps_647 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 30, cps_647 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 31, cps_647 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 32, cps_647 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 33, cps_647 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 34, cps_647 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 35, cps_647 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 36, cps_647 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 37, cps_647 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 38, cps_647 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 39, cps_647 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 40, cps_647 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 41, cps_647 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 42, cps_647 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 43, cps_647 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 44, cps_647 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 45, cps_647 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 46, cps_647 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 47, cps_647 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 48, cps_647 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_647 + 49, cps_647 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_647);
+
+uint32_t cps_648[] = {
+0x1b098, 0x1b099, 0x1b09a, 0x1b09b, 0x1b09c, 0x1b09d, 0x1b09e, 0x1b09f, 0x1b0a0, 0x1b0a1, 0x1b0a2, 0x1b0a3, 0x1b0a4, 0x1b0a5, 0x1b0a6, 0x1b0a7, 0x1b0a8, 0x1b0a9, 0x1b0aa, 0x1b0ab, 0x1b0ac, 0x1b0ad, 0x1b0ae, 0x1b0af, 0x1b0b0, 0x1b0b1, 0x1b0b2, 0x1b0b3, 0x1b0b4, 0x1b0b5, 0x1b0b6, 0x1b0b7, 0x1b0b8, 0x1b0b9, 0x1b0ba, 0x1b0bb, 0x1b0bc, 0x1b0bd, 0x1b0be, 0x1b0bf, 0x1b0c0, 0x1b0c1, 0x1b0c2, 0x1b0c3, 0x1b0c4, 0x1b0c5, 0x1b0c6, 0x1b0c7, 0x1b0c8, 0x1b0c9
+};
+
+void BM_collation_element_lookup_648(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 0, cps_648 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 1, cps_648 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 2, cps_648 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 3, cps_648 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 4, cps_648 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 5, cps_648 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 6, cps_648 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 7, cps_648 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 8, cps_648 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 9, cps_648 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 10, cps_648 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 11, cps_648 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 12, cps_648 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 13, cps_648 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 14, cps_648 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 15, cps_648 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 16, cps_648 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 17, cps_648 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 18, cps_648 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 19, cps_648 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 20, cps_648 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 21, cps_648 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 22, cps_648 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 23, cps_648 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 24, cps_648 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 25, cps_648 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 26, cps_648 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 27, cps_648 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 28, cps_648 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 29, cps_648 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 30, cps_648 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 31, cps_648 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 32, cps_648 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 33, cps_648 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 34, cps_648 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 35, cps_648 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 36, cps_648 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 37, cps_648 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 38, cps_648 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 39, cps_648 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 40, cps_648 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 41, cps_648 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 42, cps_648 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 43, cps_648 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 44, cps_648 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 45, cps_648 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 46, cps_648 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 47, cps_648 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 48, cps_648 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_648 + 49, cps_648 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_648);
+
+uint32_t cps_649[] = {
+0x1b0ca, 0x1b0cb, 0x1b0cc, 0x1b0cd, 0x1b0ce, 0x1b0cf, 0x1b0d0, 0x1b0d1, 0x1b0d2, 0x1b0d3, 0x1b0d4, 0x1b0d5, 0x1b0d6, 0x1b0d7, 0x1b0d8, 0x1b0d9, 0x1b0da, 0x1b0db, 0x1b0dc, 0x1b0dd, 0x1b0de, 0x1b0df, 0x1b0e0, 0x1b0e1, 0x1b0e2, 0x1b0e3, 0x1b0e4, 0x1b0e5, 0x1b0e6, 0x1b0e7, 0x1b0e8, 0x1b0e9, 0x1b0ea, 0x1b0eb, 0x1b0ec, 0x1b0ed, 0x1b0ee, 0x1b0ef, 0x1b0f0, 0x1b0f1, 0x1b0f2, 0x1b0f3, 0x1b0f4, 0x1b0f5, 0x1b0f6, 0x1b0f7, 0x1b0f8, 0x1b0f9, 0x1b0fa, 0x1b0fb
+};
+
+void BM_collation_element_lookup_649(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 0, cps_649 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 1, cps_649 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 2, cps_649 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 3, cps_649 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 4, cps_649 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 5, cps_649 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 6, cps_649 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 7, cps_649 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 8, cps_649 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 9, cps_649 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 10, cps_649 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 11, cps_649 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 12, cps_649 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 13, cps_649 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 14, cps_649 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 15, cps_649 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 16, cps_649 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 17, cps_649 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 18, cps_649 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 19, cps_649 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 20, cps_649 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 21, cps_649 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 22, cps_649 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 23, cps_649 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 24, cps_649 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 25, cps_649 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 26, cps_649 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 27, cps_649 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 28, cps_649 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 29, cps_649 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 30, cps_649 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 31, cps_649 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 32, cps_649 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 33, cps_649 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 34, cps_649 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 35, cps_649 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 36, cps_649 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 37, cps_649 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 38, cps_649 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 39, cps_649 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 40, cps_649 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 41, cps_649 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 42, cps_649 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 43, cps_649 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 44, cps_649 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 45, cps_649 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 46, cps_649 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 47, cps_649 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 48, cps_649 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_649 + 49, cps_649 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_649);
+
+uint32_t cps_650[] = {
+0x1b0fc, 0x1b0fd, 0x1b0fe, 0x1b0ff, 0x1b100, 0x1b101, 0x1b102, 0x1b103, 0x1b104, 0x1b105, 0x1b106, 0x1b107, 0x1b108, 0x1b109, 0x1b10a, 0x1b10b, 0x1b10c, 0x1b10d, 0x1b10e, 0x1b10f, 0x1b110, 0x1b111, 0x1b112, 0x1b113, 0x1b114, 0x1b115, 0x1b116, 0x1b117, 0x1b118, 0x1b119, 0x1b11a, 0x1b11b, 0x1b11c, 0x1b11d, 0x1b11e, 0x1b170, 0x1b171, 0x1b172, 0x1b173, 0x1b174, 0x1b175, 0x1b176, 0x1b177, 0x1b178, 0x1b179, 0x1b17a, 0x1b17b, 0x1b17c, 0x1b17d, 0x1b17e
+};
+
+void BM_collation_element_lookup_650(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 0, cps_650 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 1, cps_650 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 2, cps_650 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 3, cps_650 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 4, cps_650 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 5, cps_650 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 6, cps_650 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 7, cps_650 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 8, cps_650 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 9, cps_650 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 10, cps_650 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 11, cps_650 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 12, cps_650 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 13, cps_650 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 14, cps_650 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 15, cps_650 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 16, cps_650 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 17, cps_650 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 18, cps_650 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 19, cps_650 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 20, cps_650 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 21, cps_650 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 22, cps_650 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 23, cps_650 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 24, cps_650 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 25, cps_650 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 26, cps_650 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 27, cps_650 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 28, cps_650 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 29, cps_650 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 30, cps_650 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 31, cps_650 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 32, cps_650 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 33, cps_650 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 34, cps_650 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 35, cps_650 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 36, cps_650 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 37, cps_650 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 38, cps_650 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 39, cps_650 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 40, cps_650 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 41, cps_650 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 42, cps_650 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 43, cps_650 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 44, cps_650 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 45, cps_650 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 46, cps_650 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 47, cps_650 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 48, cps_650 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_650 + 49, cps_650 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_650);
+
+uint32_t cps_651[] = {
+0x1b17f, 0x1b180, 0x1b181, 0x1b182, 0x1b183, 0x1b184, 0x1b185, 0x1b186, 0x1b187, 0x1b188, 0x1b189, 0x1b18a, 0x1b18b, 0x1b18c, 0x1b18d, 0x1b18e, 0x1b18f, 0x1b190, 0x1b191, 0x1b192, 0x1b193, 0x1b194, 0x1b195, 0x1b196, 0x1b197, 0x1b198, 0x1b199, 0x1b19a, 0x1b19b, 0x1b19c, 0x1b19d, 0x1b19e, 0x1b19f, 0x1b1a0, 0x1b1a1, 0x1b1a2, 0x1b1a3, 0x1b1a4, 0x1b1a5, 0x1b1a6, 0x1b1a7, 0x1b1a8, 0x1b1a9, 0x1b1aa, 0x1b1ab, 0x1b1ac, 0x1b1ad, 0x1b1ae, 0x1b1af, 0x1b1b0
+};
+
+void BM_collation_element_lookup_651(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 0, cps_651 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 1, cps_651 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 2, cps_651 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 3, cps_651 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 4, cps_651 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 5, cps_651 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 6, cps_651 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 7, cps_651 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 8, cps_651 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 9, cps_651 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 10, cps_651 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 11, cps_651 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 12, cps_651 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 13, cps_651 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 14, cps_651 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 15, cps_651 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 16, cps_651 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 17, cps_651 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 18, cps_651 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 19, cps_651 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 20, cps_651 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 21, cps_651 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 22, cps_651 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 23, cps_651 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 24, cps_651 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 25, cps_651 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 26, cps_651 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 27, cps_651 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 28, cps_651 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 29, cps_651 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 30, cps_651 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 31, cps_651 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 32, cps_651 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 33, cps_651 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 34, cps_651 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 35, cps_651 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 36, cps_651 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 37, cps_651 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 38, cps_651 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 39, cps_651 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 40, cps_651 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 41, cps_651 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 42, cps_651 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 43, cps_651 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 44, cps_651 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 45, cps_651 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 46, cps_651 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 47, cps_651 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 48, cps_651 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_651 + 49, cps_651 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_651);
+
+uint32_t cps_652[] = {
+0x1b1b1, 0x1b1b2, 0x1b1b3, 0x1b1b4, 0x1b1b5, 0x1b1b6, 0x1b1b7, 0x1b1b8, 0x1b1b9, 0x1b1ba, 0x1b1bb, 0x1b1bc, 0x1b1bd, 0x1b1be, 0x1b1bf, 0x1b1c0, 0x1b1c1, 0x1b1c2, 0x1b1c3, 0x1b1c4, 0x1b1c5, 0x1b1c6, 0x1b1c7, 0x1b1c8, 0x1b1c9, 0x1b1ca, 0x1b1cb, 0x1b1cc, 0x1b1cd, 0x1b1ce, 0x1b1cf, 0x1b1d0, 0x1b1d1, 0x1b1d2, 0x1b1d3, 0x1b1d4, 0x1b1d5, 0x1b1d6, 0x1b1d7, 0x1b1d8, 0x1b1d9, 0x1b1da, 0x1b1db, 0x1b1dc, 0x1b1dd, 0x1b1de, 0x1b1df, 0x1b1e0, 0x1b1e1, 0x1b1e2
+};
+
+void BM_collation_element_lookup_652(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 0, cps_652 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 1, cps_652 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 2, cps_652 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 3, cps_652 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 4, cps_652 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 5, cps_652 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 6, cps_652 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 7, cps_652 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 8, cps_652 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 9, cps_652 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 10, cps_652 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 11, cps_652 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 12, cps_652 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 13, cps_652 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 14, cps_652 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 15, cps_652 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 16, cps_652 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 17, cps_652 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 18, cps_652 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 19, cps_652 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 20, cps_652 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 21, cps_652 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 22, cps_652 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 23, cps_652 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 24, cps_652 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 25, cps_652 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 26, cps_652 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 27, cps_652 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 28, cps_652 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 29, cps_652 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 30, cps_652 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 31, cps_652 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 32, cps_652 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 33, cps_652 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 34, cps_652 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 35, cps_652 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 36, cps_652 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 37, cps_652 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 38, cps_652 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 39, cps_652 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 40, cps_652 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 41, cps_652 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 42, cps_652 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 43, cps_652 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 44, cps_652 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 45, cps_652 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 46, cps_652 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 47, cps_652 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 48, cps_652 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_652 + 49, cps_652 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_652);
+
+uint32_t cps_653[] = {
+0x1b1e3, 0x1b1e4, 0x1b1e5, 0x1b1e6, 0x1b1e7, 0x1b1e8, 0x1b1e9, 0x1b1ea, 0x1b1eb, 0x1b1ec, 0x1b1ed, 0x1b1ee, 0x1b1ef, 0x1b1f0, 0x1b1f1, 0x1b1f2, 0x1b1f3, 0x1b1f4, 0x1b1f5, 0x1b1f6, 0x1b1f7, 0x1b1f8, 0x1b1f9, 0x1b1fa, 0x1b1fb, 0x1b1fc, 0x1b1fd, 0x1b1fe, 0x1b1ff, 0x1b200, 0x1b201, 0x1b202, 0x1b203, 0x1b204, 0x1b205, 0x1b206, 0x1b207, 0x1b208, 0x1b209, 0x1b20a, 0x1b20b, 0x1b20c, 0x1b20d, 0x1b20e, 0x1b20f, 0x1b210, 0x1b211, 0x1b212, 0x1b213, 0x1b214
+};
+
+void BM_collation_element_lookup_653(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 0, cps_653 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 1, cps_653 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 2, cps_653 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 3, cps_653 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 4, cps_653 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 5, cps_653 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 6, cps_653 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 7, cps_653 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 8, cps_653 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 9, cps_653 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 10, cps_653 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 11, cps_653 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 12, cps_653 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 13, cps_653 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 14, cps_653 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 15, cps_653 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 16, cps_653 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 17, cps_653 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 18, cps_653 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 19, cps_653 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 20, cps_653 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 21, cps_653 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 22, cps_653 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 23, cps_653 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 24, cps_653 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 25, cps_653 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 26, cps_653 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 27, cps_653 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 28, cps_653 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 29, cps_653 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 30, cps_653 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 31, cps_653 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 32, cps_653 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 33, cps_653 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 34, cps_653 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 35, cps_653 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 36, cps_653 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 37, cps_653 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 38, cps_653 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 39, cps_653 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 40, cps_653 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 41, cps_653 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 42, cps_653 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 43, cps_653 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 44, cps_653 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 45, cps_653 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 46, cps_653 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 47, cps_653 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 48, cps_653 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_653 + 49, cps_653 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_653);
+
+uint32_t cps_654[] = {
+0x1b215, 0x1b216, 0x1b217, 0x1b218, 0x1b219, 0x1b21a, 0x1b21b, 0x1b21c, 0x1b21d, 0x1b21e, 0x1b21f, 0x1b220, 0x1b221, 0x1b222, 0x1b223, 0x1b224, 0x1b225, 0x1b226, 0x1b227, 0x1b228, 0x1b229, 0x1b22a, 0x1b22b, 0x1b22c, 0x1b22d, 0x1b22e, 0x1b22f, 0x1b230, 0x1b231, 0x1b232, 0x1b233, 0x1b234, 0x1b235, 0x1b236, 0x1b237, 0x1b238, 0x1b239, 0x1b23a, 0x1b23b, 0x1b23c, 0x1b23d, 0x1b23e, 0x1b23f, 0x1b240, 0x1b241, 0x1b242, 0x1b243, 0x1b244, 0x1b245, 0x1b246
+};
+
+void BM_collation_element_lookup_654(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 0, cps_654 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 1, cps_654 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 2, cps_654 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 3, cps_654 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 4, cps_654 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 5, cps_654 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 6, cps_654 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 7, cps_654 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 8, cps_654 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 9, cps_654 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 10, cps_654 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 11, cps_654 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 12, cps_654 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 13, cps_654 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 14, cps_654 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 15, cps_654 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 16, cps_654 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 17, cps_654 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 18, cps_654 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 19, cps_654 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 20, cps_654 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 21, cps_654 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 22, cps_654 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 23, cps_654 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 24, cps_654 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 25, cps_654 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 26, cps_654 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 27, cps_654 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 28, cps_654 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 29, cps_654 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 30, cps_654 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 31, cps_654 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 32, cps_654 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 33, cps_654 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 34, cps_654 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 35, cps_654 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 36, cps_654 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 37, cps_654 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 38, cps_654 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 39, cps_654 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 40, cps_654 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 41, cps_654 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 42, cps_654 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 43, cps_654 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 44, cps_654 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 45, cps_654 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 46, cps_654 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 47, cps_654 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 48, cps_654 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_654 + 49, cps_654 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_654);
+
+uint32_t cps_655[] = {
+0x1b247, 0x1b248, 0x1b249, 0x1b24a, 0x1b24b, 0x1b24c, 0x1b24d, 0x1b24e, 0x1b24f, 0x1b250, 0x1b251, 0x1b252, 0x1b253, 0x1b254, 0x1b255, 0x1b256, 0x1b257, 0x1b258, 0x1b259, 0x1b25a, 0x1b25b, 0x1b25c, 0x1b25d, 0x1b25e, 0x1b25f, 0x1b260, 0x1b261, 0x1b262, 0x1b263, 0x1b264, 0x1b265, 0x1b266, 0x1b267, 0x1b268, 0x1b269, 0x1b26a, 0x1b26b, 0x1b26c, 0x1b26d, 0x1b26e, 0x1b26f, 0x1b270, 0x1b271, 0x1b272, 0x1b273, 0x1b274, 0x1b275, 0x1b276, 0x1b277, 0x1b278
+};
+
+void BM_collation_element_lookup_655(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 0, cps_655 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 1, cps_655 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 2, cps_655 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 3, cps_655 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 4, cps_655 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 5, cps_655 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 6, cps_655 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 7, cps_655 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 8, cps_655 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 9, cps_655 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 10, cps_655 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 11, cps_655 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 12, cps_655 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 13, cps_655 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 14, cps_655 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 15, cps_655 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 16, cps_655 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 17, cps_655 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 18, cps_655 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 19, cps_655 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 20, cps_655 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 21, cps_655 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 22, cps_655 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 23, cps_655 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 24, cps_655 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 25, cps_655 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 26, cps_655 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 27, cps_655 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 28, cps_655 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 29, cps_655 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 30, cps_655 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 31, cps_655 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 32, cps_655 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 33, cps_655 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 34, cps_655 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 35, cps_655 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 36, cps_655 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 37, cps_655 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 38, cps_655 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 39, cps_655 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 40, cps_655 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 41, cps_655 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 42, cps_655 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 43, cps_655 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 44, cps_655 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 45, cps_655 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 46, cps_655 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 47, cps_655 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 48, cps_655 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_655 + 49, cps_655 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_655);
+
+uint32_t cps_656[] = {
+0x1b279, 0x1b27a, 0x1b27b, 0x1b27c, 0x1b27d, 0x1b27e, 0x1b27f, 0x1b280, 0x1b281, 0x1b282, 0x1b283, 0x1b284, 0x1b285, 0x1b286, 0x1b287, 0x1b288, 0x1b289, 0x1b28a, 0x1b28b, 0x1b28c, 0x1b28d, 0x1b28e, 0x1b28f, 0x1b290, 0x1b291, 0x1b292, 0x1b293, 0x1b294, 0x1b295, 0x1b296, 0x1b297, 0x1b298, 0x1b299, 0x1b29a, 0x1b29b, 0x1b29c, 0x1b29d, 0x1b29e, 0x1b29f, 0x1b2a0, 0x1b2a1, 0x1b2a2, 0x1b2a3, 0x1b2a4, 0x1b2a5, 0x1b2a6, 0x1b2a7, 0x1b2a8, 0x1b2a9, 0x1b2aa
+};
+
+void BM_collation_element_lookup_656(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 0, cps_656 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 1, cps_656 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 2, cps_656 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 3, cps_656 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 4, cps_656 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 5, cps_656 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 6, cps_656 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 7, cps_656 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 8, cps_656 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 9, cps_656 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 10, cps_656 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 11, cps_656 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 12, cps_656 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 13, cps_656 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 14, cps_656 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 15, cps_656 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 16, cps_656 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 17, cps_656 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 18, cps_656 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 19, cps_656 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 20, cps_656 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 21, cps_656 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 22, cps_656 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 23, cps_656 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 24, cps_656 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 25, cps_656 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 26, cps_656 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 27, cps_656 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 28, cps_656 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 29, cps_656 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 30, cps_656 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 31, cps_656 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 32, cps_656 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 33, cps_656 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 34, cps_656 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 35, cps_656 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 36, cps_656 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 37, cps_656 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 38, cps_656 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 39, cps_656 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 40, cps_656 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 41, cps_656 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 42, cps_656 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 43, cps_656 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 44, cps_656 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 45, cps_656 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 46, cps_656 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 47, cps_656 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 48, cps_656 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_656 + 49, cps_656 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_656);
+
+uint32_t cps_657[] = {
+0x1b2ab, 0x1b2ac, 0x1b2ad, 0x1b2ae, 0x1b2af, 0x1b2b0, 0x1b2b1, 0x1b2b2, 0x1b2b3, 0x1b2b4, 0x1b2b5, 0x1b2b6, 0x1b2b7, 0x1b2b8, 0x1b2b9, 0x1b2ba, 0x1b2bb, 0x1b2bc, 0x1b2bd, 0x1b2be, 0x1b2bf, 0x1b2c0, 0x1b2c1, 0x1b2c2, 0x1b2c3, 0x1b2c4, 0x1b2c5, 0x1b2c6, 0x1b2c7, 0x1b2c8, 0x1b2c9, 0x1b2ca, 0x1b2cb, 0x1b2cc, 0x1b2cd, 0x1b2ce, 0x1b2cf, 0x1b2d0, 0x1b2d1, 0x1b2d2, 0x1b2d3, 0x1b2d4, 0x1b2d5, 0x1b2d6, 0x1b2d7, 0x1b2d8, 0x1b2d9, 0x1b2da, 0x1b2db, 0x1b2dc
+};
+
+void BM_collation_element_lookup_657(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 0, cps_657 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 1, cps_657 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 2, cps_657 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 3, cps_657 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 4, cps_657 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 5, cps_657 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 6, cps_657 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 7, cps_657 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 8, cps_657 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 9, cps_657 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 10, cps_657 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 11, cps_657 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 12, cps_657 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 13, cps_657 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 14, cps_657 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 15, cps_657 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 16, cps_657 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 17, cps_657 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 18, cps_657 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 19, cps_657 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 20, cps_657 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 21, cps_657 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 22, cps_657 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 23, cps_657 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 24, cps_657 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 25, cps_657 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 26, cps_657 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 27, cps_657 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 28, cps_657 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 29, cps_657 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 30, cps_657 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 31, cps_657 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 32, cps_657 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 33, cps_657 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 34, cps_657 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 35, cps_657 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 36, cps_657 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 37, cps_657 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 38, cps_657 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 39, cps_657 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 40, cps_657 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 41, cps_657 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 42, cps_657 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 43, cps_657 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 44, cps_657 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 45, cps_657 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 46, cps_657 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 47, cps_657 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 48, cps_657 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_657 + 49, cps_657 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_657);
+
+uint32_t cps_658[] = {
+0x1b2dd, 0x1b2de, 0x1b2df, 0x1b2e0, 0x1b2e1, 0x1b2e2, 0x1b2e3, 0x1b2e4, 0x1b2e5, 0x1b2e6, 0x1b2e7, 0x1b2e8, 0x1b2e9, 0x1b2ea, 0x1b2eb, 0x1b2ec, 0x1b2ed, 0x1b2ee, 0x1b2ef, 0x1b2f0, 0x1b2f1, 0x1b2f2, 0x1b2f3, 0x1b2f4, 0x1b2f5, 0x1b2f6, 0x1b2f7, 0x1b2f8, 0x1b2f9, 0x1b2fa, 0x1b2fb, 0x1bc00, 0x1bc01, 0x1bc02, 0x1bc03, 0x1bc04, 0x1bc05, 0x1bc06, 0x1bc07, 0x1bc08, 0x1bc09, 0x1bc0a, 0x1bc0b, 0x1bc0c, 0x1bc0d, 0x1bc0e, 0x1bc0f, 0x1bc10, 0x1bc11, 0x1bc12
+};
+
+void BM_collation_element_lookup_658(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 0, cps_658 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 1, cps_658 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 2, cps_658 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 3, cps_658 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 4, cps_658 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 5, cps_658 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 6, cps_658 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 7, cps_658 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 8, cps_658 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 9, cps_658 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 10, cps_658 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 11, cps_658 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 12, cps_658 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 13, cps_658 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 14, cps_658 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 15, cps_658 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 16, cps_658 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 17, cps_658 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 18, cps_658 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 19, cps_658 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 20, cps_658 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 21, cps_658 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 22, cps_658 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 23, cps_658 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 24, cps_658 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 25, cps_658 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 26, cps_658 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 27, cps_658 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 28, cps_658 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 29, cps_658 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 30, cps_658 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 31, cps_658 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 32, cps_658 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 33, cps_658 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 34, cps_658 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 35, cps_658 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 36, cps_658 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 37, cps_658 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 38, cps_658 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 39, cps_658 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 40, cps_658 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 41, cps_658 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 42, cps_658 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 43, cps_658 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 44, cps_658 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 45, cps_658 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 46, cps_658 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 47, cps_658 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 48, cps_658 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_658 + 49, cps_658 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_658);
+
+uint32_t cps_659[] = {
+0x1bc13, 0x1bc14, 0x1bc15, 0x1bc16, 0x1bc17, 0x1bc18, 0x1bc19, 0x1bc1a, 0x1bc1b, 0x1bc1c, 0x1bc1d, 0x1bc1e, 0x1bc1f, 0x1bc20, 0x1bc21, 0x1bc22, 0x1bc23, 0x1bc24, 0x1bc25, 0x1bc26, 0x1bc27, 0x1bc28, 0x1bc29, 0x1bc2a, 0x1bc2b, 0x1bc2c, 0x1bc2d, 0x1bc2e, 0x1bc2f, 0x1bc30, 0x1bc31, 0x1bc32, 0x1bc33, 0x1bc34, 0x1bc35, 0x1bc36, 0x1bc37, 0x1bc38, 0x1bc39, 0x1bc3a, 0x1bc3b, 0x1bc3c, 0x1bc3d, 0x1bc3e, 0x1bc3f, 0x1bc40, 0x1bc41, 0x1bc42, 0x1bc43, 0x1bc44
+};
+
+void BM_collation_element_lookup_659(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 0, cps_659 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 1, cps_659 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 2, cps_659 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 3, cps_659 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 4, cps_659 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 5, cps_659 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 6, cps_659 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 7, cps_659 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 8, cps_659 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 9, cps_659 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 10, cps_659 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 11, cps_659 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 12, cps_659 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 13, cps_659 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 14, cps_659 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 15, cps_659 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 16, cps_659 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 17, cps_659 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 18, cps_659 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 19, cps_659 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 20, cps_659 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 21, cps_659 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 22, cps_659 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 23, cps_659 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 24, cps_659 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 25, cps_659 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 26, cps_659 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 27, cps_659 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 28, cps_659 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 29, cps_659 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 30, cps_659 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 31, cps_659 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 32, cps_659 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 33, cps_659 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 34, cps_659 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 35, cps_659 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 36, cps_659 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 37, cps_659 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 38, cps_659 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 39, cps_659 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 40, cps_659 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 41, cps_659 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 42, cps_659 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 43, cps_659 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 44, cps_659 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 45, cps_659 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 46, cps_659 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 47, cps_659 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 48, cps_659 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_659 + 49, cps_659 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_659);
+
+uint32_t cps_660[] = {
+0x1bc45, 0x1bc46, 0x1bc47, 0x1bc48, 0x1bc49, 0x1bc4a, 0x1bc4b, 0x1bc4c, 0x1bc4d, 0x1bc4e, 0x1bc4f, 0x1bc50, 0x1bc51, 0x1bc52, 0x1bc53, 0x1bc54, 0x1bc55, 0x1bc56, 0x1bc57, 0x1bc58, 0x1bc59, 0x1bc5a, 0x1bc5b, 0x1bc5c, 0x1bc5d, 0x1bc5e, 0x1bc5f, 0x1bc60, 0x1bc61, 0x1bc62, 0x1bc63, 0x1bc64, 0x1bc65, 0x1bc66, 0x1bc67, 0x1bc68, 0x1bc69, 0x1bc6a, 0x1bc70, 0x1bc71, 0x1bc72, 0x1bc73, 0x1bc74, 0x1bc75, 0x1bc76, 0x1bc77, 0x1bc78, 0x1bc79, 0x1bc7a, 0x1bc7b
+};
+
+void BM_collation_element_lookup_660(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 0, cps_660 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 1, cps_660 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 2, cps_660 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 3, cps_660 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 4, cps_660 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 5, cps_660 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 6, cps_660 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 7, cps_660 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 8, cps_660 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 9, cps_660 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 10, cps_660 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 11, cps_660 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 12, cps_660 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 13, cps_660 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 14, cps_660 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 15, cps_660 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 16, cps_660 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 17, cps_660 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 18, cps_660 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 19, cps_660 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 20, cps_660 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 21, cps_660 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 22, cps_660 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 23, cps_660 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 24, cps_660 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 25, cps_660 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 26, cps_660 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 27, cps_660 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 28, cps_660 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 29, cps_660 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 30, cps_660 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 31, cps_660 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 32, cps_660 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 33, cps_660 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 34, cps_660 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 35, cps_660 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 36, cps_660 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 37, cps_660 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 38, cps_660 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 39, cps_660 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 40, cps_660 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 41, cps_660 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 42, cps_660 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 43, cps_660 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 44, cps_660 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 45, cps_660 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 46, cps_660 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 47, cps_660 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 48, cps_660 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_660 + 49, cps_660 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_660);
+
+uint32_t cps_661[] = {
+0x1bc7c, 0x1bc80, 0x1bc81, 0x1bc82, 0x1bc83, 0x1bc84, 0x1bc85, 0x1bc86, 0x1bc87, 0x1bc88, 0x1bc90, 0x1bc91, 0x1bc92, 0x1bc93, 0x1bc94, 0x1bc95, 0x1bc96, 0x1bc97, 0x1bc98, 0x1bc99, 0x1bc9c, 0x1bc9d, 0x1bc9e, 0x1bc9f, 0x1bca0, 0x1bca1, 0x1bca2, 0x1bca3, 0x1d000, 0x1d001, 0x1d002, 0x1d003, 0x1d004, 0x1d005, 0x1d006, 0x1d007, 0x1d008, 0x1d009, 0x1d00a, 0x1d00b, 0x1d00c, 0x1d00d, 0x1d00e, 0x1d00f, 0x1d010, 0x1d011, 0x1d012, 0x1d013, 0x1d014, 0x1d015
+};
+
+void BM_collation_element_lookup_661(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 0, cps_661 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 1, cps_661 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 2, cps_661 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 3, cps_661 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 4, cps_661 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 5, cps_661 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 6, cps_661 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 7, cps_661 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 8, cps_661 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 9, cps_661 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 10, cps_661 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 11, cps_661 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 12, cps_661 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 13, cps_661 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 14, cps_661 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 15, cps_661 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 16, cps_661 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 17, cps_661 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 18, cps_661 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 19, cps_661 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 20, cps_661 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 21, cps_661 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 22, cps_661 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 23, cps_661 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 24, cps_661 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 25, cps_661 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 26, cps_661 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 27, cps_661 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 28, cps_661 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 29, cps_661 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 30, cps_661 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 31, cps_661 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 32, cps_661 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 33, cps_661 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 34, cps_661 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 35, cps_661 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 36, cps_661 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 37, cps_661 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 38, cps_661 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 39, cps_661 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 40, cps_661 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 41, cps_661 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 42, cps_661 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 43, cps_661 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 44, cps_661 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 45, cps_661 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 46, cps_661 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 47, cps_661 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 48, cps_661 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_661 + 49, cps_661 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_661);
+
+uint32_t cps_662[] = {
+0x1d016, 0x1d017, 0x1d018, 0x1d019, 0x1d01a, 0x1d01b, 0x1d01c, 0x1d01d, 0x1d01e, 0x1d01f, 0x1d020, 0x1d021, 0x1d022, 0x1d023, 0x1d024, 0x1d025, 0x1d026, 0x1d027, 0x1d028, 0x1d029, 0x1d02a, 0x1d02b, 0x1d02c, 0x1d02d, 0x1d02e, 0x1d02f, 0x1d030, 0x1d031, 0x1d032, 0x1d033, 0x1d034, 0x1d035, 0x1d036, 0x1d037, 0x1d038, 0x1d039, 0x1d03a, 0x1d03b, 0x1d03c, 0x1d03d, 0x1d03e, 0x1d03f, 0x1d040, 0x1d041, 0x1d042, 0x1d043, 0x1d044, 0x1d045, 0x1d046, 0x1d047
+};
+
+void BM_collation_element_lookup_662(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 0, cps_662 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 1, cps_662 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 2, cps_662 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 3, cps_662 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 4, cps_662 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 5, cps_662 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 6, cps_662 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 7, cps_662 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 8, cps_662 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 9, cps_662 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 10, cps_662 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 11, cps_662 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 12, cps_662 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 13, cps_662 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 14, cps_662 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 15, cps_662 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 16, cps_662 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 17, cps_662 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 18, cps_662 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 19, cps_662 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 20, cps_662 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 21, cps_662 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 22, cps_662 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 23, cps_662 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 24, cps_662 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 25, cps_662 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 26, cps_662 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 27, cps_662 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 28, cps_662 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 29, cps_662 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 30, cps_662 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 31, cps_662 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 32, cps_662 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 33, cps_662 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 34, cps_662 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 35, cps_662 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 36, cps_662 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 37, cps_662 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 38, cps_662 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 39, cps_662 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 40, cps_662 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 41, cps_662 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 42, cps_662 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 43, cps_662 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 44, cps_662 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 45, cps_662 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 46, cps_662 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 47, cps_662 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 48, cps_662 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_662 + 49, cps_662 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_662);
+
+uint32_t cps_663[] = {
+0x1d048, 0x1d049, 0x1d04a, 0x1d04b, 0x1d04c, 0x1d04d, 0x1d04e, 0x1d04f, 0x1d050, 0x1d051, 0x1d052, 0x1d053, 0x1d054, 0x1d055, 0x1d056, 0x1d057, 0x1d058, 0x1d059, 0x1d05a, 0x1d05b, 0x1d05c, 0x1d05d, 0x1d05e, 0x1d05f, 0x1d060, 0x1d061, 0x1d062, 0x1d063, 0x1d064, 0x1d065, 0x1d066, 0x1d067, 0x1d068, 0x1d069, 0x1d06a, 0x1d06b, 0x1d06c, 0x1d06d, 0x1d06e, 0x1d06f, 0x1d070, 0x1d071, 0x1d072, 0x1d073, 0x1d074, 0x1d075, 0x1d076, 0x1d077, 0x1d078, 0x1d079
+};
+
+void BM_collation_element_lookup_663(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 0, cps_663 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 1, cps_663 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 2, cps_663 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 3, cps_663 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 4, cps_663 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 5, cps_663 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 6, cps_663 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 7, cps_663 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 8, cps_663 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 9, cps_663 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 10, cps_663 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 11, cps_663 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 12, cps_663 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 13, cps_663 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 14, cps_663 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 15, cps_663 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 16, cps_663 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 17, cps_663 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 18, cps_663 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 19, cps_663 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 20, cps_663 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 21, cps_663 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 22, cps_663 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 23, cps_663 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 24, cps_663 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 25, cps_663 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 26, cps_663 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 27, cps_663 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 28, cps_663 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 29, cps_663 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 30, cps_663 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 31, cps_663 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 32, cps_663 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 33, cps_663 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 34, cps_663 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 35, cps_663 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 36, cps_663 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 37, cps_663 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 38, cps_663 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 39, cps_663 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 40, cps_663 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 41, cps_663 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 42, cps_663 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 43, cps_663 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 44, cps_663 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 45, cps_663 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 46, cps_663 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 47, cps_663 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 48, cps_663 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_663 + 49, cps_663 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_663);
+
+uint32_t cps_664[] = {
+0x1d07a, 0x1d07b, 0x1d07c, 0x1d07d, 0x1d07e, 0x1d07f, 0x1d080, 0x1d081, 0x1d082, 0x1d083, 0x1d084, 0x1d085, 0x1d086, 0x1d087, 0x1d088, 0x1d089, 0x1d08a, 0x1d08b, 0x1d08c, 0x1d08d, 0x1d08e, 0x1d08f, 0x1d090, 0x1d091, 0x1d092, 0x1d093, 0x1d094, 0x1d095, 0x1d096, 0x1d097, 0x1d098, 0x1d099, 0x1d09a, 0x1d09b, 0x1d09c, 0x1d09d, 0x1d09e, 0x1d09f, 0x1d0a0, 0x1d0a1, 0x1d0a2, 0x1d0a3, 0x1d0a4, 0x1d0a5, 0x1d0a6, 0x1d0a7, 0x1d0a8, 0x1d0a9, 0x1d0aa, 0x1d0ab
+};
+
+void BM_collation_element_lookup_664(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 0, cps_664 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 1, cps_664 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 2, cps_664 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 3, cps_664 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 4, cps_664 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 5, cps_664 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 6, cps_664 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 7, cps_664 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 8, cps_664 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 9, cps_664 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 10, cps_664 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 11, cps_664 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 12, cps_664 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 13, cps_664 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 14, cps_664 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 15, cps_664 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 16, cps_664 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 17, cps_664 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 18, cps_664 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 19, cps_664 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 20, cps_664 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 21, cps_664 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 22, cps_664 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 23, cps_664 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 24, cps_664 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 25, cps_664 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 26, cps_664 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 27, cps_664 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 28, cps_664 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 29, cps_664 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 30, cps_664 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 31, cps_664 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 32, cps_664 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 33, cps_664 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 34, cps_664 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 35, cps_664 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 36, cps_664 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 37, cps_664 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 38, cps_664 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 39, cps_664 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 40, cps_664 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 41, cps_664 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 42, cps_664 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 43, cps_664 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 44, cps_664 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 45, cps_664 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 46, cps_664 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 47, cps_664 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 48, cps_664 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_664 + 49, cps_664 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_664);
+
+uint32_t cps_665[] = {
+0x1d0ac, 0x1d0ad, 0x1d0ae, 0x1d0af, 0x1d0b0, 0x1d0b1, 0x1d0b2, 0x1d0b3, 0x1d0b4, 0x1d0b5, 0x1d0b6, 0x1d0b7, 0x1d0b8, 0x1d0b9, 0x1d0ba, 0x1d0bb, 0x1d0bc, 0x1d0bd, 0x1d0be, 0x1d0bf, 0x1d0c0, 0x1d0c1, 0x1d0c2, 0x1d0c3, 0x1d0c4, 0x1d0c5, 0x1d0c6, 0x1d0c7, 0x1d0c8, 0x1d0c9, 0x1d0ca, 0x1d0cb, 0x1d0cc, 0x1d0cd, 0x1d0ce, 0x1d0cf, 0x1d0d0, 0x1d0d1, 0x1d0d2, 0x1d0d3, 0x1d0d4, 0x1d0d5, 0x1d0d6, 0x1d0d7, 0x1d0d8, 0x1d0d9, 0x1d0da, 0x1d0db, 0x1d0dc, 0x1d0dd
+};
+
+void BM_collation_element_lookup_665(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 0, cps_665 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 1, cps_665 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 2, cps_665 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 3, cps_665 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 4, cps_665 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 5, cps_665 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 6, cps_665 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 7, cps_665 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 8, cps_665 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 9, cps_665 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 10, cps_665 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 11, cps_665 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 12, cps_665 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 13, cps_665 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 14, cps_665 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 15, cps_665 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 16, cps_665 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 17, cps_665 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 18, cps_665 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 19, cps_665 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 20, cps_665 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 21, cps_665 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 22, cps_665 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 23, cps_665 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 24, cps_665 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 25, cps_665 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 26, cps_665 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 27, cps_665 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 28, cps_665 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 29, cps_665 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 30, cps_665 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 31, cps_665 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 32, cps_665 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 33, cps_665 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 34, cps_665 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 35, cps_665 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 36, cps_665 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 37, cps_665 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 38, cps_665 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 39, cps_665 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 40, cps_665 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 41, cps_665 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 42, cps_665 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 43, cps_665 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 44, cps_665 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 45, cps_665 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 46, cps_665 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 47, cps_665 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 48, cps_665 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_665 + 49, cps_665 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_665);
+
+uint32_t cps_666[] = {
+0x1d0de, 0x1d0df, 0x1d0e0, 0x1d0e1, 0x1d0e2, 0x1d0e3, 0x1d0e4, 0x1d0e5, 0x1d0e6, 0x1d0e7, 0x1d0e8, 0x1d0e9, 0x1d0ea, 0x1d0eb, 0x1d0ec, 0x1d0ed, 0x1d0ee, 0x1d0ef, 0x1d0f0, 0x1d0f1, 0x1d0f2, 0x1d0f3, 0x1d0f4, 0x1d0f5, 0x1d100, 0x1d101, 0x1d102, 0x1d103, 0x1d104, 0x1d105, 0x1d106, 0x1d107, 0x1d108, 0x1d109, 0x1d10a, 0x1d10b, 0x1d10c, 0x1d10d, 0x1d10e, 0x1d10f, 0x1d110, 0x1d111, 0x1d112, 0x1d113, 0x1d114, 0x1d115, 0x1d116, 0x1d117, 0x1d118, 0x1d119
+};
+
+void BM_collation_element_lookup_666(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 0, cps_666 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 1, cps_666 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 2, cps_666 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 3, cps_666 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 4, cps_666 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 5, cps_666 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 6, cps_666 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 7, cps_666 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 8, cps_666 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 9, cps_666 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 10, cps_666 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 11, cps_666 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 12, cps_666 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 13, cps_666 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 14, cps_666 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 15, cps_666 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 16, cps_666 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 17, cps_666 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 18, cps_666 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 19, cps_666 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 20, cps_666 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 21, cps_666 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 22, cps_666 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 23, cps_666 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 24, cps_666 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 25, cps_666 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 26, cps_666 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 27, cps_666 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 28, cps_666 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 29, cps_666 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 30, cps_666 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 31, cps_666 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 32, cps_666 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 33, cps_666 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 34, cps_666 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 35, cps_666 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 36, cps_666 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 37, cps_666 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 38, cps_666 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 39, cps_666 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 40, cps_666 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 41, cps_666 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 42, cps_666 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 43, cps_666 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 44, cps_666 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 45, cps_666 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 46, cps_666 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 47, cps_666 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 48, cps_666 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_666 + 49, cps_666 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_666);
+
+uint32_t cps_667[] = {
+0x1d11a, 0x1d11b, 0x1d11c, 0x1d11d, 0x1d11e, 0x1d11f, 0x1d120, 0x1d121, 0x1d122, 0x1d123, 0x1d124, 0x1d125, 0x1d126, 0x1d129, 0x1d12a, 0x1d12b, 0x1d12c, 0x1d12d, 0x1d12e, 0x1d12f, 0x1d130, 0x1d131, 0x1d132, 0x1d133, 0x1d134, 0x1d135, 0x1d136, 0x1d137, 0x1d138, 0x1d139, 0x1d13a, 0x1d13b, 0x1d13c, 0x1d13d, 0x1d13e, 0x1d13f, 0x1d140, 0x1d141, 0x1d142, 0x1d143, 0x1d144, 0x1d145, 0x1d146, 0x1d147, 0x1d148, 0x1d149, 0x1d14a, 0x1d14b, 0x1d14c, 0x1d14d
+};
+
+void BM_collation_element_lookup_667(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 0, cps_667 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 1, cps_667 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 2, cps_667 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 3, cps_667 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 4, cps_667 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 5, cps_667 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 6, cps_667 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 7, cps_667 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 8, cps_667 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 9, cps_667 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 10, cps_667 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 11, cps_667 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 12, cps_667 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 13, cps_667 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 14, cps_667 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 15, cps_667 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 16, cps_667 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 17, cps_667 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 18, cps_667 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 19, cps_667 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 20, cps_667 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 21, cps_667 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 22, cps_667 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 23, cps_667 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 24, cps_667 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 25, cps_667 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 26, cps_667 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 27, cps_667 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 28, cps_667 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 29, cps_667 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 30, cps_667 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 31, cps_667 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 32, cps_667 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 33, cps_667 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 34, cps_667 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 35, cps_667 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 36, cps_667 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 37, cps_667 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 38, cps_667 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 39, cps_667 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 40, cps_667 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 41, cps_667 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 42, cps_667 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 43, cps_667 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 44, cps_667 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 45, cps_667 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 46, cps_667 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 47, cps_667 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 48, cps_667 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_667 + 49, cps_667 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_667);
+
+uint32_t cps_668[] = {
+0x1d14e, 0x1d14f, 0x1d150, 0x1d151, 0x1d152, 0x1d153, 0x1d154, 0x1d155, 0x1d156, 0x1d157, 0x1d158, 0x1d159, 0x1d15a, 0x1d15b, 0x1d15c, 0x1d15d, 0x1d15e, 0x1d15f, 0x1d160, 0x1d161, 0x1d162, 0x1d163, 0x1d164, 0x1d165, 0x1d166, 0x1d167, 0x1d168, 0x1d169, 0x1d16a, 0x1d16b, 0x1d16c, 0x1d16d, 0x1d16e, 0x1d16f, 0x1d170, 0x1d171, 0x1d172, 0x1d173, 0x1d174, 0x1d175, 0x1d176, 0x1d177, 0x1d178, 0x1d179, 0x1d17a, 0x1d17b, 0x1d17c, 0x1d17d, 0x1d17e, 0x1d17f
+};
+
+void BM_collation_element_lookup_668(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 0, cps_668 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 1, cps_668 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 2, cps_668 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 3, cps_668 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 4, cps_668 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 5, cps_668 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 6, cps_668 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 7, cps_668 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 8, cps_668 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 9, cps_668 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 10, cps_668 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 11, cps_668 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 12, cps_668 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 13, cps_668 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 14, cps_668 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 15, cps_668 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 16, cps_668 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 17, cps_668 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 18, cps_668 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 19, cps_668 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 20, cps_668 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 21, cps_668 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 22, cps_668 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 23, cps_668 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 24, cps_668 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 25, cps_668 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 26, cps_668 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 27, cps_668 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 28, cps_668 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 29, cps_668 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 30, cps_668 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 31, cps_668 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 32, cps_668 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 33, cps_668 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 34, cps_668 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 35, cps_668 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 36, cps_668 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 37, cps_668 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 38, cps_668 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 39, cps_668 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 40, cps_668 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 41, cps_668 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 42, cps_668 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 43, cps_668 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 44, cps_668 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 45, cps_668 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 46, cps_668 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 47, cps_668 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 48, cps_668 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_668 + 49, cps_668 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_668);
+
+uint32_t cps_669[] = {
+0x1d180, 0x1d181, 0x1d182, 0x1d183, 0x1d184, 0x1d185, 0x1d186, 0x1d187, 0x1d188, 0x1d189, 0x1d18a, 0x1d18b, 0x1d18c, 0x1d18d, 0x1d18e, 0x1d18f, 0x1d190, 0x1d191, 0x1d192, 0x1d193, 0x1d194, 0x1d195, 0x1d196, 0x1d197, 0x1d198, 0x1d199, 0x1d19a, 0x1d19b, 0x1d19c, 0x1d19d, 0x1d19e, 0x1d19f, 0x1d1a0, 0x1d1a1, 0x1d1a2, 0x1d1a3, 0x1d1a4, 0x1d1a5, 0x1d1a6, 0x1d1a7, 0x1d1a8, 0x1d1a9, 0x1d1aa, 0x1d1ab, 0x1d1ac, 0x1d1ad, 0x1d1ae, 0x1d1af, 0x1d1b0, 0x1d1b1
+};
+
+void BM_collation_element_lookup_669(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 0, cps_669 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 1, cps_669 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 2, cps_669 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 3, cps_669 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 4, cps_669 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 5, cps_669 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 6, cps_669 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 7, cps_669 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 8, cps_669 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 9, cps_669 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 10, cps_669 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 11, cps_669 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 12, cps_669 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 13, cps_669 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 14, cps_669 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 15, cps_669 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 16, cps_669 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 17, cps_669 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 18, cps_669 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 19, cps_669 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 20, cps_669 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 21, cps_669 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 22, cps_669 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 23, cps_669 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 24, cps_669 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 25, cps_669 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 26, cps_669 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 27, cps_669 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 28, cps_669 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 29, cps_669 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 30, cps_669 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 31, cps_669 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 32, cps_669 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 33, cps_669 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 34, cps_669 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 35, cps_669 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 36, cps_669 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 37, cps_669 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 38, cps_669 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 39, cps_669 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 40, cps_669 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 41, cps_669 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 42, cps_669 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 43, cps_669 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 44, cps_669 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 45, cps_669 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 46, cps_669 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 47, cps_669 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 48, cps_669 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_669 + 49, cps_669 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_669);
+
+uint32_t cps_670[] = {
+0x1d1b2, 0x1d1b3, 0x1d1b4, 0x1d1b5, 0x1d1b6, 0x1d1b7, 0x1d1b8, 0x1d1b9, 0x1d1ba, 0x1d1bb, 0x1d1bc, 0x1d1bd, 0x1d1be, 0x1d1bf, 0x1d1c0, 0x1d1c1, 0x1d1c2, 0x1d1c3, 0x1d1c4, 0x1d1c5, 0x1d1c6, 0x1d1c7, 0x1d1c8, 0x1d1c9, 0x1d1ca, 0x1d1cb, 0x1d1cc, 0x1d1cd, 0x1d1ce, 0x1d1cf, 0x1d1d0, 0x1d1d1, 0x1d1d2, 0x1d1d3, 0x1d1d4, 0x1d1d5, 0x1d1d6, 0x1d1d7, 0x1d1d8, 0x1d1d9, 0x1d1da, 0x1d1db, 0x1d1dc, 0x1d1dd, 0x1d1de, 0x1d1df, 0x1d1e0, 0x1d1e1, 0x1d1e2, 0x1d1e3
+};
+
+void BM_collation_element_lookup_670(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 0, cps_670 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 1, cps_670 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 2, cps_670 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 3, cps_670 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 4, cps_670 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 5, cps_670 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 6, cps_670 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 7, cps_670 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 8, cps_670 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 9, cps_670 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 10, cps_670 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 11, cps_670 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 12, cps_670 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 13, cps_670 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 14, cps_670 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 15, cps_670 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 16, cps_670 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 17, cps_670 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 18, cps_670 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 19, cps_670 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 20, cps_670 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 21, cps_670 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 22, cps_670 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 23, cps_670 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 24, cps_670 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 25, cps_670 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 26, cps_670 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 27, cps_670 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 28, cps_670 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 29, cps_670 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 30, cps_670 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 31, cps_670 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 32, cps_670 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 33, cps_670 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 34, cps_670 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 35, cps_670 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 36, cps_670 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 37, cps_670 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 38, cps_670 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 39, cps_670 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 40, cps_670 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 41, cps_670 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 42, cps_670 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 43, cps_670 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 44, cps_670 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 45, cps_670 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 46, cps_670 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 47, cps_670 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 48, cps_670 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_670 + 49, cps_670 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_670);
+
+uint32_t cps_671[] = {
+0x1d1e4, 0x1d1e5, 0x1d1e6, 0x1d1e7, 0x1d1e8, 0x1d200, 0x1d201, 0x1d202, 0x1d203, 0x1d204, 0x1d205, 0x1d206, 0x1d207, 0x1d208, 0x1d209, 0x1d20a, 0x1d20b, 0x1d20c, 0x1d20d, 0x1d20e, 0x1d20f, 0x1d210, 0x1d211, 0x1d212, 0x1d213, 0x1d214, 0x1d215, 0x1d216, 0x1d217, 0x1d218, 0x1d219, 0x1d21a, 0x1d21b, 0x1d21c, 0x1d21d, 0x1d21e, 0x1d21f, 0x1d220, 0x1d221, 0x1d222, 0x1d223, 0x1d224, 0x1d225, 0x1d226, 0x1d227, 0x1d228, 0x1d229, 0x1d22a, 0x1d22b, 0x1d22c
+};
+
+void BM_collation_element_lookup_671(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 0, cps_671 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 1, cps_671 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 2, cps_671 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 3, cps_671 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 4, cps_671 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 5, cps_671 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 6, cps_671 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 7, cps_671 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 8, cps_671 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 9, cps_671 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 10, cps_671 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 11, cps_671 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 12, cps_671 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 13, cps_671 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 14, cps_671 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 15, cps_671 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 16, cps_671 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 17, cps_671 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 18, cps_671 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 19, cps_671 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 20, cps_671 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 21, cps_671 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 22, cps_671 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 23, cps_671 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 24, cps_671 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 25, cps_671 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 26, cps_671 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 27, cps_671 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 28, cps_671 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 29, cps_671 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 30, cps_671 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 31, cps_671 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 32, cps_671 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 33, cps_671 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 34, cps_671 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 35, cps_671 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 36, cps_671 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 37, cps_671 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 38, cps_671 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 39, cps_671 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 40, cps_671 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 41, cps_671 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 42, cps_671 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 43, cps_671 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 44, cps_671 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 45, cps_671 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 46, cps_671 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 47, cps_671 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 48, cps_671 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_671 + 49, cps_671 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_671);
+
+uint32_t cps_672[] = {
+0x1d22d, 0x1d22e, 0x1d22f, 0x1d230, 0x1d231, 0x1d232, 0x1d233, 0x1d234, 0x1d235, 0x1d236, 0x1d237, 0x1d238, 0x1d239, 0x1d23a, 0x1d23b, 0x1d23c, 0x1d23d, 0x1d23e, 0x1d23f, 0x1d240, 0x1d241, 0x1d242, 0x1d243, 0x1d244, 0x1d245, 0x1d300, 0x1d301, 0x1d302, 0x1d303, 0x1d304, 0x1d305, 0x1d306, 0x1d307, 0x1d308, 0x1d309, 0x1d30a, 0x1d30b, 0x1d30c, 0x1d30d, 0x1d30e, 0x1d30f, 0x1d310, 0x1d311, 0x1d312, 0x1d313, 0x1d314, 0x1d315, 0x1d316, 0x1d317, 0x1d318
+};
+
+void BM_collation_element_lookup_672(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 0, cps_672 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 1, cps_672 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 2, cps_672 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 3, cps_672 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 4, cps_672 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 5, cps_672 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 6, cps_672 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 7, cps_672 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 8, cps_672 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 9, cps_672 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 10, cps_672 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 11, cps_672 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 12, cps_672 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 13, cps_672 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 14, cps_672 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 15, cps_672 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 16, cps_672 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 17, cps_672 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 18, cps_672 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 19, cps_672 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 20, cps_672 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 21, cps_672 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 22, cps_672 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 23, cps_672 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 24, cps_672 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 25, cps_672 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 26, cps_672 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 27, cps_672 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 28, cps_672 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 29, cps_672 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 30, cps_672 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 31, cps_672 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 32, cps_672 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 33, cps_672 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 34, cps_672 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 35, cps_672 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 36, cps_672 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 37, cps_672 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 38, cps_672 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 39, cps_672 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 40, cps_672 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 41, cps_672 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 42, cps_672 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 43, cps_672 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 44, cps_672 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 45, cps_672 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 46, cps_672 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 47, cps_672 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 48, cps_672 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_672 + 49, cps_672 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_672);
+
+uint32_t cps_673[] = {
+0x1d319, 0x1d31a, 0x1d31b, 0x1d31c, 0x1d31d, 0x1d31e, 0x1d31f, 0x1d320, 0x1d321, 0x1d322, 0x1d323, 0x1d324, 0x1d325, 0x1d326, 0x1d327, 0x1d328, 0x1d329, 0x1d32a, 0x1d32b, 0x1d32c, 0x1d32d, 0x1d32e, 0x1d32f, 0x1d330, 0x1d331, 0x1d332, 0x1d333, 0x1d334, 0x1d335, 0x1d336, 0x1d337, 0x1d338, 0x1d339, 0x1d33a, 0x1d33b, 0x1d33c, 0x1d33d, 0x1d33e, 0x1d33f, 0x1d340, 0x1d341, 0x1d342, 0x1d343, 0x1d344, 0x1d345, 0x1d346, 0x1d347, 0x1d348, 0x1d349, 0x1d34a
+};
+
+void BM_collation_element_lookup_673(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 0, cps_673 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 1, cps_673 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 2, cps_673 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 3, cps_673 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 4, cps_673 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 5, cps_673 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 6, cps_673 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 7, cps_673 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 8, cps_673 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 9, cps_673 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 10, cps_673 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 11, cps_673 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 12, cps_673 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 13, cps_673 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 14, cps_673 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 15, cps_673 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 16, cps_673 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 17, cps_673 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 18, cps_673 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 19, cps_673 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 20, cps_673 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 21, cps_673 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 22, cps_673 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 23, cps_673 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 24, cps_673 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 25, cps_673 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 26, cps_673 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 27, cps_673 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 28, cps_673 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 29, cps_673 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 30, cps_673 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 31, cps_673 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 32, cps_673 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 33, cps_673 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 34, cps_673 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 35, cps_673 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 36, cps_673 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 37, cps_673 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 38, cps_673 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 39, cps_673 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 40, cps_673 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 41, cps_673 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 42, cps_673 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 43, cps_673 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 44, cps_673 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 45, cps_673 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 46, cps_673 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 47, cps_673 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 48, cps_673 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_673 + 49, cps_673 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_673);
+
+uint32_t cps_674[] = {
+0x1d34b, 0x1d34c, 0x1d34d, 0x1d34e, 0x1d34f, 0x1d350, 0x1d351, 0x1d352, 0x1d353, 0x1d354, 0x1d355, 0x1d356, 0x1d360, 0x1d361, 0x1d362, 0x1d363, 0x1d364, 0x1d365, 0x1d366, 0x1d367, 0x1d368, 0x1d369, 0x1d36a, 0x1d36b, 0x1d36c, 0x1d36d, 0x1d36e, 0x1d36f, 0x1d370, 0x1d371, 0x1d400, 0x1d401, 0x1d402, 0x1d403, 0x1d404, 0x1d405, 0x1d406, 0x1d407, 0x1d408, 0x1d409, 0x1d40a, 0x1d40b, 0x1d40c, 0x1d40d, 0x1d40e, 0x1d40f, 0x1d410, 0x1d411, 0x1d412, 0x1d413
+};
+
+void BM_collation_element_lookup_674(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 0, cps_674 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 1, cps_674 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 2, cps_674 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 3, cps_674 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 4, cps_674 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 5, cps_674 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 6, cps_674 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 7, cps_674 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 8, cps_674 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 9, cps_674 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 10, cps_674 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 11, cps_674 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 12, cps_674 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 13, cps_674 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 14, cps_674 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 15, cps_674 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 16, cps_674 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 17, cps_674 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 18, cps_674 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 19, cps_674 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 20, cps_674 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 21, cps_674 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 22, cps_674 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 23, cps_674 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 24, cps_674 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 25, cps_674 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 26, cps_674 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 27, cps_674 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 28, cps_674 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 29, cps_674 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 30, cps_674 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 31, cps_674 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 32, cps_674 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 33, cps_674 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 34, cps_674 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 35, cps_674 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 36, cps_674 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 37, cps_674 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 38, cps_674 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 39, cps_674 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 40, cps_674 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 41, cps_674 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 42, cps_674 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 43, cps_674 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 44, cps_674 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 45, cps_674 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 46, cps_674 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 47, cps_674 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 48, cps_674 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_674 + 49, cps_674 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_674);
+
+uint32_t cps_675[] = {
+0x1d414, 0x1d415, 0x1d416, 0x1d417, 0x1d418, 0x1d419, 0x1d41a, 0x1d41b, 0x1d41c, 0x1d41d, 0x1d41e, 0x1d41f, 0x1d420, 0x1d421, 0x1d422, 0x1d423, 0x1d424, 0x1d425, 0x1d426, 0x1d427, 0x1d428, 0x1d429, 0x1d42a, 0x1d42b, 0x1d42c, 0x1d42d, 0x1d42e, 0x1d42f, 0x1d430, 0x1d431, 0x1d432, 0x1d433, 0x1d434, 0x1d435, 0x1d436, 0x1d437, 0x1d438, 0x1d439, 0x1d43a, 0x1d43b, 0x1d43c, 0x1d43d, 0x1d43e, 0x1d43f, 0x1d440, 0x1d441, 0x1d442, 0x1d443, 0x1d444, 0x1d445
+};
+
+void BM_collation_element_lookup_675(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 0, cps_675 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 1, cps_675 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 2, cps_675 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 3, cps_675 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 4, cps_675 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 5, cps_675 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 6, cps_675 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 7, cps_675 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 8, cps_675 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 9, cps_675 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 10, cps_675 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 11, cps_675 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 12, cps_675 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 13, cps_675 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 14, cps_675 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 15, cps_675 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 16, cps_675 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 17, cps_675 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 18, cps_675 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 19, cps_675 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 20, cps_675 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 21, cps_675 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 22, cps_675 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 23, cps_675 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 24, cps_675 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 25, cps_675 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 26, cps_675 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 27, cps_675 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 28, cps_675 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 29, cps_675 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 30, cps_675 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 31, cps_675 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 32, cps_675 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 33, cps_675 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 34, cps_675 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 35, cps_675 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 36, cps_675 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 37, cps_675 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 38, cps_675 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 39, cps_675 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 40, cps_675 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 41, cps_675 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 42, cps_675 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 43, cps_675 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 44, cps_675 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 45, cps_675 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 46, cps_675 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 47, cps_675 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 48, cps_675 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_675 + 49, cps_675 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_675);
+
+uint32_t cps_676[] = {
+0x1d446, 0x1d447, 0x1d448, 0x1d449, 0x1d44a, 0x1d44b, 0x1d44c, 0x1d44d, 0x1d44e, 0x1d44f, 0x1d450, 0x1d451, 0x1d452, 0x1d453, 0x1d454, 0x1d456, 0x1d457, 0x1d458, 0x1d459, 0x1d45a, 0x1d45b, 0x1d45c, 0x1d45d, 0x1d45e, 0x1d45f, 0x1d460, 0x1d461, 0x1d462, 0x1d463, 0x1d464, 0x1d465, 0x1d466, 0x1d467, 0x1d468, 0x1d469, 0x1d46a, 0x1d46b, 0x1d46c, 0x1d46d, 0x1d46e, 0x1d46f, 0x1d470, 0x1d471, 0x1d472, 0x1d473, 0x1d474, 0x1d475, 0x1d476, 0x1d477, 0x1d478
+};
+
+void BM_collation_element_lookup_676(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 0, cps_676 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 1, cps_676 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 2, cps_676 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 3, cps_676 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 4, cps_676 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 5, cps_676 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 6, cps_676 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 7, cps_676 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 8, cps_676 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 9, cps_676 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 10, cps_676 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 11, cps_676 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 12, cps_676 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 13, cps_676 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 14, cps_676 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 15, cps_676 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 16, cps_676 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 17, cps_676 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 18, cps_676 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 19, cps_676 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 20, cps_676 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 21, cps_676 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 22, cps_676 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 23, cps_676 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 24, cps_676 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 25, cps_676 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 26, cps_676 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 27, cps_676 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 28, cps_676 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 29, cps_676 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 30, cps_676 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 31, cps_676 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 32, cps_676 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 33, cps_676 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 34, cps_676 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 35, cps_676 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 36, cps_676 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 37, cps_676 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 38, cps_676 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 39, cps_676 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 40, cps_676 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 41, cps_676 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 42, cps_676 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 43, cps_676 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 44, cps_676 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 45, cps_676 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 46, cps_676 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 47, cps_676 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 48, cps_676 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_676 + 49, cps_676 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_676);
+
+uint32_t cps_677[] = {
+0x1d479, 0x1d47a, 0x1d47b, 0x1d47c, 0x1d47d, 0x1d47e, 0x1d47f, 0x1d480, 0x1d481, 0x1d482, 0x1d483, 0x1d484, 0x1d485, 0x1d486, 0x1d487, 0x1d488, 0x1d489, 0x1d48a, 0x1d48b, 0x1d48c, 0x1d48d, 0x1d48e, 0x1d48f, 0x1d490, 0x1d491, 0x1d492, 0x1d493, 0x1d494, 0x1d495, 0x1d496, 0x1d497, 0x1d498, 0x1d499, 0x1d49a, 0x1d49b, 0x1d49c, 0x1d49e, 0x1d49f, 0x1d4a2, 0x1d4a5, 0x1d4a6, 0x1d4a9, 0x1d4aa, 0x1d4ab, 0x1d4ac, 0x1d4ae, 0x1d4af, 0x1d4b0, 0x1d4b1, 0x1d4b2
+};
+
+void BM_collation_element_lookup_677(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 0, cps_677 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 1, cps_677 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 2, cps_677 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 3, cps_677 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 4, cps_677 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 5, cps_677 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 6, cps_677 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 7, cps_677 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 8, cps_677 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 9, cps_677 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 10, cps_677 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 11, cps_677 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 12, cps_677 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 13, cps_677 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 14, cps_677 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 15, cps_677 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 16, cps_677 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 17, cps_677 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 18, cps_677 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 19, cps_677 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 20, cps_677 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 21, cps_677 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 22, cps_677 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 23, cps_677 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 24, cps_677 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 25, cps_677 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 26, cps_677 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 27, cps_677 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 28, cps_677 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 29, cps_677 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 30, cps_677 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 31, cps_677 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 32, cps_677 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 33, cps_677 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 34, cps_677 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 35, cps_677 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 36, cps_677 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 37, cps_677 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 38, cps_677 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 39, cps_677 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 40, cps_677 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 41, cps_677 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 42, cps_677 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 43, cps_677 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 44, cps_677 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 45, cps_677 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 46, cps_677 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 47, cps_677 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 48, cps_677 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_677 + 49, cps_677 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_677);
+
+uint32_t cps_678[] = {
+0x1d4b3, 0x1d4b4, 0x1d4b5, 0x1d4b6, 0x1d4b7, 0x1d4b8, 0x1d4b9, 0x1d4bb, 0x1d4bd, 0x1d4be, 0x1d4bf, 0x1d4c0, 0x1d4c1, 0x1d4c2, 0x1d4c3, 0x1d4c5, 0x1d4c6, 0x1d4c7, 0x1d4c8, 0x1d4c9, 0x1d4ca, 0x1d4cb, 0x1d4cc, 0x1d4cd, 0x1d4ce, 0x1d4cf, 0x1d4d0, 0x1d4d1, 0x1d4d2, 0x1d4d3, 0x1d4d4, 0x1d4d5, 0x1d4d6, 0x1d4d7, 0x1d4d8, 0x1d4d9, 0x1d4da, 0x1d4db, 0x1d4dc, 0x1d4dd, 0x1d4de, 0x1d4df, 0x1d4e0, 0x1d4e1, 0x1d4e2, 0x1d4e3, 0x1d4e4, 0x1d4e5, 0x1d4e6, 0x1d4e7
+};
+
+void BM_collation_element_lookup_678(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 0, cps_678 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 1, cps_678 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 2, cps_678 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 3, cps_678 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 4, cps_678 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 5, cps_678 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 6, cps_678 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 7, cps_678 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 8, cps_678 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 9, cps_678 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 10, cps_678 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 11, cps_678 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 12, cps_678 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 13, cps_678 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 14, cps_678 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 15, cps_678 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 16, cps_678 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 17, cps_678 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 18, cps_678 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 19, cps_678 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 20, cps_678 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 21, cps_678 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 22, cps_678 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 23, cps_678 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 24, cps_678 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 25, cps_678 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 26, cps_678 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 27, cps_678 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 28, cps_678 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 29, cps_678 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 30, cps_678 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 31, cps_678 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 32, cps_678 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 33, cps_678 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 34, cps_678 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 35, cps_678 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 36, cps_678 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 37, cps_678 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 38, cps_678 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 39, cps_678 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 40, cps_678 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 41, cps_678 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 42, cps_678 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 43, cps_678 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 44, cps_678 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 45, cps_678 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 46, cps_678 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 47, cps_678 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 48, cps_678 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_678 + 49, cps_678 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_678);
+
+uint32_t cps_679[] = {
+0x1d4e8, 0x1d4e9, 0x1d4ea, 0x1d4eb, 0x1d4ec, 0x1d4ed, 0x1d4ee, 0x1d4ef, 0x1d4f0, 0x1d4f1, 0x1d4f2, 0x1d4f3, 0x1d4f4, 0x1d4f5, 0x1d4f6, 0x1d4f7, 0x1d4f8, 0x1d4f9, 0x1d4fa, 0x1d4fb, 0x1d4fc, 0x1d4fd, 0x1d4fe, 0x1d4ff, 0x1d500, 0x1d501, 0x1d502, 0x1d503, 0x1d504, 0x1d505, 0x1d507, 0x1d508, 0x1d509, 0x1d50a, 0x1d50d, 0x1d50e, 0x1d50f, 0x1d510, 0x1d511, 0x1d512, 0x1d513, 0x1d514, 0x1d516, 0x1d517, 0x1d518, 0x1d519, 0x1d51a, 0x1d51b, 0x1d51c, 0x1d51e
+};
+
+void BM_collation_element_lookup_679(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 0, cps_679 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 1, cps_679 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 2, cps_679 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 3, cps_679 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 4, cps_679 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 5, cps_679 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 6, cps_679 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 7, cps_679 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 8, cps_679 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 9, cps_679 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 10, cps_679 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 11, cps_679 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 12, cps_679 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 13, cps_679 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 14, cps_679 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 15, cps_679 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 16, cps_679 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 17, cps_679 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 18, cps_679 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 19, cps_679 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 20, cps_679 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 21, cps_679 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 22, cps_679 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 23, cps_679 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 24, cps_679 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 25, cps_679 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 26, cps_679 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 27, cps_679 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 28, cps_679 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 29, cps_679 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 30, cps_679 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 31, cps_679 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 32, cps_679 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 33, cps_679 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 34, cps_679 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 35, cps_679 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 36, cps_679 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 37, cps_679 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 38, cps_679 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 39, cps_679 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 40, cps_679 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 41, cps_679 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 42, cps_679 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 43, cps_679 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 44, cps_679 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 45, cps_679 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 46, cps_679 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 47, cps_679 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 48, cps_679 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_679 + 49, cps_679 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_679);
+
+uint32_t cps_680[] = {
+0x1d51f, 0x1d520, 0x1d521, 0x1d522, 0x1d523, 0x1d524, 0x1d525, 0x1d526, 0x1d527, 0x1d528, 0x1d529, 0x1d52a, 0x1d52b, 0x1d52c, 0x1d52d, 0x1d52e, 0x1d52f, 0x1d530, 0x1d531, 0x1d532, 0x1d533, 0x1d534, 0x1d535, 0x1d536, 0x1d537, 0x1d538, 0x1d539, 0x1d53b, 0x1d53c, 0x1d53d, 0x1d53e, 0x1d540, 0x1d541, 0x1d542, 0x1d543, 0x1d544, 0x1d546, 0x1d54a, 0x1d54b, 0x1d54c, 0x1d54d, 0x1d54e, 0x1d54f, 0x1d550, 0x1d552, 0x1d553, 0x1d554, 0x1d555, 0x1d556, 0x1d557
+};
+
+void BM_collation_element_lookup_680(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 0, cps_680 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 1, cps_680 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 2, cps_680 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 3, cps_680 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 4, cps_680 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 5, cps_680 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 6, cps_680 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 7, cps_680 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 8, cps_680 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 9, cps_680 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 10, cps_680 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 11, cps_680 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 12, cps_680 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 13, cps_680 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 14, cps_680 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 15, cps_680 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 16, cps_680 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 17, cps_680 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 18, cps_680 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 19, cps_680 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 20, cps_680 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 21, cps_680 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 22, cps_680 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 23, cps_680 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 24, cps_680 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 25, cps_680 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 26, cps_680 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 27, cps_680 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 28, cps_680 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 29, cps_680 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 30, cps_680 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 31, cps_680 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 32, cps_680 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 33, cps_680 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 34, cps_680 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 35, cps_680 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 36, cps_680 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 37, cps_680 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 38, cps_680 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 39, cps_680 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 40, cps_680 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 41, cps_680 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 42, cps_680 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 43, cps_680 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 44, cps_680 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 45, cps_680 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 46, cps_680 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 47, cps_680 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 48, cps_680 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_680 + 49, cps_680 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_680);
+
+uint32_t cps_681[] = {
+0x1d558, 0x1d559, 0x1d55a, 0x1d55b, 0x1d55c, 0x1d55d, 0x1d55e, 0x1d55f, 0x1d560, 0x1d561, 0x1d562, 0x1d563, 0x1d564, 0x1d565, 0x1d566, 0x1d567, 0x1d568, 0x1d569, 0x1d56a, 0x1d56b, 0x1d56c, 0x1d56d, 0x1d56e, 0x1d56f, 0x1d570, 0x1d571, 0x1d572, 0x1d573, 0x1d574, 0x1d575, 0x1d576, 0x1d577, 0x1d578, 0x1d579, 0x1d57a, 0x1d57b, 0x1d57c, 0x1d57d, 0x1d57e, 0x1d57f, 0x1d580, 0x1d581, 0x1d582, 0x1d583, 0x1d584, 0x1d585, 0x1d586, 0x1d587, 0x1d588, 0x1d589
+};
+
+void BM_collation_element_lookup_681(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 0, cps_681 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 1, cps_681 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 2, cps_681 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 3, cps_681 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 4, cps_681 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 5, cps_681 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 6, cps_681 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 7, cps_681 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 8, cps_681 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 9, cps_681 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 10, cps_681 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 11, cps_681 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 12, cps_681 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 13, cps_681 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 14, cps_681 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 15, cps_681 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 16, cps_681 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 17, cps_681 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 18, cps_681 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 19, cps_681 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 20, cps_681 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 21, cps_681 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 22, cps_681 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 23, cps_681 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 24, cps_681 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 25, cps_681 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 26, cps_681 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 27, cps_681 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 28, cps_681 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 29, cps_681 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 30, cps_681 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 31, cps_681 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 32, cps_681 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 33, cps_681 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 34, cps_681 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 35, cps_681 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 36, cps_681 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 37, cps_681 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 38, cps_681 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 39, cps_681 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 40, cps_681 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 41, cps_681 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 42, cps_681 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 43, cps_681 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 44, cps_681 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 45, cps_681 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 46, cps_681 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 47, cps_681 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 48, cps_681 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_681 + 49, cps_681 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_681);
+
+uint32_t cps_682[] = {
+0x1d58a, 0x1d58b, 0x1d58c, 0x1d58d, 0x1d58e, 0x1d58f, 0x1d590, 0x1d591, 0x1d592, 0x1d593, 0x1d594, 0x1d595, 0x1d596, 0x1d597, 0x1d598, 0x1d599, 0x1d59a, 0x1d59b, 0x1d59c, 0x1d59d, 0x1d59e, 0x1d59f, 0x1d5a0, 0x1d5a1, 0x1d5a2, 0x1d5a3, 0x1d5a4, 0x1d5a5, 0x1d5a6, 0x1d5a7, 0x1d5a8, 0x1d5a9, 0x1d5aa, 0x1d5ab, 0x1d5ac, 0x1d5ad, 0x1d5ae, 0x1d5af, 0x1d5b0, 0x1d5b1, 0x1d5b2, 0x1d5b3, 0x1d5b4, 0x1d5b5, 0x1d5b6, 0x1d5b7, 0x1d5b8, 0x1d5b9, 0x1d5ba, 0x1d5bb
+};
+
+void BM_collation_element_lookup_682(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 0, cps_682 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 1, cps_682 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 2, cps_682 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 3, cps_682 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 4, cps_682 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 5, cps_682 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 6, cps_682 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 7, cps_682 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 8, cps_682 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 9, cps_682 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 10, cps_682 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 11, cps_682 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 12, cps_682 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 13, cps_682 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 14, cps_682 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 15, cps_682 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 16, cps_682 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 17, cps_682 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 18, cps_682 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 19, cps_682 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 20, cps_682 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 21, cps_682 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 22, cps_682 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 23, cps_682 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 24, cps_682 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 25, cps_682 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 26, cps_682 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 27, cps_682 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 28, cps_682 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 29, cps_682 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 30, cps_682 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 31, cps_682 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 32, cps_682 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 33, cps_682 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 34, cps_682 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 35, cps_682 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 36, cps_682 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 37, cps_682 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 38, cps_682 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 39, cps_682 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 40, cps_682 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 41, cps_682 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 42, cps_682 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 43, cps_682 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 44, cps_682 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 45, cps_682 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 46, cps_682 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 47, cps_682 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 48, cps_682 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_682 + 49, cps_682 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_682);
+
+uint32_t cps_683[] = {
+0x1d5bc, 0x1d5bd, 0x1d5be, 0x1d5bf, 0x1d5c0, 0x1d5c1, 0x1d5c2, 0x1d5c3, 0x1d5c4, 0x1d5c5, 0x1d5c6, 0x1d5c7, 0x1d5c8, 0x1d5c9, 0x1d5ca, 0x1d5cb, 0x1d5cc, 0x1d5cd, 0x1d5ce, 0x1d5cf, 0x1d5d0, 0x1d5d1, 0x1d5d2, 0x1d5d3, 0x1d5d4, 0x1d5d5, 0x1d5d6, 0x1d5d7, 0x1d5d8, 0x1d5d9, 0x1d5da, 0x1d5db, 0x1d5dc, 0x1d5dd, 0x1d5de, 0x1d5df, 0x1d5e0, 0x1d5e1, 0x1d5e2, 0x1d5e3, 0x1d5e4, 0x1d5e5, 0x1d5e6, 0x1d5e7, 0x1d5e8, 0x1d5e9, 0x1d5ea, 0x1d5eb, 0x1d5ec, 0x1d5ed
+};
+
+void BM_collation_element_lookup_683(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 0, cps_683 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 1, cps_683 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 2, cps_683 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 3, cps_683 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 4, cps_683 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 5, cps_683 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 6, cps_683 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 7, cps_683 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 8, cps_683 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 9, cps_683 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 10, cps_683 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 11, cps_683 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 12, cps_683 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 13, cps_683 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 14, cps_683 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 15, cps_683 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 16, cps_683 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 17, cps_683 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 18, cps_683 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 19, cps_683 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 20, cps_683 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 21, cps_683 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 22, cps_683 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 23, cps_683 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 24, cps_683 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 25, cps_683 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 26, cps_683 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 27, cps_683 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 28, cps_683 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 29, cps_683 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 30, cps_683 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 31, cps_683 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 32, cps_683 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 33, cps_683 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 34, cps_683 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 35, cps_683 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 36, cps_683 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 37, cps_683 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 38, cps_683 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 39, cps_683 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 40, cps_683 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 41, cps_683 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 42, cps_683 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 43, cps_683 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 44, cps_683 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 45, cps_683 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 46, cps_683 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 47, cps_683 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 48, cps_683 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_683 + 49, cps_683 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_683);
+
+uint32_t cps_684[] = {
+0x1d5ee, 0x1d5ef, 0x1d5f0, 0x1d5f1, 0x1d5f2, 0x1d5f3, 0x1d5f4, 0x1d5f5, 0x1d5f6, 0x1d5f7, 0x1d5f8, 0x1d5f9, 0x1d5fa, 0x1d5fb, 0x1d5fc, 0x1d5fd, 0x1d5fe, 0x1d5ff, 0x1d600, 0x1d601, 0x1d602, 0x1d603, 0x1d604, 0x1d605, 0x1d606, 0x1d607, 0x1d608, 0x1d609, 0x1d60a, 0x1d60b, 0x1d60c, 0x1d60d, 0x1d60e, 0x1d60f, 0x1d610, 0x1d611, 0x1d612, 0x1d613, 0x1d614, 0x1d615, 0x1d616, 0x1d617, 0x1d618, 0x1d619, 0x1d61a, 0x1d61b, 0x1d61c, 0x1d61d, 0x1d61e, 0x1d61f
+};
+
+void BM_collation_element_lookup_684(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 0, cps_684 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 1, cps_684 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 2, cps_684 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 3, cps_684 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 4, cps_684 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 5, cps_684 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 6, cps_684 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 7, cps_684 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 8, cps_684 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 9, cps_684 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 10, cps_684 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 11, cps_684 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 12, cps_684 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 13, cps_684 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 14, cps_684 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 15, cps_684 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 16, cps_684 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 17, cps_684 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 18, cps_684 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 19, cps_684 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 20, cps_684 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 21, cps_684 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 22, cps_684 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 23, cps_684 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 24, cps_684 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 25, cps_684 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 26, cps_684 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 27, cps_684 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 28, cps_684 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 29, cps_684 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 30, cps_684 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 31, cps_684 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 32, cps_684 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 33, cps_684 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 34, cps_684 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 35, cps_684 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 36, cps_684 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 37, cps_684 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 38, cps_684 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 39, cps_684 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 40, cps_684 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 41, cps_684 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 42, cps_684 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 43, cps_684 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 44, cps_684 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 45, cps_684 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 46, cps_684 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 47, cps_684 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 48, cps_684 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_684 + 49, cps_684 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_684);
+
+uint32_t cps_685[] = {
+0x1d620, 0x1d621, 0x1d622, 0x1d623, 0x1d624, 0x1d625, 0x1d626, 0x1d627, 0x1d628, 0x1d629, 0x1d62a, 0x1d62b, 0x1d62c, 0x1d62d, 0x1d62e, 0x1d62f, 0x1d630, 0x1d631, 0x1d632, 0x1d633, 0x1d634, 0x1d635, 0x1d636, 0x1d637, 0x1d638, 0x1d639, 0x1d63a, 0x1d63b, 0x1d63c, 0x1d63d, 0x1d63e, 0x1d63f, 0x1d640, 0x1d641, 0x1d642, 0x1d643, 0x1d644, 0x1d645, 0x1d646, 0x1d647, 0x1d648, 0x1d649, 0x1d64a, 0x1d64b, 0x1d64c, 0x1d64d, 0x1d64e, 0x1d64f, 0x1d650, 0x1d651
+};
+
+void BM_collation_element_lookup_685(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 0, cps_685 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 1, cps_685 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 2, cps_685 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 3, cps_685 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 4, cps_685 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 5, cps_685 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 6, cps_685 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 7, cps_685 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 8, cps_685 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 9, cps_685 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 10, cps_685 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 11, cps_685 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 12, cps_685 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 13, cps_685 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 14, cps_685 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 15, cps_685 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 16, cps_685 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 17, cps_685 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 18, cps_685 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 19, cps_685 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 20, cps_685 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 21, cps_685 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 22, cps_685 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 23, cps_685 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 24, cps_685 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 25, cps_685 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 26, cps_685 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 27, cps_685 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 28, cps_685 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 29, cps_685 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 30, cps_685 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 31, cps_685 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 32, cps_685 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 33, cps_685 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 34, cps_685 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 35, cps_685 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 36, cps_685 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 37, cps_685 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 38, cps_685 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 39, cps_685 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 40, cps_685 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 41, cps_685 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 42, cps_685 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 43, cps_685 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 44, cps_685 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 45, cps_685 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 46, cps_685 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 47, cps_685 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 48, cps_685 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_685 + 49, cps_685 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_685);
+
+uint32_t cps_686[] = {
+0x1d652, 0x1d653, 0x1d654, 0x1d655, 0x1d656, 0x1d657, 0x1d658, 0x1d659, 0x1d65a, 0x1d65b, 0x1d65c, 0x1d65d, 0x1d65e, 0x1d65f, 0x1d660, 0x1d661, 0x1d662, 0x1d663, 0x1d664, 0x1d665, 0x1d666, 0x1d667, 0x1d668, 0x1d669, 0x1d66a, 0x1d66b, 0x1d66c, 0x1d66d, 0x1d66e, 0x1d66f, 0x1d670, 0x1d671, 0x1d672, 0x1d673, 0x1d674, 0x1d675, 0x1d676, 0x1d677, 0x1d678, 0x1d679, 0x1d67a, 0x1d67b, 0x1d67c, 0x1d67d, 0x1d67e, 0x1d67f, 0x1d680, 0x1d681, 0x1d682, 0x1d683
+};
+
+void BM_collation_element_lookup_686(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 0, cps_686 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 1, cps_686 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 2, cps_686 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 3, cps_686 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 4, cps_686 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 5, cps_686 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 6, cps_686 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 7, cps_686 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 8, cps_686 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 9, cps_686 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 10, cps_686 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 11, cps_686 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 12, cps_686 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 13, cps_686 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 14, cps_686 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 15, cps_686 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 16, cps_686 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 17, cps_686 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 18, cps_686 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 19, cps_686 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 20, cps_686 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 21, cps_686 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 22, cps_686 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 23, cps_686 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 24, cps_686 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 25, cps_686 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 26, cps_686 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 27, cps_686 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 28, cps_686 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 29, cps_686 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 30, cps_686 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 31, cps_686 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 32, cps_686 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 33, cps_686 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 34, cps_686 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 35, cps_686 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 36, cps_686 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 37, cps_686 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 38, cps_686 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 39, cps_686 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 40, cps_686 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 41, cps_686 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 42, cps_686 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 43, cps_686 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 44, cps_686 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 45, cps_686 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 46, cps_686 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 47, cps_686 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 48, cps_686 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_686 + 49, cps_686 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_686);
+
+uint32_t cps_687[] = {
+0x1d684, 0x1d685, 0x1d686, 0x1d687, 0x1d688, 0x1d689, 0x1d68a, 0x1d68b, 0x1d68c, 0x1d68d, 0x1d68e, 0x1d68f, 0x1d690, 0x1d691, 0x1d692, 0x1d693, 0x1d694, 0x1d695, 0x1d696, 0x1d697, 0x1d698, 0x1d699, 0x1d69a, 0x1d69b, 0x1d69c, 0x1d69d, 0x1d69e, 0x1d69f, 0x1d6a0, 0x1d6a1, 0x1d6a2, 0x1d6a3, 0x1d6a4, 0x1d6a5, 0x1d6a8, 0x1d6a9, 0x1d6aa, 0x1d6ab, 0x1d6ac, 0x1d6ad, 0x1d6ae, 0x1d6af, 0x1d6b0, 0x1d6b1, 0x1d6b2, 0x1d6b3, 0x1d6b4, 0x1d6b5, 0x1d6b6, 0x1d6b7
+};
+
+void BM_collation_element_lookup_687(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 0, cps_687 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 1, cps_687 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 2, cps_687 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 3, cps_687 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 4, cps_687 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 5, cps_687 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 6, cps_687 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 7, cps_687 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 8, cps_687 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 9, cps_687 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 10, cps_687 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 11, cps_687 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 12, cps_687 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 13, cps_687 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 14, cps_687 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 15, cps_687 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 16, cps_687 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 17, cps_687 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 18, cps_687 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 19, cps_687 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 20, cps_687 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 21, cps_687 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 22, cps_687 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 23, cps_687 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 24, cps_687 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 25, cps_687 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 26, cps_687 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 27, cps_687 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 28, cps_687 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 29, cps_687 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 30, cps_687 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 31, cps_687 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 32, cps_687 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 33, cps_687 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 34, cps_687 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 35, cps_687 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 36, cps_687 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 37, cps_687 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 38, cps_687 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 39, cps_687 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 40, cps_687 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 41, cps_687 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 42, cps_687 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 43, cps_687 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 44, cps_687 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 45, cps_687 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 46, cps_687 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 47, cps_687 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 48, cps_687 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_687 + 49, cps_687 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_687);
+
+uint32_t cps_688[] = {
+0x1d6b8, 0x1d6b9, 0x1d6ba, 0x1d6bb, 0x1d6bc, 0x1d6bd, 0x1d6be, 0x1d6bf, 0x1d6c0, 0x1d6c1, 0x1d6c2, 0x1d6c3, 0x1d6c4, 0x1d6c5, 0x1d6c6, 0x1d6c7, 0x1d6c8, 0x1d6c9, 0x1d6ca, 0x1d6cb, 0x1d6cc, 0x1d6cd, 0x1d6ce, 0x1d6cf, 0x1d6d0, 0x1d6d1, 0x1d6d2, 0x1d6d3, 0x1d6d4, 0x1d6d5, 0x1d6d6, 0x1d6d7, 0x1d6d8, 0x1d6d9, 0x1d6da, 0x1d6db, 0x1d6dc, 0x1d6dd, 0x1d6de, 0x1d6df, 0x1d6e0, 0x1d6e1, 0x1d6e2, 0x1d6e3, 0x1d6e4, 0x1d6e5, 0x1d6e6, 0x1d6e7, 0x1d6e8, 0x1d6e9
+};
+
+void BM_collation_element_lookup_688(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 0, cps_688 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 1, cps_688 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 2, cps_688 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 3, cps_688 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 4, cps_688 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 5, cps_688 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 6, cps_688 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 7, cps_688 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 8, cps_688 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 9, cps_688 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 10, cps_688 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 11, cps_688 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 12, cps_688 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 13, cps_688 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 14, cps_688 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 15, cps_688 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 16, cps_688 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 17, cps_688 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 18, cps_688 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 19, cps_688 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 20, cps_688 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 21, cps_688 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 22, cps_688 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 23, cps_688 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 24, cps_688 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 25, cps_688 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 26, cps_688 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 27, cps_688 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 28, cps_688 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 29, cps_688 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 30, cps_688 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 31, cps_688 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 32, cps_688 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 33, cps_688 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 34, cps_688 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 35, cps_688 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 36, cps_688 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 37, cps_688 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 38, cps_688 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 39, cps_688 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 40, cps_688 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 41, cps_688 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 42, cps_688 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 43, cps_688 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 44, cps_688 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 45, cps_688 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 46, cps_688 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 47, cps_688 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 48, cps_688 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_688 + 49, cps_688 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_688);
+
+uint32_t cps_689[] = {
+0x1d6ea, 0x1d6eb, 0x1d6ec, 0x1d6ed, 0x1d6ee, 0x1d6ef, 0x1d6f0, 0x1d6f1, 0x1d6f2, 0x1d6f3, 0x1d6f4, 0x1d6f5, 0x1d6f6, 0x1d6f7, 0x1d6f8, 0x1d6f9, 0x1d6fa, 0x1d6fb, 0x1d6fc, 0x1d6fd, 0x1d6fe, 0x1d6ff, 0x1d700, 0x1d701, 0x1d702, 0x1d703, 0x1d704, 0x1d705, 0x1d706, 0x1d707, 0x1d708, 0x1d709, 0x1d70a, 0x1d70b, 0x1d70c, 0x1d70d, 0x1d70e, 0x1d70f, 0x1d710, 0x1d711, 0x1d712, 0x1d713, 0x1d714, 0x1d715, 0x1d716, 0x1d717, 0x1d718, 0x1d719, 0x1d71a, 0x1d71b
+};
+
+void BM_collation_element_lookup_689(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 0, cps_689 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 1, cps_689 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 2, cps_689 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 3, cps_689 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 4, cps_689 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 5, cps_689 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 6, cps_689 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 7, cps_689 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 8, cps_689 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 9, cps_689 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 10, cps_689 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 11, cps_689 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 12, cps_689 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 13, cps_689 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 14, cps_689 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 15, cps_689 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 16, cps_689 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 17, cps_689 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 18, cps_689 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 19, cps_689 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 20, cps_689 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 21, cps_689 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 22, cps_689 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 23, cps_689 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 24, cps_689 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 25, cps_689 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 26, cps_689 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 27, cps_689 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 28, cps_689 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 29, cps_689 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 30, cps_689 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 31, cps_689 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 32, cps_689 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 33, cps_689 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 34, cps_689 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 35, cps_689 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 36, cps_689 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 37, cps_689 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 38, cps_689 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 39, cps_689 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 40, cps_689 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 41, cps_689 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 42, cps_689 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 43, cps_689 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 44, cps_689 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 45, cps_689 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 46, cps_689 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 47, cps_689 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 48, cps_689 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_689 + 49, cps_689 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_689);
+
+uint32_t cps_690[] = {
+0x1d71c, 0x1d71d, 0x1d71e, 0x1d71f, 0x1d720, 0x1d721, 0x1d722, 0x1d723, 0x1d724, 0x1d725, 0x1d726, 0x1d727, 0x1d728, 0x1d729, 0x1d72a, 0x1d72b, 0x1d72c, 0x1d72d, 0x1d72e, 0x1d72f, 0x1d730, 0x1d731, 0x1d732, 0x1d733, 0x1d734, 0x1d735, 0x1d736, 0x1d737, 0x1d738, 0x1d739, 0x1d73a, 0x1d73b, 0x1d73c, 0x1d73d, 0x1d73e, 0x1d73f, 0x1d740, 0x1d741, 0x1d742, 0x1d743, 0x1d744, 0x1d745, 0x1d746, 0x1d747, 0x1d748, 0x1d749, 0x1d74a, 0x1d74b, 0x1d74c, 0x1d74d
+};
+
+void BM_collation_element_lookup_690(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 0, cps_690 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 1, cps_690 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 2, cps_690 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 3, cps_690 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 4, cps_690 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 5, cps_690 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 6, cps_690 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 7, cps_690 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 8, cps_690 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 9, cps_690 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 10, cps_690 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 11, cps_690 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 12, cps_690 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 13, cps_690 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 14, cps_690 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 15, cps_690 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 16, cps_690 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 17, cps_690 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 18, cps_690 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 19, cps_690 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 20, cps_690 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 21, cps_690 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 22, cps_690 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 23, cps_690 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 24, cps_690 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 25, cps_690 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 26, cps_690 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 27, cps_690 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 28, cps_690 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 29, cps_690 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 30, cps_690 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 31, cps_690 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 32, cps_690 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 33, cps_690 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 34, cps_690 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 35, cps_690 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 36, cps_690 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 37, cps_690 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 38, cps_690 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 39, cps_690 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 40, cps_690 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 41, cps_690 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 42, cps_690 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 43, cps_690 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 44, cps_690 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 45, cps_690 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 46, cps_690 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 47, cps_690 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 48, cps_690 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_690 + 49, cps_690 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_690);
+
+uint32_t cps_691[] = {
+0x1d74e, 0x1d74f, 0x1d750, 0x1d751, 0x1d752, 0x1d753, 0x1d754, 0x1d755, 0x1d756, 0x1d757, 0x1d758, 0x1d759, 0x1d75a, 0x1d75b, 0x1d75c, 0x1d75d, 0x1d75e, 0x1d75f, 0x1d760, 0x1d761, 0x1d762, 0x1d763, 0x1d764, 0x1d765, 0x1d766, 0x1d767, 0x1d768, 0x1d769, 0x1d76a, 0x1d76b, 0x1d76c, 0x1d76d, 0x1d76e, 0x1d76f, 0x1d770, 0x1d771, 0x1d772, 0x1d773, 0x1d774, 0x1d775, 0x1d776, 0x1d777, 0x1d778, 0x1d779, 0x1d77a, 0x1d77b, 0x1d77c, 0x1d77d, 0x1d77e, 0x1d77f
+};
+
+void BM_collation_element_lookup_691(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 0, cps_691 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 1, cps_691 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 2, cps_691 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 3, cps_691 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 4, cps_691 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 5, cps_691 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 6, cps_691 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 7, cps_691 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 8, cps_691 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 9, cps_691 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 10, cps_691 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 11, cps_691 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 12, cps_691 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 13, cps_691 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 14, cps_691 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 15, cps_691 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 16, cps_691 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 17, cps_691 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 18, cps_691 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 19, cps_691 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 20, cps_691 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 21, cps_691 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 22, cps_691 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 23, cps_691 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 24, cps_691 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 25, cps_691 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 26, cps_691 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 27, cps_691 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 28, cps_691 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 29, cps_691 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 30, cps_691 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 31, cps_691 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 32, cps_691 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 33, cps_691 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 34, cps_691 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 35, cps_691 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 36, cps_691 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 37, cps_691 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 38, cps_691 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 39, cps_691 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 40, cps_691 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 41, cps_691 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 42, cps_691 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 43, cps_691 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 44, cps_691 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 45, cps_691 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 46, cps_691 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 47, cps_691 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 48, cps_691 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_691 + 49, cps_691 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_691);
+
+uint32_t cps_692[] = {
+0x1d780, 0x1d781, 0x1d782, 0x1d783, 0x1d784, 0x1d785, 0x1d786, 0x1d787, 0x1d788, 0x1d789, 0x1d78a, 0x1d78b, 0x1d78c, 0x1d78d, 0x1d78e, 0x1d78f, 0x1d790, 0x1d791, 0x1d792, 0x1d793, 0x1d794, 0x1d795, 0x1d796, 0x1d797, 0x1d798, 0x1d799, 0x1d79a, 0x1d79b, 0x1d79c, 0x1d79d, 0x1d79e, 0x1d79f, 0x1d7a0, 0x1d7a1, 0x1d7a2, 0x1d7a3, 0x1d7a4, 0x1d7a5, 0x1d7a6, 0x1d7a7, 0x1d7a8, 0x1d7a9, 0x1d7aa, 0x1d7ab, 0x1d7ac, 0x1d7ad, 0x1d7ae, 0x1d7af, 0x1d7b0, 0x1d7b1
+};
+
+void BM_collation_element_lookup_692(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 0, cps_692 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 1, cps_692 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 2, cps_692 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 3, cps_692 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 4, cps_692 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 5, cps_692 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 6, cps_692 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 7, cps_692 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 8, cps_692 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 9, cps_692 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 10, cps_692 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 11, cps_692 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 12, cps_692 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 13, cps_692 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 14, cps_692 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 15, cps_692 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 16, cps_692 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 17, cps_692 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 18, cps_692 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 19, cps_692 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 20, cps_692 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 21, cps_692 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 22, cps_692 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 23, cps_692 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 24, cps_692 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 25, cps_692 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 26, cps_692 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 27, cps_692 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 28, cps_692 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 29, cps_692 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 30, cps_692 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 31, cps_692 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 32, cps_692 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 33, cps_692 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 34, cps_692 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 35, cps_692 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 36, cps_692 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 37, cps_692 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 38, cps_692 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 39, cps_692 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 40, cps_692 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 41, cps_692 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 42, cps_692 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 43, cps_692 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 44, cps_692 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 45, cps_692 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 46, cps_692 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 47, cps_692 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 48, cps_692 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_692 + 49, cps_692 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_692);
+
+uint32_t cps_693[] = {
+0x1d7b2, 0x1d7b3, 0x1d7b4, 0x1d7b5, 0x1d7b6, 0x1d7b7, 0x1d7b8, 0x1d7b9, 0x1d7ba, 0x1d7bb, 0x1d7bc, 0x1d7bd, 0x1d7be, 0x1d7bf, 0x1d7c0, 0x1d7c1, 0x1d7c2, 0x1d7c3, 0x1d7c4, 0x1d7c5, 0x1d7c6, 0x1d7c7, 0x1d7c8, 0x1d7c9, 0x1d7ca, 0x1d7cb, 0x1d7ce, 0x1d7cf, 0x1d7d0, 0x1d7d1, 0x1d7d2, 0x1d7d3, 0x1d7d4, 0x1d7d5, 0x1d7d6, 0x1d7d7, 0x1d7d8, 0x1d7d9, 0x1d7da, 0x1d7db, 0x1d7dc, 0x1d7dd, 0x1d7de, 0x1d7df, 0x1d7e0, 0x1d7e1, 0x1d7e2, 0x1d7e3, 0x1d7e4, 0x1d7e5
+};
+
+void BM_collation_element_lookup_693(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 0, cps_693 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 1, cps_693 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 2, cps_693 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 3, cps_693 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 4, cps_693 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 5, cps_693 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 6, cps_693 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 7, cps_693 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 8, cps_693 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 9, cps_693 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 10, cps_693 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 11, cps_693 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 12, cps_693 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 13, cps_693 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 14, cps_693 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 15, cps_693 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 16, cps_693 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 17, cps_693 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 18, cps_693 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 19, cps_693 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 20, cps_693 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 21, cps_693 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 22, cps_693 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 23, cps_693 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 24, cps_693 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 25, cps_693 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 26, cps_693 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 27, cps_693 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 28, cps_693 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 29, cps_693 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 30, cps_693 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 31, cps_693 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 32, cps_693 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 33, cps_693 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 34, cps_693 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 35, cps_693 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 36, cps_693 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 37, cps_693 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 38, cps_693 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 39, cps_693 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 40, cps_693 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 41, cps_693 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 42, cps_693 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 43, cps_693 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 44, cps_693 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 45, cps_693 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 46, cps_693 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 47, cps_693 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 48, cps_693 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_693 + 49, cps_693 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_693);
+
+uint32_t cps_694[] = {
+0x1d7e6, 0x1d7e7, 0x1d7e8, 0x1d7e9, 0x1d7ea, 0x1d7eb, 0x1d7ec, 0x1d7ed, 0x1d7ee, 0x1d7ef, 0x1d7f0, 0x1d7f1, 0x1d7f2, 0x1d7f3, 0x1d7f4, 0x1d7f5, 0x1d7f6, 0x1d7f7, 0x1d7f8, 0x1d7f9, 0x1d7fa, 0x1d7fb, 0x1d7fc, 0x1d7fd, 0x1d7fe, 0x1d7ff, 0x1d800, 0x1d801, 0x1d802, 0x1d803, 0x1d804, 0x1d805, 0x1d806, 0x1d807, 0x1d808, 0x1d809, 0x1d80a, 0x1d80b, 0x1d80c, 0x1d80d, 0x1d80e, 0x1d80f, 0x1d810, 0x1d811, 0x1d812, 0x1d813, 0x1d814, 0x1d815, 0x1d816, 0x1d817
+};
+
+void BM_collation_element_lookup_694(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 0, cps_694 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 1, cps_694 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 2, cps_694 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 3, cps_694 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 4, cps_694 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 5, cps_694 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 6, cps_694 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 7, cps_694 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 8, cps_694 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 9, cps_694 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 10, cps_694 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 11, cps_694 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 12, cps_694 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 13, cps_694 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 14, cps_694 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 15, cps_694 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 16, cps_694 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 17, cps_694 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 18, cps_694 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 19, cps_694 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 20, cps_694 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 21, cps_694 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 22, cps_694 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 23, cps_694 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 24, cps_694 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 25, cps_694 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 26, cps_694 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 27, cps_694 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 28, cps_694 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 29, cps_694 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 30, cps_694 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 31, cps_694 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 32, cps_694 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 33, cps_694 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 34, cps_694 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 35, cps_694 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 36, cps_694 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 37, cps_694 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 38, cps_694 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 39, cps_694 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 40, cps_694 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 41, cps_694 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 42, cps_694 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 43, cps_694 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 44, cps_694 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 45, cps_694 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 46, cps_694 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 47, cps_694 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 48, cps_694 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_694 + 49, cps_694 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_694);
+
+uint32_t cps_695[] = {
+0x1d818, 0x1d819, 0x1d81a, 0x1d81b, 0x1d81c, 0x1d81d, 0x1d81e, 0x1d81f, 0x1d820, 0x1d821, 0x1d822, 0x1d823, 0x1d824, 0x1d825, 0x1d826, 0x1d827, 0x1d828, 0x1d829, 0x1d82a, 0x1d82b, 0x1d82c, 0x1d82d, 0x1d82e, 0x1d82f, 0x1d830, 0x1d831, 0x1d832, 0x1d833, 0x1d834, 0x1d835, 0x1d836, 0x1d837, 0x1d838, 0x1d839, 0x1d83a, 0x1d83b, 0x1d83c, 0x1d83d, 0x1d83e, 0x1d83f, 0x1d840, 0x1d841, 0x1d842, 0x1d843, 0x1d844, 0x1d845, 0x1d846, 0x1d847, 0x1d848, 0x1d849
+};
+
+void BM_collation_element_lookup_695(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 0, cps_695 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 1, cps_695 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 2, cps_695 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 3, cps_695 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 4, cps_695 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 5, cps_695 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 6, cps_695 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 7, cps_695 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 8, cps_695 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 9, cps_695 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 10, cps_695 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 11, cps_695 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 12, cps_695 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 13, cps_695 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 14, cps_695 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 15, cps_695 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 16, cps_695 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 17, cps_695 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 18, cps_695 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 19, cps_695 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 20, cps_695 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 21, cps_695 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 22, cps_695 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 23, cps_695 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 24, cps_695 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 25, cps_695 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 26, cps_695 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 27, cps_695 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 28, cps_695 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 29, cps_695 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 30, cps_695 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 31, cps_695 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 32, cps_695 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 33, cps_695 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 34, cps_695 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 35, cps_695 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 36, cps_695 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 37, cps_695 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 38, cps_695 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 39, cps_695 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 40, cps_695 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 41, cps_695 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 42, cps_695 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 43, cps_695 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 44, cps_695 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 45, cps_695 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 46, cps_695 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 47, cps_695 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 48, cps_695 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_695 + 49, cps_695 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_695);
+
+uint32_t cps_696[] = {
+0x1d84a, 0x1d84b, 0x1d84c, 0x1d84d, 0x1d84e, 0x1d84f, 0x1d850, 0x1d851, 0x1d852, 0x1d853, 0x1d854, 0x1d855, 0x1d856, 0x1d857, 0x1d858, 0x1d859, 0x1d85a, 0x1d85b, 0x1d85c, 0x1d85d, 0x1d85e, 0x1d85f, 0x1d860, 0x1d861, 0x1d862, 0x1d863, 0x1d864, 0x1d865, 0x1d866, 0x1d867, 0x1d868, 0x1d869, 0x1d86a, 0x1d86b, 0x1d86c, 0x1d86d, 0x1d86e, 0x1d86f, 0x1d870, 0x1d871, 0x1d872, 0x1d873, 0x1d874, 0x1d875, 0x1d876, 0x1d877, 0x1d878, 0x1d879, 0x1d87a, 0x1d87b
+};
+
+void BM_collation_element_lookup_696(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 0, cps_696 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 1, cps_696 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 2, cps_696 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 3, cps_696 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 4, cps_696 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 5, cps_696 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 6, cps_696 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 7, cps_696 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 8, cps_696 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 9, cps_696 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 10, cps_696 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 11, cps_696 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 12, cps_696 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 13, cps_696 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 14, cps_696 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 15, cps_696 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 16, cps_696 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 17, cps_696 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 18, cps_696 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 19, cps_696 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 20, cps_696 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 21, cps_696 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 22, cps_696 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 23, cps_696 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 24, cps_696 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 25, cps_696 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 26, cps_696 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 27, cps_696 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 28, cps_696 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 29, cps_696 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 30, cps_696 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 31, cps_696 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 32, cps_696 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 33, cps_696 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 34, cps_696 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 35, cps_696 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 36, cps_696 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 37, cps_696 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 38, cps_696 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 39, cps_696 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 40, cps_696 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 41, cps_696 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 42, cps_696 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 43, cps_696 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 44, cps_696 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 45, cps_696 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 46, cps_696 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 47, cps_696 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 48, cps_696 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_696 + 49, cps_696 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_696);
+
+uint32_t cps_697[] = {
+0x1d87c, 0x1d87d, 0x1d87e, 0x1d87f, 0x1d880, 0x1d881, 0x1d882, 0x1d883, 0x1d884, 0x1d885, 0x1d886, 0x1d887, 0x1d888, 0x1d889, 0x1d88a, 0x1d88b, 0x1d88c, 0x1d88d, 0x1d88e, 0x1d88f, 0x1d890, 0x1d891, 0x1d892, 0x1d893, 0x1d894, 0x1d895, 0x1d896, 0x1d897, 0x1d898, 0x1d899, 0x1d89a, 0x1d89b, 0x1d89c, 0x1d89d, 0x1d89e, 0x1d89f, 0x1d8a0, 0x1d8a1, 0x1d8a2, 0x1d8a3, 0x1d8a4, 0x1d8a5, 0x1d8a6, 0x1d8a7, 0x1d8a8, 0x1d8a9, 0x1d8aa, 0x1d8ab, 0x1d8ac, 0x1d8ad
+};
+
+void BM_collation_element_lookup_697(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 0, cps_697 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 1, cps_697 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 2, cps_697 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 3, cps_697 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 4, cps_697 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 5, cps_697 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 6, cps_697 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 7, cps_697 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 8, cps_697 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 9, cps_697 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 10, cps_697 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 11, cps_697 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 12, cps_697 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 13, cps_697 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 14, cps_697 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 15, cps_697 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 16, cps_697 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 17, cps_697 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 18, cps_697 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 19, cps_697 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 20, cps_697 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 21, cps_697 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 22, cps_697 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 23, cps_697 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 24, cps_697 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 25, cps_697 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 26, cps_697 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 27, cps_697 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 28, cps_697 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 29, cps_697 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 30, cps_697 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 31, cps_697 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 32, cps_697 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 33, cps_697 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 34, cps_697 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 35, cps_697 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 36, cps_697 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 37, cps_697 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 38, cps_697 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 39, cps_697 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 40, cps_697 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 41, cps_697 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 42, cps_697 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 43, cps_697 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 44, cps_697 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 45, cps_697 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 46, cps_697 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 47, cps_697 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 48, cps_697 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_697 + 49, cps_697 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_697);
+
+uint32_t cps_698[] = {
+0x1d8ae, 0x1d8af, 0x1d8b0, 0x1d8b1, 0x1d8b2, 0x1d8b3, 0x1d8b4, 0x1d8b5, 0x1d8b6, 0x1d8b7, 0x1d8b8, 0x1d8b9, 0x1d8ba, 0x1d8bb, 0x1d8bc, 0x1d8bd, 0x1d8be, 0x1d8bf, 0x1d8c0, 0x1d8c1, 0x1d8c2, 0x1d8c3, 0x1d8c4, 0x1d8c5, 0x1d8c6, 0x1d8c7, 0x1d8c8, 0x1d8c9, 0x1d8ca, 0x1d8cb, 0x1d8cc, 0x1d8cd, 0x1d8ce, 0x1d8cf, 0x1d8d0, 0x1d8d1, 0x1d8d2, 0x1d8d3, 0x1d8d4, 0x1d8d5, 0x1d8d6, 0x1d8d7, 0x1d8d8, 0x1d8d9, 0x1d8da, 0x1d8db, 0x1d8dc, 0x1d8dd, 0x1d8de, 0x1d8df
+};
+
+void BM_collation_element_lookup_698(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 0, cps_698 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 1, cps_698 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 2, cps_698 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 3, cps_698 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 4, cps_698 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 5, cps_698 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 6, cps_698 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 7, cps_698 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 8, cps_698 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 9, cps_698 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 10, cps_698 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 11, cps_698 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 12, cps_698 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 13, cps_698 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 14, cps_698 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 15, cps_698 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 16, cps_698 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 17, cps_698 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 18, cps_698 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 19, cps_698 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 20, cps_698 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 21, cps_698 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 22, cps_698 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 23, cps_698 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 24, cps_698 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 25, cps_698 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 26, cps_698 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 27, cps_698 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 28, cps_698 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 29, cps_698 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 30, cps_698 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 31, cps_698 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 32, cps_698 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 33, cps_698 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 34, cps_698 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 35, cps_698 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 36, cps_698 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 37, cps_698 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 38, cps_698 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 39, cps_698 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 40, cps_698 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 41, cps_698 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 42, cps_698 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 43, cps_698 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 44, cps_698 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 45, cps_698 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 46, cps_698 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 47, cps_698 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 48, cps_698 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_698 + 49, cps_698 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_698);
+
+uint32_t cps_699[] = {
+0x1d8e0, 0x1d8e1, 0x1d8e2, 0x1d8e3, 0x1d8e4, 0x1d8e5, 0x1d8e6, 0x1d8e7, 0x1d8e8, 0x1d8e9, 0x1d8ea, 0x1d8eb, 0x1d8ec, 0x1d8ed, 0x1d8ee, 0x1d8ef, 0x1d8f0, 0x1d8f1, 0x1d8f2, 0x1d8f3, 0x1d8f4, 0x1d8f5, 0x1d8f6, 0x1d8f7, 0x1d8f8, 0x1d8f9, 0x1d8fa, 0x1d8fb, 0x1d8fc, 0x1d8fd, 0x1d8fe, 0x1d8ff, 0x1d900, 0x1d901, 0x1d902, 0x1d903, 0x1d904, 0x1d905, 0x1d906, 0x1d907, 0x1d908, 0x1d909, 0x1d90a, 0x1d90b, 0x1d90c, 0x1d90d, 0x1d90e, 0x1d90f, 0x1d910, 0x1d911
+};
+
+void BM_collation_element_lookup_699(benchmark::State & state)
+{
+    while (state.KeepRunning()) {
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 0, cps_699 + 1));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 1, cps_699 + 2));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 2, cps_699 + 3));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 3, cps_699 + 4));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 4, cps_699 + 5));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 5, cps_699 + 6));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 6, cps_699 + 7));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 7, cps_699 + 8));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 8, cps_699 + 9));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 9, cps_699 + 10));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 10, cps_699 + 11));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 11, cps_699 + 12));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 12, cps_699 + 13));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 13, cps_699 + 14));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 14, cps_699 + 15));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 15, cps_699 + 16));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 16, cps_699 + 17));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 17, cps_699 + 18));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 18, cps_699 + 19));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 19, cps_699 + 20));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 20, cps_699 + 21));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 21, cps_699 + 22));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 22, cps_699 + 23));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 23, cps_699 + 24));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 24, cps_699 + 25));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 25, cps_699 + 26));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 26, cps_699 + 27));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 27, cps_699 + 28));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 28, cps_699 + 29));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 29, cps_699 + 30));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 30, cps_699 + 31));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 31, cps_699 + 32));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 32, cps_699 + 33));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 33, cps_699 + 34));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 34, cps_699 + 35));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 35, cps_699 + 36));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 36, cps_699 + 37));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 37, cps_699 + 38));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 38, cps_699 + 39));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 39, cps_699 + 40));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 40, cps_699 + 41));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 41, cps_699 + 42));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 42, cps_699 + 43));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 43, cps_699 + 44));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 44, cps_699 + 45));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 45, cps_699 + 46));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 46, cps_699 + 47));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 47, cps_699 + 48));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 48, cps_699 + 49));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_699 + 49, cps_699 + 50));
+    }
+}
+BENCHMARK(BM_collation_element_lookup_699);
 
 
 

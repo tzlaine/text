@@ -1,8 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_COLLATION_DATA_HPP
 #define BOOST_TEXT_DETAIL_COLLATION_DATA_HPP
 
-#include <boost/text/collation_weights.hpp>
 #include <boost/text/string_view.hpp>
+#include <boost/text/detail/collation_constants.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
 #include <algorithm>
@@ -16,26 +16,19 @@ namespace boost { namespace text { namespace detail {
 
     struct compressed_collation_element
     {
-        uint16_t l1() const noexcept { return l1_; }
-        uint16_t l2() const noexcept
-        {
-            return biased_l2_ ? uint16_t(l2_bias + biased_l2_) : 0;
-        }
+        uint32_t l1() const noexcept { return l1_; }
+        uint16_t l2() const noexcept { return l2_; }
         uint8_t l3() const noexcept { return l3_; }
 
-        static constexpr uint8_t l2_bias = static_cast<uint8_t>(
-            static_cast<int>(collation_weights::min_l2) - 1);
-
-        uint16_t l1_;
-        uint8_t biased_l2_;
+        uint32_t l1_;
+        uint16_t l2_;
         uint8_t l3_;
     };
 
     inline bool operator==(
         compressed_collation_element lhs, compressed_collation_element rhs)
     {
-        return lhs.l1_ == rhs.l1_ && lhs.biased_l2_ == rhs.biased_l2_ &&
-               lhs.l3_ == rhs.l3_;
+        return lhs.l1_ == rhs.l1_ && lhs.l2_ == rhs.l2_ && lhs.l3_ == rhs.l3_;
     }
     inline bool operator!=(
         compressed_collation_element lhs, compressed_collation_element rhs)
@@ -44,15 +37,15 @@ namespace boost { namespace text { namespace detail {
     }
 
     static_assert(
-        sizeof(compressed_collation_element) == 4,
-        "Oops!  compressed_collation_element should be 32 bits.");
+        sizeof(compressed_collation_element) == 8,
+        "Oops!  compressed_collation_element should be 64 bits.");
 
     struct collation_element
     {
-        uint16_t l1_;
+        uint32_t l1_;
         uint16_t l2_;
-        uint16_t l3_;
-        uint16_t l4_;
+        uint8_t l3_;
+        uint32_t l4_;
     };
 
     inline collation_element

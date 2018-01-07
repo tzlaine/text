@@ -78,25 +78,6 @@ namespace boost { namespace text {
                 return std::copy(ces.begin(), ces.end(), out);
             }
 
-            // Tangut and Tangut Components
-            if (0x17000 <= cp && cp <= 0x18AFF) {
-                *out++ = collation_element{0xFB00, 0x0020, 0x0002};
-                *out++ = collation_element{
-                    uint16_t((cp - 0x17000) | 0x8000), 0x0000, 0x0000};
-                return out;
-            }
-
-            // Nushu
-            if (0x1B170 <= cp && cp <= 0x1B2FF) {
-                *out++ = collation_element{0xFB01, 0x0020, 0x0002};
-                *out++ = collation_element{
-                    uint16_t((cp - 0x1B170) | 0x8000), 0x0000, 0x0000};
-                return out;
-            }
-
-            collation_element const BBBB{
-                uint16_t((cp & 0x7FFF) | 0x8000), 0x0000, 0x0000};
-
             // Core Han Unified Ideographs
             std::array<uint32_t, 12> const CJK_Compatibility_Ideographs = {
                 {0xFA0E,
@@ -111,18 +92,6 @@ namespace boost { namespace text {
                  0xFA27,
                  0xFA28,
                  0xFA29}};
-
-            if ((0x4E00 <= cp && cp <= 0x9FEA) ||
-                ((cp & detail::OR_CJK_Compatibility_Ideographs) &&
-                 std::binary_search(
-                     CJK_Compatibility_Ideographs.begin(),
-                     CJK_Compatibility_Ideographs.end(),
-                     cp))) {
-                *out++ = collation_element{
-                    uint16_t(0xFB40 + (cp >> 15)), 0x0020, 0x0002};
-                *out++ = BBBB;
-                return out;
-            }
 
             std::array<uint32_t, 222> const CJK_Unified_Ideographs_Extension_D =
                 {{0x2B740, 0x2B741, 0x2B742, 0x2B743, 0x2B744, 0x2B745, 0x2B746,
@@ -158,33 +127,57 @@ namespace boost { namespace text {
                   0x2B812, 0x2B813, 0x2B814, 0x2B815, 0x2B816, 0x2B817, 0x2B818,
                   0x2B819, 0x2B81A, 0x2B81B, 0x2B81C, 0x2B81D}};
 
-            // All other Han Unified Ideographs
-            if ((0x3400 <= cp && cp <= 0x4DB5) ||
-                (0x20000 <= cp && cp <= 0x2A6D6) ||
-                (0x2A700 <= cp && cp <= 0x2B734) ||
-                (0x2B820 <= cp && cp <= 0x2CEA1) ||
-                (0x2CEB0 <= cp && cp <= 0x2EBE0) ||
-                ((cp & detail::OR_CJK_Unified_Ideographs_Extension_D) &&
-                 std::binary_search(
-                     CJK_Unified_Ideographs_Extension_D.begin(),
-                     CJK_Unified_Ideographs_Extension_D.end(),
-                     cp))) {
-                *out++ = collation_element{
-                    uint16_t(0xFB80 + (cp >> 15)), 0x0020, 0x0002};
-                *out++ = BBBB;
-                return out;
+            double const spacing = implicit_weights_spacing_times_ten / 10.0;
+
+            for (auto seg : implicit_weights_segments) {
+                if (seg.first_ <= cp && cp < seg.last_) {
+                    if (seg.first_ == CJK_Compatibility_Ideographs[0] &&
+                        ((cp & ~OR_CJK_Compatibility_Ideographs) ||
+                         !std::count(
+                             CJK_Compatibility_Ideographs.begin(),
+                             CJK_Compatibility_Ideographs.end(),
+                             cp))) {
+                        continue;
+                    }
+
+                    if (seg.first_ == CJK_Unified_Ideographs_Extension_D[0] &&
+                        ((cp & ~OR_CJK_Unified_Ideographs_Extension_D) ||
+                         !std::binary_search(
+                             CJK_Unified_Ideographs_Extension_D.begin(),
+                             CJK_Unified_Ideographs_Extension_D.end(),
+                             cp))) {
+                        continue;
+                    }
+
+                    uint32_t const primary_weight_low_bits =
+                        seg.primary_offset_ + (cp - seg.first_) * spacing;
+                    assert(
+                        (primary_weight_low_bits & 0xfffff) ==
+                        primary_weight_low_bits);
+                    uint32_t const bytes[4] = {
+                        implicit_weights_first_primary_byte,
+                        ((primary_weight_low_bits >> 12) & 0xfe) | 0x1,
+                        ((primary_weight_low_bits >> 5) & 0xfe) | 0x1,
+                        (primary_weight_low_bits >> 0) & 0x3f
+                    };
+                    uint32_t const primary = bytes[0] << 24 | bytes[1] << 16 |
+                                             bytes[2] << 8 | bytes[3] << 0;
+                    *out++ = collation_element{primary, 0x0500, 0x05};
+                    return out;
+                }
             }
 
             *out++ = collation_element{
-                uint16_t(0xFBC0 + (cp >> 15)), 0x0020, 0x0002};
-            *out++ = BBBB;
+                (implicit_weights_final_lead_byte << 24) | (cp & 0xffffff),
+                0x0500,
+                0x05};
             return out;
         }
 
         inline bool variable(collation_element ce) noexcept
         {
-            auto const lo = static_cast<int>(collation_weights::min_variable);
-            auto const hi = static_cast<int>(collation_weights::max_variable);
+            auto const lo = min_variable_collation_weight;
+            auto const hi = max_variable_collation_weight;
             return lo <= ce.l1_ && ce.l1_ <= hi;
         }
 
@@ -200,6 +193,21 @@ namespace boost { namespace text {
             variable_weighting weighting,
             bool after_variable)
         {
+            // TODO: Don't do this if we want to retain the case level!
+            if (true) {
+                auto it = first;
+                while (it != last) {
+                    auto & ce = *it++;
+                    // The top two bits in each byte in FractionalUCA.txt's L3
+                    // weights are for the case level.
+                    // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
+                    uint8_t const case_level_mask = uint8_t(~0xc0u);
+                    uint8_t const l3 = ce.l3_ & case_level_mask;
+
+                    ce.l3_ = l3;
+                }
+            }
+
             if (weighting == variable_weighting::non_ignorable)
                 return after_variable;
 
@@ -231,7 +239,9 @@ namespace boost { namespace text {
                         if (after_variable)
                             ce.l4_ = 0x0000;
                         else
-                            ce.l4_ = 0xffff;
+                            // TODO: Needs to be the same number of bits set as
+                            // in the L1 initially.
+                            ce.l4_ = 0xffffffff;
                     }
                     after_variable = false;
                 } else if (variable(ce)) {
@@ -242,18 +252,18 @@ namespace boost { namespace text {
                     after_variable = true;
                 } else {
                     if (ce.l1_)
-                        ce.l4_ = 0xffff;
+                        ce.l4_ = 0xffffffff;
                     after_variable = false;
                 }
                 if (second_of_implicit_weight_pair) {
                     ce.l4_ = 0;
                     second_of_implicit_weight_pair = false;
                 }
+                // TODO: These might be different values under
+                // reorder-tailoring.
                 second_of_implicit_weight_pair =
-                    l1 == 0xfb00 || l1 == 0xfb01 ||
-                    (l1 == 0xfb40 || l1 == 0xfb41) ||
-                    (l1 == 0xfb80 || l1 == 0xfb84 || l1 == 0xfb85) ||
-                    (0xfbc0 <= l1 && l1 <= 0xfbe1);
+                    implicit_weights_first_primary_byte <= l1 &&
+                    l1 <= implicit_weights_final_lead_byte;
             }
 
             return after_variable;

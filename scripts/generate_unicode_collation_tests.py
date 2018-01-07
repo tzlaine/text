@@ -4,7 +4,7 @@
 from generate_unicode_normalization_data import cccs
 from generate_unicode_normalization_data import expand_decomp_canonical
 from generate_unicode_normalization_data import get_decompositions
-from generate_unicode_collation_data import get_ducet
+from generate_unicode_collation_data import get_frac_uca_cet
 from generate_unicode_collation_data import ce_to_cpp
 
 import re
@@ -139,7 +139,7 @@ uint32_t cps_{0:03}[] = {{
 void BM_collation_element_lookup_{0:03}(benchmark::State & state)
 {{
     while (state.KeepRunning()) {{
-'''.format(i, ', '.join(map(lambda x: hex(x), cps)), len(cps))
+'''.format(i, ', '.join(map(lambda x: type(x) == str and '0x' + x or hex(x), cps)), len(cps))
         for first,last in cp_ranges:
             lines += '''\
             benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_{0:03} + {1}, cps_{0:03} + {2}));
@@ -193,7 +193,7 @@ uint32_t cps_{0:03}[] = {{
 void BM_collation_{0:03}(benchmark::State & state)
 {{
     while (state.KeepRunning()) {{
-'''.format(i, ', '.join(map(lambda x: hex(x), cps)), len(cps))
+'''.format(i, ', '.join(map(lambda x: type(x) == str and '0x' + x or hex(x), cps)), len(cps))
         lines += '''\
         benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_{0:03}, cps_{0:03} + {2}, boost::text::collation_strength::quaternary, boost::text::variable_weighting::shifted));
 '''.format(i, cp_ranges[0][0], cp_ranges[-1][1])
@@ -346,13 +346,11 @@ def generate_relative_collation_tests(filename, weighting):
         cpp_file = open('relative_collation_test_{0}_{1}.cpp'.format(weighting, chunk_idx), 'w')
         cpp_file.write(relative_collation_tests_form.format(cps_string, len(all_cps), ranges_string, len(all_ranges), weighting, chunk_idx))
 
-(ducet, ducet_lines, min_var, max_var, min_l1, max_l1, min_l2, max_l2, min_l3, max_l3) = \
-  get_ducet('allkeys_CLDR.txt')
-
 import sys
 if '--perf' in sys.argv:
-    generate_lookup_perf_test(ducet)
-    generate_collation_perf_test(ducet)
+    cet = get_frac_uca_cet('FractionalUCA.txt')
+    generate_lookup_perf_test(cet)
+    generate_collation_perf_test(cet)
     exit(0)
 
 #generate_verbatim_collation_tests('CollationTest_CLDR_NON_IGNORABLE.txt', 'CollationTest_CLDR_SHIFTED.txt')

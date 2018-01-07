@@ -1,8 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_PARSER_HPP
 #define BOOST_TEXT_DETAIL_PARSER_HPP
 
-#include <boost/text/collation_weights.hpp>
 #include <boost/text/parser_fwd.hpp>
+#include <boost/text/detail/collation_constants.hpp>
 #include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/lexer.hpp>
 
