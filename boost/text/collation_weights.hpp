@@ -10,8 +10,8 @@ namespace boost { namespace text {
 /** TODO
     Min values exclude 0. */
 enum class collation_weights : int {
-    min_l1 =  0x201,        /// The minumum nonzero L1 collation weight.
-    max_l1 = 0xfffd,        /// The maxumum nonzero L1 collation weight.
+    min_l1 =  0x100,        /// The minumum nonzero L1 collation weight.
+    max_l1 = 0xfffe,        /// The maxumum nonzero L1 collation weight.
 
     min_l2 =   0x20,        /// The minumum nonzero L2 collation weight.
     max_l2 =  0x115,        /// The maxumum nonzero L2 collation weight.
@@ -19,8 +19,8 @@ enum class collation_weights : int {
     min_l3 =    0x2,        /// The minumum nonzero L3 collation weight.
     max_l3 =   0x1e,        /// The maxumum nonzero L3 collation weight.
 
-    min_variable =  0x201,  /// The minumum variable L1 collation weight.
-    max_variable = 0x1c5b,  /// The maxumum variable L1 collation weight.
+    min_variable =  0x100,  /// The minumum variable L1 collation weight.
+    max_variable =  0x397,  /// The maxumum variable L1 collation weight.
 };
 
 namespace detail {
@@ -51,9 +51,9 @@ namespace detail {
         initial_first_primary_ignorable = 0x332,
         initial_last_primary_ignorable = 0x101fd,
         initial_first_variable = 0x9,
-        initial_last_variable = 0x1d371,
-        initial_first_regular = 0x2d0,
-        initial_last_regular = 0xfffd,
+        initial_last_variable = 0x10a7f,
+        initial_first_regular = 0x60,
+        initial_last_regular = 0xffff,
         initial_first_implicit = 0x17000
     };
 }

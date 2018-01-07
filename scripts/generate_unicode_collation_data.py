@@ -107,16 +107,6 @@ namespace boost {{ namespace text {{
 // http://www.unicode.org/reports/tr10/#Eliminating_level_separators
 // http://www.unicode.org/reports/tr10/#L2/L3_in_8_bits
 
-static_assert(
-    static_cast<int>(collation_weights::max_l2) < static_cast<int>(collation_weights::min_l1),
-    "Oops!  The max L2 collation weight must be less than the min L1 weight.");
-static_assert(
-    static_cast<int>(collation_weights::max_l3) < static_cast<int>(collation_weights::min_l2),
-    "Oops!  The max L3 collation weight must be less than the min L2 weight.");
-static_assert(
-    static_cast<int>(collation_weights::max_l2) - static_cast<int>(collation_weights::min_l2) < 256,
-    "Oops!  The range of L2 collation weights must be < 256.");
-
 namespace detail {{
     std::unordered_set<detail::collation_trie_node> const g_collation_initial_nodes = {{
 {0}
@@ -168,20 +158,21 @@ def get_ducet(filename):
                 ),
                 collation_elements
             )
-            for e in collation_elements:
-                if e[1]:
-                    min_var = min(min_var, e[0][0])
-                    max_var = max(max_var, e[0][0])
-                else:
-                    if e[0][0] != 0:
-                        min_non_var = min(min_non_var, e[0][0])
-                    max_non_var = max(max_non_var, e[0][0])
-                if e[0][1] != 0:
-                    min_l2 = min(min_l2, e[0][1])
-                max_l2 = max(max_l2, e[0][1])
-                if e[0][2] != 0:
-                    min_l3 = min(min_l3, e[0][2])
-                max_l3 = max(max_l3, e[0][2])
+            if cps != (0xfffe,):
+                for e in collation_elements:
+                    if e[1]:
+                        min_var = min(min_var, e[0][0])
+                        max_var = max(max_var, e[0][0])
+                    else:
+                        if e[0][0] != 0:
+                            min_non_var = min(min_non_var, e[0][0])
+                        max_non_var = max(max_non_var, e[0][0])
+                    if e[0][1] != 0:
+                        min_l2 = min(min_l2, e[0][1])
+                    max_l2 = max(max_l2, e[0][1])
+                    if e[0][2] != 0:
+                        min_l3 = min(min_l3, e[0][2])
+                    max_l3 = max(max_l3, e[0][2])
             collation_elements = map(lambda x: x[0], collation_elements)
             ducet[cps] = collation_elements
             ducet_lines[cps] = (line, comment)
@@ -375,7 +366,7 @@ def ucet_from_ducet_and_decompositions(cccs_dict, ducet, decomposition_mapping):
             collation_elements += ces 
         ucet[(k,)] = collation_elements
         if not vanilla_ducet:
-            # TODO: This appears not to be necessary.
+            # This appears not to be necessary.
             pass #add_canonical_closure(ucet, (k,), collation_elements)
 
     return ucet
@@ -631,7 +622,11 @@ def find_logical_positions(ucet, min_var, max_var):
     if dbg:
         print "last 1",logical_positions["last 1"],weight_sorted_ucet[i - 1][1]
 
+    # Special-case FFFE.
+    if weight_sorted_ucet[i][1][0][0] == 1:
+        i += 1
     if weight_sorted_ucet[i][1][0][0] != min_var:
+        print weight_sorted_ucet[i][1][0][0],min_var
         raise Exception("First variable not found!")
     if 1 < len(weight_sorted_ucet[i][0]):
         raise Exception("Oops!")
@@ -779,13 +774,8 @@ if __name__ == "__main__":
       map(lambda x: (x[0], indices_to_list(x[1], all_cps)), decomposition_mapping)
     decomposition_mapping = dict(decomposition_mapping)
 
-    # TODO: Consider using allkeys_CLDR.txt.
     (ducet, ducet_lines, min_var, max_var, min_l1, max_l1, min_l2, max_l2, min_l3, max_l3) = \
-      get_ducet('allkeys.txt')
-
-    # TODO: Remove if/when allkeys_CLDR.txt is used.
-#    if not vanilla_ducet: 
-#        ducet = add_10_contractions(ducet)
+      get_ducet('allkeys_CLDR.txt')
 
     if vanilla_ducet: 
         fcc_ucet = ducet
