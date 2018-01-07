@@ -691,7 +691,86 @@ def ce_to_cpp(ce, min_l2):
 def indices_to_list(indices, all_cps):
     return all_cps[indices[0]:indices[1]]
 
+def group_boundary_line(line):
+    return line.startswith('FDD1') and not 'FDD0' in line
+
+def group_boundary_name(line):
+    first_idx = line.find(' first')
+    return line[:first_idx].split('#')[1].strip()
+
+def get_group_boundary_to_token_mapping(filename):
+    lines = open(filename, 'r').readlines()
+
+    top_byte_tokens = {}
+    token_names = []
+    group_boundary_names = []
+    group_boundary_top_bytes = {}
+
+    for line in lines:
+        if line.startswith('[top_byte'):
+            fields = line.split('\t')
+            tokens = fields[2].split(' ')
+            for i in range(len(tokens)):
+                if ']' in tokens[i] or 'COMPRESS' in tokens[i]:
+                    tokens = tokens[:i]
+                    break
+            top_byte_tokens[fields[1]] = tokens
+            for tok in tokens:
+                token_names.append(tok)
+        if group_boundary_line(line):
+            name = group_boundary_name(line)
+            group_boundary_names.append(name)
+            group_boundary_top_bytes[name] = line.split('[')[1][:2]
+
+    name_map = {
+        'SPACE': 'space',
+        'PUNCTUATION': 'punct',
+        'SYMBOL': 'symbol',
+        'CURRENCY': 'currency',
+        'DIGIT': 'digit',
+        'Miao': 'Plrd',
+        'HAN': 'Hani',
+        'Khudawadi': 'Sind',
+        'Phoenician': 'Phnx',
+        'Tai Tham': 'Lana',
+        'Old Turkic': 'Orkh',
+        'SHAVIAN': 'Shaw',
+    }
+    for boundary in group_boundary_names:
+        p = False
+        top_byte = boundary in group_boundary_top_bytes and group_boundary_top_bytes[boundary] or 'NA'
+        if p:
+            print boundary,top_byte,top_byte_tokens[top_byte]
+        all_hits = []
+        for i in range(len(token_names)):
+            hits = 0
+            if token_names[i] in (top_byte in top_byte_tokens and top_byte_tokens[top_byte] or []):
+                a = boundary.lower()
+                b = token_names[i].lower()
+                for c in b:
+                    if c in a:
+                        hits += 1
+                if p:
+                    print hits,a,b
+            all_hits.append(hits)
+        max_ = 0
+        max_index = 0
+        for i in range(len(all_hits)):
+            if max_ < all_hits[i]:
+                max_ = all_hits[i]
+                max_index = i
+        if max_ == 4:
+            name_map[boundary] = token_names[max_index]
+
+    return name_map
+
 if __name__ == "__main__":
+    import sys
+    if '--frac-uca' in sys.argv:
+        boundary_to_token = get_group_boundary_to_token_mapping('FractionalUCA.txt')
+#        print boundary_to_token
+        exit(0)
+
     cccs_dict = cccs('DerivedCombiningClass.txt')
     (all_cps, decomposition_mapping) = \
       get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_canonical, True)
