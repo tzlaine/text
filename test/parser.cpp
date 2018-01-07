@@ -47,6 +47,38 @@ TEST(parser, exceptions)
     }
 
     {
+        text::string_view sv = "& a < \\ufffd";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "& a <* \\ufffd";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "& a <* \\ufffc-\\ufffd";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
+        text::string_view sv = "& a <* \\ufffc-\\U00010000";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
         text::string_view sv = "& a <* -";
         EXPECT_THROW(
             text::detail::parse(

@@ -169,7 +169,17 @@ namespace boost { namespace text { namespace detail {
                 end);
         }
 
-        return cp_range_t{*lo, *hi};
+        if ((*lo <= 0xfffd && 0xfffd <= *hi) ||
+            (*lo <= 0xfffe && 0xfffe <= *hi) ||
+            (*lo <= 0xffff && 0xffff <= *hi)) {
+            throw one_token_parse_error(
+                "U+FFFD..U+FFFF are not tailorable, and nothing can tailor to "
+                "them.",
+                it,
+                end);
+        }
+
+        return cp_range_t{*lo, *hi + 1};
     }
 
     // cp-sequence = code-point, {code-point} ;
