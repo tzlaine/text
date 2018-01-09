@@ -253,14 +253,6 @@ def collation_elements_for_decomposition(cccs_dict, cet, cps):
 
     return (ce(cet, longest_prefix), cps)
 
-# http://www.unicode.org/notes/tn5/#Enumerating_Equivalent_Strings
-def add_canonical_closure(cet, k, collation_elements):
-    for k2 in canonical_closure(k):
-        if k2 not in cet:
-#            if 0xa8 in k or 0xa8 in k2:
-#                print 'From:',map(lambda x: hex(x), k),'adding:',map(lambda x: hex(x), k2)
-            cet[k2] = collation_elements
-
 # http://www.unicode.org/reports/tr10/#Avoiding_Normalization
 def cet_from_cet_and_decompositions(cccs_dict, old_cet, decomposition_mapping):
     cet = {}
@@ -281,42 +273,8 @@ def cet_from_cet_and_decompositions(cccs_dict, old_cet, decomposition_mapping):
         if type(collation_elements[0][0]) == str:
             collation_elements = (tuple(collation_elements),)
         cet[(k,)] = tuple(collation_elements)
-        # This appears not to be necessary.
-        #add_canonical_closure(cet, (k,), collation_elements)
 
     return cet
-
-import ctypes
-try:
-    icu_caniter = ctypes.cdll.LoadLibrary('libicu_caniter.dylib')
-except OSError:
-    print 'Could not load libicu_caniter.dylib.  Did you remember to build it, ' + \
-          'and copy it, libicuuc.60.dylib, and libicudata.60.dylib into the ' + \
-          'working directory?'
-    exit(1)
-icu_caniter.canonical_closure.restype = ctypes.POINTER(ctypes.c_int * 1024)
-
-def canonical_closure(tuple_):
-    array_param = (ctypes.c_int * len(tuple_))()
-    for i in range(len(tuple_)):
-        array_param[i] = tuple_[i]
-    call_result = icu_caniter.canonical_closure(array_param, ctypes.c_int(len(array_param)))
-    retval = []
-    i = 0
-    current = []
-    for i in range(len(call_result.contents)):
-        x = call_result.contents[i]
-        if x == 0:
-            if current == []:
-                break
-            if current != list(tuple_):
-                retval.append(current)
-            current = []
-        else:
-            current.append(x)
-    return map(lambda x: tuple(x), retval)
-
-#print canonical_closure((493,)) # 493 == ǭ (example from TN #5)
 
 def trie_data(fcc_cet):
     trie_initial_cps = set()
