@@ -619,7 +619,26 @@ TEST(parser, options)
     {
         std::vector<text::string> result;
         std::vector<text::string> const expected = {
-            "space", "punct", "symbol", "currency", "digit"};
+            "space", "punct", "symbol", "currency", "digit", "Latn", "Grek",
+            "Copt",  "Cyrl",  "Glag",   "Perm",     "Geor",  "Armn", "Hebr",
+            "Phnx",  "Samr",  "Arab",   "Syrc",     "Mand",  "Thaa", "Nkoo",
+            "Tfng",  "Ethi",  "Deva",   "Beng",     "Guru",  "Gujr", "Orya",
+            "Taml",  "Telu",  "Knda",   "Mlym",     "Sinh",  "Mtei", "Sylo",
+            "Saur",  "Kthi",  "Mahj",   "Shrd",     "Khoj",  "Sind", "Mult",
+            "Gran",  "Newa",  "Tirh",   "Sidd",     "Modi",  "Takr", "Ahom",
+            "Gonm",  "Sund",  "Brah",   "Khar",     "Bhks",  "Thai", "Laoo",
+            "Tavt",  "Tibt",  "Zanb",   "Soyo",     "Marc",  "Lepc", "Phag",
+            "Limb",  "Tglg",  "Hano",   "Buhd",     "Tagb",  "Bugi", "Batk",
+            "Rjng",  "Kali",  "Mymr",   "Cakm",     "Khmr",  "Tale", "Talu",
+            "Lana",  "Cham",  "Bali",   "Java",     "Mong",  "Olck", "Cher",
+            "Osge",  "Cans",  "Ogam",   "Runr",     "Hung",  "Orkh", "Vaii",
+            "Bamu",  "Bass",  "Mend",   "Adlm",     "Hang",  "Hira", "Bopo",
+            "Yiii",  "Lisu",  "Plrd",   "Wara",     "Pauc",  "Hmng", "Lyci",
+            "Cari",  "Lydi",  "Ital",   "Goth",     "Dsrt",  "Shaw", "Dupl",
+            "Osma",  "Elba",  "Aghb",   "Sora",     "Mroo",  "Linb", "Lina",
+            "Cprt",  "Sarb",  "Narb",   "Avst",     "Palm",  "Nbat", "Hatr",
+            "Armi",  "Prti",  "Phli",   "Phlp",     "Mani",  "Ugar", "Xpeo",
+            "Xsux",  "Egyp",  "Merc",   "Hluw",     "Tang",  "Nshu", "Hani"};
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
@@ -642,7 +661,26 @@ TEST(parser, options)
     {
         std::vector<text::string> result;
         std::vector<text::string> const expected = {
-            "space", "currency", "digit", "symbol", "punct"};
+            "space", "currency", "digit", "symbol", "Latn", "Grek", "Copt",
+            "Cyrl",  "Glag",     "Perm",  "Geor",   "Armn", "Hebr", "Phnx",
+            "Samr",  "Arab",     "Syrc",  "Mand",   "Thaa", "Nkoo", "Tfng",
+            "Ethi",  "Deva",     "Beng",  "Guru",   "Gujr", "Orya", "Taml",
+            "Telu",  "Knda",     "Mlym",  "Sinh",   "Mtei", "Sylo", "Saur",
+            "Kthi",  "Mahj",     "Shrd",  "Khoj",   "Sind", "Mult", "Gran",
+            "Newa",  "Tirh",     "Sidd",  "Modi",   "Takr", "Ahom", "Gonm",
+            "Sund",  "Brah",     "Khar",  "Bhks",   "Thai", "Laoo", "Tavt",
+            "Tibt",  "Zanb",     "Soyo",  "Marc",   "Lepc", "Phag", "Limb",
+            "Tglg",  "Hano",     "Buhd",  "Tagb",   "Bugi", "Batk", "Rjng",
+            "Kali",  "Mymr",     "Cakm",  "Khmr",   "Tale", "Talu", "Lana",
+            "Cham",  "Bali",     "Java",  "Mong",   "Olck", "Cher", "Osge",
+            "Cans",  "Ogam",     "Runr",  "Hung",   "Orkh", "Vaii", "Bamu",
+            "Bass",  "Mend",     "Adlm",  "Hang",   "Hira", "Bopo", "Yiii",
+            "Lisu",  "Plrd",     "Wara",  "Pauc",   "Hmng", "Lyci", "Cari",
+            "Lydi",  "Ital",     "Goth",  "Dsrt",   "Shaw", "Dupl", "Osma",
+            "Elba",  "Aghb",     "Sora",  "Mroo",   "Linb", "Lina", "Cprt",
+            "Sarb",  "Narb",     "Avst",  "Palm",   "Nbat", "Hatr", "Armi",
+            "Prti",  "Phli",     "Phlp",  "Mani",   "Ugar", "Xpeo", "Xsux",
+            "Egyp",  "Merc",     "Hluw",  "Tang",   "Nshu", "Hani", "punct"};
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
@@ -657,6 +695,48 @@ TEST(parser, options)
             [](text::string const & s) { std::cout << s; }};
 
         text::string_view sv = "[reorder symbol others punct]";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_EQ(result, expected);
+    }
+
+    {
+        std::vector<text::string> result;
+        std::vector<text::string> const expected = {
+            "space", "currency", "digit", "symbol", "punct", "Grek", "Latn",
+            "Copt",  "Cyrl",     "Glag",  "Perm",   "Geor",  "Armn", "Hebr",
+            "Phnx",  "Samr",     "Arab",  "Syrc",   "Mand",  "Thaa", "Nkoo",
+            "Tfng",  "Ethi",     "Deva",  "Beng",   "Guru",  "Gujr", "Orya",
+            "Taml",  "Telu",     "Knda",  "Mlym",   "Sinh",  "Mtei", "Sylo",
+            "Saur",  "Kthi",     "Mahj",  "Shrd",   "Khoj",  "Sind", "Mult",
+            "Gran",  "Newa",     "Tirh",  "Sidd",   "Modi",  "Takr", "Ahom",
+            "Gonm",  "Sund",     "Brah",  "Khar",   "Bhks",  "Thai", "Laoo",
+            "Tavt",  "Tibt",     "Zanb",  "Soyo",   "Marc",  "Lepc", "Phag",
+            "Limb",  "Tglg",     "Hano",  "Buhd",   "Tagb",  "Bugi", "Batk",
+            "Rjng",  "Kali",     "Mymr",  "Cakm",   "Khmr",  "Tale", "Talu",
+            "Lana",  "Cham",     "Bali",  "Java",   "Mong",  "Olck", "Cher",
+            "Osge",  "Cans",     "Ogam",  "Runr",   "Hung",  "Orkh", "Vaii",
+            "Bamu",  "Bass",     "Mend",  "Adlm",   "Hang",  "Hira", "Bopo",
+            "Yiii",  "Lisu",     "Plrd",  "Wara",   "Pauc",  "Hmng", "Lyci",
+            "Cari",  "Lydi",     "Ital",  "Goth",   "Dsrt",  "Shaw", "Dupl",
+            "Osma",  "Elba",     "Aghb",  "Sora",   "Mroo",  "Linb", "Lina",
+            "Cprt",  "Sarb",     "Narb",  "Avst",   "Palm",  "Nbat", "Hatr",
+            "Armi",  "Prti",     "Phli",  "Phlp",   "Mani",  "Ugar", "Xpeo",
+            "Xsux",  "Egyp",     "Merc",  "Hluw",   "Tang",  "Nshu", "Hani"};
+        text::detail::collation_tailoring_interface callbacks = {
+            [](text::detail::cp_seq_t const & reset_, bool before_) {},
+            [](text::detail::relation_t const & rel) {},
+            [](text::collation_strength strength) {},
+            [](text::variable_weighting weighting) {},
+            [](text::l2_weight_order order) {},
+            [](text::detail::cp_seq_t const & suppressions) {},
+            [&result](std::vector<text::string> && reorderings) {
+                result = std::move(reorderings);
+            },
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; }};
+
+        text::string_view sv = "[reorder symbol punct Grek]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected);

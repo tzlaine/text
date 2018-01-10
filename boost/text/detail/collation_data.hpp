@@ -234,14 +234,11 @@ namespace boost { namespace text { namespace detail {
 
     inline bool script_code(string_view s)
     {
-        reorder_group const exemplar{s};
-        return std::binary_search(
+        auto const it = std::find_if(
             g_reorder_groups.begin(),
             g_reorder_groups.end(),
-            exemplar,
-            [](reorder_group const & lhs, reorder_group const & rhs) {
-                return lhs.name_ < rhs.name_;
-            });
+            [s](reorder_group const & g) { return g.name_ == s; });
+        return it != g_reorder_groups.end();
     }
 
 }}}

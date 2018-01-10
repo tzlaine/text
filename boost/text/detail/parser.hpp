@@ -702,26 +702,35 @@ namespace boost { namespace text { namespace detail {
                 }
             }
 
+            std::vector<string> final_reorderings;
+            final_reorderings.reserve(g_reorder_groups.size() + 10);
             auto const others_it = std::find_if(
                 reorderings.begin(), reorderings.end(), others_group);
-            if (others_it == reorderings.end()) {
-                // TODO: Append all reordering groups not explicitly mentioned
-                // in reorderings to the end of reorderings.
-            } else {
-                reorderings.erase(others_it);
+            final_reorderings.insert(
+                final_reorderings.end(), reorderings.begin(), others_it);
+            for (auto group : g_reorder_groups) {
+                if (std::find(
+                        reorderings.begin(), reorderings.end(), group.name_) ==
+                    reorderings.end()) {
+                    final_reorderings.push_back(string(group.name_));
+                }
+            }
+            if (others_it != reorderings.end()) {
                 auto const next_others_it = std::find_if(
-                    reorderings.begin(), reorderings.end(), others_group);
+                    std::next(others_it), reorderings.end(), others_group);
                 if (next_others_it != reorderings.end()) {
                     throw one_token_parse_error(
                         "The 'others'/'Zzzz' group must appear at most once",
                         open_bracket_it,
                         end);
                 }
-                // TODO: Insert all reordering groups not explicitly mentioned
-                // in reorderings at other_it.
+                final_reorderings.insert(
+                    final_reorderings.end(),
+                    std::next(others_it),
+                    reorderings.end());
             }
 
-            tailoring.reorder_(std::move(reorderings));
+            tailoring.reorder_(std::move(final_reorderings));
 
             return open_bracket_it;
         } else {

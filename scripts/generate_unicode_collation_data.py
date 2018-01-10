@@ -685,9 +685,11 @@ def get_group_boundary_to_token_mapping(filename):
     if free_lead_bytes != [0x26, 0x27, 0x5d, 0x5e]:
         raise Exception('It looks like the free lead bytes list needs updating')
 
-    return (name_map, implicit_bytes, sorted(groups.items()))
+    return (name_map, implicit_bytes, sorted(groups.items(), key=lambda x: x[1]))
 
 if __name__ == "__main__":
+    import sys
+
     (boundary_to_token, implicit_bytes, reorder_groups) = \
       get_group_boundary_to_token_mapping('FractionalUCA.txt')
 
@@ -758,6 +760,9 @@ if __name__ == "__main__":
     collation_elements_list = '    ' + ',\n    '.join(item_strings) + ',\n'
     cpp_file = open('collation_data_0.cpp', 'w')
     cpp_file.write(collation_constants_file_form.format(implicit_weights_segments_str, len(implicit_weights_segments), lead_byte_str, len(lead_byte_strings), collation_elements_list, len(collation_elements)))
+
+    if '--no-trie' in sys.argv:
+        exit(0)
 
     trie = make_trie(fcc_cet)
 
