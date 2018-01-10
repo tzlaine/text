@@ -119,7 +119,8 @@ namespace boost { namespace text {
             std::function<void(variable_weighting)>;
         using l2_weight_order_callback = std::function<void(l2_weight_order)>;
         using suppression_callback = std::function<void(cp_seq_t const &)>;
-        using reorder_callback = std::function<void(std::vector<string> &&)>;
+        using reorder_callback =
+            std::function<void(std::vector<string> &&, bool simple)>;
 
         struct collation_tailoring_interface
         {

@@ -416,6 +416,26 @@ namespace boost { namespace text { namespace detail {
                               static_cast<int>(token_kind::primary_before_star);
     }
 
+    inline bool shares_lead_byte(string const & script)
+    {
+        auto const it = std::find_if(
+            g_reorder_groups.begin(),
+            g_reorder_groups.end(),
+            [&](reorder_group group) { return group.name_ == script; });
+        if (it == g_reorder_groups.end())
+            return false;
+        auto const lead_byte = it->first_.l1() & 0xff000000;
+        if (it != g_reorder_groups.begin() &&
+            (std::prev(it)->first_.l1() & 0xff000000) == lead_byte) {
+            return true;
+        }
+        if (std::next(it) != g_reorder_groups.end() &&
+            (std::next(it)->first_.l1() & 0xff000000) == lead_byte) {
+            return true;
+        }
+        return false;
+    }
+
     // reset = cp-sequence | logical-position ;
     // rule-chain = "&", [before-strength], reset, relation, {relation} ;
     inline bool rule_chain(
@@ -757,26 +777,7 @@ namespace boost { namespace text { namespace detail {
                 reorderings.begin(),
                 reorderings.end(),
                 std::back_inserter(lead_byte_sharers),
-                [](string const & s) {
-                    auto const it = std::find_if(
-                        g_reorder_groups.begin(),
-                        g_reorder_groups.end(),
-                        [&](reorder_group group) { return group.name_ == s; });
-                    if (it == g_reorder_groups.end())
-                        return false;
-                    auto const lead_byte = it->first_.l1() & 0xff000000;
-                    if (it != g_reorder_groups.begin() &&
-                        (std::prev(it)->first_.l1() & 0xff000000) ==
-                            lead_byte) {
-                        return true;
-                    }
-                    if (std::next(it) != g_reorder_groups.end() &&
-                        (std::next(it)->first_.l1() & 0xff000000) ==
-                            lead_byte) {
-                        return true;
-                    }
-                    return false;
-                });
+                shares_lead_byte);
             if (4u < lead_byte_sharers.size()) {
                 string msg =
                     "Less common scripts tend to share some collation data (they "
@@ -790,7 +791,8 @@ namespace boost { namespace text { namespace detail {
                 throw one_token_parse_error(msg, open_bracket_it, end);
             }
 
-            tailoring.reorder_(std::move(final_reorderings));
+            tailoring.reorder_(
+                std::move(final_reorderings), lead_byte_sharers.empty());
 
             return open_bracket_it;
         } else {

@@ -16,7 +16,7 @@ TEST(parser, exceptions)
         [](text::variable_weighting weighting) {},
         [](text::l2_weight_order order) {},
         [](text::detail::cp_seq_t const & suppressions) {},
-        [](std::vector<text::string> && reorderings) {},
+        [](std::vector<text::string> && reorderings, bool simple) {},
         [](text::string const & s) { std::cout << s; },
         [](text::string const & s) { std::cout << s; }};
 
@@ -532,7 +532,7 @@ TEST(parser, options)
             [&result](text::detail::cp_seq_t const & suppressions) {
                 result = suppressions;
             },
-            [](std::vector<text::string> && reorderings) {},
+            [](std::vector<text::string> && reorderings, bool simple) {},
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
 
@@ -551,7 +551,7 @@ TEST(parser, options)
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [](std::vector<text::string> && reorderings) {},
+            [](std::vector<text::string> && reorderings, bool simple) {},
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
 
@@ -594,7 +594,7 @@ TEST(parser, options)
             },
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [](std::vector<text::string> && reorderings) {},
+            [](std::vector<text::string> && reorderings, bool simple) {},
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
 
@@ -620,7 +620,7 @@ TEST(parser, options)
             [](text::variable_weighting weighting) {},
             [&result](text::l2_weight_order order) { result = order; },
             [](text::detail::cp_seq_t const & suppressions) {},
-            [](std::vector<text::string> && reorderings) {},
+            [](std::vector<text::string> && reorderings, bool simple) {},
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
 
@@ -662,7 +662,7 @@ TEST(parser, options)
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [&result](std::vector<text::string> && reorderings) {
+            [&result](std::vector<text::string> && reorderings, bool simple) {
                 result = std::move(reorderings);
             },
             [](text::string const & s) { std::cout << s; },
@@ -704,7 +704,7 @@ TEST(parser, options)
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [&result](std::vector<text::string> && reorderings) {
+            [&result](std::vector<text::string> && reorderings, bool simple) {
                 result = std::move(reorderings);
             },
             [](text::string const & s) { std::cout << s; },
@@ -746,7 +746,7 @@ TEST(parser, options)
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [&result](std::vector<text::string> && reorderings) {
+            [&result](std::vector<text::string> && reorderings, bool simple) {
                 result = std::move(reorderings);
             },
             [](text::string const & s) { std::cout << s; },
@@ -766,12 +766,53 @@ TEST(parser, options)
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [](std::vector<text::string> && reorderings) {},
+            [](std::vector<text::string> && reorderings, bool simple) {},
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
         text::string_view sv = "[reorder Sinh Mtei Sylo Saur]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
+    }
+
+    {
+        bool reordering_is_simple = true;
+        text::detail::collation_tailoring_interface callbacks = {
+            [](text::detail::cp_seq_t const & reset_, bool before_) {},
+            [](text::detail::relation_t const & rel) {},
+            [](text::collation_strength strength) {},
+            [](text::variable_weighting weighting) {},
+            [](text::l2_weight_order order) {},
+            [](text::detail::cp_seq_t const & suppressions) {},
+            [&](std::vector<text::string> && reorderings, bool simple) {
+                reordering_is_simple = simple;
+            },
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; }};
+        text::string_view sv =
+            "[reorder Sinh]"; // Shares lead byte with other scripts.
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_FALSE(reordering_is_simple);
+    }
+
+    {
+        bool reordering_is_simple = false;
+        text::detail::collation_tailoring_interface callbacks = {
+            [](text::detail::cp_seq_t const & reset_, bool before_) {},
+            [](text::detail::relation_t const & rel) {},
+            [](text::collation_strength strength) {},
+            [](text::variable_weighting weighting) {},
+            [](text::l2_weight_order order) {},
+            [](text::detail::cp_seq_t const & suppressions) {},
+            [&](std::vector<text::string> && reorderings, bool simple) {
+                reordering_is_simple = simple;
+            },
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; }};
+        text::string_view sv = "[reorder Grek]"; // Has its own lead byte.
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
+        EXPECT_FALSE(reordering_is_simple);
     }
 }
 
@@ -800,7 +841,7 @@ TEST(parser, rules)
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
             [](text::detail::cp_seq_t const & suppressions) {},
-            [](std::vector<text::string> && reorderings) {},
+            [](std::vector<text::string> && reorderings, bool simple) {},
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; }};
 
@@ -824,43 +865,50 @@ TEST(parser, rules)
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& [before 1] a < b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& a << b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& [before 2] a << b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& a <<< b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& [before 3] a <<< b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& a <<<< b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::quaternary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::quaternary_before);
 
 
         sv = "& a =* b";
@@ -879,43 +927,50 @@ TEST(parser, rules)
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& [before 1] a <* b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
 
         sv = "& a <<* b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& [before 2] a <<* b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::secondary_before);
 
         sv = "& a <<<* b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& [before 3] a <<<* b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, true);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::tertiary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::tertiary_before);
 
         sv = "& a <<<<* b";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::quaternary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::quaternary_before);
 
 
         // Testing prefixes and extensions.
@@ -925,7 +980,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
         EXPECT_EQ(relation_result.cps_, xyz);
         EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, _123);
         EXPECT_EQ(relation_result.prefix_and_extension_.extension_, foo);
@@ -935,7 +991,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
         EXPECT_EQ(relation_result.cps_, xyz);
         EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, _123);
         EXPECT_EQ(relation_result.prefix_and_extension_.extension_, foo);
@@ -945,7 +1002,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
         EXPECT_EQ(relation_result.cps_, xyz);
         EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, _123);
         EXPECT_EQ(
@@ -957,7 +1015,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
         EXPECT_EQ(relation_result.cps_, xyz);
         EXPECT_EQ(
             relation_result.prefix_and_extension_.prefix_,
@@ -969,7 +1028,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
         EXPECT_EQ(relation_result.cps_, xyz);
         EXPECT_EQ(
             relation_result.prefix_and_extension_.prefix_,
@@ -986,7 +1046,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, abc);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::secondary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::secondary_before);
         EXPECT_EQ(relation_result.cps_, foo);
         EXPECT_EQ(
             relation_result.prefix_and_extension_.prefix_,
@@ -1000,7 +1061,8 @@ TEST(parser, rules)
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(reset_result, last_regular);
         EXPECT_EQ(before_result, false);
-        EXPECT_EQ(relation_result.op_, text::detail::token_kind::primary_before);
+        EXPECT_EQ(
+            relation_result.op_, text::detail::token_kind::primary_before);
         EXPECT_EQ(relation_result.cps_, xyz);
         EXPECT_EQ(relation_result.prefix_and_extension_.prefix_, foo);
         EXPECT_EQ(relation_result.prefix_and_extension_.extension_, _123);
