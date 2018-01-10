@@ -226,7 +226,6 @@ namespace boost { namespace text { namespace detail {
         compressed_collation_element last_;
     };
 
-    // TODO: Hrkt=Hira=Kana & Hans=Hant=Hani
     extern std::array<reorder_group, 140> const g_reorder_groups;
 
     extern compressed_collation_element const g_reorder_reserved_before_latin;

@@ -702,6 +702,19 @@ namespace boost { namespace text { namespace detail {
                 }
             }
 
+            using namespace text::literals;
+
+            // Hrkt=Hira=Kana
+            std::replace(
+                reorderings.begin(), reorderings.end(), "Hrkt", "Hira");
+            std::replace(
+                reorderings.begin(), reorderings.end(), "Kana", "Hira");
+            // Hans=Hant=Hani
+            std::replace(
+                reorderings.begin(), reorderings.end(), "Hans", "Hani");
+            std::replace(
+                reorderings.begin(), reorderings.end(), "Hant", "Hani");
+
             std::vector<string> final_reorderings;
             final_reorderings.reserve(g_reorder_groups.size() + 10);
             auto const others_it = std::find_if(
@@ -728,6 +741,15 @@ namespace boost { namespace text { namespace detail {
                     final_reorderings.end(),
                     std::next(others_it),
                     reorderings.end());
+            }
+
+            std::sort(reorderings.begin(), reorderings.end());
+            if (std::unique(reorderings.begin(), reorderings.end()) !=
+                reorderings.end()) {
+                throw one_token_parse_error(
+                    "Reordered groups must appear at most once",
+                    open_bracket_it,
+                    end);
             }
 
             tailoring.reorder_(std::move(final_reorderings));

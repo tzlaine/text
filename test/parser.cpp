@@ -494,6 +494,14 @@ TEST(parser, exceptions)
     }
 
     {
+        text::string_view sv = "[reorder Grek Grek]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
+
+    {
         text::string_view sv = "[reorder rando_calrissian]";
         EXPECT_THROW(
             text::detail::parse(
