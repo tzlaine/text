@@ -747,9 +747,47 @@ namespace boost { namespace text { namespace detail {
             if (std::unique(reorderings.begin(), reorderings.end()) !=
                 reorderings.end()) {
                 throw one_token_parse_error(
-                    "Reordered groups must appear at most once",
+                    "Reordered groups may appear at most once",
                     open_bracket_it,
                     end);
+            }
+
+            std::vector<string> lead_byte_sharers;
+            std::copy_if(
+                reorderings.begin(),
+                reorderings.end(),
+                std::back_inserter(lead_byte_sharers),
+                [](string const & s) {
+                    auto const it = std::find_if(
+                        g_reorder_groups.begin(),
+                        g_reorder_groups.end(),
+                        [&](reorder_group group) { return group.name_ == s; });
+                    if (it == g_reorder_groups.end())
+                        return false;
+                    auto const lead_byte = it->first_.l1() & 0xff000000;
+                    if (it != g_reorder_groups.begin() &&
+                        (std::prev(it)->first_.l1() & 0xff000000) ==
+                            lead_byte) {
+                        return true;
+                    }
+                    if (std::next(it) != g_reorder_groups.end() &&
+                        (std::next(it)->first_.l1() & 0xff000000) ==
+                            lead_byte) {
+                        return true;
+                    }
+                    return false;
+                });
+            if (4u < lead_byte_sharers.size()) {
+                string msg =
+                    "Less common scripts tend to share some collation data (they "
+                    "have the same 'lead bytes').  The maximum number of these "
+                    "that can be reordered is four.  You're using more than "
+                    "that:";
+                for (auto const & s : lead_byte_sharers) {
+                    msg += " ";
+                    msg += s;
+                }
+                throw one_token_parse_error(msg, open_bracket_it, end);
             }
 
             tailoring.reorder_(std::move(final_reorderings));

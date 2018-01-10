@@ -508,6 +508,14 @@ TEST(parser, exceptions)
                 sv.begin(), sv.end(), callbacks, "<test-string>"),
             text::parse_error);
     }
+
+    {
+        text::string_view sv = "[reorder Sinh Mtei Sylo Saur Kthi]";
+        EXPECT_THROW(
+            text::detail::parse(
+                sv.begin(), sv.end(), callbacks, "<test-string>"),
+            text::parse_error);
+    }
 }
 
 TEST(parser, options)
@@ -748,6 +756,22 @@ TEST(parser, options)
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
         EXPECT_EQ(result, expected);
+    }
+
+    {
+        text::detail::collation_tailoring_interface callbacks = {
+            [](text::detail::cp_seq_t const & reset_, bool before_) {},
+            [](text::detail::relation_t const & rel) {},
+            [](text::collation_strength strength) {},
+            [](text::variable_weighting weighting) {},
+            [](text::l2_weight_order order) {},
+            [](text::detail::cp_seq_t const & suppressions) {},
+            [](std::vector<text::string> && reorderings) {},
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; }};
+        text::string_view sv = "[reorder Sinh Mtei Sylo Saur]";
+        EXPECT_NO_THROW(text::detail::parse(
+            sv.begin(), sv.end(), callbacks, "<test-string>"));
     }
 }
 
