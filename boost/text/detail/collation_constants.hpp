@@ -45,8 +45,15 @@ namespace boost { namespace text { namespace detail {
         initial_first_implicit = 0x3400,
 
         implicit_weights_spacing_times_ten = 80,
-        implicit_weights_first_primary_byte = 0xe0,
+        implicit_weights_first_lead_byte = 0xe0,
         implicit_weights_final_lead_byte = 0xe4
+    };
+
+    inline std::array<uint32_t, 4> free_lead_bytes()
+    {
+        return std::array<uint32_t, 4>{{
+            0x26, 0x27, 0x5d, 0x5e
+        }};
     };
 
     struct implicit_weights_segment
@@ -57,7 +64,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     extern std::array<implicit_weights_segment, 10>
-        const implicit_weights_segments;
+        const g_implicit_weights_segments;
 
 }}}
 

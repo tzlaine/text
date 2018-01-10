@@ -129,7 +129,7 @@ namespace boost { namespace text {
 
             double const spacing = implicit_weights_spacing_times_ten / 10.0;
 
-            for (auto seg : implicit_weights_segments) {
+            for (auto seg : g_implicit_weights_segments) {
                 if (seg.first_ <= cp && cp < seg.last_) {
                     if (seg.first_ == CJK_Compatibility_Ideographs[0] &&
                         ((cp & ~OR_CJK_Compatibility_Ideographs) ||
@@ -155,11 +155,10 @@ namespace boost { namespace text {
                         (primary_weight_low_bits & 0xfffff) ==
                         primary_weight_low_bits);
                     uint32_t const bytes[4] = {
-                        implicit_weights_first_primary_byte,
+                        implicit_weights_first_lead_byte,
                         ((primary_weight_low_bits >> 12) & 0xfe) | 0x1,
                         ((primary_weight_low_bits >> 5) & 0xfe) | 0x1,
-                        (primary_weight_low_bits >> 0) & 0x3f
-                    };
+                        (primary_weight_low_bits >> 0) & 0x3f};
                     uint32_t const primary = bytes[0] << 24 | bytes[1] << 16 |
                                              bytes[2] << 8 | bytes[3] << 0;
                     *out++ = collation_element{primary, 0x0500, 0x05};
@@ -262,7 +261,7 @@ namespace boost { namespace text {
                 // TODO: These might be different values under
                 // reorder-tailoring.
                 second_of_implicit_weight_pair =
-                    implicit_weights_first_primary_byte <= l1 &&
+                    implicit_weights_first_lead_byte <= l1 &&
                     l1 <= implicit_weights_final_lead_byte;
             }
 

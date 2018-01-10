@@ -219,10 +219,29 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
+    struct reorder_group
+    {
+        string_view name_;
+        compressed_collation_element first_;
+        compressed_collation_element last_;
+    };
+
+    // TODO: Hrkt=Hira=Kana & Hans=Hant=Hani
+    extern std::array<reorder_group, 140> const g_reorder_groups;
+
+    extern compressed_collation_element const g_reorder_reserved_before_latin;
+    extern compressed_collation_element const g_reorder_reserved_after_latin;
+
     inline bool script_code(string_view s)
     {
-        // TODO
-        return false;
+        reorder_group const exemplar{s};
+        return std::binary_search(
+            g_reorder_groups.begin(),
+            g_reorder_groups.end(),
+            exemplar,
+            [](reorder_group const & lhs, reorder_group const & rhs) {
+                return lhs.name_ < rhs.name_;
+            });
     }
 
 }}}
