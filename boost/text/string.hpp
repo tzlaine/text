@@ -129,9 +129,6 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Assignment from a string_view. */
-        string & operator=(string_view tv);
-
         /** Assignment from a repeated_string_view. */
         string & operator=(repeated_string_view tv);
 
@@ -880,12 +877,7 @@ namespace boost { namespace text {
     auto string::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        return *this = string_view(r);
-    }
-
-    inline string & string::operator=(string_view tv)
-    {
-        assert(0 <= tv.size());
+        auto tv = string_view(r);
         bool const self_ref = self_reference(tv);
         if (self_ref) {
             erase(string_view(tv.end(), end() - tv.end()));

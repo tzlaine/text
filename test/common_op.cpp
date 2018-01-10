@@ -73,6 +73,42 @@ TEST(common_operations, test_operator_plus)
     EXPECT_EQ((result = rv + rv), "rr");
 }
 
+TEST(common_operations, test_operator_assign)
+{
+    {
+        text::string_view const tv("tv");
+        text::repeated_string_view const rtv(tv, 3);
+        text::string const t("t");
+        text::unencoded_rope const r("r");
+        text::unencoded_rope_view const rv(r);
+
+        text::string result_t;
+
+        EXPECT_EQ((result_t = tv), "tv");
+        EXPECT_EQ((result_t = rtv), "tvtvtv");
+        EXPECT_EQ((result_t = t), "t");
+        EXPECT_EQ((result_t = std::move(t)), "t");
+    }
+
+    {
+        text::string_view const tv("tv");
+        text::repeated_string_view const rtv(tv, 3);
+        text::string const t("t");
+        text::unencoded_rope const r("r");
+        text::unencoded_rope_view const rv(r);
+
+        text::unencoded_rope result_r;
+
+        EXPECT_EQ((result_r = tv), "tv");
+        EXPECT_EQ((result_r = rtv), "tvtvtv");
+        EXPECT_EQ((result_r = t), "t");
+        EXPECT_EQ((result_r = std::move(t)), "t");
+        EXPECT_EQ((result_r = r), "r");
+        EXPECT_EQ((result_r = std::move(r)), "r");
+        EXPECT_EQ((result_r = rv), "r");
+    }
+}
+
 TEST(common_operations, test_operator_plus_assign)
 {
     {
