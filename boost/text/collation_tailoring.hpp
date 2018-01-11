@@ -6,65 +6,103 @@
 
 #include <boost/container/small_vector.hpp>
 
+#include <numeric>
 #include <vector>
 
 
 namespace boost { namespace text {
 
     namespace detail {
-        struct collation_tailoring
+        struct nonsimple_script_reorder
         {
-            struct rule
-            {
-                cp_seq_t reset_;
-                cp_seq_t relation_;
-                cp_seq_t prefix_;
-                cp_seq_t extension_;
-                collation_strength strength_;
-                bool before_;
-            };
-
-            std::vector<rule> rules_;
-
-            collation_strength collation_strength_;
-            variable_weighting variable_weighting_;
-            l2_weight_order l2_weight_order_;
-
-            cp_seq_t suppressions_;
-            std::vector<string> reorderings_;
+            compressed_collation_element first_;
+            compressed_collation_element last_;
+            uint32_t lead_byte_mask_;
         };
     }
 
     /** TODO */
     struct tailored_collation_element_table
     {
-        explicit tailored_collation_element_table(/*TODO*/)
+        tailored_collation_element_table(
+            std::unordered_set<detail::collation_trie_node> &&
+                collation_initial_nodes,
+            std::vector<detail::collation_trie_node> && collation_trie_nodes,
+            container::static_vector<
+                detail::nonsimple_script_reorder,
+                4> const & nonsimple_reorders,
+            std::array<uint32_t, 256> const & simple_reorders,
+            optional<collation_strength> strength,
+            optional<variable_weighting> weighting,
+            optional<l2_weight_order> l2_order) :
+            collation_initial_nodes_(std::move(collation_initial_nodes)),
+            collation_trie_nodes_(std::move(collation_trie_nodes)),
+            nonsimple_reorders_(nonsimple_reorders),
+            simple_reorders_(simple_reorders),
+            strength_(strength),
+            weighting_(weighting),
+            l2_order_(l2_order)
+        {}
+
+        template<typename Iter>
+        detail::longest_collation_t
+        longest_collation(Iter first, Iter last) const noexcept
         {
-            // TODO
+            return detail::longest_collation(
+                first,
+                last,
+                collation_initial_nodes_,
+                &collation_trie_nodes_[0]);
         }
 
         detail::longest_collation_t
         extend_collation(detail::longest_collation_t prev, uint32_t cp) const
             noexcept
         {
-            // TODO
-            return detail::longest_collation_t{/*TODO*/};
+            return detail::extend_collation(
+                prev, cp, &collation_trie_nodes_[0]);
         }
 
-        template<typename Iter>
-        detail::longest_collation_t
-        longest_collation(Iter first, Iter last) const noexcept
+        uint32_t lead_byte(detail::compressed_collation_element cce) const
+            noexcept
         {
-            // TODO
-            return detail::longest_collation_t{/*TODO*/};
+            auto const it = std::find_if(
+                nonsimple_reorders_.begin(),
+                nonsimple_reorders_.end(),
+                [cce](detail::nonsimple_script_reorder reorder) {
+                    return reorder.first_ <= cce && cce < reorder.last_;
+                });
+            if (it != nonsimple_reorders_.end())
+                return it->lead_byte_mask_;
+            auto const masked_primary = cce.l1_ & 0xff000000;
+            return simple_reorders_[masked_primary >> 24];
+        }
+
+        optional<collation_strength> strength() const noexcept
+        {
+            return strength_;
+        }
+        optional<variable_weighting> weighting() const noexcept
+        {
+            return weighting_;
+        }
+        optional<l2_weight_order> l2_order() const noexcept
+        {
+            return l2_order_;
         }
 
     private:
-        collation_strength collation_strength_;
-        variable_weighting variable_weighting_;
-        l2_weight_order l2_weight_order_;
+        std::unordered_set<detail::collation_trie_node>
+            collation_initial_nodes_;
+        std::vector<detail::collation_trie_node> collation_trie_nodes_;
 
-        // TODO: Table data!
+        container::static_vector<detail::nonsimple_script_reorder, 4>
+            nonsimple_reorders_;
+        std::array<uint32_t, 256> simple_reorders_;
+
+        optional<collation_strength> strength_;
+        optional<variable_weighting> weighting_;
+        optional<l2_weight_order> l2_order_;
     };
 
     namespace detail {
@@ -95,15 +133,8 @@ namespace boost { namespace text {
             // TODO
         }
 
+        // TODO: Drop support for this?
         void suppress(temp_table & table, uint32_t cp)
-        {
-            // TODO
-        }
-
-        void reorder_table(
-            temp_table & table,
-            std::vector<string> const & reorderings,
-            bool simple)
         {
             // TODO
         }
@@ -123,13 +154,19 @@ namespace boost { namespace text {
 
         detail::temp_table table = detail::make_temp_table();
 
-        collation_strength strength_override;
-        variable_weighting weighting_override;
-        l2_weight_order order_override;
+        optional<collation_strength> strength_override;
+        optional<variable_weighting> weighting_override;
+        optional<l2_weight_order> l2_order_override;
 
         detail::cp_seq_t suppressions;
-        std::vector<string> reorderings;
-        bool reorderings_are_simple = false;
+
+        container::static_vector<detail::nonsimple_script_reorder, 4>
+            nonsimple_reorders;
+        std::array<uint32_t, 256> simple_reorders;
+        std::iota(simple_reorders.begin(), simple_reorders.end(), 0);
+        for (auto & x : simple_reorders) {
+            x <<= 24;
+        }
 
         detail::collation_tailoring_interface callbacks = {
             [&](detail::cp_seq_t const & reset, bool before) {
@@ -148,24 +185,42 @@ namespace boost { namespace text {
                 curr_reset = rel.cps_;
                 reset_is_before = false;
             },
-            [&](collation_strength strength) {
-                strength_override = strength;
-            },
+            [&](collation_strength strength) { strength_override = strength; },
             [&](variable_weighting weighting) {
                 weighting_override = weighting;
             },
-            [&](l2_weight_order order) {
-                order_override = order;
-            },
+            [&](l2_weight_order l2_order) { l2_order_override = l2_order; },
             [&](detail::cp_seq_t const & suppressions_) {
                 std::copy(
                     suppressions_.begin(),
                     suppressions_.end(),
                     std::back_inserter(suppressions));
             },
-            [&](std::vector<string> && reorderings_, bool simple) {
-                reorderings = std::move(reorderings_);
-                reorderings_are_simple = simple;
+            [&](std::vector<detail::reorder_group> const & reorder_groups) {
+                uint32_t curr_reorder_lead_byte =
+                    detail::g_reorder_groups[0].first_.l1_ & 0xff000000;
+                for (auto const & group : reorder_groups) {
+                    if (group.simple_) {
+                        // TODO: Apply compression; throw from here if
+                        // everything does not fit.
+                        uint32_t const group_first =
+                            group.first_.l1_ & 0xff000000;
+                        for (uint32_t byte = group_first,
+                                      end = group.last_.l1_ & 0xff000000;
+                             byte < end;
+                             byte += 0x01000000) {
+                            simple_reorders[byte] = curr_reorder_lead_byte;
+                            curr_reorder_lead_byte += 0x01000000;
+                        }
+                    } else {
+                        nonsimple_reorders.push_back(
+                            detail::nonsimple_script_reorder{
+                                group.first_,
+                                group.last_,
+                                curr_reorder_lead_byte});
+                        curr_reorder_lead_byte += 0x01000000;
+                    }
+                }
             },
             report_errors,
             report_warnings};
@@ -177,9 +232,18 @@ namespace boost { namespace text {
             detail::suppress(table, cp);
         }
 
-        detail::reorder_table(table, reorderings, simple);
+        // TODO: Build these from the temp table.
+        std::unordered_set<detail::collation_trie_node> collation_initial_nodes;
+        std::vector<detail::collation_trie_node> collation_trie_nodes;
 
-        return tailored_collation_element_table();
+        return tailored_collation_element_table(
+            std::move(collation_initial_nodes),
+            std::move(collation_trie_nodes),
+            nonsimple_reorders,
+            simple_reorders,
+            strength_override,
+            weighting_override,
+            l2_order_override);
     }
 
 }}

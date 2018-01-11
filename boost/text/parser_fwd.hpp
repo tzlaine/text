@@ -3,6 +3,7 @@
 
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/string.hpp>
+#include <boost/text/detail/collation_data.hpp>
 
 #include <boost/optional.hpp>
 #include <boost/container/small_vector.hpp>
@@ -120,7 +121,7 @@ namespace boost { namespace text {
         using l2_weight_order_callback = std::function<void(l2_weight_order)>;
         using suppression_callback = std::function<void(cp_seq_t const &)>;
         using reorder_callback =
-            std::function<void(std::vector<string> &&, bool simple)>;
+            std::function<void(std::vector<reorder_group> const &)>;
 
         struct collation_tailoring_interface
         {

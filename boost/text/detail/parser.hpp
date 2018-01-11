@@ -673,19 +673,11 @@ namespace boost { namespace text { namespace detail {
                     end);
             }
 
-            // These are intentionally reversed.
-            std::array<string_view, 5> const core_groups = {
-                {"digit", "currency", "symbol", "punct", "space"}};
-
-            auto core_group = [&](string_view s) {
-                return std::find(core_groups.begin(), core_groups.end(), s) !=
-                       core_groups.end();
-            };
-            auto others_group = [](string_view s) {
-                return s == "others" || s == "Zzzz";
-            };
-
             std::vector<string> reorderings;
+            std::vector<reorder_group> final_reorderings;
+            auto others_offset = -1;
+            final_reorderings.reserve(g_reorder_groups.size() + 10);
+
             optional<string> str;
             while ((str = next_identifier(it, end))) {
                 if (*str == "Common") {
@@ -699,13 +691,18 @@ namespace boost { namespace text { namespace detail {
                         "reorderings",
                         std::prev(it),
                         end);
-                } else if (
-                    !others_group(*str) && !core_group(*str) &&
-                    !script_code(*str)) {
-                    throw one_token_parse_error(
-                        "Unknown script code", std::prev(it), end);
+                } else {
+                    auto group = find_reorder_group(*str);
+                    if (!group && *str != "others" && *str != "Zzzz") {
+                        throw one_token_parse_error(
+                            "Unknown script code", std::prev(it), end);
+                    }
+                    reorderings.push_back(std::move(*str));
+                    if (group)
+                        final_reorderings.push_back(*group);
+                    else
+                        others_offset = final_reorderings.size();
                 }
-                reorderings.push_back(std::move(*str));
             }
 
             if (reorderings.empty()) {
@@ -715,53 +712,51 @@ namespace boost { namespace text { namespace detail {
 
             require_close_bracket(open_bracket_it);
 
-            for (auto group : core_groups) {
-                if (std::count(reorderings.begin(), reorderings.end(), group) ==
-                    0) {
-                    reorderings.insert(reorderings.begin(), string(group));
-                }
-            }
+            // http://www.unicode.org/reports/tr35/tr35-collation.html#Interpretation_reordering
 
-            using namespace text::literals;
+            using namespace literals;
 
+            // Zzzz=others
+            std::replace(
+                reorderings.begin(), reorderings.end(), "Zzzz"_sv, "others"_sv);
             // Hrkt=Hira=Kana
             std::replace(
-                reorderings.begin(), reorderings.end(), "Hrkt", "Hira");
+                reorderings.begin(), reorderings.end(), "Hrkt"_sv, "Hira"_sv);
             std::replace(
-                reorderings.begin(), reorderings.end(), "Kana", "Hira");
+                reorderings.begin(), reorderings.end(), "Kana"_sv, "Hira"_sv);
             // Hans=Hant=Hani
             std::replace(
-                reorderings.begin(), reorderings.end(), "Hans", "Hani");
+                reorderings.begin(), reorderings.end(), "Hans"_sv, "Hani"_sv);
             std::replace(
-                reorderings.begin(), reorderings.end(), "Hant", "Hani");
+                reorderings.begin(), reorderings.end(), "Hant"_sv, "Hani"_sv);
 
-            std::vector<string> final_reorderings;
-            final_reorderings.reserve(g_reorder_groups.size() + 10);
-            auto const others_it = std::find_if(
-                reorderings.begin(), reorderings.end(), others_group);
-            final_reorderings.insert(
-                final_reorderings.end(), reorderings.begin(), others_it);
-            for (auto group : g_reorder_groups) {
-                if (std::find(
-                        reorderings.begin(), reorderings.end(), group.name_) ==
-                    reorderings.end()) {
-                    final_reorderings.push_back(string(group.name_));
-                }
-            }
-            if (others_it != reorderings.end()) {
-                auto const next_others_it = std::find_if(
-                    std::next(others_it), reorderings.end(), others_group);
-                if (next_others_it != reorderings.end()) {
-                    throw one_token_parse_error(
-                        "The 'others'/'Zzzz' group must appear at most once",
-                        open_bracket_it,
-                        end);
-                }
-                final_reorderings.insert(
-                    final_reorderings.end(),
-                    std::next(others_it),
-                    reorderings.end());
-            }
+            auto not_in_reorderings = [&reorderings](reorder_group group) {
+                return std::find(
+                           reorderings.begin(),
+                           reorderings.end(),
+                           group.name_) == reorderings.end();
+            };
+
+            std::copy_if(
+                g_reorder_groups.begin() + 5,
+                g_reorder_groups.end(),
+                std::inserter(
+                    final_reorderings,
+                    others_offset < 0
+                        ? final_reorderings.end()
+                        : final_reorderings.begin() + others_offset),
+                not_in_reorderings);
+
+            std::copy_if(
+                g_reorder_groups.begin(),
+                g_reorder_groups.begin() + 5,
+                std::inserter(final_reorderings, final_reorderings.begin()),
+                [&](reorder_group group) {
+                    return std::find(
+                               reorderings.begin(),
+                               reorderings.end(),
+                               group.name_) == reorderings.end();
+                });
 
             std::sort(reorderings.begin(), reorderings.end());
             if (std::unique(reorderings.begin(), reorderings.end()) !=
@@ -772,27 +767,7 @@ namespace boost { namespace text { namespace detail {
                     end);
             }
 
-            std::vector<string> lead_byte_sharers;
-            std::copy_if(
-                reorderings.begin(),
-                reorderings.end(),
-                std::back_inserter(lead_byte_sharers),
-                shares_lead_byte);
-            if (4u < lead_byte_sharers.size()) {
-                string msg =
-                    "Less common scripts tend to share some collation data (they "
-                    "have the same 'lead bytes').  The maximum number of these "
-                    "that can be reordered is four.  You're using more than "
-                    "that:";
-                for (auto const & s : lead_byte_sharers) {
-                    msg += " ";
-                    msg += s;
-                }
-                throw one_token_parse_error(msg, open_bracket_it, end);
-            }
-
-            tailoring.reorder_(
-                std::move(final_reorderings), lead_byte_sharers.empty());
+            tailoring.reorder_(final_reorderings);
 
             return open_bracket_it;
         } else {

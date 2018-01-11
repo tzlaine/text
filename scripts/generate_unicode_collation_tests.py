@@ -142,7 +142,7 @@ void BM_collation_element_lookup_{0:03}(benchmark::State & state)
 '''.format(i, ', '.join(map(lambda x: type(x) == str and '0x' + x or hex(x), cps)), len(cps))
         for first,last in cp_ranges:
             lines += '''\
-            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_{0:03} + {1}, cps_{0:03} + {2}));
+            benchmark::DoNotOptimize(boost::text::detail::longest_collation(cps_{0:03} + {1}, cps_{0:03} + {2}, boost::text::detail::g_collation_initial_nodes, boost::text::detail::g_collation_trie_nodes));
 '''.format(i, first, last)
         lines += '''\
     }}

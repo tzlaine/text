@@ -5,6 +5,8 @@
 #include <boost/text/detail/collation_constants.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
+#include <boost/optional.hpp>
+
 #include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
@@ -35,6 +37,26 @@ namespace boost { namespace text { namespace detail {
     {
         return !(lhs == rhs);
     }
+    inline bool operator<(
+        compressed_collation_element lhs, compressed_collation_element rhs)
+    {
+        if (rhs.l1_ < lhs.l1_)
+            return false;
+        if (lhs.l1_ < rhs.l1_)
+            return true;
+
+        if (rhs.l2_ < lhs.l2_)
+            return false;
+        if (lhs.l2_ < rhs.l2_)
+            return true;
+
+        return lhs.l3_ < rhs.l3_;
+    }
+    inline bool operator<=(
+        compressed_collation_element lhs, compressed_collation_element rhs)
+    {
+        return lhs == rhs || lhs < rhs;
+    }
 
     static_assert(
         sizeof(compressed_collation_element) == 8,
@@ -48,31 +70,21 @@ namespace boost { namespace text { namespace detail {
         uint32_t l4_;
     };
 
-    inline collation_element
-    to_collation_element(compressed_collation_element ce)
-    {
-        return collation_element{ce.l1(), ce.l2(), ce.l3()};
-    }
-
-    inline collation_element
-    to_collation_element(compressed_collation_element ce, uint16_t l4)
-    {
-        return collation_element{ce.l1(), ce.l2(), ce.l3(), l4};
-    }
-
     extern compressed_collation_element const * g_collation_elements_first;
 
     struct compressed_collation_elements
     {
         using iterator = compressed_collation_element const *;
 
-        iterator begin() const noexcept
+        iterator begin(compressed_collation_element const * elements) const
+            noexcept
         {
-            return detail::g_collation_elements_first + first_;
+            return elements + first_;
         }
-        iterator end() const noexcept
+        iterator end(compressed_collation_element const * elements) const
+            noexcept
         {
-            return detail::g_collation_elements_first + last_;
+            return elements + last_;
         }
 
         int size() const noexcept { return last_ - first_; }
@@ -101,13 +113,13 @@ namespace boost { namespace text { namespace detail {
     {
         using iterator = collation_trie_node const *;
 
-        iterator begin() const noexcept
+        iterator begin(collation_trie_node const * nodes) const noexcept
         {
-            return g_collation_trie_nodes + first_child_;
+            return nodes + first_child_;
         }
-        iterator end() const noexcept
+        iterator end(collation_trie_node const * nodes) const noexcept
         {
-            return g_collation_trie_nodes + last_child_;
+            return nodes + last_child_;
         }
 
         bool match() const noexcept
@@ -154,13 +166,13 @@ namespace boost { namespace text { namespace detail {
 
     struct longest_collation_t
     {
-        detail::collation_trie_node node_;
-        int match_length_;
+        collation_trie_node node_;
+        int match_length_ = 0;
 
         static const uint16_t invalid_trie_node_index = 0xffff;
     };
 
-    extern std::unordered_set<detail::collation_trie_node> const
+    extern std::unordered_set<collation_trie_node> const
         g_collation_initial_nodes;
 
     inline collation_trie_node const * find_trie_node(
@@ -180,35 +192,47 @@ namespace boost { namespace text { namespace detail {
         return it;
     }
 
-    inline longest_collation_t
-    extend_collation(longest_collation_t prev, uint32_t cp) noexcept
+    inline longest_collation_t extend_collation(
+        longest_collation_t prev,
+        uint32_t cp,
+        collation_trie_node const * collation_trie_nodes) noexcept
     {
-        auto first = g_collation_trie_nodes + prev.node_.first_child_;
-        auto last = g_collation_trie_nodes + prev.node_.last_child_;
+        auto first = collation_trie_nodes + prev.node_.first_child_;
+        auto last = collation_trie_nodes + prev.node_.last_child_;
         auto const node_it = find_trie_node(first, last, cp);
         if (node_it == last || !node_it->match())
             return prev;
         return longest_collation_t{*node_it, prev.match_length_ + 1};
     }
 
+    inline longest_collation_t
+    default_extend_collation(longest_collation_t prev, uint32_t cp) noexcept
+    {
+        return extend_collation(prev, cp, g_collation_trie_nodes);
+    }
+
     template<typename Iter>
-    longest_collation_t longest_collation(Iter first, Iter last) noexcept
+    longest_collation_t longest_collation(
+        Iter first,
+        Iter last,
+        std::unordered_set<collation_trie_node> const & collation_initial_nodes,
+        collation_trie_node const * collation_trie_nodes) noexcept
     {
         auto it = first;
         auto const starter = *it++;
-        detail::collation_trie_node node{starter};
-        auto hash_it = detail::g_collation_initial_nodes.find(node);
-        if (hash_it == detail::g_collation_initial_nodes.end())
+        collation_trie_node node{starter};
+        auto hash_it = collation_initial_nodes.find(node);
+        if (hash_it == collation_initial_nodes.end())
             return longest_collation_t{{}, 0};
         node = *hash_it;
 
         longest_collation_t retval{node, node.collation_elements_ ? 1 : 0};
         while (it != last && !node.leaf()) {
-            auto const node_it = detail::find_trie_node(
-                detail::g_collation_trie_nodes + node.first_child_,
-                detail::g_collation_trie_nodes + node.last_child_,
+            auto const node_it = find_trie_node(
+                collation_trie_nodes + node.first_child_,
+                collation_trie_nodes + node.last_child_,
                 *it++);
-            if (node_it == detail::g_collation_trie_nodes + node.last_child_)
+            if (node_it == collation_trie_nodes + node.last_child_)
                 break;
             node = *node_it;
             if (node.match()) {
@@ -219,25 +243,47 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
+    template<typename Iter>
+    longest_collation_t
+    default_longest_collation(Iter first, Iter last) noexcept
+    {
+        return longest_collation(
+            first, last, g_collation_initial_nodes, g_collation_trie_nodes);
+    }
+
     struct reorder_group
     {
         string_view name_;
         compressed_collation_element first_;
         compressed_collation_element last_;
+        bool simple_;
+        bool compressible_;
     };
+
+    inline bool operator==(reorder_group lhs, reorder_group rhs)
+    {
+        return lhs.name_ == rhs.name_ && lhs.first_ == rhs.first_ &&
+               lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
+               lhs.compressible_ == rhs.compressible_;
+    }
 
     extern std::array<reorder_group, 140> const g_reorder_groups;
 
-    extern compressed_collation_element const g_reorder_reserved_before_latin;
-    extern compressed_collation_element const g_reorder_reserved_after_latin;
-
-    inline bool script_code(string_view s)
+    inline optional<reorder_group> find_reorder_group(string_view name)
     {
-        auto const it = std::find_if(
-            g_reorder_groups.begin(),
-            g_reorder_groups.end(),
-            [s](reorder_group const & g) { return g.name_ == s; });
-        return it != g_reorder_groups.end();
+        if (name == "Hrkt")
+            name = "Hira";
+        if (name == "Kana")
+            name = "Hira";
+        if (name == "Hans")
+            name = "Hani";
+        if (name == "Hant")
+            name = "Hani";
+        for (auto group : g_reorder_groups) {
+            if (group.name_ == name)
+                return group;
+        }
+        return {};
     }
 
 }}}

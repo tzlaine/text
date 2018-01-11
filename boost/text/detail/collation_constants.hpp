@@ -49,13 +49,6 @@ namespace boost { namespace text { namespace detail {
         implicit_weights_final_lead_byte = 0xe4
     };
 
-    inline std::array<uint32_t, 4> free_lead_bytes()
-    {
-        return std::array<uint32_t, 4>{{
-            0x26, 0x27, 0x5d, 0x5e
-        }};
-    };
-
     struct implicit_weights_segment
     {
         uint32_t first_;
