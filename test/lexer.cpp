@@ -1,4 +1,5 @@
 #include <boost/text/detail/lexer.hpp>
+#include <boost/text/collation_tailoring.hpp>
 
 #include "parser_tests.hpp"
 

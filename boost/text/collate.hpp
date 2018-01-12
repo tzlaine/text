@@ -237,7 +237,6 @@ namespace boost { namespace text {
             auto it = first;
             while (it != last) {
                 auto & ce = *it++;
-                auto const l1 = ce.l1_;
                 if (after_variable && ignorable(ce)) {
                     ce.l1_ = 0;
                     ce.l2_ = 0;
@@ -270,11 +269,14 @@ namespace boost { namespace text {
                     ce.l4_ = 0;
                     second_of_implicit_weight_pair = false;
                 }
-                // TODO: These might be different values under
-                // reorder-tailoring.
+#if 0
+                 // Not necessary with FractionalUCA.txt-derived data, in
+                 // which each implicit weight before the unassigned code
+                 // points is only one CE.
                 second_of_implicit_weight_pair =
                     implicit_weights_first_lead_byte <= l1 &&
                     l1 <= implicit_weights_final_lead_byte;
+#endif
             }
 
             return after_variable;
@@ -345,12 +347,16 @@ namespace boost { namespace text {
                     ++nonstarter_first;
                 }
 
+                compressed_collation_element const * collation_elements_first =
+                    in_table ? table->collation_elements_begin()
+                             : g_collation_elements_first;
+
                 // S2.4
                 std::transform(
                     collation_.node_.collation_elements_.begin(
-                        g_collation_elements_first),
+                        collation_elements_first),
                     collation_.node_.collation_elements_.end(
-                        g_collation_elements_first),
+                        collation_elements_first),
                     std::back_inserter(ces),
                     [table, in_table](compressed_collation_element ce) {
                         if (in_table) {
