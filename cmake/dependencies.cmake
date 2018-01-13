@@ -7,10 +7,10 @@
 # Boost
 ###############################################################################
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost 1.64.0 COMPONENTS system filesystem)
-if (Boost_INCLUDE_DIRS)
+find_package(Boost 1.64.0 COMPONENTS)
+if (Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
-  target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
+  target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})
 else ()
   message("-- Boost was not found; attempting to download it if we haven't already...")
   include(ExternalProject)
