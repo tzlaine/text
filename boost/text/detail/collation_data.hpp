@@ -166,6 +166,12 @@ namespace boost { namespace text { namespace detail {
 
     struct longest_collation_t
     {
+        longest_collation_t() : match_length_(0) {}
+        longest_collation_t(collation_trie_node node, int match_length) :
+            node_(node),
+            match_length_(match_length)
+        {}
+
         collation_trie_node node_;
         int match_length_ = 0;
 
