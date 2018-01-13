@@ -40,6 +40,7 @@ add_test_executable(unencoded_rope_view)
 add_test_executable(unencoded_rope)
 add_test_executable(common_op)
 add_test_executable(algorithm)
+add_test_executable(trie)
 
 set(LIMIT_TESTING_FOR_TRAVIS false CACHE BOOL "Travis kinda sucks, so...")
 if (NOT LIMIT_TESTING_FOR_TRAVIS)
