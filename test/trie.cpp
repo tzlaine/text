@@ -324,8 +324,18 @@ TEST(trie, index_operator)
 
 TEST(trie, insert)
 {
+    trie::trie<std::string, int> trie(
+        {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
+
+    // TODO
 }
 
 TEST(trie, erase)
 {
+    trie::trie<std::string, int> trie(
+        {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
+
+    // TODO
+    trie.erase("foo");
 }
+

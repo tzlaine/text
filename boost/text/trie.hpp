@@ -10,13 +10,6 @@
 
 namespace boost { namespace trie {
 
-    // TODO: KeyIter, KeyRange, and Range concepts.
-
-    // TODO: Document assumption that Compare is statically polymorphic.
-    // TODO: Document that Key::value_type must be default constructible. No!
-    // make the key element a part of the vector of childre.
-    // TODO: Privatize trie_node_t data members.
-
     template<typename Key, typename Value>
     struct trie_iterator;
 
@@ -32,8 +25,6 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct trie_element
     {
-        // TODO: Either this should be const, or iterators should only provide
-        // a const reference to it.
         Key key;
         Value value;
 
@@ -117,31 +108,29 @@ namespace boost { namespace trie {
         struct trie_node_t;
 
         template<typename Key, typename Value>
-        using trie_node_children_t =
-            std::vector<std::unique_ptr<trie_node_t<Key, Value>>>;
-
-        template<typename Key, typename Value>
         struct trie_iterator_state_t
         {
             trie_node_t<Key, Value> const * parent_;
-            std::size_t index_;
+            std::ptrdiff_t index_;
         };
 
         template<typename Key, typename Value>
         trie_iterator_state_t<Key, Value>
         parent_state(trie_iterator_state_t<Key, Value> state)
         {
-            auto const new_parent = state.parent_->parent_;
+            auto const new_parent = state.parent_->parent();
             auto const it = std::find_if(
-                new_parent->children_.begin(),
-                new_parent->children_.end(),
+                new_parent->begin(),
+                new_parent->end(),
                 [state](std::unique_ptr<trie_node_t<Key, Value>> const & ptr) {
                     return ptr.get() == state.parent_;
                 });
-            std::size_t const index = it - new_parent->children_.begin();
-            return {new_parent, index};
+            return {new_parent, it - new_parent->begin()};
         }
 
+#if 0 // TODO: Use this instead!  The parent's child list could be arbitrarily
+      // large!  This means adding a Compare template parameter and data member
+      // to every iterator, though. :(
         template<typename Key, typename Value, typename Compare>
         trie_iterator_state_t<Key, Value> parent_state(
             trie_iterator_state_t<Key, Value> state, Compare const & comp)
@@ -150,6 +139,7 @@ namespace boost { namespace trie {
             auto const it = new_parent->lower_bound(state.parent_->e_, comp);
             return {new_parent, it - new_parent->children_.begin()};
         }
+#endif
 
         // TODO
         template<typename T>
@@ -178,15 +168,16 @@ namespace boost { namespace trie {
         }
     };
 
+    // TODO: KeyIter, KeyRange, and Range concepts.
     // TODO: Key concept specifying that Key is a container.
     // TODO: Compare concept specifying that Compare compares Key::value_types.
+    // Don't forget to mention that Compare must be statically polymorphic.
     template<typename Key, typename Value, typename Compare = std::less<>>
     struct trie
     {
     private:
         using node_t = detail::trie_node_t<Key, Value>;
         using iter_state_t = detail::trie_iterator_state_t<Key, Value>;
-        using node_children_t = detail::trie_node_children_t<Key, Value>;
 
     public:
         using element = trie_element<Key, Value>;
@@ -265,19 +256,19 @@ namespace boost { namespace trie {
         {
             iter_state_t state{&root_, 0};
             if (size_) {
-                while (!state.parent_->children_.front()->value_) {
-                    state.parent_ = state.parent_->children_.front().get();
+                while (!state.parent_->min_value()) {
+                    state.parent_ = state.parent_->min_child();
                 }
             }
             return const_iterator(state);
         }
         const_iterator end() const noexcept
         {
-            iter_state_t state{&root_, root_.children_.size()};
+            iter_state_t state{&root_, root_.size()};
             if (size_) {
-                while (!state.parent_->children_.back()->value_) {
-                    state.index_ = state.parent_->children_.size() - 1;
-                    state.parent_ = state.parent_->children_.back().get();
+                while (!state.parent_->max_value()) {
+                    state.index_ = state.parent_->size() - 1;
+                    state.parent_ = state.parent_->max_child();
                 }
             }
             return const_iterator(state);
@@ -311,7 +302,7 @@ namespace boost { namespace trie {
             auto const last = end(key);
             auto match = longest_match_impl(first, last);
             if (match.result_.match) {
-                return const_iterator(iter_state_t{match.result_.node->parent_,
+                return const_iterator(iter_state_t{match.result_.node->parent(),
                                                    match.index_within_parent_});
             }
             return this->end();
@@ -326,14 +317,14 @@ namespace boost { namespace trie {
             auto const last = end(key);
             auto match = longest_match_impl(first, last);
             if (match.result_.match) {
-                return const_iterator(iter_state_t{match.result_.node->parent_,
+                return const_iterator(iter_state_t{match.result_.node->parent(),
                                                    match.index_within_parent_});
             }
             auto node = match.result_.node;
-            while (!node->value_) {
-                node = node->children_.front().get();
+            while (!node->value()) {
+                node = node->min_child();
             }
-            return const_iterator(iter_state_t{node->parent_, 0});
+            return const_iterator(iter_state_t{node->parent(), 0});
         }
 
         template<typename KeyT>
@@ -346,13 +337,13 @@ namespace boost { namespace trie {
             auto match = longest_match_impl(first, last);
             if (match.result_.match) {
                 return ++const_iterator(iter_state_t{
-                    match.result_.node->parent_, match.index_within_parent_});
+                    match.result_.node->parent(), match.index_within_parent_});
             }
             auto node = match.result_.node;
-            while (!node->value_) {
-                node = node->children_.front().get();
+            while (!node->value()) {
+                node = node->min_child();
             }
-            return const_iterator(iter_state_t{node->parent_, 0});
+            return const_iterator(iter_state_t{node->parent(), 0});
         }
 
         template<typename KeyT>
@@ -455,16 +446,16 @@ namespace boost { namespace trie {
         insert_result insert(KeyIter first, KeyIter last, Value value)
         {
             auto match = longest_match_impl(first, last);
-            if (first == last && match.result_.node->value_) {
-                return {iterator(iter_state_t{match.result_.node->parent_,
+            if (first == last && match.result_.node->value()) {
+                return {iterator(iter_state_t{match.result_.node->parent(),
                                               match.index_within_parent_}),
                         false};
             }
             auto node = create_children(
                 const_cast<node_t *>(match.result_.node), first, last);
-            node->value_ = element{key_type{first, last}, std::move(value)};
+            node->value() = element{key_type{first, last}, std::move(value)};
             ++size_;
-            return {iterator(iter_state_t{node->parent_, 0}), true};
+            return {iterator(iter_state_t{node->parent(), 0}), true};
         }
         template<typename KeyRange>
         insert_result insert(KeyRange const & key, Value value)
@@ -511,36 +502,33 @@ namespace boost { namespace trie {
         }
         iterator erase(iterator it)
         {
-            auto state = it->it_.state_;
-            node_children_t * children = &state.parent_->children_;
+            auto state = it.it_.state_;
 
-            auto node = (*children)[state.index_];
-            if (!node->children_.empty()) {
-                // node has a value and children.  Remove the value and find
-                // the next-iterator.
-                node->value_.reset();
-                while (!node->value_) {
-                    node = node->children_.begin();
-                    return iterator(iter_state_t{node->parent_, 0});
+            --size_;
+
+            auto node =
+                const_cast<node_t *>(state.parent_->child(state.index_));
+            if (!node->empty()) {
+                // node has a value, but also children.  Remove the value and
+                // find the next-iterator.
+                node->value() = optional<trie_element<Key, Value>>();
+                while (!node->value()) {
+                    node = node->min_child();
+                    return iterator(iter_state_t{node->parent(), 0});
                 }
             }
 
-            // node has a value, but no children.  Remove it and all its
+            // node has a value, *and* no children.  Remove it and all its
             // singular predecessors.
-            children->erase(children->begin() + state.index_);
-            --state.index_;
-            --size_;
-            while (state.parent_ && children->empty()) {
-                state = parent_state(state, comp_);
-                children = &state.parent_->children_;
-                children->erase(children->begin() + state.index_);
-                --state.index_;
-                --size_;
+            const_cast<node_t *>(state.parent_)->erase(state.index_);
+            while (state.parent_->parent() && state.parent_->empty() &&
+                   !state.parent_->value()) {
+                state = parent_state(state);
+                const_cast<node_t *>(state.parent_)->erase(state.index_);
             }
 
             auto retval = iterator(state);
-            if (state.index_ < children->size())
-                ++retval;
+            ++retval;
 
             return retval;
         }
@@ -576,7 +564,7 @@ namespace boost { namespace trie {
         struct priv_match_result
         {
             match_result result_;
-            std::size_t index_within_parent_;
+            std::ptrdiff_t index_within_parent_;
         };
 
         template<typename KeyIter>
@@ -597,18 +585,18 @@ namespace boost { namespace trie {
 
             node_t const * node = prev.result_.node;
             size_type size = prev.result_.size;
-            std::size_t parent_index = 0;
+            std::ptrdiff_t parent_index = 0;
             while (first != last) {
-                auto const it = node->lower_bound(*first, comp_);
-                if (it == node->children_.end() || comp_((*it)->e_, *first))
+                auto const it = node->find(*first, comp_);
+                if (it == node->end())
                     break;
                 ++first;
                 ++size;
                 node = it->get();
-                parent_index = it - node->children_.begin();
+                parent_index = it - node->begin();
             }
 
-            return {match_result{node, size, !!node->value_}, parent_index};
+            return {match_result{node, size, !!node->value()}, parent_index};
         }
 
         template<typename KeyIter>
@@ -616,12 +604,9 @@ namespace boost { namespace trie {
         {
             auto retval = node;
             for (; first != last; ++first) {
-                std::unique_ptr<node_t> new_node(new node_t(retval, *first));
-                auto at = retval->children_.begin();
-                if (retval == node)
-                    at = retval->lower_bound(*first, comp_);
+                std::unique_ptr<node_t> new_node(new node_t(retval));
                 retval =
-                    retval->children_.insert(at, std::move(new_node))->get();
+                    retval->insert(*first, comp_, std::move(new_node))->get();
             }
             return retval;
         }
@@ -644,7 +629,7 @@ namespace boost { namespace trie {
 
         reference operator*() const noexcept
         {
-            return *state_.parent_->children_[state_.index_]->value_;
+            return state_.parent_->child_value(state_.index_);
         }
 
         pointer operator->() const noexcept { return &**this; }
@@ -653,25 +638,25 @@ namespace boost { namespace trie {
         {
             ++state_.index_;
             auto const first_state = state_;
-            while (state_.parent_->parent_ &&
-                   state_.index_ == state_.parent_->children_.size()) {
+            while (state_.parent_->parent() &&
+                   state_.index_ == state_.parent_->size()) {
                 state_ = parent_state(state_);
                 ++state_.index_;
             }
 
             // If we went all the way up, incrementing indices, and they were
             // all at size() for each node, this is the end.
-            if (!state_.parent_->parent_ &&
-                state_.index_ == state_.parent_->children_.size()) {
+            if (!state_.parent_->parent() &&
+                state_.index_ == state_.parent_->size()) {
                 state_ = first_state;
                 return *this;
             }
 
-            auto node = state_.parent_->children_[state_.index_].get();
-            while (!node->value_) {
+            auto node = state_.parent_->child(state_.index_);
+            while (!node->value()) {
                 auto i = 0u;
-                node = node->children_[i].get();
-                state_ = state_t{node, i};
+                node = node->child(i);
+                state_ = state_t{node->parent(), i};
             }
 
             return *this;
@@ -688,25 +673,25 @@ namespace boost { namespace trie {
             // thus makes my_trie.rend() easy to write.
             --state_.index_;
             auto const first_state = state_;
-            while (state_.parent_->parent_ &&
-                   state_.parent_->children_.size() <= state_.index_) {
+            while (state_.parent_->parent() &&
+                   state_.parent_->size() <= state_.index_) {
                 state_ = parent_state(state_);
                 --state_.index_;
             }
 
             // If we went all the way up, incrementing indices, and they were
             // all at size() for each node, this is one-minus-begin.
-            if (!state_.parent_->parent_ &&
-                state_.parent_->children_.size() <= state_.index_) {
+            if (!state_.parent_->parent() &&
+                state_.parent_->size() <= state_.index_) {
                 state_ = first_state;
                 return *this;
             }
 
-            auto node = state_.parent_->children_[state_.index_].get();
-            while (!node->value_) {
-                auto i = node->children_.size() - 1;
-                node = node->children_[i].get();
-                state_ = state_t{node, i};
+            auto node = state_.parent_->child(state_.index_);
+            while (!node->value()) {
+                auto i = node->size() - 1;
+                node = node->child(i);
+                state_ = state_t{node->parent(), i};
             }
 
             return *this;
@@ -934,17 +919,18 @@ namespace boost { namespace trie {
         template<typename Key, typename Value>
         struct trie_node_t
         {
-            using iterator =
-                typename trie_node_children_t<Key, Value>::iterator;
-            using const_iterator =
-                typename trie_node_children_t<Key, Value>::const_iterator;
-            using element = typename Key::value_type;
+            using children_t =
+                std::vector<std::unique_ptr<trie_node_t<Key, Value>>>;
+            using iterator = typename children_t::iterator;
+            using const_iterator = typename children_t::const_iterator;
+            using key_element = typename Key::value_type;
 
             trie_node_t() : parent_(nullptr) {}
+            trie_node_t(trie_node_t * parent) : parent_(parent) {}
             trie_node_t(trie_node_t const & other) :
+                keys_(other.keys_),
                 value_(other.value_),
-                parent_(other.parent_),
-                e_(other.e_)
+                parent_(other.parent_)
             {
                 children_.reserve(other.children_.size());
                 for (auto const & node : other.children_) {
@@ -961,60 +947,137 @@ namespace boost { namespace trie {
                 return *this;
             }
 
-            trie_node_t(trie_node_t * parent, element e) :
-                parent_(parent),
-                e_(std::move(e))
-            {}
+            optional<trie_element<Key, Value>> const & value() const noexcept
+            {
+                return value_;
+            }
+
+            trie_element<Key, Value> & child_value(std::ptrdiff_t i) const
+            {
+                return *children_[i]->value_;
+            }
+
+            trie_node_t * parent() const noexcept { return parent_; }
+            trie_node_t * min_child() const noexcept
+            {
+                return children_.front().get();
+            }
+            trie_node_t * max_child() const noexcept
+            {
+                return children_.back().get();
+            }
+
+            bool empty() const noexcept { return children_.size() == 0; }
+            std::ptrdiff_t size() const noexcept { return children_.size(); }
+
+            bool min_value() const noexcept
+            {
+                return !!children_.front()->value_;
+            }
+            bool max_value() const noexcept
+            {
+                return !!children_.back()->value_;
+            }
+
+            const_iterator begin() const noexcept { return children_.begin(); }
+            const_iterator end() const noexcept { return children_.begin(); }
 
             template<typename Compare>
             const_iterator
-            lower_bound(element const & e, Compare const & comp) const noexcept
-            {
-                return std::lower_bound(
-                    children_.begin(),
-                    children_.end(),
-                    e,
-                    [&comp](
-                        std::unique_ptr<trie_node_t> const & ptr,
-                        element const & e) { return comp(ptr->e_, e); });
-            }
-            template<typename Compare>
-            iterator
-            lower_bound(element const & e, Compare const & comp) noexcept
-            {
-                auto const it =
-                    const_cast<trie_node_t const &>(*this).lower_bound(e, comp);
-                return children_.begin() +
-                       (it - const_iterator(children_.begin()));
-            }
-            template<typename Compare>
-            trie_node_t * child(element const & e, Compare const & comp) const
+            lower_bound(key_element const & e, Compare const & comp) const
                 noexcept
+            {
+                auto const it = std::lower_bound(keys_.begin(), keys_.end(), e);
+                return children_.begin() + (it - keys_.begin());
+            }
+            template<typename Compare>
+            const_iterator
+            find(key_element const & e, Compare const & comp) const noexcept
+            {
+                auto const it = lower_bound(e, comp);
+                auto const end_ = end();
+                if (it != end_ && comp(key(it), e))
+                    return end_;
+                return it;
+            }
+
+            template<typename Compare>
+            trie_node_t const *
+            child(key_element const & e, Compare const & comp) const noexcept
             {
                 auto const it = lower_bound(e, comp);
                 if (it == children_.end() || comp((*it)->e_, e))
                     return nullptr;
                 return it->get();
             }
+            trie_node_t const * child(std::ptrdiff_t i) const noexcept
+            {
+                return children_[i].get();
+            }
+
+            optional<trie_element<Key, Value>> & value() noexcept
+            {
+                return value_;
+            }
+
+            iterator begin() noexcept { return children_.begin(); }
+            iterator end() noexcept { return children_.begin(); }
+
+            template<typename Compare>
+            iterator insert(
+                key_element const & e,
+                Compare const & comp,
+                std::unique_ptr<trie_node_t> && child)
+            {
+                auto const it = lower_bound(e, comp);
+                return children_.insert(it, std::move(child));
+            }
+            void erase(std::ptrdiff_t i) noexcept
+            {
+                children_.erase(children_.begin() + i);
+            }
+
+            template<typename Compare>
+            iterator
+            lower_bound(key_element const & e, Compare const & comp) noexcept
+            {
+                auto const it = const_this()->lower_bound(e, comp);
+                return children_.begin() +
+                       (it - const_iterator(children_.begin()));
+            }
+            template<typename Compare>
+            iterator find(key_element const & e, Compare const & comp) noexcept
+            {
+                auto const it = const_this()->find(e, comp);
+                return children_.begin() +
+                       (it - const_iterator(children_.begin()));
+            }
 
             template<typename Compare>
             trie_node_t *
-            child(element const & e, Compare const & comp) noexcept
+            child(key_element const & e, Compare const & comp) noexcept
             {
-                return const_cast<trie_node_t *>(
-                    const_cast<trie_node_t const &>(*this).child(e, comp));
+                return const_cast<trie_node_t *>(const_this()->child(e, comp));
+            }
+            trie_node_t * child(std::ptrdiff_t i) noexcept
+            {
+                return const_cast<trie_node_t *>(const_this()->child(i));
             }
 
-            using children_t = trie_node_children_t<Key, Value>;
+        private:
+            trie_node_t const * const_this()
+            {
+                return const_cast<trie_node_t const *>(this);
+            }
+            key_element const & key(const_iterator it) const
+            {
+                return keys_[it - children_.begin()];
+            }
 
+            std::vector<key_element> keys_;
             children_t children_;
             optional<trie_element<Key, Value>> value_;
             trie_node_t * parent_;
-            element e_;
-
-            template<typename KeyT, typename ValueT, typename Compare>
-            friend struct trie;
-            friend struct const_trie_iterator<Key, Value>;
         };
     }
 
