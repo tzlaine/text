@@ -1,3 +1,50 @@
+#define ENABLE_DUMP 1
+#if ENABLE_DUMP
+#include <boost/text/string.hpp>
+#include <iostream>
+#define private public
+#include <boost/text/trie.hpp>
+#undef private
+
+template<typename Key, typename Value>
+void dump(
+    std::ostream & os,
+    boost::trie::detail::trie_node_t<Key, Value> const & node,
+    int indent = 1)
+{
+    auto ind = [indent] {
+        return boost::text::repeated_string_view("  ", indent);
+    };
+    os << ind() << "==== NODE " << (void *)(&node) << " ====\n"
+       << ind() << "  parent=" << node.parent_;
+    if (node.parent_ == &node)
+        os << " (self)";
+    os << "\n";
+    if (node.value_) {
+        os << ind() << "  value=\"" << node.value_->key << "\", "
+           << node.value_->value << "\n";
+    } else {
+        os << ind() << "  value=[empty]\n";
+    }
+    os << ind() << "  " << node.keys_.size() << " keys:";
+    for (auto k : node.keys_) {
+        os << " " << k;
+    }
+    os << "\n" << ind() << "  " << node.children_.size() << " children:\n";
+    for (auto const & child : node.children_) {
+        dump(os, *child, indent + 1);
+    }
+}
+template<typename Key, typename Value>
+void dump(std::ostream & os, boost::trie::trie<Key, Value> const & trie)
+{
+    os << "==== TRIE ====\n"
+       << "  " << trie.size() << " elements\n"
+       << "  nodes:\n";
+    dump(os, trie.root_);
+}
+#endif
+
 #include <boost/text/trie.hpp>
 #include <boost/text/string.hpp>
 
@@ -90,9 +137,11 @@ TEST(trie, assignement)
         EXPECT_EQ(trie, trie_0);
     }
 }
+#endif
 
 TEST(trie, const_access)
 {
+#if 0
     {
         trie::trie<std::vector<int>, int> const trie(
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
@@ -115,10 +164,39 @@ TEST(trie, const_access)
             EXPECT_EQ(copied_elements, expected_elements);
         }
     }
+#endif
+
+    {
+        trie::trie<std::string, int> const trie({{"", 42}});
+         auto const _it = trie.begin();
+         EXPECT_EQ(_it->key, "");
+
+         auto const match = trie.longest_match("whatever");
+         EXPECT_TRUE(match.node != nullptr);
+         EXPECT_EQ(match.size, 0);
+         EXPECT_EQ(match.match, true);
+    }
+
+    {
+        trie::trie<std::string, int> const trie({{"w", 42}});
+         auto const _it = trie.begin();
+         EXPECT_EQ(_it->key, "w");
+
+         auto const match = trie.longest_match("whatever");
+         EXPECT_TRUE(match.node != nullptr);
+         EXPECT_EQ(match.size, 1);
+         EXPECT_EQ(match.match, true);
+    }
 
     {
         trie::trie<std::string, int> const trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
+
+#if ENABLE_DUMP
+        dump(std::cout, trie);
+#endif
+
+        EXPECT_EQ(trie.size(), 4);
 
         {
             EXPECT_TRUE(trie.contains(std::string("foo")));
@@ -150,26 +228,40 @@ TEST(trie, const_access)
             EXPECT_FALSE(trie.contains(baz_str));
         }
 
-        {
-            auto const _it = trie.begin();
-            EXPECT_EQ(trie.find(""), _it);
-            auto const bar_it = trie.begin();
-            EXPECT_EQ(trie.find("bar"), bar_it);
-            auto const foo_it = ++trie.begin();
-            EXPECT_EQ(trie.find("foo"), foo_it);
-            auto const foos_it = ++++trie.begin();
-            EXPECT_EQ(trie.find("foos"), foos_it);
+        auto const _it = trie.begin();
+        EXPECT_EQ(_it->key, "");
 
+#if 1
+        auto before_begin = --trie.begin();
+        auto const bounced_it = ++before_begin;
+        EXPECT_EQ(bounced_it->key, "");
+#endif
+
+        auto const bar_it = std::next(_it);
+        EXPECT_EQ(bar_it->key, "bar");
+        auto const foo_it = std::next(bar_it);
+        EXPECT_EQ(foo_it->key, "foo");
+        auto const foos_it = std::next(foo_it);
+        EXPECT_EQ(foos_it->key, "foos");
+
+        {
+            EXPECT_EQ(trie.find(""), _it);
+#if 0
+            EXPECT_EQ(trie.find("bar"), bar_it);
+            EXPECT_EQ(trie.find("foo"), foo_it);
+            EXPECT_EQ(trie.find("foos"), foos_it);
+#endif
+
+            auto const find_it = trie.find("X");
             EXPECT_EQ(trie.find("X"), trie.end());
         }
 
         {
-            // TODO
-            trie.lower_bound("foo");
+            auto const foo_lb_it = trie.lower_bound("foo");
             trie.upper_bound("bar");
             trie.equal_range("bar");
 
-            trie[""];
+            EXPECT_EQ(trie[""], 42);
         }
 
         {
@@ -181,7 +273,7 @@ TEST(trie, const_access)
             auto const _0_match = trie.extend_match(_match, 0);
             EXPECT_EQ(_0_match, _match);
 
-            auto const f_match = trie.extend_match(_match, 0);
+            auto const f_match = trie.extend_match(_match, 'f');
             EXPECT_TRUE(f_match.node != nullptr);
             EXPECT_EQ(f_match.size, 1);
             EXPECT_EQ(f_match.match, false);
@@ -210,6 +302,7 @@ TEST(trie, const_access)
     }
 }
 
+#if 0
 TEST(trie, mutable_access)
 {
     {

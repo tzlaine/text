@@ -10,6 +10,9 @@
 
 namespace boost { namespace trie {
 
+    // TODO: Consider an optimization that creates a single node for long
+    // nonbranching chains of nodes.
+
     template<typename Key, typename Value>
     struct trie_iterator;
 
@@ -111,7 +114,7 @@ namespace boost { namespace trie {
         struct trie_iterator_state_t
         {
             trie_node_t<Key, Value> const * parent_;
-            std::ptrdiff_t index_;
+            std::size_t index_;
         };
 
         template<typename Key, typename Value>
@@ -125,7 +128,7 @@ namespace boost { namespace trie {
                 [state](std::unique_ptr<trie_node_t<Key, Value>> const & ptr) {
                     return ptr.get() == state.parent_;
                 });
-            return {new_parent, it - new_parent->begin()};
+            return {new_parent, std::size_t(it - new_parent->begin())};
         }
 
 #if 0 // TODO: Use this instead!  The parent's child list could be arbitrarily
@@ -140,6 +143,16 @@ namespace boost { namespace trie {
             return {new_parent, it - new_parent->children_.begin()};
         }
 #endif
+
+        template<typename Key, typename Value>
+        trie_node_t<Key, Value> const *
+        to_node(trie_iterator_state_t<Key, Value> state)
+        {
+            if (state.index_ < state.parent_->size())
+                return state.parent_->child(state.index_);
+            return nullptr;
+        }
+
     }
 
     template<typename Key, typename Value>
@@ -424,15 +437,27 @@ namespace boost { namespace trie {
         template<typename KeyIter>
         insert_result insert(KeyIter first, KeyIter last, Value value)
         {
+            std::cout << "inserting \"" << std::string(first, last) << "\"\n";
+            if (empty()) {
+                std::unique_ptr<node_t> new_node(new node_t(&root_));
+                std::cout << "Inserted under root: " << (void*)new_node.get() << "\n";
+                root_.insert(std::move(new_node));
+            }
+
+            auto const initial_first = first;
             auto match = longest_match_impl(first, last);
+            std::cout << "longest match node: " << (void *)match.result_.node
+                      << ", parent:" << match.result_.node->parent() << "\n";
             if (first == last && match.result_.node->value()) {
+                std::cout << "==================== Early return!\n";
                 return {iterator(iter_state_t{match.result_.node->parent(),
                                               match.index_within_parent_}),
                         false};
             }
             auto node = create_children(
                 const_cast<node_t *>(match.result_.node), first, last);
-            node->value() = element{key_type{first, last}, std::move(value)};
+            node->value() =
+                element{key_type{initial_first, last}, std::move(value)};
             ++size_;
             return {iterator(iter_state_t{node->parent(), 0}), true};
         }
@@ -500,8 +525,8 @@ namespace boost { namespace trie {
             // node has a value, *and* no children.  Remove it and all its
             // singular predecessors.
             const_cast<node_t *>(state.parent_)->erase(state.index_);
-            while (state.parent_->parent() && state.parent_->empty() &&
-                   !state.parent_->value()) {
+            while (state.parent_->parent() != state.parent_ &&
+                   state.parent_->empty() && !state.parent_->value()) {
                 state = parent_state(state);
                 const_cast<node_t *>(state.parent_)->erase(state.index_);
             }
@@ -522,7 +547,7 @@ namespace boost { namespace trie {
 
         void swap(trie & other)
         {
-            std::swap(root_, other.root_);
+            root_.swap(other.root_);
             std::swap(size_, other.size_);
             std::swap(comp_, other.comp_);
         }
@@ -543,7 +568,7 @@ namespace boost { namespace trie {
         struct priv_match_result
         {
             match_result result_;
-            std::ptrdiff_t index_within_parent_;
+            std::size_t index_within_parent_;
         };
 
         template<typename KeyIter>
@@ -559,12 +584,20 @@ namespace boost { namespace trie {
             priv_match_result prev, KeyIter & first, KeyIter last) const
             noexcept
         {
+            if (prev.result_.node == &root_) {
+                if (root_.empty())
+                    return prev;
+                prev.result_.node = root_.child(0);
+            }
+
             if (first == last)
                 return prev;
 
             node_t const * node = prev.result_.node;
             size_type size = prev.result_.size;
-            std::ptrdiff_t parent_index = 0;
+            std::size_t parent_index = 0;
+            std::cout << "extend_match_impl\n";
+            std::cout << "initial node: " << (void*)node << "\n";
             while (first != last) {
                 auto const it = node->find(*first, comp_);
                 if (it == node->end())
@@ -575,6 +608,7 @@ namespace boost { namespace trie {
                 parent_index = it - node->begin();
             }
 
+            std::cout << "final node: " << (void*)node << "\n";
             return {match_result{node, size, !!node->value()}, parent_index};
         }
 
@@ -615,23 +649,31 @@ namespace boost { namespace trie {
 
         const_trie_iterator & operator++() noexcept
         {
-            ++state_.index_;
-            auto const first_state = state_;
-            while (state_.parent_->parent() &&
-                   state_.index_ == state_.parent_->size()) {
-                state_ = parent_state(state_);
+            auto node = to_node(state_);
+            if (node && !node->empty()) {
+                state_.parent_ = node;
+                state_.index_ = 0;
+            } else {
+                // Try the next sibling node.
                 ++state_.index_;
+                auto const first_state = state_;
+                while (state_.parent_->parent()->parent() &&
+                       state_.parent_->size() <= state_.index_) {
+                    state_ = parent_state(state_);
+                    ++state_.index_;
+                }
+
+                // If we went all the way up, incrementing indices, and they
+                // were all at size() for each node, the first increment above
+                // must have taken us to the end; use that.
+                if (!state_.parent_->parent()->parent() &&
+                    state_.parent_->size() <= state_.index_) {
+                    state_ = first_state;
+                    return *this;
+                }
             }
 
-            // If we went all the way up, incrementing indices, and they were
-            // all at size() for each node, this is the end.
-            if (!state_.parent_->parent() &&
-                state_.index_ == state_.parent_->size()) {
-                state_ = first_state;
-                return *this;
-            }
-
-            auto node = state_.parent_->child(state_.index_);
+            node = state_.parent_->child(state_.index_);
             while (!node->value()) {
                 auto i = 0u;
                 node = node->child(i);
@@ -648,6 +690,25 @@ namespace boost { namespace trie {
         }
         const_trie_iterator & operator--() noexcept
         {
+#if 1
+            while (state_.parent_->parent() && state_.index_ == 0) {
+                state_ = parent_state(state_);
+            }
+
+            if (!state_.parent_->parent()) {
+                assert(state_.index_ == 0);
+                // One-before-begin.
+                --state_.index_;
+                return *this;
+            }
+
+            auto node = state_.parent_->child(state_.index_);
+            while (!node->value()) {
+                auto i = node->size() - 1;
+                node = node->child(i);
+                state_ = state_t{node->parent(), i};
+            }
+#else
             // This crazy underflow behavior makes --my_trie.begin() work, and
             // thus makes my_trie.rend() easy to write.
             --state_.index_;
@@ -672,6 +733,7 @@ namespace boost { namespace trie {
                 node = node->child(i);
                 state_ = state_t{node->parent(), i};
             }
+#endif
 
             return *this;
         }
@@ -918,11 +980,28 @@ namespace boost { namespace trie {
                     children_.push_back(std::move(new_node));
                 }
             }
-            trie_node_t(trie_node_t && other) = default;
+            trie_node_t(trie_node_t && other) : parent_(nullptr)
+            {
+                swap(other);
+            }
             trie_node_t & operator=(trie_node_t const & rhs)
             {
+                assert(
+                    parent_ == nullptr &&
+                    "Assignment of trie_node_ts are defined only for the root "
+                    "node.");
                 trie_node_t temp(rhs);
-                std::swap(temp, *this);
+                temp.swap(*this);
+                return *this;
+            }
+            trie_node_t & operator=(trie_node_t && rhs)
+            {
+                assert(
+                    parent_ == nullptr &&
+                    "Move assignments of trie_node_ts are defined only for the "
+                    "root node.");
+                trie_node_t temp(std::move(rhs));
+                temp.swap(*this);
                 return *this;
             }
 
@@ -931,7 +1010,7 @@ namespace boost { namespace trie {
                 return value_;
             }
 
-            trie_element<Key, Value> & child_value(std::ptrdiff_t i) const
+            trie_element<Key, Value> & child_value(std::size_t i) const
             {
                 return *children_[i]->value_;
             }
@@ -947,7 +1026,7 @@ namespace boost { namespace trie {
             }
 
             bool empty() const noexcept { return children_.size() == 0; }
-            std::ptrdiff_t size() const noexcept { return children_.size(); }
+            std::size_t size() const noexcept { return children_.size(); }
 
             bool min_value() const noexcept
             {
@@ -989,9 +1068,26 @@ namespace boost { namespace trie {
                     return nullptr;
                 return it->get();
             }
-            trie_node_t const * child(std::ptrdiff_t i) const noexcept
+            trie_node_t const * child(std::size_t i) const noexcept
             {
                 return children_[i].get();
+            }
+
+            void swap(trie_node_t & other)
+            {
+                assert(
+                    parent_ == nullptr &&
+                    "Swaps of trie_node_ts are defined only for the root "
+                    "node.");
+                keys_.swap(other.keys_);
+                children_.swap(other.children_);
+                value_.swap(other.value_);
+                for (auto const & node : children_) {
+                    node->parent_ = this;
+                }
+                for (auto const & node : other.children_) {
+                    node->parent_ = &other;
+                }
             }
 
             optional<trie_element<Key, Value>> & value() noexcept
@@ -1013,7 +1109,12 @@ namespace boost { namespace trie {
                 auto child_it = children_.begin() + (it - keys_.begin());
                 return children_.insert(child_it, std::move(child));
             }
-            void erase(std::ptrdiff_t i) noexcept
+            iterator insert(std::unique_ptr<trie_node_t> && child)
+            {
+                assert(empty());
+                return children_.insert(children_.begin(), std::move(child));
+            }
+            void erase(std::size_t i) noexcept
             {
                 keys_.erase(keys_.begin() + i);
                 children_.erase(children_.begin() + i);
@@ -1041,7 +1142,7 @@ namespace boost { namespace trie {
             {
                 return const_cast<trie_node_t *>(const_this()->child(e, comp));
             }
-            trie_node_t * child(std::ptrdiff_t i) noexcept
+            trie_node_t * child(std::size_t i) noexcept
             {
                 return const_cast<trie_node_t *>(const_this()->child(i));
             }
