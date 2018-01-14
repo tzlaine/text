@@ -8,6 +8,7 @@
 
 using namespace boost;
 
+#if 0
 TEST(trie, ctors)
 {
     {
@@ -338,4 +339,125 @@ TEST(trie, erase)
     // TODO
     trie.erase("foo");
 }
+#endif
 
+TEST(trie_node_t, all)
+{
+    using node_t = trie::detail::trie_node_t<std::string, int>;
+
+    {
+        node_t node;
+        EXPECT_FALSE(node.value());
+        EXPECT_EQ(node.parent(), nullptr);
+        EXPECT_TRUE(node.empty());
+        EXPECT_EQ(node.size(), 0);
+        EXPECT_EQ(node.begin(), node.end());
+        EXPECT_EQ(node.lower_bound('z', std::less<>{}), node.end());
+        EXPECT_EQ(node.find('z', std::less<>{}), node.end());
+        EXPECT_EQ(node.child('z', std::less<>{}), nullptr);
+    }
+
+    {
+        node_t const node(nullptr);
+        EXPECT_FALSE(node.value());
+        EXPECT_EQ(node.parent(), nullptr);
+        EXPECT_TRUE(node.empty());
+        EXPECT_EQ(node.size(), 0);
+        EXPECT_EQ(node.begin(), node.end());
+        EXPECT_EQ(node.lower_bound('z', std::less<>{}), node.end());
+        EXPECT_EQ(node.find('z', std::less<>{}), node.end());
+        EXPECT_EQ(node.child('z', std::less<>{}), nullptr);
+    }
+
+    {
+        node_t root;
+
+        std::unique_ptr<node_t> leaf_z(new node_t(&root));
+        node_t * const z_ptr = leaf_z.get();
+        root.insert('z', std::less<>{}, std::move(leaf_z));
+        std::unique_ptr<node_t> leaf_a(new node_t(&root));
+        node_t * const a_ptr = leaf_a.get();
+        root.insert('a', std::less<>{}, std::move(leaf_a));
+
+        EXPECT_FALSE(root.value());
+        EXPECT_EQ(root.parent(), nullptr);
+        EXPECT_EQ(root.min_child(), a_ptr);
+        EXPECT_EQ(root.max_child(), z_ptr);
+        EXPECT_FALSE(root.empty());
+        EXPECT_EQ(root.size(), 2);
+        EXPECT_FALSE(root.min_value());
+        EXPECT_FALSE(root.max_value());
+        EXPECT_NE(root.begin(), root.end());
+        EXPECT_EQ(root.lower_bound('a', std::less<>{}), root.begin());
+        EXPECT_EQ(root.find('a', std::less<>{}), root.begin());
+        EXPECT_EQ(root.child('a', std::less<>{}), a_ptr);
+        EXPECT_EQ(root.lower_bound('z', std::less<>{}), ++root.begin());
+        EXPECT_EQ(root.find('z', std::less<>{}), ++root.begin());
+        EXPECT_EQ(root.child('z', std::less<>{}), z_ptr);
+
+        root.erase(0);
+
+        EXPECT_FALSE(root.value());
+        EXPECT_EQ(root.parent(), nullptr);
+        EXPECT_EQ(root.min_child(), z_ptr);
+        EXPECT_EQ(root.max_child(), z_ptr);
+        EXPECT_FALSE(root.empty());
+        EXPECT_EQ(root.size(), 1);
+        EXPECT_FALSE(root.min_value());
+        EXPECT_FALSE(root.max_value());
+        EXPECT_NE(root.begin(), root.end());
+        EXPECT_EQ(root.lower_bound('a', std::less<>{}), root.begin());
+        EXPECT_EQ(root.find('a', std::less<>{}), root.end());
+        EXPECT_EQ(root.child('a', std::less<>{}), nullptr);
+        EXPECT_EQ(root.lower_bound('z', std::less<>{}), root.begin());
+        EXPECT_EQ(root.find('z', std::less<>{}), root.begin());
+        EXPECT_EQ(root.child('z', std::less<>{}), z_ptr);
+    }
+
+    {
+        node_t root_;
+
+        std::unique_ptr<node_t> leaf_z(new node_t(&root_));
+        node_t * const z_ptr = leaf_z.get();
+        root_.insert('z', std::less<>{}, std::move(leaf_z));
+        std::unique_ptr<node_t> leaf_a(new node_t(&root_));
+        node_t * const a_ptr = leaf_a.get();
+        root_.insert('a', std::less<>{}, std::move(leaf_a));
+
+        node_t const & root = root_;
+
+        EXPECT_FALSE(root.value());
+        EXPECT_EQ(root.parent(), nullptr);
+        EXPECT_EQ(root.min_child(), a_ptr);
+        EXPECT_EQ(root.max_child(), z_ptr);
+        EXPECT_FALSE(root.empty());
+        EXPECT_EQ(root.size(), 2);
+        EXPECT_FALSE(root.min_value());
+        EXPECT_FALSE(root.max_value());
+        EXPECT_NE(root.begin(), root.end());
+        EXPECT_EQ(root.lower_bound('a', std::less<>{}), root.begin());
+        EXPECT_EQ(root.find('a', std::less<>{}), root.begin());
+        EXPECT_EQ(root.child('a', std::less<>{}), a_ptr);
+        EXPECT_EQ(root.lower_bound('z', std::less<>{}), ++root.begin());
+        EXPECT_EQ(root.find('z', std::less<>{}), ++root.begin());
+        EXPECT_EQ(root.child('z', std::less<>{}), z_ptr);
+
+        root_.erase(0);
+
+        EXPECT_FALSE(root.value());
+        EXPECT_EQ(root.parent(), nullptr);
+        EXPECT_EQ(root.min_child(), z_ptr);
+        EXPECT_EQ(root.max_child(), z_ptr);
+        EXPECT_FALSE(root.empty());
+        EXPECT_EQ(root.size(), 1);
+        EXPECT_FALSE(root.min_value());
+        EXPECT_FALSE(root.max_value());
+        EXPECT_NE(root.begin(), root.end());
+        EXPECT_EQ(root.lower_bound('a', std::less<>{}), root.begin());
+        EXPECT_EQ(root.find('a', std::less<>{}), root.end());
+        EXPECT_EQ(root.child('a', std::less<>{}), nullptr);
+        EXPECT_EQ(root.lower_bound('z', std::less<>{}), root.begin());
+        EXPECT_EQ(root.find('z', std::less<>{}), root.begin());
+        EXPECT_EQ(root.child('z', std::less<>{}), z_ptr);
+    }
+}

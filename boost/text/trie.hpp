@@ -959,7 +959,7 @@ namespace boost { namespace trie {
             }
 
             const_iterator begin() const noexcept { return children_.begin(); }
-            const_iterator end() const noexcept { return children_.begin(); }
+            const_iterator end() const noexcept { return children_.end(); }
 
             template<typename Compare>
             const_iterator
@@ -975,7 +975,7 @@ namespace boost { namespace trie {
             {
                 auto const it = lower_bound(e, comp);
                 auto const end_ = end();
-                if (it != end_ && comp(key(it), e))
+                if (it != end_ && comp(e, key(it)))
                     return end_;
                 return it;
             }
@@ -984,8 +984,8 @@ namespace boost { namespace trie {
             trie_node_t const *
             child(key_element const & e, Compare const & comp) const noexcept
             {
-                auto const it = lower_bound(e, comp);
-                if (it == children_.end() || comp((*it)->e_, e))
+                auto const it = find(e, comp);
+                if (it == children_.end())
                     return nullptr;
                 return it->get();
             }
@@ -1000,7 +1000,7 @@ namespace boost { namespace trie {
             }
 
             iterator begin() noexcept { return children_.begin(); }
-            iterator end() noexcept { return children_.begin(); }
+            iterator end() noexcept { return children_.end(); }
 
             template<typename Compare>
             iterator insert(
@@ -1008,11 +1008,14 @@ namespace boost { namespace trie {
                 Compare const & comp,
                 std::unique_ptr<trie_node_t> && child)
             {
-                auto const it = lower_bound(e, comp);
-                return children_.insert(it, std::move(child));
+                auto it = std::lower_bound(keys_.begin(), keys_.end(), e);
+                it = keys_.insert(it, e);
+                auto child_it = children_.begin() + (it - keys_.begin());
+                return children_.insert(child_it, std::move(child));
             }
             void erase(std::ptrdiff_t i) noexcept
             {
+                keys_.erase(keys_.begin() + i);
                 children_.erase(children_.begin() + i);
             }
 
