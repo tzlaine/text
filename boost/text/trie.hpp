@@ -140,12 +140,6 @@ namespace boost { namespace trie {
             return {new_parent, it - new_parent->children_.begin()};
         }
 #endif
-
-        // TODO
-        template<typename T>
-        struct is_pair_iterator : std::false_type
-        {
-        };
     }
 
     template<typename Key, typename Value>
@@ -223,21 +217,6 @@ namespace boost { namespace trie {
             insert(begin(r), end(r));
         }
         trie(std::initializer_list<value_type> il) : size_(0) { insert(il); }
-        // TODO: Needs implementation and testing.
-        template<typename PairIter>
-        trie(
-            PairIter first,
-            PairIter last,
-            Compare const & comp = Compare(),
-            std::enable_if<detail::is_pair_iterator<PairIter>::value> * =
-                nullptr) :
-            size_(0),
-            comp_(comp)
-        {
-            for (; first != last; ++first) {
-                insert(first->first, first->second);
-            }
-        }
 
         trie & operator=(std::initializer_list<value_type> il)
         {
