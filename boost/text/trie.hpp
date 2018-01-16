@@ -164,7 +164,6 @@ namespace boost { namespace trie {
                 return state.parent_->child(state.index_);
             return nullptr;
         }
-
     }
 
     template<typename Key, typename Value>
@@ -679,8 +678,8 @@ namespace boost { namespace trie {
                 // children, use the successor of this node; let
                 // const_iterator::operator++() figure out for us which node
                 // that is.
-                return ++const_iterator(iter_state_t{
-                    node->parent(), match.index_within_parent_});
+                return ++const_iterator(
+                    iter_state_t{node->parent(), match.index_within_parent_});
             }
 
             auto const it = node->lower_bound(*first, comp_);

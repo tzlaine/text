@@ -103,7 +103,7 @@ TEST(trie, iterators)
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
 
 #if ENABLE_DUMP
-        //dump(std::cout, trie);
+        // dump(std::cout, trie);
 #endif
 
         auto const _it = trie.begin();
@@ -135,7 +135,7 @@ TEST(trie, iterators)
             {{"foo", 13}, {"bar", 17}, {"foos", 19}});
 
 #if ENABLE_DUMP
-        //dump(std::cout, trie);
+        // dump(std::cout, trie);
 #endif
 
         auto const bar_it = trie.begin();
@@ -163,7 +163,7 @@ TEST(trie, iterators)
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
 #if ENABLE_DUMP
-        //dump(std::cout, trie);
+        // dump(std::cout, trie);
 #endif
 
         auto const _0_it = trie.begin();
@@ -250,24 +250,24 @@ TEST(trie, const_access)
 
     {
         trie::trie<std::string, int> const trie({{"", 42}});
-         auto const _it = trie.begin();
-         EXPECT_EQ(_it->key, "");
+        auto const _it = trie.begin();
+        EXPECT_EQ(_it->key, "");
 
-         auto const match = trie.longest_match("whatever");
-         EXPECT_TRUE(match.node != nullptr);
-         EXPECT_EQ(match.size, 0);
-         EXPECT_EQ(match.match, true);
+        auto const match = trie.longest_match("whatever");
+        EXPECT_TRUE(match.node != nullptr);
+        EXPECT_EQ(match.size, 0);
+        EXPECT_EQ(match.match, true);
     }
 
     {
         trie::trie<std::string, int> const trie({{"w", 42}});
-         auto const _it = trie.begin();
-         EXPECT_EQ(_it->key, "w");
+        auto const _it = trie.begin();
+        EXPECT_EQ(_it->key, "w");
 
-         auto const match = trie.longest_match("whatever");
-         EXPECT_TRUE(match.node != nullptr);
-         EXPECT_EQ(match.size, 1);
-         EXPECT_EQ(match.match, true);
+        auto const match = trie.longest_match("whatever");
+        EXPECT_TRUE(match.node != nullptr);
+        EXPECT_EQ(match.size, 1);
+        EXPECT_EQ(match.match, true);
     }
 
     {
@@ -275,7 +275,7 @@ TEST(trie, const_access)
             {{"foo", 13}, {"bar", 17}, {"fool", 19}, {"foon", 19}, {"", 42}});
 
 #if ENABLE_DUMP
-        //dump(std::cout, trie);
+        // dump(std::cout, trie);
 #endif
 
         EXPECT_EQ(trie.size(), 5);
@@ -463,24 +463,24 @@ TEST(trie, mutable_access)
 
     {
         trie::trie<std::string, int> trie({{"", 42}});
-         auto const _it = trie.begin();
-         EXPECT_EQ(_it->key, "");
+        auto const _it = trie.begin();
+        EXPECT_EQ(_it->key, "");
 
-         auto const match = trie.longest_match("whatever");
-         EXPECT_TRUE(match.node != nullptr);
-         EXPECT_EQ(match.size, 0);
-         EXPECT_EQ(match.match, true);
+        auto const match = trie.longest_match("whatever");
+        EXPECT_TRUE(match.node != nullptr);
+        EXPECT_EQ(match.size, 0);
+        EXPECT_EQ(match.match, true);
     }
 
     {
         trie::trie<std::string, int> trie({{"w", 42}});
-         auto const _it = trie.begin();
-         EXPECT_EQ(_it->key, "w");
+        auto const _it = trie.begin();
+        EXPECT_EQ(_it->key, "w");
 
-         auto const match = trie.longest_match("whatever");
-         EXPECT_TRUE(match.node != nullptr);
-         EXPECT_EQ(match.size, 1);
-         EXPECT_EQ(match.match, true);
+        auto const match = trie.longest_match("whatever");
+        EXPECT_TRUE(match.node != nullptr);
+        EXPECT_EQ(match.size, 1);
+        EXPECT_EQ(match.match, true);
     }
 
     {
@@ -488,7 +488,7 @@ TEST(trie, mutable_access)
             {{"foo", 13}, {"bar", 17}, {"fool", 19}, {"foon", 19}, {"", 42}});
 
 #if ENABLE_DUMP
-        //dump(std::cout, trie);
+        // dump(std::cout, trie);
 #endif
 
         EXPECT_EQ(trie.size(), 5);
