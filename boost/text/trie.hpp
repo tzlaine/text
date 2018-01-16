@@ -2,6 +2,7 @@
 #define BOOST_TEXT_TRIE_HPP
 
 #include <boost/optional.hpp>
+#include <boost/text/string_view.hpp>
 
 #include <memory>
 #include <type_traits>
@@ -256,12 +257,15 @@ namespace boost { namespace trie {
         }
         const_iterator end() const noexcept
         {
-            iter_state_t state{&root_, root_.size()};
+            iter_state_t state{&root_, 0};
             if (size_) {
-                while (!state.parent_->max_value()) {
+                node_t const * node = nullptr;
+                while ((node = to_node(state))) {
+                    state.parent_ = node;
                     state.index_ = state.parent_->size() - 1;
-                    state.parent_ = state.parent_->max_child();
                 }
+                state.parent_ = state.parent_->parent();
+                state.index_ = state.parent_->size();
             }
             return const_iterator(state);
         }
@@ -279,70 +283,64 @@ namespace boost { namespace trie {
         const_reverse_iterator crbegin() const noexcept { return rbegin(); }
         const_reverse_iterator crend() const noexcept { return rend(); }
 
-        template<typename KeyT>
-        bool contains(KeyT const & key) const noexcept
+        // TODO: Figure out the right way to do this.
+#define BOOST_TRIE_C_STR_OVERLOAD(rtype, func, quals)                          \
+    rtype func(char const * chars) quals                                       \
+    {                                                                          \
+        static_assert(                                                         \
+            std::is_same<key_element_type, char>::value,                       \
+            "Only well-formed when Key::value_type is char.");                 \
+        return func(text::string_view(chars));                                 \
+    }
+
+        template<typename KeyRange>
+        bool contains(KeyRange const & key) const noexcept
         {
             return find(key) != end();
         }
 
-        template<typename KeyT>
-        const_iterator find(KeyT const & key) const noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
+
+        template<typename KeyRange>
+        const_iterator find(KeyRange const & key) const noexcept
         {
             using std::begin;
             using std::end;
             auto first = begin(key);
             auto const last = end(key);
             auto match = longest_match_impl(first, last);
-            if (match.result_.match) {
+            if (first == last && match.result_.match) {
                 return const_iterator(iter_state_t{match.result_.node->parent(),
                                                    match.index_within_parent_});
             }
             return this->end();
         }
 
-        template<typename KeyT>
-        const_iterator lower_bound(KeyT const & key) const noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(const_iterator, find, const noexcept)
+
+        template<typename KeyRange>
+        const_iterator lower_bound(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
-            auto match = longest_match_impl(first, last);
-            if (match.result_.match) {
-                return const_iterator(iter_state_t{match.result_.node->parent(),
-                                                   match.index_within_parent_});
-            }
-            auto node = match.result_.node;
-            while (!node->value()) {
-                node = node->min_child();
-            }
-            return const_iterator(iter_state_t{node->parent(), 0});
+            return bound_impl<true>(key);
         }
 
-        template<typename KeyT>
-        const_iterator upper_bound(KeyT const & key) const noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(const_iterator, lower_bound, const noexcept)
+
+        template<typename KeyRange>
+        const_iterator upper_bound(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
-            auto match = longest_match_impl(first, last);
-            if (match.result_.match) {
-                return ++const_iterator(iter_state_t{
-                    match.result_.node->parent(), match.index_within_parent_});
-            }
-            auto node = match.result_.node;
-            while (!node->value()) {
-                node = node->min_child();
-            }
-            return const_iterator(iter_state_t{node->parent(), 0});
+            return bound_impl<false>(key);
         }
 
-        template<typename KeyT>
-        const_range equal_range(KeyT const & key) const noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(const_iterator, upper_bound, const noexcept)
+
+        template<typename KeyRange>
+        const_range equal_range(KeyRange const & key) const noexcept
         {
             return {lower_bound(key), upper_bound(key)};
         }
+
+        BOOST_TRIE_C_STR_OVERLOAD(const_range, equal_range, const noexcept)
 
         template<typename KeyIter>
         match_result longest_match(KeyIter first, KeyIter last) const noexcept
@@ -350,13 +348,15 @@ namespace boost { namespace trie {
             return longest_match_impl(first, last).result_;
         }
 
-        template<typename KeyT>
-        match_result longest_match(KeyT const & key) const noexcept
+        template<typename KeyRange>
+        match_result longest_match(KeyRange const & key) const noexcept
         {
             using std::begin;
             using std::end;
             return longest_match(begin(key), end(key));
         }
+
+        BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
 
         template<typename KeyElementT>
         match_result extend_match(match_result prev, KeyElementT e) const
@@ -376,14 +376,17 @@ namespace boost { namespace trie {
                 .result_;
         }
 
-        template<typename KeyT>
-        optional<mapped_type> operator[](KeyT const & key) const noexcept
+        template<typename KeyRange>
+        optional<mapped_type> operator[](KeyRange const & key) const noexcept
         {
             auto it = find(key);
             if (it == end())
                 return {};
             return it->value;
         }
+
+        BOOST_TRIE_C_STR_OVERLOAD(
+            optional<mapped_type>, operator[], const noexcept)
 
         iterator begin() noexcept { return iterator(const_this()->begin()); }
         iterator end() noexcept { return iterator(const_this()->end()); }
@@ -401,32 +404,40 @@ namespace boost { namespace trie {
             size_ = 0;
         }
 
-        template<typename KeyT>
-        iterator find(KeyT const & key) noexcept
+        template<typename KeyRange>
+        iterator find(KeyRange const & key) noexcept
         {
             return iterator(const_this()->find(key));
         }
 
-        template<typename KeyT>
-        iterator lower_bound(KeyT const & key) noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(iterator, find, noexcept)
+
+        template<typename KeyRange>
+        iterator lower_bound(KeyRange const & key) noexcept
         {
             return iterator(const_this()->lower_bound(key));
         }
 
-        template<typename KeyT>
-        iterator upper_bound(KeyT const & key) noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(iterator, lower_bound, noexcept)
+
+        template<typename KeyRange>
+        iterator upper_bound(KeyRange const & key) noexcept
         {
             return iterator(const_this()->upper_bound(key));
         }
 
-        template<typename KeyT>
-        range equal_range(KeyT const & key) noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(iterator, upper_bound, noexcept)
+
+        template<typename KeyRange>
+        range equal_range(KeyRange const & key) noexcept
         {
             return {lower_bound(key), upper_bound(key)};
         }
 
-        template<typename KeyT>
-        optional<mapped_type &> operator[](KeyT const & key) noexcept
+        BOOST_TRIE_C_STR_OVERLOAD(range, equal_range, noexcept)
+
+        template<typename KeyRange>
+        optional<mapped_type &> operator[](KeyRange const & key) noexcept
         {
             auto it = find(key);
             if (it == end())
@@ -434,22 +445,19 @@ namespace boost { namespace trie {
             return it->value;
         }
 
+        BOOST_TRIE_C_STR_OVERLOAD(optional<mapped_type &>, operator[], noexcept)
+
         template<typename KeyIter>
         insert_result insert(KeyIter first, KeyIter last, Value value)
         {
-            std::cout << "inserting \"" << std::string(first, last) << "\"\n";
             if (empty()) {
                 std::unique_ptr<node_t> new_node(new node_t(&root_));
-                std::cout << "Inserted under root: " << (void*)new_node.get() << "\n";
                 root_.insert(std::move(new_node));
             }
 
             auto const initial_first = first;
             auto match = longest_match_impl(first, last);
-            std::cout << "longest match node: " << (void *)match.result_.node
-                      << ", parent:" << match.result_.node->parent() << "\n";
-            if (first == last && match.result_.node->value()) {
-                std::cout << "==================== Early return!\n";
+            if (first == last && match.result_.match) {
                 return {iterator(iter_state_t{match.result_.node->parent(),
                                               match.index_within_parent_}),
                         false};
@@ -461,6 +469,7 @@ namespace boost { namespace trie {
             ++size_;
             return {iterator(iter_state_t{node->parent(), 0}), true};
         }
+
         template<typename KeyRange>
         insert_result insert(KeyRange const & key, Value value)
         {
@@ -468,6 +477,9 @@ namespace boost { namespace trie {
             using std::end;
             return insert(begin(key), end(key), std::move(value));
         }
+
+        BOOST_TRIE_C_STR_OVERLOAD(insert_result, insert, )
+
         insert_result insert(element e)
         {
             using std::begin;
@@ -488,6 +500,7 @@ namespace boost { namespace trie {
             using std::end;
             return insert(begin(r), end(r));
         }
+
         void insert(std::initializer_list<value_type> il)
         {
             for (auto const & x : il) {
@@ -495,8 +508,8 @@ namespace boost { namespace trie {
             }
         }
 
-        template<typename KeyT>
-        bool erase(KeyT const & key)
+        template<typename KeyRange>
+        bool erase(KeyRange const & key) noexcept
         {
             auto it = find(key);
             if (it == end())
@@ -504,6 +517,9 @@ namespace boost { namespace trie {
             erase(it);
             return true;
         }
+
+        BOOST_TRIE_C_STR_OVERLOAD(bool, erase, noexcept)
+
         iterator erase(iterator it)
         {
             auto state = it.it_.state_;
@@ -590,25 +606,24 @@ namespace boost { namespace trie {
                 prev.result_.node = root_.child(0);
             }
 
-            if (first == last)
+            if (first == last) {
+                prev.result_.match = !!prev.result_.node->value();
                 return prev;
+            }
 
             node_t const * node = prev.result_.node;
             size_type size = prev.result_.size;
             std::size_t parent_index = 0;
-            std::cout << "extend_match_impl\n";
-            std::cout << "initial node: " << (void*)node << "\n";
             while (first != last) {
                 auto const it = node->find(*first, comp_);
                 if (it == node->end())
                     break;
                 ++first;
                 ++size;
-                node = it->get();
                 parent_index = it - node->begin();
+                node = it->get();
             }
 
-            std::cout << "final node: " << (void*)node << "\n";
             return {match_result{node, size, !!node->value()}, parent_index};
         }
 
@@ -624,6 +639,52 @@ namespace boost { namespace trie {
             return retval;
         }
 
+        template<bool LowerBound, typename KeyRange>
+        const_iterator bound_impl(KeyRange const & key) const noexcept
+        {
+            using std::begin;
+            using std::end;
+            auto first = begin(key);
+            auto const last = end(key);
+            auto match = longest_match_impl(first, last);
+            if (first == last && match.result_.match) {
+                auto retval = const_iterator(iter_state_t{
+                    match.result_.node->parent(), match.index_within_parent_});
+                if (!LowerBound)
+                    ++retval;
+                return retval;
+            }
+
+            auto node = match.result_.node;
+            if (node->before_child_subtree(*first)) {
+                // If the next element of the key would be before this node's
+                // children, use the successor of this node; let
+                // const_iterator::operator++() figure out for us which node
+                // that is.
+                return ++const_iterator(iter_state_t{
+                    node->parent(), match.index_within_parent_});
+            }
+
+            auto const it = node->lower_bound(*first, comp_);
+            if (it == node->end()) {
+                // Find the max value in this subtree, and go one past that.
+                do {
+                    node = node->max_child();
+                } while (!node->value());
+                return ++const_iterator(
+                    iter_state_t{node->parent(), node->parent()->size() - 1});
+            }
+
+            // Otherwise, find the min value within the child found above.
+            std::size_t parent_index = it - node->begin();
+            node = it->get();
+            while (!node->value()) {
+                node = node->min_child();
+                parent_index = 0;
+            }
+            return const_iterator(iter_state_t{node->parent(), parent_index});
+        }
+
         node_t root_;
         key_compare comp_;
         size_type size_;
@@ -633,8 +694,8 @@ namespace boost { namespace trie {
     struct const_trie_iterator
     {
         using value_type = trie_element<Key, Value>;
-        using pointer = value_type *;
-        using reference = value_type &;
+        using pointer = const value_type *;
+        using reference = const value_type &;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -690,50 +751,30 @@ namespace boost { namespace trie {
         }
         const_trie_iterator & operator--() noexcept
         {
-#if 1
+            // Decrement-from-end case.
+            if (state_.index_ == state_.parent_->size()) {
+                --state_.index_;
+                return *this;
+            }
+
+            // Back up one node at a time until we find an ancestor with a
+            // value or a previous sibling.
             while (state_.parent_->parent() && state_.index_ == 0) {
                 state_ = parent_state(state_);
+                if (state_.parent_->child(state_.index_)->value())
+                    return *this;
             }
 
-            if (!state_.parent_->parent()) {
-                assert(state_.index_ == 0);
-                // One-before-begin.
+            // If we get found no value above, go down the maximum subtree of
+            // the previous sibling.
+            if (state_.index_)
                 --state_.index_;
-                return *this;
-            }
-
             auto node = state_.parent_->child(state_.index_);
             while (!node->value()) {
                 auto i = node->size() - 1;
                 node = node->child(i);
                 state_ = state_t{node->parent(), i};
             }
-#else
-            // This crazy underflow behavior makes --my_trie.begin() work, and
-            // thus makes my_trie.rend() easy to write.
-            --state_.index_;
-            auto const first_state = state_;
-            while (state_.parent_->parent() &&
-                   state_.parent_->size() <= state_.index_) {
-                state_ = parent_state(state_);
-                --state_.index_;
-            }
-
-            // If we went all the way up, incrementing indices, and they were
-            // all at size() for each node, this is one-minus-begin.
-            if (!state_.parent_->parent() &&
-                state_.parent_->size() <= state_.index_) {
-                state_ = first_state;
-                return *this;
-            }
-
-            auto node = state_.parent_->child(state_.index_);
-            while (!node->value()) {
-                auto i = node->size() - 1;
-                node = node->child(i);
-                state_ = state_t{node->parent(), i};
-            }
-#endif
 
             return *this;
         }
@@ -789,7 +830,7 @@ namespace boost { namespace trie {
 
         trie_iterator & operator++() noexcept
         {
-            --it_;
+            ++it_;
             return *this;
         }
         trie_iterator operator++(int)noexcept
@@ -800,7 +841,7 @@ namespace boost { namespace trie {
         }
         trie_iterator & operator--() noexcept
         {
-            ++it_;
+            --it_;
             return *this;
         }
         trie_iterator operator--(int)noexcept
@@ -816,7 +857,7 @@ namespace boost { namespace trie {
         }
         friend bool operator!=(trie_iterator lhs, trie_iterator rhs) noexcept
         {
-            return lhs.it_ != lhs.it_;
+            return lhs.it_ != rhs.it_;
         }
 
     private:
@@ -843,10 +884,10 @@ namespace boost { namespace trie {
 
         reverse_trie_iterator() noexcept {}
         explicit reverse_trie_iterator(trie_iterator<Key, Value> it) noexcept :
-            it_(--it)
+            it_(it)
         {}
 
-        reference operator*() const noexcept { return *it_; }
+        reference operator*() const noexcept { return *std::prev(it_); }
 
         pointer operator->() const noexcept { return &**this; }
 
@@ -858,7 +899,7 @@ namespace boost { namespace trie {
         reverse_trie_iterator operator++(int)noexcept
         {
             auto const retval = *this;
-            ++*this;
+            --*this;
             return retval;
         }
         reverse_trie_iterator & operator--() noexcept
@@ -869,7 +910,7 @@ namespace boost { namespace trie {
         reverse_trie_iterator operator--(int)noexcept
         {
             auto const retval = *this;
-            --*this;
+            ++*this;
             return retval;
         }
 
@@ -883,7 +924,7 @@ namespace boost { namespace trie {
         friend bool operator!=(
             reverse_trie_iterator lhs, reverse_trie_iterator rhs) noexcept
         {
-            return lhs.it_ != lhs.it_;
+            return lhs.it_ != rhs.it_;
         }
 
     private:
@@ -902,14 +943,14 @@ namespace boost { namespace trie {
         const_reverse_trie_iterator() noexcept {}
         explicit const_reverse_trie_iterator(
             const_trie_iterator<Key, Value> it) noexcept :
-            it_(--it)
+            it_(it)
         {}
         explicit const_reverse_trie_iterator(
             reverse_trie_iterator<Key, Value> it) noexcept :
             it_(it.it_)
         {}
 
-        reference operator*() const noexcept { return *it_; }
+        reference operator*() const noexcept { return *std::prev(it_); }
 
         pointer operator->() const noexcept { return &**this; }
 
@@ -921,7 +962,7 @@ namespace boost { namespace trie {
         const_reverse_trie_iterator operator++(int)noexcept
         {
             auto const retval = *this;
-            ++*this;
+            --*this;
             return retval;
         }
         const_reverse_trie_iterator & operator--() noexcept
@@ -932,7 +973,7 @@ namespace boost { namespace trie {
         const_reverse_trie_iterator operator--(int)noexcept
         {
             auto const retval = *this;
-            --*this;
+            ++*this;
             return retval;
         }
 
@@ -948,7 +989,7 @@ namespace boost { namespace trie {
             const_reverse_trie_iterator lhs,
             const_reverse_trie_iterator rhs) noexcept
         {
-            return lhs.it_ != lhs.it_;
+            return lhs.it_ != rhs.it_;
         }
 
     private:
@@ -1039,6 +1080,11 @@ namespace boost { namespace trie {
 
             const_iterator begin() const noexcept { return children_.begin(); }
             const_iterator end() const noexcept { return children_.end(); }
+
+            bool before_child_subtree(key_element const & e) const noexcept
+            {
+                return keys_.empty() || e < keys_.front();
+            }
 
             template<typename Compare>
             const_iterator
