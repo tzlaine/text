@@ -14,6 +14,15 @@ namespace boost { namespace trie {
     // TODO: Consider an optimization that creates a single node for long
     // nonbranching chains of nodes.
 
+    // TODO: Remove key storage in the nodes; rebuild the key as necessary in
+    // const_trie_iterator::operator*().
+
+    // TODO: Add a custom optional-like proxy type for the return type of
+    // mutable operator[] so that these are all well-formed:
+    // if (trie["foo"]) ...
+    // trie["foo"] = 1;
+    // auto const value = trie["foo"];
+
     template<typename Key, typename Value>
     struct trie_iterator;
 
@@ -115,9 +124,11 @@ namespace boost { namespace trie {
         struct trie_iterator_state_t
         {
             trie_node_t<Key, Value> const * parent_;
-            std::size_t index_;
+            std::size_t index_; // TODO: Iterator instead.
         };
 
+        // TODO: Perform an audit to see where calls to this function can be
+        // minimized (such as in the const_trie_iterator::operator{++,--}(().
         template<typename Key, typename Value>
         trie_iterator_state_t<Key, Value>
         parent_state(trie_iterator_state_t<Key, Value> state)
