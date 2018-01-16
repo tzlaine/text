@@ -489,7 +489,14 @@ namespace boost { namespace trie {
             return insert(begin(key), end(key), std::move(value));
         }
 
-        BOOST_TRIE_C_STR_OVERLOAD(insert_result, insert, )
+        // TODO: Must be treated the same as the macro used elsewhere.
+        insert_result insert(char const * chars, Value value)
+        {
+            static_assert(
+                std::is_same<key_element_type, char>::value,
+                "Only well-formed when Key::value_type is char.");
+            return insert(text::string_view(chars), std::move(value));
+        }
 
         insert_result insert(element e)
         {

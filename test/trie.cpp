@@ -677,12 +677,19 @@ TEST(trie, index_operator)
 
 TEST(trie, insert)
 {
-    trie::trie<std::string, int> trie(
-        {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
+    trie::trie<std::string, int> trie;
 
-    // TODO: Are these really necessary, considering how many things are
-    // implemented in terms of insert()? A: We still need to test double
-    // insertion of the same key.
+    auto result = trie.insert("", -214);
+    EXPECT_EQ(result.iter, trie.find(""));
+    EXPECT_TRUE(result.inserted);
+
+    result = trie.insert("", -214);
+    EXPECT_EQ(result.iter, trie.find(""));
+    EXPECT_FALSE(result.inserted);
+
+    result = trie.insert("", 0);
+    EXPECT_EQ(result.iter, trie.find(""));
+    EXPECT_FALSE(result.inserted);
 }
 
 #if 0
