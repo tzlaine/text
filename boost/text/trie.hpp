@@ -11,17 +11,8 @@
 
 namespace boost { namespace trie {
 
-    // TODO: Consider an optimization that creates a single node for long
-    // nonbranching chains of nodes.
-
     // TODO: Remove key storage in the nodes; rebuild the key as necessary in
     // const_trie_iterator::operator*().
-
-    // TODO: Add a custom optional-like proxy type for the return type of
-    // mutable operator[] so that these are all well-formed:
-    // if (trie["foo"]) ...
-    // trie["foo"] = 1;
-    // auto const value = trie["foo"];
 
     struct less
     {
@@ -30,6 +21,62 @@ namespace boost { namespace trie {
             noexcept(noexcept(std::less<T>{}(lhs, rhs)))
         {
             return std::less<T>{}(lhs, rhs);
+        }
+    };
+
+    template<typename T>
+    struct optional_ref
+    {
+    private:
+        T * t_;
+
+    public:
+        optional_ref() : t_(nullptr) {}
+        optional_ref(T & t) : t_(&t) {}
+
+        template<typename U>
+        auto operator=(U && u)
+            -> decltype(*this->t_ = static_cast<U &&>(u), *this)
+        {
+            *t_ = static_cast<U &&>(u);
+            return *this;
+        }
+
+        explicit operator bool() const noexcept { return t_ != nullptr; }
+
+        T const & operator*() const noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+        T const * operator->() const noexcept
+        {
+            assert(t_);
+            return t_;
+        }
+
+        operator T() const & noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+
+        T & operator*() noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+
+        T * operator->() noexcept
+        {
+            assert(t_);
+            return t_;
+        }
+
+        operator T() && noexcept
+        {
+            assert(t_);
+            return std::move(*t_);
         }
     };
 
@@ -457,7 +504,7 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(range, equal_range, noexcept)
 
         template<typename KeyRange>
-        optional<mapped_type &> operator[](KeyRange const & key) noexcept
+        optional_ref<mapped_type> operator[](KeyRange const & key) noexcept
         {
             auto it = find(key);
             if (it == end())
@@ -465,7 +512,7 @@ namespace boost { namespace trie {
             return it->value;
         }
 
-        BOOST_TRIE_C_STR_OVERLOAD(optional<mapped_type &>, operator[], noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD(optional_ref<mapped_type>, operator[], noexcept)
 
         template<typename KeyIter>
         insert_result insert(KeyIter first, KeyIter last, Value value)

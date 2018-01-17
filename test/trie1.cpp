@@ -449,6 +449,7 @@ TEST(trie, index_operator)
     EXPECT_TRUE(trie["foos"]);
     EXPECT_TRUE(trie[""]);
 
+    // boost::optional/std::optional style
     EXPECT_EQ(*trie["foo"], 13);
     EXPECT_EQ(*trie["bar"], 17);
     EXPECT_EQ(*trie["foos"], 19);
@@ -463,6 +464,23 @@ TEST(trie, index_operator)
     EXPECT_EQ(*trie["bar"], 1);
     EXPECT_EQ(*trie["foos"], 2);
     EXPECT_EQ(*trie[""], 3);
+
+    // new style
+    trie["foo"] = 3;
+    trie["bar"] = 2;
+    trie["foos"] = 1;
+    trie[""] = 0;
+
+    EXPECT_EQ(trie["foo"], 3);
+    EXPECT_EQ(trie["bar"], 2);
+    EXPECT_EQ(trie["foos"], 1);
+    EXPECT_EQ(trie[""], 0);
+
+    auto foo_ref = trie["foo"];
+    auto bar_ref = trie["bar"];
+    foo_ref = bar_ref;
+    EXPECT_EQ(foo_ref, 2);
+    EXPECT_EQ(bar_ref, 2);
 }
 
 TEST(trie, insert)
