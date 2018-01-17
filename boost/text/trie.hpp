@@ -797,7 +797,7 @@ namespace boost { namespace trie {
             if (state_.index_)
                 --state_.index_;
             auto node = state_.parent_->child(state_.index_);
-            while (!node->value()) {
+            while (!node->empty()) {
                 auto i = node->size() - 1;
                 node = node->child(i);
                 state_ = state_t{node->parent(), i};
