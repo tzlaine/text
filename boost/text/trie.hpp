@@ -572,17 +572,24 @@ namespace boost { namespace trie {
                 const_cast<node_t *>(state.parent_)->erase(state.index_);
             }
 
+            if (state.parent_->parent())
+                state = parent_state(state);
             auto retval = iterator(state);
-            ++retval;
+            if (!empty())
+                ++retval;
 
             return retval;
         }
         iterator erase(iterator first, iterator last)
         {
-            iterator retval = first;
-            while (last-- > first) {
-                retval = erase(last);
+            auto retval = last;
+            if (first == last)
+                return retval;
+            --last;
+            while (last != first) {
+                erase(last--);
             }
+            erase(last);
             return retval;
         }
 
@@ -1190,7 +1197,9 @@ namespace boost { namespace trie {
             }
             void erase(std::size_t i) noexcept
             {
-                keys_.erase(keys_.begin() + i);
+                // This empty-keys situation happens only in the header node.
+                if (!keys_.empty())
+                    keys_.erase(keys_.begin() + i);
                 children_.erase(children_.begin() + i);
             }
 
