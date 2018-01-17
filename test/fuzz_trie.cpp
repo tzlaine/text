@@ -93,10 +93,14 @@ void insert(boost::text::string_view key, int value)
 {
     ofs << "trie.insert(" << std::quoted(std::string(key.begin(), key.end()))
         << ", " << value << "); // key.size()=" << key.size() << "\n"
+#if 0
+        << "map.insert(std::make_pair(boost::text::string("
+        << std::quoted(std::string(key.begin(), key.end())) << "), " << value
+        << "));\n"
+#endif
         << std::flush;
     trie.insert(key, value);
-    map.insert(
-        std::pair<boost::text::string, int>(boost::text::string(key), value));
+    map.insert(std::make_pair(boost::text::string(key), value));
 
     check();
 }
@@ -104,12 +108,16 @@ void insert(boost::text::string_view key, int value)
 void erase(int which)
 {
     auto const it = std::next(trie.begin(), which);
-    auto const & key = it->key;
+    auto const key = it->key;
     ofs << "trie.erase(" << std::quoted(std::string(key.begin(), key.end()))
         << "); // key.size()=" << key.size() << "\n"
+#if 0
+        << "map.erase(" << std::quoted(std::string(key.begin(), key.end()))
+        << ");\n"
+#endif
         << std::flush;
     trie.erase(key);
-    map.erase(boost::text::string(key));
+    map.erase(key);
 
     check();
 }
