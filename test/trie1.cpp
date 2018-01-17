@@ -50,6 +50,17 @@ TEST(trie1, const_access)
     }
 
     {
+        trie::trie<std::wstring, int> const trie({{L"", 42}});
+        auto const _it = trie.begin();
+        EXPECT_EQ(_it->key, L"");
+
+        auto const match = trie.longest_match(L"whatever");
+        EXPECT_TRUE(match.node != nullptr);
+        EXPECT_EQ(match.size, 0);
+        EXPECT_EQ(match.match, true);
+    }
+
+    {
         trie::trie<std::string, int> const trie({{"w", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
@@ -442,7 +453,7 @@ TEST(trie1, mutable_access)
 TEST(trie, index_operator)
 {
     trie::trie<std::string, int> trie(
-        {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
+        {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
 
     EXPECT_TRUE(trie["foo"]);
     EXPECT_TRUE(trie["bar"]);
@@ -453,7 +464,7 @@ TEST(trie, index_operator)
     EXPECT_EQ(*trie["foo"], 13);
     EXPECT_EQ(*trie["bar"], 17);
     EXPECT_EQ(*trie["foos"], 19);
-    EXPECT_EQ(*trie[""], 42);
+    EXPECT_EQ(*trie[""], 0);
 
     *trie["foo"] = 0;
     *trie["bar"] = 1;

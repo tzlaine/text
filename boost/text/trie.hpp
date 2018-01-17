@@ -2,7 +2,6 @@
 #define BOOST_TEXT_TRIE_HPP
 
 #include <boost/optional.hpp>
-#include <boost/text/string_view.hpp>
 
 #include <memory>
 #include <type_traits>
@@ -181,7 +180,7 @@ namespace boost { namespace trie {
         struct trie_iterator_state_t
         {
             trie_node_t<Key, Value> const * parent_;
-            std::size_t index_; // TODO: Iterator instead.
+            std::size_t index_;
         };
 
         // TODO: Perform an audit to see where calls to this function can be
@@ -221,6 +220,16 @@ namespace boost { namespace trie {
                 return state.parent_->child(state.index_);
             return nullptr;
         }
+
+        template<typename Char>
+        struct char_range
+        {
+            Char * first_;
+            Char * last_;
+
+            Char * begin() const noexcept { return first_; }
+            Char * end() const noexcept { return last_; }
+        };
     }
 
     template<typename Key, typename Value>
@@ -350,14 +359,14 @@ namespace boost { namespace trie {
         const_reverse_iterator crbegin() const noexcept { return rbegin(); }
         const_reverse_iterator crend() const noexcept { return rend(); }
 
-        // TODO: Figure out the right way to do this.
 #define BOOST_TRIE_C_STR_OVERLOAD(rtype, func, quals)                          \
-    rtype func(char const * chars) quals                                       \
+    template<typename Char, std::size_t N>                                     \
+    rtype func(Char const(&chars)[N]) quals                                    \
     {                                                                          \
         static_assert(                                                         \
-            std::is_same<key_element_type, char>::value,                       \
-            "Only well-formed when Key::value_type is char.");                 \
-        return func(text::string_view(chars));                                 \
+            std::is_same<Char, key_element_type>::value,                       \
+            "Only well-formed when Char is Key::value_type.");                 \
+        return func(detail::char_range<Char const>{chars, chars + N - 1});     \
     }
 
         template<typename KeyRange>
@@ -512,7 +521,8 @@ namespace boost { namespace trie {
             return it->value;
         }
 
-        BOOST_TRIE_C_STR_OVERLOAD(optional_ref<mapped_type>, operator[], noexcept)
+        BOOST_TRIE_C_STR_OVERLOAD(
+            optional_ref<mapped_type>, operator[], noexcept)
 
         template<typename KeyIter>
         insert_result insert(KeyIter first, KeyIter last, Value value)
@@ -545,13 +555,14 @@ namespace boost { namespace trie {
             return insert(begin(key), end(key), std::move(value));
         }
 
-        // TODO: Must be treated the same as the macro used elsewhere.
-        insert_result insert(char const * chars, Value value)
+        template<typename Char, std::size_t N>
+        insert_result insert(Char const (&chars)[N], Value value)
         {
             static_assert(
-                std::is_same<key_element_type, char>::value,
-                "Only well-formed when Key::value_type is char.");
-            return insert(text::string_view(chars), std::move(value));
+                std::is_same<Char, key_element_type>::value,
+                "Only well-formed when Char is Key::value_type.");
+            return insert(
+                detail::char_range<Char const>{chars, chars + N - 1}, value);
         }
 
         insert_result insert(element e)
