@@ -186,6 +186,12 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct trie_insert_result
     {
+        trie_insert_result() : iter(), inserted(false) {}
+        trie_insert_result(trie_iterator<Key, Value> it, bool ins) :
+            iter(it),
+            inserted(ins)
+        {}
+
         trie_iterator<Key, Value> iter;
         bool inserted;
 
@@ -256,6 +262,16 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct trie_match_result
     {
+        trie_match_result() : node(nullptr), size(0), match(false) {}
+        trie_match_result(
+            detail::trie_node_t<Key, Value> const * n,
+            std::ptrdiff_t s,
+            bool m = false) :
+            node(n),
+            size(s),
+            match(m)
+        {}
+
         detail::trie_node_t<Key, Value> const * node;
         std::ptrdiff_t size;
         bool match;
@@ -1206,10 +1222,7 @@ namespace boost { namespace trie {
                 return *this;
             }
 
-            optional<Value> const & value() const noexcept
-            {
-                return value_;
-            }
+            optional<Value> const & value() const noexcept { return value_; }
 
             Value & child_value(std::size_t i) const
             {
