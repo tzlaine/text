@@ -1,7 +1,8 @@
-#define ENABLE_DUMP 1
+#define ENABLE_DUMP 0
 #include "trie_tests.hpp"
 
 #include <boost/text/trie.hpp>
+#include <boost/text/string.hpp>
 
 #include <algorithm>
 #include <fstream>

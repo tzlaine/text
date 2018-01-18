@@ -1,4 +1,4 @@
-#define ENABLE_DUMP 1
+#define ENABLE_DUMP 0
 #include "trie_tests.hpp"
 
 #include <boost/text/trie.hpp>
@@ -10,8 +10,6 @@
 
 
 using namespace boost;
-
-// TODO: Custom Compare test (e.g. reversed).
 
 TEST(trie1, const_access)
 {
