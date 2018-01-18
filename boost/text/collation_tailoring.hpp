@@ -56,24 +56,7 @@ namespace boost { namespace text {
     /** TODO */
     struct tailored_collation_element_table
     {
-        template<typename Iter>
-        detail::longest_collation_t
-        longest_collation(Iter first, Iter last) const noexcept
-        {
-            return detail::longest_collation(
-                first,
-                last,
-                collation_initial_nodes_,
-                &collation_trie_nodes_[0]);
-        }
-
-        detail::longest_collation_t
-        extend_collation(detail::longest_collation_t prev, uint32_t cp) const
-            noexcept
-        {
-            return detail::extend_collation(
-                prev, cp, &collation_trie_nodes_[0]);
-        }
+        detail::collation_trie_t const & trie() const noexcept { return trie_; }
 
         detail::compressed_collation_element const *
         collation_elements_begin() const noexcept
@@ -105,16 +88,14 @@ namespace boost { namespace text {
         tailored_collation_element_table(
             std::vector<detail::compressed_collation_element> &&
                 collation_elements,
-            std::unordered_set<detail::collation_trie_node> &&
-                collation_initial_nodes,
-            std::vector<detail::collation_trie_node> && collation_trie_nodes,
+            detail::collation_trie_t && trie,
             detail::nonsimple_reorders_t && nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders,
             optional<collation_strength> strength,
             optional<variable_weighting> weighting,
             optional<l2_weight_order> l2_order) :
-            collation_initial_nodes_(std::move(collation_initial_nodes)),
-            collation_trie_nodes_(std::move(collation_trie_nodes)),
+            collation_elements_(std::move(collation_elements)),
+            trie_(std::move(trie)),
             nonsimple_reorders_(nonsimple_reorders),
             simple_reorders_(simple_reorders),
             strength_(strength),
@@ -130,9 +111,7 @@ namespace boost { namespace text {
             parser_diagnostic_callback report_warnings);
 
         std::vector<detail::compressed_collation_element> collation_elements_;
-        std::unordered_set<detail::collation_trie_node>
-            collation_initial_nodes_;
-        std::vector<detail::collation_trie_node> collation_trie_nodes_;
+        detail::collation_trie_t trie_;
 
         detail::nonsimple_reorders_t nonsimple_reorders_;
         std::array<uint32_t, 256> simple_reorders_;
@@ -157,36 +136,17 @@ namespace boost { namespace text {
 
         using temp_table = std::vector<temp_table_element>;
 
-        void temp_table_subtree(
-            temp_table & table, collation_trie_node node, cp_seq_t & cps)
-        {
-            cps.push_back(node.cp_);
-            if (node.match()) {
-                table.push_back(
-                    temp_table_element{cps,
-                                       temp_table_element::ces_t(
-                                           node.collation_elements_.begin(
-                                               g_collation_elements_first),
-                                           node.collation_elements_.end(
-                                               g_collation_elements_first))});
-            }
-            if (!node.leaf()) {
-                for (auto it = node.begin(g_collation_trie_nodes),
-                          end = node.end(g_collation_trie_nodes);
-                     it != end;
-                     ++it) {
-                    temp_table_subtree(table, *it, cps);
-                }
-            }
-            cps.pop_back();
-        }
-
         temp_table make_temp_table()
         {
             std::vector<temp_table_element> retval;
-            for (auto node : g_collation_initial_nodes) {
-                cp_seq_t cps;
-                temp_table_subtree(retval, node, cps);
+            retval.reserve(g_default_collation_trie.size());
+            for (auto element : g_default_collation_trie) {
+                retval.resize(retval.size() + 1);
+                retval.back().cps_.assign(
+                    element.key.begin(), element.key.end());
+                retval.back().ces_.assign(
+                    element.value.begin(g_collation_elements_first),
+                    element.value.end(g_collation_elements_first));
             }
             return retval;
         }
@@ -245,8 +205,7 @@ namespace boost { namespace text {
             nonsimple_reorders_t const & nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders,
             std::vector<compressed_collation_element> collation_elements,
-            std::unordered_set<collation_trie_node> & collation_initial_nodes,
-            std::vector<collation_trie_node> & collation_trie_nodes)
+            collation_trie_t & trie)
         {
             std::unordered_map<
                 temp_table_element::ces_t,
@@ -265,22 +224,13 @@ namespace boost { namespace text {
                     collation_elements.insert(
                         collation_elements.end(), e.ces_.begin(), e.ces_.end());
                     e.linearized_ces_.last_ = collation_elements.size();
+                } else {
+                    e.linearized_ces_ = it->second;
                 }
             }
 
             for (auto const e : table) {
-                collation_trie_node node{e.cps_.front(), 0, 0};
-                auto it = collation_initial_nodes.find(node);
-                if (it == collation_initial_nodes.end()) {
-                    if (e.cps_.size() == 1u)
-                        node.collation_elements_ = e.linearized_ces_;
-                    it = collation_initial_nodes.insert(node).first;
-                } else {
-                    node = *it;
-                }
-
-                // TODO
-                
+                trie.insert(e.cps_.begin(), e.cps_.end(), e.linearized_ces_);
             }
         }
     }
@@ -395,20 +345,17 @@ namespace boost { namespace text {
         }
 
         std::vector<detail::compressed_collation_element> collation_elements;
-        std::unordered_set<detail::collation_trie_node> collation_initial_nodes;
-        std::vector<detail::collation_trie_node> collation_trie_nodes;
+        detail::collation_trie_t trie;
         temp_table_to_trie(
             table,
             nonsimple_reorders,
             simple_reorders,
             collation_elements,
-            collation_initial_nodes,
-            collation_trie_nodes);
+            trie);
 
         return tailored_collation_element_table(
             std::move(collation_elements),
-            std::move(collation_initial_nodes),
-            std::move(collation_trie_nodes),
+            std::move(trie),
             std::move(nonsimple_reorders),
             simple_reorders,
             strength_override,

@@ -860,6 +860,14 @@ namespace boost { namespace trie {
 
         const_trie_iterator() noexcept : state_{nullptr, 0} {}
 
+        const_trie_iterator(trie_match_result<Key, Value> match_result) noexcept
+        {
+            assert(match_result.node);
+            assert(match_result.match);
+            state_.parent_ = match_result.node->parent();
+            state_.index_ = match_result.node->index_within_parent();
+        }
+
         reference operator*() const noexcept
         {
             return reference{detail::reconstruct_key(state_),

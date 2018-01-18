@@ -294,15 +294,17 @@ namespace boost { namespace text {
             while (first != last) {
                 // S2.1 Find longest prefix that results in a collation
                 // table match.
-                longest_collation_t collation_;
+                trie_match_t collation_;
                 bool in_table = false;
                 if (table)
-                    collation_ = table->longest_collation(first, last);
-                if (collation_.match_length_ == 0)
-                    collation_ = default_longest_collation(first, last);
-                else
+                    collation_ = table->trie().longest_match(first, last);
+                if (!collation_.match) {
+                    collation_ =
+                        g_default_collation_trie.longest_match(first, last);
+                } else {
                     in_table = true;
-                if (collation_.match_length_ == 0) {
+                }
+                if (!collation_.match) {
                     // S2.2
                     collation_element cces[32];
                     auto const cces_end =
@@ -312,11 +314,11 @@ namespace boost { namespace text {
                     std::copy(cces, cces_end, std::back_inserter(ces));
                     continue;
                 }
-                first += collation_.match_length_;
+                first += collation_.size;
 
                 // S2.1.1 Process any nonstarters following S.
                 auto nonstarter_last = first;
-                if (!collation_.node_.leaf()) {
+                if (!collation_.leaf) {
                     nonstarter_last = std::find_if(
                         first, last, [](uint32_t cp) { return ccc(cp) == 0; });
                 }
@@ -325,7 +327,7 @@ namespace boost { namespace text {
 
                 // S2.1.2
                 auto nonstarter_first = first;
-                while (!collation_.node_.leaf() &&
+                while (!collation_.leaf &&
                        nonstarter_first != nonstarter_last &&
                        ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first)) {
                     bool const unblocked =
@@ -334,10 +336,12 @@ namespace boost { namespace text {
                     if (unblocked) {
                         auto const cp = *nonstarter_first;
                         auto coll =
-                            in_table ? table->extend_collation(collation_, cp)
-                                     : default_extend_collation(collation_, cp);
+                            in_table
+                                ? table->trie().extend_match(collation_, cp)
+                                : g_default_collation_trie.extend_match(
+                                      collation_, cp);
                         // S2.1.3
-                        if (collation_.match_length_ < coll.match_length_) {
+                        if (collation_.size < coll.size) {
                             std::copy_backward(
                                 first, nonstarter_first, nonstarter_first + 1);
                             *first++ = cp;
@@ -351,12 +355,12 @@ namespace boost { namespace text {
                     in_table ? table->collation_elements_begin()
                              : g_collation_elements_first;
 
+                auto const collation_it = const_trie_iterator_t(collation_);
+
                 // S2.4
                 std::transform(
-                    collation_.node_.collation_elements_.begin(
-                        collation_elements_first),
-                    collation_.node_.collation_elements_.end(
-                        collation_elements_first),
+                    collation_it->value.begin(collation_elements_first),
+                    collation_it->value.end(collation_elements_first),
                     std::back_inserter(ces),
                     [table, in_table](compressed_collation_element ce) {
                         if (in_table) {
@@ -372,7 +376,7 @@ namespace boost { namespace text {
 
                 // S2.3
                 after_variable = s2_3(
-                    &*(ces.end() - collation_.node_.collation_elements_.size()),
+                    &*(ces.end() - collation_it->value.size()),
                     &*ces.end(),
                     weighting,
                     after_variable);
