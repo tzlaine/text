@@ -10,9 +10,6 @@
 
 namespace boost { namespace trie {
 
-    // TODO: Remove key storage in the nodes; rebuild the key as necessary in
-    // const_trie_iterator::operator*().
-
     struct less
     {
         template<typename T>
@@ -96,6 +93,37 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct trie_element
     {
+        trie_element() {}
+        trie_element(Key k, Value v) : key(k), value(v) {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element(trie_element<KeyT, ValueT> const & rhs) :
+            key(rhs.key),
+            value(rhs.value)
+        {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element(trie_element<KeyT, ValueT> && rhs) :
+            key(std::move(rhs.key)),
+            value(std::move(rhs.value))
+        {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element & operator=(trie_element<KeyT, ValueT> const & rhs)
+        {
+            key = rhs.key;
+            value = rhs.value;
+            return *this;
+        }
+
+        template<typename KeyT, typename ValueT>
+        trie_element & operator=(trie_element<KeyT, ValueT> && rhs)
+        {
+            key = std::move(rhs.key);
+            value = std::move(rhs.value);
+            return *this;
+        }
+
         Key key;
         Value value;
 
@@ -193,18 +221,17 @@ namespace boost { namespace trie {
                     state.parent_->index_within_parent()};
         }
 
-#if 0 // TODO: Use this instead!  The parent's child list could be arbitrarily
-      // large!  This means adding a Compare template parameter and data member
-      // to every iterator, though. :(
-        template<typename Key, typename Value, typename Compare>
-        trie_iterator_state_t<Key, Value> parent_state(
-            trie_iterator_state_t<Key, Value> state, Compare const & comp)
+        template<typename Key, typename Value>
+        Key reconstruct_key(trie_iterator_state_t<Key, Value> state)
         {
-            auto const new_parent = state.parent_->parent_;
-            auto const it = new_parent->lower_bound(state.parent_->e_, comp);
-            return {new_parent, it - new_parent->children_.begin()};
+            Key retval;
+            while (state.parent_->parent()) {
+                retval.insert(retval.end(), state.parent_->key(state.index_));
+                state = parent_state(state);
+            }
+            std::reverse(retval.begin(), retval.end());
+            return retval;
         }
-#endif
 
         template<typename Key, typename Value>
         trie_node_t<Key, Value> const *
@@ -447,7 +474,8 @@ namespace boost { namespace trie {
         }
 
         template<typename KeyRange>
-        optional<mapped_type> operator[](KeyRange const & key) const noexcept
+        optional_ref<mapped_type const> operator[](KeyRange const & key) const
+            noexcept
         {
             auto it = find(key);
             if (it == end())
@@ -456,7 +484,7 @@ namespace boost { namespace trie {
         }
 
         BOOST_TRIE_C_STR_OVERLOAD(
-            optional<mapped_type>, operator[], const noexcept)
+            optional_ref<mapped_type const>, operator[], const noexcept)
 
         iterator begin() noexcept { return iterator(const_this()->begin()); }
         iterator end() noexcept { return iterator(const_this()->end()); }
@@ -526,7 +554,6 @@ namespace boost { namespace trie {
                 root_.insert(std::move(new_node));
             }
 
-            auto const initial_first = first;
             auto match = longest_match_impl(first, last);
             if (first == last && match.result_.match) {
                 return {iterator(iter_state_t{match.result_.node->parent(),
@@ -535,8 +562,7 @@ namespace boost { namespace trie {
             }
             auto node = create_children(
                 const_cast<node_t *>(match.result_.node), first, last);
-            node->value() =
-                element{key_type{initial_first, last}, std::move(value)};
+            node->value() = std::move(value);
             ++size_;
             return {iterator(iter_state_t{node->parent(), 0}), true};
         }
@@ -611,7 +637,7 @@ namespace boost { namespace trie {
                 // node has a value, but also children.  Remove the value and
                 // return the next-iterator.
                 ++it;
-                node->value() = optional<trie_element<Key, Value>>();
+                node->value() = optional<Value>();
                 return it;
             }
 
@@ -774,12 +800,37 @@ namespace boost { namespace trie {
         key_compare comp_;
     };
 
+    namespace detail {
+        template<typename Key, typename Value>
+        struct arrow_proxy
+        {
+            trie_element<Key, Value &> * operator->() const noexcept
+            {
+                return &value_;
+            }
+
+        private:
+            friend struct const_trie_iterator<
+                Key,
+                typename std::remove_const<Value>::type>;
+            friend struct trie_iterator<
+                Key,
+                typename std::remove_const<Value>::type>;
+
+            arrow_proxy(Key && key, Value & value) :
+                value_{std::move(key), value}
+            {}
+
+            mutable trie_element<Key, Value &> value_;
+        };
+    }
+
     template<typename Key, typename Value>
     struct const_trie_iterator
     {
         using value_type = trie_element<Key, Value>;
-        using pointer = const value_type *;
-        using reference = const value_type &;
+        using pointer = detail::arrow_proxy<Key, Value const>;
+        using reference = trie_element<Key, Value const &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -787,10 +838,15 @@ namespace boost { namespace trie {
 
         reference operator*() const noexcept
         {
-            return state_.parent_->child_value(state_.index_);
+            return reference{detail::reconstruct_key(state_),
+                             state_.parent_->child_value(state_.index_)};
         }
 
-        pointer operator->() const noexcept { return &**this; }
+        pointer operator->() const noexcept
+        {
+            reference && deref_result = **this;
+            return pointer(std::move(deref_result.key), deref_result.value);
+        }
 
         const_trie_iterator & operator++() noexcept
         {
@@ -900,8 +956,8 @@ namespace boost { namespace trie {
     struct trie_iterator
     {
         using value_type = trie_element<Key, Value>;
-        using pointer = value_type *;
-        using reference = value_type &;
+        using pointer = detail::arrow_proxy<Key, Value>;
+        using reference = trie_element<Key, Value &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -909,10 +965,16 @@ namespace boost { namespace trie {
 
         reference operator*() const noexcept
         {
-            return const_cast<reference>(*it_);
-        }
+            return reference{
+                detail::reconstruct_key(it_.state_),
+                it_.state_.parent_->child_value(it_.state_.index_)};
+        };
 
-        pointer operator->() const noexcept { return &**this; }
+        pointer operator->() const noexcept
+        {
+            reference && deref_result = **this;
+            return pointer(std::move(deref_result.key), deref_result.value);
+        }
 
         trie_iterator & operator++() noexcept
         {
@@ -963,8 +1025,8 @@ namespace boost { namespace trie {
     struct reverse_trie_iterator
     {
         using value_type = trie_element<Key, Value>;
-        using pointer = value_type *;
-        using reference = value_type &;
+        using pointer = detail::arrow_proxy<Key, Value>;
+        using reference = trie_element<Key, Value &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -975,7 +1037,10 @@ namespace boost { namespace trie {
 
         reference operator*() const noexcept { return *std::prev(it_); }
 
-        pointer operator->() const noexcept { return &**this; }
+        pointer operator->() const noexcept
+        {
+            return std::prev(it_).operator->();
+        }
 
         reverse_trie_iterator & operator++() noexcept
         {
@@ -1021,8 +1086,8 @@ namespace boost { namespace trie {
     struct const_reverse_trie_iterator
     {
         using value_type = trie_element<Key, Value>;
-        using pointer = value_type const *;
-        using reference = value_type const &;
+        using pointer = detail::arrow_proxy<Key, Value const>;
+        using reference = trie_element<Key, Value const &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -1038,7 +1103,10 @@ namespace boost { namespace trie {
 
         reference operator*() const noexcept { return *std::prev(it_); }
 
-        pointer operator->() const noexcept { return &**this; }
+        pointer operator->() const noexcept
+        {
+            return std::prev(it_).operator->();
+        }
 
         const_reverse_trie_iterator & operator++() noexcept
         {
@@ -1138,12 +1206,12 @@ namespace boost { namespace trie {
                 return *this;
             }
 
-            optional<trie_element<Key, Value>> const & value() const noexcept
+            optional<Value> const & value() const noexcept
             {
                 return value_;
             }
 
-            trie_element<Key, Value> & child_value(std::size_t i) const
+            Value & child_value(std::size_t i) const
             {
                 return *children_[i]->value_;
             }
@@ -1217,6 +1285,11 @@ namespace boost { namespace trie {
                 return children_[i].get();
             }
 
+            key_element const & key(std::size_t i) const noexcept
+            {
+                return keys_[i];
+            }
+
             void swap(trie_node_t & other)
             {
                 assert(
@@ -1232,12 +1305,10 @@ namespace boost { namespace trie {
                 for (auto const & node : other.children_) {
                     node->parent_ = &other;
                 }
+                std::swap(index_within_parent_, other.index_within_parent_);
             }
 
-            optional<trie_element<Key, Value>> & value() noexcept
-            {
-                return value_;
-            }
+            optional<Value> & value() noexcept { return value_; }
 
             iterator begin() noexcept { return children_.begin(); }
             iterator end() noexcept { return children_.end(); }
@@ -1316,7 +1387,7 @@ namespace boost { namespace trie {
 
             std::vector<key_element> keys_;
             children_t children_;
-            optional<trie_element<Key, Value>> value_;
+            optional<Value> value_;
             trie_node_t * parent_;
             std::size_t index_within_parent_;
         };

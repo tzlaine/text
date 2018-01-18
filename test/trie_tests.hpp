@@ -34,8 +34,7 @@ void dump(
     os << ind() << "  index_within_parent=" << node.index_within_parent_
        << "\n";
     if (node.value_) {
-        os << ind() << "  value=\"" << node.value_->key << "\", "
-           << node.value_->value << "\n";
+        os << ind() << "  value=" << *node.value_ << "\n";
     } else {
         os << ind() << "  value=[empty]\n";
     }
