@@ -344,7 +344,7 @@ namespace boost { namespace trie {
 
         const_iterator begin() const noexcept
         {
-            iter_state_t state{&root_, 0};
+            iter_state_t state{&header_, 0};
             if (size_) {
                 while (!state.parent_->min_value()) {
                     state.parent_ = state.parent_->min_child();
@@ -354,7 +354,7 @@ namespace boost { namespace trie {
         }
         const_iterator end() const noexcept
         {
-            iter_state_t state{&root_, 0};
+            iter_state_t state{&header_, 0};
             if (size_) {
                 node_t const * node = nullptr;
                 while ((node = to_node(state))) {
@@ -498,7 +498,7 @@ namespace boost { namespace trie {
 
         void clear() noexcept
         {
-            root_ = node_t();
+            header_ = node_t();
             size_ = 0;
         }
 
@@ -550,8 +550,8 @@ namespace boost { namespace trie {
         insert_result insert(KeyIter first, KeyIter last, Value value)
         {
             if (empty()) {
-                std::unique_ptr<node_t> new_node(new node_t(&root_));
-                root_.insert(std::move(new_node));
+                std::unique_ptr<node_t> new_node(new node_t(&header_));
+                header_.insert(std::move(new_node));
             }
 
             auto match = longest_match_impl(first, last);
@@ -673,7 +673,7 @@ namespace boost { namespace trie {
 
         void swap(trie & other)
         {
-            root_.swap(other.root_);
+            header_.swap(other.header_);
             std::swap(size_, other.size_);
             std::swap(comp_, other.comp_);
         }
@@ -702,7 +702,7 @@ namespace boost { namespace trie {
         longest_match_impl(KeyIter & first, KeyIter last) const noexcept
         {
             return extend_match_impl(
-                priv_match_result{match_result{&root_, 0}}, first, last);
+                priv_match_result{match_result{&header_, 0}}, first, last);
         }
 
         template<typename KeyIter>
@@ -710,10 +710,10 @@ namespace boost { namespace trie {
             priv_match_result prev, KeyIter & first, KeyIter last) const
             noexcept
         {
-            if (prev.result_.node == &root_) {
-                if (root_.empty())
+            if (prev.result_.node == &header_) {
+                if (header_.empty())
                     return prev;
-                prev.result_.node = root_.child(0);
+                prev.result_.node = header_.child(0);
             }
 
             if (first == last) {
@@ -795,7 +795,7 @@ namespace boost { namespace trie {
             return const_iterator(iter_state_t{node->parent(), parent_index});
         }
 
-        node_t root_;
+        node_t header_;
         size_type size_;
         key_compare comp_;
     };
@@ -1189,8 +1189,8 @@ namespace boost { namespace trie {
             {
                 assert(
                     parent_ == nullptr &&
-                    "Assignment of trie_node_ts are defined only for the root "
-                    "node.");
+                    "Assignment of trie_node_ts are defined only for the "
+                    "header node.");
                 trie_node_t temp(rhs);
                 temp.swap(*this);
                 return *this;
@@ -1200,7 +1200,7 @@ namespace boost { namespace trie {
                 assert(
                     parent_ == nullptr &&
                     "Move assignments of trie_node_ts are defined only for the "
-                    "root node.");
+                    "header node.");
                 trie_node_t temp(std::move(rhs));
                 temp.swap(*this);
                 return *this;
@@ -1294,7 +1294,7 @@ namespace boost { namespace trie {
             {
                 assert(
                     parent_ == nullptr &&
-                    "Swaps of trie_node_ts are defined only for the root "
+                    "Swaps of trie_node_ts are defined only for the header "
                     "node.");
                 keys_.swap(other.keys_);
                 children_.swap(other.children_);
