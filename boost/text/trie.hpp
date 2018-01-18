@@ -262,25 +262,29 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct trie_match_result
     {
-        trie_match_result() : node(nullptr), size(0), match(false) {}
+        trie_match_result() : node(nullptr), size(0), match(false), leaf(false)
+        {}
         trie_match_result(
             detail::trie_node_t<Key, Value> const * n,
             std::ptrdiff_t s,
-            bool m = false) :
+            bool m,
+            bool l) :
             node(n),
             size(s),
-            match(m)
+            match(m),
+            leaf(l)
         {}
 
         detail::trie_node_t<Key, Value> const * node;
         std::ptrdiff_t size;
         bool match;
+        bool leaf;
 
         friend bool
         operator==(trie_match_result const & lhs, trie_match_result const & rhs)
         {
             return lhs.node == rhs.node && lhs.size == rhs.size &&
-                   lhs.match == rhs.match;
+                   lhs.match == rhs.match && lhs.leaf == rhs.leaf;
         }
         friend bool
         operator!=(trie_match_result const & lhs, trie_match_result const & rhs)
@@ -718,7 +722,9 @@ namespace boost { namespace trie {
         longest_match_impl(KeyIter & first, KeyIter last) const noexcept
         {
             return extend_match_impl(
-                priv_match_result{match_result{&header_, 0}}, first, last);
+                priv_match_result{match_result{&header_, 0, false, true}},
+                first,
+                last);
         }
 
         template<typename KeyIter>
@@ -734,6 +740,7 @@ namespace boost { namespace trie {
 
             if (first == last) {
                 prev.result_.match = !!prev.result_.node->value();
+                prev.result_.leaf = prev.result_.node->empty();
                 return prev;
             }
 
@@ -750,7 +757,8 @@ namespace boost { namespace trie {
                 node = it->get();
             }
 
-            return {match_result{node, size, !!node->value()}, parent_index};
+            return {match_result{node, size, !!node->value(), node->empty()},
+                    parent_index};
         }
 
         template<typename KeyIter>
