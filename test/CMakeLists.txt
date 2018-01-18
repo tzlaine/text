@@ -185,7 +185,9 @@ if (BUILD_FUZZ_TESTS)
     target_compile_options(fuzz_rope PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
     target_link_libraries(fuzz_rope text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_rope PROPERTY CXX_STANDARD ${CXX_STD})
-    add_test(fuzz_rope ${CMAKE_CURRENT_BINARY_DIR}/fuzz_rope)
+    add_test(fuzz_rope
+             ${CMAKE_CURRENT_BINARY_DIR}/fuzz_rope
+             -max_total_time=30)
     if (clang_on_linux)
         target_link_libraries(fuzz_rope c++)
     endif ()
@@ -194,7 +196,9 @@ if (BUILD_FUZZ_TESTS)
     target_compile_options(fuzz_trie PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
     target_link_libraries(fuzz_trie text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_trie PROPERTY CXX_STANDARD ${CXX_STD})
-    add_test(fuzz_trie ${CMAKE_CURRENT_BINARY_DIR}/fuzz_trie)
+    add_test(fuzz_trie
+             ${CMAKE_CURRENT_BINARY_DIR}/fuzz_trie
+             -max_len=16 -only_ascii=1 -max_total_time=30)
     if (clang_on_linux)
         target_link_libraries(fuzz_trie c++)
     endif ()
