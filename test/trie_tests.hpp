@@ -31,6 +31,8 @@ void dump(
     if (node.parent_ == &node)
         os << " (self)";
     os << "\n";
+    os << ind() << "  index_within_parent=" << node.index_within_parent_
+       << "\n";
     if (node.value_) {
         os << ind() << "  value=\"" << node.value_->key << "\", "
            << node.value_->value << "\n";

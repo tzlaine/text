@@ -185,20 +185,12 @@ namespace boost { namespace trie {
             std::size_t index_;
         };
 
-        // TODO: Perform an audit to see where calls to this function can be
-        // minimized (such as in the const_trie_iterator::operator{++,--}(().
         template<typename Key, typename Value>
         trie_iterator_state_t<Key, Value>
         parent_state(trie_iterator_state_t<Key, Value> state)
         {
-            auto const new_parent = state.parent_->parent();
-            auto const it = std::find_if(
-                new_parent->begin(),
-                new_parent->end(),
-                [state](std::unique_ptr<trie_node_t<Key, Value>> const & ptr) {
-                    return ptr.get() == state.parent_;
-                });
-            return {new_parent, std::size_t(it - new_parent->begin())};
+            return {state.parent_->parent(),
+                    state.parent_->index_within_parent()};
         }
 
 #if 0 // TODO: Use this instead!  The parent's child list could be arbitrarily
@@ -1101,12 +1093,16 @@ namespace boost { namespace trie {
             using const_iterator = typename children_t::const_iterator;
             using key_element = typename Key::value_type;
 
-            trie_node_t() : parent_(nullptr) {}
-            trie_node_t(trie_node_t * parent) : parent_(parent) {}
+            trie_node_t() : parent_(nullptr), index_within_parent_(-1) {}
+            trie_node_t(trie_node_t * parent) :
+                parent_(parent),
+                index_within_parent_(-1)
+            {}
             trie_node_t(trie_node_t const & other) :
                 keys_(other.keys_),
                 value_(other.value_),
-                parent_(other.parent_)
+                parent_(other.parent_),
+                index_within_parent_(other.index_within_parent_)
             {
                 children_.reserve(other.children_.size());
                 for (auto const & node : other.children_) {
@@ -1115,7 +1111,9 @@ namespace boost { namespace trie {
                     children_.push_back(std::move(new_node));
                 }
             }
-            trie_node_t(trie_node_t && other) : parent_(nullptr)
+            trie_node_t(trie_node_t && other) :
+                parent_(nullptr),
+                index_within_parent_(-1)
             {
                 swap(other);
             }
@@ -1174,6 +1172,11 @@ namespace boost { namespace trie {
 
             const_iterator begin() const noexcept { return children_.begin(); }
             const_iterator end() const noexcept { return children_.end(); }
+
+            std::size_t index_within_parent() const noexcept
+            {
+                return index_within_parent_;
+            }
 
             bool before_child_subtree(key_element const & e) const noexcept
             {
@@ -1245,14 +1248,22 @@ namespace boost { namespace trie {
                 Compare const & comp,
                 std::unique_ptr<trie_node_t> && child)
             {
+                assert(child->empty());
                 auto it = std::lower_bound(keys_.begin(), keys_.end(), e, comp);
                 it = keys_.insert(it, e);
-                auto child_it = children_.begin() + (it - keys_.begin());
+                auto const offset = it - keys_.begin();
+                child->index_within_parent_ = offset;
+                auto child_it = children_.begin() + offset;
+                for (auto it = child_it, end = children_.end(); it != end;
+                     ++it) {
+                    ++(*it)->index_within_parent_;
+                }
                 return children_.insert(child_it, std::move(child));
             }
             iterator insert(std::unique_ptr<trie_node_t> && child)
             {
                 assert(empty());
+                child->index_within_parent_ = 0;
                 return children_.insert(children_.begin(), std::move(child));
             }
             void erase(std::size_t i) noexcept
@@ -1260,7 +1271,10 @@ namespace boost { namespace trie {
                 // This empty-keys situation happens only in the header node.
                 if (!keys_.empty())
                     keys_.erase(keys_.begin() + i);
-                children_.erase(children_.begin() + i);
+                auto it = children_.erase(children_.begin() + i);
+                for (auto end = children_.end(); it != end; ++it) {
+                    --(*it)->index_within_parent_;
+                }
             }
 
             template<typename Compare>
@@ -1304,6 +1318,7 @@ namespace boost { namespace trie {
             children_t children_;
             optional<trie_element<Key, Value>> value_;
             trie_node_t * parent_;
+            std::size_t index_within_parent_;
         };
     }
 
