@@ -459,6 +459,7 @@ TEST(trie, index_operator)
     EXPECT_TRUE(trie["bar"]);
     EXPECT_TRUE(trie["foos"]);
     EXPECT_TRUE(trie[""]);
+    EXPECT_FALSE(trie["other"]);
 
     // boost::optional/std::optional style
     EXPECT_EQ(*trie["foo"], 13);

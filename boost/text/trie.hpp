@@ -37,11 +37,13 @@ namespace boost { namespace trie {
         auto operator=(U && u)
             -> decltype(*this->t_ = static_cast<U &&>(u), *this)
         {
+            assert(t_);
             *t_ = static_cast<U &&>(u);
             return *this;
         }
 
-        explicit operator bool() const noexcept { return t_ != nullptr; }
+        explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() && noexcept { return t_ != nullptr; }
 
         T const & operator*() const noexcept
         {
