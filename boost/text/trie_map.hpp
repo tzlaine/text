@@ -431,9 +431,9 @@ namespace boost { namespace trie {
             auto first = begin(key);
             auto const last = end(key);
             auto match = longest_match_impl(first, last);
-            if (first == last && match.result_.match) {
-                return const_iterator(iter_state_t{match.result_.node->parent(),
-                                                   match.index_within_parent_});
+            if (first == last && match.match) {
+                return const_iterator(iter_state_t{
+                    match.node->parent(), match.node->index_within_parent()});
             }
             return this->end();
         }
@@ -469,7 +469,7 @@ namespace boost { namespace trie {
         template<typename KeyIter>
         match_result longest_match(KeyIter first, KeyIter last) const noexcept
         {
-            return longest_match_impl(first, last).result_;
+            return longest_match_impl(first, last);
         }
 
         template<typename KeyRange>
@@ -488,8 +488,7 @@ namespace boost { namespace trie {
             noexcept
         {
             auto e_ptr = &e;
-            return extend_match_impl(priv_match_result{prev}, e_ptr, e_ptr + 1)
-                .result_;
+            return extend_match_impl(prev, e_ptr, e_ptr + 1);
         }
 
         template<typename KeyIter>
@@ -497,8 +496,7 @@ namespace boost { namespace trie {
         extend_match(match_result prev, KeyIter first, KeyIter last) const
             noexcept
         {
-            return extend_match_impl(priv_match_result{prev}, first, last)
-                .result_;
+            return extend_match_impl(prev, first, last);
         }
 
         template<typename KeyRange>
@@ -579,13 +577,14 @@ namespace boost { namespace trie {
             }
 
             auto match = longest_match_impl(first, last);
-            if (first == last && match.result_.match) {
-                return {iterator(iter_state_t{match.result_.node->parent(),
-                                              match.index_within_parent_}),
-                        false};
+            if (first == last && match.match) {
+                return {
+                    iterator(iter_state_t{match.node->parent(),
+                                          match.node->index_within_parent()}),
+                    false};
             }
-            auto node = create_children(
-                const_cast<node_t *>(match.result_.node), first, last);
+            auto node =
+                create_children(const_cast<node_t *>(match.node), first, last);
             node->value() = std::move(value);
             ++size_;
             return {iterator(iter_state_t{node->parent(), 0}), true};
@@ -719,54 +718,42 @@ namespace boost { namespace trie {
             return const_cast<trie_map const *>(this);
         }
 
-        struct priv_match_result
-        {
-            match_result result_;
-            std::size_t index_within_parent_;
-        };
-
         template<typename KeyIter>
-        priv_match_result
-        longest_match_impl(KeyIter & first, KeyIter last) const noexcept
+        match_result longest_match_impl(KeyIter & first, KeyIter last) const
+            noexcept
         {
             return extend_match_impl(
-                priv_match_result{match_result{&header_, 0, false, true}},
-                first,
-                last);
+                match_result{&header_, 0, false, true}, first, last);
         }
 
         template<typename KeyIter>
-        priv_match_result extend_match_impl(
-            priv_match_result prev, KeyIter & first, KeyIter last) const
-            noexcept
+        match_result extend_match_impl(
+            match_result prev, KeyIter & first, KeyIter last) const noexcept
         {
-            if (prev.result_.node == &header_) {
+            if (prev.node == &header_) {
                 if (header_.empty())
                     return prev;
-                prev.result_.node = header_.child(0);
+                prev.node = header_.child(0);
             }
 
             if (first == last) {
-                prev.result_.match = !!prev.result_.node->value();
-                prev.result_.leaf = prev.result_.node->empty();
+                prev.match = !!prev.node->value();
+                prev.leaf = prev.node->empty();
                 return prev;
             }
 
-            node_t const * node = prev.result_.node;
-            size_type size = prev.result_.size;
-            std::size_t parent_index = 0;
+            node_t const * node = prev.node;
+            size_type size = prev.size;
             while (first != last) {
                 auto const it = node->find(*first, comp_);
                 if (it == node->end())
                     break;
                 ++first;
                 ++size;
-                parent_index = it - node->begin();
                 node = it->get();
             }
 
-            return {match_result{node, size, !!node->value(), node->empty()},
-                    parent_index};
+            return match_result{node, size, !!node->value(), node->empty()};
         }
 
         template<typename KeyIter>
@@ -789,22 +776,22 @@ namespace boost { namespace trie {
             auto first = begin(key);
             auto const last = end(key);
             auto match = longest_match_impl(first, last);
-            if (first == last && match.result_.match) {
+            if (first == last && match.match) {
                 auto retval = const_iterator(iter_state_t{
-                    match.result_.node->parent(), match.index_within_parent_});
+                    match.node->parent(), match.node->index_within_parent()});
                 if (!LowerBound)
                     ++retval;
                 return retval;
             }
 
-            auto node = match.result_.node;
+            auto node = match.node;
             if (node->before_child_subtree(*first)) {
                 // If the next element of the key would be before this node's
                 // children, use the successor of this node; let
                 // const_iterator::operator++() figure out for us which node
                 // that is.
-                return ++const_iterator(
-                    iter_state_t{node->parent(), match.index_within_parent_});
+                return ++const_iterator(iter_state_t{
+                    node->parent(), match.node->index_within_parent()});
             }
 
             auto const it = node->lower_bound(*first, comp_);
