@@ -680,14 +680,15 @@ namespace boost { namespace text { namespace detail {
 
             optional<string> str;
             while ((str = next_identifier(it, end))) {
-                if (*str == "Common") {
+                if (*str == "Common" || *str == "Zyyy") {
                     throw one_token_parse_error(
-                        "Script code 'Common' may not be used in reorderings",
+                        "Script code 'Common'/'Zyyy' may not be used in "
+                        "reorderings",
                         std::prev(it),
                         end);
-                } else if (*str == "Inherited") {
+                } else if (*str == "Inherited" || *str == "Zinh") {
                     throw one_token_parse_error(
-                        "Script code 'Inherited' may not be used in "
+                        "Script code 'Inherited'/'Zinh' may not be used in "
                         "reorderings",
                         std::prev(it),
                         end);
