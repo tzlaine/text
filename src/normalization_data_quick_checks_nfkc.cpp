@@ -9,7 +9,9 @@
 
 namespace boost { namespace text { namespace detail {
 
-std::unordered_map<uint32_t, quick_check> const g_nfkc_quick_check_map = {
+    namespace {
+        struct data_t { uint32_t key_; quick_check value_; };
+        static constexpr std::array<data_t, 4904> g_data = {{
     { 0xa0, quick_check::no },
     { 0xa8, quick_check::no },
     { 0xaa, quick_check::no },
@@ -4915,6 +4917,18 @@ std::unordered_map<uint32_t, quick_check> const g_nfkc_quick_check_map = {
     { 0x2fa1c, quick_check::no },
     { 0x2fa1d, quick_check::no },
 
-};
+        }};
+        std::unordered_map<uint32_t, quick_check> make_map()
+        {
+            std::unordered_map<uint32_t, quick_check> retval;
+            for (auto datum : g_data) {
+                retval[datum.key_] = datum.value_;
+            }
+            return retval;
+        }
+    }
+
+    std::unordered_map<uint32_t, quick_check> const g_nfkc_quick_check_map =
+        make_map();
 
 }}}

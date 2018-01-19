@@ -9,8 +9,8 @@
 
 namespace boost { namespace text { namespace detail {
 
-std::array<uint32_t, 8974> const g_all_compatible_decompositions_array = {{
-    0x20,
+    std::array<uint32_t, 8974> const g_all_compatible_decompositions_array = {{
+        0x20,
     0x20,
     0x308,
     0x61,
@@ -8985,12 +8985,14 @@ std::array<uint32_t, 8974> const g_all_compatible_decompositions_array = {{
     0x9f3b,
     0x2a600,
 
-}};
+    }};
 
-uint32_t const * g_all_compatible_decompositions =
-    g_all_compatible_decompositions_array.data();
+    uint32_t const * g_all_compatible_decompositions =
+        g_all_compatible_decompositions_array.data();
 
-std::unordered_map<uint32_t, cp_range> const g_compatible_decomposition_map = {
+    namespace {
+        struct data_t { uint32_t key_; cp_range value_; };
+        static constexpr std::array<data_t, 5722> g_data = {{
     { 0xa0, {0, 1} },
     { 0xa8, {1, 3} },
     { 0xaa, {3, 4} },
@@ -14714,6 +14716,18 @@ std::unordered_map<uint32_t, cp_range> const g_compatible_decomposition_map = {
     { 0x2fa1c, {8972, 8973} },
     { 0x2fa1d, {8973, 8974} },
 
-};
+        }};
+        std::unordered_map<uint32_t, cp_range> make_map()
+        {
+            std::unordered_map<uint32_t, cp_range> retval;
+            for (auto datum : g_data) {
+                retval[datum.key_] = datum.value_;
+            }
+            return retval;
+        }
+    }
+
+    std::unordered_map<uint32_t, cp_range> const g_compatible_decomposition_map =
+        make_map();
 
 }}}

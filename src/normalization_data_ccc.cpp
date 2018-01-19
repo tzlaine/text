@@ -8,7 +8,9 @@
 
 namespace boost { namespace text { namespace detail {
 
-std::unordered_map<uint32_t, int> const g_ccc_map = {
+    namespace {
+        struct data_t { uint32_t key_; int value_; };
+        static constexpr std::array<data_t, 826> g_data = {{
     { 0x300, 230 },
     { 0x301, 230 },
     { 0x302, 230 },
@@ -836,6 +838,17 @@ std::unordered_map<uint32_t, int> const g_ccc_map = {
     { 0x1e949, 230 },
     { 0x1e94a, 7 },
 
-};
+        }};
+        std::unordered_map<uint32_t, int> make_map()
+        {
+            std::unordered_map<uint32_t, int> retval;
+            for (auto datum : g_data) {
+                retval[datum.key_] = datum.value_;
+            }
+            return retval;
+        }
+    }
+
+    std::unordered_map<uint32_t, int> const g_ccc_map = make_map();
 
 }}}

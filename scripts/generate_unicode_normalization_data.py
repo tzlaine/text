@@ -11,9 +11,22 @@ ccc_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::unordered_map<uint32_t, int> const g_ccc_map = {{
+    namespace {{
+        struct data_t {{ uint32_t key_; int value_; }};
+        static constexpr std::array<data_t, {1}> g_data = {{{{
 {0}
-}};
+        }}}};
+        std::unordered_map<uint32_t, int> make_map()
+        {{
+            std::unordered_map<uint32_t, int> retval;
+            for (auto datum : g_data) {{
+                retval[datum.key_] = datum.value_;
+            }}
+            return retval;
+        }}
+    }}
+
+    std::unordered_map<uint32_t, int> const g_ccc_map = make_map();
 
 }}}}}}
 '''
@@ -30,17 +43,30 @@ canonical_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::array<uint32_t, {1}> const g_all_canonical_decompositions_array = {{{{
-{0}
-}}}};
+    std::array<uint32_t, {1}> const g_all_canonical_decompositions_array = {{{{
+    {0}
+    }}}};
 
-uint32_t const * g_all_canonical_decompositions = 
-    g_all_canonical_decompositions_array.data();
+    uint32_t const * g_all_canonical_decompositions = 
+        g_all_canonical_decompositions_array.data();
 
-
-std::unordered_map<uint32_t, cp_range> const g_canonical_decomposition_map = {{
+    namespace {{
+        struct data_t {{ uint32_t key_; cp_range value_; }};
+        static constexpr std::array<data_t, {3}> g_data = {{{{
 {2}
-}};
+        }}}};
+        std::unordered_map<uint32_t, cp_range> make_map()
+        {{
+            std::unordered_map<uint32_t, cp_range> retval;
+            for (auto datum : g_data) {{
+                retval[datum.key_] = datum.value_;
+            }}
+            return retval;
+        }}
+    }}
+
+    std::unordered_map<uint32_t, cp_range> const g_canonical_decomposition_map =
+        make_map();
 
 }}}}}}
 '''
@@ -57,16 +83,30 @@ compatible_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::array<uint32_t, {1}> const g_all_compatible_decompositions_array = {{{{
-{0}
-}}}};
+    std::array<uint32_t, {1}> const g_all_compatible_decompositions_array = {{{{
+    {0}
+    }}}};
 
-uint32_t const * g_all_compatible_decompositions =
-    g_all_compatible_decompositions_array.data();
+    uint32_t const * g_all_compatible_decompositions =
+        g_all_compatible_decompositions_array.data();
 
-std::unordered_map<uint32_t, cp_range> const g_compatible_decomposition_map = {{
+    namespace {{
+        struct data_t {{ uint32_t key_; cp_range value_; }};
+        static constexpr std::array<data_t, {3}> g_data = {{{{
 {2}
-}};
+        }}}};
+        std::unordered_map<uint32_t, cp_range> make_map()
+        {{
+            std::unordered_map<uint32_t, cp_range> retval;
+            for (auto datum : g_data) {{
+                retval[datum.key_] = datum.value_;
+            }}
+            return retval;
+        }}
+    }}
+
+    std::unordered_map<uint32_t, cp_range> const g_compatible_decomposition_map =
+        make_map();
 
 }}}}}}
 '''
@@ -83,9 +123,23 @@ compose_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::unordered_map<uint64_t, uint32_t> const g_composition_map = {{
+    namespace {{
+        struct data_t {{ uint64_t key_; uint32_t value_; }};
+        static constexpr std::array<data_t, {1}> g_data = {{{{
 {0}
-}};
+        }}}};
+        std::unordered_map<uint64_t, uint32_t> make_map()
+        {{
+            std::unordered_map<uint64_t, uint32_t> retval;
+            for (auto datum : g_data) {{
+                retval[datum.key_] = datum.value_;
+            }}
+            return retval;
+        }}
+    }}
+
+    std::unordered_map<uint64_t, uint32_t> const g_composition_map =
+        make_map();
 
 }}}}}}
 '''
@@ -102,9 +156,14 @@ quick_checks_set_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::unordered_set<uint32_t> const g_{1}_quick_check_set = {{
+    namespace {{
+        static constexpr std::array<uint32_t, {1}> g_data = {{{{
 {0}
-}};
+        }}}};
+    }}
+
+    std::unordered_set<uint32_t> const
+        g_{2}_quick_check_set(g_data.begin(), g_data.end());
 
 }}}}}}
 '''
@@ -121,9 +180,23 @@ quick_checks_map_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::unordered_map<uint32_t, quick_check> const g_{1}_quick_check_map = {{
+    namespace {{
+        struct data_t {{ uint32_t key_; quick_check value_; }};
+        static constexpr std::array<data_t, {1}> g_data = {{{{
 {0}
-}};
+        }}}};
+        std::unordered_map<uint32_t, quick_check> make_map()
+        {{
+            std::unordered_map<uint32_t, quick_check> retval;
+            for (auto datum : g_data) {{
+                retval[datum.key_] = datum.value_;
+            }}
+            return retval;
+        }}
+    }}
+
+    std::unordered_map<uint32_t, quick_check> const g_{2}_quick_check_map =
+        make_map();
 
 }}}}}}
 '''
@@ -337,7 +410,7 @@ if __name__ == "__main__":
     item_strings = map(lambda x : '{}, {}'.format(hex(x[0]), x[1]), sorted(cccs_dict.items()))
     ccc_intervals_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_ccc.cpp', 'w')
-    cpp_file.write(ccc_file_form.format(ccc_intervals_map))
+    cpp_file.write(ccc_file_form.format(ccc_intervals_map, len(cccs_dict)))
 
     def cps_to_vec(cps):
         return '{ {{ ' + ', '.join(map(lambda x: hex(x), cps)) + ' }}}}, {} }}'.format(len(cps))
@@ -351,7 +424,7 @@ if __name__ == "__main__":
     all_cps_string = '    ' + ',\n    '.join(map(lambda x: hex(x), all_cps)) + ',\n'
     decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_canonical.cpp', 'w')
-    cpp_file.write(canonical_file_form.format(all_cps_string , len(all_cps), decompositions_map))
+    cpp_file.write(canonical_file_form.format(all_cps_string , len(all_cps), decompositions_map, len(item_strings)))
 
     (all_cps, decomposition_mapping) = \
       get_decompositions('UnicodeData.txt', cccs_dict, expand_decomp_compatible, False)
@@ -362,7 +435,7 @@ if __name__ == "__main__":
     all_cps_string = '    ' + ',\n    '.join(map(lambda x: hex(x), all_cps)) + ',\n'
     decompositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
     cpp_file = open('normalization_data_compatible.cpp', 'w')
-    cpp_file.write(compatible_file_form.format(all_cps_string , len(all_cps), decompositions_map))
+    cpp_file.write(compatible_file_form.format(all_cps_string , len(all_cps), decompositions_map, len(item_strings)))
 
     composition_mapping = get_compositions('UnicodeData.txt', 'DerivedNormalizationProps.txt')
     item_strings = map(
@@ -372,7 +445,7 @@ if __name__ == "__main__":
     compositions_map = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
 
     cpp_file = open('normalization_data_compose.cpp', 'w')
-    cpp_file.write(compose_file_form.format(compositions_map))
+    cpp_file.write(compose_file_form.format(compositions_map, len(item_strings)))
 
 
     quick_check_maps = get_quick_checks('DerivedNormalizationProps.txt')
@@ -383,7 +456,7 @@ if __name__ == "__main__":
     nfd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
 
     cpp_file = open('normalization_data_quick_checks_nfd.cpp', 'w')
-    cpp_file.write(quick_checks_set_file_form.format(nfd_strings, 'nfd'))
+    cpp_file.write(quick_checks_set_file_form.format(nfd_strings, len(item_strings), 'nfd'))
 
     item_strings = map(
         lambda x : '{}'.format(hex(x[0]), x[1]),
@@ -392,7 +465,7 @@ if __name__ == "__main__":
     nfkd_strings = '    ' + ',\n    '.join(item_strings) + ',\n'
 
     cpp_file = open('normalization_data_quick_checks_nfkd.cpp', 'w')
-    cpp_file.write(quick_checks_set_file_form.format(nfkd_strings, 'nfkd'))
+    cpp_file.write(quick_checks_set_file_form.format(nfkd_strings, len(item_strings), 'nfkd'))
 
     item_strings = map(
         lambda x : '{}, {}'.format(hex(x[0]), x[1]),
@@ -401,7 +474,7 @@ if __name__ == "__main__":
     nfc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
 
     cpp_file = open('normalization_data_quick_checks_nfc.cpp', 'w')
-    cpp_file.write(quick_checks_map_file_form.format(nfc_strings, 'nfc'))
+    cpp_file.write(quick_checks_map_file_form.format(nfc_strings, len(item_strings), 'nfc'))
 
     item_strings = map(
         lambda x : '{}, {}'.format(hex(x[0]), x[1]),
@@ -410,4 +483,4 @@ if __name__ == "__main__":
     nfkc_strings = '    { ' + ' },\n    { '.join(item_strings) + ' },\n'
 
     cpp_file = open('normalization_data_quick_checks_nfkc.cpp', 'w')
-    cpp_file.write(quick_checks_map_file_form.format(nfkc_strings, 'nfkc'))
+    cpp_file.write(quick_checks_map_file_form.format(nfkc_strings, len(item_strings), 'nfkc'))

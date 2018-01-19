@@ -9,7 +9,8 @@
 
 namespace boost { namespace text { namespace detail {
 
-std::unordered_set<uint32_t> const g_nfd_quick_check_set = {
+    namespace {
+        static constexpr std::array<uint32_t, 13232> g_data = {{
     0xc0,
     0xc1,
     0xc2,
@@ -13243,6 +13244,10 @@ std::unordered_set<uint32_t> const g_nfd_quick_check_set = {
     0x2fa1c,
     0x2fa1d,
 
-};
+        }};
+    }
+
+    std::unordered_set<uint32_t> const
+        g_nfd_quick_check_set(g_data.begin(), g_data.end());
 
 }}}
