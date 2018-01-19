@@ -92,6 +92,7 @@ void check()
 
 void insert(boost::text::string_view key, int value)
 {
+#if 201402L <= __cplusplus
     ofs << "trie.insert(" << std::quoted(std::string(key.begin(), key.end()))
         << ", " << value << "); // key.size()=" << key.size() << "\n"
 #if 0
@@ -100,6 +101,7 @@ void insert(boost::text::string_view key, int value)
         << "));\n"
 #endif
         << std::flush;
+#endif
     trie.insert(key, value);
     map.insert(std::make_pair(boost::text::string(key), value));
 
@@ -110,6 +112,7 @@ void erase(int which)
 {
     auto const it = std::next(trie.begin(), which);
     auto const key = it->key;
+#if 201402L <= __cplusplus
     ofs << "trie.erase(" << std::quoted(std::string(key.begin(), key.end()))
         << "); // key.size()=" << key.size() << "\n"
 #if 0
@@ -117,6 +120,7 @@ void erase(int which)
         << ");\n"
 #endif
         << std::flush;
+#endif
     trie.erase(key);
     map.erase(key);
 
