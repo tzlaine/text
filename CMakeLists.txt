@@ -46,14 +46,8 @@ endif ()
 add_library(text
     src/grapheme_break.cpp
     src/word_break.cpp
-    src/normalization_data_ccc.cpp
-    src/normalization_data_canonical.cpp
-    src/normalization_data_compatible.cpp
+    src/normalization_data_cp_props.cpp
     src/normalization_data_compose.cpp
-    src/normalization_data_quick_checks_nfc.cpp
-    src/normalization_data_quick_checks_nfd.cpp
-    src/normalization_data_quick_checks_nfkc.cpp
-    src/normalization_data_quick_checks_nfkd.cpp
     src/collation_data_0.cpp
     src/collation_data_1.cpp
 )

@@ -54,7 +54,7 @@ namespace boost { namespace text { namespace detail {
     /** The possible results returned by the single code point quick check
         functions.  A result of maybe indicates that a quick check is not
         possible and a full check must be performed. */
-    enum class quick_check { yes, no, maybe };
+    enum class quick_check : uint8_t { yes, no, maybe };
 
     struct cp_range
     {
@@ -63,20 +63,24 @@ namespace boost { namespace text { namespace detail {
     };
 
     extern uint32_t const * g_all_canonical_decompositions;
-    extern std::unordered_map<uint32_t, cp_range> const
-        g_canonical_decomposition_map;
     extern uint32_t const * g_all_compatible_decompositions;
-    extern std::unordered_map<uint32_t, cp_range> const
-        g_compatible_decomposition_map;
-    extern std::unordered_map<uint64_t, uint32_t> const g_composition_map;
-    extern std::unordered_map<uint32_t, int> const g_ccc_map;
 
-    extern std::unordered_set<uint32_t> const g_nfd_quick_check_set;
-    extern std::unordered_set<uint32_t> const g_nfkd_quick_check_set;
-    extern std::unordered_map<uint32_t, quick_check> const
-        g_nfc_quick_check_map;
-    extern std::unordered_map<uint32_t, quick_check> const
-        g_nfkc_quick_check_map;
+    extern std::unordered_map<uint64_t, uint32_t> const g_composition_map;
+
+    struct cp_props
+    {
+        cp_range canonical_decomposition_;
+        cp_range compatible_decomposition_;
+        uint8_t ccc_;
+        uint8_t nfd_quick_check_ : 4;
+        uint8_t nfkd_quick_check_ : 4;
+        uint8_t nfc_quick_check_ : 4;
+        uint8_t nfkc_quick_check_ : 4;
+    };
+
+    static_assert(sizeof(cp_props) == 12, "");
+
+    extern std::unordered_map<uint32_t, cp_props> const g_cp_props_map;
 
     inline constexpr bool hangul_syllable(uint32_t cp) noexcept
     {
@@ -124,15 +128,24 @@ namespace boost { namespace text { namespace detail {
         if (detail::hangul_syllable(cp))
             return detail::decompose_hangul_syllable<4>(cp);
 
-        auto const it = detail::g_canonical_decomposition_map.find(cp);
-        if (it == detail::g_canonical_decomposition_map.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end() ||
+            it->second.canonical_decomposition_.last_ ==
+                it->second.canonical_decomposition_.first_) {
             return canonical_decomposition{{{cp}}, 1};
-        canonical_decomposition retval{{},
-                                       it->second.last_ - it->second.first_};
+        }
+
+        canonical_decomposition retval{
+            {},
+            it->second.canonical_decomposition_.last_ -
+                it->second.canonical_decomposition_.first_};
         std::copy(
-            detail::g_all_canonical_decompositions + it->second.first_,
-            detail::g_all_canonical_decompositions + it->second.last_,
+            detail::g_all_canonical_decompositions +
+                it->second.canonical_decomposition_.first_,
+            detail::g_all_canonical_decompositions +
+                it->second.canonical_decomposition_.last_,
             retval.storage_.begin());
+
         return retval;
     }
 
@@ -141,15 +154,24 @@ namespace boost { namespace text { namespace detail {
         if (detail::hangul_syllable(cp))
             return detail::decompose_hangul_syllable<18>(cp);
 
-        auto const it = detail::g_compatible_decomposition_map.find(cp);
-        if (it == detail::g_compatible_decomposition_map.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end() ||
+            it->second.compatible_decomposition_.last_ ==
+            it->second.compatible_decomposition_.first_) {
             return compatible_decomposition{{{cp}}, 1};
-        compatible_decomposition retval{{},
-                                        it->second.last_ - it->second.first_};
+        }
+
+        compatible_decomposition retval{
+            {},
+            it->second.compatible_decomposition_.last_ -
+                it->second.compatible_decomposition_.first_};
         std::copy(
-            detail::g_all_compatible_decompositions + it->second.first_,
-            detail::g_all_compatible_decompositions + it->second.last_,
+            detail::g_all_compatible_decompositions +
+                it->second.compatible_decomposition_.first_,
+            detail::g_all_compatible_decompositions +
+                it->second.compatible_decomposition_.last_,
             retval.storage_.begin());
+
         return retval;
     }
 
@@ -188,50 +210,50 @@ namespace boost { namespace text { namespace detail {
 
     inline int ccc(uint32_t cp) noexcept
     {
-        auto const it = detail::g_ccc_map.find(cp);
-        if (it == detail::g_ccc_map.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end())
             return 0;
-        return it->second;
+        return it->second.ccc_;
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFD. */
     inline quick_check quick_check_nfd_code_point(uint32_t cp) noexcept
     {
-        auto const it = detail::g_nfd_quick_check_set.find(cp);
-        if (it == detail::g_nfd_quick_check_set.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end())
             return quick_check::yes;
-        return quick_check::no;
+        return quick_check(it->second.nfd_quick_check_);
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFKD. */
     inline quick_check quick_check_nfkd_code_point(uint32_t cp) noexcept
     {
-        auto const it = detail::g_nfkd_quick_check_set.find(cp);
-        if (it == detail::g_nfkd_quick_check_set.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end())
             return quick_check::yes;
-        return quick_check::no;
+        return quick_check(it->second.nfkd_quick_check_);
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFC. */
     inline quick_check quick_check_nfc_code_point(uint32_t cp) noexcept
     {
-        auto const it = detail::g_nfc_quick_check_map.find(cp);
-        if (it == detail::g_nfc_quick_check_map.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end())
             return quick_check::yes;
-        return it->second;
+        return quick_check(it->second.nfc_quick_check_);
     }
 
     /** Returns yes, no, or maybe if the given code point indicates that the
         sequence in which it is found is normalized NFKC. */
     inline quick_check quick_check_nfkc_code_point(uint32_t cp) noexcept
     {
-        auto const it = detail::g_nfkc_quick_check_map.find(cp);
-        if (it == detail::g_nfkc_quick_check_map.end())
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end())
             return quick_check::yes;
-        return it->second;
+        return quick_check(it->second.nfkc_quick_check_);
     }
 
 }}}
