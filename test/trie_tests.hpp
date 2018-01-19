@@ -2,7 +2,7 @@
 #    include <boost/text/string.hpp>
 #    include <iostream>
 #    define private public
-#    include <boost/text/trie.hpp>
+#    include <boost/text/trie_map.hpp>
 #    undef private
 
 namespace std {
@@ -48,11 +48,11 @@ void dump(
     }
 }
 template<typename Key, typename Value>
-void dump(std::ostream & os, boost::trie::trie<Key, Value> const & trie)
+void dump(std::ostream & os, boost::trie::trie_map<Key, Value> const & trie)
 {
     os << "==== TRIE ====\n"
        << "  " << trie.size() << " elements\n"
        << "  nodes:\n";
-    dump(os, trie.root_);
+    dump(os, trie.header_);
 }
 #endif

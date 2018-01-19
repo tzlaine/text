@@ -2,7 +2,7 @@
 #define BOOST_TEXT_DETAIL_COLLATION_DATA_HPP
 
 #include <boost/text/string_view.hpp>
-#include <boost/text/trie.hpp>
+#include <boost/text/trie_map.hpp>
 #include <boost/text/detail/collation_constants.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
@@ -141,11 +141,9 @@ namespace boost { namespace text { namespace detail {
     };
 
     using collation_trie_t =
-        trie::trie<collation_trie_key, compressed_collation_elements>;
-    using trie_match_t = trie::
-        trie_match_result<collation_trie_key, compressed_collation_elements>;
-    using const_trie_iterator_t = trie::
-        const_trie_iterator<collation_trie_key, compressed_collation_elements>;
+        trie::trie_map<collation_trie_key, compressed_collation_elements>;
+    using trie_match_t = collation_trie_t::match_result;
+    using const_trie_iterator_t = collation_trie_t::const_iterator;
 
     extern collation_trie_t const g_default_collation_trie;
 

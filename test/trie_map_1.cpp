@@ -1,7 +1,7 @@
 #define ENABLE_DUMP 0
 #include "trie_tests.hpp"
 
-#include <boost/text/trie.hpp>
+#include <boost/text/trie_map.hpp>
 #include <boost/text/string.hpp>
 
 #include <gtest/gtest.h>
@@ -11,10 +11,10 @@
 
 using namespace boost;
 
-TEST(trie1, const_access)
+TEST(trie_map1, const_access)
 {
     {
-        trie::trie<std::vector<int>, int> const trie(
+        trie::trie_map<std::vector<int>, int> const trie(
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
         EXPECT_FALSE(trie.empty());
@@ -22,10 +22,10 @@ TEST(trie1, const_access)
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
-            std::vector<trie::trie_element<std::vector<int>, int>> const
+            std::vector<trie::trie_map_element<std::vector<int>, int>> const
                 expected_elements = {
                     {{0}, 17}, {{0, 1, 2}, 19}, {{0, 1, 3}, 13}};
-            std::vector<trie::trie_element<std::vector<int>, int>>
+            std::vector<trie::trie_map_element<std::vector<int>, int>>
                 copied_elements(trie.size());
 
             std::copy(trie.begin(), trie.end(), copied_elements.begin());
@@ -37,7 +37,7 @@ TEST(trie1, const_access)
     }
 
     {
-        trie::trie<std::string, int> const trie({{"", 42}});
+        trie::trie_map<std::string, int> const trie({{"", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "");
 
@@ -48,7 +48,7 @@ TEST(trie1, const_access)
     }
 
     {
-        trie::trie<std::wstring, int> const trie({{L"", 42}});
+        trie::trie_map<std::wstring, int> const trie({{L"", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, L"");
 
@@ -59,7 +59,7 @@ TEST(trie1, const_access)
     }
 
     {
-        trie::trie<std::string, int> const trie({{"w", 42}});
+        trie::trie_map<std::string, int> const trie({{"w", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
 
@@ -70,7 +70,7 @@ TEST(trie1, const_access)
     }
 
     {
-        trie::trie<std::string, int> const trie(
+        trie::trie_map<std::string, int> const trie(
             {{"foo", 13}, {"bar", 17}, {"fool", 19}, {"foon", 19}, {"", 42}});
 
 #if ENABLE_DUMP
@@ -235,10 +235,10 @@ TEST(trie1, const_access)
     }
 }
 
-TEST(trie1, mutable_access)
+TEST(trie_map1, mutable_access)
 {
     {
-        trie::trie<std::vector<int>, int> trie(
+        trie::trie_map<std::vector<int>, int> trie(
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
         EXPECT_FALSE(trie.empty());
@@ -246,10 +246,10 @@ TEST(trie1, mutable_access)
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
-            std::vector<trie::trie_element<std::vector<int>, int>> const
+            std::vector<trie::trie_map_element<std::vector<int>, int>> const
                 expected_elements = {
                     {{0}, 17}, {{0, 1, 2}, 19}, {{0, 1, 3}, 13}};
-            std::vector<trie::trie_element<std::vector<int>, int>>
+            std::vector<trie::trie_map_element<std::vector<int>, int>>
                 copied_elements(trie.size());
 
             std::copy(trie.begin(), trie.end(), copied_elements.begin());
@@ -261,7 +261,7 @@ TEST(trie1, mutable_access)
     }
 
     {
-        trie::trie<std::string, int> trie({{"", 42}});
+        trie::trie_map<std::string, int> trie({{"", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "");
 
@@ -272,7 +272,7 @@ TEST(trie1, mutable_access)
     }
 
     {
-        trie::trie<std::string, int> trie({{"w", 42}});
+        trie::trie_map<std::string, int> trie({{"w", 42}});
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
 
@@ -283,7 +283,7 @@ TEST(trie1, mutable_access)
     }
 
     {
-        trie::trie<std::string, int> trie(
+        trie::trie_map<std::string, int> trie(
             {{"foo", 13}, {"bar", 17}, {"fool", 19}, {"foon", 19}, {"", 42}});
 
 #if ENABLE_DUMP
@@ -448,10 +448,10 @@ TEST(trie1, mutable_access)
     }
 }
 
-TEST(trie, index_operator)
+TEST(trie_map, index_operator)
 {
     {
-        trie::trie<std::string, int> trie(
+        trie::trie_map<std::string, int> trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
 
         EXPECT_TRUE(trie["foo"]);
@@ -495,7 +495,7 @@ TEST(trie, index_operator)
     }
 
     {
-        trie::trie<std::string, int> const trie(
+        trie::trie_map<std::string, int> const trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 0}});
 
         EXPECT_TRUE(trie["foo"]);
@@ -518,9 +518,9 @@ TEST(trie, index_operator)
     }
 }
 
-TEST(trie, insert)
+TEST(trie_map, insert)
 {
-    trie::trie<std::string, int> trie;
+    trie::trie_map<std::string, int> trie;
 
     auto result = trie.insert("", -214);
     EXPECT_EQ(result.iter, trie.find(""));
@@ -535,10 +535,10 @@ TEST(trie, insert)
     EXPECT_FALSE(result.inserted);
 }
 
-TEST(trie1, erase)
+TEST(trie_map1, erase)
 {
     {
-        trie::trie<text::string, int> trie(
+        trie::trie_map<text::string, int> trie(
             {{"foo", 13}, {"bar", 17}, {"foos", 19}, {"", 42}});
 
         auto it = trie.find("foo");
@@ -562,7 +562,7 @@ TEST(trie1, erase)
 
     {
         // Sequence generated by the fuzz test.
-        trie::trie<text::string, int> trie;
+        trie::trie_map<text::string, int> trie;
         trie.insert(" )", 538976288);      // key.size()=2
         trie.insert(" )", 538976288);      // key.size()=2
         trie.insert(" )", 538976288);      // key.size()=2

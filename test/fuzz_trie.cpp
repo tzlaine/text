@@ -1,7 +1,7 @@
 #define ENABLE_DUMP 0
 #include "trie_tests.hpp"
 
-#include <boost/text/trie.hpp>
+#include <boost/text/trie_map.hpp>
 #include <boost/text/string.hpp>
 
 #include <algorithm>
@@ -13,7 +13,7 @@
 
 namespace {
 
-    boost::trie::trie<boost::text::string, int> trie;
+    boost::trie::trie_map<boost::text::string, int> trie;
     std::map<boost::text::string, int> map;
 
     std::ofstream ofs("fuzz_operations.cpp");
