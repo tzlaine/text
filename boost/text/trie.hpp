@@ -508,13 +508,9 @@ namespace boost { namespace trie {
 
         iterator begin() noexcept { return iterator(const_this()->begin()); }
         iterator end() noexcept { return iterator(const_this()->end()); }
-        iterator cbegin() noexcept { return begin(); }
-        iterator cend() noexcept { return end(); }
 
         reverse_iterator rbegin() noexcept { return reverse_iterator{end()}; }
         reverse_iterator rend() noexcept { return reverse_iterator{begin()}; }
-        reverse_iterator crbegin() noexcept { return rbegin(); }
-        reverse_iterator crend() noexcept { return rend(); }
 
         void clear() noexcept
         {
@@ -602,7 +598,8 @@ namespace boost { namespace trie {
                 std::is_same<Char, key_element_type>::value,
                 "Only well-formed when Char is Key::value_type.");
             return insert(
-                detail::char_range<Char const>{chars, chars + N - 1}, value);
+                detail::char_range<Char const>{chars, chars + N - 1},
+                std::move(value));
         }
 
         insert_result insert(element e)
