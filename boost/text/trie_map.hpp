@@ -637,6 +637,40 @@ namespace boost { namespace trie {
             }
         }
 
+        template<typename KeyIter>
+        insert_result insert_or_assign(KeyIter first, KeyIter last, Value value)
+        {
+            auto it = first;
+            auto match = longest_match_impl(it, last);
+            if (it == last && match.match) {
+                const_cast<Value &>(*match.node->value()) = std::move(value);
+                return insert_result{
+                    iterator(iter_state_t{match.node->parent(),
+                                          match.node->index_within_parent()}),
+                    false};
+            }
+            return insert(first, last, std::move(value));
+        }
+
+        template<typename KeyRange>
+        insert_result insert_or_assign(KeyRange const & key, Value value)
+        {
+            using std::begin;
+            using std::end;
+            return insert_or_assign(begin(key), end(key), std::move(value));
+        }
+
+        template<typename Char, std::size_t N>
+        insert_result insert_or_assign(Char const (&chars)[N], Value value)
+        {
+            static_assert(
+                std::is_same<Char, key_element_type>::value,
+                "Only well-formed when Char is Key::value_type.");
+            return insert_or_assign(
+                detail::char_range<Char const>{chars, chars + N - 1},
+                std::move(value));
+        }
+
         template<typename KeyRange>
         bool erase(KeyRange const & key) noexcept
         {
