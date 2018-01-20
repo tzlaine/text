@@ -138,14 +138,15 @@ namespace boost { namespace text {
             if (grapheme_.last_ != last_) {
                 break_ =
                     grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
+                ++grapheme_.last_;
             }
             while (grapheme_.last_ != last_) {
-                ++grapheme_.last_;
                 auto const new_break =
                     grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
                 if (new_break)
                     break;
                 break_ = new_break;
+                ++grapheme_.last_;
             }
         }
 

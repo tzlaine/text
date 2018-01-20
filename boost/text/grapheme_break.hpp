@@ -206,11 +206,12 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
                 current = it;
             }
 
-            auto it = current;
-            auto const prop = grapheme_prop(*--it);
-            if (grapheme_table_break(prop, current_prop)) {
-                break;
-            } else {
+            if (current != first) {
+                auto it = current;
+                auto const prop = grapheme_prop(*--it);
+                if (grapheme_table_break(prop, current_prop))
+                    break;
+
                 current = it;
                 current_prop = prop;
             }
