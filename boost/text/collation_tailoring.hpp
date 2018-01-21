@@ -1,10 +1,10 @@
 #ifndef BOOST_TEXT_COLLATION_TAILORING_HPP
 #define BOOST_TEXT_COLLATION_TAILORING_HPP
 
+#include <boost/text/collation_fwd.hpp>
 #include <boost/text/parser_fwd.hpp>
+#include <boost/text/normalize.hpp>
 #include <boost/text/detail/collation_data.hpp>
-
-#include <boost/container/small_vector.hpp>
 
 #include <numeric>
 #include <vector>
@@ -44,13 +44,61 @@ namespace boost { namespace text {
             return simple_reorders[masked_primary >> 24];
         }
 
-        tailored_collation_element_table make_tailored_collation_element_table(
-            string_view tailoring,
-            string_view tailoring_filename = "",
-            parser_diagnostic_callback report_errors =
-                parser_diagnostic_callback(),
-            parser_diagnostic_callback report_warnings =
-                parser_diagnostic_callback());
+        struct temp_table_element
+        {
+            using ces_t =
+                container::small_vector<compressed_collation_element, 4>;
+
+            cp_seq_t cps_;
+            ces_t ces_;
+
+            bool tailored_ = false;
+        };
+
+        inline bool operator<(
+            temp_table_element const & lhs,
+            temp_table_element::ces_t const & rhs) noexcept
+        {
+            auto const pair = algorithm::mismatch(
+                lhs.ces_.begin(), lhs.ces_.end(), rhs.begin(), rhs.end());
+            if (pair.first == lhs.ces_.end()) {
+                if (pair.second == rhs.end())
+                    return false;
+                return true;
+            } else {
+                if (pair.second == rhs.end())
+                    return false;
+                return *pair.first < *pair.second;
+            }
+        }
+
+        inline bool operator<(
+            temp_table_element const & lhs,
+            temp_table_element const & rhs) noexcept
+        {
+            return lhs < rhs.ces_;
+        }
+
+        using temp_table_t = std::vector<temp_table_element>;
+
+        void modify_table(
+            tailored_collation_element_table & table,
+            temp_table_t & temp_table,
+            cp_seq_t reset,
+            bool before,
+            collation_strength strength,
+            cp_seq_t relation,
+            optional_cp_seq_t const & prefix,
+            optional_cp_seq_t const & extension);
+
+        void finalize_table(
+            temp_table_t & temp_table,
+            nonsimple_reorders_t && nonsimple_reorders,
+            std::array<uint32_t, 256> const & simple_reorders,
+            optional<collation_strength> strength_override,
+            optional<variable_weighting> weighting_override,
+            optional<l2_weight_order> l2_order_override,
+            tailored_collation_element_table & table);
     }
 
     /** TODO */
@@ -85,30 +133,19 @@ namespace boost { namespace text {
         }
 
     private:
-        tailored_collation_element_table(
-            std::vector<detail::compressed_collation_element> &&
-                collation_elements,
-            detail::collation_trie_t && trie,
-            detail::nonsimple_reorders_t && nonsimple_reorders,
-            std::array<uint32_t, 256> const & simple_reorders,
-            optional<collation_strength> strength,
-            optional<variable_weighting> weighting,
-            optional<l2_weight_order> l2_order) :
-            collation_elements_(std::move(collation_elements)),
-            trie_(std::move(trie)),
-            nonsimple_reorders_(nonsimple_reorders),
-            simple_reorders_(simple_reorders),
-            strength_(strength),
-            weighting_(weighting),
-            l2_order_(l2_order)
-        {}
+        tailored_collation_element_table() {}
 
-        friend tailored_collation_element_table
-        make_tailored_collation_element_table(
-            string_view tailoring,
-            string_view tailoring_filename,
-            parser_diagnostic_callback report_error,
-            parser_diagnostic_callback report_warnings);
+        void add_temp_tailoring(
+            detail::cp_seq_t const & cps,
+            detail::temp_table_element::ces_t const & ces)
+        {
+            detail::compressed_collation_elements value{
+                static_cast<uint16_t>(collation_elements_.size())};
+            collation_elements_.insert(
+                collation_elements_.end(), ces.begin(), ces.end());
+            value.last_ = collation_elements_.size();
+            trie_.insert_or_assign(cps, value);
+        }
 
         std::vector<detail::compressed_collation_element> collation_elements_;
         detail::collation_trie_t trie_;
@@ -119,26 +156,38 @@ namespace boost { namespace text {
         optional<collation_strength> strength_;
         optional<variable_weighting> weighting_;
         optional<l2_weight_order> l2_order_;
+
+        friend void detail::modify_table(
+            tailored_collation_element_table & table,
+            detail::temp_table_t & temp_table,
+            detail::cp_seq_t reset,
+            bool before,
+            collation_strength strength,
+            detail::cp_seq_t relation,
+            detail::optional_cp_seq_t const & prefix,
+            detail::optional_cp_seq_t const & extension);
+
+        friend void detail::finalize_table(
+            detail::temp_table_t & temp_table,
+            detail::nonsimple_reorders_t && nonsimple_reorders,
+            std::array<uint32_t, 256> const & simple_reorders,
+            optional<collation_strength> strength_override,
+            optional<variable_weighting> weighting_override,
+            optional<l2_weight_order> l2_order_override,
+            tailored_collation_element_table & table);
+
+        friend tailored_collation_element_table
+        make_tailored_collation_element_table(
+            string_view tailoring,
+            string_view tailoring_filename,
+            parser_diagnostic_callback report_errors,
+            parser_diagnostic_callback report_warnings);
     };
 
     namespace detail {
-        struct temp_table_element
+        inline temp_table_t make_temp_table()
         {
-            using ces_t =
-                container::small_vector<compressed_collation_element, 4>;
-
-            cp_seq_t cps_;
-            ces_t ces_;
-
-            // Populated during trie-ification.
-            compressed_collation_elements linearized_ces_;
-        };
-
-        using temp_table = std::vector<temp_table_element>;
-
-        temp_table make_temp_table()
-        {
-            std::vector<temp_table_element> retval;
+            temp_table_t retval;
             retval.reserve(g_default_collation_trie.size());
             for (auto element : g_default_collation_trie) {
                 retval.resize(retval.size() + 1);
@@ -148,23 +197,136 @@ namespace boost { namespace text {
                     element.value.begin(g_collation_elements_first),
                     element.value.end(g_collation_elements_first));
             }
+            std::sort(retval.begin(), retval.end());
             return retval;
         }
 
-        void modify_table(
-            temp_table & table,
-            cp_seq_t const & reset,
+        inline temp_table_element::ces_t get_ces(
+            cp_seq_t initial_cps,
+            tailored_collation_element_table const & table) noexcept
+        {
+            temp_table_element::ces_t retval;
+
+            cp_seq_t fcc_cps;
+            pseudonormalize_to_fcc(initial_cps, std::back_inserter(fcc_cps));
+
+            container::small_vector<collation_element, 1024> ces;
+            s2(fcc_cps.begin(),
+               fcc_cps.end(),
+               variable_weighting::non_ignorable,
+               ces,
+               &table);
+
+            retval.resize(ces.size());
+            std::transform(
+                ces.begin(),
+                ces.end(),
+                retval.begin(),
+                [](collation_element ce) {
+                    assert(!ce.l4_);
+                    return compressed_collation_element{ce.l1_, ce.l2_, ce.l3_};
+                });
+
+            return retval;
+        }
+
+        template<typename Iter>
+        Iter last_ce_at_least_strength(
+            Iter first, Iter last, collation_strength strength) noexcept
+        {
+            for (auto it = last; it != first;) {
+                if (cce_strength(*--it) <= strength)
+                    return it;
+            }
+            return last;
+        }
+
+        // http://www.unicode.org/reports/tr35/tr35-collation.html#Orderings
+        inline void modify_table(
+            tailored_collation_element_table & table,
+            temp_table_t & temp_table,
+            cp_seq_t reset,
             bool before,
             collation_strength strength,
-            cp_seq_t const & relation,
+            cp_seq_t relation,
             optional_cp_seq_t const & prefix,
             optional_cp_seq_t const & extension)
         {
-            // TODO
+            // http://userguide.icu-project.org/collation/customization (see
+            // the bit titled "Prefix Example:").
+            temp_table_element::ces_t prefix_ces;
+            if (prefix) {
+                reset.insert(reset.end(), prefix->begin(), prefix->end());
+                relation.insert(relation.end(), prefix->begin(), prefix->end());
+            }
+
+            auto reset_ces = get_ces(reset, table);
+            auto table_it = temp_table.end();
+
+            if (before) {
+                auto const ces_it = last_ce_at_least_strength(
+                    reset_ces.begin(), reset_ces.end(), strength);
+                auto const ce = ces_it == reset_ces.end()
+                                    ? compressed_collation_element{0, 0, 0}
+                                    : *ces_it;
+                reset_ces.clear();
+                reset_ces.push_back(ce);
+                auto it = std::lower_bound(
+                    temp_table.begin(), temp_table.end(), reset_ces);
+                assert(it != temp_table.begin());
+                while (it != temp_table.begin()) {
+                    --it;
+                    auto const curr_ce = it->ces_[0];
+                    if (curr_ce.l1_ != ce.l1_) {
+                        table_it = it;
+                        break;
+                    } else if (
+                        collation_strength::secondary <= strength &&
+                        curr_ce.l2_ != ce.l2_) {
+                        table_it = it;
+                        break;
+                    } else if (
+                        collation_strength::tertiary <= strength &&
+                        curr_ce.l3_ != ce.l3_) {
+                        table_it = it;
+                        break;
+                    }
+                }
+                if (table_it == temp_table.end()) {
+                    // TODO: Could not implement this.  Throw here, catch it in
+                    // the parser, and produce a reasonable error message baed
+                    // on its state.
+                }
+                reset_ces.erase(ces_it, reset_ces.end());
+                reset_ces.insert(
+                    ces_it, table_it->ces_.begin(), table_it->ces_.end());
+            } else {
+                table_it = std::lower_bound(
+                    temp_table.begin(), temp_table.end(), reset_ces);
+            }
+
+#if 0 // TODO
+            temp_table_element::ces_t extension_ces;
+            if (extension)
+                extension_cps = get_ces(*extension, table);
+#endif
+
+            if (strength == collation_strength::identical) {
+                // Overloaded meaning; identical here means "=".
+                table.add_temp_tailoring(relation, reset_ces);
+                temp_table_element element;
+                element.cps_ = std::move(relation);
+                element.ces_ = std::move(reset_ces);
+                temp_table.insert(table_it, std::move(element));
+            } else {
+                // TODO
+            }
         }
 
-        // TODO: Drop support for this?
-        void suppress(temp_table & table, uint32_t cp)
+        // TODO: Drop support for this?  No! Just add table entries for any
+        // key that starts with cp that consists of all the CEs that the key
+        // would have had generated without the contraction.
+        inline void suppress(temp_table_t & table, uint32_t cp)
         {
             // TODO
         }
@@ -200,37 +362,50 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        void temp_table_to_trie(
-            temp_table & table,
-            nonsimple_reorders_t const & nonsimple_reorders,
+        inline void finalize_table(
+            temp_table_t & temp_table,
+            nonsimple_reorders_t && nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders,
-            std::vector<compressed_collation_element> collation_elements,
-            collation_trie_t & trie)
+            optional<collation_strength> strength_override,
+            optional<variable_weighting> weighting_override,
+            optional<l2_weight_order> l2_order_override,
+            tailored_collation_element_table & table)
         {
+            table.collation_elements_.clear();
+            table.strength_ = strength_override;
+            table.weighting_ = weighting_override;
+            table.l2_order_ = l2_order_override;
+
             std::unordered_map<
                 temp_table_element::ces_t,
                 compressed_collation_elements>
                 already_linearized;
-            for (auto & e : table) {
+            for (auto & e : temp_table) {
+                if (!e.tailored_)
+                    continue;
+
                 for (auto ce : e.ces_) {
                     auto const lead_byte_ =
                         lead_byte(ce, nonsimple_reorders, simple_reorders);
                     ce.l1_ &= 0x00ffffff;
                     ce.l1_ |= lead_byte_;
                 }
+
+                compressed_collation_elements linearized_ces;
                 auto const it = already_linearized.find(e.ces_);
                 if (it == already_linearized.end()) {
-                    e.linearized_ces_.first_ = collation_elements.size();
-                    collation_elements.insert(
-                        collation_elements.end(), e.ces_.begin(), e.ces_.end());
-                    e.linearized_ces_.last_ = collation_elements.size();
+                    linearized_ces.first_ = table.collation_elements_.size();
+                    table.collation_elements_.insert(
+                        table.collation_elements_.end(),
+                        e.ces_.begin(),
+                        e.ces_.end());
+                    linearized_ces.last_ = table.collation_elements_.size();
                 } else {
-                    e.linearized_ces_ = it->second;
+                    linearized_ces = it->second;
                 }
-            }
 
-            for (auto const e : table) {
-                trie.insert(e.cps_.begin(), e.cps_.end(), e.linearized_ces_);
+                assert(table.trie_.contains(e.cps_));
+                table.trie_[e.cps_] = linearized_ces;
             }
         }
     }
@@ -246,7 +421,7 @@ namespace boost { namespace text {
         detail::cp_seq_t curr_reset;
         bool reset_is_before = false;
 
-        detail::temp_table table = detail::make_temp_table();
+        detail::temp_table_t temp_table = detail::make_temp_table();
 
         optional<collation_strength> strength_override;
         optional<variable_weighting> weighting_override;
@@ -261,6 +436,8 @@ namespace boost { namespace text {
             x <<= 24;
         }
 
+        tailored_collation_element_table table;
+
         detail::collation_tailoring_interface callbacks = {
             [&](detail::cp_seq_t const & reset, bool before) {
                 curr_reset = reset;
@@ -269,6 +446,7 @@ namespace boost { namespace text {
             [&](detail::relation_t const & rel) {
                 detail::modify_table(
                     table,
+                    temp_table,
                     curr_reset,
                     reset_is_before,
                     static_cast<collation_strength>(rel.op_),
@@ -341,26 +519,19 @@ namespace boost { namespace text {
             tailoring.begin(), tailoring.end(), callbacks, tailoring_filename);
 
         for (auto cp : suppressions) {
-            detail::suppress(table, cp);
+            detail::suppress(temp_table, cp);
         }
 
-        std::vector<detail::compressed_collation_element> collation_elements;
-        detail::collation_trie_t trie;
-        temp_table_to_trie(
-            table,
-            nonsimple_reorders,
-            simple_reorders,
-            collation_elements,
-            trie);
-
-        return tailored_collation_element_table(
-            std::move(collation_elements),
-            std::move(trie),
+        finalize_table(
+            temp_table,
             std::move(nonsimple_reorders),
             simple_reorders,
             strength_override,
             weighting_override,
-            l2_order_override);
+            l2_order_override,
+            table);
+
+        return table;
     }
 
 }}

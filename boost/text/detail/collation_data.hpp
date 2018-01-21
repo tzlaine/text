@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_DETAIL_COLLATION_DATA_HPP
 #define BOOST_TEXT_DETAIL_COLLATION_DATA_HPP
 
+#include <boost/text/collation_fwd.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/trie_map.hpp>
 #include <boost/text/detail/collation_constants.hpp>
@@ -27,17 +28,20 @@ namespace boost { namespace text { namespace detail {
     };
 
     inline bool operator==(
-        compressed_collation_element lhs, compressed_collation_element rhs)
+        compressed_collation_element lhs,
+        compressed_collation_element rhs) noexcept
     {
         return lhs.l1_ == rhs.l1_ && lhs.l2_ == rhs.l2_ && lhs.l3_ == rhs.l3_;
     }
     inline bool operator!=(
-        compressed_collation_element lhs, compressed_collation_element rhs)
+        compressed_collation_element lhs,
+        compressed_collation_element rhs) noexcept
     {
         return !(lhs == rhs);
     }
     inline bool operator<(
-        compressed_collation_element lhs, compressed_collation_element rhs)
+        compressed_collation_element lhs,
+        compressed_collation_element rhs) noexcept
     {
         if (rhs.l1_ < lhs.l1_)
             return false;
@@ -52,9 +56,22 @@ namespace boost { namespace text { namespace detail {
         return lhs.l3_ < rhs.l3_;
     }
     inline bool operator<=(
-        compressed_collation_element lhs, compressed_collation_element rhs)
+        compressed_collation_element lhs,
+        compressed_collation_element rhs) noexcept
     {
         return lhs == rhs || lhs < rhs;
+    }
+
+    inline collation_strength
+    cce_strength(compressed_collation_element cce) noexcept
+    {
+        if (cce.l1_)
+            return collation_strength::primary;
+        if (cce.l2_)
+            return collation_strength::secondary;
+        if (cce.l3_)
+            return collation_strength::tertiary;
+        return collation_strength::identical;
     }
 
     static_assert(
@@ -94,12 +111,14 @@ namespace boost { namespace text { namespace detail {
     };
 
     inline bool operator==(
-        compressed_collation_elements lhs, compressed_collation_elements rhs)
+        compressed_collation_elements lhs,
+        compressed_collation_elements rhs) noexcept
     {
         return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
     }
     inline bool operator!=(
-        compressed_collation_elements lhs, compressed_collation_elements rhs)
+        compressed_collation_elements lhs,
+        compressed_collation_elements rhs) noexcept
     {
         return !(lhs == rhs);
     }
@@ -112,15 +131,21 @@ namespace boost { namespace text { namespace detail {
 
         struct storage_t
         {
-            constexpr storage_t() :values_{} {}
-            constexpr storage_t(uint32_t x) :values_{x}{}
-            constexpr storage_t(uint32_t x, uint32_t y)  :values_{x,y}{}
-            constexpr storage_t(uint32_t x, uint32_t y, uint32_t z) :values_{x,y,z} {}
+            constexpr storage_t() noexcept : values_{} {}
+            constexpr storage_t(uint32_t x) noexcept : values_{x} {}
+            constexpr storage_t(uint32_t x, uint32_t y) noexcept : values_{x, y}
+            {}
+            constexpr storage_t(uint32_t x, uint32_t y, uint32_t z) noexcept :
+                values_{x, y, z}
+            {}
             uint32_t values_[3];
         };
 
-        constexpr collation_trie_key() : cps_(), size_(0) {}
-        constexpr collation_trie_key(storage_t cps, int size) : cps_(cps), size_(size) {}
+        constexpr collation_trie_key() noexcept : cps_(), size_(0) {}
+        constexpr collation_trie_key(storage_t cps, int size) noexcept :
+            cps_(cps),
+            size_(size)
+        {}
 
         const_iterator begin() const noexcept { return cps_.values_; }
         const_iterator end() const noexcept { return begin() + size_; }
@@ -128,7 +153,7 @@ namespace boost { namespace text { namespace detail {
         iterator begin() noexcept { return cps_.values_; }
         iterator end() noexcept { return begin() + size_; }
 
-        iterator insert(iterator at, uint32_t cp)
+        iterator insert(iterator at, uint32_t cp) noexcept
         {
             assert(at == end());
             *at = cp;
@@ -156,7 +181,7 @@ namespace boost { namespace text { namespace detail {
         bool compressible_;
     };
 
-    inline bool operator==(reorder_group lhs, reorder_group rhs)
+    inline bool operator==(reorder_group lhs, reorder_group rhs) noexcept
     {
         return lhs.name_ == rhs.name_ && lhs.first_ == rhs.first_ &&
                lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
@@ -165,7 +190,7 @@ namespace boost { namespace text { namespace detail {
 
     extern std::array<reorder_group, 140> const g_reorder_groups;
 
-    inline optional<reorder_group> find_reorder_group(string_view name)
+    inline optional<reorder_group> find_reorder_group(string_view name) noexcept
     {
         if (name == "Hrkt")
             name = "Hira";
