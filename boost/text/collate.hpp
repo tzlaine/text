@@ -166,13 +166,13 @@ namespace boost { namespace text {
                         (primary_weight_low_bits >> 0) & 0x3f};
                     uint32_t const primary = bytes[0] << 24 | bytes[1] << 16 |
                                              bytes[2] << 8 | bytes[3] << 0;
-                    compressed_collation_element ce{primary, 0x0500, 0x05};
+                    collation_element ce{primary, 0x0500, 0x05, 0x0};
                     if (table) {
                         auto const lead_byte = table->lead_byte(ce);
                         ce.l1_ &= 0x00ffffff;
                         ce.l1_ |= lead_byte;
                     }
-                    *out++ = collation_element{ce.l1_, ce.l2_, ce.l3_};
+                    *out++ = ce;
                     return out;
                 }
             }
@@ -181,7 +181,8 @@ namespace boost { namespace text {
             *out++ = collation_element{
                 (implicit_weights_final_lead_byte << 24) | (cp & 0xffffff),
                 0x0500,
-                0x05};
+                0x05,
+                0x0};
             return out;
         }
 
@@ -355,7 +356,7 @@ namespace boost { namespace text {
                     ++nonstarter_first;
                 }
 
-                compressed_collation_element const * collation_elements_first =
+                collation_element const * collation_elements_first =
                     in_table ? table->collation_elements_begin()
                              : g_collation_elements_first;
 
@@ -366,16 +367,14 @@ namespace boost { namespace text {
                     collation_it->value.begin(collation_elements_first),
                     collation_it->value.end(collation_elements_first),
                     std::back_inserter(ces),
-                    [table, in_table](compressed_collation_element ce) {
-                        if (in_table) {
-                            auto l1 = ce.l1();
+                    [table, in_table](collation_element ce) {
+                        if (table && !in_table) {
+                            auto & l1 = ce.l1_;
                             auto lead_byte = table->lead_byte(ce);
                             l1 &= 0x00ffffff;
                             l1 |= lead_byte;
-                            return collation_element{l1, ce.l2(), ce.l3()};
-                        } else {
-                            return collation_element{ce.l1(), ce.l2(), ce.l3()};
                         }
+                        return ce;
                     });
 
                 // S2.3

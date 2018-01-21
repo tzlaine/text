@@ -18,8 +18,8 @@ namespace boost { namespace text {
 
         struct nonsimple_script_reorder
         {
-            compressed_collation_element first_;
-            compressed_collation_element last_;
+            collation_element first_;
+            collation_element last_;
             uint32_t lead_byte_;
         };
 
@@ -27,7 +27,7 @@ namespace boost { namespace text {
             static_vector<nonsimple_script_reorder, g_reorder_groups.size()>;
 
         uint32_t lead_byte(
-            compressed_collation_element cce,
+            collation_element cce,
             nonsimple_reorders_t const & nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders) noexcept
         {
@@ -46,8 +46,7 @@ namespace boost { namespace text {
 
         struct temp_table_element
         {
-            using ces_t =
-                container::small_vector<compressed_collation_element, 4>;
+            using ces_t = container::small_vector<collation_element, 4>;
 
             cp_seq_t cps_;
             ces_t ces_;
@@ -90,10 +89,21 @@ namespace boost { namespace text {
             std::array<temp_table_element::ces_t, 11> cces_;
         };
 
+        struct tailoring_state_t
+        {
+            uint8_t first_tertiary_in_secondary_masked_ =
+                first_tertiary_in_secondary_masked;
+            uint8_t last_tertiary_in_secondary_masked_ =
+                last_tertiary_in_secondary_masked;
+            uint16_t first_secondary_in_primary_ = first_secondary_in_primary;
+            uint16_t last_secondary_in_primary_ = last_secondary_in_primary;
+        };
+
         void modify_table(
             tailored_collation_element_table & table,
             temp_table_t & temp_table,
             logical_positions_t & logical_positions,
+            tailoring_state_t & tailoring_state,
             cp_seq_t reset,
             bool before,
             collation_strength strength,
@@ -116,14 +126,13 @@ namespace boost { namespace text {
     {
         detail::collation_trie_t const & trie() const noexcept { return trie_; }
 
-        detail::compressed_collation_element const *
-        collation_elements_begin() const noexcept
+        detail::collation_element const * collation_elements_begin() const
+            noexcept
         {
             return &collation_elements_[0];
         }
 
-        uint32_t lead_byte(detail::compressed_collation_element cce) const
-            noexcept
+        uint32_t lead_byte(detail::collation_element cce) const noexcept
         {
             return detail::lead_byte(
                 cce, nonsimple_reorders_, simple_reorders_);
@@ -149,7 +158,7 @@ namespace boost { namespace text {
             detail::cp_seq_t const & cps,
             detail::temp_table_element::ces_t const & ces)
         {
-            detail::compressed_collation_elements value{
+            detail::collation_elements value{
                 static_cast<uint16_t>(collation_elements_.size())};
             collation_elements_.insert(
                 collation_elements_.end(), ces.begin(), ces.end());
@@ -157,7 +166,7 @@ namespace boost { namespace text {
             trie_.insert_or_assign(cps, value);
         }
 
-        std::vector<detail::compressed_collation_element> collation_elements_;
+        std::vector<detail::collation_element> collation_elements_;
         detail::collation_trie_t trie_;
 
         detail::nonsimple_reorders_t nonsimple_reorders_;
@@ -171,6 +180,7 @@ namespace boost { namespace text {
             tailored_collation_element_table & table,
             detail::temp_table_t & temp_table,
             detail::logical_positions_t & logical_positions,
+            detail::tailoring_state_t & tailoring_state,
             detail::cp_seq_t reset,
             bool before,
             collation_strength strength,
@@ -229,14 +239,7 @@ namespace boost { namespace text {
                &table);
 
             retval.resize(ces.size());
-            std::transform(
-                ces.begin(),
-                ces.end(),
-                retval.begin(),
-                [](collation_element ce) {
-                    assert(!ce.l4_);
-                    return compressed_collation_element{ce.l1_, ce.l2_, ce.l3_};
-                });
+            std::copy(ces.begin(), ces.end(), retval.begin());
 
             return retval;
         }
@@ -257,6 +260,7 @@ namespace boost { namespace text {
             tailored_collation_element_table & table,
             temp_table_t & temp_table,
             logical_positions_t & logical_positions,
+            tailoring_state_t & tailoring_state,
             cp_seq_t reset,
             bool before,
             collation_strength strength,
@@ -276,7 +280,6 @@ namespace boost { namespace text {
             if (reset.size() == 1u && first_tertiary_ignorable <= reset[0] &&
                 reset[0] <= first_implicit) {
                 reset_ces = logical_positions[reset[0]];
-                // TODO: Elsewhere, update these logical positions.
             } else {
                 reset_ces = get_ces(reset, table);
             }
@@ -286,7 +289,7 @@ namespace boost { namespace text {
                 auto const ces_it = last_ce_at_least_strength(
                     reset_ces.begin(), reset_ces.end(), strength);
                 auto const ce = ces_it == reset_ces.end()
-                                    ? compressed_collation_element{0, 0, 0}
+                                    ? collation_element{0, 0, 0, 0}
                                     : *ces_it;
                 reset_ces.clear();
                 reset_ces.push_back(ce);
@@ -324,8 +327,7 @@ namespace boost { namespace text {
                     temp_table.begin(), temp_table.end(), reset_ces);
             }
 
-            // TODO: Throw if table_it points to an element outside the
-            // tailorable zone.
+            // TODO: Adjust reset_ces case bits here.
 
             if (extension) {
                 auto const extension_ces = get_ces(*extension, table);
@@ -347,8 +349,8 @@ namespace boost { namespace text {
                 if (ces_it != reset_ces.end())
                     reset_ces.erase(std::next(ces_it), reset_ces.end());
                 if (ces_it == reset_ces.end()) {
-                    ces_it = reset_ces.insert(
-                        ces_it, compressed_collation_element{0, 0, 0});
+                    ces_it =
+                        reset_ces.insert(ces_it, collation_element{0, 0, 0, 0});
                 }
                 auto & ce = *ces_it;
 
@@ -356,7 +358,8 @@ namespace boost { namespace text {
                 // strength of the operator. For example, for << increment the
                 // secondary weight."
                 switch (strength) {
-                case collation_strength::primary: ++ce.l1_;
+                case collation_strength::primary:
+                    ++ce.l1_;
                     ce.l2_ = common_l2_weight_compressed;
                     ce.l3_ = common_l3_weight_compressed;
                     break;
@@ -377,11 +380,15 @@ namespace boost { namespace text {
                     // UCA well-formedness conditions."
                     ++ce.l3_;
                     break;
-                default:
-                    // TODO: Throw (probably).  If so, this limitation should
-                    // be documented; make sure none of the existing tailoring
-                    // files use quaternary tailorings before doing this!
+                case collation_strength::quaternary:
+                    // TODO: "The new weight must be less than the next weight
+                    // for the same combination of higher-level weights of any
+                    // collation element according to the current state."
+                    // TODO: "Weights must be allocated in accordance with the
+                    // UCA well-formedness conditions."
+                    ++ce.l4_;
                     break;
+                default: break;
                 }
             }
 
@@ -391,6 +398,25 @@ namespace boost { namespace text {
             element.ces_ = std::move(reset_ces);
             element.tailored_ = true;
             table_it = temp_table.insert(table_it, std::move(element));
+
+            // TODO: Check WF1.
+
+            // TODO: Check WF2 against tailoring_state.
+
+            // TODO: Widen variable range if a new primary is created outside
+            // the current range.
+
+            // TODO: Check that contractions of length N > 2 have all prefixes
+            // already in the new table, or the default one (WF5).
+
+            // TODO: If we add a contraction whose N-1 prefixes are in the
+            // default table, copy them to the new table.
+
+            // TODO: If we add anything to this table that is a prefix of
+            // something in the default table, add those suffixes to the new
+            // table.
+
+            // TODO: Update logical positions.
 
             // TODO: I don't think this is necessary; try removing it and
             // seeing if it breaks the tests (once the tests exist).
@@ -462,9 +488,7 @@ namespace boost { namespace text {
             table.weighting_ = weighting_override;
             table.l2_order_ = l2_order_override;
 
-            std::unordered_map<
-                temp_table_element::ces_t,
-                compressed_collation_elements>
+            std::unordered_map<temp_table_element::ces_t, collation_elements>
                 already_linearized;
             for (auto & e : temp_table) {
                 if (!e.tailored_)
@@ -477,7 +501,7 @@ namespace boost { namespace text {
                     ce.l1_ |= lead_byte_;
                 }
 
-                compressed_collation_elements linearized_ces;
+                collation_elements linearized_ces;
                 auto const it = already_linearized.find(e.ces_);
                 if (it == already_linearized.end()) {
                     linearized_ces.first_ = table.collation_elements_.size();
@@ -544,9 +568,9 @@ namespace boost { namespace text {
             lookup_and_assign(detail::first_tertiary_ignorable);
             lookup_and_assign(detail::last_tertiary_ignorable);
             logical_positions[detail::first_secondary_ignorable].push_back(
-                detail::compressed_collation_element{0xffffffff, 0, 0});
+                detail::collation_element{0xffffffff, 0, 0, 0});
             logical_positions[detail::last_secondary_ignorable].push_back(
-                detail::compressed_collation_element{0xffffffff, 0, 0});
+                detail::collation_element{0xffffffff, 0, 0, 0});
             lookup_and_assign(detail::first_primary_ignorable);
             lookup_and_assign(detail::last_primary_ignorable);
             lookup_and_assign(detail::first_variable);
@@ -555,6 +579,8 @@ namespace boost { namespace text {
             lookup_and_assign(detail::last_regular);
             lookup_and_assign(detail::first_implicit);
         }
+
+        detail::tailoring_state_t tailoring_state;
 
         detail::collation_tailoring_interface callbacks = {
             [&](detail::cp_seq_t const & reset, bool before) {
@@ -566,6 +592,7 @@ namespace boost { namespace text {
                     table,
                     temp_table,
                     logical_positions,
+                    tailoring_state,
                     curr_reset,
                     reset_is_before,
                     static_cast<collation_strength>(rel.op_),
@@ -591,8 +618,8 @@ namespace boost { namespace text {
                     (detail::g_reorder_groups[0].first_.l1_ & 0xff000000) -
                     0x01000000;
                 bool prev_group_compressible = false;
-                detail::compressed_collation_element prev_group_last = {
-                    0xffffffff};
+                detail::collation_element prev_group_last = {
+                    0xffffffff, 0, 0, 0};
                 for (auto const & group : reorder_groups) {
                     bool const compress = group.compressible_ &&
                                           prev_group_compressible &&

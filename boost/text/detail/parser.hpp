@@ -424,13 +424,13 @@ namespace boost { namespace text { namespace detail {
             [&](reorder_group group) { return group.name_ == script; });
         if (it == g_reorder_groups.end())
             return false;
-        auto const lead_byte = it->first_.l1() & 0xff000000;
+        auto const lead_byte = it->first_.l1_ & 0xff000000;
         if (it != g_reorder_groups.begin() &&
-            (std::prev(it)->first_.l1() & 0xff000000) == lead_byte) {
+            (std::prev(it)->first_.l1_ & 0xff000000) == lead_byte) {
             return true;
         }
         if (std::next(it) != g_reorder_groups.end() &&
-            (std::next(it)->first_.l1() & 0xff000000) == lead_byte) {
+            (std::next(it)->first_.l1_ & 0xff000000) == lead_byte) {
             return true;
         }
         return false;

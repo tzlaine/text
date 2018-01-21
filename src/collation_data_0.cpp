@@ -165,7 +165,7 @@ std::array<reorder_group, 140> const g_reorder_groups = {{
 
 }};
 
-std::array<compressed_collation_element, 39419> const g_collation_elements = {{
+std::array<collation_element, 39419> const g_collation_elements = {{
     {0x0C55C600, 0x0500, 0x05},
     {0x7C579C00, 0x0500, 0x05},
     {0x0D37E400, 0x0500, 0x05},
@@ -39588,7 +39588,7 @@ std::array<compressed_collation_element, 39419> const g_collation_elements = {{
 
 }};
 
-compressed_collation_element const * g_collation_elements_first =
+collation_element const * g_collation_elements_first =
     g_collation_elements.data();
 
 }}}

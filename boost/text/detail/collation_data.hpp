@@ -16,32 +16,26 @@
 
 namespace boost { namespace text { namespace detail {
 
-    struct compressed_collation_element
+    struct collation_element
     {
-        uint32_t l1() const noexcept { return l1_; }
-        uint16_t l2() const noexcept { return l2_; }
-        uint8_t l3() const noexcept { return l3_; }
-
         uint32_t l1_;
         uint16_t l2_;
         uint8_t l3_;
+        uint32_t l4_;
     };
 
-    inline bool operator==(
-        compressed_collation_element lhs,
-        compressed_collation_element rhs) noexcept
+    inline bool
+    operator==(collation_element lhs, collation_element rhs) noexcept
     {
-        return lhs.l1_ == rhs.l1_ && lhs.l2_ == rhs.l2_ && lhs.l3_ == rhs.l3_;
+        return lhs.l1_ == rhs.l1_ && lhs.l2_ == rhs.l2_ && lhs.l3_ == rhs.l3_ &&
+               lhs.l4_ == rhs.l4_;
     }
-    inline bool operator!=(
-        compressed_collation_element lhs,
-        compressed_collation_element rhs) noexcept
+    inline bool
+    operator!=(collation_element lhs, collation_element rhs) noexcept
     {
         return !(lhs == rhs);
     }
-    inline bool operator<(
-        compressed_collation_element lhs,
-        compressed_collation_element rhs) noexcept
+    inline bool operator<(collation_element lhs, collation_element rhs) noexcept
     {
         if (rhs.l1_ < lhs.l1_)
             return false;
@@ -53,17 +47,20 @@ namespace boost { namespace text { namespace detail {
         if (lhs.l2_ < rhs.l2_)
             return true;
 
-        return lhs.l3_ < rhs.l3_;
+        if (rhs.l3_ < lhs.l3_)
+            return false;
+        if (lhs.l3_ < rhs.l3_)
+            return true;
+
+        return lhs.l4_ < rhs.l4_;
     }
-    inline bool operator<=(
-        compressed_collation_element lhs,
-        compressed_collation_element rhs) noexcept
+    inline bool
+    operator<=(collation_element lhs, collation_element rhs) noexcept
     {
         return lhs == rhs || lhs < rhs;
     }
 
-    inline collation_strength
-    cce_strength(compressed_collation_element cce) noexcept
+    inline collation_strength cce_strength(collation_element cce) noexcept
     {
         if (cce.l1_)
             return collation_strength::primary;
@@ -71,34 +68,22 @@ namespace boost { namespace text { namespace detail {
             return collation_strength::secondary;
         if (cce.l3_)
             return collation_strength::tertiary;
+        if (cce.l4_)
+            return collation_strength::quaternary;
         return collation_strength::identical;
     }
 
-    static_assert(
-        sizeof(compressed_collation_element) == 8,
-        "Oops!  compressed_collation_element should be 64 bits.");
+    extern collation_element const * g_collation_elements_first;
 
-    struct collation_element
+    struct collation_elements
     {
-        uint32_t l1_;
-        uint16_t l2_;
-        uint8_t l3_;
-        uint32_t l4_;
-    };
+        using iterator = collation_element const *;
 
-    extern compressed_collation_element const * g_collation_elements_first;
-
-    struct compressed_collation_elements
-    {
-        using iterator = compressed_collation_element const *;
-
-        iterator begin(compressed_collation_element const * elements) const
-            noexcept
+        iterator begin(collation_element const * elements) const noexcept
         {
             return elements + first_;
         }
-        iterator end(compressed_collation_element const * elements) const
-            noexcept
+        iterator end(collation_element const * elements) const noexcept
         {
             return elements + last_;
         }
@@ -110,15 +95,13 @@ namespace boost { namespace text { namespace detail {
         uint16_t last_;
     };
 
-    inline bool operator==(
-        compressed_collation_elements lhs,
-        compressed_collation_elements rhs) noexcept
+    inline bool
+    operator==(collation_elements lhs, collation_elements rhs) noexcept
     {
         return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
     }
-    inline bool operator!=(
-        compressed_collation_elements lhs,
-        compressed_collation_elements rhs) noexcept
+    inline bool
+    operator!=(collation_elements lhs, collation_elements rhs) noexcept
     {
         return !(lhs == rhs);
     }
@@ -166,7 +149,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     using collation_trie_t =
-        trie::trie_map<collation_trie_key, compressed_collation_elements>;
+        trie::trie_map<collation_trie_key, collation_elements>;
     using trie_match_t = collation_trie_t::match_result;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
@@ -175,8 +158,8 @@ namespace boost { namespace text { namespace detail {
     struct reorder_group
     {
         string_view name_;
-        compressed_collation_element first_;
-        compressed_collation_element last_;
+        collation_element first_;
+        collation_element last_;
         bool simple_;
         bool compressible_;
     };

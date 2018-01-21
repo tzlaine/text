@@ -38748,7 +38748,7 @@ namespace detail {
         { collation_trie_key::storage_t{ 0xe01ef }, 1 },
 
         }};
-        static constexpr std::array<compressed_collation_elements, 38739> g_trie_values = {{
+        static constexpr std::array<collation_elements, 38739> g_trie_values = {{
         {29, 30},
         {29, 30},
         {29, 30},

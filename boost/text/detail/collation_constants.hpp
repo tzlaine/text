@@ -47,6 +47,11 @@ namespace boost { namespace text { namespace detail {
         common_l2_weight_compressed = 0x0500,
         common_l3_weight_compressed = 0x05,
 
+        first_tertiary_in_secondary_masked = 0x03,
+        last_tertiary_in_secondary_masked = 0x38,
+        first_secondary_in_primary = 0x0500,
+        last_secondary_in_primary = 0x7c00,
+
         implicit_weights_spacing_times_ten = 80,
         implicit_weights_first_lead_byte = 0xe0,
         implicit_weights_final_lead_byte = 0xe4

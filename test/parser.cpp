@@ -8,10 +8,10 @@
 using namespace boost;
 
 std::ostream &
-dump(std::ostream & os, text::detail::compressed_collation_element cce)
+dump(std::ostream & os, text::detail::collation_element cce)
 {
     os << std::hex << "{" << cce.l1_ << " " << cce.l2_ << " "
-       << (uint32_t)cce.l3_ << "}";
+       << (uint32_t)cce.l3_ << " " << cce.l4_ << "}";
     return os;
 }
 

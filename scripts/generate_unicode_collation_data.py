@@ -59,6 +59,11 @@ namespace boost {{ namespace text {{ namespace detail {{
         common_l2_weight_compressed = 0x0500,
         common_l3_weight_compressed = 0x05,
 
+        first_tertiary_in_secondary_masked = 0x03,
+        last_tertiary_in_secondary_masked = 0x38,
+        first_secondary_in_primary = 0x0500,
+        last_secondary_in_primary = 0x7c00,
+
         implicit_weights_spacing_times_ten = {},
         implicit_weights_first_lead_byte = {},
         implicit_weights_final_lead_byte = {}
@@ -97,11 +102,11 @@ std::array<reorder_group, {3}> const g_reorder_groups = {{{{
 {2}
 }}}};
 
-std::array<compressed_collation_element, {5}> const g_collation_elements = {{{{
+std::array<collation_element, {5}> const g_collation_elements = {{{{
 {4}
 }}}};
 
-compressed_collation_element const * g_collation_elements_first =
+collation_element const * g_collation_elements_first =
     g_collation_elements.data();
 
 }}}}}}
@@ -119,7 +124,7 @@ namespace detail {{
         static constexpr std::array<collation_trie_key, {0}> g_trie_keys = {{{{
 {1}
         }}}};
-        static constexpr std::array<compressed_collation_elements, {0}> g_trie_values = {{{{
+        static constexpr std::array<collation_elements, {0}> g_trie_values = {{{{
 {2}
         }}}};
 
