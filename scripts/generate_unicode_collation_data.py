@@ -56,6 +56,9 @@ namespace boost {{ namespace text {{ namespace detail {{
         initial_last_regular = 0x1B2FB,
         initial_first_implicit = 0x3400,
 
+        common_l2_weight_compressed = 0x0500,
+        common_l3_weight_compressed = 0x05,
+
         implicit_weights_spacing_times_ten = {},
         implicit_weights_first_lead_byte = {},
         implicit_weights_final_lead_byte = {}

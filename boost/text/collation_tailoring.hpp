@@ -81,9 +81,19 @@ namespace boost { namespace text {
 
         using temp_table_t = std::vector<temp_table_element>;
 
+        struct logical_positions_t
+        {
+            temp_table_element::ces_t & operator[](uint32_t symbolic)
+            {
+                return cces_[symbolic - first_tertiary_ignorable];
+            }
+            std::array<temp_table_element::ces_t, 11> cces_;
+        };
+
         void modify_table(
             tailored_collation_element_table & table,
             temp_table_t & temp_table,
+            logical_positions_t & logical_positions,
             cp_seq_t reset,
             bool before,
             collation_strength strength,
@@ -160,6 +170,7 @@ namespace boost { namespace text {
         friend void detail::modify_table(
             tailored_collation_element_table & table,
             detail::temp_table_t & temp_table,
+            detail::logical_positions_t & logical_positions,
             detail::cp_seq_t reset,
             bool before,
             collation_strength strength,
@@ -245,6 +256,7 @@ namespace boost { namespace text {
         inline void modify_table(
             tailored_collation_element_table & table,
             temp_table_t & temp_table,
+            logical_positions_t & logical_positions,
             cp_seq_t reset,
             bool before,
             collation_strength strength,
@@ -260,7 +272,14 @@ namespace boost { namespace text {
                 relation.insert(relation.end(), prefix->begin(), prefix->end());
             }
 
-            auto reset_ces = get_ces(reset, table);
+            temp_table_element::ces_t reset_ces;
+            if (reset.size() == 1u && first_tertiary_ignorable <= reset[0] &&
+                reset[0] <= first_implicit) {
+                reset_ces = logical_positions[reset[0]];
+                // TODO: Elsewhere, update these logical positions.
+            } else {
+                reset_ces = get_ces(reset, table);
+            }
             auto table_it = temp_table.end();
 
             if (before) {
@@ -297,7 +316,7 @@ namespace boost { namespace text {
                     // the parser, and produce a reasonable error message baed
                     // on its state.
                 }
-                reset_ces.erase(ces_it, reset_ces.end());
+                reset_ces.erase(std::next(ces_it), reset_ces.end());
                 reset_ces.insert(
                     ces_it, table_it->ces_.begin(), table_it->ces_.end());
             } else {
@@ -305,21 +324,88 @@ namespace boost { namespace text {
                     temp_table.begin(), temp_table.end(), reset_ces);
             }
 
-#if 0 // TODO
-            temp_table_element::ces_t extension_ces;
-            if (extension)
-                extension_cps = get_ces(*extension, table);
-#endif
+            // TODO: Throw if table_it points to an element outside the
+            // tailorable zone.
 
-            if (strength == collation_strength::identical) {
-                // Overloaded meaning; identical here means "=".
-                table.add_temp_tailoring(relation, reset_ces);
-                temp_table_element element;
-                element.cps_ = std::move(relation);
-                element.ces_ = std::move(reset_ces);
-                temp_table.insert(table_it, std::move(element));
-            } else {
-                // TODO
+            if (extension) {
+                auto const extension_ces = get_ces(*extension, table);
+                reset_ces.insert(
+                    reset_ces.end(),
+                    extension_ces.begin(),
+                    extension_ces.end());
+            }
+
+            if (strength != collation_strength::identical) {
+                // "Find the last collation element whose strength is at least
+                // as great as the strength of the operator. For example, for <<
+                // find the last primary or secondary CE. This CE will be
+                // modified; all following CEs should be removed. If there is no
+                // such CE, then reset the collation elements to a single
+                // completely-ignorable CE."
+                auto ces_it = last_ce_at_least_strength(
+                    reset_ces.begin(), reset_ces.end(), strength);
+                if (ces_it != reset_ces.end())
+                    reset_ces.erase(std::next(ces_it), reset_ces.end());
+                if (ces_it == reset_ces.end()) {
+                    ces_it = reset_ces.insert(
+                        ces_it, compressed_collation_element{0, 0, 0});
+                }
+                auto & ce = *ces_it;
+
+                // "Increment the collation element weight corresponding to the
+                // strength of the operator. For example, for << increment the
+                // secondary weight."
+                switch (strength) {
+                case collation_strength::primary: ++ce.l1_;
+                    ce.l2_ = common_l2_weight_compressed;
+                    ce.l3_ = common_l3_weight_compressed;
+                    break;
+                case collation_strength::secondary:
+                    // TODO: "The new weight must be less than the next weight
+                    // for the same combination of higher-level weights of any
+                    // collation element according to the current state."
+                    // TODO: "Weights must be allocated in accordance with the
+                    // UCA well-formedness conditions."
+                    ++ce.l2_;
+                    ce.l3_ = common_l3_weight_compressed;
+                    break;
+                case collation_strength::tertiary:
+                    // TODO: "The new weight must be less than the next weight
+                    // for the same combination of higher-level weights of any
+                    // collation element according to the current state."
+                    // TODO: "Weights must be allocated in accordance with the
+                    // UCA well-formedness conditions."
+                    ++ce.l3_;
+                    break;
+                default:
+                    // TODO: Throw (probably).  If so, this limitation should
+                    // be documented; make sure none of the existing tailoring
+                    // files use quaternary tailorings before doing this!
+                    break;
+                }
+            }
+
+            table.add_temp_tailoring(relation, reset_ces);
+            temp_table_element element;
+            element.cps_ = std::move(relation);
+            element.ces_ = std::move(reset_ces);
+            element.tailored_ = true;
+            table_it = temp_table.insert(table_it, std::move(element));
+
+            // TODO: I don't think this is necessary; try removing it and
+            // seeing if it breaks the tests (once the tests exist).
+            auto same_key = [&relation](temp_table_element const & e) {
+                return e.cps_ == relation;
+            };
+            auto remove_it =
+                std::remove_if(temp_table.begin(), table_it, same_key);
+            if (remove_it == table_it) {
+                remove_it = std::remove_if(
+                    std::next(table_it), temp_table.end(), same_key);
+            }
+            if (remove_it != temp_table.end()) {
+                assert(std::distance(remove_it, temp_table.end()) == 1);
+                temp_table.erase(remove_it);
             }
         }
 
@@ -408,6 +494,14 @@ namespace boost { namespace text {
                 table.trie_[e.cps_] = linearized_ces;
             }
         }
+
+        struct cp_rng
+        {
+            uint32_t const * begin() const noexcept { return &cp_; }
+            uint32_t const * end() const noexcept { return &cp_ + 1; }
+
+            uint32_t cp_;
+        };
     }
 
     /** TODO */
@@ -438,6 +532,30 @@ namespace boost { namespace text {
 
         tailored_collation_element_table table;
 
+        detail::logical_positions_t logical_positions;
+        {
+            auto lookup_and_assign = [&logical_positions](uint32_t symbol) {
+                auto const elems =
+                    detail::g_default_collation_trie[detail::cp_rng{symbol}];
+                logical_positions[symbol].assign(
+                    elems->begin(detail::g_collation_elements_first),
+                    elems->end(detail::g_collation_elements_first));
+            };
+            lookup_and_assign(detail::first_tertiary_ignorable);
+            lookup_and_assign(detail::last_tertiary_ignorable);
+            logical_positions[detail::first_secondary_ignorable].push_back(
+                detail::compressed_collation_element{0xffffffff, 0, 0});
+            logical_positions[detail::last_secondary_ignorable].push_back(
+                detail::compressed_collation_element{0xffffffff, 0, 0});
+            lookup_and_assign(detail::first_primary_ignorable);
+            lookup_and_assign(detail::last_primary_ignorable);
+            lookup_and_assign(detail::first_variable);
+            lookup_and_assign(detail::last_variable);
+            lookup_and_assign(detail::first_regular);
+            lookup_and_assign(detail::last_regular);
+            lookup_and_assign(detail::first_implicit);
+        }
+
         detail::collation_tailoring_interface callbacks = {
             [&](detail::cp_seq_t const & reset, bool before) {
                 curr_reset = reset;
@@ -447,6 +565,7 @@ namespace boost { namespace text {
                 detail::modify_table(
                     table,
                     temp_table,
+                    logical_positions,
                     curr_reset,
                     reset_is_before,
                     static_cast<collation_strength>(rel.op_),
