@@ -306,12 +306,16 @@ namespace boost { namespace text {
                 }
                 if (!collation_.match) {
                     // S2.2
-                    collation_element cces[32];
-                    auto const cces_end =
-                        add_derived_elements(*first++, weighting, cces, table);
-                    after_variable =
-                        s2_3(cces, cces_end, weighting, after_variable);
-                    std::copy(cces, cces_end, std::back_inserter(ces));
+                    collation_element derived_ces[32];
+                    auto const derived_ces_end = add_derived_elements(
+                        *first++, weighting, derived_ces, table);
+                    after_variable = s2_3(
+                        derived_ces,
+                        derived_ces_end,
+                        weighting,
+                        after_variable);
+                    std::copy(
+                        derived_ces, derived_ces_end, std::back_inserter(ces));
                     continue;
                 }
                 first += collation_.size;
