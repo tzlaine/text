@@ -594,7 +594,8 @@ TEST(trie_map1, erase)
 
 TEST(trie_node_t, all)
 {
-    using node_t = trie::detail::trie_node_t<std::string, int>;
+    using node_t = trie::detail::
+        trie_node_t<trie::detail::index_within_parent_t, std::string, int>;
 
     {
         node_t node;
@@ -646,7 +647,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.find('z', trie::less{}), ++root.begin());
         EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
 
-        root.erase(0);
+        root.erase(int(0));
 
         EXPECT_FALSE(root.value());
         EXPECT_EQ(root.parent(), nullptr);
@@ -693,7 +694,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.find('z', trie::less{}), ++root.begin());
         EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
 
-        root_.erase(0);
+        root_.erase(int(0));
 
         EXPECT_FALSE(root.value());
         EXPECT_EQ(root.parent(), nullptr);

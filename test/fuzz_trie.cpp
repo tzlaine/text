@@ -1,6 +1,7 @@
 #define ENABLE_DUMP 0
 #include "trie_tests.hpp"
 
+#include <boost/text/trie.hpp>
 #include <boost/text/trie_map.hpp>
 #include <boost/text/string.hpp>
 
@@ -13,7 +14,8 @@
 
 namespace {
 
-    boost::trie::trie_map<boost::text::string, int> trie;
+    boost::trie::trie<boost::text::string, int> trie;
+    boost::trie::trie_map<boost::text::string, int> trie_map;
     std::map<boost::text::string, int> map;
 
     std::ofstream ofs("fuzz_operations.cpp");
@@ -36,55 +38,61 @@ struct action_t
 void check()
 {
     assert(trie.size() == map.size());
+    assert(trie_map.size() == map.size());
 
     {
-        auto trie_it = trie.begin();
-        auto const trie_end = trie.end();
+        auto trie_map_it = trie_map.begin();
+        auto const trie_map_end = trie_map.end();
         auto map_it = map.begin();
-        for (; trie_it != trie_end; ++trie_it, ++map_it) {
-            if (trie_it->key != map_it->first) {
-                std::cout << trie_it->key.size() << "\n"
-                          << trie_it->key << "\n!=\n"
+        for (; trie_map_it != trie_map_end; ++trie_map_it, ++map_it) {
+            if (trie_map_it->key != map_it->first) {
+                std::cout << trie_map_it->key.size() << "\n"
+                          << trie_map_it->key << "\n!=\n"
                           << map_it->first.size() << "\n"
                           << map_it->first << "\n";
             }
-            if (trie_it->value != map_it->second) {
-                std::cout << trie_it->value << " != " << map_it->second << "\n";
+            if (trie_map_it->value != map_it->second) {
+                std::cout << trie_map_it->value << " != " << map_it->second
+                          << "\n";
             }
-            if (trie_it->key != map_it->first ||
-                trie_it->value != map_it->second) {
+            if (trie_map_it->key != map_it->first ||
+                trie_map_it->value != map_it->second) {
 #if ENABLE_DUMP
-                dump(std::cout, trie);
+                dump(std::cout, trie_map);
 #endif
             }
-            assert(trie_it->key == map_it->first);
-            assert(trie_it->value == map_it->second);
+            assert(trie_map_it->key == map_it->first);
+            assert(trie_map_it->value == map_it->second);
+
+            assert(trie.contains(trie_map_it->key));
+            assert(trie[trie_map_it->key] == trie_map_it->value);
         }
         assert(map_it == map.end());
     }
 
     {
-        auto trie_it = trie.rbegin();
-        auto const trie_end = trie.rend();
+        auto trie_map_it = trie_map.rbegin();
+        auto const trie_map_end = trie_map.rend();
         auto map_it = map.rbegin();
-        for (; trie_it != trie_end; ++trie_it, ++map_it) {
-            if (trie_it->key != map_it->first) {
-                std::cout << trie_it->key.size() << "\n"
-                          << trie_it->key << "\n!=\n"
+        for (; trie_map_it != trie_map_end; ++trie_map_it, ++map_it) {
+            if (trie_map_it->key != map_it->first) {
+                std::cout << trie_map_it->key.size() << "\n"
+                          << trie_map_it->key << "\n!=\n"
                           << map_it->first.size() << "\n"
                           << map_it->first << "\n";
             }
-            if (trie_it->value != map_it->second) {
-                std::cout << trie_it->value << " != " << map_it->second << "\n";
+            if (trie_map_it->value != map_it->second) {
+                std::cout << trie_map_it->value << " != " << map_it->second
+                          << "\n";
             }
-            if (trie_it->key != map_it->first ||
-                trie_it->value != map_it->second) {
+            if (trie_map_it->key != map_it->first ||
+                trie_map_it->value != map_it->second) {
 #if ENABLE_DUMP
-                dump(std::cout, trie);
+                dump(std::cout, trie_map);
 #endif
             }
-            assert(trie_it->key == map_it->first);
-            assert(trie_it->value == map_it->second);
+            assert(trie_map_it->key == map_it->first);
+            assert(trie_map_it->value == map_it->second);
         }
         assert(map_it == map.rend());
     }
@@ -95,14 +103,17 @@ void insert(boost::text::string_view key, int value)
 #if 201402L <= __cplusplus
     ofs << "trie.insert(" << std::quoted(std::string(key.begin(), key.end()))
         << ", " << value << "); // key.size()=" << key.size() << "\n"
-#if 0
+#    if 0
+        << "trie_map.insert(" << std::quoted(std::string(key.begin(), key.end()))
+        << ", " << value << "); // key.size()=" << key.size() << "\n"
         << "map.insert(std::make_pair(boost::text::string("
         << std::quoted(std::string(key.begin(), key.end())) << "), " << value
         << "));\n"
-#endif
+#    endif
         << std::flush;
 #endif
     trie.insert(key, value);
+    trie_map.insert(key, value);
     map.insert(std::make_pair(boost::text::string(key), value));
 
     check();
@@ -110,18 +121,21 @@ void insert(boost::text::string_view key, int value)
 
 void erase(int which)
 {
-    auto const it = std::next(trie.begin(), which);
+    auto const it = std::next(trie_map.begin(), which);
     auto const key = it->key;
 #if 201402L <= __cplusplus
-    ofs << "trie.erase(" << std::quoted(std::string(key.begin(), key.end()))
+    ofs << "map.erase(" << std::quoted(std::string(key.begin(), key.end()))
         << "); // key.size()=" << key.size() << "\n"
-#if 0
+#    if 0
+        << "trie_map.erase(" << std::quoted(std::string(key.begin(), key.end()))
+        << "); // key.size()=" << key.size() << "\n"
         << "map.erase(" << std::quoted(std::string(key.begin(), key.end()))
         << ");\n"
-#endif
+#    endif
         << std::flush;
 #endif
     trie.erase(key);
+    trie_map.erase(key);
     map.erase(key);
 
     check();
@@ -137,10 +151,10 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const * data, size_t size)
         if (action_t::first_op <= action.op_ &&
             action.op_ < action_t::num_ops && size < INT_MAX) {
             if (action.op_ == action_t::erase) {
-                if (!trie.empty()) {
+                if (!trie_map.empty()) {
                     std::size_t const index =
-                        std::size_t(std::abs(action.value_)) % trie.size();
-                    assert(index < trie.size());
+                        std::size_t(std::abs(action.value_)) % trie_map.size();
+                    assert(index < trie_map.size());
                     erase(index);
                 }
             } else {
