@@ -54,28 +54,76 @@ namespace boost { namespace text {
             bool tailored_ = false;
         };
 
-        inline bool operator<(
-            temp_table_element const & lhs,
+        inline bool less(
+            temp_table_element::ces_t const & lhs,
             temp_table_element::ces_t const & rhs) noexcept
         {
+            container::static_vector<uint32_t, 16> lhs_bytes;
+            container::static_vector<uint32_t, 16> rhs_bytes;
+
+            uint32_t const * cps = nullptr;
+            s3(lhs.begin(),
+               lhs.end(),
+               lhs.size(),
+               collation_strength::quaternary,
+               l2_weight_order::forward,
+               cps,
+               cps,
+               0,
+               lhs_bytes);
+            s3(rhs.begin(),
+               rhs.end(),
+               rhs.size(),
+               collation_strength::quaternary,
+               l2_weight_order::forward,
+               cps,
+               cps,
+               0,
+               rhs_bytes);
+
             auto const pair = algorithm::mismatch(
-                lhs.ces_.begin(), lhs.ces_.end(), rhs.begin(), rhs.end());
-            if (pair.first == lhs.ces_.end()) {
-                if (pair.second == rhs.end())
+                lhs_bytes.begin(),
+                lhs_bytes.end(),
+                rhs_bytes.begin(),
+                rhs_bytes.end());
+            if (pair.first == lhs_bytes.end()) {
+                if (pair.second == rhs_bytes.end())
                     return false;
                 return true;
             } else {
-                if (pair.second == rhs.end())
+                if (pair.second == rhs_bytes.end())
                     return false;
                 return *pair.first < *pair.second;
             }
         }
 
-        inline bool operator<(
-            temp_table_element const & lhs,
-            temp_table_element const & rhs) noexcept
+        inline bool less_equal(
+            temp_table_element::ces_t const & lhs,
+            temp_table_element::ces_t const & rhs) noexcept
         {
-            return lhs < rhs.ces_;
+            if (lhs == rhs)
+                return true;
+            return less(lhs, rhs);
+        }
+
+        bool operator<(
+            temp_table_element const & lhs, temp_table_element const & rhs)
+        {
+            return less(lhs.ces_, rhs.ces_);
+        }
+
+        bool operator<(
+            temp_table_element::ces_t const & lhs,
+            temp_table_element const & rhs)
+        {
+            return less(lhs, rhs.ces_);
+        }
+
+        bool operator<(
+            temp_table_element const & lhs,
+            temp_table_element::ces_t const & rhs)
+        {
+            return less(lhs.ces_, rhs);
         }
 
         using temp_table_t = std::vector<temp_table_element>;
@@ -249,10 +297,154 @@ namespace boost { namespace text {
             Iter first, Iter last, collation_strength strength) noexcept
         {
             for (auto it = last; it != first;) {
-                if (cce_strength(*--it) <= strength)
+                if (ce_strength(*--it) <= strength)
                     return it;
             }
             return last;
+        }
+
+        inline uint32_t increment_32_bit(uint32_t w, bool is_primary)
+        {
+            uint32_t byte = w & 0xff;
+            if (0 < byte && byte < 0xff) {
+                w += 1;
+            } else {
+                byte = (w >> 8) & 0xff;
+                if (0 < byte && byte < 0xff) {
+                    w += 0x0100;
+                } else {
+                    // Stop here so we don't change the lead byte.
+                    byte = (w >> 16) & 0xff;
+                    if (byte == 0xff && is_primary)
+                        ; // TODO: throw
+                    w += 0x010000;
+                }
+            }
+            return w;
+        }
+
+        inline temp_table_t::iterator bump_region_end(
+            temp_table_element::ces_t const & ces, temp_table_t & temp_table)
+        {
+            temp_table_element::ces_t group_first_ces;
+            group_first_ces.push_back(g_reorder_groups[0].first_);
+            if (less(ces, group_first_ces)) {
+                return std::lower_bound(
+                    temp_table.begin(), temp_table.end(), group_first_ces);
+            }
+
+            temp_table_element::ces_t group_last_ces;
+            for (auto const & group : g_reorder_groups) {
+                group_first_ces.clear();
+                group_first_ces.push_back(group.first_);
+                group_last_ces.clear();
+                group_last_ces.push_back(group.last_);
+
+                if (less_equal(group_first_ces, ces) &&
+                    less_equal(ces, group_last_ces)) {
+                    return std::lower_bound(
+                        temp_table.begin(), temp_table.end(), group_first_ces);
+                }
+            }
+
+            return temp_table.end();
+        }
+
+        inline void
+        bump_ces(temp_table_element::ces_t & ces, collation_strength strength)
+        {
+            // "Find the last collation element whose strength is at least
+            // as great as the strength of the operator. For example, for <<
+            // find the last primary or secondary CE. This CE will be
+            // modified; all following CEs should be removed. If there is no
+            // such CE, then reset the collation elements to a single
+            // completely-ignorable CE."
+            auto ces_it =
+                last_ce_at_least_strength(ces.begin(), ces.end(), strength);
+            if (ces_it != ces.end())
+                ces.erase(std::next(ces_it), ces.end());
+            if (ces_it == ces.end()) {
+                ces_it = ces.insert(ces_it, collation_element{0, 0, 0, 0});
+            }
+            auto & ce = *ces_it;
+
+            // "Increment the collation element weight corresponding to the
+            // strength of the operator. For example, for << increment the
+            // secondary weight."
+            switch (strength) {
+            case collation_strength::primary:
+                ce.l1_ = increment_32_bit(ce.l1_, true);
+                ce.l2_ = common_l2_weight_compressed;
+                ce.l3_ = common_l3_weight_compressed;
+                break;
+            case collation_strength::secondary:
+                if (ce.l2_ & 0xff)
+                    ce.l2_ += 1;
+                else
+                    ce.l2_ += 0x0100;
+                ce.l3_ = common_l3_weight_compressed;
+                break;
+            case collation_strength::tertiary: ++ce.l3_; break;
+            case collation_strength::quaternary:
+                ce.l4_ = increment_32_bit(ce.l4_, false);
+                break;
+            default: break;
+            }
+        }
+
+        inline bool well_formed_1(temp_table_element::ces_t const & ces)
+        {
+            for (auto ce : ces) {
+                bool higher_level_zero = !ce.l1_;
+                if (ce.l2_) {
+                    if (higher_level_zero)
+                        return false;
+                } else {
+                    higher_level_zero = true;
+                }
+                if (ce.l3_) {
+                    if (higher_level_zero)
+                        return false;
+                } else {
+                    higher_level_zero = true;
+                }
+                if (ce.l4_) {
+                    if (higher_level_zero)
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        inline bool well_formed_2(
+            temp_table_element::ces_t const & ces,
+            tailoring_state_t const & tailoring_state)
+        {
+            for (auto ce : ces) {
+                switch (ce_strength(ce)) {
+                case collation_strength::secondary:
+                    if (ce.l2_ <= tailoring_state.last_secondary_in_primary_)
+                        return false;
+                    break;
+                case collation_strength::tertiary:
+                    if ((ce.l3_ & disable_case_level_mask) <=
+                        tailoring_state.last_tertiary_in_secondary_masked_) {
+                        return false;
+                    }
+                    break;
+                default: break;
+                }
+            }
+            return true;
+        }
+
+        inline void update_key_ces(
+            temp_table_element::ces_t const & ces,
+            logical_positions_t & logical_positions,
+            tailoring_state_t & tailoring_state)
+        {
+            // TODO: Update logical_positions with ces
+            // TODO: Update tailoring_state with ces
         }
 
         // http://www.unicode.org/reports/tr35/tr35-collation.html#Orderings
@@ -283,7 +475,6 @@ namespace boost { namespace text {
             } else {
                 reset_ces = get_ces(reset, table);
             }
-            auto table_it = temp_table.end();
 
             if (before) {
                 auto const ces_it = last_ce_at_least_strength(
@@ -296,35 +487,33 @@ namespace boost { namespace text {
                 auto it = std::lower_bound(
                     temp_table.begin(), temp_table.end(), reset_ces);
                 assert(it != temp_table.begin());
+                auto prev_it = temp_table.end();
                 while (it != temp_table.begin()) {
                     --it;
                     auto const curr_ce = it->ces_[0];
                     if (curr_ce.l1_ != ce.l1_) {
-                        table_it = it;
+                        prev_it = it;
                         break;
                     } else if (
                         collation_strength::secondary <= strength &&
                         curr_ce.l2_ != ce.l2_) {
-                        table_it = it;
+                        prev_it = it;
                         break;
                     } else if (
                         collation_strength::tertiary <= strength &&
                         curr_ce.l3_ != ce.l3_) {
-                        table_it = it;
+                        prev_it = it;
                         break;
                     }
                 }
-                if (table_it == temp_table.end()) {
+                if (prev_it == temp_table.end()) {
                     // TODO: Could not implement this.  Throw here, catch it in
-                    // the parser, and produce a reasonable error message baed
+                    // the parser, and produce a reasonable error message based
                     // on its state.
                 }
                 reset_ces.erase(std::next(ces_it), reset_ces.end());
                 reset_ces.insert(
-                    ces_it, table_it->ces_.begin(), table_it->ces_.end());
-            } else {
-                table_it = std::lower_bound(
-                    temp_table.begin(), temp_table.end(), reset_ces);
+                    ces_it, prev_it->ces_.begin(), prev_it->ces_.end());
             }
 
             // TODO: Adjust reset_ces case bits here.
@@ -337,58 +526,50 @@ namespace boost { namespace text {
                     extension_ces.end());
             }
 
-            if (strength != collation_strength::identical) {
-                // "Find the last collation element whose strength is at least
-                // as great as the strength of the operator. For example, for <<
-                // find the last primary or secondary CE. This CE will be
-                // modified; all following CEs should be removed. If there is no
-                // such CE, then reset the collation elements to a single
-                // completely-ignorable CE."
-                auto ces_it = last_ce_at_least_strength(
-                    reset_ces.begin(), reset_ces.end(), strength);
-                if (ces_it != reset_ces.end())
-                    reset_ces.erase(std::next(ces_it), reset_ces.end());
-                if (ces_it == reset_ces.end()) {
-                    ces_it =
-                        reset_ces.insert(ces_it, collation_element{0, 0, 0, 0});
-                }
-                auto & ce = *ces_it;
+            // The insert should happen at/before this point.  We may need to
+            // adjust CEs at/after this to make that work.
+            auto table_target_it = std::upper_bound(
+                temp_table.begin(), temp_table.end(), reset_ces);
 
-                // "Increment the collation element weight corresponding to the
-                // strength of the operator. For example, for << increment the
-                // secondary weight."
-                switch (strength) {
-                case collation_strength::primary:
-                    ++ce.l1_;
-                    ce.l2_ = common_l2_weight_compressed;
-                    ce.l3_ = common_l3_weight_compressed;
-                    break;
-                case collation_strength::secondary:
-                    // TODO: "The new weight must be less than the next weight
-                    // for the same combination of higher-level weights of any
-                    // collation element according to the current state."
-                    // TODO: "Weights must be allocated in accordance with the
-                    // UCA well-formedness conditions."
-                    ++ce.l2_;
-                    ce.l3_ = common_l3_weight_compressed;
-                    break;
-                case collation_strength::tertiary:
-                    // TODO: "The new weight must be less than the next weight
-                    // for the same combination of higher-level weights of any
-                    // collation element according to the current state."
-                    // TODO: "Weights must be allocated in accordance with the
-                    // UCA well-formedness conditions."
-                    ++ce.l3_;
-                    break;
-                case collation_strength::quaternary:
-                    // TODO: "The new weight must be less than the next weight
-                    // for the same combination of higher-level weights of any
-                    // collation element according to the current state."
-                    // TODO: "Weights must be allocated in accordance with the
-                    // UCA well-formedness conditions."
-                    ++ce.l4_;
-                    break;
-                default: break;
+            if (strength != collation_strength::identical) {
+                bump_ces(reset_ces, strength);
+
+                // "Weights must be allocated in accordance with the UCA
+                // well-formedness conditions."
+                if (!well_formed_1(reset_ces))
+                    ; // TODO: Throw.
+                if (!well_formed_2(reset_ces, tailoring_state))
+                    ; // TODO: Throw.
+
+                update_key_ces(reset_ces, logical_positions, tailoring_state);
+
+                assert(table_target_it != temp_table.end());
+
+                // The checks in here only need to be performed if the increment
+                // above did not slot cleanly between two existing CEs.
+                if (!less(reset_ces, table_target_it->ces_)) {
+                    // "The new weight must be less than the next weight for the
+                    // same combination of higher-level weights of any collation
+                    // element according to the current state." -- this will be
+                    // true as long as we can bump one or more subsequent CEs up
+                    // so that this condition is maintained.
+
+                    // For reorderings to work, we can't keep bumping
+                    // indefinitely; stop before we leave the current script, if
+                    // applicable.
+                    auto const end = bump_region_end(reset_ces, temp_table);
+                    auto prev_it = table_target_it;
+                    auto it = prev_it;
+                    do {
+                        bump_ces(it->ces_, strength);
+                        it->tailored_ = true;
+                        table.add_temp_tailoring(it->cps_, it->ces_);
+                        assert(well_formed_1(it->ces_));
+                        assert(well_formed_2(it->ces_, tailoring_state));
+                        update_key_ces(
+                            it->ces_, logical_positions, tailoring_state);
+                        ++it;
+                    } while (it != end && !less(prev_it->ces_, it->ces_));
                 }
             }
 
@@ -397,26 +578,23 @@ namespace boost { namespace text {
             element.cps_ = std::move(relation);
             element.ces_ = std::move(reset_ces);
             element.tailored_ = true;
-            table_it = temp_table.insert(table_it, std::move(element));
+            table_target_it =
+                temp_table.insert(table_target_it, std::move(element));
 
-            // TODO: Check WF1.
-
-            // TODO: Check WF2 against tailoring_state.
-
-            // TODO: Widen variable range if a new primary is created outside
-            // the current range.
-
-            // TODO: Check that contractions of length N > 2 have all prefixes
-            // already in the new table, or the default one (WF5).
-
-            // TODO: If we add a contraction whose N-1 prefixes are in the
-            // default table, copy them to the new table.
+            // http://www.unicode.org/reports/tr10/#WF5 "If a table contains a
+            // contraction consisting of a sequence of N code points, with N > 2
+            // and the last code point being a non-starter, then the table must
+            // also contain a contraction consisting of the sequence of the
+            // first N-1 code points."
+            // TODO: For any contraction of length N, add its N-1 prefixes based
+            // on the current state.  This enforces WF5, and ensures that the
+            // in-tailored-table and in-default-table longest matches are
+            // disjoint.
 
             // TODO: If we add anything to this table that is a prefix of
             // something in the default table, add those suffixes to the new
-            // table.
-
-            // TODO: Update logical positions.
+            // table.  This also ensures that the in-tailored-table and
+            // in-default-table longest matches are disjoint.
 
             // TODO: I don't think this is necessary; try removing it and
             // seeing if it breaks the tests (once the tests exist).
@@ -424,10 +602,10 @@ namespace boost { namespace text {
                 return e.cps_ == relation;
             };
             auto remove_it =
-                std::remove_if(temp_table.begin(), table_it, same_key);
-            if (remove_it == table_it) {
+                std::remove_if(temp_table.begin(), table_target_it, same_key);
+            if (remove_it == table_target_it) {
                 remove_it = std::remove_if(
-                    std::next(table_it), temp_table.end(), same_key);
+                    std::next(table_target_it), temp_table.end(), same_key);
             }
             if (remove_it != temp_table.end()) {
                 assert(std::distance(remove_it, temp_table.end()) == 1);

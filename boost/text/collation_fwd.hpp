@@ -34,6 +34,18 @@ namespace boost { namespace text {
            variable_weighting weighting,
            container::small_vector<collation_element, 1024> & ces,
            tailored_collation_element_table const * table);
+
+        template<typename CEIter, typename CPIter, typename Container>
+        void
+        s3(CEIter ces_first,
+           CEIter ces_last,
+           int ces_size,
+           collation_strength strength,
+           l2_weight_order l2_order,
+           CPIter cps_first,
+           CPIter cps_last,
+           int cps_size,
+           Container & bytes);
     }
 
 }}

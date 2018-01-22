@@ -56,7 +56,9 @@ std::vector<uint32_t> collate_for_tests(
 
     std::vector<uint32_t> retval;
     boost::text::detail::s3(
-        ces,
+        ces.begin(),
+        ces.end(),
+        ces.size(),
         strength,
         boost::text::l2_weight_order::forward,
         first,

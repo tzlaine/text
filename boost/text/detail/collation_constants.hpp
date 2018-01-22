@@ -57,6 +57,11 @@ namespace boost { namespace text { namespace detail {
         implicit_weights_final_lead_byte = 0xe4
     };
 
+    enum itty_bitty_collation_constants : uint8_t {
+        case_level_bits_mask = 0xc0u,
+        disable_case_level_mask = uint8_t(~0xc0u)
+    };
+
     struct implicit_weights_segment
     {
         uint32_t first_;

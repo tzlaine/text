@@ -213,8 +213,7 @@ namespace boost { namespace text {
                     // The top two bits in each byte in FractionalUCA.txt's L3
                     // weights are for the case level.
                     // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
-                    uint8_t const case_level_mask = uint8_t(~0xc0u);
-                    uint8_t const l3 = ce.l3_ & case_level_mask;
+                    uint8_t const l3 = ce.l3_ & disable_case_level_mask;
 
                     ce.l3_ = l3;
                 }
@@ -386,15 +385,17 @@ namespace boost { namespace text {
             }
         }
 
-        template<typename Iter>
+        template<typename CEIter, typename CPIter, typename Container>
         void
-            s3(container::small_vector<collation_element, 1024> const & ces,
-               collation_strength strength,
-               l2_weight_order l2_order,
-               Iter cps_first,
-               Iter cps_last,
-               int cps_size,
-               std::vector<uint32_t> & bytes)
+        s3(CEIter ces_first,
+           CEIter ces_last,
+           int ces_size,
+           collation_strength strength,
+           l2_weight_order l2_order,
+           CPIter cps_first,
+           CPIter cps_last,
+           int cps_size,
+           Container & bytes)
         {
             // TODO: Provide an API for passing in scratch space so that l[1-4]
             // are not repeatedly realloacted.  (Same with the NFD string
@@ -403,17 +404,18 @@ namespace boost { namespace text {
             container::small_vector<uint32_t, 256> l2;
             container::small_vector<uint32_t, 256> l3;
             container::small_vector<uint32_t, 256> l4;
-            l1.reserve(ces.size());
+            l1.reserve(ces_size);
             if (collation_strength::primary < strength) {
-                l2.reserve(ces.size());
+                l2.reserve(ces_size);
                 if (collation_strength::secondary < strength) {
-                    l3.reserve(ces.size());
+                    l3.reserve(ces_size);
                     if (collation_strength::tertiary < strength)
-                        l4.reserve(ces.size());
+                        l4.reserve(ces_size);
                 }
             }
 
-            for (auto ce : ces) {
+            for (; ces_first != ces_last; ++ces_first) {
+                auto ce = *ces_first;
                 if (ce.l1_)
                     l1.push_back(ce.l1_);
                 if (collation_strength::primary < strength) {
@@ -526,7 +528,9 @@ namespace boost { namespace text {
 
                 auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
                 s2(buffer.begin(), s2_it, weighting, ces, table);
-                s3(ces,
+                s3(ces.begin(),
+                   ces.end(),
+                   ces.size(),
                    strength,
                    l2_order,
                    first,

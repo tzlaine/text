@@ -60,15 +60,15 @@ namespace boost { namespace text { namespace detail {
         return lhs == rhs || lhs < rhs;
     }
 
-    inline collation_strength cce_strength(collation_element cce) noexcept
+    inline collation_strength ce_strength(collation_element ce) noexcept
     {
-        if (cce.l1_)
+        if (ce.l1_)
             return collation_strength::primary;
-        if (cce.l2_)
+        if (ce.l2_)
             return collation_strength::secondary;
-        if (cce.l3_)
+        if (ce.l3_)
             return collation_strength::tertiary;
-        if (cce.l4_)
+        if (ce.l4_)
             return collation_strength::quaternary;
         return collation_strength::identical;
     }
