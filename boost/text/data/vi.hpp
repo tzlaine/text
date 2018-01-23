@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_VI_HPP
 #define BOOST_TEXT_DATA_VI_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace vi {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 &̀<<̉<<̃<<́<<̣
 &a<ă<<<Ă<â<<<Â
@@ -16,14 +18,13 @@ inline string_view standard_collation_tailoring()
 &e<ê<<<Ê
 &o<ô<<<Ô<ơ<<<Ơ
 &u<ư<<<Ư
-  )"
-    );
+  )");
 }
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 &̀<<̉<<̃<<́<<̣
 &a<ă<<<Ă<â<<<Â
@@ -38,8 +39,7 @@ inline string_view traditional_collation_tailoring()
 &Q<qu<<<Qu<<<QU
 &T<th<<<Th<<<TH<tr<<<Tr<<<TR
 &u<ư<<<Ư
-  )"
-    );
+  )");
 }
 
 

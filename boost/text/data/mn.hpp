@@ -2,14 +2,15 @@
 #ifndef BOOST_TEXT_DATA_MN_HPP
 #define BOOST_TEXT_DATA_MN_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace mn {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"([reorder Cyrl Mong])"
-    );
+    return string_view(R"(
+[reorder Cyrl Mong])");
 }
 
 

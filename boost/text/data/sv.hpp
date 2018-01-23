@@ -2,26 +2,27 @@
 #ifndef BOOST_TEXT_DATA_SV_HPP
 #define BOOST_TEXT_DATA_SV_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace sv {
 
 inline string_view reformed_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &D<<đ<<<Đ<<ð<<<Ð
 &t<<<þ/h
 &T<<<Þ/H
 &Y<<ü<<<Ü<<ű<<<Ű
 &[before 1]ǀ<å<<<Å<ä<<<Ä<<æ<<<Æ<<ę<<<Ę<ö<<<Ö<<ø<<<Ø<<ő<<<Ő<<œ<<<Œ<<ô<<<Ô
-  )"
-    );
+  )");
 }
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
   
 [normalization on]
 [suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
@@ -146,22 +147,20 @@ inline string_view search_collation_tailoring()
 &Y<<ü<<<Ü<<ű<<<Ű
 &[before 1]ǀ<å<<<Å<ä<<<Ä<<æ<<<Æ<<ę<<<Ę<ö<<<Ö<<ø<<<Ø<<ő<<<Ő<<œ<<<Œ<<ô<<<Ô
   
-  )"
-    );
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &D<<đ<<<Đ<<ð<<<Ð
 &t<<<þ/h
 &T<<<Þ/H
 &v<<<V<<w<<<W
 &Y<<ü<<<Ü<<ű<<<Ű
 &[before 1]ǀ<å<<<Å<ä<<<Ä<<æ<<<Æ<<ę<<<Ę<ö<<<Ö<<ø<<<Ø<<ő<<<Ő<<œ<<<Œ<<ô<<<Ô
-  )"
-    );
+  )");
 }
 
 

@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_SK_HPP
 #define BOOST_TEXT_DATA_SK_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace sk {
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
   
 [normalization on]
 [suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
@@ -139,14 +141,13 @@ inline string_view search_collation_tailoring()
 &U<ú<<<Ú<ů<<<Ů
 &Y<ý<<<Ý
 &Z<ž<<<Ž
-  )"
-    );
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &A<ä<<<Ä
 &C<č<<<Č
 &H<ch<<<cH<<<Ch<<<CH
@@ -154,8 +155,7 @@ inline string_view standard_collation_tailoring()
 &R<ř<<<Ř
 &S<š<<<Š
 &Z<ž<<<Ž
-  )"
-    );
+  )");
 }
 
 

@@ -2,17 +2,18 @@
 #ifndef BOOST_TEXT_DATA_OM_HPP
 #define BOOST_TEXT_DATA_OM_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace om {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &Z<ch<<<Ch<<<CH<dh<<<Dh<<<DH<kh<<<Kh<<<KH<ny<<<Ny<<<NY<ph<<<Ph<<<PH<
   sh<<<Sh
-  )"
-    );
+  )");
 }
 
 

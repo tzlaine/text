@@ -2,19 +2,20 @@
 #ifndef BOOST_TEXT_DATA_UZ_HPP
 #define BOOST_TEXT_DATA_UZ_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace uz {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &[before 1]ʒ<oʻ=o‘=o''<<<Oʻ=O‘=O''
   <gʻ=g‘=g''<<<Gʻ=G‘=G''
   <sh<<<Sh<<<SH
   <ch<<<Ch<<<CH
-  )"
-    );
+  )");
 }
 
 

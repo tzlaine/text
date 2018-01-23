@@ -2,24 +2,25 @@
 #ifndef BOOST_TEXT_DATA_KN_HPP
 #define BOOST_TEXT_DATA_KN_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace kn {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Knda Deva Beng Guru Gujr Orya Taml Telu Mlym Sinh]
 &ಔ<ಂ<ಃ<ೱ<ೲ
-  )"
-    );
+  )");
 }
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Knda Deva Beng Guru Gujr Orya Taml Telu Mlym Sinh]
 &ಔ<ಂ<ಃ<ೱ<ೲ<ಕ್<ಖ್<ಗ್<ಘ್<ಙ್<ಚ್<ಛ್<ಜ್<ಝ್<ಞ್<ಟ್<ಠ್<ಡ್<ಢ್<ಣ್<ತ್<ಥ್<ದ್<ಧ್<ನ್<ಪ್<ಫ್<ಬ್<ಭ್
@@ -657,8 +658,7 @@ inline string_view traditional_collation_tailoring()
 &ಫೊ<<<ಫ಼ೊ
 &ಫೋ<<<ಫ಼ೋ
 &ಫೌ<<<ಫ಼ೌ
-  )"
-    );
+  )");
 }
 
 

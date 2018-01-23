@@ -2,14 +2,15 @@
 #ifndef BOOST_TEXT_DATA_FR_CA_HPP
 #define BOOST_TEXT_DATA_FR_CA_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace fr_CA {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"([backwards 2])"
-    );
+    return string_view(R"(
+[backwards 2])");
 }
 
 

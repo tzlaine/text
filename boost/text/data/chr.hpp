@@ -2,14 +2,15 @@
 #ifndef BOOST_TEXT_DATA_CHR_HPP
 #define BOOST_TEXT_DATA_CHR_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace chr {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"([reorder Cher])"
-    );
+    return string_view(R"(
+[reorder Cher])");
 }
 
 

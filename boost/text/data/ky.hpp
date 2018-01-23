@@ -2,17 +2,18 @@
 #ifndef BOOST_TEXT_DATA_KY_HPP
 #define BOOST_TEXT_DATA_KY_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ky {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [reorder Cyrl]
 &е<ё<<<Ё
-  )"
-    );
+  )");
 }
 
 

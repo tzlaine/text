@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_KM_HPP
 #define BOOST_TEXT_DATA_KM_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace km {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Khmr]
 &[last tertiary ignorable]=\u17b4=\u17b5
@@ -69,8 +71,7 @@ inline string_view standard_collation_tailoring()
 &ឩវ<<<ឪ
 &ឱ<<<ឲ
 &ៅ<ុំ<ំ<ាំ<ះ<ិះ<ុះ<េះ<ោះ
-  )"
-    );
+  )");
 }
 
 

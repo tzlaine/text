@@ -2,20 +2,21 @@
 #ifndef BOOST_TEXT_DATA_YO_HPP
 #define BOOST_TEXT_DATA_YO_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace yo {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 &E<ẹ<<<Ẹ
 &G<gb<<<Gb<<<GB
 &O<ọ<<<Ọ
 &S<ṣ<<<Ṣ
-  )"
-    );
+  )");
 }
 
 

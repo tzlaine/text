@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_LN_HPP
 #define BOOST_TEXT_DATA_LN_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ln {
 
 inline string_view phonetic_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &E<ɛ<<<Ɛ
 &O<<ɔ<<<Ɔ
 &G<gb<<<gB<<<Gb<<<GB
@@ -19,18 +21,16 @@ inline string_view phonetic_collation_tailoring()
   <<<NZ
 &S<sh<<<sH<<<Sh<<<SH
 &T<ts<<<tS<<<Ts<<<TS
-  )"
-    );
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &E<ɛ<<<Ɛ
 &O<<ɔ<<<Ɔ
-  )"
-    );
+  )");
 }
 
 

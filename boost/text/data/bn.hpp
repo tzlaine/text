@@ -2,24 +2,25 @@
 #ifndef BOOST_TEXT_DATA_BN_HPP
 #define BOOST_TEXT_DATA_BN_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace bn {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Beng Deva Guru Gujr Orya Taml Telu Knda Mlym Sinh]
 &ঔ<ং<ঃ<ঁ
-  )"
-    );
+  )");
 }
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Beng Deva Guru Gujr Orya Taml Telu Knda Mlym Sinh]
 &ঔ<ং<ঃ<ঁ<ক্<খ্<গ্<ঘ্<ঙ্<চ্<ছ্<জ্<ঝ্<ঞ্<ট্<ঠ্<ড্<ঢ্<ণ্<ৎ=ত্\u200D<<ত্<থ্<দ্<ধ্<ন্<প্
@@ -635,8 +636,7 @@ inline string_view traditional_collation_tailoring()
 &যো<<<য়ো
 &যৌ<<<য়ৌ
 &য্<<<য়্
-  )"
-    );
+  )");
 }
 
 

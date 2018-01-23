@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_TA_HPP
 #define BOOST_TEXT_DATA_TA_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ta {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Taml Deva Beng Guru Gujr Orya Telu Knda Mlym Sinh]
 &ஔ<ஂ<ஃ
@@ -37,8 +39,7 @@ inline string_view standard_collation_tailoring()
 &[before 1]ஸ<ஸ்
 &[before 1]ஹ<ஹ்
 &[before 1]க்ஷ<க்ஷ்
-  )"
-    );
+  )");
 }
 
 

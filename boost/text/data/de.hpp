@@ -2,24 +2,25 @@
 #ifndef BOOST_TEXT_DATA_DE_HPP
 #define BOOST_TEXT_DATA_DE_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace de {
 
 inline string_view phonebook_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &AE<<ä<<<Ä
 &OE<<ö<<<Ö
 &UE<<ü<<<Ü
-  )"
-    );
+  )");
 }
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
   
 [normalization on]
 [suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
@@ -141,8 +142,7 @@ inline string_view search_collation_tailoring()
 &OE<<ö<<<Ö
 &UE<<ü<<<Ü
   
-  )"
-    );
+  )");
 }
 
 

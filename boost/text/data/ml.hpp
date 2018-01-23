@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_ML_HPP
 #define BOOST_TEXT_DATA_ML_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ml {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [reorder Mlym Latn Deva Arab Taml Knda Telu Beng Guru Gujr Orya Sinh]
 &ഃ<<ഽ
 &\u0D4C<<\u0D57
@@ -20,8 +22,7 @@ inline string_view standard_collation_tailoring()
 &ള്<<ള്\u200D<<<ൾ
 &മ്<<ം
 &ന്<<<ൻ്
-  )"
-    );
+  )");
 }
 
 

@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_ES_HPP
 #define BOOST_TEXT_DATA_ES_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace es {
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
   
 [normalization on]
 [suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
@@ -126,26 +128,23 @@ inline string_view search_collation_tailoring()
   =ᅴ
   
 &N<ñ<<<Ñ
-  )"
-    );
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(&N<ñ<<<Ñ)"
-    );
+    return string_view(R"(
+&N<ñ<<<Ñ)");
 }
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &N<ñ<<<Ñ
 &C<ch<<<Ch<<<CH
 &l<ll<<<Ll<<<LL
-  )"
-    );
+  )");
 }
 
 

@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_UND_HPP
 #define BOOST_TEXT_DATA_UND_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace und {
 
 inline string_view emoji_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 & [last primary ignorable]<<*🏻🏼🏽🏾🏿
 & [before 1]﷑€
   <*😀😁😂🤣😃😄😅😆😉😊😋😎😍😘😗😙😚☺🙂🤗🤩
@@ -314,14 +316,13 @@ inline string_view emoji_collation_tailoring()
   < 🏴󠁧󠁢󠁥󠁮󠁧󠁿
   < 🏴󠁧󠁢󠁳󠁣󠁴󠁿
   < 🏴󠁧󠁢󠁷󠁬󠁳󠁿
-  )"
-    );
+  )");
 }
 
 inline string_view eor_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &a
   <<ᴀ
   <<ⱥ
@@ -857,14 +858,13 @@ inline string_view eor_collation_tailoring()
   <<<Ќ
 &ք
   <և
-  )"
-    );
+  )");
 }
 
 inline string_view search_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
 &'='<'≠'
@@ -979,15 +979,13 @@ inline string_view search_collation_tailoring()
   =ᅱ
 &ᅳᅵ
   =ᅴ
-  )"
-    );
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  )"
-    );
+    return string_view(R"(
+  )");
 }
 
 

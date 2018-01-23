@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_IG_HPP
 #define BOOST_TEXT_DATA_IG_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ig {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 &B<ch<<<Ch<<<CH
 &G<gb<<<Gb<<<GB<gh<<<Gh<<<GH<gw<<<Gw<<<GW
@@ -18,8 +20,7 @@ inline string_view standard_collation_tailoring()
 &O<ọ<<<Ọ
 &S<sh<<<Sh<<<SH
 &U<ụ<<<Ụ
-  )"
-    );
+  )");
 }
 
 

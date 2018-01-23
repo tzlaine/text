@@ -2,19 +2,20 @@
 #ifndef BOOST_TEXT_DATA_UG_HPP
 #define BOOST_TEXT_DATA_UG_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ug {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [reorder Arab]
 &ا<ە<ب
 &ك<گ<ڭ<ل
 &ھ<و<ۇ<ۆ<ۈ<ۋ<ې<ى<ي
-  )"
-    );
+  )");
 }
 
 

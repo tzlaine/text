@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_HU_HPP
 #define BOOST_TEXT_DATA_HU_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace hu {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 &C<cs<<<Cs<<<CS
 &D<dz<<<Dz<<<DZ
 &DZ<dzs<<<Dzs<<<DZS
@@ -47,8 +49,7 @@ inline string_view standard_collation_tailoring()
 &zs<<<zzs/zs
 &Zs<<<Zzs/zs
 &ZS<<<ZZS/ZS
-  )"
-    );
+  )");
 }
 
 

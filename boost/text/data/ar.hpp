@@ -2,24 +2,25 @@
 #ifndef BOOST_TEXT_DATA_AR_HPP
 #define BOOST_TEXT_DATA_AR_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace ar {
 
 inline string_view compat_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [reorder Arab]
 &ت<<ة<<<ﺔ<<<ﺓ
 &ي<<ى<<<ﯨ<<<ﯩ<<<ﻰ<<<ﻯ<<<ﲐ<<<ﱝ
-  )"
-    );
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [reorder Arab]
 &[before 2]ت<<‎ة
 &[before 2]‎ي‎<<ی<<‎ى
@@ -403,8 +404,7 @@ inline string_view standard_collation_tailoring()
   ‎&ے‎=ﮮ‎=ﮯ
   ‎&ۓ‎=ﮰ‎=ﮱ
   ‎&ۀ‎=ﮤ‎=ﮥ
-  )"
-    );
+  )");
 }
 
 

@@ -2,13 +2,15 @@
 #ifndef BOOST_TEXT_DATA_MY_HPP
 #define BOOST_TEXT_DATA_MY_HPP
 
+#include<boost/text/string_view.hpp>
+
 
 namespace boost { namespace text { namespace data { namespace my {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(
-        R"(  
+    return string_view(R"(
+  
 [normalization on]
 [reorder Mymr]
 &ႌ<့<း<့း
@@ -376,8 +378,7 @@ inline string_view standard_collation_tailoring()
 &သမီ=သ္မီ
 &ထမင်း=ထ္မင်း
 &လက်ဘက်=လ္ဘက်
-  )"
-    );
+  )");
 }
 
 
