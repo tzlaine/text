@@ -130,6 +130,7 @@ namespace boost { namespace text { namespace detail {
             return {};
         if (dashes_too && it->kind() == token_kind::code_point &&
             it->cp() == '-') {
+            ++it;
             return '-';
         }
         if (it->kind() != token_kind::code_point)
@@ -342,8 +343,8 @@ namespace boost { namespace text { namespace detail {
     }
 
     // relation-op = "=" | "<" | "<<" | "<<<" | "<*" | "<<*" | "<<<*" ;
-    // relation = relation-op, cp-sequence, (([prefix], extension) |
-    // ([extension], prefix)) ;
+    // relation = relation-op, cp-sequence, [([prefix], extension) |
+    // ([extension], prefix)] ;
     inline optional<relation_t> relation(token_iter & it, token_iter end)
     {
         auto const op_it = it;
@@ -397,10 +398,13 @@ namespace boost { namespace text { namespace detail {
             }
 
             return relation_t{*op, std::move(seq)};
+        } else if (op == token_kind::and_ || op == token_kind::open_bracket) {
+            --it;
+            return {};
         } else {
             throw one_token_parse_error(
                 "Expected one of '<', '<<', '<<<', '<<<<', '=', '<*', '<<*', "
-                "'<<<*', '<<<<*', or '=*' here",
+                "'<<<*', '<<<<*', '=*', '&', or '[' here",
                 op_it,
                 end);
         }
@@ -476,14 +480,7 @@ namespace boost { namespace text { namespace detail {
 
         record();
 
-        while (rel_it = it, rel = relation(it, end)) {
-            if (!strength_matches_op(before_strength_, rel->op_)) {
-                throw one_token_parse_error(
-                    "Relation strength must match S in [before S], unless the "
-                    "relation operator is '=' or '=*'",
-                    rel_it,
-                    end);
-            }
+        while ((rel = relation(it, end))) {
             record();
         }
 
@@ -547,10 +544,8 @@ namespace boost { namespace text { namespace detail {
 
         string_view const expected_msg =
             "Expected one 'strength', 'alternate', backwards', 'reorder', "
-            "'import', 'optimize', or 'suppressContractions' here";
-#if 0 // TODO: Add once they are added below:
-        "'caseLevel', 'caseFirst'"
-#endif
+            "'import', 'caseLevel', 'caseFirst', 'optimize', or "
+            "'suppressContractions' here";
 
         auto const identifier_it = it;
         auto identifier = next_identifier(it, end);
@@ -655,24 +650,66 @@ namespace boost { namespace text { namespace detail {
             }
             tailoring.l2_weight_order_(l2_weight_order::backward);
             require_close_bracket(open_bracket_it);
-#if 0 // TODO
         } else if (*identifier == "caseLevel") {
-            // on,off
+            if (require(it, end, "on"))
+                ; // TODO
+            else if (require(it, end, "off"))
+                ; // TODO
+            else
+                throw one_token_parse_error(
+                    "Expected 'on' or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
-        } else if (*identifier == "caseFirst") {
-            // upper,lower
-            require_close_bracket(open_bracket_it);
-#endif
-        } else if (*identifier == "reorder") {
-            if (prev_reorder) {
-                throw two_token_parse_error(
-                    "'[reorder ...]' may appear at most once",
-                    open_bracket_it,
-                    "previous one was here",
-                    *prev_reorder,
-                    end);
-            }
 
+            if (tailoring.warnings_) {
+                tailoring.warnings_(parse_diagnostic(
+                    diag_kind::warning,
+                    "[caseLevel ...] is not yet supported; ignoring...",
+                    open_bracket_it->line(),
+                    open_bracket_it->column(),
+                    string_view(first, last - first),
+                    line_starts,
+                    filename));
+            }
+        } else if (*identifier == "caseFirst") {
+            if (require(it, end, "upper"))
+                ; // TODO
+            else if (require(it, end, "lower"))
+                ; // TODO
+            else if (require(it, end, "off"))
+                ; // TODO
+            else
+                throw one_token_parse_error(
+                    "Expected 'upper' or 'lower' here", it, end);
+            require_close_bracket(open_bracket_it);
+
+            if (tailoring.warnings_) {
+                tailoring.warnings_(parse_diagnostic(
+                    diag_kind::warning,
+                    "[caseFirst ...] is not yet supported; ignoring...",
+                    open_bracket_it->line(),
+                    open_bracket_it->column(),
+                    string_view(first, last - first),
+                    line_starts,
+                    filename));
+            }
+        } else if (*identifier == "normalization") {
+            it = std::find_if(it, end, [](token const & t) {
+                return t.kind() == token_kind::close_bracket;
+            });
+
+            require_close_bracket(open_bracket_it);
+
+            if (tailoring.warnings_) {
+                tailoring.warnings_(parse_diagnostic(
+                    diag_kind::warning,
+                    "[normalization ...] is not supported; ignoring...",
+                    open_bracket_it->line(),
+                    open_bracket_it->column(),
+                    string_view(first, last - first),
+                    line_starts,
+                    filename));
+            }
+        } else if (*identifier == "reorder") {
             std::vector<string> reorderings;
             std::vector<reorder_group> final_reorderings;
             auto others_offset = -1;
@@ -712,6 +749,24 @@ namespace boost { namespace text { namespace detail {
             }
 
             require_close_bracket(open_bracket_it);
+
+            // HACK! Ignore [reorder others] entirely, since it's not
+            // supported anyway.  This is desirable because the ICU-sourced
+            // tailoring data sometimes contain multiple [reorder ...]
+            // sequences, where [reorder others] is always included.
+            if (reorderings.size() == 1u &&
+                (reorderings[0] == "others" || reorderings[0] == "Zzzz")) {
+                return {};
+            }
+
+            if (prev_reorder) {
+                throw two_token_parse_error(
+                    "'[reorder ...]' may appear at most once",
+                    open_bracket_it,
+                    "previous one was here",
+                    *prev_reorder,
+                    end);
+            }
 
             // http://www.unicode.org/reports/tr35/tr35-collation.html#Interpretation_reordering
 

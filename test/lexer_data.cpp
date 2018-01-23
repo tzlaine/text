@@ -1592,16 +1592,6 @@ TEST(lexer, data)
             },
             "und.hpp")
     );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::und::standard_collation_tailoring().begin(),
-            boost::text::data::und::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "und.hpp")
-    );
 
 
     // From ur.txt:

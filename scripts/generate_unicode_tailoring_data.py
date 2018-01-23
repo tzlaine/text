@@ -52,9 +52,10 @@ for filename in os.listdir(args.icu_dir):
             if name == '':
                 raise Exception('Somehow we got unnamed tailoring rules!')
             all_tailorings[name_prefix + name] = sequence
-            if root not in tailorings_by_file:
-                tailorings_by_file[root] = {}
-            tailorings_by_file[root][name] = sequence
+            if sequence.strip() != '':
+                if root not in tailorings_by_file:
+                    tailorings_by_file[root] = {}
+                tailorings_by_file[root][name] = sequence
             name = ''
             line_idx = seq_end_line_idx + 1
             continue
@@ -102,10 +103,7 @@ TEST(parser, data)
             std::cout << s << std::endl;
             throw std::runtime_error("Parser produced an error!");
         }},
-        [](boost::text::string const & s) {{
-            std::cout << s << std::endl;
-            throw std::runtime_error("Parser produced an error!");
-        }}
+        [](boost::text::string const & s) {{ /*std::cout << s << std::endl;*/ }}
     }};
 
 
