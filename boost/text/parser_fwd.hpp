@@ -119,6 +119,8 @@ namespace boost { namespace text {
         using variable_weighting_callback =
             std::function<void(variable_weighting)>;
         using l2_weight_order_callback = std::function<void(l2_weight_order)>;
+        using case_level_callback = std::function<void(case_level_t)>;
+        using case_first_callback = std::function<void(case_first_t)>;
         using suppression_callback = std::function<void(cp_seq_t const &)>;
         using reorder_callback =
             std::function<void(std::vector<reorder_group> const &)>;
@@ -133,6 +135,8 @@ namespace boost { namespace text {
             collation_strength_callback collation_strength_;
             variable_weighting_callback variable_weighting_;
             l2_weight_order_callback l2_weight_order_;
+            case_level_callback case_level_;
+            case_first_callback case_first_;
 
             // special purpose
             suppression_callback suppress_;

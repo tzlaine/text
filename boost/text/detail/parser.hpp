@@ -648,17 +648,19 @@ namespace boost { namespace text { namespace detail {
                 throw one_token_parse_error(
                     "Only '[backwards 2]' is supported", it, end);
             }
-            tailoring.l2_weight_order_(l2_weight_order::backward);
             require_close_bracket(open_bracket_it);
+            tailoring.l2_weight_order_(l2_weight_order::backward);
         } else if (*identifier == "caseLevel") {
+            auto case_level = case_level_t::off;
             if (require(it, end, "on"))
-                ; // TODO
+                case_level = case_level_t::on;
             else if (require(it, end, "off"))
-                ; // TODO
+                case_level = case_level_t::off;
             else
                 throw one_token_parse_error(
                     "Expected 'on' or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
+            tailoring.case_level_(case_level);
 
             if (tailoring.warnings_) {
                 tailoring.warnings_(parse_diagnostic(
@@ -671,16 +673,18 @@ namespace boost { namespace text { namespace detail {
                     filename));
             }
         } else if (*identifier == "caseFirst") {
+            auto case_first = case_first_t::off;
             if (require(it, end, "upper"))
-                ; // TODO
+                case_first = case_first_t::upper;
             else if (require(it, end, "lower"))
-                ; // TODO
+                case_first = case_first_t::lower;
             else if (require(it, end, "off"))
-                ; // TODO
+                case_first = case_first_t::off;
             else
                 throw one_token_parse_error(
-                    "Expected 'upper' or 'lower' here", it, end);
+                    "Expected 'upper', 'lower', or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
+            tailoring.case_first_(case_first);
 
             if (tailoring.warnings_) {
                 tailoring.warnings_(parse_diagnostic(

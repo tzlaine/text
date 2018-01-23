@@ -21,6 +21,12 @@ namespace boost { namespace text {
     /** TODO */
     enum class l2_weight_order { forward, backward };
 
+    /** TODO */
+    enum class case_level_t { on, off };
+
+    /** TODO */
+    enum class case_first_t { upper, lower, off };
+
     struct tailored_collation_element_table;
 
     namespace detail {

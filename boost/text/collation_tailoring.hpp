@@ -166,6 +166,8 @@ namespace boost { namespace text {
             optional<collation_strength> strength_override,
             optional<variable_weighting> weighting_override,
             optional<l2_weight_order> l2_order_override,
+            optional<case_level_t> case_level_override,
+            optional<case_first_t> case_first_override,
             tailored_collation_element_table & table);
     }
 
@@ -198,6 +200,14 @@ namespace boost { namespace text {
         {
             return l2_order_;
         }
+        optional<case_level_t> case_level() const noexcept
+        {
+            return case_level_;
+        }
+        optional<case_first_t> case_first() const noexcept
+        {
+            return case_first_;
+        }
 
     private:
         tailored_collation_element_table() {}
@@ -223,6 +233,8 @@ namespace boost { namespace text {
         optional<collation_strength> strength_;
         optional<variable_weighting> weighting_;
         optional<l2_weight_order> l2_order_;
+        optional<case_level_t> case_level_;
+        optional<case_first_t> case_first_;
 
         friend void detail::modify_table(
             tailored_collation_element_table & table,
@@ -243,6 +255,8 @@ namespace boost { namespace text {
             optional<collation_strength> strength_override,
             optional<variable_weighting> weighting_override,
             optional<l2_weight_order> l2_order_override,
+            optional<case_level_t> case_level_override,
+            optional<case_first_t> case_first_override,
             tailored_collation_element_table & table);
 
         friend tailored_collation_element_table
@@ -659,12 +673,16 @@ namespace boost { namespace text {
             optional<collation_strength> strength_override,
             optional<variable_weighting> weighting_override,
             optional<l2_weight_order> l2_order_override,
+            optional<case_level_t> case_level_override,
+            optional<case_first_t> case_first_override,
             tailored_collation_element_table & table)
         {
             table.collation_elements_.clear();
             table.strength_ = strength_override;
             table.weighting_ = weighting_override;
             table.l2_order_ = l2_order_override;
+            table.case_level_ = case_level_override;
+            table.case_first_ = case_first_override;
 
             std::unordered_map<temp_table_element::ces_t, collation_elements>
                 already_linearized;
@@ -722,6 +740,8 @@ namespace boost { namespace text {
         optional<collation_strength> strength_override;
         optional<variable_weighting> weighting_override;
         optional<l2_weight_order> l2_order_override;
+        optional<case_level_t> case_level_override;
+        optional<case_first_t> case_first_override;
 
         detail::cp_seq_t suppressions;
 
@@ -785,6 +805,8 @@ namespace boost { namespace text {
                 weighting_override = weighting;
             },
             [&](l2_weight_order l2_order) { l2_order_override = l2_order; },
+            [&](case_level_t cl) { case_level_override = cl; },
+            [&](case_first_t cf) { case_first_override = cf; },
             [&](detail::cp_seq_t const & suppressions_) {
                 std::copy(
                     suppressions_.begin(),
@@ -853,6 +875,8 @@ namespace boost { namespace text {
             strength_override,
             weighting_override,
             l2_order_override,
+            case_level_override,
+            case_first_override,
             table);
 
         return table;

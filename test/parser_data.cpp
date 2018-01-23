@@ -14,6 +14,8 @@ TEST(parser, data)
         [](boost::text::collation_strength strength) {},
         [](boost::text::variable_weighting weighting) {},
         [](boost::text::l2_weight_order order) {},
+        [](boost::text::case_level_t case_level) {},
+        [](boost::text::case_first_t case_first) {},
         [](boost::text::detail::cp_seq_t const & suppressions) {},
         [](std::vector<boost::text::detail::reorder_group> const & reorder_groups) {},
         [](boost::text::string const & s) {
