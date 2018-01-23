@@ -647,7 +647,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.find('z', trie::less{}), ++root.begin());
         EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
 
-        root.erase(int(0));
+        root.erase(std::size_t(0));
 
         EXPECT_FALSE(root.value());
         EXPECT_EQ(root.parent(), nullptr);
@@ -694,7 +694,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.find('z', trie::less{}), ++root.begin());
         EXPECT_EQ(root.child('z', trie::less{}), z_ptr);
 
-        root_.erase(int(0));
+        root_.erase(std::size_t(0));
 
         EXPECT_FALSE(root.value());
         EXPECT_EQ(root.parent(), nullptr);
