@@ -785,6 +785,9 @@ namespace boost { namespace trie {
     template<typename Key, typename Compare>
     struct trie_set;
 
+    template<typename Key>
+    struct const_trie_set_iterator;
+
     namespace detail {
         template<typename Key, typename Value>
         struct arrow_proxy
@@ -949,6 +952,8 @@ namespace boost { namespace trie {
         friend struct trie_set;
         template<typename KeyT, typename ValueT>
         friend struct trie_map_iterator;
+        template<typename KeyT>
+        friend struct const_trie_set_iterator;
     };
 
     template<typename Key, typename Value>

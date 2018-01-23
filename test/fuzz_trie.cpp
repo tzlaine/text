@@ -3,6 +3,7 @@
 
 #include <boost/text/trie.hpp>
 #include <boost/text/trie_map.hpp>
+#include <boost/text/trie_set.hpp>
 #include <boost/text/string.hpp>
 
 #include <algorithm>
@@ -16,6 +17,7 @@ namespace {
 
     boost::trie::trie<boost::text::string, int> trie;
     boost::trie::trie_map<boost::text::string, int> trie_map;
+    boost::trie::trie_set<boost::text::string> trie_set;
     std::map<boost::text::string, int> map;
 
     std::ofstream ofs("fuzz_operations.cpp");
@@ -39,12 +41,15 @@ void check()
 {
     assert(trie.size() == map.size());
     assert(trie_map.size() == map.size());
+    assert(trie_set.size() == trie_set.size());
 
     {
         auto trie_map_it = trie_map.begin();
         auto const trie_map_end = trie_map.end();
+        auto trie_set_it = trie_set.begin();
         auto map_it = map.begin();
-        for (; trie_map_it != trie_map_end; ++trie_map_it, ++map_it) {
+        for (; trie_map_it != trie_map_end;
+             ++trie_map_it, ++trie_set_it, ++map_it) {
             if (trie_map_it->key != map_it->first) {
                 std::cout << trie_map_it->key.size() << "\n"
                           << trie_map_it->key << "\n!=\n"
@@ -63,6 +68,8 @@ void check()
             }
             assert(trie_map_it->key == map_it->first);
             assert(trie_map_it->value == map_it->second);
+
+            assert(*trie_set_it == map_it->first);
 
             assert(trie.contains(trie_map_it->key));
             assert(trie[trie_map_it->key] == trie_map_it->value);
@@ -73,8 +80,10 @@ void check()
     {
         auto trie_map_it = trie_map.rbegin();
         auto const trie_map_end = trie_map.rend();
+        auto trie_set_it = trie_set.rbegin();
         auto map_it = map.rbegin();
-        for (; trie_map_it != trie_map_end; ++trie_map_it, ++map_it) {
+        for (; trie_map_it != trie_map_end;
+             ++trie_map_it, ++trie_set_it, ++map_it) {
             if (trie_map_it->key != map_it->first) {
                 std::cout << trie_map_it->key.size() << "\n"
                           << trie_map_it->key << "\n!=\n"
@@ -93,6 +102,8 @@ void check()
             }
             assert(trie_map_it->key == map_it->first);
             assert(trie_map_it->value == map_it->second);
+
+            assert(*trie_set_it == map_it->first);
         }
         assert(map_it == map.rend());
     }
@@ -114,6 +125,7 @@ void insert(boost::text::string_view key, int value)
 #endif
     trie.insert(key, value);
     trie_map.insert(key, value);
+    trie_set.insert(key);
     map.insert(std::make_pair(boost::text::string(key), value));
 
     check();
@@ -136,6 +148,7 @@ void erase(int which)
 #endif
     trie.erase(key);
     trie_map.erase(key);
+    trie_set.erase(key);
     map.erase(key);
 
     check();
