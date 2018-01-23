@@ -2,9 +2,9 @@
 #define BOOST_TEXT_COLLATION_TAILORING_HPP
 
 #include <boost/text/collation_fwd.hpp>
-#include <boost/text/parser_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/detail/collation_data.hpp>
+#include <boost/text/detail/parser.hpp>
 
 #include <numeric>
 #include <vector>
@@ -58,8 +58,8 @@ namespace boost { namespace text {
             temp_table_element::ces_t const & lhs,
             temp_table_element::ces_t const & rhs) noexcept
         {
-            container::static_vector<uint32_t, 16> lhs_bytes;
-            container::static_vector<uint32_t, 16> rhs_bytes;
+            container::static_vector<uint32_t, 256> lhs_bytes;
+            container::static_vector<uint32_t, 256> rhs_bytes;
 
             uint32_t const * cps = nullptr;
             s3(lhs.begin(),
@@ -378,7 +378,9 @@ namespace boost { namespace text {
             if (ces_it != ces.end())
                 ces.erase(std::next(ces_it), ces.end());
             if (ces_it == ces.end()) {
-                ces_it = ces.insert(ces_it, collation_element{0, 0, 0, 0});
+                ces.clear();
+                ces.push_back(collation_element{0, 0, 0, 0});
+                ces_it = ces.end();
             }
             auto & ce = *ces_it;
 
@@ -491,11 +493,15 @@ namespace boost { namespace text {
             }
 
             if (before) {
-                auto const ces_it = last_ce_at_least_strength(
+                auto ces_it = last_ce_at_least_strength(
                     reset_ces.begin(), reset_ces.end(), strength);
-                auto const ce = ces_it == reset_ces.end()
-                                    ? collation_element{0, 0, 0, 0}
-                                    : *ces_it;
+                if (ces_it == reset_ces.end()) {
+                    reset_ces.clear();
+                    reset_ces.push_back(collation_element{0, 0, 0, 0});
+                    ces_it = reset_ces.begin();
+                }
+                auto const ce = *ces_it;
+
                 reset_ces.clear();
                 reset_ces.push_back(ce);
                 auto it = std::lower_bound(
@@ -525,9 +531,11 @@ namespace boost { namespace text {
                     // the parser, and produce a reasonable error message based
                     // on its state.
                 }
-                reset_ces.erase(std::next(ces_it), reset_ces.end());
+                reset_ces.clear();
                 reset_ces.insert(
-                    ces_it, prev_it->ces_.begin(), prev_it->ces_.end());
+                    reset_ces.end(),
+                    prev_it->ces_.begin(),
+                    prev_it->ces_.end());
             }
 
             // TODO: Adjust reset_ces case bits here.
@@ -612,6 +620,7 @@ namespace boost { namespace text {
 
             // TODO: I don't think this is necessary; try removing it and
             // seeing if it breaks the tests (once the tests exist).
+#if 0
             auto same_key = [&relation](temp_table_element const & e) {
                 return e.cps_ == relation;
             };
@@ -625,6 +634,7 @@ namespace boost { namespace text {
                 assert(std::distance(remove_it, temp_table.end()) == 1);
                 temp_table.erase(remove_it);
             }
+#endif
         }
 
         // TODO: Drop support for this?  No! Just add table entries for any
@@ -754,11 +764,26 @@ namespace boost { namespace text {
 
         tailored_collation_element_table table;
 
+        uint32_t const symbol_lookup[] = {
+            detail::initial_first_tertiary_ignorable,
+            detail::initial_last_tertiary_ignorable,
+            detail::initial_first_secondary_ignorable,
+            detail::initial_last_secondary_ignorable,
+            detail::initial_first_primary_ignorable,
+            detail::initial_last_primary_ignorable,
+            detail::initial_first_variable,
+            detail::initial_last_variable,
+            detail::initial_first_regular,
+            detail::initial_last_regular,
+            detail::initial_first_implicit};
+
         detail::logical_positions_t logical_positions;
         {
-            auto lookup_and_assign = [&logical_positions](uint32_t symbol) {
+            auto lookup_and_assign = [&](uint32_t symbol) {
+                auto const cp =
+                    symbol_lookup[symbol - detail::first_tertiary_ignorable];
                 auto const elems =
-                    detail::g_default_collation_trie[detail::cp_rng{symbol}];
+                    detail::g_default_collation_trie[detail::cp_rng{cp}];
                 logical_positions[symbol].assign(
                     elems->begin(detail::g_collation_elements_first),
                     elems->end(detail::g_collation_elements_first));
@@ -775,7 +800,13 @@ namespace boost { namespace text {
             lookup_and_assign(detail::last_variable);
             lookup_and_assign(detail::first_regular);
             lookup_and_assign(detail::last_regular);
-            lookup_and_assign(detail::first_implicit);
+
+            detail::add_derived_elements(
+                symbol_lookup
+                    [detail::first_implicit - detail::first_tertiary_ignorable],
+                variable_weighting::non_ignorable,
+                std::back_inserter(logical_positions[detail::first_implicit]),
+                nullptr);
         }
 
         detail::tailoring_state_t tailoring_state;
@@ -827,7 +858,7 @@ namespace boost { namespace text {
                     if (!compress)
                         curr_reorder_lead_byte += 0x01000000;
 
-                    if (detail::implicit_weights_final_lead_byte <
+                    if ((detail::implicit_weights_final_lead_byte << 24) <
                         curr_reorder_lead_byte) {
                         throw parse_error(
                             "It was not possible to tailor the "
@@ -845,7 +876,8 @@ namespace boost { namespace text {
                                       end = group.last_.l1_ & 0xff000000;
                              byte < end;
                              byte += 0x01000000) {
-                            simple_reorders[byte] = curr_reorder_lead_byte;
+                            simple_reorders[byte >> 24] =
+                                curr_reorder_lead_byte;
                         }
                     } else {
                         nonsimple_reorders.push_back(

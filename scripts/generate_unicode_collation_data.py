@@ -39,7 +39,7 @@ namespace boost {{ namespace text {{ namespace detail {{
         last_variable = 0xfffffffb,
         first_regular = 0xfffffffc,
         last_regular = 0xfffffffd,
-        first_implicit = 0xffffffe,
+        first_implicit = 0xfffffffe,
 
         invalid_code_point = 0xffffffff,
         no_secondary_ignorables = invalid_code_point,

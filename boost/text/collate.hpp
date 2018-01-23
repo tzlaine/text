@@ -60,14 +60,6 @@ namespace boost { namespace text {
     // and some variable naming comes from there.
     namespace detail {
 
-        template<typename Iter>
-        void
-        s2(Iter first,
-           Iter last,
-           variable_weighting weighting,
-           container::small_vector<collation_element, 1024> & ces,
-           tailored_collation_element_table const * table);
-
         // http://www.unicode.org/reports/tr10/#Derived_Collation_Elements
         template<typename OutIter>
         inline OutIter add_derived_elements(

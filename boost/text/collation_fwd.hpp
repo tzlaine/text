@@ -33,6 +33,13 @@ namespace boost { namespace text {
 
         struct collation_element;
 
+        template<typename OutIter>
+        inline OutIter add_derived_elements(
+            uint32_t cp,
+            variable_weighting weighting,
+            OutIter out,
+            tailored_collation_element_table const * table);
+
         template<typename Iter>
         void
         s2(Iter first,
