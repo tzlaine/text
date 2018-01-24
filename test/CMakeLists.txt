@@ -105,7 +105,7 @@ add_test_executable(lexer)
 add_test_executable(lexer_data)
 add_test_executable(parser)
 add_test_executable(parser_data)
-#add_test_executable(tailoring riwords.txt)
+add_test_executable(tailoring riwords.txt)
 
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).
