@@ -12,10 +12,24 @@ namespace std {
     operator<<(ostream & os, container::static_vector<uint32_t, 16> const & vec)
     {
         os << "{ " << hex;
-        for (auto cp : vec) {
+        for (uint32_t cp : vec) {
             os << "0x" << cp << " ";
         }
         os << "}" << dec;
+        return os;
+    }
+    ostream & operator<<(ostream & os, text::utf32_range const & r)
+    {
+        os << '"' << hex;
+        for (uint32_t cp : r) {
+            if (cp < 0x80)
+                os << (char)cp;
+            else if (cp <= 0xffff)
+                os << "\\u" << setw(4) << setfill('0') << cp;
+            else
+                os << "\\U" << setw(8) << setfill('0') << cp;
+        }
+        os << '"' << dec;
         return os;
     }
 }
@@ -911,7 +925,6 @@ TEST(tailoring, ja)
 
 TEST(tailoring, th)
 {
-#if 0
     text::tailored_collation_element_table const table =
         text::make_tailored_collation_element_table(
             text::data::th::standard_collation_tailoring(),
@@ -922,6 +935,7 @@ TEST(tailoring, th)
     // TODO: Read riwords.txt, check that each line collates as <= the next
     // (tertiary).
 
+#if 0
     {
         int const cases = 13;
         std::array<text::string_view, cases> const lhs = {
@@ -965,10 +979,15 @@ TEST(tailoring, th)
                     table,
                     text::collation_strength::tertiary,
                     text::variable_weighting::non_ignorable),
-                tertiary_result[i]);
+                tertiary_result[i])
+                << "CASE " << i << "\n"
+                << text::utf32_range(lhs[i]) << "\n"
+                << text::utf32_range(rhs[i]) << "\n";
         }
     }
+#endif
 
+#if 0
     {
         int const cases = 26;
         std::array<text::string_view, cases> const lhs = {
@@ -979,7 +998,7 @@ TEST(tailoring, th)
              "\u0E41\u0301",
              "\u0E41\u0301\u0316",
              "\u0e24\u0e41",
-             "\u0e3f\u0e3f\u0e24\u0e41"
+             "\u0e3f\u0e3f\u0e24\u0e41",
              "abc\u0E41c\u0301",
              "abc\u0E41\U0001D000",
              "abc\u0E41\U0001D15F",
@@ -1027,7 +1046,7 @@ TEST(tailoring, th)
              "abc\u0E41\u0301abc",
              "abc\u0E41\u0316\u0301abc"}};
 
-        std::array<int, cases> const tertiary_result = {
+        std::array<int, cases> const secondary_result = {
             {0, -1, 0,  0, 0, 0, 0, 0, 0,  -1, 0, 0, 0,
              0, 0,  -1, 0, 0, 0, 0, 0, -1, 0,  0, 0, 0}};
 
@@ -1039,7 +1058,10 @@ TEST(tailoring, th)
                     table,
                     text::collation_strength::secondary,
                     text::variable_weighting::non_ignorable),
-                tertiary_result[i]);
+                secondary_result[i])
+                << "CASE " << i << "\n"
+                << text::utf32_range(lhs[i]) << "\n"
+                << text::utf32_range(rhs[i]) << "\n";
         }
     }
 #endif
