@@ -67,7 +67,7 @@ ForEachMacros:
 IncludeIsMainRegex: '(Test)?$'
 IndentCaseLabels: false
 IndentWidth:     4
-IndentPPDirectives: AfterHash
+#IndentPPDirectives: AfterHash
 IndentWrappedFunctionNames: false
 JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
