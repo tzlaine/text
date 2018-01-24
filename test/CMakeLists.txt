@@ -23,6 +23,18 @@ macro(add_test_executable name)
         target_link_libraries(${name} c++)
     endif ()
     list(APPEND coverage_gcda_files ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${name}.dir/${name}.cpp.gcda)
+    if (NOT "${ARGN}" STREQUAL "")
+        foreach(arg ${ARGN})
+            add_custom_command(
+                TARGET ${name}
+                POST_BUILD
+                COMMAND
+                    ${CMAKE_COMMAND} -E copy
+                        ${CMAKE_CURRENT_SOURCE_DIR}/${arg}
+                        ${CMAKE_CURRENT_BINARY_DIR}
+            )
+        endforeach()
+    endif ()
 endmacro()
 
 add_test_executable(detail_utility)
@@ -92,8 +104,8 @@ add_test_executable(relative_collation_test_shifted_8)
 add_test_executable(lexer)
 add_test_executable(lexer_data)
 add_test_executable(parser)
-add_test_executable(parser_data) 
-#add_test_executable(tailoring)
+add_test_executable(parser_data)
+#add_test_executable(tailoring riwords.txt)
 
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).

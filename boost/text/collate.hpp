@@ -664,7 +664,7 @@ namespace boost { namespace text {
     template<typename CodePointRange1, typename CodePointRange2>
     int collate(
         CodePointRange1 const & r1,
-        CodePointRange1 const & r2,
+        CodePointRange2 const & r2,
         collation_strength strength,
         variable_weighting weighting,
         l2_weight_order l2_order = l2_weight_order::forward)
@@ -685,7 +685,7 @@ namespace boost { namespace text {
     template<typename CodePointRange1, typename CodePointRange2>
     int collate(
         CodePointRange1 const & r1,
-        CodePointRange1 const & r2,
+        CodePointRange2 const & r2,
         tailored_collation_element_table const & table,
         collation_strength strength,
         variable_weighting weighting,
