@@ -615,7 +615,9 @@ if __name__ == "__main__":
       map(lambda x: (x[0], indices_to_list(x[1], all_cps)), decomposition_mapping)
     decomposition_mapping = dict(decomposition_mapping)
 
-    fcc_cet = cet_from_cet_and_decompositions(cccs_dict, cet, decomposition_mapping)
+    # TODO: This appears not to be necessary.
+    #fcc_cet = cet_from_cet_and_decompositions(cccs_dict, cet, decomposition_mapping)
+    fcc_cet = cet
 
     (fcc_cet, collation_elements) = make_unique_collation_element_sequence(fcc_cet)
 
