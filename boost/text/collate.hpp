@@ -18,19 +18,34 @@ namespace boost { namespace text {
     /** TODO */
     struct text_sort_key
     {
-        using iterator = std::vector<uint32_t>::const_iterator;
+        using const_iterator = std::vector<uint32_t>::const_iterator;
+        using iterator = const_iterator;
+        using value_type = uint32_t;
 
         text_sort_key() {}
         explicit text_sort_key(std::vector<uint32_t> bytes) :
             storage_(std::move(bytes))
         {}
 
-        iterator begin() const noexcept { return storage_.begin(); }
-        iterator end() const noexcept { return storage_.end(); }
+        const_iterator begin() const noexcept { return storage_.begin(); }
+        const_iterator end() const noexcept { return storage_.end(); }
 
     private:
         std::vector<uint32_t> storage_;
     };
+
+#define BOOST_TEXT_COLLATE_INSTRUMENTATION 0
+#if BOOST_TEXT_COLLATE_INSTRUMENTATION
+    std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
+    {
+        os << std::hex << "[";
+        for (auto x : k) {
+            os << " " << x;
+        }
+        os << " ]" << std::dec;
+        return os;
+    }
+#endif
 
     /** TODO */
     inline int
