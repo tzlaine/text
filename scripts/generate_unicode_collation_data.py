@@ -133,11 +133,34 @@ namespace detail {{
 {2}
         }}}};
 
+        struct key_and_index_t
+        {{
+            std::array<uint32_t, 3> cps_ = {{{{0, 0, 0}}}};
+            int index_;
+
+            friend bool operator<(key_and_index_t lhs, key_and_index_t rhs)
+            {{
+                return lhs.cps_ < rhs.cps_;
+            }}
+        }};
+
         collation_trie_t make_trie()
         {{
+            std::vector<key_and_index_t> key_and_indices;
+            {{
+                key_and_indices.resize(g_trie_keys.size());
+                int i = 0;
+                for (auto key : g_trie_keys) {{
+                    auto & kai = key_and_indices[i];
+                    std::copy(key.begin(), key.end(), kai.cps_.begin());
+                    kai.index_ = i++;
+                }}
+                std::sort(key_and_indices.begin(), key_and_indices.end());
+            }}
             collation_trie_t retval;
-            for (int i = 0, end = (int)g_trie_keys.size(); i != end; ++i) {{
-                retval.insert(g_trie_keys[i], g_trie_values[i]);
+            for (auto kai : key_and_indices) {{
+                retval.insert(
+                    g_trie_keys[kai.index_], g_trie_values[kai.index_]);
             }}
             return retval;
         }}
