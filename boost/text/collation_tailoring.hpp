@@ -414,28 +414,40 @@ namespace boost { namespace text {
             std::cerr << "0x" << std::hex << std::setfill('0') << std::setw(8)
                       << w;
 #endif
-            uint32_t byte = w & 0xff;
-            if (0 < byte && byte < 0xff) {
+
+            // First, try to find the first zero byte and increment that.
+            // This keeps sort keys as short as possible.  Don't increment a
+            // primary's lead byte though.
+            if (!is_primary && !(w & 0xff000000)) {
+                w += 0x01000000;
+                return w;
+            } else if (!(w & 0xff0000)) {
+                w += 0x010000;
+                return w;
+            } else if (!(w & 0xff00)) {
+                w += 0x0100;
+                return w;
+            } else if (!(w & 0xff)) {
                 w += 1;
-            } else {
-                byte = (w >> 8) & 0xff;
-                if (0 < byte && byte < 0xff) {
-                    w += 0x0100;
-                } else {
-                    // Stop here so we don't change the lead byte.
-                    byte = (w >> 16) & 0xff;
-                    if (byte == 0xff && is_primary) {
-                        throw tailoring_error(
-                            "Unable to increment collation element value "
-                            "without changing its lead bytes");
-                    }
-                    w += 0x010000;
-                }
+                return w;
             }
+
+            // Otherwise, just add 1 and check that this does not increment
+            // the lead byte.
+            uint32_t const initial_lead_byte = w & 0xff000000;
+            w += 1;
+            uint32_t const lead_byte = w & 0xff000000;
+            if (lead_byte != initial_lead_byte && is_primary) {
+                throw tailoring_error(
+                    "Unable to increment collation element value "
+                    "without changing its lead bytes");
+            }
+
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
             std::cerr << " -> 0x" << std::hex << std::setfill('0')
                       << std::setw(8) << w << "\n";
 #endif
+
             return w;
         }
 
@@ -506,7 +518,7 @@ namespace boost { namespace text {
             if (ces_it == ces.end()) {
                 ces.clear();
                 ces.push_back(collation_element{0, 0, 0, 0});
-                ces_it = ces.end();
+                ces_it = ces.begin();
             }
             auto & ce = *ces_it;
 
@@ -614,13 +626,32 @@ namespace boost { namespace text {
             optional_cp_seq_t const & prefix,
             optional_cp_seq_t const & extension)
         {
-            // http://userguide.icu-project.org/collation/customization (see
-            // the bit titled "Prefix Example:").
-            temp_table_element::ces_t prefix_ces;
-            if (prefix) {
-                reset.insert(reset.end(), prefix->begin(), prefix->end());
-                relation.insert(relation.end(), prefix->begin(), prefix->end());
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << "========== reset= "
+                      << text::to_string(reset.begin(), reset.end()) << " ";
+            for (auto cp : reset) {
+                std::cerr << std::hex << std::setw(8) << std::setfill('0')
+                          << cp << " ";
             }
+            switch (strength) {
+            case collation_strength::primary: std::cerr << "<"; break;
+            case collation_strength::secondary: std::cerr << "<<"; break;
+            case collation_strength::tertiary: std::cerr << "<<<"; break;
+            case collation_strength::quaternary: std::cerr << "<<<<"; break;
+            case collation_strength::identical: std::cerr << "="; break;
+            }
+            std::cerr << " relation= "
+                      << text::to_string(relation.begin(), relation.end())
+                      << " ";
+            for (auto cp : relation) {
+                std::cerr << std::hex << std::setw(8) << std::setfill('0')
+                          << cp << " ";
+            }
+            std::cerr << "\n";
+#endif
+            temp_table_element::ces_t prefix_ces;
+            if (prefix)
+                relation.insert(relation.end(), prefix->begin(), prefix->end());
 
             temp_table_element::ces_t reset_ces;
             if (reset.size() == 1u && first_tertiary_ignorable <= reset[0] &&
