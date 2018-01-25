@@ -234,6 +234,26 @@ namespace boost { namespace text {
                 collation_elements_.end(), ces.begin(), ces.end());
             value.last_ = collation_elements_.size();
             trie_.insert_or_assign(cps, value);
+
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << "add_temp_tailoring() ";
+            bool first = true;
+            for (auto cp : cps) {
+                if (!first)
+                    std::cerr << " ";
+                std::cerr << std::hex << std::setw(4) << std::setfill('0')
+                          << cp;
+                first = false;
+            }
+            std::cerr << " ";
+            for (auto ce : ces) {
+                std::cerr << "[" << std::hex << std::setw(8)
+                          << std::setfill('0') << ce.l1_ << " " << std::setw(4)
+                          << ce.l2_ << " " << std::setw(2) << std::setfill('0')
+                          << (int)ce.l3_ << "] ";
+            }
+            std::cerr << "\n";
+#endif
         }
 
         std::vector<detail::collation_element> collation_elements_;
@@ -319,6 +339,13 @@ namespace boost { namespace text {
                     std::cerr << std::hex << std::setw(4) << std::setfill('0')
                               << cp;
                     first = false;
+                }
+                std::cerr << " ";
+                for (auto ce : element.ces_) {
+                    std::cerr << "[" << std::hex << std::setw(8)
+                              << std::setfill('0') << ce.l1_ << " "
+                              << std::setw(4) << ce.l2_ << " " << std::setw(2)
+                              << std::setfill('0') << (int)ce.l3_ << "] ";
                 }
                 std::cerr << "\n";
             }
@@ -666,12 +693,21 @@ namespace boost { namespace text {
 
             if (strength != collation_strength::identical) {
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                std::cerr << "before bump:\n";
                 bool first = true;
                 for (auto cp : reset) {
                     if (!first)
                         std::cerr << " ";
-                    std::cerr << std::setw(8) << std::setfill('0') << cp;
+                    std::cerr << std::hex << std::setw(8) << std::setfill('0')
+                              << cp;
                     first = false;
+                }
+                std::cerr << " ";
+                for (auto ce : reset_ces) {
+                    std::cerr << "[" << std::hex << std::setw(8)
+                              << std::setfill('0') << ce.l1_ << " "
+                              << std::setw(4) << ce.l2_ << " " << std::setw(2)
+                              << std::setfill('0') << (int)ce.l3_ << "] ";
                 }
                 std::cerr << "\n";
 #endif

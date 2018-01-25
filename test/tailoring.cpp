@@ -120,15 +120,9 @@ TEST(tailoring, reordering)
 // TODO: Create a tailoring for each of the strings priovided by #include
 // <boost/text/data/all.hpp> to make sure they're at least stable.
 
-#if 0
 TEST(tailoring, de)
 {
-    text::tailored_collation_element_table const table =
-        text::make_tailored_collation_element_table(
-            text::data::de::phonebook_collation_tailoring(),
-            "de::phonebook_collation_tailoring()",
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; });
+    // Looks like the default de collation is the default collation.
 
     int const cases = 12;
 
@@ -171,7 +165,6 @@ TEST(tailoring, de)
             text::collate(
                 lhs[i],
                 rhs[i],
-                table,
                 text::collation_strength::primary,
                 text::variable_weighting::non_ignorable),
             primary_result[i])
@@ -182,7 +175,6 @@ TEST(tailoring, de)
             text::collate(
                 lhs[i],
                 rhs[i],
-                table,
                 text::collation_strength::tertiary,
                 text::variable_weighting::non_ignorable),
             tertiary_result[i])
@@ -191,7 +183,6 @@ TEST(tailoring, de)
             << rhs[i] << "\n";
     }
 }
-#endif
 
 TEST(tailoring, en)
 {
