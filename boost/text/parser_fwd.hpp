@@ -15,6 +15,15 @@ namespace boost { namespace text {
 
     using parser_diagnostic_callback = std::function<void(string const &)>;
 
+    struct tailoring_error : std::exception
+    {
+        tailoring_error(string_view msg) : msg_(msg) {}
+        char const * what() const noexcept { return msg_.begin(); }
+
+    private:
+        string msg_;
+    };
+
     struct parse_error : std::exception
     {
         parse_error(string_view msg, int line, int column) :

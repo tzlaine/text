@@ -9,6 +9,11 @@ using namespace boost;
 
 namespace std {
     ostream &
+    operator<<(ostream & os, std::array<uint32_t, 1> cp)
+    {
+        return os << hex << "0x" << cp[0] << dec;
+    }
+    ostream &
     operator<<(ostream & os, container::static_vector<uint32_t, 16> const & vec)
     {
         os << "{ " << hex;
@@ -33,6 +38,87 @@ namespace std {
         return os;
     }
 }
+
+// First two and last two of each reorder group, and a sampling of implicits.
+constexpr std::array<uint32_t, 1> space[4] = {
+    {{0x0009}}, {{0x000A}}, {{0x2007}}, {{0x202F}}};
+constexpr std::array<uint32_t, 1> digit[4] = {
+    {{0x09F4}}, {{0x09F5}}, {{0x32C8}}, {{0x3361}}};
+constexpr std::array<uint32_t, 1> Latn[4] = {
+    {{0x0061}}, {{0xFF41}}, {{0x02AC}}, {{0x02AD}}};
+constexpr std::array<uint32_t, 1> Grek[4] = {
+    {{0x03B1}}, {{0x1D6C2}}, {{0x03F8}}, {{0x03F7}}};
+constexpr std::array<uint32_t, 1> Copt[4] = {
+    {{0x2C81}}, {{0x2C80}}, {{0x2CE3}}, {{0x2CE2}}};
+constexpr std::array<uint32_t, 1> Hani[4] = {
+    {{0x2F00}}, {{0x3280}}, {{0x2F88F}}, {{0x2FA1D}}};
+
+constexpr std::array<uint32_t, 1> implicit[4] = {
+    {{0x2a700}}, {{0x2b740}}, {{0x2b820}}, {{0x2ebe0}}};
+
+struct reordering_t
+{
+    text::string_view name_;
+    std::array<uint32_t, 1> const * cps_;
+
+    friend bool operator<(reordering_t lhs, reordering_t rhs)
+    {
+        return lhs.name_ < rhs.name_;
+    }
+};
+
+
+TEST(tailoring, reordering)
+{
+    std::array<reordering_t, 6> reorderings{{
+        {"space", space},
+        {"digit", digit},
+        {"Latn", Latn},
+        {"Grek", Grek},
+        {"Copt", Copt},
+        {"Hani", Hani},
+    }};
+
+    // TODO: Needs a fix.
+    //std::sort(reorderings.begin(), reorderings.end());
+
+    text::string reordering_str;
+    std::vector<std::array<uint32_t, 1>> cps;
+    //do {
+        reordering_str = "[reorder";
+        cps.clear();
+        for (auto reorder : reorderings) {
+            reordering_str += " ";
+            reordering_str += reorder.name_;
+            cps.insert(cps.end(), reorder.cps_, reorder.cps_ + 4);
+            if (reorder.name_ == "Hani")
+                cps.insert(cps.end(), implicit, implicit + 4);
+        }
+        reordering_str += "]";
+
+        text::tailored_collation_element_table const table =
+            text::make_tailored_collation_element_table(
+                reordering_str,
+                "reorderings",
+                [](text::string const & s) { std::cout << s; },
+                [](text::string const & s) { std::cout << s; });
+
+        for (int i = 0, end = (int)cps.size() - 1; i != end; ++i) {
+            EXPECT_LE(
+                text::collate(
+                    cps[i],
+                    cps[i + 1],
+                    table,
+                    text::collation_strength::primary,
+                    text::variable_weighting::non_ignorable),
+                0)
+                << reordering_str << " " << cps[i] << " " << cps[i + 1];
+        }
+        //} while (std::next_permutation(reorderings.begin(), reorderings.end()));
+}
+
+// TODO: Create a tailoring for each of the strings priovided by #include
+// <boost/text/data/all.hpp> to make sure they're at least stable.
 
 #if 0
 TEST(tailoring, de)
@@ -493,7 +579,6 @@ TEST(tailoring, en)
     }
 }
 
-#if 0
 TEST(tailoring, es)
 {
     text::tailored_collation_element_table const table =
@@ -686,7 +771,7 @@ TEST(tailoring, fr)
                               {0x0078}}};
 
         for (int i = 0; i < cases - 1; ++i) {
-            for (int j = i; j < cases; ++j) {
+            for (int j = i + 1; j < cases; ++j) {
                 EXPECT_EQ(
                     text::collate(
                         tertiary_less[i],
@@ -744,7 +829,8 @@ TEST(tailoring, fr)
                         strings[i],
                         strings[j],
                         text::collation_strength::secondary,
-                        text::variable_weighting::non_ignorable),
+                        text::variable_weighting::shifted,
+                        text::l2_weight_order::backward),
                     expected)
                     << "CASE " << i << "\n"
                     << strings[i] << "\n"
@@ -754,6 +840,7 @@ TEST(tailoring, fr)
     }
 }
 
+#if 0 // Crashes with an uncaught bad_alloc.
 TEST(tailoring, ja)
 {
     text::tailored_collation_element_table const table =
@@ -935,7 +1022,6 @@ TEST(tailoring, th)
     // TODO: Read riwords.txt, check that each line collates as <= the next
     // (tertiary).
 
-#if 0
     {
         int const cases = 13;
         std::array<text::string_view, cases> const lhs = {
@@ -985,9 +1071,8 @@ TEST(tailoring, th)
                 << text::utf32_range(rhs[i]) << "\n";
         }
     }
-#endif
 
-#if 0
+#if 0 // TODO
     {
         int const cases = 26;
         std::array<text::string_view, cases> const lhs = {
@@ -1085,7 +1170,6 @@ TEST(tailoring, th)
     }
 }
 
-#if 0
 TEST(tailoring, tr)
 {
     text::tailored_collation_element_table const table =
@@ -1152,4 +1236,3 @@ TEST(tailoring, tr)
                 << rhs[i] << "\n";
         }
 }
-#endif

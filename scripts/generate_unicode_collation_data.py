@@ -136,17 +136,17 @@ namespace detail {{
         collation_trie_t make_trie()
         {{
             collation_trie_t retval;
-            auto key_it = g_trie_keys.begin();
-            auto key_end = g_trie_keys.end();
-            auto value_it = g_trie_values.begin();
-            for (; key_it != key_end; ++key_it, ++value_it) {{
-                retval.insert(*key_it, *value_it);
+            for (int i = 0, end = (int)g_trie_keys.size(); i != end; ++i) {{
+                retval.insert(g_trie_keys[i], g_trie_values[i]);
             }}
             return retval;
         }}
     }}
 
     collation_trie_t const g_default_collation_trie = make_trie();
+
+    collation_trie_key const * g_trie_keys_first = &g_trie_keys[0];
+    collation_elements const * g_trie_values_first = &g_trie_values[0];
 }}
 
 }}}}
@@ -239,7 +239,7 @@ def implicit_ce(cp):
 
 def ce(cet, cps):
     if cps in cet:
-        return cet[cps]
+        return cet[cps][0]
     if len(cps) != 1:
         return None
     return implicit_ce(cps[0])
@@ -293,6 +293,12 @@ def cet_from_cet_and_decompositions(cccs_dict, old_cet, decomposition_mapping):
         cet[(k,)] = tuple(collation_elements)
 
     return cet
+
+def make_orignal_order(cet):
+    original_order = dict(map(lambda x: (x[0], x[1][1]), sorted(cet.items())))
+    for k in cet:
+        cet[k] = cet[k][0]
+    return (cet, original_order)
 
 def make_unique_collation_element_sequence(cet):
     new_cet = {}
@@ -373,6 +379,7 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
     # been seen.
     deferred = {}
 
+    original_cet_position = 0
     in_top_bytes = False
     after_top_bytes = False
     before_homeless_ces = True
@@ -404,11 +411,12 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
                     ces.append(to_ce(match.groups(), cet))
                 ces = tuple(ces)
                 if '|' in before_semicolon:
-                    deferred[key] = ces
-                cet[key] = ces
+                    deferred[key] = (ces, original_cet_position)
+                cet[key] = (ces, original_cet_position)
+                original_cet_position += 1
 
     for k,v in deferred.items():
-        cet[k] = cet[(k[0],)] + v
+        cet[k] = (cet[(k[0],)][0] + v[0], v[1])
 
     return cet
 
@@ -619,6 +627,8 @@ if __name__ == "__main__":
     #fcc_cet = cet_from_cet_and_decompositions(cccs_dict, cet, decomposition_mapping)
     fcc_cet = cet
 
+    (fcc_cet, original_order) = make_orignal_order(fcc_cet)
+
     (fcc_cet, collation_elements) = make_unique_collation_element_sequence(fcc_cet)
 
     hpp_file = open('collation_constants.hpp', 'w')
@@ -659,7 +669,7 @@ if __name__ == "__main__":
 
     key_lines = ''
     value_lines = ''
-    for k,v in sorted(fcc_cet.items()):
+    for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
         line = '        {{ {{ collation_trie_key::storage_t{{{{ {} }}}}, {} }}, {{{}, {}}} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k), v[0], v[1])
         key_lines += '        {{ collation_trie_key::storage_t{{ {} }}, {} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k))
         value_lines += '        {{{}, {}}},\n'.format(v[0], v[1])

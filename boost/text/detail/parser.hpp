@@ -465,7 +465,11 @@ namespace boost { namespace text { namespace detail {
         auto record = [&]() {
             tailoring.reset_(reset, before_strength_);
             if (rel->op_ < token_kind::primary_before_star) {
-                tailoring.relation_(*rel);
+                try {
+                    tailoring.relation_(*rel);
+                } catch (tailoring_error const & e) {
+                    throw one_token_parse_error(e.what(), rel_it, end);
+                }
             } else {
                 cp_seq_t cps = std::move(rel->cps_);
                 rel->op_ =
@@ -473,7 +477,11 @@ namespace boost { namespace text { namespace detail {
                 for (auto cp : cps) {
                     rel->cps_.clear();
                     rel->cps_.push_back(cp);
-                    tailoring.relation_(*rel);
+                    try {
+                        tailoring.relation_(*rel);
+                    } catch (tailoring_error const & e) {
+                        throw one_token_parse_error(e.what(), rel_it, end);
+                    }
                 }
             }
         };
@@ -827,7 +835,11 @@ namespace boost { namespace text { namespace detail {
                     end);
             }
 
-            tailoring.reorder_(final_reorderings);
+            try {
+                tailoring.reorder_(final_reorderings);
+            } catch (tailoring_error const & e) {
+                throw one_token_parse_error(e.what(), open_bracket_it, end);
+            }
 
             return open_bracket_it;
         } else {

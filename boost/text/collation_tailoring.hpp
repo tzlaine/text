@@ -9,12 +9,21 @@
 #include <numeric>
 #include <vector>
 
+#define BOOST_TEXT_TAILORING_INSTRUMENTATION 0
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+#include <iostream>
+#endif
+
 
 namespace boost { namespace text {
 
     struct tailored_collation_element_table;
 
     namespace detail {
+
+        extern collation_trie_key const * g_trie_keys_first;
+        extern collation_elements const * g_trie_values_first;
+        extern int const * g_trie_element_original_order_first;
 
         struct nonsimple_script_reorder
         {
@@ -41,7 +50,7 @@ namespace boost { namespace text {
             if (it != nonsimple_reorders.end())
                 return it->lead_byte_;
             auto const masked_primary = cce.l1_ & 0xff000000;
-            return simple_reorders[masked_primary >> 24];
+            return simple_reorders[masked_primary >> 24] << 24;
         }
 
         struct temp_table_element
@@ -210,7 +219,10 @@ namespace boost { namespace text {
         }
 
     private:
-        tailored_collation_element_table() {}
+        tailored_collation_element_table()
+        {
+            std::iota(simple_reorders_.begin(), simple_reorders_.end(), 0);
+        }
 
         void add_temp_tailoring(
             detail::cp_seq_t const & cps,
@@ -271,16 +283,46 @@ namespace boost { namespace text {
         inline temp_table_t make_temp_table()
         {
             temp_table_t retval;
-            retval.reserve(g_default_collation_trie.size());
-            for (auto element : g_default_collation_trie) {
-                retval.resize(retval.size() + 1);
-                retval.back().cps_.assign(
-                    element.key.begin(), element.key.end());
-                retval.back().ces_.assign(
-                    element.value.begin(g_collation_elements_first),
-                    element.value.end(g_collation_elements_first));
+            retval.resize(g_default_collation_trie.size());
+            for (std::ptrdiff_t i = 0, end = g_default_collation_trie.size();
+                 i != end;
+                 ++i) {
+                auto & element = retval[i];
+                element.cps_.assign(
+                    g_trie_keys_first[i].begin(), g_trie_keys_first[i].end());
+                element.ces_.assign(
+                    g_trie_values_first[i].begin(g_collation_elements_first),
+                    g_trie_values_first[i].end(g_collation_elements_first));
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                if (g_trie_keys_first[i].size_ == 1 &&
+                    *g_trie_keys_first[i].begin() == 0xe5b) {
+                    std::cerr << "========== 0xe5b\n";
+                    for (auto ce : element.ces_) {
+                        std::cerr << "[" << std::hex << std::setw(8)
+                                  << std::setfill('0') << ce.l1_ << " "
+                                  << std::setw(4) << ce.l2_ << " "
+                                  << std::setw(2) << std::setfill('0')
+                                  << (int)ce.l3_ << "] ";
+                    }
+                    std::cerr << "\n========== \n";
+                }
+#endif
             }
-            std::sort(retval.begin(), retval.end());
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            // Dump the temp table to allow comparisom with table data from
+            // FractionalUCA.txt.
+            for (auto const & element : retval) {
+                bool first = true;
+                for (auto cp : element.cps_) {
+                    if (!first)
+                        std::cerr << " ";
+                    std::cerr << std::hex << std::setw(4) << std::setfill('0')
+                              << cp;
+                    first = false;
+                }
+                std::cerr << "\n";
+            }
+#endif
             return retval;
         }
 
@@ -299,6 +341,28 @@ namespace boost { namespace text {
                variable_weighting::non_ignorable,
                ces,
                &table);
+
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            {
+                bool first = true;
+                for (auto cp : initial_cps) {
+                    if (!first)
+                        std::cerr << " ";
+                    std::cerr << std::hex << std::setw(8) << std::setfill('0')
+                              << cp;
+                    first = false;
+                }
+                std::cerr << "\n";
+            }
+            std::cerr << "++++++++++\n";
+            for (auto ce : ces) {
+                std::cerr << "[" << std::hex << std::setw(8)
+                          << std::setfill('0') << ce.l1_ << " " << std::setw(4)
+                          << ce.l2_ << " " << std::setw(2) << std::setfill('0')
+                          << (int)ce.l3_ << "] ";
+            }
+            std::cerr << "\n++++++++++\n";
+#endif
 
             retval.resize(ces.size());
             std::copy(ces.begin(), ces.end(), retval.begin());
@@ -319,6 +383,10 @@ namespace boost { namespace text {
 
         inline uint32_t increment_32_bit(uint32_t w, bool is_primary)
         {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << "0x" << std::hex << std::setfill('0') << std::setw(8)
+                      << w;
+#endif
             uint32_t byte = w & 0xff;
             if (0 < byte && byte < 0xff) {
                 w += 1;
@@ -329,11 +397,18 @@ namespace boost { namespace text {
                 } else {
                     // Stop here so we don't change the lead byte.
                     byte = (w >> 16) & 0xff;
-                    if (byte == 0xff && is_primary)
-                        ; // TODO: throw
+                    if (byte == 0xff && is_primary) {
+                        throw tailoring_error(
+                            "Unable to increment collation element value "
+                            "without changing its lead bytes");
+                    }
                     w += 0x010000;
                 }
             }
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << " -> 0x" << std::hex << std::setfill('0')
+                      << std::setw(8) << w << "\n";
+#endif
             return w;
         }
 
@@ -367,6 +442,30 @@ namespace boost { namespace text {
         inline void
         bump_ces(temp_table_element::ces_t & ces, collation_strength strength)
         {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << "bump_ces()\n";
+            for (auto ce : ces) {
+                std::cerr << "[" << std::setw(8) << std::setfill('0') << ce.l1_
+                          << " " << std::setw(4) << ce.l2_ << " "
+                          << std::setw(2) << std::setfill('0') << (int)ce.l3_
+                          << "] "
+                    /*<< std::setw(8) << std::setfill('0') << ce.l4_ << " "*/;
+            }
+            std::cerr << "\n";
+            switch(strength) {
+            case collation_strength::primary: std::cerr << "primary\n"; break;
+            case collation_strength::secondary:
+                std::cerr << "secondary\n";
+                break;
+            case collation_strength::tertiary: std::cerr << "tertiary\n"; break;
+            case collation_strength::quaternary:
+                std::cerr << "quaternary\n";
+                break;
+            case collation_strength::identical:
+                std::cerr << "identical\n";
+                break;
+            }
+#endif
             // "Find the last collation element whose strength is at least
             // as great as the strength of the operator. For example, for <<
             // find the last primary or secondary CE. This CE will be
@@ -411,22 +510,34 @@ namespace boost { namespace text {
         inline bool well_formed_1(temp_table_element::ces_t const & ces)
         {
             for (auto ce : ces) {
-                bool higher_level_zero = !ce.l1_;
+                bool higher_level_zero = !ce.l3_;
                 if (ce.l2_) {
-                    if (higher_level_zero)
+                    if (higher_level_zero) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                        std::cerr << "0x" << std::hex << std::setfill('0')
+                                  << std::setw(8) << ce.l1_ << " "
+                                  << std::setw(4) << ce.l2_ << " "
+                                  << std::setw(2) << (int)ce.l3_ << " "
+                                  << std::setw(8) << ce.l4_
+                                  << " WF1 violation for L2\n";
+#endif
                         return false;
+                    }
                 } else {
                     higher_level_zero = true;
                 }
-                if (ce.l3_) {
-                    if (higher_level_zero)
+                if (ce.l1_) {
+                    if (higher_level_zero) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                        std::cerr << "0x" << std::hex << std::setfill('0')
+                                  << std::setw(8) << ce.l1_ << " "
+                                  << std::setw(4) << ce.l2_ << " "
+                                  << std::setw(2) << (int)ce.l3_ << " "
+                                  << std::setw(8) << ce.l4_
+                                  << " WF1 violation for L1\n";
+#endif
                         return false;
-                } else {
-                    higher_level_zero = true;
-                }
-                if (ce.l4_) {
-                    if (higher_level_zero)
-                        return false;
+                    }
                 }
             }
             return true;
@@ -527,9 +638,9 @@ namespace boost { namespace text {
                     }
                 }
                 if (prev_it == temp_table.end()) {
-                    // TODO: Could not implement this.  Throw here, catch it in
-                    // the parser, and produce a reasonable error message based
-                    // on its state.
+                    throw tailoring_error(
+                        "Could not find the collation table element before the "
+                        "one requested here");
                 }
                 reset_ces.clear();
                 reset_ces.insert(
@@ -554,14 +665,34 @@ namespace boost { namespace text {
                 temp_table.begin(), temp_table.end(), reset_ces);
 
             if (strength != collation_strength::identical) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                bool first = true;
+                for (auto cp : reset) {
+                    if (!first)
+                        std::cerr << " ";
+                    std::cerr << std::setw(8) << std::setfill('0') << cp;
+                    first = false;
+                }
+                std::cerr << "\n";
+#endif
                 bump_ces(reset_ces, strength);
 
                 // "Weights must be allocated in accordance with the UCA
                 // well-formedness conditions."
-                if (!well_formed_1(reset_ces))
-                    ; // TODO: Throw.
-                if (!well_formed_2(reset_ces, tailoring_state))
-                    ; // TODO: Throw.
+                if (!well_formed_1(reset_ces)) {
+                    throw tailoring_error(
+                        "Unable to implement this tailoring rule, because it "
+                        "was not possible to meet UCA well-formedness "
+                        "condition 1; see "
+                        "http://www.unicode.org/reports/tr10/#WF1");
+                }
+                if (!well_formed_2(reset_ces, tailoring_state)) {
+                    throw tailoring_error(
+                        "Unable to implement this tailoring rule, because it "
+                        "was not possible to meet UCA well-formedness "
+                        "condition 2; see "
+                        "http://www.unicode.org/reports/tr10/#WF2");
+                }
 
                 update_key_ces(reset_ces, logical_positions, tailoring_state);
 
@@ -620,7 +751,7 @@ namespace boost { namespace text {
 
             // TODO: I don't think this is necessary; try removing it and
             // seeing if it breaks the tests (once the tests exist).
-#if 0
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
             auto same_key = [&relation](temp_table_element const & e) {
                 return e.cps_ == relation;
             };
@@ -860,13 +991,11 @@ namespace boost { namespace text {
 
                     if ((detail::implicit_weights_final_lead_byte << 24) <
                         curr_reorder_lead_byte) {
-                        throw parse_error(
+                        throw tailoring_error(
                             "It was not possible to tailor the "
                             "collation in the way you requested.  "
                             "Try using fewer groups in '[reorder "
-                            "...]'.",
-                            0,
-                            0);
+                            "...]'.");
                     }
 
                     if (!compress && group.simple_) {
