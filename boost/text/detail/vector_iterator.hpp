@@ -50,6 +50,8 @@ namespace boost { namespace text { namespace detail {
             }
         }
 
+        pointer operator->() const noexcept { return &**this; }
+
         value_type operator[](difference_type n) const noexcept
         {
             auto it = *this;
@@ -210,6 +212,8 @@ namespace boost { namespace text { namespace detail {
         const_vector_iterator<T> base() const { return base_ + 1; }
 
         reference operator*() const noexcept { return *base_; }
+        pointer operator->() const noexcept { return &**this; }
+
         value_type operator[](difference_type n) const noexcept
         {
             return base_[-n];
