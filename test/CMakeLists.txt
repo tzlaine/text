@@ -196,9 +196,13 @@ if (BUILD_FUZZ_TESTS)
         message("BUILD_FUZZ_TEST would greatly benefit from also turning on USE_ASAN or USE_UBSAN")
     endif ()
 
+    file(GLOB fuzzer_sources ${CMAKE_CURRENT_SOURCE_DIR}/Fuzzer/*.cpp)
+    add_library(Fuzzer STATIC ${fuzzer_sources})
+    target_compile_options(Fuzzer PRIVATE -g -O2 -fno-omit-frame-pointer -std=c++11)
+
     add_executable(fuzz_rope fuzz_rope.cpp)
     target_compile_options(fuzz_rope PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
-    target_link_libraries(fuzz_rope text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_rope text Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_rope PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(fuzz_rope
              ${CMAKE_CURRENT_BINARY_DIR}/fuzz_rope
@@ -209,7 +213,7 @@ if (BUILD_FUZZ_TESTS)
 
     add_executable(fuzz_segmented_vector fuzz_segmented_vector.cpp)
     target_compile_options(fuzz_segmented_vector PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
-    target_link_libraries(fuzz_segmented_vector text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_segmented_vector text Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_segmented_vector PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(fuzz_segmented_vector
              ${CMAKE_CURRENT_BINARY_DIR}/fuzz_segmented_vector
@@ -220,7 +224,7 @@ if (BUILD_FUZZ_TESTS)
 
     add_executable(fuzz_trie fuzz_trie.cpp)
     target_compile_options(fuzz_trie PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
-    target_link_libraries(fuzz_trie text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_trie text Fuzzer -fsanitize-coverage=trace-pc -fsanitize=address)
     set_property(TARGET fuzz_trie PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(fuzz_trie
              ${CMAKE_CURRENT_BINARY_DIR}/fuzz_trie
@@ -228,8 +232,4 @@ if (BUILD_FUZZ_TESTS)
     if (clang_on_linux)
         target_link_libraries(fuzz_trie c++)
     endif ()
-
-    add_custom_target(build_libfuzzer ${CMAKE_CURRENT_SOURCE_DIR}/Fuzzer/build.sh)
-    add_dependencies(fuzz_rope build_libfuzzer)  
-    add_dependencies(fuzz_trie build_libfuzzer)  
 endif ()
