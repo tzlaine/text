@@ -4,15 +4,12 @@
 #include <boost/text/detail/btree.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
 
-#include <iostream>
+#include <initializer_list>
 
 
 namespace boost { namespace text {
 
     namespace detail {
-
-        template<typename T>
-        struct const_vector_iterator;
 
         constexpr int vec_insert_max = 512;
     }
@@ -35,9 +32,32 @@ namespace boost { namespace text {
         segmented_vector(segmented_vector const & rhs) = default;
         segmented_vector(segmented_vector && rhs) noexcept = default;
 
+        template <typename Iter>
+        segmented_vector(Iter first, Iter last)
+        {
+            for (; first != last; ++first) {
+                push_back(*first);
+            }
+        }
+
+        segmented_vector(std::initializer_list<T> il)
+        {
+            for (auto && x : il) {
+                push_back(std::move(x));
+            }
+        }
+
         segmented_vector & operator=(segmented_vector const & rhs) = default;
         segmented_vector &
         operator=(segmented_vector && rhs) noexcept = default;
+
+        segmented_vector & operator=(std::initializer_list<T> il)
+        {
+            clear();
+            for (auto && x : il) {
+                push_back(std::move(x));
+            }
+        }
 
         const_iterator begin() const noexcept
         {
