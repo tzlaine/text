@@ -210,7 +210,7 @@ namespace boost { namespace text {
             std::cerr << "size() " << size() << " at " << (at - begin())
                       << "\n";
 #endif
-#if 0
+#if 1
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 1, would_allocate)) {
                 for (auto node : insertion.found_.path_) {
@@ -304,7 +304,7 @@ namespace boost { namespace text {
         {
             assert(begin() <= at && at <= end());
 
-#if 0
+#if 1
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 0, would_allocate)) {
                 (*insertion.vec_)[insertion.found_.offset_] = std::move(t);
@@ -330,7 +330,8 @@ namespace boost { namespace text {
         segmented_vector &
         replace(const_iterator first, const_iterator last, std::vector<T> t)
         {
-            return erase(first, last).insert(first, t);
+            erase(first, last);
+            return insert(first + 0, std::move(t));
         }
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
@@ -344,7 +345,8 @@ namespace boost { namespace text {
             Iter new_first,
             Iter new_last)
         {
-            return erase(old_first, old_last).insert(new_first, new_last);
+            erase(old_first, old_last);
+            return insert(old_first + 0, new_first, new_last);
         }
 
         /** Swaps *this with rhs. */
@@ -402,7 +404,7 @@ namespace boost { namespace text {
             if (u.empty())
                 return *this;
 
-#if 0
+#if 1
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, u.size(), allocation_note)) {
                 auto const u_size = u.size();
@@ -414,14 +416,16 @@ namespace boost { namespace text {
                         u_size);
                 }
                 insertion.vec_->insert(
-                    insertion.found_.offset_, u.begin(), u.end());
+                    insertion.vec_->begin() + insertion.found_.offset_,
+                    u.begin(),
+                    u.end());
             } else
 #endif
             {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),
-                    detail::make_node(std::forward<T &&>(u)),
+                    detail::make_node(static_cast<U &&>(u)),
                     0);
             }
 

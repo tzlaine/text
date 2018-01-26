@@ -23,12 +23,6 @@ TEST(segmented_vector, test_empty)
     t.swap(t);
     EXPECT_TRUE(t == t);
 
-    EXPECT_EQ(t.begin(), std::begin(t));
-    EXPECT_EQ(t.end(), std::end(t));
-
-    EXPECT_EQ(t.rbegin(), std::rbegin(t));
-    EXPECT_EQ(t.rend(), std::rend(t));
-
     t.clear();
 }
 
@@ -57,12 +51,6 @@ TEST(segmented_vector, test_non_empty_const_interface)
     EXPECT_EQ(t_a, old_t_ab);
     EXPECT_EQ(t_ab, old_t_a);
     t_a.swap(t_ab);
-
-    EXPECT_EQ(t_a.begin(), std::begin(t_a));
-    EXPECT_EQ(t_a.end(), std::end(t_a));
-
-    EXPECT_EQ(t_a.rbegin(), std::rbegin(t_a));
-    EXPECT_EQ(t_a.rend(), std::rend(t_a));
 }
 
 TEST(segmented_vector, test_ctors)
@@ -91,7 +79,16 @@ TEST(segmented_vector, test_ctors)
 
 TEST(segmented_vector, test_insert)
 {
-    std::vector<int> _789{7, 8, 9};
+    std::vector<int> const _789{7, 8, 9};
+
+    {
+        text::segmented_vector<int> t({0, 1, 2, 3, 4, 5});
+        t = t.erase(t.begin(), t.end());
+        t = t.insert(t.begin() + 0, _789.begin(), _789.end());
+        std::vector<int> const vec{7, 8, 9};
+        EXPECT_TRUE(
+            algorithm::equal(t.begin(), t.end(), vec.begin(), vec.end()));
+    }
 
     {
         text::segmented_vector<int> const ct({0, 1, 2, 3, 4, 5});
@@ -154,16 +151,27 @@ TEST(segmented_vector, test_insert)
     }
 }
 
-#if 0 // Crashes!
 TEST(segmented_vector, test_erase)
 {
     {
-        text::segmented_vector<int> t({0, 1, 2, 3, 4, 5});
+        text::segmented_vector<int> t(
+            {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16,
+             17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+             34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+             51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67,
+             68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
+             85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99});
         t.erase(t.begin(), t.end());
         EXPECT_EQ(t, text::segmented_vector<int>{});
     }
 
-    text::segmented_vector<int> const ct({0, 1, 2, 3, 4, 5});
+    text::segmented_vector<int> const ct(
+        {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16,
+         17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+         34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67,
+         68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
+         85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99});
 
     for (int j = 0; j <= ct.size(); ++j) {
         for (int i = 0; i <= j; ++i) {
@@ -172,186 +180,56 @@ TEST(segmented_vector, test_erase)
             text::segmented_vector<int> expected(ct.begin(), ct.begin() + i);
             expected.insert(expected.end(), ct.begin() + j, ct.end());
 
-            t.erase(ct.begin() + i, ct.begin() + j);
+            t.erase(t.begin() + i, t.begin() + j);
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j;
         }
     }
 }
-#endif
 
-#if 0 // TODO
 TEST(segmented_vector, test_replace)
 {
-    text::string_view const replacement("REP");
-    // Explicitly null-terminated.
-    text::string_view const replacement_with_null(
-        replacement.begin(), replacement.size() + 1);
+    std::vector<int> const vec({7, 8, 9});
 
     {
-        text::segmented_vector<int> t("string");
-        text::segmented_vector<int>_view const ctv(t, 0, t.size());
-        t.replace(ctv, replacement_with_null);
-        EXPECT_EQ(t, "REP");
+        text::segmented_vector<int> t({0, 1, 2, 3, 4, 5});
+        t.replace(t.begin(), t.end(), vec);
+        EXPECT_TRUE(
+            algorithm::equal(t.begin(), t.end(), vec.begin(), vec.end()));
     }
 
-    {
-        text::segmented_vector<int> t("string");
-        text::segmented_vector<int>_view const ctv(t, 0, t.size());
-        t.replace(ctv, replacement);
-        EXPECT_EQ(t, "REP");
-    }
+    text::segmented_vector<int> const ct(
+        {0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16,
+         17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+         34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67,
+         68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
+         85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99});
 
-    {
-        text::segmented_vector<int> t("string");
-        t.replace(t, replacement);
-        EXPECT_EQ(t, "REP");
-    }
-
-    {
-        text::segmented_vector<int> t("string");
-        t.replace(t(0, 3), t(2, 6));
-        EXPECT_EQ(t, "ringing");
-    }
-
-    {
-        text::segmented_vector<int> t("string");
-        t.replace(t(3, 6), t(0, 3));
-        EXPECT_EQ(t, "strstr");
-    }
-
-    text::segmented_vector<int> const ct("string");
-
+    // Small replacement.
     for (int j = 0; j <= ct.size(); ++j) {
         for (int i = 0; i <= j; ++i) {
             text::segmented_vector<int> t = ct;
-            text::segmented_vector<int>_view const before = t(0, i);
-            text::segmented_vector<int>_view const substr = t(i, j);
-            text::segmented_vector<int>_view const after = t(j, t.size());
 
-            text::segmented_vector<int> expected(before);
-            expected += replacement;
-            expected += after;
+            text::segmented_vector<int> expected(ct.begin(), ct.begin() + i);
+            expected.insert(expected.end(), vec);
+            expected.insert(expected.end(), ct.begin() + j, ct.end());
 
-            t.replace(substr, replacement);
-            EXPECT_EQ(t, expected)
-                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            t.replace(t.begin() + i, t.begin() + j, vec.begin(), vec.end());
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j;
         }
     }
 
-    text::repeated_string_view const really_long_replacement(replacement, 10);
-
+    // Large replacement.
     for (int j = 0; j <= ct.size(); ++j) {
         for (int i = 0; i <= j; ++i) {
             text::segmented_vector<int> t = ct;
-            text::segmented_vector<int>_view const before = t(0, i);
-            text::segmented_vector<int>_view const substr = t(i, j);
-            text::segmented_vector<int>_view const after = t(j, t.size());
 
-            text::segmented_vector<int> expected(before);
-            expected += really_long_replacement;
-            expected += after;
+            text::segmented_vector<int> expected(ct.begin(), ct.begin() + i);
+            expected.insert(expected.end(), ct.begin(), ct.end());
+            expected.insert(expected.end(), ct.begin() + j, ct.end());
 
-            t.replace(substr, really_long_replacement);
-            EXPECT_EQ(t, expected)
-                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            t.replace(t.begin() + i, t.begin() + j, ct.begin(), ct.end());
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j;
         }
     }
 }
-
-TEST(segmented_vector, test_replace_iter)
-{
-    // Unicode 9, 3.9/D90
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-    auto const final_cp =
-        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-    auto const last =
-        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
-
-    text::segmented_vector<int> const ct_string("string");
-    text::segmented_vector<int> const ct_text("text");
-
-    {
-        text::segmented_vector<int> t = ct_string;
-        t.replace(t, final_cp, last);
-        EXPECT_EQ(t, "\xf0\x90\x8c\x82");
-    }
-
-    {
-        text::segmented_vector<int> t = ct_text;
-        t.replace(t, final_cp, last);
-        EXPECT_EQ(t, "\xf0\x90\x8c\x82");
-    }
-
-    {
-        text::segmented_vector<int> t = ct_string;
-        t.replace(t, first, last);
-        EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
-    }
-
-    for (int j = 0; j <= ct_string.size(); ++j) {
-        for (int i = 0; i <= j; ++i) {
-            {
-                text::segmented_vector<int> t = ct_string;
-                text::segmented_vector<int>_view const before = t(0, i);
-                text::segmented_vector<int>_view const substr = t(i, j);
-                text::segmented_vector<int>_view const after = t(j, t.size());
-
-                text::segmented_vector<int> expected(before);
-                expected.insert(expected.size(), final_cp, last);
-                expected += after;
-
-                t.replace(substr, final_cp, last);
-                EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
-            }
-
-            {
-                text::segmented_vector<int> t = ct_string;
-                text::segmented_vector<int>_view const before = t(0, i);
-                text::segmented_vector<int>_view const substr = t(i, j);
-                text::segmented_vector<int>_view const after = t(j, t.size());
-
-                text::segmented_vector<int> expected(before);
-                expected.insert(expected.size(), first, last);
-                expected += after;
-
-                t.replace(substr, first, last);
-                EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
-            }
-        }
-    }
-}
-
-TEST(segmented_vector, test_replace_iter_large_insertions)
-{
-    // Unicode 9, 3.9/D90
-    uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-
-    std::vector<uint32_t> utf32_repeated;
-    for (int i = 0; i < 5000; ++i) {
-        utf32_repeated.insert(utf32_repeated.end(), utf32, utf32 + 4);
-    }
-    auto const first =
-        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
-            utf32_repeated.begin());
-    auto const last =
-        text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
-            utf32_repeated.end());
-
-    {
-        text::segmented_vector<int> t("string");
-        t.replace(t, first, last);
-        text::segmented_vector<int> const expected(first, last);
-        EXPECT_EQ(t, expected);
-    }
-
-    {
-        text::segmented_vector<int> t;
-        t.replace(t, first, last);
-        text::segmented_vector<int> const expected(first, last);
-        EXPECT_EQ(t, expected);
-    }
-}
-#endif
