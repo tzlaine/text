@@ -433,6 +433,19 @@ namespace boost { namespace text {
         friend struct detail::const_vector_iterator<T>;
     };
 
+    template<typename T>
+    bool operator==(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
+    {
+        return lhs.size() == rhs.size() &&
+               std::equal(lhs.begin(), lhs.end(), rhs.begin());
+    }
+
+    template<typename T>
+    bool operator!=(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
+    {
+        return !(lhs == rhs);
+    }
+
 }}
 
 #endif
