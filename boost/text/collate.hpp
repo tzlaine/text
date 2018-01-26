@@ -498,8 +498,6 @@ namespace boost { namespace text {
             std::vector<uint32_t> bytes;
             container::small_vector<collation_element, 1024> ces;
 
-            if (table && table->strength())
-                strength = *table->strength();
             if (table && table->weighting())
                 weighting = *table->weighting();
             if (table && table->l2_order())
@@ -579,8 +577,8 @@ namespace boost { namespace text {
     text_sort_key collation_sort_key(
         Iter first,
         Iter last,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         return detail::collation_sort_key(
@@ -593,8 +591,8 @@ namespace boost { namespace text {
         Iter first,
         Iter last,
         tailored_collation_element_table const & table,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         return detail::collation_sort_key(
@@ -605,8 +603,8 @@ namespace boost { namespace text {
     template<typename CodePointRange>
     text_sort_key collation_sort_key(
         CodePointRange const & r,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         using std::begin;
@@ -620,8 +618,8 @@ namespace boost { namespace text {
     text_sort_key collation_sort_key(
         CodePointRange const & r,
         tailored_collation_element_table const & table,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         using std::begin;
@@ -637,8 +635,8 @@ namespace boost { namespace text {
         Iter1 lhs_last,
         Iter2 rhs_first,
         Iter2 rhs_last,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         return detail::collate(
@@ -660,8 +658,8 @@ namespace boost { namespace text {
         Iter2 rhs_first,
         Iter2 rhs_last,
         tailored_collation_element_table const & table,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         return detail::collate(
@@ -680,8 +678,8 @@ namespace boost { namespace text {
     int collate(
         CodePointRange1 const & r1,
         CodePointRange2 const & r2,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         using std::begin;
@@ -702,8 +700,8 @@ namespace boost { namespace text {
         CodePointRange1 const & r1,
         CodePointRange2 const & r2,
         tailored_collation_element_table const & table,
-        collation_strength strength,
-        variable_weighting weighting,
+        collation_strength strength = collation_strength::tertiary,
+        variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         using std::begin;
