@@ -55,7 +55,7 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     struct node_ptr
     {
-        node_ptr() noexcept {}
+        node_ptr() noexcept : ptr_() {}
         explicit node_ptr(node_t<T> const * node) noexcept : ptr_(node) {}
 
         explicit operator bool() const noexcept { return ptr_.get(); }

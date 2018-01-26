@@ -3,6 +3,7 @@
 
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
+#include <boost/text/segmented_vector.hpp>
 #include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/parser.hpp>
 
@@ -135,7 +136,7 @@ namespace boost { namespace text {
             return less(lhs.ces_, rhs);
         }
 
-        using temp_table_t = std::vector<temp_table_element>;
+        using temp_table_t = segmented_vector<temp_table_element>;
 
         struct logical_positions_t
         {
@@ -169,7 +170,7 @@ namespace boost { namespace text {
             optional_cp_seq_t const & extension);
 
         void finalize_table(
-            temp_table_t & temp_table,
+            temp_table_t const & temp_table,
             nonsimple_reorders_t && nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders,
             optional<collation_strength> strength_override,
@@ -281,7 +282,7 @@ namespace boost { namespace text {
             detail::optional_cp_seq_t const & extension);
 
         friend void detail::finalize_table(
-            detail::temp_table_t & temp_table,
+            detail::temp_table_t const & temp_table,
             detail::nonsimple_reorders_t && nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders,
             optional<collation_strength> strength_override,
@@ -303,16 +304,16 @@ namespace boost { namespace text {
         inline temp_table_t make_temp_table()
         {
             temp_table_t retval;
-            retval.resize(g_default_collation_trie.size());
             for (std::ptrdiff_t i = 0, end = g_default_collation_trie.size();
                  i != end;
                  ++i) {
-                auto & element = retval[i];
+                temp_table_element element;
                 element.cps_.assign(
                     g_trie_keys_first[i].begin(), g_trie_keys_first[i].end());
                 element.ces_.assign(
                     g_trie_values_first[i].begin(g_collation_elements_first),
                     g_trie_values_first[i].end(g_collation_elements_first));
+                retval = retval.push_back(element);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                 if (g_trie_keys_first[i].size_ == 1 &&
                     *g_trie_keys_first[i].begin() == 0xe5b) {
@@ -491,7 +492,7 @@ namespace boost { namespace text {
                     /*<< std::setw(8) << std::setfill('0') << ce.l4_ << " "*/;
             }
             std::cerr << "\n";
-            switch(strength) {
+            switch (strength) {
             case collation_strength::primary: std::cerr << "primary\n"; break;
             case collation_strength::secondary:
                 std::cerr << "secondary\n";
@@ -630,8 +631,8 @@ namespace boost { namespace text {
             std::cerr << "========== reset= "
                       << text::to_string(reset.begin(), reset.end()) << " ";
             for (auto cp : reset) {
-                std::cerr << std::hex << std::setw(8) << std::setfill('0')
-                          << cp << " ";
+                std::cerr << std::hex << std::setw(8) << std::setfill('0') << cp
+                          << " ";
             }
             switch (strength) {
             case collation_strength::primary: std::cerr << "<"; break;
@@ -644,8 +645,8 @@ namespace boost { namespace text {
                       << text::to_string(relation.begin(), relation.end())
                       << " ";
             for (auto cp : relation) {
-                std::cerr << std::hex << std::setw(8) << std::setfill('0')
-                          << cp << " ";
+                std::cerr << std::hex << std::setw(8) << std::setfill('0') << cp
+                          << " ";
             }
             std::cerr << "\n";
 #endif
@@ -781,13 +782,15 @@ namespace boost { namespace text {
                     auto prev_it = table_target_it;
                     auto it = prev_it;
                     do {
-                        bump_ces(it->ces_, strength);
-                        it->tailored_ = true;
-                        table.add_temp_tailoring(it->cps_, it->ces_);
-                        assert(well_formed_1(it->ces_));
-                        assert(well_formed_2(it->ces_, tailoring_state));
+                        auto element = *it;
+                        bump_ces(element.ces_, strength);
+                        element.tailored_ = true;
+                        table.add_temp_tailoring(element.cps_, element.ces_);
+                        assert(well_formed_1(element.ces_));
+                        assert(well_formed_2(element.ces_, tailoring_state));
                         update_key_ces(
-                            it->ces_, logical_positions, tailoring_state);
+                            element.ces_, logical_positions, tailoring_state);
+                        temp_table.replace(it, element);
                         ++it;
                     } while (it != end && !less(prev_it->ces_, it->ces_));
                 }
@@ -798,9 +801,12 @@ namespace boost { namespace text {
             element.cps_ = std::move(relation);
             element.ces_ = std::move(reset_ces);
             element.tailored_ = true;
-            table_target_it =
-                temp_table.insert(table_target_it, std::move(element));
-
+            temp_table = temp_table.insert(table_target_it, std::move(element));
+#if 0
+            std::cerr << "inserting with "
+                      << (temp_table.end() - table_target_it)
+                      << " subsequent elements\n";
+#endif
             // http://www.unicode.org/reports/tr10/#WF5 "If a table contains a
             // contraction consisting of a sequence of N code points, with N > 2
             // and the last code point being a non-starter, then the table must
@@ -818,7 +824,7 @@ namespace boost { namespace text {
 
             // TODO: I don't think this is necessary; try removing it and
             // seeing if it breaks the tests (once the tests exist).
-#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+#if 0
             auto same_key = [&relation](temp_table_element const & e) {
                 return e.cps_ == relation;
             };
@@ -875,7 +881,7 @@ namespace boost { namespace text {
     namespace detail {
 
         inline void finalize_table(
-            temp_table_t & temp_table,
+            temp_table_t const & temp_table,
             nonsimple_reorders_t && nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders,
             optional<collation_strength> strength_override,
@@ -894,7 +900,7 @@ namespace boost { namespace text {
 
             std::unordered_map<temp_table_element::ces_t, collation_elements>
                 already_linearized;
-            for (auto & e : temp_table) {
+            for (auto const & e : temp_table) {
                 if (!e.tailored_)
                     continue;
 

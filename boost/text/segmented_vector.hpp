@@ -4,6 +4,8 @@
 #include <boost/text/detail/btree.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
 
+#include <iostream>
+
 
 namespace boost { namespace text {
 
@@ -174,13 +176,21 @@ namespace boost { namespace text {
         void clear() { ptr_ = detail::node_ptr<T>(); }
 
         /** Inserts t into *this at offset size() by moving t. */
-        void push_back(T t) { insert(end(), std::move(t)); }
+        segmented_vector & push_back(T t)
+        {
+            return insert(end(), std::move(t));
+        }
 
         /** Inserts t into *this at offset at by moving t. */
         segmented_vector & insert(const_iterator at, T t)
         {
             assert(begin() <= at && at <= end());
 
+#if 0
+            std::cerr << "size() " << size() << " at " << (at - begin())
+                      << "\n";
+#endif
+#if 0
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 1, would_allocate)) {
                 for (auto node : insertion.found_.path_) {
@@ -190,10 +200,16 @@ namespace boost { namespace text {
                         from,
                         1);
                 }
+#if 0
+                std::cerr << "insertion vec size() " << insertion.vec_->size()
+                          << " at " << insertion.found_.offset_ << "\n";
+#endif
                 insertion.vec_->insert(
                     insertion.vec_->begin() + insertion.found_.offset_,
                     std::move(t));
-            } else {
+            } else
+#endif
+            {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),
@@ -268,10 +284,13 @@ namespace boost { namespace text {
         {
             assert(begin() <= at && at <= end());
 
+#if 0
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 0, would_allocate)) {
                 (*insertion.vec_)[insertion.found_.offset_] = std::move(t);
-            } else {
+            } else
+#endif
+            {
                 auto const offset = at - begin();
                 erase(at);
                 ptr_ = detail::btree_insert(
@@ -363,6 +382,7 @@ namespace boost { namespace text {
             if (u.empty())
                 return *this;
 
+#if 0
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, u.size(), allocation_note)) {
                 auto const u_size = u.size();
@@ -375,7 +395,9 @@ namespace boost { namespace text {
                 }
                 insertion.vec_->insert(
                     insertion.found_.offset_, u.begin(), u.end());
-            } else {
+            } else
+#endif
+            {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),

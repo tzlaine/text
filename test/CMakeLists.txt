@@ -207,6 +207,17 @@ if (BUILD_FUZZ_TESTS)
         target_link_libraries(fuzz_rope c++)
     endif ()
 
+    add_executable(fuzz_segmented_vector fuzz_segmented_vector.cpp)
+    target_compile_options(fuzz_segmented_vector PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
+    target_link_libraries(fuzz_segmented_vector text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
+    set_property(TARGET fuzz_segmented_vector PROPERTY CXX_STANDARD ${CXX_STD})
+    add_test(fuzz_segmented_vector
+             ${CMAKE_CURRENT_BINARY_DIR}/fuzz_segmented_vector
+             -max_total_time=30)
+    if (clang_on_linux)
+        target_link_libraries(fuzz_segmented_vector c++)
+    endif ()
+
     add_executable(fuzz_trie fuzz_trie.cpp)
     target_compile_options(fuzz_trie PRIVATE ${warnings_flag} -fsanitize-coverage=trace-pc -fsanitize=address)
     target_link_libraries(fuzz_trie text ${CMAKE_CURRENT_BINARY_DIR}/libFuzzer.a -fsanitize-coverage=trace-pc -fsanitize=address)
