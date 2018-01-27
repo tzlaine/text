@@ -801,12 +801,8 @@ namespace boost { namespace text {
             element.cps_ = std::move(relation);
             element.ces_ = std::move(reset_ces);
             element.tailored_ = true;
-            temp_table = temp_table.insert(table_target_it, std::move(element));
-#if 0
-            std::cerr << "inserting with "
-                      << (temp_table.end() - table_target_it)
-                      << " subsequent elements\n";
-#endif
+            temp_table.insert(table_target_it, std::move(element));
+
             // http://www.unicode.org/reports/tr10/#WF5 "If a table contains a
             // contraction consisting of a sequence of N code points, with N > 2
             // and the last code point being a non-starter, then the table must
