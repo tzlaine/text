@@ -26,8 +26,10 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     struct node_ptr;
 
+#ifdef BOOST_TEXT_TESTING
     template<typename T>
     void dump_tree(node_ptr<T> const & root, int key = -1, int indent = 0);
+#endif
 
     template<typename T>
     struct mutable_node_ptr
@@ -967,7 +969,10 @@ namespace boost { namespace text { namespace detail {
         node_ptr<T> new_child;
 
         node_ptr<T> const & child = children(node)[child_index];
-        if (num_children(child) == min_children) {
+        // Due to the use of almost_full() in a few places, == does not actually
+        // work here.  As unsatisfying as it is, the minimium possible number of
+        // children is actually min_children - 1.
+        if (num_children(child) <= min_children) {
             assert(child_index != 0 || child_index != num_children(node) - 1);
 
             if (child_index != 0 &&
@@ -1164,6 +1169,7 @@ namespace boost { namespace text { namespace detail {
             leaf_node_t<T> const * leaf_lo = found_lo.leaf_->as_leaf();
             while (true) {
                 root = btree_erase(root, lo, leaf_lo, datum);
+                assert(final_size <= size(root.get()));
                 if (size(root.get()) == final_size)
                     break;
                 found_leaf<T> found;
