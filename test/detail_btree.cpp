@@ -713,11 +713,11 @@ TEST(detail_btree_0, test_btree_insert_0)
         check_leaf_heights(root);
     }
 
-    // Check that many inserts maintains balance.
+    // Check that many inserts and deletes maintains balance.
     {
         node_ptr<int> root = make_node(std::vector<int>(4, 13));
 
-        int const N = 100000;
+        int const N = 10000;
         for (int i = 0; i < N; ++i) {
             root = btree_insert(root, 2, make_node(std::vector<int>(8, 8)), 0);
         }
@@ -726,6 +726,14 @@ TEST(detail_btree_0, test_btree_insert_0)
 
         std::cout << "N=" << N << " leaves gives a tree of height "
                   << height_at(root, 0) << "\n";
+
+        int const N2 = N * 4;
+        for (int i = 0; i < N2; ++i) {
+            root = btree_erase(
+                root, size(root.get()) / 2, size(root.get()) / 2 + 2, 0);
+        }
+
+        check_leaf_heights(root);
     }
 }
 
@@ -810,7 +818,7 @@ TEST(detail_btree_0, test_btree_insert_extra_ref_0)
         node_ptr<int> extra_ref = root;
         node_ptr<int> extra_ref_2 = root;
 
-        int const N = 100000;
+        int const N = 10000;
         for (int i = 0; i < N; ++i) {
             root = btree_insert(root, 2, make_node(std::vector<int>(8, 8)), 0);
         }
@@ -941,7 +949,6 @@ TEST(detail_btree_0, test_btree_erase_entire_node_leaf_children_0)
     }
 }
 
-#if 0
 TEST(foos, foo) // test_btree_erase_entire_node_leaf_children_extra_ref
 {
     {
@@ -1016,9 +1023,7 @@ TEST(foos, foo) // test_btree_erase_entire_node_leaf_children_extra_ref
         EXPECT_EQ(size(children(root)[1].get()), 4);
     }
 }
-#endif
 
-#if 0
 TEST(foos, foo2)
 {
     {
@@ -1029,7 +1034,8 @@ TEST(foos, foo2)
             int_root->children_.push_back(make_node(std::vector<int>(4, 4)));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node(std::vector<int>(5, 5)));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<int> extra_ref = root;
 
@@ -1051,7 +1057,8 @@ TEST(foos, foo2)
             int_root->children_.push_back(make_node(std::vector<int>(4, 4)));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node(std::vector<int>(5, 5)));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<int> extra_ref = root;
 
@@ -1073,7 +1080,8 @@ TEST(foos, foo2)
             int_root->children_.push_back(make_node(std::vector<int>(4, 4)));
             int_root->keys_.push_back(size(int_root->children_[0].get()));
             int_root->children_.push_back(make_node(std::vector<int>(5, 5)));
-            int_root->keys_.push_back(int_root->keys_.back() + size(int_root->children_[1].get()));
+            int_root->keys_.push_back(
+                int_root->keys_.back() + size(int_root->children_[1].get()));
         }
         node_ptr<int> extra_ref = root;
 
@@ -1087,9 +1095,7 @@ TEST(foos, foo2)
         EXPECT_EQ(size(root.get()), 4);
     }
 }
-#endif
 
-#if 0
 TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
 {
     // Last interior node has more than min children.
@@ -1103,11 +1109,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(right), max_children - 1);
 
         root = btree_erase(
-            root,
-            min_children * 4,
-            children(right)[0].as_leaf(),
-            0
-        );
+            root, min_children * 4, children(right)[0].as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1130,8 +1132,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
             root,
             min_children * 4 + (max_children - 1) * 5,
             children(right).back().as_leaf(),
-            0
-        );
+            0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1154,12 +1155,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children);
 
-        root = btree_erase(
-            root,
-            0,
-            children(left).front().as_leaf(),
-            0
-        );
+        root = btree_erase(root, 0, children(left).front().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1183,11 +1179,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(
-            root,
-            min_children * 4 - 1,
-            children(left).back().as_leaf(),
-            0
-        );
+            root, min_children * 4 - 1, children(left).back().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -1213,11 +1205,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            size(root.get()),
-            children(right).back().as_leaf(),
-            0
-        );
+            root, size(root.get()), children(right).back().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -1241,11 +1229,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            max_children * 4,
-            children(right).front().as_leaf(),
-            0
-        );
+            root, max_children * 4, children(right).front().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -1269,11 +1253,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
-            root,
-            size(root.get()),
-            children(right).back().as_leaf(),
-            0
-        );
+            root, size(root.get()), children(right).back().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
@@ -1298,12 +1278,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), min_children);
 
-        root = btree_erase(
-            root,
-            0,
-            children(left).front().as_leaf(),
-            0
-        );
+        root = btree_erase(root, 0, children(left).front().as_leaf(), 0);
 
         EXPECT_EQ(num_children(root), max_children - 1);
 
@@ -1322,7 +1297,10 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
 
     // Last interior node min children, all three children have min children.
     {
-        node_ptr<int> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<int> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1335,12 +1313,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
             EXPECT_EQ(num_children(center), min_children);
             EXPECT_EQ(num_children(right), min_children);
 
-            root = btree_erase(
-                root,
-                0,
-                children(left).front().as_leaf(),
-                0
-            );
+            root = btree_erase(root, 0, children(left).front().as_leaf(), 0);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -1357,7 +1330,10 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
     }
 
     {
-        node_ptr<int> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<int> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1371,11 +1347,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
             EXPECT_EQ(num_children(right), min_children);
 
             root = btree_erase(
-                root,
-                min_children * 4,
-                children(center).front().as_leaf(),
-                0
-            );
+                root, min_children * 4, children(center).front().as_leaf(), 0);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -1392,7 +1364,10 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
     }
 
     {
-        node_ptr<int> root = make_tree_left_center_right<min_children, min_children, min_children>();
+        node_ptr<int> root = make_tree_left_center_right<
+            min_children,
+            min_children,
+            min_children>();
 
         auto const root_initial_size = size(root.get());
 
@@ -1406,11 +1381,7 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
             EXPECT_EQ(num_children(right), min_children);
 
             root = btree_erase(
-                root,
-                size(root.get()),
-                children(right).back().as_leaf(),
-                0
-            );
+                root, size(root.get()), children(right).back().as_leaf(), 0);
         }
 
         EXPECT_EQ(num_children(root), 2);
@@ -1423,12 +1394,11 @@ TEST(detail_btree_1, test_btree_erase_entire_node_interior_children_1)
         EXPECT_EQ(keys(root)[0], min_children * 4);
         EXPECT_EQ(keys(root)[1], root_initial_size - 5);
         EXPECT_EQ(keys(left).back(), min_children * 4);
-        EXPECT_EQ(keys(right).back(), min_children * 6 + (min_children - 1) * 5);
+        EXPECT_EQ(
+            keys(right).back(), min_children * 6 + (min_children - 1) * 5);
     }
 }
-#endif
 
-#if 0
 TEST(detail_btree, test_btree_erase)
 {
     // Erasure from a leaf node
@@ -1449,8 +1419,8 @@ TEST(detail_btree, test_btree_erase)
         EXPECT_EQ(size(root.get()), 1);
     }
 
-#    if 0 // This test expects to split the node, but that doesn't really work \
-          // with std::vector.
+#if 0 // This test expects to split the node, but that doesn't really work \
+      // with std::vector.
     {
         node_ptr<int> root = make_node(std::vector<int>(9, 9));
 
@@ -1463,7 +1433,7 @@ TEST(detail_btree, test_btree_erase)
         EXPECT_EQ(keys(root)[1], 2);
         EXPECT_EQ(size(children(root)[1].get()), 1);
     }
-#    endif
+#endif
 
     // Erasure from non-leaf nodes, entire segments only
 
@@ -1509,4 +1479,3 @@ TEST(detail_btree, test_btree_erase)
         EXPECT_EQ(keys(right).back(), (max_children - 1) * 5);
     }
 }
-#endif
