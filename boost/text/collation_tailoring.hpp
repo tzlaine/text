@@ -472,7 +472,7 @@ namespace boost { namespace text {
                 if (less_equal(group_first_ces, ces) &&
                     less_equal(ces, group_last_ces)) {
                     return std::lower_bound(
-                        temp_table.begin(), temp_table.end(), group_first_ces);
+                        temp_table.begin(), temp_table.end(), group_last_ces);
                 }
             }
 
