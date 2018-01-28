@@ -778,11 +778,11 @@ namespace boost { namespace text {
                     // For reorderings to work, we can't keep bumping
                     // indefinitely; stop before we leave the current script, if
                     // applicable.
-                    auto const end = bump_region_end(reset_ces, temp_table);
-                    auto prev_it = table_target_it;
-                    auto it = prev_it;
+                    auto const end = bump_region_end(reset_ces, temp_table) -
+                                     temp_table.begin();
+                    auto i = table_target_it - temp_table.begin();
                     do {
-                        auto element = *it;
+                        auto element = temp_table[i];
                         bump_ces(element.ces_, strength);
                         element.tailored_ = true;
                         table.add_temp_tailoring(element.cps_, element.ces_);
@@ -790,9 +790,10 @@ namespace boost { namespace text {
                         assert(well_formed_2(element.ces_, tailoring_state));
                         update_key_ces(
                             element.ces_, logical_positions, tailoring_state);
-                        temp_table.replace(it, element);
-                        ++it;
-                    } while (it != end && !less(prev_it->ces_, it->ces_));
+                        temp_table.replace(temp_table.begin() + i, element);
+                        ++i;
+                    } while (i != end &&
+                             !less(temp_table[i - 1].ces_, temp_table[i].ces_));
                 }
             }
 

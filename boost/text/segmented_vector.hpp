@@ -32,7 +32,7 @@ namespace boost { namespace text {
         segmented_vector(segmented_vector const & rhs) = default;
         segmented_vector(segmented_vector && rhs) noexcept = default;
 
-        template <typename Iter>
+        template<typename Iter>
         segmented_vector(Iter first, Iter last)
         {
             for (; first != last; ++first) {
@@ -208,13 +208,7 @@ namespace boost { namespace text {
 
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 1, would_allocate)) {
-                for (auto node : insertion.found_.path_) {
-                    auto from = detail::find_child(node, at - begin());
-                    detail::bump_keys(
-                        const_cast<detail::interior_node_t<T> *>(node),
-                        from,
-                        1);
-                }
+                bump_along_path_to_leaf(ptr_, at - begin(), 1);
                 insertion.vec_->insert(
                     insertion.vec_->begin() + insertion.found_.offset_,
                     std::move(t));
@@ -393,13 +387,7 @@ namespace boost { namespace text {
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, u.size(), allocation_note)) {
                 auto const u_size = u.size();
-                for (auto node : insertion.found_.path_) {
-                    auto from = detail::find_child(node, at - begin());
-                    detail::bump_keys(
-                        const_cast<detail::interior_node_t<T> *>(node),
-                        from,
-                        u_size);
-                }
+                bump_along_path_to_leaf(ptr_, at - begin(), u_size);
                 insertion.vec_->insert(
                     insertion.vec_->begin() + insertion.found_.offset_,
                     u.begin(),
@@ -421,14 +409,16 @@ namespace boost { namespace text {
     };
 
     template<typename T>
-    bool operator==(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
+    bool
+    operator==(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
     {
         return lhs.size() == rhs.size() &&
                std::equal(lhs.begin(), lhs.end(), rhs.begin());
     }
 
     template<typename T>
-    bool operator!=(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
+    bool
+    operator!=(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
     {
         return !(lhs == rhs);
     }

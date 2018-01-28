@@ -485,20 +485,13 @@ namespace boost { namespace text {
             if (string_insertion insertion =
                     mutable_insertion_leaf(at, t.size(), allocation_note)) {
                 auto const t_size = t.size();
-                for (auto node : insertion.found_.path_) {
-                    auto from = detail::find_child(node, at);
-                    detail::bump_keys(
-                        const_cast<detail::interior_node_t<detail::rope_tag> *>(
-                            node),
-                        from,
-                        t_size);
-                }
+                bump_along_path_to_leaf(ptr_, at, t_size);
                 insertion.string_->insert(insertion.found_.offset_, t);
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at,
-                    detail::make_node(std::forward<T &&>(t)),
+                    detail::make_node(std::forward<T>(t)),
                     detail::encoding_breakage_ok);
             }
 

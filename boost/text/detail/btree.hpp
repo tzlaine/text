@@ -26,11 +26,6 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     struct node_ptr;
 
-#ifdef BOOST_TEXT_TESTING
-    template<typename T>
-    void dump_tree(node_ptr<T> const & root, int key = -1, int indent = 0);
-#endif
-
     template<typename T>
     struct mutable_node_ptr
     {
@@ -499,24 +494,40 @@ namespace boost { namespace text { namespace detail {
         static_assert(sizeof(interior_node_t<T> const *) * 8 <= 64, "");
     };
 
+    template<typename T, typename LeafFunc, typename IntFunc>
+    inline void visit_path_to_leaf(
+        node_ptr<T> const & node,
+        std::ptrdiff_t n,
+        LeafFunc const & leaf_func,
+        IntFunc const & int_func) noexcept
+    {
+        assert(node);
+        assert(n <= size(node.get()));
+        if (node->leaf_) {
+            leaf_func(node, n);
+            return;
+        }
+        int_func(node, n);
+        auto const i = find_child(node.as_interior(), n);
+        node_ptr<T> const & child = children(node)[i];
+        auto const offset_ = offset(node, i);
+        visit_path_to_leaf(child, n - offset_, leaf_func, int_func);
+    }
+
     template<typename T>
     inline void find_leaf(
         node_ptr<T> const & node,
         std::ptrdiff_t n,
         found_leaf<T> & retval) noexcept
     {
-        assert(node);
-        assert(n <= size(node.get()));
-        if (node->leaf_) {
+        auto leaf_func = [&retval](node_ptr<T> const & node, std::ptrdiff_t n) {
             retval.leaf_ = &node;
             retval.offset_ = n;
-            return;
-        }
-        retval.path_.push_back(node.as_interior());
-        auto const i = find_child(node.as_interior(), n);
-        node_ptr<T> const & child = children(node)[i];
-        auto const offset_ = offset(node, i);
-        find_leaf(child, n - offset_, retval);
+        };
+        auto int_func = [&retval](node_ptr<T> const & node, std::ptrdiff_t) {
+            retval.path_.push_back(node.as_interior());
+        };
+        visit_path_to_leaf(node, n, leaf_func, int_func);
     }
 
     template<typename T>
@@ -643,6 +654,22 @@ namespace boost { namespace text { namespace detail {
         for (int i = from, size = (int)node->keys_.size(); i < size; ++i) {
             node->keys_[i] += bump;
         }
+    }
+
+    template<typename T>
+    inline void bump_along_path_to_leaf(
+        node_ptr<T> const & node,
+        std::ptrdiff_t n,
+        std::ptrdiff_t bump) noexcept
+    {
+        auto leaf_func = [](node_ptr<T> const &, std::ptrdiff_t) {};
+        auto int_func = [bump](node_ptr<T> const & node, std::ptrdiff_t n) {
+            auto interior =
+                const_cast<detail::interior_node_t<T> *>(node.as_interior());
+            auto from = find_child(interior, n);
+            bump_keys(interior, from, bump);
+        };
+        visit_path_to_leaf(node, n, leaf_func, int_func);
     }
 
     template<typename T>
@@ -1180,6 +1207,40 @@ namespace boost { namespace text { namespace detail {
 
         return root;
     }
+
+#ifdef BOOST_TEXT_TESTING
+    template<typename T>
+    void dump_tree(node_ptr<T> const & root, int key = -1, int indent = 0);
+
+    template<typename T>
+    inline int check_sizes(node_ptr<T> const & node, int size)
+    {
+        if (node->leaf_) {
+            auto leaf = node.as_leaf();
+            if (leaf->which_ == leaf_node_t<T>::which::vec)
+                return leaf->as_vec().size();
+            else
+                return leaf->as_reference().hi_ - leaf->as_reference().lo_;
+        }
+
+        int children_size = 0;
+        int prev_key = 0;
+        int i = 0;
+        for (auto const & child : children(node)) {
+            int key = keys(node)[i++];
+            children_size += check_sizes(child, key - prev_key);
+            prev_key = key;
+        }
+
+        if (children_size != size)
+        {
+            (void)0; // set breakpoint here
+        }
+        assert(children_size == size);
+
+        return children_size;
+    }
+#endif
 
 }}}
 
