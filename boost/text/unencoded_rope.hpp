@@ -8,6 +8,9 @@
 #endif
 
 
+// TODO: Apply the mutable insertion oprimization to erasure too, her ans in
+// segmented_vector.
+
 namespace boost { namespace text {
 
     struct unencoded_rope_view;
