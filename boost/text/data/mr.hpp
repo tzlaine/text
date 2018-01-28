@@ -9,15 +9,15 @@ namespace boost { namespace text { namespace data { namespace mr {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-[reorder Deva Beng Guru Gujr Orya Taml Telu Knda Mlym Sinh]
-&ॐ<ं<<ँ<ः
-&ह<ळ
-  <क्ष
-  <ज्ञ
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"[reorder Deva Beng Guru Gujr Orya Taml Telu Knda Mlym Sinh]\n"
+"&ॐ<ं<<ँ<ः\n"
+"&ह<ळ\n"
+"  <क्ष\n"
+"  <ज्ञ\n"
+"  \n");
 }
 
 

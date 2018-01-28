@@ -9,20 +9,20 @@ namespace boost { namespace text { namespace data { namespace sq {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&[before 1]D<ç<<<Ç
-&[before 1]E<dh<<<Dh<<<DH
-&[before 1]F<ë<<<Ë
-&[before 1]H<gj<<<Gj<<<GJ
-&[before 1]M<ll<<<Ll<<<LL
-&[before 1]O<nj<<<Nj<<<NJ
-&[before 1]S<rr<<<Rr<<<RR
-&[before 1]T<sh<<<Sh<<<SH
-&[before 1]U<th<<<Th<<<TH
-&[before 1]Y<xh<<<Xh<<<XH
-&[before 1]Ʒ<zh<<<Zh<<<ZH
-  )");
+    return string_view(
+"  \n"
+"&[before 1]D<ç<<<Ç\n"
+"&[before 1]E<dh<<<Dh<<<DH\n"
+"&[before 1]F<ë<<<Ë\n"
+"&[before 1]H<gj<<<Gj<<<GJ\n"
+"&[before 1]M<ll<<<Ll<<<LL\n"
+"&[before 1]O<nj<<<Nj<<<NJ\n"
+"&[before 1]S<rr<<<Rr<<<RR\n"
+"&[before 1]T<sh<<<Sh<<<SH\n"
+"&[before 1]U<th<<<Th<<<TH\n"
+"&[before 1]Y<xh<<<Xh<<<XH\n"
+"&[before 1]Ʒ<zh<<<Zh<<<ZH\n"
+"  \n");
 }
 
 

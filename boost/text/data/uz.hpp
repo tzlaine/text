@@ -9,13 +9,13 @@ namespace boost { namespace text { namespace data { namespace uz {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&[before 1]ʒ<oʻ=o‘=o''<<<Oʻ=O‘=O''
-  <gʻ=g‘=g''<<<Gʻ=G‘=G''
-  <sh<<<Sh<<<SH
-  <ch<<<Ch<<<CH
-  )");
+    return string_view(
+"  \n"
+"&[before 1]ʒ<oʻ=o‘=o''<<<Oʻ=O‘=O''\n"
+"  <gʻ=g‘=g''<<<Gʻ=G‘=G''\n"
+"  <sh<<<Sh<<<SH\n"
+"  <ch<<<Ch<<<CH\n"
+"  \n");
 }
 
 

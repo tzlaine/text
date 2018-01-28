@@ -9,11 +9,11 @@ namespace boost { namespace text { namespace data { namespace sr {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[reorder Cyrl]
-[suppressContractions [Ии]]
-  )");
+    return string_view(
+"  \n"
+"[reorder Cyrl]\n"
+"[suppressContractions [Ии]]\n"
+"  \n");
 }
 
 

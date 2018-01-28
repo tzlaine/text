@@ -9,47 +9,47 @@ namespace boost { namespace text { namespace data { namespace hu {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&C<cs<<<Cs<<<CS
-&D<dz<<<Dz<<<DZ
-&DZ<dzs<<<Dzs<<<DZS
-&G<gy<<<Gy<<<GY
-&L<ly<<<Ly<<<LY
-&N<ny<<<Ny<<<NY
-&S<sz<<<Sz<<<SZ
-&T<ty<<<Ty<<<TY
-&Z<zs<<<Zs<<<ZS
-&O<ö<<<Ö<<ő<<<Ő
-&U<ü<<<Ü<<ű<<<Ű
-&cs<<<ccs/cs
-&Cs<<<Ccs/cs
-&CS<<<CCS/CS
-&dz<<<ddz/dz
-&Dz<<<Ddz/dz
-&DZ<<<DDZ/DZ
-&dzs<<<ddzs/dzs
-&Dzs<<<Ddzs/dzs
-&DZS<<<DDZS/DZS
-&gy<<<ggy/gy
-&Gy<<<Ggy/gy
-&GY<<<GGY/GY
-&ly<<<lly/ly
-&Ly<<<Lly/ly
-&LY<<<LLY/LY
-&ny<<<nny/ny
-&Ny<<<Nny/ny
-&NY<<<NNY/NY
-&sz<<<ssz/sz
-&Sz<<<Ssz/sz
-&SZ<<<SSZ/SZ
-&ty<<<tty/ty
-&Ty<<<Tty/ty
-&TY<<<TTY/TY
-&zs<<<zzs/zs
-&Zs<<<Zzs/zs
-&ZS<<<ZZS/ZS
-  )");
+    return string_view(
+"  \n"
+"&C<cs<<<Cs<<<CS\n"
+"&D<dz<<<Dz<<<DZ\n"
+"&DZ<dzs<<<Dzs<<<DZS\n"
+"&G<gy<<<Gy<<<GY\n"
+"&L<ly<<<Ly<<<LY\n"
+"&N<ny<<<Ny<<<NY\n"
+"&S<sz<<<Sz<<<SZ\n"
+"&T<ty<<<Ty<<<TY\n"
+"&Z<zs<<<Zs<<<ZS\n"
+"&O<ö<<<Ö<<ő<<<Ő\n"
+"&U<ü<<<Ü<<ű<<<Ű\n"
+"&cs<<<ccs/cs\n"
+"&Cs<<<Ccs/cs\n"
+"&CS<<<CCS/CS\n"
+"&dz<<<ddz/dz\n"
+"&Dz<<<Ddz/dz\n"
+"&DZ<<<DDZ/DZ\n"
+"&dzs<<<ddzs/dzs\n"
+"&Dzs<<<Ddzs/dzs\n"
+"&DZS<<<DDZS/DZS\n"
+"&gy<<<ggy/gy\n"
+"&Gy<<<Ggy/gy\n"
+"&GY<<<GGY/GY\n"
+"&ly<<<lly/ly\n"
+"&Ly<<<Lly/ly\n"
+"&LY<<<LLY/LY\n"
+"&ny<<<nny/ny\n"
+"&Ny<<<Nny/ny\n"
+"&NY<<<NNY/NY\n"
+"&sz<<<ssz/sz\n"
+"&Sz<<<Ssz/sz\n"
+"&SZ<<<SSZ/SZ\n"
+"&ty<<<tty/ty\n"
+"&Ty<<<Tty/ty\n"
+"&TY<<<TTY/TY\n"
+"&zs<<<zzs/zs\n"
+"&Zs<<<Zzs/zs\n"
+"&ZS<<<ZZS/ZS\n"
+"  \n");
 }
 
 

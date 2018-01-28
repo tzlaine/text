@@ -9,19 +9,19 @@ namespace boost { namespace text { namespace data { namespace fa {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-[reorder Arab]
-&َ<<ِ<<ُ<<ً<<ٍ<<ٌ
-&[before 1]ا<آ
-&ا<<ٱ<ء
-  <<أ<<ٲ<<إ<<ٳ<<ؤ
-  <<یٔ<<<ىٔ<<<ئ
-&ک<<*ڪګكڬڭڮ
-&ۏ<ه<<ە<<ہ<<ة<<ۃ<<ۀ<<ھ
-&ی<<*ىےيېۑۍێ
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"[reorder Arab]\n"
+"&َ<<ِ<<ُ<<ً<<ٍ<<ٌ\n"
+"&[before 1]ا<آ\n"
+"&ا<<ٱ<ء\n"
+"  <<أ<<ٲ<<إ<<ٳ<<ؤ\n"
+"  <<یٔ<<<ىٔ<<<ئ\n"
+"&ک<<*ڪګكڬڭڮ\n"
+"&ۏ<ه<<ە<<ہ<<ة<<ۃ<<ۀ<<ھ\n"
+"&ی<<*ىےيېۑۍێ\n"
+"  \n");
 }
 
 

@@ -9,13 +9,13 @@ namespace boost { namespace text { namespace data { namespace ug {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[reorder Arab]
-&ا<ە<ب
-&ك<گ<ڭ<ل
-&ھ<و<ۇ<ۆ<ۈ<ۋ<ې<ى<ي
-  )");
+    return string_view(
+"  \n"
+"[reorder Arab]\n"
+"&ا<ە<ب\n"
+"&ك<گ<ڭ<ل\n"
+"&ھ<و<ۇ<ۆ<ۈ<ۋ<ې<ى<ي\n"
+"  \n");
 }
 
 

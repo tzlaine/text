@@ -9,28 +9,28 @@ namespace boost { namespace text { namespace data { namespace ln {
 
 inline string_view phonetic_collation_tailoring()
 {
-    return string_view(R"(
-  
-&E<ɛ<<<Ɛ
-&O<<ɔ<<<Ɔ
-&G<gb<<<gB<<<Gb<<<GB
-&K<kp<<<kP<<<Kp<<<KP
-&M<mb<<<mB<<<Mb<<<MB<mf<<<mF<<<Mf<<<MF<mp<<<mP<<<Mp<<<MP<mv<<<mV<<<Mv<<<MV
-&N<nd<<<nD<<<Nd<<<ND<ng<<<nG<<<Ng<<<NG<ngb<<<ngB<<<nGb<<<nGB<<<Ngb<<<NgB<<<NGB<nk
-  <<<nK<<<Nk<<<NK<ns<<<nS<<<Ns<<<NS<nt<<<nT<<<Nt<<<NT<ny<<<nY<<<Ny<<<NY<nz<<<nZ<<<Nz
-  <<<NZ
-&S<sh<<<sH<<<Sh<<<SH
-&T<ts<<<tS<<<Ts<<<TS
-  )");
+    return string_view(
+"  \n"
+"&E<ɛ<<<Ɛ\n"
+"&O<<ɔ<<<Ɔ\n"
+"&G<gb<<<gB<<<Gb<<<GB\n"
+"&K<kp<<<kP<<<Kp<<<KP\n"
+"&M<mb<<<mB<<<Mb<<<MB<mf<<<mF<<<Mf<<<MF<mp<<<mP<<<Mp<<<MP<mv<<<mV<<<Mv<<<MV\n"
+"&N<nd<<<nD<<<Nd<<<ND<ng<<<nG<<<Ng<<<NG<ngb<<<ngB<<<nGb<<<nGB<<<Ngb<<<NgB<<<NGB<nk\n"
+"  <<<nK<<<Nk<<<NK<ns<<<nS<<<Ns<<<NS<nt<<<nT<<<Nt<<<NT<ny<<<nY<<<Ny<<<NY<nz<<<nZ<<<Nz\n"
+"  <<<NZ\n"
+"&S<sh<<<sH<<<Sh<<<SH\n"
+"&T<ts<<<tS<<<Ts<<<TS\n"
+"  \n");
 }
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&E<ɛ<<<Ɛ
-&O<<ɔ<<<Ɔ
-  )");
+    return string_view(
+"  \n"
+"&E<ɛ<<<Ɛ\n"
+"&O<<ɔ<<<Ɔ\n"
+"  \n");
 }
 
 

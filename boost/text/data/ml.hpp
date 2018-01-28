@@ -9,20 +9,20 @@ namespace boost { namespace text { namespace data { namespace ml {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[reorder Mlym Latn Deva Arab Taml Knda Telu Beng Guru Gujr Orya Sinh]
-&ഃ<<ഽ
-&\u0D4C<<\u0D57
-&ക്<<ക്\u200D<<<ൿ
-&ണ്<<ണ്\u200D<<<ൺ
-&ന്<<ന്\u200D<<<ൻ
-&ര്<<ര്\u200D<<<ർ
-&ല്<<ല്\u200D<<<ൽ
-&ള്<<ള്\u200D<<<ൾ
-&മ്<<ം
-&ന്<<<ൻ്
-  )");
+    return string_view(
+"  \n"
+"[reorder Mlym Latn Deva Arab Taml Knda Telu Beng Guru Gujr Orya Sinh]\n"
+"&ഃ<<ഽ\n"
+"&\\u0D4C<<\\u0D57\n"
+"&ക്<<ക്\\u200D<<<ൿ\n"
+"&ണ്<<ണ്\\u200D<<<ൺ\n"
+"&ന്<<ന്\\u200D<<<ൻ\n"
+"&ര്<<ര്\\u200D<<<ർ\n"
+"&ല്<<ല്\\u200D<<<ൽ\n"
+"&ള്<<ള്\\u200D<<<ൾ\n"
+"&മ്<<ം\n"
+"&ന്<<<ൻ്\n"
+"  \n");
 }
 
 

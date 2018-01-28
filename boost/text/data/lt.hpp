@@ -9,19 +9,19 @@ namespace boost { namespace text { namespace data { namespace lt {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&̀=̇̀
-&́=̇́
-&̃=̇̃
-&A<<ą<<<Ą
-&C<č<<<Č
-&E<<ę<<<Ę<<ė<<<Ė
-&I<<į<<<Į<<y<<<Y
-&S<š<<<Š
-&U<<ų<<<Ų<<ū<<<Ū
-&Z<ž<<<Ž
-  )");
+    return string_view(
+"  \n"
+"&̀=̇̀\n"
+"&́=̇́\n"
+"&̃=̇̃\n"
+"&A<<ą<<<Ą\n"
+"&C<č<<<Č\n"
+"&E<<ę<<<Ę<<ė<<<Ė\n"
+"&I<<į<<<Į<<y<<<Y\n"
+"&S<š<<<Š\n"
+"&U<<ų<<<Ų<<ū<<<Ū\n"
+"&Z<ž<<<Ž\n"
+"  \n");
 }
 
 

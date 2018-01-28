@@ -9,11 +9,11 @@ namespace boost { namespace text { namespace data { namespace haw {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&a<e<<<E<i<<<I<o<<<O<u<<<U
-&w<ʻ
-  )");
+    return string_view(
+"  \n"
+"&a<e<<<E<i<<<I<o<<<O<u<<<U\n"
+"&w<ʻ\n"
+"  \n");
 }
 
 

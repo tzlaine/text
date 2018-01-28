@@ -9,11 +9,11 @@ namespace boost { namespace text { namespace data { namespace ky {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[reorder Cyrl]
-&е<ё<<<Ё
-  )");
+    return string_view(
+"  \n"
+"[reorder Cyrl]\n"
+"&е<ё<<<Ё\n"
+"  \n");
 }
 
 

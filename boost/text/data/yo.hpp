@@ -9,14 +9,14 @@ namespace boost { namespace text { namespace data { namespace yo {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-&E<ẹ<<<Ẹ
-&G<gb<<<Gb<<<GB
-&O<ọ<<<Ọ
-&S<ṣ<<<Ṣ
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"&E<ẹ<<<Ẹ\n"
+"&G<gb<<<Gb<<<GB\n"
+"&O<ọ<<<Ọ\n"
+"&S<ṣ<<<Ṣ\n"
+"  \n");
 }
 
 

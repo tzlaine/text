@@ -9,8 +9,8 @@ namespace boost { namespace text { namespace data { namespace fr_CA {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-[backwards 2])");
+    return string_view(
+"[backwards 2]\n");
 }
 
 

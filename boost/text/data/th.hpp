@@ -9,20 +9,20 @@ namespace boost { namespace text { namespace data { namespace th {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-[alternate shifted]
-[reorder Thai]
-&[before 1]๚<ฯ
-&๛<ๆ
-&๎<<์
-&[before 1]ะ<ํ
-&า<<<ๅ
-&าํ<<<ํา<<<ำ
-&ๅํ<<<ํๅ
-&ไ<ฺ
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"[alternate shifted]\n"
+"[reorder Thai]\n"
+"&[before 1]๚<ฯ\n"
+"&๛<ๆ\n"
+"&๎<<์\n"
+"&[before 1]ะ<ํ\n"
+"&า<<<ๅ\n"
+"&าํ<<<ํา<<<ำ\n"
+"&ๅํ<<<ํๅ\n"
+"&ไ<ฺ\n"
+"  \n");
 }
 
 

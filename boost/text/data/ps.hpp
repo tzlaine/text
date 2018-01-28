@@ -9,27 +9,27 @@ namespace boost { namespace text { namespace data { namespace ps {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-[reorder Arab]
-&َ<<ِ<<ُ<<ً<<ٍ<<ٌ
-&[before 1]ا<آ
-&ا<<أ<<ٲ<<ٱ<<إ<<ٳ<ء
-&ت<ټ<<ٹ
-&ج<ځ<<حٔ
-&چ<څ
-&د<ډ<<ڈ
-&ر<ړ<<ڑ
-&ژ<ږ
-&ک<<*ڪك
-&ګ<<گ
-&ڼ<<ڻ
-&و<<ؤ<<ۇ<<ۉ
-&ه<<<ۀ<<<هٔ<<*ەہھةۃ
-&ی<<*ىےيېۍ<<یٔ<<<ىٔ<<<ئ
-&\u00A0<<\u200C<<\u200D
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"[reorder Arab]\n"
+"&َ<<ِ<<ُ<<ً<<ٍ<<ٌ\n"
+"&[before 1]ا<آ\n"
+"&ا<<أ<<ٲ<<ٱ<<إ<<ٳ<ء\n"
+"&ت<ټ<<ٹ\n"
+"&ج<ځ<<حٔ\n"
+"&چ<څ\n"
+"&د<ډ<<ڈ\n"
+"&ر<ړ<<ڑ\n"
+"&ژ<ږ\n"
+"&ک<<*ڪك\n"
+"&ګ<<گ\n"
+"&ڼ<<ڻ\n"
+"&و<<ؤ<<ۇ<<ۉ\n"
+"&ه<<<ۀ<<<هٔ<<*ەہھةۃ\n"
+"&ی<<*ىےيېۍ<<یٔ<<<ىٔ<<<ئ\n"
+"&\\u00A0<<\\u200C<<\\u200D\n"
+"  \n");
 }
 
 

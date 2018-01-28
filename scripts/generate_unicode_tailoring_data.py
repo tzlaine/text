@@ -158,8 +158,8 @@ import_regex = re.compile(r'\[ *import +([^ \]]+) *\] *')
 single_tailoring_form = '''\
 inline string_view {0}_collation_tailoring()
 {{
-    return string_view(R"(
-{1})");
+    return string_view(
+{1});
 }}
 
 '''
@@ -199,7 +199,37 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                 replacement = all_tailorings[import_]
                 v = v.replace(v[match.start(0):match.end(0)], replacement)
         if not k.startswith('private'):
-            tailorings += single_tailoring_form.format(k.replace('-', '_'), v)
+            lines = v.replace('\\', '\\\\').splitlines()
+            lines = map(lambda x: '"' + x + '\\n"', lines)
+            chunked_lines = []
+            for i in range(len(lines)):
+                chunk_size = 4096
+                if len(lines[i]) < chunk_size:
+                    chunked_lines.append(lines[i])
+                else:
+                    chunks = len(lines[i]) / chunk_size
+                    remainder = len(lines[i]) % chunk_size
+                    prev_offset = 0
+                    offset = 0
+                    for j in range(chunks):
+                        line_ok = False
+                        while not line_ok:
+                            try:
+                                line = lines[i][j * chunk_size + prev_offset:(j + 1) * chunk_size + offset]
+                                line.decode('UTF-8', 'strict')
+                                line_ok = True
+                            except UnicodeDecodeError:
+                                offset -= 1
+                        prev_offset = offset
+                        if not line.startswith('"'):
+                            line = '"' + line
+                        if not line.endswith('"'):
+                            line += '"'
+                        chunked_lines.append(line)
+                    if remainder != 0 or offset != 0:
+                        chunked_lines.append('"' + lines[i][chunks * chunk_size + offset:])
+            lines = '\n'.join(chunked_lines)
+            tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
         if done_with_file:
             break
     if done_with_file:

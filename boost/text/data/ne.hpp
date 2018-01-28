@@ -9,8 +9,8 @@ namespace boost { namespace text { namespace data { namespace ne {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-[reorder Deva])");
+    return string_view(
+"[reorder Deva]\n");
 }
 
 

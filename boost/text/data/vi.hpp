@@ -9,37 +9,37 @@ namespace boost { namespace text { namespace data { namespace vi {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-&̀<<̉<<̃<<́<<̣
-&a<ă<<<Ă<â<<<Â
-&d<đ<<<Đ
-&e<ê<<<Ê
-&o<ô<<<Ô<ơ<<<Ơ
-&u<ư<<<Ư
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"&̀<<̉<<̃<<́<<̣\n"
+"&a<ă<<<Ă<â<<<Â\n"
+"&d<đ<<<Đ\n"
+"&e<ê<<<Ê\n"
+"&o<ô<<<Ô<ơ<<<Ơ\n"
+"&u<ư<<<Ư\n"
+"  \n");
 }
 
 inline string_view traditional_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-&̀<<̉<<̃<<́<<̣
-&a<ă<<<Ă<â<<<Â
-&C<ch<<<Ch<<<CH
-&d<đ<<<Đ
-&e<ê<<<Ê
-&G<gh<<<Gh<<<GH<gi<<<Gi<<<GI
-&K<kh<<<Kh<<<KH
-&N<nh<<<Nh<<<NH<ng<<<Ng<<<NG<ngh<<<Ngh<<<NGh<<<NGH
-&o<ô<<<Ô<ơ<<<Ơ
-&P<ph<<<Ph<<<PH
-&Q<qu<<<Qu<<<QU
-&T<th<<<Th<<<TH<tr<<<Tr<<<TR
-&u<ư<<<Ư
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"&̀<<̉<<̃<<́<<̣\n"
+"&a<ă<<<Ă<â<<<Â\n"
+"&C<ch<<<Ch<<<CH\n"
+"&d<đ<<<Đ\n"
+"&e<ê<<<Ê\n"
+"&G<gh<<<Gh<<<GH<gi<<<Gi<<<GI\n"
+"&K<kh<<<Kh<<<KH\n"
+"&N<nh<<<Nh<<<NH<ng<<<Ng<<<NG<ngh<<<Ngh<<<NGh<<<NGH\n"
+"&o<ô<<<Ô<ơ<<<Ơ\n"
+"&P<ph<<<Ph<<<PH\n"
+"&Q<qu<<<Qu<<<QU\n"
+"&T<th<<<Th<<<TH<tr<<<Tr<<<TR\n"
+"&u<ư<<<Ư\n"
+"  \n");
 }
 
 

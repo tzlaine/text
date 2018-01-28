@@ -9,13 +9,13 @@ namespace boost { namespace text { namespace data { namespace mk {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[reorder Cyrl]
-[suppressContractions [Ии]]
-&ԃ<ѓ<<<Ѓ
-&ћ<ќ<<<Ќ
-  )");
+    return string_view(
+"  \n"
+"[reorder Cyrl]\n"
+"[suppressContractions [Ии]]\n"
+"&ԃ<ѓ<<<Ѓ\n"
+"&ћ<ќ<<<Ќ\n"
+"  \n");
 }
 
 

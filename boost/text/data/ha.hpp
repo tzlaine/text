@@ -9,15 +9,15 @@ namespace boost { namespace text { namespace data { namespace ha {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&B<ɓ<<<Ɓ
-&D<ɗ<<<Ɗ
-&K<ƙ<<<Ƙ
-&S<sh<<<Sh<<<SH
-&T<ts<<<Ts<<<TS
-&Y<ƴ<<<ʼy<<<''y<<<Ƴ<<<ʼY<<<''Y
-  )");
+    return string_view(
+"  \n"
+"&B<ɓ<<<Ɓ\n"
+"&D<ɗ<<<Ɗ\n"
+"&K<ƙ<<<Ƙ\n"
+"&S<sh<<<Sh<<<SH\n"
+"&T<ts<<<Ts<<<TS\n"
+"&Y<ƴ<<<ʼy<<<''y<<<Ƴ<<<ʼY<<<''Y\n"
+"  \n");
 }
 
 

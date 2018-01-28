@@ -9,11 +9,11 @@ namespace boost { namespace text { namespace data { namespace hy {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[reorder Armn]
-&ք<և<<<Եւ
-  )");
+    return string_view(
+"  \n"
+"[reorder Armn]\n"
+"&ք<և<<<Եւ\n"
+"  \n");
 }
 
 

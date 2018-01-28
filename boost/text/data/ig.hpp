@@ -9,18 +9,18 @@ namespace boost { namespace text { namespace data { namespace ig {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-&B<ch<<<Ch<<<CH
-&G<gb<<<Gb<<<GB<gh<<<Gh<<<GH<gw<<<Gw<<<GW
-&I<ị<<<Ị
-&K<kp<<<Kp<<<KP<kw<<<Kw<<<KW
-&N<ṅ<<<Ṅ<nw<<<Nw<<<NW<ny<<<Ny<<<NY
-&O<ọ<<<Ọ
-&S<sh<<<Sh<<<SH
-&U<ụ<<<Ụ
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"&B<ch<<<Ch<<<CH\n"
+"&G<gb<<<Gb<<<GB<gh<<<Gh<<<GH<gw<<<Gw<<<GW\n"
+"&I<ị<<<Ị\n"
+"&K<kp<<<Kp<<<KP<kw<<<Kw<<<KW\n"
+"&N<ṅ<<<Ṅ<nw<<<Nw<<<NW<ny<<<Ny<<<NY\n"
+"&O<ọ<<<Ọ\n"
+"&S<sh<<<Sh<<<SH\n"
+"&U<ụ<<<Ụ\n"
+"  \n");
 }
 
 

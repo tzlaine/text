@@ -9,11 +9,11 @@ namespace boost { namespace text { namespace data { namespace el {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-[reorder Grek]
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"[reorder Grek]\n"
+"  \n");
 }
 
 

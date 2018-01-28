@@ -9,14 +9,14 @@ namespace boost { namespace text { namespace data { namespace cs {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-&C<č<<<Č
-&H<ch<<<cH<<<Ch<<<CH
-&R<ř<<<Ř
-&S<š<<<Š
-&Z<ž<<<Ž
-  )");
+    return string_view(
+"  \n"
+"&C<č<<<Č\n"
+"&H<ch<<<cH<<<Ch<<<CH\n"
+"&R<ř<<<Ř\n"
+"&S<š<<<Š\n"
+"&Z<ž<<<Ž\n"
+"  \n");
 }
 
 

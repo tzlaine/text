@@ -9,37 +9,37 @@ namespace boost { namespace text { namespace data { namespace ta {
 
 inline string_view standard_collation_tailoring()
 {
-    return string_view(R"(
-  
-[normalization on]
-[reorder Taml Deva Beng Guru Gujr Orya Telu Knda Mlym Sinh]
-&ஔ<ஂ<ஃ
-&ஹ<க்ஷ
-&[before 1]க<க்
-&[before 1]ங<ங்
-&[before 1]ச<ச்
-&[before 1]ஞ<ஞ்
-&[before 1]ட<ட்
-&[before 1]ண<ண்
-&[before 1]த<த்
-&[before 1]ந<ந்
-&[before 1]ப<ப்
-&[before 1]ம<ம்
-&[before 1]ய<ய்
-&[before 1]ர<ர்
-&[before 1]ல<ல்
-&[before 1]வ<வ்
-&[before 1]ழ<ழ்
-&[before 1]ள<ள்
-&[before 1]ற<ற்
-&[before 1]ன<ன்
-&[before 1]ஜ<ஜ்
-&[before 1]ஶ<ஶ்
-&[before 1]ஷ<ஷ்
-&[before 1]ஸ<ஸ்
-&[before 1]ஹ<ஹ்
-&[before 1]க்ஷ<க்ஷ்
-  )");
+    return string_view(
+"  \n"
+"[normalization on]\n"
+"[reorder Taml Deva Beng Guru Gujr Orya Telu Knda Mlym Sinh]\n"
+"&ஔ<ஂ<ஃ\n"
+"&ஹ<க்ஷ\n"
+"&[before 1]க<க்\n"
+"&[before 1]ங<ங்\n"
+"&[before 1]ச<ச்\n"
+"&[before 1]ஞ<ஞ்\n"
+"&[before 1]ட<ட்\n"
+"&[before 1]ண<ண்\n"
+"&[before 1]த<த்\n"
+"&[before 1]ந<ந்\n"
+"&[before 1]ப<ப்\n"
+"&[before 1]ம<ம்\n"
+"&[before 1]ய<ய்\n"
+"&[before 1]ர<ர்\n"
+"&[before 1]ல<ல்\n"
+"&[before 1]வ<வ்\n"
+"&[before 1]ழ<ழ்\n"
+"&[before 1]ள<ள்\n"
+"&[before 1]ற<ற்\n"
+"&[before 1]ன<ன்\n"
+"&[before 1]ஜ<ஜ்\n"
+"&[before 1]ஶ<ஶ்\n"
+"&[before 1]ஷ<ஷ்\n"
+"&[before 1]ஸ<ஸ்\n"
+"&[before 1]ஹ<ஹ்\n"
+"&[before 1]க்ஷ<க்ஷ்\n"
+"  \n");
 }
 
 
