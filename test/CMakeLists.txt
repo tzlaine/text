@@ -113,23 +113,42 @@ add_test_executable(tailoring riwords.txt)
 # parsing is LL(*).
 #file(GLOB word_break_tests word_break_??.cpp)  
 
-if (BUILD_COVERAGE)
-    add_custom_target(
-        coverage
-        rm -rf ${coverage_gcda_files} lcov-all.info lcov.info output
-        COMMAND
-            ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR}
-        COMMAND
-            cd ${CMAKE_BINARY_DIR}
-        COMMAND
-            llvm-cov gcov -f -b ${coverage_gcda_files}
-        COMMAND
-            lcov --directory . --base-directory . --gcov-tool ${CMAKE_SOURCE_DIR}/llvm-gcov.sh --capture -o lcov-all.info
-        COMMAND
-            lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/boost/text/* ${CMAKE_SOURCE_DIR}/boost/text/detail/* -o lcov.info
-        COMMAND
-            genhtml lcov.info -o output
-    )
+if (BUILD_COVERAGE AND UNIX)
+    if (APPLE)
+        add_custom_target(
+            coverage
+            rm -rf ${coverage_gcda_files} lcov-all.info lcov.info output
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR}
+            COMMAND
+                cd ${CMAKE_BINARY_DIR}
+            COMMAND
+                llvm-cov gcov -f -b ${coverage_gcda_files}
+            COMMAND
+                lcov --directory . --base-directory . --gcov-tool ${CMAKE_SOURCE_DIR}/llvm-gcov.sh --capture -o lcov-all.info
+            COMMAND
+                lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/boost/text/* ${CMAKE_SOURCE_DIR}/boost/text/detail/* -o lcov.info
+            COMMAND
+                genhtml lcov.info -o output
+        )
+    else ()
+        add_custom_target(
+            coverage
+            rm -rf ${coverage_gcda_files} lcov-all.info lcov.info output
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR}
+            COMMAND
+                cd ${CMAKE_BINARY_DIR}
+            COMMAND
+                gcov -f -b ${coverage_gcda_files}
+            COMMAND
+                lcov --directory . --base-directory . --capture -o lcov-all.info
+            COMMAND
+                lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/boost/text/* ${CMAKE_SOURCE_DIR}/boost/text/detail/* -o lcov.info
+            COMMAND
+                genhtml lcov.info -o output
+        )
+    endif ()
 endif ()
 
 set(compile_sources
