@@ -8,8 +8,7 @@
 using namespace boost;
 
 namespace std {
-    ostream &
-    operator<<(ostream & os, std::array<uint32_t, 1> cp)
+    ostream & operator<<(ostream & os, std::array<uint32_t, 1> cp)
     {
         return os << hex << "0x" << cp[0] << dec;
     }
@@ -578,61 +577,60 @@ TEST(tailoring, es)
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; });
 
-        int const cases = 9;
-        std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {{
-            {0x61, 0x6c, 0x69, 0x61, 0x73},
-            {0x45, 0x6c, 0x6c, 0x69, 0x6f, 0x74},
-            {0x48, 0x65, 0x6c, 0x6c, 0x6f},
-            {0x61, 0x63, 0x48, 0x63},
-            {0x61, 0x63, 0x63},
-            {0x61, 0x6c, 0x69, 0x61, 0x73},
-            {0x61, 0x63, 0x48, 0x63},
-            {0x61, 0x63, 0x63},
-            {0x48, 0x65, 0x6c, 0x6c, 0x6f},
-        }};
+    int const cases = 9;
+    std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {{
+        {0x61, 0x6c, 0x69, 0x61, 0x73},
+        {0x45, 0x6c, 0x6c, 0x69, 0x6f, 0x74},
+        {0x48, 0x65, 0x6c, 0x6c, 0x6f},
+        {0x61, 0x63, 0x48, 0x63},
+        {0x61, 0x63, 0x63},
+        {0x61, 0x6c, 0x69, 0x61, 0x73},
+        {0x61, 0x63, 0x48, 0x63},
+        {0x61, 0x63, 0x63},
+        {0x48, 0x65, 0x6c, 0x6c, 0x6f},
+    }};
 
-        std::array<container::static_vector<uint32_t, 16>, cases> const rhs = {{
-            {0x61, 0x6c, 0x6c, 0x69, 0x61, 0x73},
-            {0x45, 0x6d, 0x69, 0x6f, 0x74},
-            {0x68, 0x65, 0x6c, 0x6c, 0x4f},
-            {0x61, 0x43, 0x48, 0x63},
-            {0x61, 0x43, 0x48, 0x63},
-            {0x61, 0x6c, 0x6c, 0x69, 0x61, 0x73},
-            {0x61, 0x43, 0x48, 0x63},
-            {0x61, 0x43, 0x48, 0x63},
-            {0x68, 0x65, 0x6c, 0x6c, 0x4f},
-        }};
+    std::array<container::static_vector<uint32_t, 16>, cases> const rhs = {{
+        {0x61, 0x6c, 0x6c, 0x69, 0x61, 0x73},
+        {0x45, 0x6d, 0x69, 0x6f, 0x74},
+        {0x68, 0x65, 0x6c, 0x6c, 0x4f},
+        {0x61, 0x43, 0x48, 0x63},
+        {0x61, 0x43, 0x48, 0x63},
+        {0x61, 0x6c, 0x6c, 0x69, 0x61, 0x73},
+        {0x61, 0x43, 0x48, 0x63},
+        {0x61, 0x43, 0x48, 0x63},
+        {0x68, 0x65, 0x6c, 0x6c, 0x4f},
+    }};
 
-        std::array<int, cases> const result = {
-            {-1, -1, 1, -1, -1, -1, 0, -1, 0}};
+    std::array<int, cases> const result = {{-1, -1, 1, -1, -1, -1, 0, -1, 0}};
 
-        for (int i = 0; i < 5; ++i) {
-            EXPECT_EQ(
-                text::collate(
-                    lhs[i],
-                    rhs[i],
-                    table,
-                    text::collation_strength::tertiary,
-                    text::variable_weighting::non_ignorable),
-                result[i])
-                << "CASE " << i << "\n"
-                << lhs[i] << "\n"
-                << rhs[i] << "\n";
-        }
+    for (int i = 0; i < 5; ++i) {
+        EXPECT_EQ(
+            text::collate(
+                lhs[i],
+                rhs[i],
+                table,
+                text::collation_strength::tertiary,
+                text::variable_weighting::non_ignorable),
+            result[i])
+            << "CASE " << i << "\n"
+            << lhs[i] << "\n"
+            << rhs[i] << "\n";
+    }
 
-        for (int i = 5; i < cases; ++i) {
-            EXPECT_EQ(
-                text::collate(
-                    lhs[i],
-                    rhs[i],
-                    table,
-                    text::collation_strength::primary,
-                    text::variable_weighting::non_ignorable),
-                result[i])
-                << "CASE " << i << "\n"
-                << lhs[i] << "\n"
-                << rhs[i] << "\n";
-        }
+    for (int i = 5; i < cases; ++i) {
+        EXPECT_EQ(
+            text::collate(
+                lhs[i],
+                rhs[i],
+                table,
+                text::collation_strength::primary,
+                text::variable_weighting::non_ignorable),
+            result[i])
+            << "CASE " << i << "\n"
+            << lhs[i] << "\n"
+            << rhs[i] << "\n";
+    }
 }
 
 TEST(tailoring, fi)
@@ -644,48 +642,48 @@ TEST(tailoring, fi)
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; });
 
-        int const cases = 5;
-        std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {
-            {{0x77, 0x61, 0x74},
-             {0x76, 0x61, 0x74},
-             {0x61, 0x00FC, 0x62, 0x65, 0x63, 0x6b},
-             {0x4c, 0x00E5, 0x76, 0x69},
-             {0x77, 0x61, 0x74}}};
+    int const cases = 5;
+    std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {
+        {{0x77, 0x61, 0x74},
+         {0x76, 0x61, 0x74},
+         {0x61, 0x00FC, 0x62, 0x65, 0x63, 0x6b},
+         {0x4c, 0x00E5, 0x76, 0x69},
+         {0x77, 0x61, 0x74}}};
 
-        std::array<container::static_vector<uint32_t, 16>, cases> const rhs = {
-            {{0x76, 0x61, 0x74},
-             {0x77, 0x61, 0x79},
-             {0x61, 0x78, 0x62, 0x65, 0x63, 0x6b},
-             {0x4c, 0x00E4, 0x77, 0x65},
-             {0x76, 0x61, 0x74}}};
+    std::array<container::static_vector<uint32_t, 16>, cases> const rhs = {
+        {{0x76, 0x61, 0x74},
+         {0x77, 0x61, 0x79},
+         {0x61, 0x78, 0x62, 0x65, 0x63, 0x6b},
+         {0x4c, 0x00E4, 0x77, 0x65},
+         {0x76, 0x61, 0x74}}};
 
-        std::array<int, cases> const tertiary_result = {{1, -1, 1, -1, 1}};
+    std::array<int, cases> const tertiary_result = {{1, -1, 1, -1, 1}};
 
-        for (int i = 0; i < 4; ++i) {
-            EXPECT_EQ(
-                text::collate(
-                    lhs[i],
-                    rhs[i],
-                    table,
-                    text::collation_strength::tertiary,
-                    text::variable_weighting::non_ignorable),
-                tertiary_result[i])
-                << "CASE " << i << "\n"
-                << lhs[i] << "\n"
-                << rhs[i] << "\n";
-        }
-
+    for (int i = 0; i < 4; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[4],
-                rhs[4],
+                lhs[i],
+                rhs[i],
                 table,
-                text::collation_strength::primary,
+                text::collation_strength::tertiary,
                 text::variable_weighting::non_ignorable),
-            tertiary_result[4])
-            << "CASE " << 4 << "\n"
-            << lhs[4] << "\n"
-            << rhs[4] << "\n";
+            tertiary_result[i])
+            << "CASE " << i << "\n"
+            << lhs[i] << "\n"
+            << rhs[i] << "\n";
+    }
+
+    EXPECT_EQ(
+        text::collate(
+            lhs[4],
+            rhs[4],
+            table,
+            text::collation_strength::primary,
+            text::variable_weighting::non_ignorable),
+        tertiary_result[4])
+        << "CASE " << 4 << "\n"
+        << lhs[4] << "\n"
+        << rhs[4] << "\n";
 }
 
 TEST(tailoring, fr)
@@ -1066,32 +1064,19 @@ TEST(tailoring, th)
     {
         int const cases = 26;
         std::array<text::string_view, cases> const lhs = {
-            {"\u0E41c\u0301",
-             "\u0E41\U0001D7CE",
-             "\u0E41\U0001D15F",
-             "\u0E41\U0002F802",
-             "\u0E41\u0301",
-             "\u0E41\u0301\u0316",
-             "\u0e24\u0e41",
-             "\u0e3f\u0e3f\u0e24\u0e41",
-             "abc\u0E41c\u0301",
-             "abc\u0E41\U0001D000",
-             "abc\u0E41\U0001D15F",
-             "abc\u0E41\U0002F802",
-             "abc\u0E41\u0301",
-             "abc\u0E41\u0301\u0316",
-             "\u0E41c\u0301abc",
-             "\u0E41\U0001D000abc",
-             "\u0E41\U0001D15Fabc",
-             "\u0E41\U0002F802abc",
-             "\u0E41\u0301abc",
-             "\u0E41\u0301\u0316abc",
-             "abc\u0E41c\u0301abc",
-             "abc\u0E41\U0001D000abc",
-             "abc\u0E41\U0001D15Fabc",
-             "abc\u0E41\U0002F802abc",
-             "abc\u0E41\u0301abc",
-             "abc\u0E41\u0301\u0316abc"}};
+            {"\u0E41c\u0301",          "\u0E41\U0001D7CE",
+             "\u0E41\U0001D15F",       "\u0E41\U0002F802",
+             "\u0E41\u0301",           "\u0E41\u0301\u0316",
+             "\u0e24\u0e41",           "\u0e3f\u0e3f\u0e24\u0e41",
+             "abc\u0E41c\u0301",       "abc\u0E41\U0001D000",
+             "abc\u0E41\U0001D15F",    "abc\u0E41\U0002F802",
+             "abc\u0E41\u0301",        "abc\u0E41\u0301\u0316",
+             "\u0E41c\u0301abc",       "\u0E41\U0001D000abc",
+             "\u0E41\U0001D15Fabc",    "\u0E41\U0002F802abc",
+             "\u0E41\u0301abc",        "\u0E41\u0301\u0316abc",
+             "abc\u0E41c\u0301abc",    "abc\u0E41\U0001D000abc",
+             "abc\u0E41\U0001D15Fabc", "abc\u0E41\U0002F802abc",
+             "abc\u0E41\u0301abc",     "abc\u0E41\u0301\u0316abc"}};
 
         std::array<text::string_view, cases> const rhs = {
             {"\u0E41\u0107",
@@ -1171,60 +1156,60 @@ TEST(tailoring, tr)
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; });
 
-        int const cases = 11;
-        std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {
-            {{0x73, 0x0327},
-             {0x76, 0x00e4, 0x74},
-             {0x6f, 0x6c, 0x64},
-             {0x00fc, 0x6f, 0x69, 0x64},
-             {0x68, 0x011e, 0x61, 0x6c, 0x74},
-             {0x73, 0x74, 0x72, 0x65, 0x73, 0x015e},
-             {0x76, 0x6f, 0x0131, 0x64},
-             {0x69, 0x64, 0x65, 0x61},
-             {0x00fc, 0x6f, 0x69, 0x64},
-             {0x76, 0x6f, 0x0131, 0x64},
-             {0x69, 0x64, 0x65, 0x61}}};
+    int const cases = 11;
+    std::array<container::static_vector<uint32_t, 16>, cases> const lhs = {
+        {{0x73, 0x0327},
+         {0x76, 0x00e4, 0x74},
+         {0x6f, 0x6c, 0x64},
+         {0x00fc, 0x6f, 0x69, 0x64},
+         {0x68, 0x011e, 0x61, 0x6c, 0x74},
+         {0x73, 0x74, 0x72, 0x65, 0x73, 0x015e},
+         {0x76, 0x6f, 0x0131, 0x64},
+         {0x69, 0x64, 0x65, 0x61},
+         {0x00fc, 0x6f, 0x69, 0x64},
+         {0x76, 0x6f, 0x0131, 0x64},
+         {0x69, 0x64, 0x65, 0x61}}};
 
-        std::array<container::static_vector<uint32_t, 16>, cases> const rhs = {
-            {{0x75, 0x0308},
-             {0x76, 0x62, 0x74},
-             {0x00d6, 0x61, 0x79},
-             {0x76, 0x6f, 0x69, 0x64},
-             {0x68, 0x61, 0x6c, 0x74},
-             {0x015e, 0x74, 0x72, 0x65, 0x015e, 0x73},
-             {0x76, 0x6f, 0x69, 0x64},
-             {0x49, 0x64, 0x65, 0x61},
-             {0x76, 0x6f, 0x69, 0x64},
-             {0x76, 0x6f, 0x69, 0x64},
-             {0x49, 0x64, 0x65, 0x61}}};
+    std::array<container::static_vector<uint32_t, 16>, cases> const rhs = {
+        {{0x75, 0x0308},
+         {0x76, 0x62, 0x74},
+         {0x00d6, 0x61, 0x79},
+         {0x76, 0x6f, 0x69, 0x64},
+         {0x68, 0x61, 0x6c, 0x74},
+         {0x015e, 0x74, 0x72, 0x65, 0x015e, 0x73},
+         {0x76, 0x6f, 0x69, 0x64},
+         {0x49, 0x64, 0x65, 0x61},
+         {0x76, 0x6f, 0x69, 0x64},
+         {0x76, 0x6f, 0x69, 0x64},
+         {0x49, 0x64, 0x65, 0x61}}};
 
-        std::array<int, cases> const tertiary_result = {
-            {-1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1}};
+    std::array<int, cases> const tertiary_result = {
+        {-1, -1, -1, -1, 1, -1, -1, 1, -1, -1, 1}};
 
-        for (int i = 0; i < 8; ++i) {
-            EXPECT_EQ(
-                text::collate(
-                    lhs[i],
-                    rhs[i],
-                    table,
-                    text::collation_strength::tertiary,
-                    text::variable_weighting::non_ignorable),
-                tertiary_result[i])
-                << "CASE " << i << "\n"
-                << lhs[i] << "\n"
-                << rhs[i] << "\n";
-        }
-        for (int i = 8; i < cases; ++i) {
-            EXPECT_EQ(
-                text::collate(
-                    lhs[i],
-                    rhs[i],
-                    table,
-                    text::collation_strength::primary,
-                    text::variable_weighting::non_ignorable),
-                tertiary_result[i])
-                << "CASE " << i << "\n"
-                << lhs[i] << "\n"
-                << rhs[i] << "\n";
-        }
+    for (int i = 0; i < 8; ++i) {
+        EXPECT_EQ(
+            text::collate(
+                lhs[i],
+                rhs[i],
+                table,
+                text::collation_strength::tertiary,
+                text::variable_weighting::non_ignorable),
+            tertiary_result[i])
+            << "CASE " << i << "\n"
+            << lhs[i] << "\n"
+            << rhs[i] << "\n";
+    }
+    for (int i = 8; i < cases; ++i) {
+        EXPECT_EQ(
+            text::collate(
+                lhs[i],
+                rhs[i],
+                table,
+                text::collation_strength::primary,
+                text::variable_weighting::non_ignorable),
+            tertiary_result[i])
+            << "CASE " << i << "\n"
+            << lhs[i] << "\n"
+            << rhs[i] << "\n";
+    }
 }
