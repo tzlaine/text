@@ -49,7 +49,7 @@ namespace boost { namespace text {
                     return reorder.first_ <= cce && cce < reorder.last_;
                 });
             if (it != nonsimple_reorders.end())
-                return it->lead_byte_;
+                return it->lead_byte_ << 24;
             auto const masked_primary = cce.l1_ & 0xff000000;
             return simple_reorders[masked_primary >> 24] << 24;
         }
@@ -650,7 +650,6 @@ namespace boost { namespace text {
             }
             std::cerr << "\n";
 #endif
-            temp_table_element::ces_t prefix_ces;
             if (prefix)
                 relation.insert(relation.end(), prefix->begin(), prefix->end());
 
@@ -901,12 +900,14 @@ namespace boost { namespace text {
                 if (!e.tailored_)
                     continue;
 
-                for (auto ce : e.ces_) {
-                    auto const lead_byte_ =
-                        lead_byte(ce, nonsimple_reorders, simple_reorders);
-                    ce.l1_ &= 0x00ffffff;
-                    ce.l1_ |= lead_byte_;
+#if 0 // TODO: Restore this if/when we make collation tables that are
+      // independent of the default table.
+                for (auto & ce : e.ces_) {
+                    ce.l1_ = replace_lead_byte(
+                        ce.l1_,
+                        lead_byte(ce, nonsimple_reorders, simple_reorders));
                 }
+#endif
 
                 collation_elements linearized_ces;
                 auto const it = already_linearized.find(e.ces_);
@@ -924,6 +925,9 @@ namespace boost { namespace text {
                 assert(table.trie_.contains(e.cps_));
                 table.trie_[e.cps_] = linearized_ces;
             }
+
+            table.nonsimple_reorders_ = std::move(nonsimple_reorders);
+            table.simple_reorders_ = simple_reorders;
         }
 
         struct cp_rng
@@ -939,9 +943,10 @@ namespace boost { namespace text {
     inline tailored_collation_element_table
     make_tailored_collation_element_table(
         string_view tailoring,
-        string_view tailoring_filename,
-        parser_diagnostic_callback report_errors,
-        parser_diagnostic_callback report_warnings)
+        string_view tailoring_filename = "",
+        parser_diagnostic_callback report_errors = parser_diagnostic_callback(),
+        parser_diagnostic_callback report_warnings =
+            parser_diagnostic_callback())
     {
         detail::cp_seq_t curr_reset;
         bool reset_is_before = false;
@@ -959,9 +964,6 @@ namespace boost { namespace text {
         detail::nonsimple_reorders_t nonsimple_reorders;
         std::array<uint32_t, 256> simple_reorders;
         std::iota(simple_reorders.begin(), simple_reorders.end(), 0);
-        for (auto & x : simple_reorders) {
-            x <<= 24;
-        }
 
         tailored_collation_element_table table;
 
@@ -1045,6 +1047,7 @@ namespace boost { namespace text {
                     suppressions_.end(),
                     std::back_inserter(suppressions));
             },
+            // [reorder space digit Latn Grek Copt Hani]
             [&](std::vector<detail::reorder_group> const & reorder_groups) {
                 uint32_t curr_reorder_lead_byte =
                     (detail::g_reorder_groups[0].first_.l1_ & 0xff000000) -
@@ -1052,12 +1055,26 @@ namespace boost { namespace text {
                 bool prev_group_compressible = false;
                 detail::collation_element prev_group_last = {
                     0xffffffff, 0, 0, 0};
+                bool first = true;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                std::cerr << std::hex;
+#endif
                 for (auto const & group : reorder_groups) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                    std::cerr << "processing group " << group.name_ << "\n";
+#endif
                     bool const compress = group.compressible_ &&
                                           prev_group_compressible &&
-                                          prev_group_last < group.last_;
-                    if (!compress)
+                                          prev_group_last <= group.first_;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                    std::cerr << "  compress=" << compress << "\n";
+#endif
+                    if (!compress || first) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                        std::cerr << "  new lead byte\n";
+#endif
                         curr_reorder_lead_byte += 0x01000000;
+                    }
 
                     if ((detail::implicit_weights_final_lead_byte << 24) <
                         curr_reorder_lead_byte) {
@@ -1068,6 +1085,9 @@ namespace boost { namespace text {
                             "...]'.");
                     }
 
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                    std::cerr << " simple=" << group.simple_ << "\n";
+#endif
                     if (!compress && group.simple_) {
                         uint32_t const group_first =
                             group.first_.l1_ & 0xff000000;
@@ -1076,18 +1096,39 @@ namespace boost { namespace text {
                              byte < end;
                              byte += 0x01000000) {
                             simple_reorders[byte >> 24] =
-                                curr_reorder_lead_byte;
+                                curr_reorder_lead_byte >> 24;
+                            curr_reorder_lead_byte += 0x01000000;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                            std::cerr << " simple reorder " << (byte >> 24)
+                                      << " -> " << simple_reorders[byte >> 24]
+                                      << "\n";
+#endif
                         }
+                        curr_reorder_lead_byte -= 0x01000000;
                     } else {
                         nonsimple_reorders.push_back(
                             detail::nonsimple_script_reorder{
                                 group.first_,
                                 group.last_,
-                                curr_reorder_lead_byte});
+                                curr_reorder_lead_byte >> 24});
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                        std::cerr << " nonsimple reorder ";
+                        std::cerr << "[" << group.first_.l1_ << " "
+                                  << group.first_.l2_ << " " << group.first_.l3_
+                                  << " " << group.first_.l4_ << "] - ";
+                        std::cerr << "[" << group.last_.l1_ << " "
+                                  << group.last_.l2_ << " " << group.last_.l3_
+                                  << " " << group.last_.l4_ << "] -> ";
+                        std::cerr << (curr_reorder_lead_byte >> 24) << "\n";
+#endif
                     }
                     prev_group_compressible = group.compressible_;
                     prev_group_last = group.last_;
+                    first = false;
                 }
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                std::cerr << std::dec;
+#endif
             },
             report_errors,
             report_warnings};

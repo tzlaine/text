@@ -70,21 +70,20 @@ struct reordering_t
 
 TEST(tailoring, reordering)
 {
-    std::array<reordering_t, 6> reorderings{{
+    std::array<reordering_t, 5> reorderings{{
         {"space", space},
         {"digit", digit},
         {"Latn", Latn},
         {"Grek", Grek},
-        {"Copt", Copt},
+        //{"Copt", Copt}, // This works, but makes the test take way too long.
         {"Hani", Hani},
     }};
 
-    // TODO: Needs a fix.
-    //std::sort(reorderings.begin(), reorderings.end());
+    std::sort(reorderings.begin(), reorderings.end());
 
     text::string reordering_str;
     std::vector<std::array<uint32_t, 1>> cps;
-    //do {
+    do {
         reordering_str = "[reorder";
         cps.clear();
         for (auto reorder : reorderings) {
@@ -114,7 +113,7 @@ TEST(tailoring, reordering)
                 0)
                 << reordering_str << " " << cps[i] << " " << cps[i + 1];
         }
-        //} while (std::next_permutation(reorderings.begin(), reorderings.end()));
+    } while (std::next_permutation(reorderings.begin(), reorderings.end()));
 }
 
 // TODO: Create a tailoring for each of the strings priovided by #include
@@ -999,27 +998,6 @@ TEST(tailoring, ja)
                 << quaternary_less[i] << "\n"
                 << quaternary_less[i + 1] << "\n";
         }
-
-#if 0
-        text::tailored_collation_element_table const little_table =
-            text::make_tailored_collation_element_table(
-                R"(&あ<<<<ア=ｱ)",
-                "ja::standard_collation_tailoring()",
-                [](text::string const & s) { std::cout << s; },
-                [](text::string const & s) { std::cout << s; });
-
-        auto const lhs_key = text::collation_sort_key(
-            quaternary_less[5],
-            /*little_*/table,
-            text::collation_strength::quaternary,
-            text::variable_weighting::non_ignorable);
-        auto const rhs_key = text::collation_sort_key(
-            quaternary_less[5 + 1],
-            /*little_*/table,
-            text::collation_strength::quaternary,
-            text::variable_weighting::non_ignorable);
-        std::cerr << "lhs_key=" << lhs_key << "\nrhs_key=" << rhs_key << "\n";
-#endif
     }
 }
 

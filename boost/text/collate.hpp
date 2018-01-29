@@ -174,11 +174,10 @@ namespace boost { namespace text {
                     uint32_t const primary = bytes[0] << 24 | bytes[1] << 16 |
                                              bytes[2] << 8 | bytes[3] << 0;
                     collation_element ce{primary, 0x0500, 0x05, 0x0};
-                    if (table) {
-                        auto const lead_byte = table->lead_byte(ce);
-                        ce.l1_ &= 0x00ffffff;
-                        ce.l1_ |= lead_byte;
-                    }
+
+                    if (table)
+                        ce.l1_ = replace_lead_byte(ce.l1_, table->lead_byte(ce));
+
                     *out++ = ce;
                     return out;
                 }
@@ -373,12 +372,10 @@ namespace boost { namespace text {
                     collation_it->value.begin(collation_elements_first),
                     collation_it->value.end(collation_elements_first),
                     std::back_inserter(ces),
-                    [table, in_table](collation_element ce) {
-                        if (table && !in_table) {
-                            auto & l1 = ce.l1_;
-                            auto lead_byte = table->lead_byte(ce);
-                            l1 &= 0x00ffffff;
-                            l1 |= lead_byte;
+                    [table](collation_element ce) {
+                        if (table) {
+                            ce.l1_ =
+                                replace_lead_byte(ce.l1_, table->lead_byte(ce));
                         }
                         return ce;
                     });

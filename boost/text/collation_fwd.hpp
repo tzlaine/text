@@ -59,6 +59,14 @@ namespace boost { namespace text {
            CPIter cps_last,
            int cps_size,
            Container & bytes);
+
+        inline uint32_t
+        replace_lead_byte(uint32_t l1_weight, uint32_t new_lead_byte)
+        {
+            l1_weight &= 0x00ffffff;
+            l1_weight |= new_lead_byte;
+            return l1_weight;
+        }
     }
 
 }}
