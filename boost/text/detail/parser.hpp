@@ -463,7 +463,6 @@ namespace boost { namespace text { namespace detail {
         }
 
         auto record = [&]() {
-            tailoring.reset_(reset, before_strength_);
             if (rel->op_ < token_kind::primary_before_star) {
                 try {
                     tailoring.relation_(*rel);
@@ -485,6 +484,8 @@ namespace boost { namespace text { namespace detail {
                 }
             }
         };
+
+        tailoring.reset_(reset, before_strength_);
 
         record();
 
