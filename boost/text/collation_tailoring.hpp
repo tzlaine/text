@@ -661,9 +661,10 @@ namespace boost { namespace text {
             case collation_strength::identical: std::cerr << "="; break;
             }
             std::cerr << " relation= "
-                      << text::to_string(relation.begin(), relation.end())
+                      << text::to_string(
+                             initial_relation.begin(), initial_relation.end())
                       << " ";
-            for (auto cp : relation) {
+            for (auto cp : initial_relation) {
                 std::cerr << std::hex << std::setw(8) << std::setfill('0') << cp
                           << " ";
             }
@@ -1092,6 +1093,8 @@ namespace boost { namespace text {
                         (prev_last.l1_ & 0xff000000)) {
                         return false;
                     }
+                    prev_last.l1_ &= 0x00ffffff;
+                    curr_first.l1_ &= 0x00ffffff;
                     return prev_last <= curr_first;
                 };
                 for (auto const & group : reorder_groups) {
