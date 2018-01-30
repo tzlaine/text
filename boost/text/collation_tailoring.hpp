@@ -252,7 +252,7 @@ namespace boost { namespace text {
                 std::cerr << "[" << std::hex << std::setw(8)
                           << std::setfill('0') << ce.l1_ << " " << std::setw(4)
                           << ce.l2_ << " " << std::setw(2) << std::setfill('0')
-                          << (int)ce.l3_ << "] ";
+                          << ce.l3_ << "] ";
             }
             std::cerr << "\n";
 #endif
@@ -325,7 +325,7 @@ namespace boost { namespace text {
                                   << std::setfill('0') << ce.l1_ << " "
                                   << std::setw(4) << ce.l2_ << " "
                                   << std::setw(2) << std::setfill('0')
-                                  << (int)ce.l3_ << "] ";
+                                  << ce.l3_ << "] ";
                     }
                     std::cerr << "\n========== \n";
                 }
@@ -348,7 +348,7 @@ namespace boost { namespace text {
                     std::cerr << "[" << std::hex << std::setw(8)
                               << std::setfill('0') << ce.l1_ << " "
                               << std::setw(4) << ce.l2_ << " " << std::setw(2)
-                              << std::setfill('0') << (int)ce.l3_ << "] ";
+                              << std::setfill('0') << ce.l3_ << "] ";
                 }
                 std::cerr << "\n";
             }
@@ -389,7 +389,7 @@ namespace boost { namespace text {
                 std::cerr << "[" << std::hex << std::setw(8)
                           << std::setfill('0') << ce.l1_ << " " << std::setw(4)
                           << ce.l2_ << " " << std::setw(2) << std::setfill('0')
-                          << (int)ce.l3_ << "] ";
+                          << ce.l3_ << "] ";
             }
             std::cerr << "\n++++++++++\n";
 #endif
@@ -505,7 +505,7 @@ namespace boost { namespace text {
             for (auto ce : ces) {
                 std::cerr << "[" << std::setw(8) << std::setfill('0') << ce.l1_
                           << " " << std::setw(4) << ce.l2_ << " "
-                          << std::setw(2) << std::setfill('0') << (int)ce.l3_
+                          << std::setw(2) << std::setfill('0') << ce.l3_
                           << "] "
                     /*<< std::setw(8) << std::setfill('0') << ce.l4_ << " "*/;
             }
@@ -557,7 +557,12 @@ namespace boost { namespace text {
                     ce.l2_ += 0x0100;
                 ce.l3_ = common_l3_weight_compressed;
                 break;
-            case collation_strength::tertiary: ++ce.l3_; break;
+            case collation_strength::tertiary:
+                if ((((ce.l3_ & 0xff00) + 0x0100) & case_level_bits_mask) == 0)
+                    ce.l3_ += 0x0100;
+                else
+                    ++ce.l3_;
+                break;
             case collation_strength::quaternary:
                 ce.l4_ = increment_32_bit(ce.l4_, false);
                 break;
@@ -575,7 +580,7 @@ namespace boost { namespace text {
                         std::cerr << "0x" << std::hex << std::setfill('0')
                                   << std::setw(8) << ce.l1_ << " "
                                   << std::setw(4) << ce.l2_ << " "
-                                  << std::setw(2) << (int)ce.l3_ << " "
+                                  << std::setw(2) << ce.l3_ << " "
                                   << std::setw(8) << ce.l4_
                                   << " WF1 violation for L2\n";
 #endif
@@ -590,7 +595,7 @@ namespace boost { namespace text {
                         std::cerr << "0x" << std::hex << std::setfill('0')
                                   << std::setw(8) << ce.l1_ << " "
                                   << std::setw(4) << ce.l2_ << " "
-                                  << std::setw(2) << (int)ce.l3_ << " "
+                                  << std::setw(2) << ce.l3_ << " "
                                   << std::setw(8) << ce.l4_
                                   << " WF1 violation for L1\n";
 #endif
@@ -613,7 +618,8 @@ namespace boost { namespace text {
                     break;
                 case collation_strength::tertiary:
                     if ((ce.l3_ & disable_case_level_mask) <=
-                        tailoring_state.last_tertiary_in_secondary_masked_) {
+                        (tailoring_state.last_tertiary_in_secondary_masked_ &
+                         disable_case_level_mask)) {
                         return false;
                     }
                     break;
@@ -755,7 +761,7 @@ namespace boost { namespace text {
                     std::cerr << "[" << std::hex << std::setw(8)
                               << std::setfill('0') << ce.l1_ << " "
                               << std::setw(4) << ce.l2_ << " " << std::setw(2)
-                              << std::setfill('0') << (int)ce.l3_ << "] ";
+                              << std::setfill('0') << ce.l3_ << "] ";
                 }
                 std::cerr << "\n";
 #endif
@@ -1004,10 +1010,12 @@ namespace boost { namespace text {
             };
             lookup_and_assign(detail::first_tertiary_ignorable);
             lookup_and_assign(detail::last_tertiary_ignorable);
+            // These magic numbers come from "{first,last} secondary ignorable"
+            // in FractionalUCA.txt.
             logical_positions[detail::first_secondary_ignorable].push_back(
-                detail::collation_element{0xffffffff, 0, 0, 0});
+                detail::collation_element{0, 0, 0x3d02, 0});
             logical_positions[detail::last_secondary_ignorable].push_back(
-                detail::collation_element{0xffffffff, 0, 0, 0});
+                detail::collation_element{0, 0, 0x3d02, 0});
             lookup_and_assign(detail::first_primary_ignorable);
             lookup_and_assign(detail::last_primary_ignorable);
             lookup_and_assign(detail::first_variable);

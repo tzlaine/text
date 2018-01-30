@@ -20,7 +20,7 @@ namespace boost { namespace text { namespace detail {
     {
         uint32_t l1_;
         uint16_t l2_;
-        uint8_t l3_;
+        uint16_t l3_;
         uint32_t l4_;
     };
 

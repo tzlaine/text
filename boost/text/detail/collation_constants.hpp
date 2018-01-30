@@ -45,7 +45,7 @@ namespace boost { namespace text { namespace detail {
         initial_first_implicit = 0x3400,
 
         common_l2_weight_compressed = 0x0500,
-        common_l3_weight_compressed = 0x05,
+        common_l3_weight_compressed = 0x0500,
 
         first_tertiary_in_secondary_masked = 0x03,
         last_tertiary_in_secondary_masked = 0x38,
@@ -57,9 +57,9 @@ namespace boost { namespace text { namespace detail {
         implicit_weights_final_lead_byte = 0xe4
     };
 
-    enum itty_bitty_collation_constants : uint8_t {
-        case_level_bits_mask = 0xc0u,
-        disable_case_level_mask = uint8_t(~0xc0u)
+    enum itty_bitty_collation_constants : uint16_t {
+        case_level_bits_mask = 0xc000u,
+        disable_case_level_mask = uint16_t(~0xc000u)
     };
 
     struct implicit_weights_segment

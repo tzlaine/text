@@ -219,7 +219,7 @@ namespace boost { namespace text {
                     // The top two bits in each byte in FractionalUCA.txt's L3
                     // weights are for the case level.
                     // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
-                    uint8_t const l3 = ce.l3_ & disable_case_level_mask;
+                    uint16_t const l3 = ce.l3_ & disable_case_level_mask;
 
                     ce.l3_ = l3;
                 }
