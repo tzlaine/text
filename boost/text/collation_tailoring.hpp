@@ -157,15 +157,16 @@ namespace boost { namespace text {
             uint16_t last_secondary_in_primary_ = last_secondary_in_primary;
         };
 
-        void modify_table(
+        detail::temp_table_element::ces_t modify_table(
             tailored_collation_element_table & table,
             temp_table_t & temp_table,
             logical_positions_t & logical_positions,
             tailoring_state_t & tailoring_state,
             cp_seq_t reset,
+            detail::temp_table_element::ces_t reset_ces,
             bool before,
             collation_strength strength,
-            cp_seq_t relation,
+            cp_seq_t const & initial_relation,
             optional_cp_seq_t const & prefix,
             optional_cp_seq_t const & extension);
 
@@ -269,15 +270,16 @@ namespace boost { namespace text {
         optional<case_level_t> case_level_;
         optional<case_first_t> case_first_;
 
-        friend void detail::modify_table(
+        friend detail::temp_table_element::ces_t detail::modify_table(
             tailored_collation_element_table & table,
             detail::temp_table_t & temp_table,
             detail::logical_positions_t & logical_positions,
             detail::tailoring_state_t & tailoring_state,
             detail::cp_seq_t reset,
+            detail::temp_table_element::ces_t reset_ces,
             bool before,
             collation_strength strength,
-            detail::cp_seq_t relation,
+            detail::cp_seq_t const & initial_relation,
             detail::optional_cp_seq_t const & prefix,
             detail::optional_cp_seq_t const & extension);
 
@@ -421,15 +423,31 @@ namespace boost { namespace text {
             // primary's lead byte though.
             if (!is_primary && !(w & 0xff000000)) {
                 w += 0x01000000;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << " -> 0x" << std::hex << std::setfill('0')
+                      << std::setw(8) << w << "\n";
+#endif
                 return w;
             } else if (!(w & 0xff0000)) {
                 w += 0x010000;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << " -> 0x" << std::hex << std::setfill('0')
+                      << std::setw(8) << w << "\n";
+#endif
                 return w;
             } else if (!(w & 0xff00)) {
                 w += 0x0100;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << " -> 0x" << std::hex << std::setfill('0')
+                      << std::setw(8) << w << "\n";
+#endif
                 return w;
             } else if (!(w & 0xff)) {
                 w += 1;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << " -> 0x" << std::hex << std::setfill('0')
+                      << std::setw(8) << w << "\n";
+#endif
                 return w;
             }
 
@@ -615,15 +633,16 @@ namespace boost { namespace text {
         }
 
         // http://www.unicode.org/reports/tr35/tr35-collation.html#Orderings
-        inline void modify_table(
+        inline temp_table_element::ces_t modify_table(
             tailored_collation_element_table & table,
             temp_table_t & temp_table,
             logical_positions_t & logical_positions,
             tailoring_state_t & tailoring_state,
             cp_seq_t reset,
+            temp_table_element::ces_t reset_ces,
             bool before,
             collation_strength strength,
-            cp_seq_t relation,
+            cp_seq_t const & initial_relation,
             optional_cp_seq_t const & prefix,
             optional_cp_seq_t const & extension)
         {
@@ -650,16 +669,13 @@ namespace boost { namespace text {
             }
             std::cerr << "\n";
 #endif
+            temp_table_element::ces_t const initial_relation_ces =
+                get_ces(initial_relation, table);
+
+            cp_seq_t relation = initial_relation;
+
             if (prefix)
                 relation.insert(relation.end(), prefix->begin(), prefix->end());
-
-            temp_table_element::ces_t reset_ces;
-            if (reset.size() == 1u && first_tertiary_ignorable <= reset[0] &&
-                reset[0] <= first_implicit) {
-                reset_ces = logical_positions[reset[0]];
-            } else {
-                reset_ces = get_ces(reset, table);
-            }
 
             if (before) {
                 auto ces_it = last_ce_at_least_strength(
@@ -801,7 +817,6 @@ namespace boost { namespace text {
             element.cps_ = std::move(relation);
             element.ces_ = std::move(reset_ces);
             element.tailored_ = true;
-            temp_table.insert(table_target_it, std::move(element));
 
             // http://www.unicode.org/reports/tr10/#WF5 "If a table contains a
             // contraction consisting of a sequence of N code points, with N > 2
@@ -818,23 +833,21 @@ namespace boost { namespace text {
             // table.  This also ensures that the in-tailored-table and
             // in-default-table longest matches are disjoint.
 
-            // TODO: I don't think this is necessary; try removing it and
-            // seeing if it breaks the tests (once the tests exist).
-#if 0
-            auto same_key = [&relation](temp_table_element const & e) {
-                return e.cps_ == relation;
-            };
-            auto remove_it =
-                std::remove_if(temp_table.begin(), table_target_it, same_key);
-            if (remove_it == table_target_it) {
-                remove_it = std::remove_if(
-                    std::next(table_target_it), temp_table.end(), same_key);
-            }
-            if (remove_it != temp_table.end()) {
-                assert(std::distance(remove_it, temp_table.end()) == 1);
+            // Remove the previous instance of relation from the table, if
+            // there was one.
+            temp_table_element::ces_t const relation_ces =
+                get_ces(relation, table);
+            auto remove_it = std::lower_bound(
+                temp_table.begin(), temp_table.end(), relation_ces);
+            if (remove_it != temp_table.end() && remove_it->cps_ == relation) {
+                if (remove_it <= table_target_it)
+                    --table_target_it;
                 temp_table.erase(remove_it);
             }
-#endif
+
+            temp_table.insert(table_target_it, std::move(element));
+
+            return relation_ces;
         }
 
         // TODO: Drop support for this?  No! Just add table entries for any
@@ -948,9 +961,6 @@ namespace boost { namespace text {
         parser_diagnostic_callback report_warnings =
             parser_diagnostic_callback())
     {
-        detail::cp_seq_t curr_reset;
-        bool reset_is_before = false;
-
         detail::temp_table_t temp_table = detail::make_temp_table();
 
         optional<collation_strength> strength_override;
@@ -1014,18 +1024,30 @@ namespace boost { namespace text {
 
         detail::tailoring_state_t tailoring_state;
 
+        detail::cp_seq_t curr_reset;
+        bool reset_is_before = false;
+        detail::temp_table_element::ces_t curr_reset_ces;
+
         detail::collation_tailoring_interface callbacks = {
             [&](detail::cp_seq_t const & reset, bool before) {
                 curr_reset = reset;
                 reset_is_before = before;
+                if (reset.size() == 1u &&
+                    detail::first_tertiary_ignorable <= reset[0] &&
+                    reset[0] <= detail::first_implicit) {
+                    curr_reset_ces = logical_positions[reset[0]];
+                } else {
+                    curr_reset_ces = detail::get_ces(reset, table);
+                }
             },
             [&](detail::relation_t const & rel) {
-                detail::modify_table(
+                curr_reset_ces = detail::modify_table(
                     table,
                     temp_table,
                     logical_positions,
                     tailoring_state,
                     curr_reset,
+                    curr_reset_ces,
                     reset_is_before,
                     static_cast<collation_strength>(rel.op_),
                     rel.cps_,
@@ -1053,19 +1075,33 @@ namespace boost { namespace text {
                     (detail::g_reorder_groups[0].first_.l1_ & 0xff000000) -
                     0x01000000;
                 bool prev_group_compressible = false;
+                detail::collation_element prev_group_first = {
+                    0xffffffff, 0, 0, 0};
                 detail::collation_element prev_group_last = {
                     0xffffffff, 0, 0, 0};
                 bool first = true;
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                 std::cerr << std::hex;
 #endif
+                auto compressible = [](detail::collation_element prev_first,
+                                       detail::collation_element prev_last,
+                                       detail::collation_element curr_first) {
+                    // The end of the previous group must stay in the same
+                    // lead byte as the beginning of that group.
+                    if ((prev_first.l1_ & 0xff000000) !=
+                        (prev_last.l1_ & 0xff000000)) {
+                        return false;
+                    }
+                    return prev_last <= curr_first;
+                };
                 for (auto const & group : reorder_groups) {
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                     std::cerr << "processing group " << group.name_ << "\n";
 #endif
-                    bool const compress = group.compressible_ &&
-                                          prev_group_compressible &&
-                                          prev_group_last <= group.first_;
+                    bool const compress =
+                        group.compressible_ && prev_group_compressible &&
+                        compressible(
+                            prev_group_first, prev_group_last, group.first_);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                     std::cerr << "  compress=" << compress << "\n";
 #endif
@@ -1123,6 +1159,7 @@ namespace boost { namespace text {
 #endif
                     }
                     prev_group_compressible = group.compressible_;
+                    prev_group_first = group.first_;
                     prev_group_last = group.last_;
                     first = false;
                 }
