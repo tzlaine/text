@@ -132,10 +132,10 @@ group_cps = {
     'Mymr': [0x1000, 0x1075, 0xAA75, 0xAA76],
     'Khmr': [0x1780, 0x1781, 0x17C5, 0x17D2],
     'Sinh': [0x0D85, 0x0D86, 0x0DDE, 0x0DCA],
-    'Thai': [0x0E01, 0x0E02, 0x0E44, 0x0E45],
+    'Thai': [0x0E01, 0x0E02, 0x0E43, 0x0E44],
     'Grek': [0x03B1, 0x1D6C2, 0x03F8, 0x03F7], # .., .., [5F 5E, 05, 05] [5F 5E, 05, A0]
     'Beng': [0x0980, 0x0985, 0x09D7, 0x09FC],
-    'Guru': [0x0A74, 0x0A73, 0x0A4C, 0x0A4D],
+    'Guru': [0x0A74, 0x0A73, 0x0A4B, 0x0A4C],
     'Gujr': [0x0AD0, 0x0A85, 0x0ACC, 0x0ACD],
     'Orya': [0x0B05, 0x0B06, 0x0B56, 0x0B57],
     'Taml': [0x0BD0, 0x0B85, 0x0BCD, 0x0BD7],
@@ -351,7 +351,7 @@ for k0,v0 in sorted(tailorings_by_file.items()):
         for match in reorder_regex.finditer(v):
             for g in match.group(1).strip().split(' '):
                 groups.append(g)
-        if 'private' not in k and len(groups) and 'others' not in groups:
+        if 'private' not in k and 'zh' not in k0 and len(groups) and 'others' not in groups:
             groups += filter(lambda x: x not in groups, groups_in_ce_order)
             group_ordering_cps = 0
             cps_string = ''

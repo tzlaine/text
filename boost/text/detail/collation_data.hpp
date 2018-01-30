@@ -106,6 +106,7 @@ namespace boost { namespace text { namespace detail {
         return !(lhs == rhs);
     }
 
+    template<int N>
     struct collation_trie_key
     {
         using iterator = uint32_t *;
@@ -121,7 +122,7 @@ namespace boost { namespace text { namespace detail {
             constexpr storage_t(uint32_t x, uint32_t y, uint32_t z) noexcept :
                 values_{x, y, z}
             {}
-            uint32_t values_[3];
+            uint32_t values_[N];
         };
 
         constexpr collation_trie_key() noexcept : cps_(), size_(0) {}
@@ -139,6 +140,7 @@ namespace boost { namespace text { namespace detail {
         iterator insert(iterator at, uint32_t cp) noexcept
         {
             assert(at == end());
+            assert(size_ < N);
             *at = cp;
             ++size_;
             return at;
@@ -149,7 +151,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     using collation_trie_t =
-        trie::trie_map<collation_trie_key, collation_elements>;
+        trie::trie_map<collation_trie_key<32>, collation_elements>;
     using trie_match_t = collation_trie_t::match_result;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 

@@ -126,7 +126,7 @@ namespace boost {{ namespace text {{
 
 namespace detail {{
     namespace {{
-        static constexpr std::array<collation_trie_key, {0}> g_trie_keys = {{{{
+        static constexpr std::array<collation_trie_key<3>, {0}> g_trie_keys = {{{{
 {1}
         }}}};
         static constexpr std::array<collation_elements, {0}> g_trie_values = {{{{
@@ -168,7 +168,7 @@ namespace detail {{
 
     collation_trie_t const g_default_collation_trie = make_trie();
 
-    collation_trie_key const * g_trie_keys_first = &g_trie_keys[0];
+    collation_trie_key<3> const * g_trie_keys_first = &g_trie_keys[0];
     collation_elements const * g_trie_values_first = &g_trie_values[0];
 }}
 
@@ -693,8 +693,8 @@ if __name__ == "__main__":
     key_lines = ''
     value_lines = ''
     for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
-        line = '        {{ {{ collation_trie_key::storage_t{{{{ {} }}}}, {} }}, {{{}, {}}} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k), v[0], v[1])
-        key_lines += '        {{ collation_trie_key::storage_t{{ {} }}, {} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k))
+        line = '        {{ {{ collation_trie_key<3>::storage_t{{{{ {} }}}}, {} }}, {{{}, {}}} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k), v[0], v[1])
+        key_lines += '        {{ collation_trie_key<3>::storage_t{{ {} }}, {} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k))
         value_lines += '        {{{}, {}}},\n'.format(v[0], v[1])
 
     cpp_file = open('collation_data_1.cpp', 'w')

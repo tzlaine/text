@@ -22,7 +22,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        extern collation_trie_key const * g_trie_keys_first;
+        extern collation_trie_key<3> const * g_trie_keys_first;
         extern collation_elements const * g_trie_values_first;
         extern int const * g_trie_element_original_order_first;
 
