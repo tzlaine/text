@@ -88,11 +88,15 @@ auto const warning = [](string const & s) {};
     string const this_tailoring = string(g_curr_file) + "::" + g_curr_tailoring;
 
     g_ofs << header << R"Q(
-tailored_collation_element_table const table =
-    make_tailored_collation_element_table(
-        data::)Q" << this_tailoring << R"Q(_collation_tailoring(),
-        ")Q"
+tailored_collation_element_table const & table()
+{
+    static tailored_collation_element_table retval =
+        make_tailored_collation_element_table(
+            data::)Q" << this_tailoring << R"Q(_collation_tailoring(),
+            ")Q"
           << this_tailoring << R"Q(_collation_tailoring()", error, warning);
+    return retval;
+}
 )Q";
 }
 
@@ -133,11 +137,11 @@ void print_rule_test(
         }
         g_ofs << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
               << ",\n        " << vector_of(relation) << ",\n        "
-              << "table, " << strength << "),\n        -1);\n";
+              << "table(), " << strength << "),\n        -1);\n";
         if (collation_strength::primary < strength) {
             g_ofs << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
                   << ",\n        " << vector_of(relation)
-                  << ",\n        " << "table, " << prev(strength)
+                  << ",\n        " << "table(), " << prev(strength)
                   << "),\n        0);\n";
         }
     }
@@ -149,7 +153,7 @@ void print_rule_test(
         }
         g_ofs << "    EXPECT_EQ(collate(\n        " << vector_of(reset)
               << ",\n        " << vector_of(relation)
-              << ",\n        table, collation_strength::quaternary),\n        "
+              << ",\n        table(), collation_strength::quaternary),\n        "
                  "1);\n";
     }
 }
