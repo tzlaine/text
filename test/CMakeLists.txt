@@ -13,6 +13,15 @@ endif ()
 
 set(coverage_gcda_files)
 
+# This is used to generate some of the test files.  It is not a test.
+add_executable(generate_tailoring_rule_tests generate_tailoring_rule_tests.cpp)
+target_compile_options(generate_tailoring_rule_tests PRIVATE ${warnings_flag})
+target_link_libraries(generate_tailoring_rule_tests text gtest gtest_main)
+set_property(TARGET generate_tailoring_rule_tests PROPERTY CXX_STANDARD ${CXX_STD})
+if (clang_on_linux)
+    target_link_libraries(generate_tailoring_rule_tests c++)
+endif ()
+
 macro(add_test_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
