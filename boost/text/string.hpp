@@ -1307,18 +1307,30 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of t and c. */
     inline string operator+(string t, char c) { return t += c; }
 
-    /** Creates a new string object that is the concatenation of t and c. */
+    /** Creates a new string object that is the concatenation of t and c_str. */
     template<int N>
     inline string operator+(string t, char const (&c_str)[N])
     {
         return t += string_view(c_str, N);
     }
 
-    /** Creates a new string object that is the concatenation of t and c. */
+    /** Creates a new string object that is the concatenation of c_str and t. */
     template<int N>
     inline string operator+(char const (&c_str)[N], string t)
     {
         return t.insert(0, string_view(c_str, N));
+    }
+
+    /** Creates a new string object that is the concatenation of t and c_str. */
+    inline string operator+(string t, char const * c_str)
+    {
+        return t += string_view(c_str);
+    }
+
+    /** Creates a new string object that is the concatenation of c_str and t. */
+    inline string operator+(char const * c_str, string t)
+    {
+        return t.insert(0, string_view(c_str));
     }
 
     /** Creates a new string object that is the concatenation of t and tv. */
@@ -1331,23 +1343,23 @@ namespace boost { namespace text {
      */
     inline string operator+(string && t, string_view tv) { return t += tv; }
 
-    /** Creates a new string object that is the concatenation of t and tv. */
+    /** Creates a new string object that is the concatenation of t and t2. */
     inline string operator+(string const & t, string const & t2)
     {
         return string(t) += t2;
     }
 
-    /** Creates a new string object that is the concatenation of t and tv.
+    /** Creates a new string object that is the concatenation of t and t2.
      */
     inline string operator+(string && t, string const & t2) { return t += t2; }
 
-    /** Creates a new string object that is the concatenation of t and tv. */
+    /** Creates a new string object that is the concatenation of t and t2. */
     inline string operator+(string const & t, string && t2)
     {
         return t2.insert(0, t);
     }
 
-    /** Creates a new string object that is the concatenation of t and tv.
+    /** Creates a new string object that is the concatenation of t and t2.
      */
     inline string operator+(string && t, string && t2)
     {
