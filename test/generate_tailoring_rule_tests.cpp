@@ -191,15 +191,7 @@ void make_test()
     detail::parse(
         g_tailoring.begin(), g_tailoring.end(), g_callbacks, this_test);
     g_ofs << "}\n";
+    g_ofs.close();
 }
 
-int main()
-{
-
-    g_curr_file = "az";                                     // TODO
-    g_curr_tailoring = "standard";                          // TODO
-    g_tailoring = data::az::standard_collation_tailoring(); // TODO
-    make_test();
-
-    return 0;
-}
+#include "tailoring_rules_tests_main.cpp"
