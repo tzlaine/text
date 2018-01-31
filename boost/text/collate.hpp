@@ -209,10 +209,12 @@ namespace boost { namespace text {
             collation_element * first,
             collation_element * last,
             variable_weighting weighting,
-            bool after_variable)
+            bool after_variable,
+            retain_case_bits_t retain_case_bits)
         {
-            // TODO: Don't do this if we want to retain the case level!
-            if (true) {
+            // TODO: Don't do this if we want to have a case level, or
+            // re-order cases!
+            if (retain_case_bits == retain_case_bits_t::no) {
                 auto it = first;
                 while (it != last) {
                     auto & ce = *it++;
@@ -294,7 +296,8 @@ namespace boost { namespace text {
            Iter last,
            variable_weighting weighting,
            container::small_vector<collation_element, 1024> & ces,
-           tailored_collation_element_table const * table)
+           tailored_collation_element_table const * table,
+           retain_case_bits_t retain_case_bits)
         {
             bool after_variable = false;
             while (first != last) {
@@ -319,7 +322,8 @@ namespace boost { namespace text {
                         derived_ces,
                         derived_ces_end,
                         weighting,
-                        after_variable);
+                        after_variable,
+                        retain_case_bits);
                     std::copy(
                         derived_ces, derived_ces_end, std::back_inserter(ces));
                     continue;
@@ -385,7 +389,8 @@ namespace boost { namespace text {
                     &*(ces.end() - collation_it->value.size()),
                     &*ces.end(),
                     weighting,
-                    after_variable);
+                    after_variable,
+                    retain_case_bits);
             }
         }
 

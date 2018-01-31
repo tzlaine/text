@@ -370,7 +370,8 @@ namespace boost { namespace text {
                fcc_cps.end(),
                variable_weighting::non_ignorable,
                ces,
-               &table);
+               &table,
+               retain_case_bits_t::yes);
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
             {
@@ -659,6 +660,14 @@ namespace boost { namespace text {
                 std::cerr << std::hex << std::setw(8) << std::setfill('0') << cp
                           << " ";
             }
+            std::cerr << " ";
+            for (auto ce : reset_ces) {
+                std::cerr << "[" << std::hex << std::setw(8)
+                          << std::setfill('0') << ce.l1_ << " " << std::setw(4)
+                          << ce.l2_ << " " << std::setw(2) << std::setfill('0')
+                          << ce.l3_ << "] ";
+            }
+            std::cerr << " ";
             switch (strength) {
             case collation_strength::primary: std::cerr << "<"; break;
             case collation_strength::secondary: std::cerr << "<<"; break;

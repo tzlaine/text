@@ -33,6 +33,8 @@ namespace boost { namespace text {
 
         struct collation_element;
 
+        enum class retain_case_bits_t { no, yes };
+
         template<typename OutIter>
         inline OutIter add_derived_elements(
             uint32_t cp,
@@ -46,7 +48,8 @@ namespace boost { namespace text {
            Iter last,
            variable_weighting weighting,
            container::small_vector<collation_element, 1024> & ces,
-           tailored_collation_element_table const * table);
+           tailored_collation_element_table const * table,
+           retain_case_bits_t retain_case_bits = retain_case_bits_t::no);
 
         template<typename CEIter, typename CPIter, typename Container>
         void
