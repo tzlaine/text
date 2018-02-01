@@ -57,34 +57,4 @@ TEST(tailoring, kk_standard_000_001)
         std::vector<uint32_t>(1, 0x04ae),
         table(), collation_strength::secondary),
         0);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x044c),
-        std::vector<uint32_t>(1, 0x0456),
-        table(), collation_strength::primary),
-        -1);
-    // before initial reset cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x044c),
-        std::vector<uint32_t>(1, 0x0456),
-        table(), collation_strength::quaternary),
-        1);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0456),
-        std::vector<uint32_t>(1, 0x0406),
-        table(), collation_strength::tertiary),
-        -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0456),
-        std::vector<uint32_t>(1, 0x0406),
-        table(), collation_strength::secondary),
-        0);
-    // before initial reset cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x044c),
-        std::vector<uint32_t>(1, 0x0406),
-        table(), collation_strength::quaternary),
-        1);
 }

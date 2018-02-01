@@ -216,11 +216,13 @@ detail::collation_tailoring_interface g_callbacks = {
             g_count = 0;
             new_test();
         }
-        print_rule_test(
-            rel.cps_,
-            static_cast<collation_strength>(rel.op_),
-            rel.prefix_and_extension_.prefix_,
-            rel.prefix_and_extension_.extension_);
+        if (!g_before) {
+            print_rule_test(
+                rel.cps_,
+                static_cast<collation_strength>(rel.op_),
+                rel.prefix_and_extension_.prefix_,
+                rel.prefix_and_extension_.extension_);
+        }
         g_curr_reset = rel.cps_;
         g_just_after_reset = false;
         ++g_count;

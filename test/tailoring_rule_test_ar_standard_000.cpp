@@ -23,60 +23,6 @@ TEST(tailoring, ar_standard_000_001)
 {
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x062a),
-        std::vector<uint32_t>(1, 0x0629),
-        table(), collation_strength::secondary),
-        -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x062a),
-        std::vector<uint32_t>(1, 0x0629),
-        table(), collation_strength::primary),
-        0);
-    // before initial reset cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x062a),
-        std::vector<uint32_t>(1, 0x0629),
-        table(), collation_strength::quaternary),
-        1);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x064a),
-        std::vector<uint32_t>(1, 0x06cc),
-        table(), collation_strength::secondary),
-        -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x064a),
-        std::vector<uint32_t>(1, 0x06cc),
-        table(), collation_strength::primary),
-        0);
-    // before initial reset cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x064a),
-        std::vector<uint32_t>(1, 0x06cc),
-        table(), collation_strength::quaternary),
-        1);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x06cc),
-        std::vector<uint32_t>(1, 0x0649),
-        table(), collation_strength::secondary),
-        -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x06cc),
-        std::vector<uint32_t>(1, 0x0649),
-        table(), collation_strength::primary),
-        0);
-    // before initial reset cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x064a),
-        std::vector<uint32_t>(1, 0x0649),
-        table(), collation_strength::quaternary),
-        1);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0621),
         std::vector<uint32_t>(1, 0x0623),
         table(), collation_strength::secondary),
