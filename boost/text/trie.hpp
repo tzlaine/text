@@ -268,6 +268,13 @@ namespace boost { namespace trie {
             return extend_match_impl(match_result{prev}, first, last);
         }
 
+        template<typename OutIter>
+        OutIter copy_next_key_elements(match_result prev, OutIter out) const
+        {
+            auto node = to_node_ptr(prev.node);
+            return std::copy(node->key_begin(), node->key_end(), out);
+        }
+
         template<typename KeyRange>
         optional_ref<value_type const> operator[](KeyRange const & key) const
             noexcept
@@ -482,6 +489,8 @@ namespace boost { namespace trie {
             using iterator = typename children_t::iterator;
             using const_iterator = typename children_t::const_iterator;
             using key_element = typename Key::value_type;
+            using keys_t = std::vector<key_element>;
+            using key_iterator = typename keys_t::iterator;
 
             trie_node_t() : parent_(nullptr) {}
             trie_node_t(trie_node_t * parent) : parent_(parent) {}
@@ -627,6 +636,9 @@ namespace boost { namespace trie {
             iterator begin() noexcept { return children_.begin(); }
             iterator end() noexcept { return children_.end(); }
 
+            key_iterator key_begin() noexcept { return keys_.begin(); }
+            key_iterator key_end() noexcept { return keys_.end(); }
+
             template<typename Compare>
             iterator insert(
                 key_element const & e,
@@ -705,7 +717,7 @@ namespace boost { namespace trie {
                 return keys_[it - children_.begin()];
             }
 
-            std::vector<key_element> keys_;
+            keys_t keys_;
             children_t children_;
             optional<Value> value_;
             trie_node_t * parent_;

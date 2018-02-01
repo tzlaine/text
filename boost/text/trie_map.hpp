@@ -421,6 +421,13 @@ namespace boost { namespace trie {
             return extend_match_impl(prev, first, last);
         }
 
+        template<typename OutIter>
+        OutIter copy_next_key_elements(match_result prev, OutIter out) const
+        {
+            auto node = to_node_ptr(prev.node);
+            return std::copy(node->key_begin(), node->key_end(), out);
+        }
+
         template<typename KeyRange>
         optional_ref<mapped_type const> operator[](KeyRange const & key) const
             noexcept

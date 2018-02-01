@@ -197,6 +197,12 @@ namespace boost { namespace trie {
             return trie_.extend_match(prev, first, last);
         }
 
+        template<typename OutIter>
+        OutIter copy_next_key_elements(match_result prev, OutIter out) const
+        {
+            return trie_.copy_next_key_elements(prev, out);
+        }
+
         iterator begin() noexcept { return iterator(const_this()->begin()); }
         iterator end() noexcept { return iterator(const_this()->end()); }
 
