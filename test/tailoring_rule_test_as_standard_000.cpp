@@ -21,36 +21,49 @@ tailored_collation_element_table const & table()
 }
 TEST(tailoring, as_standard_000_001)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0994),
         std::vector<uint32_t>(1, 0x0982),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0982),
         std::vector<uint32_t>(1, 0x0981),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0981),
         std::vector<uint32_t>(1, 0x0983),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x09a4),
         std::vector<uint32_t>(1, 0x09ce),
-        std::vector<uint32_t>{0x09a4, 0x09cd, 0x200d},
-        table(), collation_strength::identical),
+        table(), collation_strength::primary),
         -1);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x09a4),
+        std::vector<uint32_t>(1, 0x09ce),
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x09ce),
         std::vector<uint32_t>{0x09a4, 0x09cd, 0x200d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x09a4),
         std::vector<uint32_t>{0x09a4, 0x09cd, 0x200d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x09b9),
         std::vector<uint32_t>{0x0995, 0x09cd, 0x09b7},

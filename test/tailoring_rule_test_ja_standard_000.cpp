@@ -21,716 +21,601 @@ tailored_collation_element_table const & table()
 }
 TEST(tailoring, ja_standard_000_001)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x309d),
         std::vector<uint32_t>(1, 0x30fd),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x309d),
         std::vector<uint32_t>(1, 0x30fd),
         table(), collation_strength::tertiary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
-        std::vector<uint32_t>{0x3042, 0x30fc},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3041, 0x30fc},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3041),
+        std::vector<uint32_t>{0x3041, 0x30fc},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3041),
+        std::vector<uint32_t>{0x3041, 0x30fc},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3042, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3042, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0x304b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3042),
-        std::vector<uint32_t>{0x304b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x304b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x304b),
-        std::vector<uint32_t>{0x3095, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>{0x3095, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3095, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3095),
-        std::vector<uint32_t>{0x304c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3095),
         std::vector<uint32_t>{0x304c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x304c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x304c),
-        std::vector<uint32_t>{0x3055, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304c),
         std::vector<uint32_t>{0x3055, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3055, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3055),
-        std::vector<uint32_t>{0x3056, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>{0x3056, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3056, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3056),
-        std::vector<uint32_t>{0x305f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3056),
         std::vector<uint32_t>{0x305f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x305f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x305f),
-        std::vector<uint32_t>{0x3060, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>{0x3060, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3060, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3060),
-        std::vector<uint32_t>{0x306a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3060),
         std::vector<uint32_t>{0x306a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x306a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x306a),
-        std::vector<uint32_t>{0x306f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>{0x306f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x306f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x306f),
-        std::vector<uint32_t>{0x3070, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x3070, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3070, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3070),
-        std::vector<uint32_t>{0x3071, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3070),
         std::vector<uint32_t>{0x3071, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3071, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3071),
-        std::vector<uint32_t>{0x307e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3071),
         std::vector<uint32_t>{0x307e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x307e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307e),
-        std::vector<uint32_t>{0x3083, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>{0x3083, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3083, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3083),
-        std::vector<uint32_t>{0x3084, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3083),
         std::vector<uint32_t>{0x3084, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3084, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3084),
-        std::vector<uint32_t>{0x3089, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0x3089, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x3089, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3089),
-        std::vector<uint32_t>{0x308e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>{0x308e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x308e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x308e),
-        std::vector<uint32_t>{0x308f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308e),
         std::vector<uint32_t>{0x308f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x308f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x30a1, 0x30fc},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x30a1, 0x30fc},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30a1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a1),
-        std::vector<uint32_t>{0xff67, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a1),
         std::vector<uint32_t>{0xff67, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff67, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff67),
-        std::vector<uint32_t>{0x30a2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff67),
         std::vector<uint32_t>{0x30a2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30a2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a2),
-        std::vector<uint32_t>{0xff71, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a2),
         std::vector<uint32_t>{0xff71, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff71, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff71),
-        std::vector<uint32_t>{0x30ab, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff71),
         std::vector<uint32_t>{0x30ab, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30ab, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ab),
-        std::vector<uint32_t>{0xff76, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ab),
         std::vector<uint32_t>{0xff76, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff76, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff76),
-        std::vector<uint32_t>{0x30ac, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff76),
         std::vector<uint32_t>{0x30ac, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30ac, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ac),
-        std::vector<uint32_t>{0x30b5, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ac),
         std::vector<uint32_t>{0x30b5, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30b5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b5),
-        std::vector<uint32_t>{0xff7b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b5),
         std::vector<uint32_t>{0xff7b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff7b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7b),
-        std::vector<uint32_t>{0x30b6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7b),
         std::vector<uint32_t>{0x30b6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30b6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b6),
-        std::vector<uint32_t>{0x30bf, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b6),
         std::vector<uint32_t>{0x30bf, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30bf, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bf),
-        std::vector<uint32_t>{0xff80, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bf),
         std::vector<uint32_t>{0xff80, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff80, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff80),
-        std::vector<uint32_t>{0x30c0, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff80),
         std::vector<uint32_t>{0x30c0, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30c0, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c0),
-        std::vector<uint32_t>{0x30ca, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c0),
         std::vector<uint32_t>{0x30ca, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30ca, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ca),
-        std::vector<uint32_t>{0xff85, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ca),
         std::vector<uint32_t>{0xff85, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff85, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff85),
-        std::vector<uint32_t>{0x30cf, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff85),
         std::vector<uint32_t>{0x30cf, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30cf, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cf),
-        std::vector<uint32_t>{0xff8a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cf),
         std::vector<uint32_t>{0xff8a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff8a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8a),
-        std::vector<uint32_t>{0x31f5, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8a),
         std::vector<uint32_t>{0x31f5, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x31f5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f5),
-        std::vector<uint32_t>{0x30d0, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f5),
         std::vector<uint32_t>{0x30d0, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30d0, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d0),
-        std::vector<uint32_t>{0x30d1, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d0),
         std::vector<uint32_t>{0x30d1, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30d1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d1),
-        std::vector<uint32_t>{0x30de, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d1),
         std::vector<uint32_t>{0x30de, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30de, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30de),
-        std::vector<uint32_t>{0xff8f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30de),
         std::vector<uint32_t>{0xff8f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff8f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8f),
-        std::vector<uint32_t>{0x30e3, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8f),
         std::vector<uint32_t>{0x30e3, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30e3, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e3),
-        std::vector<uint32_t>{0xff6c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e3),
         std::vector<uint32_t>{0xff6c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff6c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6c),
-        std::vector<uint32_t>{0x30e4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6c),
         std::vector<uint32_t>{0x30e4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30e4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e4),
-        std::vector<uint32_t>{0xff94, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e4),
         std::vector<uint32_t>{0xff94, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff94, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff94),
-        std::vector<uint32_t>{0x30e9, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff94),
         std::vector<uint32_t>{0x30e9, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30e9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e9),
-        std::vector<uint32_t>{0xff97, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e9),
         std::vector<uint32_t>{0xff97, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff97, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff97),
-        std::vector<uint32_t>{0x31fb, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff97),
         std::vector<uint32_t>{0x31fb, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x31fb, 0x30fc},
@@ -740,1475 +625,1229 @@ TEST(tailoring, ja_standard_000_001)
 
 TEST(tailoring, ja_standard_000_002)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31fb),
-        std::vector<uint32_t>{0x30ee, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31fb),
         std::vector<uint32_t>{0x30ee, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30ee, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ee),
-        std::vector<uint32_t>{0x30ef, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ee),
         std::vector<uint32_t>{0x30ef, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30ef, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ef),
-        std::vector<uint32_t>{0xff9c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ef),
         std::vector<uint32_t>{0xff9c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0xff9c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff9c),
-        std::vector<uint32_t>{0x30f5, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff9c),
         std::vector<uint32_t>{0x30f5, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30f5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f5),
-        std::vector<uint32_t>{0x30f7, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f5),
         std::vector<uint32_t>{0x30f7, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30f7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
-        std::vector<uint32_t>{0x3044, 0x30fc},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3043, 0x30fc},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3043),
+        std::vector<uint32_t>{0x3043, 0x30fc},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3043),
+        std::vector<uint32_t>{0x3043, 0x30fc},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3044, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3044, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0x304d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3044),
-        std::vector<uint32_t>{0x304d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x304d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x304d),
-        std::vector<uint32_t>{0x304e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>{0x304e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x304e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x304e),
-        std::vector<uint32_t>{0x3057, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304e),
         std::vector<uint32_t>{0x3057, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3057, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3057),
-        std::vector<uint32_t>{0x3058, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0x3058, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3058, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3058),
-        std::vector<uint32_t>{0x3061, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3058),
         std::vector<uint32_t>{0x3061, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3061, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3061),
-        std::vector<uint32_t>{0x3062, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>{0x3062, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3062, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3062),
-        std::vector<uint32_t>{0x306b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3062),
         std::vector<uint32_t>{0x306b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x306b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x306b),
-        std::vector<uint32_t>{0x3072, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>{0x3072, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3072, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3072),
-        std::vector<uint32_t>{0x3073, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x3073, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3073, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3073),
-        std::vector<uint32_t>{0x3074, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3073),
         std::vector<uint32_t>{0x3074, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3074, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3074),
-        std::vector<uint32_t>{0x307f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3074),
         std::vector<uint32_t>{0x307f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x307f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307f),
-        std::vector<uint32_t>{0x308a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>{0x308a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x308a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x308a),
-        std::vector<uint32_t>{0x3090, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>{0x3090, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x3090, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>{0x30a3, 0x30fc},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>{0x30a3, 0x30fc},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30a3, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a3),
-        std::vector<uint32_t>{0xff68, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a3),
         std::vector<uint32_t>{0xff68, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff68, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff68),
-        std::vector<uint32_t>{0x30a4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff68),
         std::vector<uint32_t>{0x30a4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30a4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a4),
-        std::vector<uint32_t>{0xff72, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a4),
         std::vector<uint32_t>{0xff72, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff72, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff72),
-        std::vector<uint32_t>{0x30ad, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff72),
         std::vector<uint32_t>{0x30ad, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30ad, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ad),
-        std::vector<uint32_t>{0xff77, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ad),
         std::vector<uint32_t>{0xff77, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff77, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff77),
-        std::vector<uint32_t>{0x30ae, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff77),
         std::vector<uint32_t>{0x30ae, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30ae, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ae),
-        std::vector<uint32_t>{0x30b7, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ae),
         std::vector<uint32_t>{0x30b7, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30b7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b7),
-        std::vector<uint32_t>{0xff7c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b7),
         std::vector<uint32_t>{0xff7c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff7c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7c),
-        std::vector<uint32_t>{0x31f1, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7c),
         std::vector<uint32_t>{0x31f1, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x31f1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f1),
-        std::vector<uint32_t>{0x30b8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f1),
         std::vector<uint32_t>{0x30b8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30b8, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b8),
-        std::vector<uint32_t>{0x30c1, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b8),
         std::vector<uint32_t>{0x30c1, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30c1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c1),
-        std::vector<uint32_t>{0xff81, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c1),
         std::vector<uint32_t>{0xff81, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff81, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff81),
-        std::vector<uint32_t>{0x30c2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff81),
         std::vector<uint32_t>{0x30c2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30c2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c2),
-        std::vector<uint32_t>{0x30cb, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c2),
         std::vector<uint32_t>{0x30cb, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30cb, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cb),
-        std::vector<uint32_t>{0xff86, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cb),
         std::vector<uint32_t>{0xff86, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff86, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff86),
-        std::vector<uint32_t>{0x30d2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff86),
         std::vector<uint32_t>{0x30d2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30d2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d2),
-        std::vector<uint32_t>{0xff8b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d2),
         std::vector<uint32_t>{0xff8b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff8b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8b),
-        std::vector<uint32_t>{0x31f6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8b),
         std::vector<uint32_t>{0x31f6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x31f6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f6),
-        std::vector<uint32_t>{0x30d3, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f6),
         std::vector<uint32_t>{0x30d3, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30d3, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d3),
-        std::vector<uint32_t>{0x30d4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d3),
         std::vector<uint32_t>{0x30d4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30d4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d4),
-        std::vector<uint32_t>{0x30df, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d4),
         std::vector<uint32_t>{0x30df, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30df, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30df),
-        std::vector<uint32_t>{0xff90, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30df),
         std::vector<uint32_t>{0xff90, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff90, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff90),
-        std::vector<uint32_t>{0x30ea, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff90),
         std::vector<uint32_t>{0x30ea, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30ea, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ea),
-        std::vector<uint32_t>{0xff98, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ea),
         std::vector<uint32_t>{0xff98, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0xff98, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff98),
-        std::vector<uint32_t>{0x31fc, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff98),
         std::vector<uint32_t>{0x31fc, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x31fc, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31fc),
-        std::vector<uint32_t>{0x30f0, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31fc),
         std::vector<uint32_t>{0x30f0, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30f0, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f0),
-        std::vector<uint32_t>{0x30f8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f0),
         std::vector<uint32_t>{0x30f8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30f8, 0x30fc},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3045),
+        std::vector<uint32_t>{0x3045, 0x30fc},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3045),
+        std::vector<uint32_t>{0x3045, 0x30fc},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3045),
+        std::vector<uint32_t>{0x3045, 0x30fc},
         table(), collation_strength::quaternary),
         1);
 }
 
 TEST(tailoring, ja_standard_000_003)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3045),
-        std::vector<uint32_t>{0x3046, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3046, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3046, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3046),
-        std::vector<uint32_t>{0x304f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x304f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x304f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x304f),
-        std::vector<uint32_t>{0x3050, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0x3050, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3050, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3050),
-        std::vector<uint32_t>{0x3059, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3050),
         std::vector<uint32_t>{0x3059, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3059, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3059),
-        std::vector<uint32_t>{0x305a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0x305a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x305a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x305a),
-        std::vector<uint32_t>{0x3063, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305a),
         std::vector<uint32_t>{0x3063, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3063, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3063),
-        std::vector<uint32_t>{0x3064, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3063),
         std::vector<uint32_t>{0x3064, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3064, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3064),
-        std::vector<uint32_t>{0x3065, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x3065, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3065, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3065),
-        std::vector<uint32_t>{0x306c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3065),
         std::vector<uint32_t>{0x306c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x306c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x306c),
-        std::vector<uint32_t>{0x3075, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>{0x3075, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3075, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3075),
-        std::vector<uint32_t>{0x3076, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x3076, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3076, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3076),
-        std::vector<uint32_t>{0x3077, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3076),
         std::vector<uint32_t>{0x3077, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3077, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3077),
-        std::vector<uint32_t>{0x3080, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3077),
         std::vector<uint32_t>{0x3080, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3080, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3080),
-        std::vector<uint32_t>{0x3085, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>{0x3085, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3085, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3085),
-        std::vector<uint32_t>{0x3086, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3085),
         std::vector<uint32_t>{0x3086, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3086, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3086),
-        std::vector<uint32_t>{0x308b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0x308b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x308b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x308b),
-        std::vector<uint32_t>{0x3094, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>{0x3094, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3094, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3094),
         std::vector<uint32_t>{0x30a5, 0x30fc},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3094),
         std::vector<uint32_t>{0x30a5, 0x30fc},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30a5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a5),
-        std::vector<uint32_t>{0xff69, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a5),
         std::vector<uint32_t>{0xff69, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff69, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff69),
-        std::vector<uint32_t>{0x30a6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff69),
         std::vector<uint32_t>{0x30a6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30a6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a6),
-        std::vector<uint32_t>{0xff73, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a6),
         std::vector<uint32_t>{0xff73, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff73, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff73),
-        std::vector<uint32_t>{0x30af, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff73),
         std::vector<uint32_t>{0x30af, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30af, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30af),
-        std::vector<uint32_t>{0xff78, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30af),
         std::vector<uint32_t>{0xff78, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff78, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff78),
-        std::vector<uint32_t>{0x31f0, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff78),
         std::vector<uint32_t>{0x31f0, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x31f0, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f0),
-        std::vector<uint32_t>{0x30b0, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f0),
         std::vector<uint32_t>{0x30b0, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30b0, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b0),
-        std::vector<uint32_t>{0x30b9, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b0),
         std::vector<uint32_t>{0x30b9, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30b9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b9),
-        std::vector<uint32_t>{0xff7d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b9),
         std::vector<uint32_t>{0xff7d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff7d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7d),
-        std::vector<uint32_t>{0x31f2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7d),
         std::vector<uint32_t>{0x31f2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x31f2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f2),
-        std::vector<uint32_t>{0x30ba, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f2),
         std::vector<uint32_t>{0x30ba, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30ba, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ba),
-        std::vector<uint32_t>{0x30c3, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ba),
         std::vector<uint32_t>{0x30c3, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30c3, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c3),
-        std::vector<uint32_t>{0xff6f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c3),
         std::vector<uint32_t>{0xff6f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff6f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6f),
-        std::vector<uint32_t>{0x30c4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6f),
         std::vector<uint32_t>{0x30c4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30c4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c4),
-        std::vector<uint32_t>{0xff82, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c4),
         std::vector<uint32_t>{0xff82, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff82, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff82),
-        std::vector<uint32_t>{0x30c5, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff82),
         std::vector<uint32_t>{0x30c5, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30c5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c5),
-        std::vector<uint32_t>{0x30cc, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c5),
         std::vector<uint32_t>{0x30cc, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30cc, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cc),
-        std::vector<uint32_t>{0xff87, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cc),
         std::vector<uint32_t>{0xff87, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff87, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff87),
-        std::vector<uint32_t>{0x31f4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff87),
         std::vector<uint32_t>{0x31f4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x31f4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f4),
-        std::vector<uint32_t>{0x30d5, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f4),
         std::vector<uint32_t>{0x30d5, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30d5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d5),
-        std::vector<uint32_t>{0xff8c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d5),
         std::vector<uint32_t>{0xff8c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff8c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8c),
-        std::vector<uint32_t>{0x31f7, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8c),
         std::vector<uint32_t>{0x31f7, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x31f7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f7),
-        std::vector<uint32_t>{0x30d6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f7),
         std::vector<uint32_t>{0x30d6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30d6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d6),
-        std::vector<uint32_t>{0x30d7, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d6),
         std::vector<uint32_t>{0x30d7, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30d7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d7),
-        std::vector<uint32_t>{0x30e0, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d7),
         std::vector<uint32_t>{0x30e0, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30e0, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e0),
-        std::vector<uint32_t>{0xff91, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e0),
         std::vector<uint32_t>{0xff91, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff91, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff91),
-        std::vector<uint32_t>{0x31fa, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff91),
         std::vector<uint32_t>{0x31fa, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x31fa, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31fa),
-        std::vector<uint32_t>{0x30e5, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31fa),
         std::vector<uint32_t>{0x30e5, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30e5, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e5),
-        std::vector<uint32_t>{0xff6d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e5),
         std::vector<uint32_t>{0xff6d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff6d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6d),
-        std::vector<uint32_t>{0x30e6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6d),
         std::vector<uint32_t>{0x30e6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30e6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e6),
-        std::vector<uint32_t>{0xff95, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e6),
         std::vector<uint32_t>{0xff95, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff95, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff95),
-        std::vector<uint32_t>{0x30eb, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff95),
         std::vector<uint32_t>{0x30eb, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30eb, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30eb),
-        std::vector<uint32_t>{0xff99, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30eb),
         std::vector<uint32_t>{0xff99, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0xff99, 0x30fc},
@@ -2218,706 +1857,607 @@ TEST(tailoring, ja_standard_000_003)
 
 TEST(tailoring, ja_standard_000_004)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff99),
-        std::vector<uint32_t>{0x31fd, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff99),
         std::vector<uint32_t>{0x31fd, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x31fd, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31fd),
-        std::vector<uint32_t>{0x30f4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31fd),
         std::vector<uint32_t>{0x30f4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x30f4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
-        std::vector<uint32_t>{0x3048, 0x30fc},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3047, 0x30fc},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3047),
+        std::vector<uint32_t>{0x3047, 0x30fc},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3047),
+        std::vector<uint32_t>{0x3047, 0x30fc},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3048, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3048, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0x3051, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3048),
-        std::vector<uint32_t>{0x3051, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3051, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3051),
-        std::vector<uint32_t>{0x3096, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>{0x3096, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3096, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3096),
-        std::vector<uint32_t>{0x3052, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3096),
         std::vector<uint32_t>{0x3052, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3052, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3052),
-        std::vector<uint32_t>{0x305b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3052),
         std::vector<uint32_t>{0x305b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x305b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x305b),
-        std::vector<uint32_t>{0x305c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>{0x305c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x305c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x305c),
-        std::vector<uint32_t>{0x3066, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305c),
         std::vector<uint32_t>{0x3066, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3066, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3066),
-        std::vector<uint32_t>{0x3067, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>{0x3067, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3067, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3067),
-        std::vector<uint32_t>{0x306d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3067),
         std::vector<uint32_t>{0x306d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x306d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x306d),
-        std::vector<uint32_t>{0x3078, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>{0x3078, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3078, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3078),
-        std::vector<uint32_t>{0x3079, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x3079, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3079, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3079),
-        std::vector<uint32_t>{0x307a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3079),
         std::vector<uint32_t>{0x307a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x307a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307a),
-        std::vector<uint32_t>{0x3081, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307a),
         std::vector<uint32_t>{0x3081, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3081, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3081),
-        std::vector<uint32_t>{0x308c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>{0x308c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x308c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x308c),
-        std::vector<uint32_t>{0x3091, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>{0x3091, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x3091, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>{0x30a7, 0x30fc},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>{0x30a7, 0x30fc},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30a7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a7),
-        std::vector<uint32_t>{0xff6a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a7),
         std::vector<uint32_t>{0xff6a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff6a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6a),
-        std::vector<uint32_t>{0x30a8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6a),
         std::vector<uint32_t>{0x30a8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30a8, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a8),
-        std::vector<uint32_t>{0xff74, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a8),
         std::vector<uint32_t>{0xff74, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff74, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff74),
-        std::vector<uint32_t>{0x30b1, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff74),
         std::vector<uint32_t>{0x30b1, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30b1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b1),
-        std::vector<uint32_t>{0xff79, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b1),
         std::vector<uint32_t>{0xff79, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff79, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff79),
-        std::vector<uint32_t>{0x30b2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff79),
         std::vector<uint32_t>{0x30b2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30b2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b2),
-        std::vector<uint32_t>{0x30bb, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b2),
         std::vector<uint32_t>{0x30bb, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30bb, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bb),
-        std::vector<uint32_t>{0xff7e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bb),
         std::vector<uint32_t>{0xff7e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff7e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7e),
-        std::vector<uint32_t>{0x30bc, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7e),
         std::vector<uint32_t>{0x30bc, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30bc, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bc),
-        std::vector<uint32_t>{0x30c6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bc),
         std::vector<uint32_t>{0x30c6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30c6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c6),
-        std::vector<uint32_t>{0xff83, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c6),
         std::vector<uint32_t>{0xff83, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff83, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff83),
-        std::vector<uint32_t>{0x30c7, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff83),
         std::vector<uint32_t>{0x30c7, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30c7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c7),
-        std::vector<uint32_t>{0x30cd, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c7),
         std::vector<uint32_t>{0x30cd, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30cd, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cd),
-        std::vector<uint32_t>{0xff88, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cd),
         std::vector<uint32_t>{0xff88, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff88, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff88),
-        std::vector<uint32_t>{0x30d8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff88),
         std::vector<uint32_t>{0x30d8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30d8, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d8),
-        std::vector<uint32_t>{0xff8d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d8),
         std::vector<uint32_t>{0xff8d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff8d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8d),
-        std::vector<uint32_t>{0x31f8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8d),
         std::vector<uint32_t>{0x31f8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x31f8, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f8),
-        std::vector<uint32_t>{0x30d9, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f8),
         std::vector<uint32_t>{0x30d9, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30d9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d9),
-        std::vector<uint32_t>{0x30da, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d9),
         std::vector<uint32_t>{0x30da, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30da, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30da),
-        std::vector<uint32_t>{0x30e1, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30da),
         std::vector<uint32_t>{0x30e1, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30e1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e1),
-        std::vector<uint32_t>{0xff92, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e1),
         std::vector<uint32_t>{0xff92, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff92, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff92),
-        std::vector<uint32_t>{0x30ec, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff92),
         std::vector<uint32_t>{0x30ec, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30ec, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ec),
-        std::vector<uint32_t>{0xff9a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ec),
         std::vector<uint32_t>{0xff9a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0xff9a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff9a),
-        std::vector<uint32_t>{0x31fe, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff9a),
         std::vector<uint32_t>{0x31fe, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x31fe, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31fe),
-        std::vector<uint32_t>{0x30f1, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31fe),
         std::vector<uint32_t>{0x30f1, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30f1, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f1),
-        std::vector<uint32_t>{0x30f6, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f1),
         std::vector<uint32_t>{0x30f6, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30f6, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f6),
-        std::vector<uint32_t>{0x30f9, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f6),
         std::vector<uint32_t>{0x30f9, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30f9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
-        std::vector<uint32_t>{0x304a, 0x30fc},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3049, 0x30fc},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3049),
+        std::vector<uint32_t>{0x3049, 0x30fc},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3049),
+        std::vector<uint32_t>{0x3049, 0x30fc},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x304a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x304a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x304a),
-        std::vector<uint32_t>{0x3053, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0x3053, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3053, 0x30fc},
@@ -2927,736 +2467,619 @@ TEST(tailoring, ja_standard_000_004)
 
 TEST(tailoring, ja_standard_000_005)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3053),
-        std::vector<uint32_t>{0x3054, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>{0x3054, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3054, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3054),
-        std::vector<uint32_t>{0x305d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3054),
         std::vector<uint32_t>{0x305d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x305d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x305d),
-        std::vector<uint32_t>{0x305e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>{0x305e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x305e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x305e),
-        std::vector<uint32_t>{0x3068, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305e),
         std::vector<uint32_t>{0x3068, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3068, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3068),
-        std::vector<uint32_t>{0x3069, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0x3069, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3069, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3069),
-        std::vector<uint32_t>{0x306e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3069),
         std::vector<uint32_t>{0x306e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x306e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x306e),
-        std::vector<uint32_t>{0x307b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>{0x307b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x307b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307b),
-        std::vector<uint32_t>{0x307c, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x307c, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x307c, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307c),
-        std::vector<uint32_t>{0x307d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307c),
         std::vector<uint32_t>{0x307d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x307d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307d),
-        std::vector<uint32_t>{0x3082, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307d),
         std::vector<uint32_t>{0x3082, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3082, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3082),
-        std::vector<uint32_t>{0x3087, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>{0x3087, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3087, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3087),
-        std::vector<uint32_t>{0x3088, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3087),
         std::vector<uint32_t>{0x3088, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3088, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3088),
-        std::vector<uint32_t>{0x308d, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0x308d, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x308d, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x308d),
-        std::vector<uint32_t>{0x3092, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>{0x3092, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x3092, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0x30a9, 0x30fc},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0x30a9, 0x30fc},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30a9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a9),
-        std::vector<uint32_t>{0xff6b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a9),
         std::vector<uint32_t>{0xff6b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff6b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6b),
-        std::vector<uint32_t>{0x30aa, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6b),
         std::vector<uint32_t>{0x30aa, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30aa, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30aa),
-        std::vector<uint32_t>{0xff75, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30aa),
         std::vector<uint32_t>{0xff75, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff75, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff75),
-        std::vector<uint32_t>{0x30b3, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff75),
         std::vector<uint32_t>{0x30b3, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30b3, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b3),
-        std::vector<uint32_t>{0xff7a, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b3),
         std::vector<uint32_t>{0xff7a, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff7a, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7a),
-        std::vector<uint32_t>{0x30b4, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7a),
         std::vector<uint32_t>{0x30b4, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30b4, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b4),
-        std::vector<uint32_t>{0x30bd, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b4),
         std::vector<uint32_t>{0x30bd, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30bd, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bd),
-        std::vector<uint32_t>{0xff7f, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bd),
         std::vector<uint32_t>{0xff7f, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff7f, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7f),
-        std::vector<uint32_t>{0x30be, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7f),
         std::vector<uint32_t>{0x30be, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30be, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30be),
-        std::vector<uint32_t>{0x30c8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30be),
         std::vector<uint32_t>{0x30c8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30c8, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c8),
-        std::vector<uint32_t>{0xff84, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c8),
         std::vector<uint32_t>{0xff84, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff84, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff84),
-        std::vector<uint32_t>{0x31f3, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff84),
         std::vector<uint32_t>{0x31f3, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x31f3, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f3),
-        std::vector<uint32_t>{0x30c9, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f3),
         std::vector<uint32_t>{0x30c9, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30c9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c9),
-        std::vector<uint32_t>{0x30ce, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c9),
         std::vector<uint32_t>{0x30ce, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30ce, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ce),
-        std::vector<uint32_t>{0xff89, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ce),
         std::vector<uint32_t>{0xff89, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff89, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff89),
-        std::vector<uint32_t>{0x30db, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff89),
         std::vector<uint32_t>{0x30db, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30db, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30db),
-        std::vector<uint32_t>{0xff8e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30db),
         std::vector<uint32_t>{0xff8e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff8e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8e),
-        std::vector<uint32_t>{0x31f9, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8e),
         std::vector<uint32_t>{0x31f9, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x31f9, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f9),
-        std::vector<uint32_t>{0x30dc, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f9),
         std::vector<uint32_t>{0x30dc, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30dc, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30dc),
-        std::vector<uint32_t>{0x30dd, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30dc),
         std::vector<uint32_t>{0x30dd, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30dd, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30dd),
-        std::vector<uint32_t>{0x30e2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30dd),
         std::vector<uint32_t>{0x30e2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30e2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e2),
-        std::vector<uint32_t>{0xff93, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e2),
         std::vector<uint32_t>{0xff93, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff93, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff93),
-        std::vector<uint32_t>{0x30e7, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff93),
         std::vector<uint32_t>{0x30e7, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30e7, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e7),
-        std::vector<uint32_t>{0xff6e, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e7),
         std::vector<uint32_t>{0xff6e, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff6e, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6e),
-        std::vector<uint32_t>{0x30e8, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6e),
         std::vector<uint32_t>{0x30e8, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30e8, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e8),
-        std::vector<uint32_t>{0xff96, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e8),
         std::vector<uint32_t>{0xff96, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff96, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff96),
-        std::vector<uint32_t>{0x30ed, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff96),
         std::vector<uint32_t>{0x30ed, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30ed, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ed),
-        std::vector<uint32_t>{0xff9b, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ed),
         std::vector<uint32_t>{0xff9b, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff9b, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff9b),
-        std::vector<uint32_t>{0x31ff, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff9b),
         std::vector<uint32_t>{0x31ff, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x31ff, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31ff),
-        std::vector<uint32_t>{0x30f2, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31ff),
         std::vector<uint32_t>{0x30f2, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30f2, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f2),
-        std::vector<uint32_t>{0xff66, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f2),
         std::vector<uint32_t>{0xff66, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0xff66, 0x30fc},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff66),
-        std::vector<uint32_t>{0x30fa, 0x30fc},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff66),
         std::vector<uint32_t>{0x30fa, 0x30fc},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30fa, 0x30fc},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
-        std::vector<uint32_t>{0x3041, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3042, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3042),
+        std::vector<uint32_t>{0x3042, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3042),
+        std::vector<uint32_t>{0x3042, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0x3041, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0x3041, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30a2, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>{0x30a2, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0x30a2, 0x30fd},
@@ -3666,571 +3089,601 @@ TEST(tailoring, ja_standard_000_005)
 
 TEST(tailoring, ja_standard_000_006)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a2),
-        std::vector<uint32_t>{0xff71, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a2),
         std::vector<uint32_t>{0xff71, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0xff71, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff71),
-        std::vector<uint32_t>{0x30a1, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff71),
         std::vector<uint32_t>{0x30a1, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0x30a1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a1),
-        std::vector<uint32_t>{0xff67, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a1),
         std::vector<uint32_t>{0xff67, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>{0xff67, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
-        std::vector<uint32_t>{0x3043, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3044, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3044),
+        std::vector<uint32_t>{0x3044, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3044),
+        std::vector<uint32_t>{0x3044, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0x3043, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0x3043, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30a4, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>{0x30a4, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0x30a4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a4),
-        std::vector<uint32_t>{0xff72, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a4),
         std::vector<uint32_t>{0xff72, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0xff72, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff72),
-        std::vector<uint32_t>{0x30a3, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff72),
         std::vector<uint32_t>{0x30a3, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0x30a3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a3),
-        std::vector<uint32_t>{0xff68, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a3),
         std::vector<uint32_t>{0xff68, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>{0xff68, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
-        std::vector<uint32_t>{0x3045, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3046, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3046),
+        std::vector<uint32_t>{0x3046, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3046),
+        std::vector<uint32_t>{0x3046, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x3045, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x3045, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>{0x3094, 0x309d},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3045),
-        std::vector<uint32_t>{0x3094, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x3094, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3094, 0x3099},
-        std::vector<uint32_t>{0x3046, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3094, 0x3099},
         std::vector<uint32_t>{0x3046, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x3046, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3046, 0x3099},
-        std::vector<uint32_t>{0x3045, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x3045, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x3045, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3045, 0x3099},
-        std::vector<uint32_t>{0x3094, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3045, 0x3099},
         std::vector<uint32_t>{0x3094, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x3094, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3094),
         std::vector<uint32_t>{0x30a6, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3094),
         std::vector<uint32_t>{0x30a6, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x30a6, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a6),
-        std::vector<uint32_t>{0xff73, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a6),
         std::vector<uint32_t>{0xff73, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0xff73, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff73),
-        std::vector<uint32_t>{0x30a5, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff73),
         std::vector<uint32_t>{0x30a5, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x30a5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a5),
-        std::vector<uint32_t>{0xff69, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a5),
         std::vector<uint32_t>{0xff69, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0xff69, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff69),
-        std::vector<uint32_t>{0x30f4, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff69),
         std::vector<uint32_t>{0x30f4, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>{0x30f4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f4, 0x3099},
-        std::vector<uint32_t>{0x30a6, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f4, 0x3099},
         std::vector<uint32_t>{0x30a6, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x30a6, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30a6, 0x3099},
-        std::vector<uint32_t>{0xff73, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30a6, 0x3099},
         std::vector<uint32_t>{0xff73, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0xff73, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff73, 0x3099},
-        std::vector<uint32_t>{0x30a5, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff73, 0x3099},
         std::vector<uint32_t>{0x30a5, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x30a5, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30a5, 0x3099},
-        std::vector<uint32_t>{0xff69, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30a5, 0x3099},
         std::vector<uint32_t>{0xff69, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0xff69, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff69, 0x3099},
-        std::vector<uint32_t>{0x30f4, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff69, 0x3099},
         std::vector<uint32_t>{0x30f4, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3046, 0x3099},
         std::vector<uint32_t>{0x30f4, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
-        std::vector<uint32_t>{0x3047, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3048, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3048),
+        std::vector<uint32_t>{0x3048, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3048),
+        std::vector<uint32_t>{0x3048, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0x3047, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0x3047, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30a8, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>{0x30a8, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0x30a8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a8),
-        std::vector<uint32_t>{0xff74, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a8),
         std::vector<uint32_t>{0xff74, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0xff74, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff74),
-        std::vector<uint32_t>{0x30a7, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff74),
         std::vector<uint32_t>{0x30a7, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0x30a7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a7),
-        std::vector<uint32_t>{0xff6a, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a7),
         std::vector<uint32_t>{0xff6a, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>{0xff6a, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
-        std::vector<uint32_t>{0x3049, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x304a, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304a),
+        std::vector<uint32_t>{0x304a, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304a),
+        std::vector<uint32_t>{0x304a, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0x3049, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0x3049, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30aa, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>{0x30aa, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0x30aa, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30aa),
-        std::vector<uint32_t>{0xff75, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30aa),
         std::vector<uint32_t>{0xff75, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0xff75, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff75),
-        std::vector<uint32_t>{0x30a9, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff75),
         std::vector<uint32_t>{0x30a9, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0x30a9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a9),
-        std::vector<uint32_t>{0xff6b, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a9),
         std::vector<uint32_t>{0xff6b, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>{0xff6b, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
-        std::vector<uint32_t>{0x3095, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x304b, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304b),
+        std::vector<uint32_t>{0x304b, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304b),
+        std::vector<uint32_t>{0x304b, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>{0x3095, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>{0x3095, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3095),
         std::vector<uint32_t>{0x30ab, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3095),
         std::vector<uint32_t>{0x30ab, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>{0x30ab, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ab),
-        std::vector<uint32_t>{0xff76, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ab),
         std::vector<uint32_t>{0xff76, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>{0xff76, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff76),
-        std::vector<uint32_t>{0x30f5, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff76),
         std::vector<uint32_t>{0x30f5, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>{0x30f5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304c),
+        std::vector<uint32_t>{0x304c, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304c),
+        std::vector<uint32_t>{0x304c, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304c),
+        std::vector<uint32_t>{0x304c, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304c),
         std::vector<uint32_t>{0x30ac, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304c),
         std::vector<uint32_t>{0x30ac, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304c),
         std::vector<uint32_t>{0x30ac, 0x30fd},
@@ -4240,601 +3693,625 @@ TEST(tailoring, ja_standard_000_006)
 
 TEST(tailoring, ja_standard_000_007)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
-        std::vector<uint32_t>{0x304e, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x304d, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304d),
+        std::vector<uint32_t>{0x304d, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304d),
+        std::vector<uint32_t>{0x304d, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>{0x304e, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>{0x304e, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304e, 0x3099},
         std::vector<uint32_t>{0x304d, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x304e, 0x3099},
-        std::vector<uint32_t>{0x304d, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304d, 0x3099},
         std::vector<uint32_t>{0x304d, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x304d, 0x3099},
-        std::vector<uint32_t>{0x304e, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304d, 0x3099},
         std::vector<uint32_t>{0x304e, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304d, 0x3099},
         std::vector<uint32_t>{0x304e, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304e),
         std::vector<uint32_t>{0x30ad, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304e),
         std::vector<uint32_t>{0x30ad, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>{0x30ad, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ad),
-        std::vector<uint32_t>{0xff77, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ad),
         std::vector<uint32_t>{0xff77, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>{0xff77, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff77),
-        std::vector<uint32_t>{0x30ae, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff77),
         std::vector<uint32_t>{0x30ae, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>{0x30ae, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30ae, 0x3099},
-        std::vector<uint32_t>{0x30ad, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30ae, 0x3099},
         std::vector<uint32_t>{0x30ad, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304d, 0x3099},
         std::vector<uint32_t>{0x30ad, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30ad, 0x3099},
-        std::vector<uint32_t>{0xff77, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30ad, 0x3099},
         std::vector<uint32_t>{0xff77, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304d, 0x3099},
         std::vector<uint32_t>{0xff77, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff77, 0x3099},
-        std::vector<uint32_t>{0x30ae, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff77, 0x3099},
         std::vector<uint32_t>{0x30ae, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304d, 0x3099},
         std::vector<uint32_t>{0x30ae, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
-        std::vector<uint32_t>{0x3050, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x304f, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304f),
+        std::vector<uint32_t>{0x304f, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x304f),
+        std::vector<uint32_t>{0x304f, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0x3050, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0x3050, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3050, 0x3099},
         std::vector<uint32_t>{0x304f, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3050, 0x3099},
-        std::vector<uint32_t>{0x304f, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0x304f, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x304f, 0x3099},
-        std::vector<uint32_t>{0x3050, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0x3050, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0x3050, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3050),
         std::vector<uint32_t>{0x30af, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3050),
         std::vector<uint32_t>{0x30af, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0x30af, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30af),
-        std::vector<uint32_t>{0xff78, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30af),
         std::vector<uint32_t>{0xff78, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0xff78, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff78),
-        std::vector<uint32_t>{0x31f0, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff78),
         std::vector<uint32_t>{0x31f0, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0x31f0, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f0),
-        std::vector<uint32_t>{0x30b0, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f0),
         std::vector<uint32_t>{0x30b0, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>{0x30b0, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b0, 0x3099},
-        std::vector<uint32_t>{0x30af, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b0, 0x3099},
         std::vector<uint32_t>{0x30af, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0x30af, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30af, 0x3099},
-        std::vector<uint32_t>{0xff78, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30af, 0x3099},
         std::vector<uint32_t>{0xff78, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0xff78, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff78, 0x3099},
-        std::vector<uint32_t>{0x31f0, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff78, 0x3099},
         std::vector<uint32_t>{0x31f0, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0x31f0, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f0, 0x3099},
-        std::vector<uint32_t>{0x30b0, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f0, 0x3099},
         std::vector<uint32_t>{0x30b0, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x304f, 0x3099},
         std::vector<uint32_t>{0x30b0, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
-        std::vector<uint32_t>{0x3096, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3051, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3051),
+        std::vector<uint32_t>{0x3051, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3051),
+        std::vector<uint32_t>{0x3051, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>{0x3096, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>{0x3096, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3096),
         std::vector<uint32_t>{0x30b1, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3096),
         std::vector<uint32_t>{0x30b1, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>{0x30b1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b1),
-        std::vector<uint32_t>{0xff79, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b1),
         std::vector<uint32_t>{0xff79, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>{0xff79, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff79),
-        std::vector<uint32_t>{0x30f6, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff79),
         std::vector<uint32_t>{0x30f6, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>{0x30f6, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3052),
+        std::vector<uint32_t>{0x3052, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3052),
+        std::vector<uint32_t>{0x3052, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3052),
+        std::vector<uint32_t>{0x3052, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3052),
         std::vector<uint32_t>{0x30b2, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3052),
         std::vector<uint32_t>{0x30b2, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3052),
         std::vector<uint32_t>{0x30b2, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
-        std::vector<uint32_t>{0x3054, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3053, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3053),
+        std::vector<uint32_t>{0x3053, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3053),
+        std::vector<uint32_t>{0x3053, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>{0x3054, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>{0x3054, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3054, 0x3099},
         std::vector<uint32_t>{0x3053, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3054, 0x3099},
-        std::vector<uint32_t>{0x3053, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3053, 0x3099},
         std::vector<uint32_t>{0x3053, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3053, 0x3099},
-        std::vector<uint32_t>{0x3054, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3053, 0x3099},
         std::vector<uint32_t>{0x3054, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3053, 0x3099},
         std::vector<uint32_t>{0x3054, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3054),
         std::vector<uint32_t>{0x30b3, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3054),
         std::vector<uint32_t>{0x30b3, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>{0x30b3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b3),
-        std::vector<uint32_t>{0xff7a, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b3),
         std::vector<uint32_t>{0xff7a, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>{0xff7a, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7a),
-        std::vector<uint32_t>{0x30b4, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7a),
         std::vector<uint32_t>{0x30b4, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>{0x30b4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b4, 0x3099},
-        std::vector<uint32_t>{0x30b3, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b4, 0x3099},
         std::vector<uint32_t>{0x30b3, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3053, 0x3099},
         std::vector<uint32_t>{0x30b3, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b3, 0x3099},
-        std::vector<uint32_t>{0xff7a, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b3, 0x3099},
         std::vector<uint32_t>{0xff7a, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3053, 0x3099},
         std::vector<uint32_t>{0xff7a, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff7a, 0x3099},
-        std::vector<uint32_t>{0x30b4, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff7a, 0x3099},
         std::vector<uint32_t>{0x30b4, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3053, 0x3099},
         std::vector<uint32_t>{0x30b4, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
-        std::vector<uint32_t>{0x3056, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3055, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3055),
+        std::vector<uint32_t>{0x3055, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3055),
+        std::vector<uint32_t>{0x3055, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>{0x3056, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>{0x3056, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3056, 0x3099},
         std::vector<uint32_t>{0x3055, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3056, 0x3099},
-        std::vector<uint32_t>{0x3055, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3055, 0x3099},
         std::vector<uint32_t>{0x3055, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3055, 0x3099},
-        std::vector<uint32_t>{0x3056, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3055, 0x3099},
         std::vector<uint32_t>{0x3056, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3055, 0x3099},
         std::vector<uint32_t>{0x3056, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3056),
         std::vector<uint32_t>{0x30b5, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3056),
         std::vector<uint32_t>{0x30b5, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>{0x30b5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b5),
-        std::vector<uint32_t>{0xff7b, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b5),
         std::vector<uint32_t>{0xff7b, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>{0xff7b, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7b),
-        std::vector<uint32_t>{0x30b6, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7b),
         std::vector<uint32_t>{0x30b6, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>{0x30b6, 0x30fd},
@@ -4844,646 +4321,613 @@ TEST(tailoring, ja_standard_000_007)
 
 TEST(tailoring, ja_standard_000_008)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b6, 0x3099},
-        std::vector<uint32_t>{0x30b5, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b6, 0x3099},
         std::vector<uint32_t>{0x30b5, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3055, 0x3099},
         std::vector<uint32_t>{0x30b5, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b5, 0x3099},
-        std::vector<uint32_t>{0xff7b, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b5, 0x3099},
         std::vector<uint32_t>{0xff7b, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3055, 0x3099},
         std::vector<uint32_t>{0xff7b, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff7b, 0x3099},
-        std::vector<uint32_t>{0x30b6, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff7b, 0x3099},
         std::vector<uint32_t>{0x30b6, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3055, 0x3099},
         std::vector<uint32_t>{0x30b6, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
-        std::vector<uint32_t>{0x3058, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3057, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3057),
+        std::vector<uint32_t>{0x3057, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3057),
+        std::vector<uint32_t>{0x3057, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0x3058, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0x3058, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3058, 0x3099},
         std::vector<uint32_t>{0x3057, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3058, 0x3099},
-        std::vector<uint32_t>{0x3057, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0x3057, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3057, 0x3099},
-        std::vector<uint32_t>{0x3058, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0x3058, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0x3058, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3058),
         std::vector<uint32_t>{0x30b7, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3058),
         std::vector<uint32_t>{0x30b7, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0x30b7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b7),
-        std::vector<uint32_t>{0xff7c, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b7),
         std::vector<uint32_t>{0xff7c, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0xff7c, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7c),
-        std::vector<uint32_t>{0x31f1, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7c),
         std::vector<uint32_t>{0x31f1, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0x31f1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f1),
-        std::vector<uint32_t>{0x30b8, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f1),
         std::vector<uint32_t>{0x30b8, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>{0x30b8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b8, 0x3099},
-        std::vector<uint32_t>{0x30b7, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b8, 0x3099},
         std::vector<uint32_t>{0x30b7, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0x30b7, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b7, 0x3099},
-        std::vector<uint32_t>{0xff7c, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b7, 0x3099},
         std::vector<uint32_t>{0xff7c, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0xff7c, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff7c, 0x3099},
-        std::vector<uint32_t>{0x31f1, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff7c, 0x3099},
         std::vector<uint32_t>{0x31f1, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0x31f1, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f1, 0x3099},
-        std::vector<uint32_t>{0x30b8, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f1, 0x3099},
         std::vector<uint32_t>{0x30b8, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3057, 0x3099},
         std::vector<uint32_t>{0x30b8, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
-        std::vector<uint32_t>{0x305a, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3059, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3059),
+        std::vector<uint32_t>{0x3059, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3059),
+        std::vector<uint32_t>{0x3059, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0x305a, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0x305a, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305a, 0x3099},
         std::vector<uint32_t>{0x3059, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x305a, 0x3099},
-        std::vector<uint32_t>{0x3059, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0x3059, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3059, 0x3099},
-        std::vector<uint32_t>{0x305a, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0x305a, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0x305a, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305a),
         std::vector<uint32_t>{0x30b9, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305a),
         std::vector<uint32_t>{0x30b9, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0x30b9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b9),
-        std::vector<uint32_t>{0xff7d, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b9),
         std::vector<uint32_t>{0xff7d, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0xff7d, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7d),
-        std::vector<uint32_t>{0x31f2, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7d),
         std::vector<uint32_t>{0x31f2, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0x31f2, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f2),
-        std::vector<uint32_t>{0x30ba, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f2),
         std::vector<uint32_t>{0x30ba, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>{0x30ba, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30ba, 0x3099},
-        std::vector<uint32_t>{0x30b9, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30ba, 0x3099},
         std::vector<uint32_t>{0x30b9, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0x30b9, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30b9, 0x3099},
-        std::vector<uint32_t>{0xff7d, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b9, 0x3099},
         std::vector<uint32_t>{0xff7d, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0xff7d, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff7d, 0x3099},
-        std::vector<uint32_t>{0x31f2, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff7d, 0x3099},
         std::vector<uint32_t>{0x31f2, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0x31f2, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f2, 0x3099},
-        std::vector<uint32_t>{0x30ba, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f2, 0x3099},
         std::vector<uint32_t>{0x30ba, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3059, 0x3099},
         std::vector<uint32_t>{0x30ba, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
-        std::vector<uint32_t>{0x305c, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x305b, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x305b),
+        std::vector<uint32_t>{0x305b, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x305b),
+        std::vector<uint32_t>{0x305b, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>{0x305c, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>{0x305c, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305c, 0x3099},
         std::vector<uint32_t>{0x305b, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x305c, 0x3099},
-        std::vector<uint32_t>{0x305b, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305b, 0x3099},
         std::vector<uint32_t>{0x305b, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x305b, 0x3099},
-        std::vector<uint32_t>{0x305c, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305b, 0x3099},
         std::vector<uint32_t>{0x305c, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305b, 0x3099},
         std::vector<uint32_t>{0x305c, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305c),
         std::vector<uint32_t>{0x30bb, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305c),
         std::vector<uint32_t>{0x30bb, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>{0x30bb, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bb),
-        std::vector<uint32_t>{0xff7e, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bb),
         std::vector<uint32_t>{0xff7e, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>{0xff7e, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7e),
-        std::vector<uint32_t>{0x30bc, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7e),
         std::vector<uint32_t>{0x30bc, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>{0x30bc, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30bc, 0x3099},
-        std::vector<uint32_t>{0x30bb, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30bc, 0x3099},
         std::vector<uint32_t>{0x30bb, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305b, 0x3099},
         std::vector<uint32_t>{0x30bb, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30bb, 0x3099},
-        std::vector<uint32_t>{0xff7e, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30bb, 0x3099},
         std::vector<uint32_t>{0xff7e, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305b, 0x3099},
         std::vector<uint32_t>{0xff7e, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff7e, 0x3099},
-        std::vector<uint32_t>{0x30bc, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff7e, 0x3099},
         std::vector<uint32_t>{0x30bc, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305b, 0x3099},
         std::vector<uint32_t>{0x30bc, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
-        std::vector<uint32_t>{0x305e, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x305d, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x305d),
+        std::vector<uint32_t>{0x305d, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x305d),
+        std::vector<uint32_t>{0x305d, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>{0x305e, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>{0x305e, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305e, 0x3099},
         std::vector<uint32_t>{0x305d, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x305e, 0x3099},
-        std::vector<uint32_t>{0x305d, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305d, 0x3099},
         std::vector<uint32_t>{0x305d, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x305d, 0x3099},
-        std::vector<uint32_t>{0x305e, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305d, 0x3099},
         std::vector<uint32_t>{0x305e, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305d, 0x3099},
         std::vector<uint32_t>{0x305e, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305e),
         std::vector<uint32_t>{0x30bd, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305e),
         std::vector<uint32_t>{0x30bd, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>{0x30bd, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bd),
-        std::vector<uint32_t>{0xff7f, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bd),
         std::vector<uint32_t>{0xff7f, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>{0xff7f, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff7f),
-        std::vector<uint32_t>{0x30be, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff7f),
         std::vector<uint32_t>{0x30be, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>{0x30be, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30be, 0x3099},
-        std::vector<uint32_t>{0x30bd, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30be, 0x3099},
         std::vector<uint32_t>{0x30bd, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305d, 0x3099},
         std::vector<uint32_t>{0x30bd, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30bd, 0x3099},
-        std::vector<uint32_t>{0xff7f, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30bd, 0x3099},
         std::vector<uint32_t>{0xff7f, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305d, 0x3099},
         std::vector<uint32_t>{0xff7f, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff7f, 0x3099},
-        std::vector<uint32_t>{0x30be, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff7f, 0x3099},
         std::vector<uint32_t>{0x30be, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305d, 0x3099},
         std::vector<uint32_t>{0x30be, 0x30fe},
@@ -5493,661 +4937,625 @@ TEST(tailoring, ja_standard_000_008)
 
 TEST(tailoring, ja_standard_000_009)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
-        std::vector<uint32_t>{0x3060, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x305f, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x305f),
+        std::vector<uint32_t>{0x305f, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x305f),
+        std::vector<uint32_t>{0x305f, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>{0x3060, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>{0x3060, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3060, 0x3099},
         std::vector<uint32_t>{0x305f, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3060, 0x3099},
-        std::vector<uint32_t>{0x305f, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305f, 0x3099},
         std::vector<uint32_t>{0x305f, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x305f, 0x3099},
-        std::vector<uint32_t>{0x3060, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305f, 0x3099},
         std::vector<uint32_t>{0x3060, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305f, 0x3099},
         std::vector<uint32_t>{0x3060, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3060),
         std::vector<uint32_t>{0x30bf, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3060),
         std::vector<uint32_t>{0x30bf, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>{0x30bf, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bf),
-        std::vector<uint32_t>{0xff80, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bf),
         std::vector<uint32_t>{0xff80, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>{0xff80, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff80),
-        std::vector<uint32_t>{0x30c0, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff80),
         std::vector<uint32_t>{0x30c0, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>{0x30c0, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c0, 0x3099},
-        std::vector<uint32_t>{0x30bf, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c0, 0x3099},
         std::vector<uint32_t>{0x30bf, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305f, 0x3099},
         std::vector<uint32_t>{0x30bf, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30bf, 0x3099},
-        std::vector<uint32_t>{0xff80, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30bf, 0x3099},
         std::vector<uint32_t>{0xff80, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305f, 0x3099},
         std::vector<uint32_t>{0xff80, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff80, 0x3099},
-        std::vector<uint32_t>{0x30c0, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff80, 0x3099},
         std::vector<uint32_t>{0x30c0, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x305f, 0x3099},
         std::vector<uint32_t>{0x30c0, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
-        std::vector<uint32_t>{0x3062, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3061, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3061),
+        std::vector<uint32_t>{0x3061, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3061),
+        std::vector<uint32_t>{0x3061, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>{0x3062, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>{0x3062, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3062, 0x3099},
         std::vector<uint32_t>{0x3061, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3062, 0x3099},
-        std::vector<uint32_t>{0x3061, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3061, 0x3099},
         std::vector<uint32_t>{0x3061, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3061, 0x3099},
-        std::vector<uint32_t>{0x3062, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3061, 0x3099},
         std::vector<uint32_t>{0x3062, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3061, 0x3099},
         std::vector<uint32_t>{0x3062, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3062),
         std::vector<uint32_t>{0x30c1, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3062),
         std::vector<uint32_t>{0x30c1, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>{0x30c1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c1),
-        std::vector<uint32_t>{0xff81, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c1),
         std::vector<uint32_t>{0xff81, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>{0xff81, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff81),
-        std::vector<uint32_t>{0x30c2, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff81),
         std::vector<uint32_t>{0x30c2, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>{0x30c2, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c2, 0x3099},
-        std::vector<uint32_t>{0x30c1, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c2, 0x3099},
         std::vector<uint32_t>{0x30c1, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3061, 0x3099},
         std::vector<uint32_t>{0x30c1, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c1, 0x3099},
-        std::vector<uint32_t>{0xff81, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c1, 0x3099},
         std::vector<uint32_t>{0xff81, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3061, 0x3099},
         std::vector<uint32_t>{0xff81, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff81, 0x3099},
-        std::vector<uint32_t>{0x30c2, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff81, 0x3099},
         std::vector<uint32_t>{0x30c2, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3061, 0x3099},
         std::vector<uint32_t>{0x30c2, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
-        std::vector<uint32_t>{0x3063, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3064, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3064),
+        std::vector<uint32_t>{0x3064, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3064),
+        std::vector<uint32_t>{0x3064, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x3063, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x3063, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3063),
         std::vector<uint32_t>{0x3065, 0x309d},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3063),
-        std::vector<uint32_t>{0x3065, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x3065, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3065, 0x3099},
-        std::vector<uint32_t>{0x3064, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3065, 0x3099},
         std::vector<uint32_t>{0x3064, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x3064, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3064, 0x3099},
-        std::vector<uint32_t>{0x3065, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x3065, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x3065, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3065),
-        std::vector<uint32_t>{0x3064, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3065),
         std::vector<uint32_t>{0x3064, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x3064, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3064, 0x3099},
-        std::vector<uint32_t>{0x3063, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x3063, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x3063, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3063, 0x3099},
-        std::vector<uint32_t>{0x3064, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3063, 0x3099},
         std::vector<uint32_t>{0x3064, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x3064, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x30c4, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x30c4, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x30c4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c4),
-        std::vector<uint32_t>{0xff82, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c4),
         std::vector<uint32_t>{0xff82, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0xff82, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff82),
-        std::vector<uint32_t>{0x30c3, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff82),
         std::vector<uint32_t>{0x30c3, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x30c3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c3),
-        std::vector<uint32_t>{0xff6f, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c3),
         std::vector<uint32_t>{0xff6f, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0xff6f, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff6f),
-        std::vector<uint32_t>{0x30c5, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff6f),
         std::vector<uint32_t>{0x30c5, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x30c5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c5, 0x3099},
-        std::vector<uint32_t>{0x30c4, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c5, 0x3099},
         std::vector<uint32_t>{0x30c4, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x30c4, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c4, 0x3099},
-        std::vector<uint32_t>{0xff82, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c4, 0x3099},
         std::vector<uint32_t>{0xff82, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0xff82, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff82, 0x3099},
-        std::vector<uint32_t>{0x30c5, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff82, 0x3099},
         std::vector<uint32_t>{0x30c5, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x30c5, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c5),
-        std::vector<uint32_t>{0x30c4, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c5),
         std::vector<uint32_t>{0x30c4, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0x30c4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c4),
-        std::vector<uint32_t>{0xff82, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c4),
         std::vector<uint32_t>{0xff82, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>{0xff82, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff82, 0x3099},
-        std::vector<uint32_t>{0x30c3, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff82, 0x3099},
         std::vector<uint32_t>{0x30c3, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x30c3, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c3, 0x3099},
-        std::vector<uint32_t>{0xff6f, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c3, 0x3099},
         std::vector<uint32_t>{0xff6f, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0xff6f, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff6f, 0x3099},
-        std::vector<uint32_t>{0x30c4, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff6f, 0x3099},
         std::vector<uint32_t>{0x30c4, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0x30c4, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c4, 0x3099},
-        std::vector<uint32_t>{0xff82, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c4, 0x3099},
         std::vector<uint32_t>{0xff82, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3064, 0x3099},
         std::vector<uint32_t>{0xff82, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
-        std::vector<uint32_t>{0x3067, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3066, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3066),
+        std::vector<uint32_t>{0x3066, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3066),
+        std::vector<uint32_t>{0x3066, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>{0x3067, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>{0x3067, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3067, 0x3099},
         std::vector<uint32_t>{0x3066, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3067, 0x3099},
-        std::vector<uint32_t>{0x3066, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3066, 0x3099},
         std::vector<uint32_t>{0x3066, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3066, 0x3099},
-        std::vector<uint32_t>{0x3067, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3066, 0x3099},
         std::vector<uint32_t>{0x3067, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3066, 0x3099},
         std::vector<uint32_t>{0x3067, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3067),
         std::vector<uint32_t>{0x30c6, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3067),
         std::vector<uint32_t>{0x30c6, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>{0x30c6, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c6),
-        std::vector<uint32_t>{0xff83, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c6),
         std::vector<uint32_t>{0xff83, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>{0xff83, 0x30fd},
@@ -6157,556 +5565,613 @@ TEST(tailoring, ja_standard_000_009)
 
 TEST(tailoring, ja_standard_000_010)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff83),
-        std::vector<uint32_t>{0x30c7, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff83),
         std::vector<uint32_t>{0x30c7, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>{0x30c7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c7, 0x3099},
-        std::vector<uint32_t>{0x30c6, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c7, 0x3099},
         std::vector<uint32_t>{0x30c6, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3066, 0x3099},
         std::vector<uint32_t>{0x30c6, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c6, 0x3099},
-        std::vector<uint32_t>{0xff83, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c6, 0x3099},
         std::vector<uint32_t>{0xff83, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3066, 0x3099},
         std::vector<uint32_t>{0xff83, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff83, 0x3099},
-        std::vector<uint32_t>{0x30c7, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff83, 0x3099},
         std::vector<uint32_t>{0x30c7, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3066, 0x3099},
         std::vector<uint32_t>{0x30c7, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
-        std::vector<uint32_t>{0x3069, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3068, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3068),
+        std::vector<uint32_t>{0x3068, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3068),
+        std::vector<uint32_t>{0x3068, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0x3069, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0x3069, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3069, 0x3099},
         std::vector<uint32_t>{0x3068, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3069, 0x3099},
-        std::vector<uint32_t>{0x3068, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0x3068, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3068, 0x3099},
-        std::vector<uint32_t>{0x3069, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0x3069, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0x3069, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3069),
         std::vector<uint32_t>{0x30c8, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3069),
         std::vector<uint32_t>{0x30c8, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0x30c8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c8),
-        std::vector<uint32_t>{0xff84, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c8),
         std::vector<uint32_t>{0xff84, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0xff84, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff84),
-        std::vector<uint32_t>{0x31f3, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff84),
         std::vector<uint32_t>{0x31f3, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0x31f3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f3),
-        std::vector<uint32_t>{0x30c9, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f3),
         std::vector<uint32_t>{0x30c9, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>{0x30c9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c9, 0x3099},
-        std::vector<uint32_t>{0x30c8, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c9, 0x3099},
         std::vector<uint32_t>{0x30c8, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0x30c8, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30c8, 0x3099},
-        std::vector<uint32_t>{0xff84, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30c8, 0x3099},
         std::vector<uint32_t>{0xff84, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0xff84, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff84, 0x3099},
-        std::vector<uint32_t>{0x31f3, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff84, 0x3099},
         std::vector<uint32_t>{0x31f3, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0x31f3, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f3, 0x3099},
-        std::vector<uint32_t>{0x30c9, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f3, 0x3099},
         std::vector<uint32_t>{0x30c9, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3068, 0x3099},
         std::vector<uint32_t>{0x30c9, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306a),
+        std::vector<uint32_t>{0x306a, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306a),
+        std::vector<uint32_t>{0x306a, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306a),
+        std::vector<uint32_t>{0x306a, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>{0x30ca, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>{0x30ca, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>{0x30ca, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ca),
         std::vector<uint32_t>{0xff85, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ca),
-        std::vector<uint32_t>{0xff85, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>{0xff85, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306b),
+        std::vector<uint32_t>{0x306b, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306b),
+        std::vector<uint32_t>{0x306b, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306b),
+        std::vector<uint32_t>{0x306b, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>{0x30cb, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>{0x30cb, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>{0x30cb, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cb),
         std::vector<uint32_t>{0xff86, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cb),
-        std::vector<uint32_t>{0xff86, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>{0xff86, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306c),
+        std::vector<uint32_t>{0x306c, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306c),
+        std::vector<uint32_t>{0x306c, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306c),
+        std::vector<uint32_t>{0x306c, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>{0x30cc, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>{0x30cc, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>{0x30cc, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cc),
         std::vector<uint32_t>{0xff87, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cc),
-        std::vector<uint32_t>{0xff87, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>{0xff87, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff87),
-        std::vector<uint32_t>{0x31f4, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff87),
         std::vector<uint32_t>{0x31f4, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>{0x31f4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306d),
+        std::vector<uint32_t>{0x306d, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306d),
+        std::vector<uint32_t>{0x306d, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306d),
+        std::vector<uint32_t>{0x306d, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>{0x30cd, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>{0x30cd, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>{0x30cd, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cd),
-        std::vector<uint32_t>{0xff88, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cd),
         std::vector<uint32_t>{0xff88, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>{0xff88, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306e),
+        std::vector<uint32_t>{0x306e, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306e),
+        std::vector<uint32_t>{0x306e, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306e),
+        std::vector<uint32_t>{0x306e, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>{0x30ce, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>{0x30ce, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>{0x30ce, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ce),
-        std::vector<uint32_t>{0xff89, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ce),
         std::vector<uint32_t>{0xff89, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>{0xff89, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
-        std::vector<uint32_t>{0x3070, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x306f, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306f),
+        std::vector<uint32_t>{0x306f, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x306f),
+        std::vector<uint32_t>{0x306f, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x3070, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x3070, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3070, 0x3099},
         std::vector<uint32_t>{0x306f, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3070, 0x3099},
-        std::vector<uint32_t>{0x306f, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x306f, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x306f, 0x3099},
-        std::vector<uint32_t>{0x3070, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x3070, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x3070, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3070),
-        std::vector<uint32_t>{0x3071, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3070),
         std::vector<uint32_t>{0x3071, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x3071, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3071, 0x3099},
-        std::vector<uint32_t>{0x3071, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3071, 0x3099},
         std::vector<uint32_t>{0x3071, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x3071, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3071),
         std::vector<uint32_t>{0x30cf, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3071),
         std::vector<uint32_t>{0x30cf, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x30cf, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cf),
-        std::vector<uint32_t>{0xff8a, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cf),
         std::vector<uint32_t>{0xff8a, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0xff8a, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8a),
-        std::vector<uint32_t>{0x31f5, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8a),
         std::vector<uint32_t>{0x31f5, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x31f5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f5),
-        std::vector<uint32_t>{0x30d0, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f5),
         std::vector<uint32_t>{0x30d0, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x30d0, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d0, 0x3099},
-        std::vector<uint32_t>{0x30cf, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d0, 0x3099},
         std::vector<uint32_t>{0x30cf, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x30cf, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30cf, 0x3099},
-        std::vector<uint32_t>{0xff8a, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30cf, 0x3099},
         std::vector<uint32_t>{0xff8a, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0xff8a, 0x30fe},
@@ -6716,676 +6181,613 @@ TEST(tailoring, ja_standard_000_010)
 
 TEST(tailoring, ja_standard_000_011)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff8a, 0x3099},
-        std::vector<uint32_t>{0x31f5, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff8a, 0x3099},
         std::vector<uint32_t>{0x31f5, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x31f5, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f5, 0x3099},
-        std::vector<uint32_t>{0x30d0, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f5, 0x3099},
         std::vector<uint32_t>{0x30d0, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x30d0, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d0),
-        std::vector<uint32_t>{0x30d1, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d0),
         std::vector<uint32_t>{0x30d1, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>{0x30d1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d1, 0x3099},
-        std::vector<uint32_t>{0x30d1, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d1, 0x3099},
         std::vector<uint32_t>{0x30d1, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x306f, 0x3099},
         std::vector<uint32_t>{0x30d1, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
-        std::vector<uint32_t>{0x3073, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3072, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3072),
+        std::vector<uint32_t>{0x3072, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3072),
+        std::vector<uint32_t>{0x3072, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x3073, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x3073, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3073, 0x3099},
         std::vector<uint32_t>{0x3072, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3073, 0x3099},
-        std::vector<uint32_t>{0x3072, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x3072, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3072, 0x3099},
-        std::vector<uint32_t>{0x3073, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x3073, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x3073, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3073),
-        std::vector<uint32_t>{0x3074, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3073),
         std::vector<uint32_t>{0x3074, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x3074, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3074, 0x3099},
-        std::vector<uint32_t>{0x3074, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3074, 0x3099},
         std::vector<uint32_t>{0x3074, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x3074, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3074),
         std::vector<uint32_t>{0x30d2, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3074),
         std::vector<uint32_t>{0x30d2, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x30d2, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d2),
-        std::vector<uint32_t>{0xff8b, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d2),
         std::vector<uint32_t>{0xff8b, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0xff8b, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8b),
-        std::vector<uint32_t>{0x31f6, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8b),
         std::vector<uint32_t>{0x31f6, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x31f6, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f6),
-        std::vector<uint32_t>{0x30d3, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f6),
         std::vector<uint32_t>{0x30d3, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x30d3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d3, 0x3099},
-        std::vector<uint32_t>{0x30d2, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d3, 0x3099},
         std::vector<uint32_t>{0x30d2, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x30d2, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d2, 0x3099},
-        std::vector<uint32_t>{0xff8b, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d2, 0x3099},
         std::vector<uint32_t>{0xff8b, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0xff8b, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff8b, 0x3099},
-        std::vector<uint32_t>{0x31f6, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff8b, 0x3099},
         std::vector<uint32_t>{0x31f6, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x31f6, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f6, 0x3099},
-        std::vector<uint32_t>{0x30d3, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f6, 0x3099},
         std::vector<uint32_t>{0x30d3, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x30d3, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d3),
-        std::vector<uint32_t>{0x30d4, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d3),
         std::vector<uint32_t>{0x30d4, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>{0x30d4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d4, 0x3099},
-        std::vector<uint32_t>{0x30d4, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d4, 0x3099},
         std::vector<uint32_t>{0x30d4, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3072, 0x3099},
         std::vector<uint32_t>{0x30d4, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
-        std::vector<uint32_t>{0x3076, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3075, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3075),
+        std::vector<uint32_t>{0x3075, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3075),
+        std::vector<uint32_t>{0x3075, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x3076, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x3076, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3076, 0x3099},
         std::vector<uint32_t>{0x3075, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3076, 0x3099},
-        std::vector<uint32_t>{0x3075, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x3075, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3075, 0x3099},
-        std::vector<uint32_t>{0x3076, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x3076, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x3076, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3076),
-        std::vector<uint32_t>{0x3077, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3076),
         std::vector<uint32_t>{0x3077, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x3077, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3077, 0x3099},
-        std::vector<uint32_t>{0x3077, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3077, 0x3099},
         std::vector<uint32_t>{0x3077, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x3077, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3077),
         std::vector<uint32_t>{0x30d5, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3077),
         std::vector<uint32_t>{0x30d5, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x30d5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d5),
-        std::vector<uint32_t>{0xff8c, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d5),
         std::vector<uint32_t>{0xff8c, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0xff8c, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8c),
-        std::vector<uint32_t>{0x31f7, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8c),
         std::vector<uint32_t>{0x31f7, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x31f7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f7),
-        std::vector<uint32_t>{0x30d6, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f7),
         std::vector<uint32_t>{0x30d6, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x30d6, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d6, 0x3099},
-        std::vector<uint32_t>{0x30d5, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d6, 0x3099},
         std::vector<uint32_t>{0x30d5, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x30d5, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d5, 0x3099},
-        std::vector<uint32_t>{0xff8c, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d5, 0x3099},
         std::vector<uint32_t>{0xff8c, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0xff8c, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff8c, 0x3099},
-        std::vector<uint32_t>{0x31f7, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff8c, 0x3099},
         std::vector<uint32_t>{0x31f7, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x31f7, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f7, 0x3099},
-        std::vector<uint32_t>{0x30d6, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f7, 0x3099},
         std::vector<uint32_t>{0x30d6, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x30d6, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d6),
-        std::vector<uint32_t>{0x30d7, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d6),
         std::vector<uint32_t>{0x30d7, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>{0x30d7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d7, 0x3099},
-        std::vector<uint32_t>{0x30d7, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d7, 0x3099},
         std::vector<uint32_t>{0x30d7, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3075, 0x3099},
         std::vector<uint32_t>{0x30d7, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
-        std::vector<uint32_t>{0x3079, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3078, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3078),
+        std::vector<uint32_t>{0x3078, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3078),
+        std::vector<uint32_t>{0x3078, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x3079, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x3079, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3079, 0x3099},
         std::vector<uint32_t>{0x3078, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3079, 0x3099},
-        std::vector<uint32_t>{0x3078, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x3078, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3078, 0x3099},
-        std::vector<uint32_t>{0x3079, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x3079, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x3079, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3079),
-        std::vector<uint32_t>{0x307a, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3079),
         std::vector<uint32_t>{0x307a, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x307a, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x307a, 0x3099},
-        std::vector<uint32_t>{0x307a, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307a, 0x3099},
         std::vector<uint32_t>{0x307a, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x307a, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307a),
         std::vector<uint32_t>{0x30d8, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307a),
         std::vector<uint32_t>{0x30d8, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x30d8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d8),
-        std::vector<uint32_t>{0xff8d, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d8),
         std::vector<uint32_t>{0xff8d, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0xff8d, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8d),
-        std::vector<uint32_t>{0x31f8, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8d),
         std::vector<uint32_t>{0x31f8, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x31f8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f8),
-        std::vector<uint32_t>{0x30d9, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f8),
         std::vector<uint32_t>{0x30d9, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x30d9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d9, 0x3099},
-        std::vector<uint32_t>{0x30d8, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d9, 0x3099},
         std::vector<uint32_t>{0x30d8, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x30d8, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30d8, 0x3099},
-        std::vector<uint32_t>{0xff8d, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30d8, 0x3099},
         std::vector<uint32_t>{0xff8d, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0xff8d, 0x30fe},
@@ -7395,1070 +6797,1217 @@ TEST(tailoring, ja_standard_000_011)
 
 TEST(tailoring, ja_standard_000_012)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff8d, 0x3099},
-        std::vector<uint32_t>{0x31f8, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff8d, 0x3099},
         std::vector<uint32_t>{0x31f8, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x31f8, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f8, 0x3099},
-        std::vector<uint32_t>{0x30d9, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f8, 0x3099},
         std::vector<uint32_t>{0x30d9, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x30d9, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d9),
-        std::vector<uint32_t>{0x30da, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d9),
         std::vector<uint32_t>{0x30da, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>{0x30da, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30da, 0x3099},
-        std::vector<uint32_t>{0x30da, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30da, 0x3099},
         std::vector<uint32_t>{0x30da, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3078, 0x3099},
         std::vector<uint32_t>{0x30da, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
-        std::vector<uint32_t>{0x307c, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x307b, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307b),
+        std::vector<uint32_t>{0x307b, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307b),
+        std::vector<uint32_t>{0x307b, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x307c, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x307c, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307c, 0x3099},
         std::vector<uint32_t>{0x307b, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x307c, 0x3099},
-        std::vector<uint32_t>{0x307b, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x307b, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x307b, 0x3099},
-        std::vector<uint32_t>{0x307c, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x307c, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x307c, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x307c),
-        std::vector<uint32_t>{0x307d, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307c),
         std::vector<uint32_t>{0x307d, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x307d, 0x309d},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x307d, 0x3099},
-        std::vector<uint32_t>{0x307d, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307d, 0x3099},
         std::vector<uint32_t>{0x307d, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x307d, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307d),
         std::vector<uint32_t>{0x30db, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307d),
         std::vector<uint32_t>{0x30db, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x30db, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30db),
-        std::vector<uint32_t>{0xff8e, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30db),
         std::vector<uint32_t>{0xff8e, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0xff8e, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff8e),
-        std::vector<uint32_t>{0x31f9, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff8e),
         std::vector<uint32_t>{0x31f9, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x31f9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x31f9),
-        std::vector<uint32_t>{0x30dc, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x31f9),
         std::vector<uint32_t>{0x30dc, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x30dc, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30dc, 0x3099},
-        std::vector<uint32_t>{0x30db, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30dc, 0x3099},
         std::vector<uint32_t>{0x30db, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x30db, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30db, 0x3099},
-        std::vector<uint32_t>{0xff8e, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30db, 0x3099},
         std::vector<uint32_t>{0xff8e, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0xff8e, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff8e, 0x3099},
-        std::vector<uint32_t>{0x31f9, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff8e, 0x3099},
         std::vector<uint32_t>{0x31f9, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x31f9, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x31f9, 0x3099},
-        std::vector<uint32_t>{0x30dc, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x31f9, 0x3099},
         std::vector<uint32_t>{0x30dc, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x30dc, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30dc),
-        std::vector<uint32_t>{0x30dd, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30dc),
         std::vector<uint32_t>{0x30dd, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>{0x30dd, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30dd, 0x3099},
-        std::vector<uint32_t>{0x30dd, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30dd, 0x3099},
         std::vector<uint32_t>{0x30dd, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x307b, 0x3099},
         std::vector<uint32_t>{0x30dd, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307e),
+        std::vector<uint32_t>{0x307e, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307e),
+        std::vector<uint32_t>{0x307e, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307e),
+        std::vector<uint32_t>{0x307e, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>{0x30de, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>{0x30de, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>{0x30de, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30de),
         std::vector<uint32_t>{0xff8f, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30de),
-        std::vector<uint32_t>{0xff8f, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>{0xff8f, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307f),
+        std::vector<uint32_t>{0x307f, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307f),
+        std::vector<uint32_t>{0x307f, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x307f),
+        std::vector<uint32_t>{0x307f, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>{0x30df, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>{0x30df, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>{0x30df, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30df),
         std::vector<uint32_t>{0xff90, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30df),
-        std::vector<uint32_t>{0xff90, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>{0xff90, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3080),
+        std::vector<uint32_t>{0x3080, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3080),
+        std::vector<uint32_t>{0x3080, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3080),
+        std::vector<uint32_t>{0x3080, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>{0x30e0, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>{0x30e0, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>{0x30e0, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e0),
         std::vector<uint32_t>{0xff91, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e0),
-        std::vector<uint32_t>{0xff91, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>{0xff91, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff91),
-        std::vector<uint32_t>{0x31fa, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff91),
         std::vector<uint32_t>{0x31fa, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>{0x31fa, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3081),
+        std::vector<uint32_t>{0x3081, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3081),
+        std::vector<uint32_t>{0x3081, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3081),
+        std::vector<uint32_t>{0x3081, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>{0x30e1, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>{0x30e1, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>{0x30e1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e1),
-        std::vector<uint32_t>{0xff92, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e1),
         std::vector<uint32_t>{0xff92, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>{0xff92, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3082),
+        std::vector<uint32_t>{0x3082, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3082),
+        std::vector<uint32_t>{0x3082, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3082),
+        std::vector<uint32_t>{0x3082, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>{0x30e2, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>{0x30e2, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>{0x30e2, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e2),
-        std::vector<uint32_t>{0xff93, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e2),
         std::vector<uint32_t>{0xff93, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>{0xff93, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
-        std::vector<uint32_t>{0x3083, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3084, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3084),
+        std::vector<uint32_t>{0x3084, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3084),
+        std::vector<uint32_t>{0x3084, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0x3083, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0x3083, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3083),
         std::vector<uint32_t>{0x30e4, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3083),
         std::vector<uint32_t>{0x30e4, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0x30e4, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e4),
-        std::vector<uint32_t>{0xff94, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e4),
         std::vector<uint32_t>{0xff94, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0xff94, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff94),
-        std::vector<uint32_t>{0x30e3, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff94),
         std::vector<uint32_t>{0x30e3, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0x30e3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e3),
-        std::vector<uint32_t>{0xff6c, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e3),
         std::vector<uint32_t>{0xff6c, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>{0xff6c, 0x30fd},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3086),
+        std::vector<uint32_t>{0x3086, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3086),
+        std::vector<uint32_t>{0x3086, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3086),
+        std::vector<uint32_t>{0x3086, 0x309d},
         table(), collation_strength::quaternary),
         1);
 }
 
 TEST(tailoring, ja_standard_000_013)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3086),
-        std::vector<uint32_t>{0x3085, 0x309d},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0x3085, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0x3085, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3085),
         std::vector<uint32_t>{0x30e6, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3085),
         std::vector<uint32_t>{0x30e6, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0x30e6, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e6),
-        std::vector<uint32_t>{0xff95, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e6),
         std::vector<uint32_t>{0xff95, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0xff95, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff95),
-        std::vector<uint32_t>{0x30e5, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff95),
         std::vector<uint32_t>{0x30e5, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0x30e5, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e5),
-        std::vector<uint32_t>{0xff6d, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e5),
         std::vector<uint32_t>{0xff6d, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>{0xff6d, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
-        std::vector<uint32_t>{0x3087, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x3088, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3088),
+        std::vector<uint32_t>{0x3088, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3088),
+        std::vector<uint32_t>{0x3088, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0x3087, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0x3087, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3087),
         std::vector<uint32_t>{0x30e8, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3087),
         std::vector<uint32_t>{0x30e8, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0x30e8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e8),
-        std::vector<uint32_t>{0xff96, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e8),
         std::vector<uint32_t>{0xff96, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0xff96, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff96),
-        std::vector<uint32_t>{0x30e7, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff96),
         std::vector<uint32_t>{0x30e7, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0x30e7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e7),
-        std::vector<uint32_t>{0xff6e, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e7),
         std::vector<uint32_t>{0xff6e, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>{0xff6e, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3089),
+        std::vector<uint32_t>{0x3089, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3089),
+        std::vector<uint32_t>{0x3089, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3089),
+        std::vector<uint32_t>{0x3089, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>{0x30e9, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>{0x30e9, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>{0x30e9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e9),
         std::vector<uint32_t>{0xff97, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e9),
-        std::vector<uint32_t>{0xff97, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>{0xff97, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff97),
-        std::vector<uint32_t>{0x31fb, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff97),
         std::vector<uint32_t>{0x31fb, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>{0x31fb, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308a),
+        std::vector<uint32_t>{0x308a, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308a),
+        std::vector<uint32_t>{0x308a, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308a),
+        std::vector<uint32_t>{0x308a, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>{0x30ea, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>{0x30ea, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>{0x30ea, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ea),
         std::vector<uint32_t>{0xff98, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ea),
-        std::vector<uint32_t>{0xff98, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>{0xff98, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff98),
-        std::vector<uint32_t>{0x31fc, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff98),
         std::vector<uint32_t>{0x31fc, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>{0x31fc, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308b),
+        std::vector<uint32_t>{0x308b, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308b),
+        std::vector<uint32_t>{0x308b, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308b),
+        std::vector<uint32_t>{0x308b, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>{0x30eb, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>{0x30eb, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>{0x30eb, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30eb),
         std::vector<uint32_t>{0xff99, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30eb),
-        std::vector<uint32_t>{0xff99, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>{0xff99, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff99),
-        std::vector<uint32_t>{0x31fd, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff99),
         std::vector<uint32_t>{0x31fd, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>{0x31fd, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308c),
+        std::vector<uint32_t>{0x308c, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308c),
+        std::vector<uint32_t>{0x308c, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308c),
+        std::vector<uint32_t>{0x308c, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>{0x30ec, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>{0x30ec, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>{0x30ec, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ec),
-        std::vector<uint32_t>{0xff9a, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ec),
         std::vector<uint32_t>{0xff9a, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>{0xff9a, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff9a),
-        std::vector<uint32_t>{0x31fe, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff9a),
         std::vector<uint32_t>{0x31fe, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>{0x31fe, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308d),
+        std::vector<uint32_t>{0x308d, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308d),
+        std::vector<uint32_t>{0x308d, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308d),
+        std::vector<uint32_t>{0x308d, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>{0x30ed, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>{0x30ed, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>{0x30ed, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ed),
-        std::vector<uint32_t>{0xff9b, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ed),
         std::vector<uint32_t>{0xff9b, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>{0xff9b, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff9b),
-        std::vector<uint32_t>{0x31ff, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff9b),
         std::vector<uint32_t>{0x31ff, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>{0x31ff, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
-        std::vector<uint32_t>{0x308e, 0x309d},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>{0x308f, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308f),
+        std::vector<uint32_t>{0x308f, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x308f),
+        std::vector<uint32_t>{0x308f, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x308e, 0x309d},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x308e, 0x309d},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308e, 0x3099},
         std::vector<uint32_t>{0x308f, 0x309e},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x308e, 0x3099},
-        std::vector<uint32_t>{0x308f, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0x308f, 0x309e},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x308f, 0x3099},
-        std::vector<uint32_t>{0x308e, 0x309e},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0x308e, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0x308e, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308e),
         std::vector<uint32_t>{0x30ef, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308e),
         std::vector<uint32_t>{0x30ef, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x30ef, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ef),
-        std::vector<uint32_t>{0xff9c, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ef),
         std::vector<uint32_t>{0xff9c, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0xff9c, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff9c),
-        std::vector<uint32_t>{0x30ee, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff9c),
         std::vector<uint32_t>{0x30ee, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x30ee, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ee),
-        std::vector<uint32_t>{0x30f7, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ee),
         std::vector<uint32_t>{0x30f7, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>{0x30f7, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f7, 0x3099},
-        std::vector<uint32_t>{0x30ef, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f7, 0x3099},
         std::vector<uint32_t>{0x30ef, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0x30ef, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30ef, 0x3099},
-        std::vector<uint32_t>{0xff9c, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30ef, 0x3099},
         std::vector<uint32_t>{0xff9c, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0xff9c, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff9c, 0x3099},
-        std::vector<uint32_t>{0x30f7, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff9c, 0x3099},
         std::vector<uint32_t>{0x30f7, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0x30f7, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f7, 0x3099},
-        std::vector<uint32_t>{0x30ee, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f7, 0x3099},
         std::vector<uint32_t>{0x30ee, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x308f, 0x3099},
         std::vector<uint32_t>{0x30ee, 0x30fe},
@@ -8468,446 +8017,469 @@ TEST(tailoring, ja_standard_000_013)
 
 TEST(tailoring, ja_standard_000_014)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3090, 0x3099},
-        std::vector<uint32_t>{0x3090, 0x309e},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>(1, 0x3090),
+        std::vector<uint32_t>{0x3090, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3090),
+        std::vector<uint32_t>{0x3090, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3090),
+        std::vector<uint32_t>{0x3090, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3090, 0x3099},
         std::vector<uint32_t>{0x3090, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3090, 0x3099},
         std::vector<uint32_t>{0x3090, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>{0x30f0, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>{0x30f0, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>{0x30f0, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f0),
         std::vector<uint32_t>{0x30f8, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f0),
-        std::vector<uint32_t>{0x30f8, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>{0x30f8, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f8, 0x3099},
-        std::vector<uint32_t>{0x30f0, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f8, 0x3099},
         std::vector<uint32_t>{0x30f0, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3090, 0x3099},
         std::vector<uint32_t>{0x30f0, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f0, 0x3099},
-        std::vector<uint32_t>{0x30f8, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f0, 0x3099},
         std::vector<uint32_t>{0x30f8, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3090, 0x3099},
         std::vector<uint32_t>{0x30f8, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3091, 0x3099},
-        std::vector<uint32_t>{0x3091, 0x309e},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>(1, 0x3091),
+        std::vector<uint32_t>{0x3091, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3091),
+        std::vector<uint32_t>{0x3091, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3091),
+        std::vector<uint32_t>{0x3091, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3091, 0x3099},
         std::vector<uint32_t>{0x3091, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3091, 0x3099},
         std::vector<uint32_t>{0x3091, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>{0x30f1, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>{0x30f1, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>{0x30f1, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f1),
         std::vector<uint32_t>{0x30f9, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f1),
-        std::vector<uint32_t>{0x30f9, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>{0x30f9, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f9, 0x3099},
-        std::vector<uint32_t>{0x30f1, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f9, 0x3099},
         std::vector<uint32_t>{0x30f1, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3091, 0x3099},
         std::vector<uint32_t>{0x30f1, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f1, 0x3099},
-        std::vector<uint32_t>{0x30f9, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f1, 0x3099},
         std::vector<uint32_t>{0x30f9, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3091, 0x3099},
         std::vector<uint32_t>{0x30f9, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x3092, 0x3099},
-        std::vector<uint32_t>{0x3092, 0x309e},
-        table(), collation_strength::identical),
+        std::vector<uint32_t>(1, 0x3092),
+        std::vector<uint32_t>{0x3092, 0x309d},
+        table(), collation_strength::tertiary),
         -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3092),
+        std::vector<uint32_t>{0x3092, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3092),
+        std::vector<uint32_t>{0x3092, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3092, 0x3099},
         std::vector<uint32_t>{0x3092, 0x309e},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3092, 0x3099},
         std::vector<uint32_t>{0x3092, 0x309e},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0x30f2, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0x30f2, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0x30f2, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f2),
-        std::vector<uint32_t>{0xff66, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f2),
         std::vector<uint32_t>{0xff66, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0xff66, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0xff66),
-        std::vector<uint32_t>{0x30fa, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0xff66),
         std::vector<uint32_t>{0x30fa, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>{0x30fa, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30fa, 0x3099},
-        std::vector<uint32_t>{0x30f2, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30fa, 0x3099},
         std::vector<uint32_t>{0x30f2, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3092, 0x3099},
         std::vector<uint32_t>{0x30f2, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x30f2, 0x3099},
-        std::vector<uint32_t>{0xff66, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30f2, 0x3099},
         std::vector<uint32_t>{0xff66, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3092, 0x3099},
         std::vector<uint32_t>{0xff66, 0x30fe},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0xff66, 0x3099},
-        std::vector<uint32_t>{0x30fa, 0x30fe},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0xff66, 0x3099},
         std::vector<uint32_t>{0x30fa, 0x30fe},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3092, 0x3099},
         std::vector<uint32_t>{0x30fa, 0x30fe},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3093),
+        std::vector<uint32_t>{0x3093, 0x309d},
+        table(), collation_strength::tertiary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3093),
+        std::vector<uint32_t>{0x3093, 0x309d},
+        table(), collation_strength::secondary),
+        0);
+    // before initial reset cps
+    EXPECT_EQ(collate(
+        std::vector<uint32_t>(1, 0x3093),
+        std::vector<uint32_t>{0x3093, 0x309d},
+        table(), collation_strength::quaternary),
+        1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3093),
         std::vector<uint32_t>{0x30f3, 0x30fd},
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3093),
         std::vector<uint32_t>{0x30f3, 0x30fd},
         table(), collation_strength::tertiary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3093),
         std::vector<uint32_t>{0x30f3, 0x30fd},
         table(), collation_strength::quaternary),
         1);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f3),
-        std::vector<uint32_t>{0xff9d, 0x30fd},
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f3),
         std::vector<uint32_t>{0xff9d, 0x30fd},
         table(), collation_strength::quaternary),
         0);
+    // before initial reset cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3093),
         std::vector<uint32_t>{0xff9d, 0x30fd},
         table(), collation_strength::quaternary),
         1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>(1, 0x30a1),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3041),
         std::vector<uint32_t>(1, 0x30a1),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a1),
-        std::vector<uint32_t>(1, 0xff67),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a1),
         std::vector<uint32_t>(1, 0xff67),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>(1, 0x30a2),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3042),
         std::vector<uint32_t>(1, 0x30a2),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a2),
-        std::vector<uint32_t>(1, 0xff71),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a2),
         std::vector<uint32_t>(1, 0xff71),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>(1, 0x30a3),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3043),
         std::vector<uint32_t>(1, 0x30a3),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a3),
-        std::vector<uint32_t>(1, 0xff68),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a3),
         std::vector<uint32_t>(1, 0xff68),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>(1, 0x30a4),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3044),
         std::vector<uint32_t>(1, 0x30a4),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a4),
-        std::vector<uint32_t>(1, 0xff72),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a4),
         std::vector<uint32_t>(1, 0xff72),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>(1, 0x30a5),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3045),
         std::vector<uint32_t>(1, 0x30a5),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a5),
-        std::vector<uint32_t>(1, 0xff69),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a5),
         std::vector<uint32_t>(1, 0xff69),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>(1, 0x30a6),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3046),
         std::vector<uint32_t>(1, 0x30a6),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a6),
-        std::vector<uint32_t>(1, 0xff73),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a6),
         std::vector<uint32_t>(1, 0xff73),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>(1, 0x30a7),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3047),
         std::vector<uint32_t>(1, 0x30a7),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a7),
-        std::vector<uint32_t>(1, 0xff6a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a7),
         std::vector<uint32_t>(1, 0xff6a),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>(1, 0x30a8),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3048),
         std::vector<uint32_t>(1, 0x30a8),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a8),
-        std::vector<uint32_t>(1, 0xff74),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a8),
         std::vector<uint32_t>(1, 0xff74),
@@ -8917,341 +8489,307 @@ TEST(tailoring, ja_standard_000_014)
 
 TEST(tailoring, ja_standard_000_015)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>(1, 0x30a9),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3049),
         std::vector<uint32_t>(1, 0x30a9),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30a9),
-        std::vector<uint32_t>(1, 0xff6b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30a9),
         std::vector<uint32_t>(1, 0xff6b),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>(1, 0x30aa),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304a),
         std::vector<uint32_t>(1, 0x30aa),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30aa),
-        std::vector<uint32_t>(1, 0xff75),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30aa),
         std::vector<uint32_t>(1, 0xff75),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>(1, 0x30ab),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304b),
         std::vector<uint32_t>(1, 0x30ab),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ab),
-        std::vector<uint32_t>(1, 0xff76),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ab),
         std::vector<uint32_t>(1, 0xff76),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>(1, 0x30ad),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304d),
         std::vector<uint32_t>(1, 0x30ad),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ad),
-        std::vector<uint32_t>(1, 0xff77),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ad),
         std::vector<uint32_t>(1, 0xff77),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>(1, 0x30af),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x304f),
         std::vector<uint32_t>(1, 0x30af),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30af),
-        std::vector<uint32_t>(1, 0xff78),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30af),
         std::vector<uint32_t>(1, 0xff78),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>(1, 0x30b1),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3051),
         std::vector<uint32_t>(1, 0x30b1),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b1),
-        std::vector<uint32_t>(1, 0xff79),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b1),
         std::vector<uint32_t>(1, 0xff79),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>(1, 0x30b3),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3053),
         std::vector<uint32_t>(1, 0x30b3),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b3),
-        std::vector<uint32_t>(1, 0xff7a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b3),
         std::vector<uint32_t>(1, 0xff7a),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>(1, 0x30b5),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3055),
         std::vector<uint32_t>(1, 0x30b5),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b5),
-        std::vector<uint32_t>(1, 0xff7b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b5),
         std::vector<uint32_t>(1, 0xff7b),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>(1, 0x30b7),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3057),
         std::vector<uint32_t>(1, 0x30b7),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b7),
-        std::vector<uint32_t>(1, 0xff7c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b7),
         std::vector<uint32_t>(1, 0xff7c),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>(1, 0x30b9),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3059),
         std::vector<uint32_t>(1, 0x30b9),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30b9),
-        std::vector<uint32_t>(1, 0xff7d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30b9),
         std::vector<uint32_t>(1, 0xff7d),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>(1, 0x30bb),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305b),
         std::vector<uint32_t>(1, 0x30bb),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bb),
-        std::vector<uint32_t>(1, 0xff7e),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bb),
         std::vector<uint32_t>(1, 0xff7e),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>(1, 0x30bd),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305d),
         std::vector<uint32_t>(1, 0x30bd),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bd),
-        std::vector<uint32_t>(1, 0xff7f),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bd),
         std::vector<uint32_t>(1, 0xff7f),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>(1, 0x30bf),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x305f),
         std::vector<uint32_t>(1, 0x30bf),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30bf),
-        std::vector<uint32_t>(1, 0xff80),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30bf),
         std::vector<uint32_t>(1, 0xff80),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>(1, 0x30c1),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3061),
         std::vector<uint32_t>(1, 0x30c1),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c1),
-        std::vector<uint32_t>(1, 0xff81),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c1),
         std::vector<uint32_t>(1, 0xff81),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3063),
         std::vector<uint32_t>(1, 0x30c3),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3063),
         std::vector<uint32_t>(1, 0x30c3),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c3),
-        std::vector<uint32_t>(1, 0xff6f),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c3),
         std::vector<uint32_t>(1, 0xff6f),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>(1, 0x30c4),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3064),
         std::vector<uint32_t>(1, 0x30c4),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c4),
-        std::vector<uint32_t>(1, 0xff82),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c4),
         std::vector<uint32_t>(1, 0xff82),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>(1, 0x30c6),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3066),
         std::vector<uint32_t>(1, 0x30c6),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c6),
-        std::vector<uint32_t>(1, 0xff83),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c6),
         std::vector<uint32_t>(1, 0xff83),
@@ -9261,341 +8799,307 @@ TEST(tailoring, ja_standard_000_015)
 
 TEST(tailoring, ja_standard_000_016)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>(1, 0x30c8),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3068),
         std::vector<uint32_t>(1, 0x30c8),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30c8),
-        std::vector<uint32_t>(1, 0xff84),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30c8),
         std::vector<uint32_t>(1, 0xff84),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>(1, 0x30ca),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306a),
         std::vector<uint32_t>(1, 0x30ca),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ca),
-        std::vector<uint32_t>(1, 0xff85),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ca),
         std::vector<uint32_t>(1, 0xff85),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>(1, 0x30cb),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306b),
         std::vector<uint32_t>(1, 0x30cb),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cb),
-        std::vector<uint32_t>(1, 0xff86),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cb),
         std::vector<uint32_t>(1, 0xff86),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>(1, 0x30cc),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306c),
         std::vector<uint32_t>(1, 0x30cc),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cc),
-        std::vector<uint32_t>(1, 0xff87),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cc),
         std::vector<uint32_t>(1, 0xff87),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>(1, 0x30cd),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306d),
         std::vector<uint32_t>(1, 0x30cd),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cd),
-        std::vector<uint32_t>(1, 0xff88),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cd),
         std::vector<uint32_t>(1, 0xff88),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>(1, 0x30ce),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306e),
         std::vector<uint32_t>(1, 0x30ce),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ce),
-        std::vector<uint32_t>(1, 0xff89),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ce),
         std::vector<uint32_t>(1, 0xff89),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>(1, 0x30cf),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x306f),
         std::vector<uint32_t>(1, 0x30cf),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30cf),
-        std::vector<uint32_t>(1, 0xff8a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30cf),
         std::vector<uint32_t>(1, 0xff8a),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>(1, 0x30d2),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3072),
         std::vector<uint32_t>(1, 0x30d2),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d2),
-        std::vector<uint32_t>(1, 0xff8b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d2),
         std::vector<uint32_t>(1, 0xff8b),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>(1, 0x30d5),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3075),
         std::vector<uint32_t>(1, 0x30d5),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d5),
-        std::vector<uint32_t>(1, 0xff8c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d5),
         std::vector<uint32_t>(1, 0xff8c),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>(1, 0x30d8),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3078),
         std::vector<uint32_t>(1, 0x30d8),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30d8),
-        std::vector<uint32_t>(1, 0xff8d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30d8),
         std::vector<uint32_t>(1, 0xff8d),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>(1, 0x30db),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307b),
         std::vector<uint32_t>(1, 0x30db),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30db),
-        std::vector<uint32_t>(1, 0xff8e),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30db),
         std::vector<uint32_t>(1, 0xff8e),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>(1, 0x30de),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307e),
         std::vector<uint32_t>(1, 0x30de),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30de),
-        std::vector<uint32_t>(1, 0xff8f),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30de),
         std::vector<uint32_t>(1, 0xff8f),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>(1, 0x30df),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x307f),
         std::vector<uint32_t>(1, 0x30df),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30df),
-        std::vector<uint32_t>(1, 0xff90),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30df),
         std::vector<uint32_t>(1, 0xff90),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>(1, 0x30e0),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3080),
         std::vector<uint32_t>(1, 0x30e0),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e0),
-        std::vector<uint32_t>(1, 0xff91),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e0),
         std::vector<uint32_t>(1, 0xff91),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>(1, 0x30e1),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3081),
         std::vector<uint32_t>(1, 0x30e1),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e1),
-        std::vector<uint32_t>(1, 0xff92),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e1),
         std::vector<uint32_t>(1, 0xff92),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>(1, 0x30e2),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3082),
         std::vector<uint32_t>(1, 0x30e2),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e2),
-        std::vector<uint32_t>(1, 0xff93),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e2),
         std::vector<uint32_t>(1, 0xff93),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3083),
         std::vector<uint32_t>(1, 0x30e3),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3083),
         std::vector<uint32_t>(1, 0x30e3),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e3),
-        std::vector<uint32_t>(1, 0xff6c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e3),
         std::vector<uint32_t>(1, 0xff6c),
@@ -9605,321 +9109,307 @@ TEST(tailoring, ja_standard_000_016)
 
 TEST(tailoring, ja_standard_000_017)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>(1, 0x30e4),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3084),
         std::vector<uint32_t>(1, 0x30e4),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e4),
-        std::vector<uint32_t>(1, 0xff94),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e4),
         std::vector<uint32_t>(1, 0xff94),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3085),
         std::vector<uint32_t>(1, 0x30e5),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3085),
         std::vector<uint32_t>(1, 0x30e5),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e5),
-        std::vector<uint32_t>(1, 0xff6d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e5),
         std::vector<uint32_t>(1, 0xff6d),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>(1, 0x30e6),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3086),
         std::vector<uint32_t>(1, 0x30e6),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e6),
-        std::vector<uint32_t>(1, 0xff95),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e6),
         std::vector<uint32_t>(1, 0xff95),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3087),
         std::vector<uint32_t>(1, 0x30e7),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3087),
         std::vector<uint32_t>(1, 0x30e7),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e7),
-        std::vector<uint32_t>(1, 0xff6e),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e7),
         std::vector<uint32_t>(1, 0xff6e),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>(1, 0x30e8),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3088),
         std::vector<uint32_t>(1, 0x30e8),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e8),
-        std::vector<uint32_t>(1, 0xff96),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e8),
         std::vector<uint32_t>(1, 0xff96),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>(1, 0x30e9),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3089),
         std::vector<uint32_t>(1, 0x30e9),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30e9),
-        std::vector<uint32_t>(1, 0xff97),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30e9),
         std::vector<uint32_t>(1, 0xff97),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>(1, 0x30ea),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308a),
         std::vector<uint32_t>(1, 0x30ea),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ea),
-        std::vector<uint32_t>(1, 0xff98),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ea),
         std::vector<uint32_t>(1, 0xff98),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>(1, 0x30eb),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308b),
         std::vector<uint32_t>(1, 0x30eb),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30eb),
-        std::vector<uint32_t>(1, 0xff99),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30eb),
         std::vector<uint32_t>(1, 0xff99),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>(1, 0x30ec),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308c),
         std::vector<uint32_t>(1, 0x30ec),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ec),
-        std::vector<uint32_t>(1, 0xff9a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ec),
         std::vector<uint32_t>(1, 0xff9a),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>(1, 0x30ed),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308d),
         std::vector<uint32_t>(1, 0x30ed),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ed),
-        std::vector<uint32_t>(1, 0xff9b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ed),
         std::vector<uint32_t>(1, 0xff9b),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308e),
         std::vector<uint32_t>(1, 0x30ee),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308e),
         std::vector<uint32_t>(1, 0x30ee),
         table(), collation_strength::tertiary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>(1, 0x30ef),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x308f),
         std::vector<uint32_t>(1, 0x30ef),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30ef),
-        std::vector<uint32_t>(1, 0xff9c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30ef),
         std::vector<uint32_t>(1, 0xff9c),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>(1, 0x30f0),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3090),
         std::vector<uint32_t>(1, 0x30f0),
         table(), collation_strength::tertiary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>(1, 0x30f1),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3091),
         std::vector<uint32_t>(1, 0x30f1),
         table(), collation_strength::tertiary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>(1, 0x30f2),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3092),
         std::vector<uint32_t>(1, 0x30f2),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f2),
-        std::vector<uint32_t>(1, 0xff66),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f2),
         std::vector<uint32_t>(1, 0xff66),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3093),
         std::vector<uint32_t>(1, 0x30f3),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3093),
         std::vector<uint32_t>(1, 0x30f3),
         table(), collation_strength::tertiary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x30f3),
-        std::vector<uint32_t>(1, 0xff9d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x30f3),
         std::vector<uint32_t>(1, 0xff9d),
         table(), collation_strength::quaternary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3095),
         std::vector<uint32_t>(1, 0x30f5),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3095),
         std::vector<uint32_t>(1, 0x30f5),
         table(), collation_strength::tertiary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3096),
         std::vector<uint32_t>(1, 0x30f6),
         table(), collation_strength::quaternary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3096),
         std::vector<uint32_t>(1, 0x30f6),
         table(), collation_strength::tertiary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3088, 0x308a},
         std::vector<uint32_t>(1, 0x309f),
         table(), collation_strength::secondary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x3088, 0x308a},
         std::vector<uint32_t>(1, 0x309f),
@@ -9929,261 +9419,163 @@ TEST(tailoring, ja_standard_000_017)
 
 TEST(tailoring, ja_standard_000_018)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b3, 0x30c8},
         std::vector<uint32_t>(1, 0x30ff),
         table(), collation_strength::secondary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x30b3, 0x30c8},
         std::vector<uint32_t>(1, 0x30ff),
         table(), collation_strength::primary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0020),
-        std::vector<uint32_t>(1, 0x3000),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0020),
         std::vector<uint32_t>(1, 0x3000),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x3000),
-        std::vector<uint32_t>(1, 0xffe3),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x3000),
         std::vector<uint32_t>(1, 0xffe3),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0021),
-        std::vector<uint32_t>(1, 0xff01),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0021),
         std::vector<uint32_t>(1, 0xff01),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0022),
-        std::vector<uint32_t>(1, 0xff02),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0022),
         std::vector<uint32_t>(1, 0xff02),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0023),
-        std::vector<uint32_t>(1, 0xff03),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0023),
         std::vector<uint32_t>(1, 0xff03),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0024),
-        std::vector<uint32_t>(1, 0xff04),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0024),
         std::vector<uint32_t>(1, 0xff04),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0025),
-        std::vector<uint32_t>(1, 0xff05),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0025),
         std::vector<uint32_t>(1, 0xff05),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0026),
-        std::vector<uint32_t>(1, 0xff06),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0026),
         std::vector<uint32_t>(1, 0xff06),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0027),
-        std::vector<uint32_t>(1, 0xff07),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0027),
         std::vector<uint32_t>(1, 0xff07),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0028),
-        std::vector<uint32_t>(1, 0xff08),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0028),
         std::vector<uint32_t>(1, 0xff08),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0029),
-        std::vector<uint32_t>(1, 0xff09),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0029),
         std::vector<uint32_t>(1, 0xff09),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x002a),
-        std::vector<uint32_t>(1, 0xff0a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x002a),
         std::vector<uint32_t>(1, 0xff0a),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x002b),
-        std::vector<uint32_t>(1, 0xff0b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x002b),
         std::vector<uint32_t>(1, 0xff0b),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x002c),
-        std::vector<uint32_t>(1, 0xff0c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x002c),
         std::vector<uint32_t>(1, 0xff0c),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x002d),
-        std::vector<uint32_t>(1, 0xff0d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x002d),
         std::vector<uint32_t>(1, 0xff0d),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x002e),
-        std::vector<uint32_t>(1, 0xff0e),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x002e),
         std::vector<uint32_t>(1, 0xff0e),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x002f),
-        std::vector<uint32_t>(1, 0xff0f),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x002f),
         std::vector<uint32_t>(1, 0xff0f),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0030),
-        std::vector<uint32_t>(1, 0xff10),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0030),
         std::vector<uint32_t>(1, 0xff10),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0031),
-        std::vector<uint32_t>(1, 0xff11),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0031),
         std::vector<uint32_t>(1, 0xff11),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0032),
-        std::vector<uint32_t>(1, 0xff12),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0032),
         std::vector<uint32_t>(1, 0xff12),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0033),
-        std::vector<uint32_t>(1, 0xff13),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0033),
         std::vector<uint32_t>(1, 0xff13),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0034),
-        std::vector<uint32_t>(1, 0xff14),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0034),
         std::vector<uint32_t>(1, 0xff14),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0035),
-        std::vector<uint32_t>(1, 0xff15),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0035),
         std::vector<uint32_t>(1, 0xff15),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0036),
-        std::vector<uint32_t>(1, 0xff16),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0036),
         std::vector<uint32_t>(1, 0xff16),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0037),
-        std::vector<uint32_t>(1, 0xff17),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0037),
         std::vector<uint32_t>(1, 0xff17),
@@ -10193,261 +9585,157 @@ TEST(tailoring, ja_standard_000_018)
 
 TEST(tailoring, ja_standard_000_019)
 {
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0038),
-        std::vector<uint32_t>(1, 0xff18),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0038),
         std::vector<uint32_t>(1, 0xff18),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0039),
-        std::vector<uint32_t>(1, 0xff19),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0039),
         std::vector<uint32_t>(1, 0xff19),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x003a),
-        std::vector<uint32_t>(1, 0xff1a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x003a),
         std::vector<uint32_t>(1, 0xff1a),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x003b),
-        std::vector<uint32_t>(1, 0xff1b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x003b),
         std::vector<uint32_t>(1, 0xff1b),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x003c),
-        std::vector<uint32_t>(1, 0xff1c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x003c),
         std::vector<uint32_t>(1, 0xff1c),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x003d),
-        std::vector<uint32_t>(1, 0xff1d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x003d),
         std::vector<uint32_t>(1, 0xff1d),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x003e),
-        std::vector<uint32_t>(1, 0xff1e),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x003e),
         std::vector<uint32_t>(1, 0xff1e),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x003f),
-        std::vector<uint32_t>(1, 0xff1f),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x003f),
         std::vector<uint32_t>(1, 0xff1f),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0040),
-        std::vector<uint32_t>(1, 0xff20),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0040),
         std::vector<uint32_t>(1, 0xff20),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0041),
-        std::vector<uint32_t>(1, 0xff21),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0041),
         std::vector<uint32_t>(1, 0xff21),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0042),
-        std::vector<uint32_t>(1, 0xff22),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0042),
         std::vector<uint32_t>(1, 0xff22),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0043),
-        std::vector<uint32_t>(1, 0xff23),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0043),
         std::vector<uint32_t>(1, 0xff23),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0044),
-        std::vector<uint32_t>(1, 0xff24),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0044),
         std::vector<uint32_t>(1, 0xff24),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0045),
-        std::vector<uint32_t>(1, 0xff25),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0045),
         std::vector<uint32_t>(1, 0xff25),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0046),
-        std::vector<uint32_t>(1, 0xff26),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0046),
         std::vector<uint32_t>(1, 0xff26),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0047),
-        std::vector<uint32_t>(1, 0xff27),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0047),
         std::vector<uint32_t>(1, 0xff27),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0048),
-        std::vector<uint32_t>(1, 0xff28),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0048),
         std::vector<uint32_t>(1, 0xff28),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0049),
-        std::vector<uint32_t>(1, 0xff29),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0049),
         std::vector<uint32_t>(1, 0xff29),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x004a),
-        std::vector<uint32_t>(1, 0xff2a),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x004a),
         std::vector<uint32_t>(1, 0xff2a),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x004b),
-        std::vector<uint32_t>(1, 0xff2b),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x004b),
         std::vector<uint32_t>(1, 0xff2b),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x004c),
-        std::vector<uint32_t>(1, 0xff2c),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x004c),
         std::vector<uint32_t>(1, 0xff2c),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x004d),
-        std::vector<uint32_t>(1, 0xff2d),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x004d),
         std::vector<uint32_t>(1, 0xff2d),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x004e),
-        std::vector<uint32_t>(1, 0xff2e),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x004e),
         std::vector<uint32_t>(1, 0xff2e),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x004f),
-        std::vector<uint32_t>(1, 0xff2f),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x004f),
         std::vector<uint32_t>(1, 0xff2f),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0050),
-        std::vector<uint32_t>(1, 0xff30),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0050),
         std::vector<uint32_t>(1, 0xff30),
         table(), collation_strength::quaternary),
         0);
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0051),
-        std::vector<uint32_t>(1, 0xff31),
-        table(), collation_strength::identical),
-        -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0051),
         std::vector<uint32_t>(1, 0xff31),

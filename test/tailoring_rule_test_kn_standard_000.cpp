@@ -21,21 +21,25 @@ tailored_collation_element_table const & table()
 }
 TEST(tailoring, kn_standard_000_001)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0c94),
         std::vector<uint32_t>(1, 0x0c82),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0c82),
         std::vector<uint32_t>(1, 0x0c83),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0c83),
         std::vector<uint32_t>(1, 0x0cf1),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0cf1),
         std::vector<uint32_t>(1, 0x0cf2),

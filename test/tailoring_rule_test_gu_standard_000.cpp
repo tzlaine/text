@@ -21,21 +21,25 @@ tailored_collation_element_table const & table()
 }
 TEST(tailoring, gu_standard_000_001)
 {
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0ad0),
         std::vector<uint32_t>(1, 0x0a82),
         table(), collation_strength::primary),
         -1);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0a82),
         std::vector<uint32_t>(1, 0x0a81),
         table(), collation_strength::secondary),
         -1);
+    // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0a82),
         std::vector<uint32_t>(1, 0x0a81),
         table(), collation_strength::primary),
         0);
+    // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0a81),
         std::vector<uint32_t>(1, 0x0a83),

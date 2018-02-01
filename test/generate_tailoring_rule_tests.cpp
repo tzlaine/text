@@ -25,7 +25,9 @@ namespace boost { namespace text {
             os << "collation_strength::quaternary";
             break;
         case collation_strength::identical:
-            os << "collation_strength::identical";
+            // identical is overloaded to mean "=", which must compare
+            // quaternary-equal.
+            os << "collation_strength::quaternary";
             break;
         }
         return os;
@@ -105,7 +107,11 @@ string vector_of(detail::cp_seq_t cps)
     std::stringstream ss;
     ss << std::hex << std::setfill('0') << "std::vector<uint32_t>";
     if (cps.size() == 1) {
-        ss << "(1, 0x" << std::setw(4) << cps[0] << ")";
+        auto cp = cps[0];
+        auto const it = g_logical_positions.find(cp);
+        if (it != g_logical_positions.end())
+            cp = it->second;
+        ss << "(1, 0x" << std::setw(4) << cp << ")";
     } else {
         ss << "{";
         bool first = true;
@@ -126,6 +132,15 @@ void print_rule_test(
     detail::optional_cp_seq_t prefix,
     detail::optional_cp_seq_t extension)
 {
+    auto secondary_ignorable = [](uint32_t cp) {
+        return cp == detail::first_secondary_ignorable ||
+               cp == detail::last_secondary_ignorable;
+    };
+    if (std::any_of(
+            g_curr_reset.begin(), g_curr_reset.end(), secondary_ignorable) ||
+        std::any_of(relation.begin(), relation.end(), secondary_ignorable))
+        return;
+
     if (prefix)
         relation.insert(relation.end(), prefix->begin(), prefix->end());
 
@@ -135,26 +150,32 @@ void print_rule_test(
             curr_reset.insert(
                 curr_reset.end(), extension->begin(), extension->end());
         }
-        g_ofs << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
+        g_ofs << "    // greater than (or equal to, for =) preceeding cps\n"
+              << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
               << ",\n        " << vector_of(relation) << ",\n        "
-              << "table(), " << strength << "),\n        -1);\n";
-        if (collation_strength::primary < strength) {
-            g_ofs << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
-                  << ",\n        " << vector_of(relation)
-                  << ",\n        " << "table(), " << prev(strength)
-                  << "),\n        0);\n";
+              << "table(), " << strength << "),\n        "
+              << (strength == collation_strength::identical ? 0 : -1) << ");\n";
+        if (collation_strength::primary < strength &&
+            strength <= collation_strength::quaternary) {
+            g_ofs << "    // equal to preceeding cps at next-lower strength\n"
+                  << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
+                  << ",\n        " << vector_of(relation) << ",\n        "
+                  << "table(), " << prev(strength) << "),\n        0);\n";
         }
     }
 
-    if (g_before) {
+    if (g_before &&
+        !std::any_of(g_reset.begin(), g_reset.end(), secondary_ignorable)) {
         auto reset = g_reset;
         if (extension) {
             reset.insert(reset.end(), extension->begin(), extension->end());
         }
-        g_ofs << "    EXPECT_EQ(collate(\n        " << vector_of(reset)
-              << ",\n        " << vector_of(relation)
-              << ",\n        table(), collation_strength::quaternary),\n        "
-                 "1);\n";
+        g_ofs
+            << "    // before initial reset cps\n"
+            << "    EXPECT_EQ(collate(\n        " << vector_of(reset)
+            << ",\n        " << vector_of(relation)
+            << ",\n        table(), collation_strength::quaternary),\n        "
+               "1);\n";
     }
 }
 
@@ -195,13 +216,11 @@ detail::collation_tailoring_interface g_callbacks = {
             g_count = 0;
             new_test();
         }
-        if (!g_just_after_reset || !g_before) {
-            print_rule_test(
-                rel.cps_,
-                static_cast<collation_strength>(rel.op_),
-                rel.prefix_and_extension_.prefix_,
-                rel.prefix_and_extension_.extension_);
-        }
+        print_rule_test(
+            rel.cps_,
+            static_cast<collation_strength>(rel.op_),
+            rel.prefix_and_extension_.prefix_,
+            rel.prefix_and_extension_.extension_);
         g_curr_reset = rel.cps_;
         g_just_after_reset = false;
         ++g_count;
