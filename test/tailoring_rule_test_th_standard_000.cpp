@@ -25,72 +25,42 @@ TEST(tailoring, th_standard_000_001)
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0e5b),
         std::vector<uint32_t>(1, 0x0e46),
-        table(), collation_strength::primary),
+        table(), collation_strength::quaternary),
         -1);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0e4e),
         std::vector<uint32_t>(1, 0x0e4c),
-        table(), collation_strength::secondary),
+        table(), collation_strength::quaternary),
         -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0e4e),
-        std::vector<uint32_t>(1, 0x0e4c),
-        table(), collation_strength::primary),
-        0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0e32),
         std::vector<uint32_t>(1, 0x0e45),
-        table(), collation_strength::tertiary),
+        table(), collation_strength::quaternary),
         -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0e32),
-        std::vector<uint32_t>(1, 0x0e45),
-        table(), collation_strength::secondary),
-        0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0e32, 0x0e4d},
         std::vector<uint32_t>{0x0e4d, 0x0e32},
-        table(), collation_strength::tertiary),
+        table(), collation_strength::quaternary),
         -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x0e32, 0x0e4d},
-        std::vector<uint32_t>{0x0e4d, 0x0e32},
-        table(), collation_strength::secondary),
-        0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0e4d, 0x0e32},
         std::vector<uint32_t>(1, 0x0e33),
-        table(), collation_strength::tertiary),
+        table(), collation_strength::quaternary),
         -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x0e4d, 0x0e32},
-        std::vector<uint32_t>(1, 0x0e33),
-        table(), collation_strength::secondary),
-        0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0e45, 0x0e4d},
         std::vector<uint32_t>{0x0e4d, 0x0e45},
-        table(), collation_strength::tertiary),
+        table(), collation_strength::quaternary),
         -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x0e45, 0x0e4d},
-        std::vector<uint32_t>{0x0e4d, 0x0e45},
-        table(), collation_strength::secondary),
-        0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0e44),
         std::vector<uint32_t>(1, 0x0e3a),
-        table(), collation_strength::primary),
+        table(), collation_strength::quaternary),
         -1);
 }

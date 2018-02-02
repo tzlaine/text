@@ -7,10 +7,15 @@
 #include <map>
 
 
+bool g_shifted = false;
+
 namespace boost { namespace text {
 
     std::ostream & operator<<(std::ostream & os, collation_strength strength)
     {
+        if (g_shifted)
+            return os << "collation_strength::quaternary";
+
         switch (strength) {
         case collation_strength::primary:
             os << "collation_strength::primary";
@@ -156,7 +161,7 @@ void print_rule_test(
               << "table(), " << strength << "),\n        "
               << (strength == collation_strength::identical ? 0 : -1) << ");\n";
         if (collation_strength::primary < strength &&
-            strength <= collation_strength::quaternary) {
+            strength <= collation_strength::quaternary && !g_shifted) {
             g_ofs << "    // equal to preceeding cps at next-lower strength\n"
                   << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
                   << ",\n        " << vector_of(relation) << ",\n        "
@@ -228,7 +233,9 @@ detail::collation_tailoring_interface g_callbacks = {
         ++g_count;
     },
     [](collation_strength strength) {},
-    [](variable_weighting weighting) {},
+    [](variable_weighting weighting) {
+        g_shifted = weighting == variable_weighting::shifted;
+    },
     [](l2_weight_order order) {},
     [](case_level_t case_level) {},
     [](case_first_t case_first) {},
@@ -243,6 +250,7 @@ void make_test()
     g_test_subtest_count = 0;
     g_test_subfile_count = 0;
     g_this_test = string(g_curr_file) + "_" + g_curr_tailoring + "_000";
+    g_shifted = false;
     string filename = "tailoring_rule_test_" + g_this_test + ".cpp";
     g_ofs.open(filename.begin());
     write_file_prefix(g_this_test);
