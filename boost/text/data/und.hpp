@@ -7,12 +7,17 @@
 
 namespace boost { namespace text { namespace data { namespace und {
 
+// Note: The ICU version of emoji tailoring starts with:
+// &[before 1]\XFDD1€
+// but since the encoding we use is always UTF-8, the U+FDD1 produces a
+// replacement character (not what we want!).  Using the first CURRENCY entry in
+// the CE table accomplishes the same thing.
 inline string_view emoji_collation_tailoring()
 {
     return string_view(
 u8"  \n"
 u8"& [last primary ignorable]<<*🏻🏼🏽🏾🏿\n"
-u8"& [before 1]﷑€\n"
+u8"& [before 1]¤\n"
 u8"  <*😀😁😂🤣😃😄😅😆😉😊😋😎😍😘😗😙😚☺🙂🤗🤩\n"
 u8"  <*🤔🤨😐😑😶🙄😏😣😥😮🤐😯😪😫😴😌😛😜😝🤤😒😓😔😕🙃🤑😲\n"
 u8"  <*☹🙁😖😞😟😤😢😭😦😧😨😩🤯😬😰😱😳🤪😵😡😠🤬\n"
