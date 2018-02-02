@@ -97,6 +97,8 @@ TEST(parser, data)
         [](boost::text::collation_strength strength) {{}},
         [](boost::text::variable_weighting weighting) {{}},
         [](boost::text::l2_weight_order order) {{}},
+        [](boost::text::case_level_t case_level) {{}},
+        [](boost::text::case_first_t case_first) {{}},
         [](boost::text::detail::cp_seq_t const & suppressions) {{}},
         [](std::vector<boost::text::detail::reorder_group> const & reorder_groups) {{}},
         [](boost::text::string const & s) {{
@@ -192,25 +194,31 @@ if args.tests:
                 k0 == 'or' and 'or_' or k0, k
             )
             lex_tests += '''\
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            {0}.begin(),
-            {0}.end(),
-            [](boost::text::string const & s) {{
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            }},
-            "{1}.hpp")
-    );
+    {{
+        auto const str = {0};
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {{
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                }},
+                "{1}.hpp")
+        );
+    }}
 '''.format(strname, k0)
             parse_tests += '''\
-    EXPECT_NO_THROW(
-        boost::text::detail::parse(
-            {0}.begin(),
-            {0}.end(),
-            callbacks,
-            "{1}.hpp")
-    );
+    {{
+        auto const str = {0};
+        EXPECT_NO_THROW(
+            boost::text::detail::parse(
+                str.begin(),
+                str.end(),
+                callbacks,
+                "{1}.hpp")
+        );
+    }}
 '''.format(strname, k0)
         lex_tests += '\n\n'
         parse_tests += '\n\n'

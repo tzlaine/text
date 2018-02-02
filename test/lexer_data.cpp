@@ -10,1756 +10,2167 @@ TEST(lexer, data)
 
     // From af.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::af::standard_collation_tailoring().begin(),
-            boost::text::data::af::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "af.hpp")
-    );
+    {
+        auto const str = boost::text::data::af::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "af.hpp")
+        );
+    }
 
 
     // From am.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::am::standard_collation_tailoring().begin(),
-            boost::text::data::am::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "am.hpp")
-    );
+    {
+        auto const str = boost::text::data::am::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "am.hpp")
+        );
+    }
 
 
     // From ar.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ar::compat_collation_tailoring().begin(),
-            boost::text::data::ar::compat_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ar.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ar::standard_collation_tailoring().begin(),
-            boost::text::data::ar::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ar.hpp")
-    );
+    {
+        auto const str = boost::text::data::ar::compat_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ar.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::ar::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ar.hpp")
+        );
+    }
 
 
     // From as.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::as::standard_collation_tailoring().begin(),
-            boost::text::data::as::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "as.hpp")
-    );
+    {
+        auto const str = boost::text::data::as::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "as.hpp")
+        );
+    }
 
 
     // From az.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::az::search_collation_tailoring().begin(),
-            boost::text::data::az::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "az.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::az::standard_collation_tailoring().begin(),
-            boost::text::data::az::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "az.hpp")
-    );
+    {
+        auto const str = boost::text::data::az::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "az.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::az::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "az.hpp")
+        );
+    }
 
 
     // From be.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::be::standard_collation_tailoring().begin(),
-            boost::text::data::be::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "be.hpp")
-    );
+    {
+        auto const str = boost::text::data::be::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "be.hpp")
+        );
+    }
 
 
     // From bg.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::bg::standard_collation_tailoring().begin(),
-            boost::text::data::bg::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "bg.hpp")
-    );
+    {
+        auto const str = boost::text::data::bg::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "bg.hpp")
+        );
+    }
 
 
     // From bn.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::bn::standard_collation_tailoring().begin(),
-            boost::text::data::bn::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "bn.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::bn::traditional_collation_tailoring().begin(),
-            boost::text::data::bn::traditional_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "bn.hpp")
-    );
+    {
+        auto const str = boost::text::data::bn::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "bn.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::bn::traditional_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "bn.hpp")
+        );
+    }
 
 
     // From bs.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::bs::search_collation_tailoring().begin(),
-            boost::text::data::bs::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "bs.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::bs::standard_collation_tailoring().begin(),
-            boost::text::data::bs::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "bs.hpp")
-    );
+    {
+        auto const str = boost::text::data::bs::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "bs.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::bs::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "bs.hpp")
+        );
+    }
 
 
     // From bs_Cyrl.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::bs_Cyrl::standard_collation_tailoring().begin(),
-            boost::text::data::bs_Cyrl::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "bs_Cyrl.hpp")
-    );
+    {
+        auto const str = boost::text::data::bs_Cyrl::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "bs_Cyrl.hpp")
+        );
+    }
 
 
     // From ca.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ca::search_collation_tailoring().begin(),
-            boost::text::data::ca::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ca.hpp")
-    );
+    {
+        auto const str = boost::text::data::ca::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ca.hpp")
+        );
+    }
 
 
     // From chr.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::chr::standard_collation_tailoring().begin(),
-            boost::text::data::chr::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "chr.hpp")
-    );
+    {
+        auto const str = boost::text::data::chr::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "chr.hpp")
+        );
+    }
 
 
     // From cs.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::cs::standard_collation_tailoring().begin(),
-            boost::text::data::cs::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "cs.hpp")
-    );
+    {
+        auto const str = boost::text::data::cs::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "cs.hpp")
+        );
+    }
 
 
     // From cy.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::cy::standard_collation_tailoring().begin(),
-            boost::text::data::cy::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "cy.hpp")
-    );
+    {
+        auto const str = boost::text::data::cy::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "cy.hpp")
+        );
+    }
 
 
     // From da.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::da::search_collation_tailoring().begin(),
-            boost::text::data::da::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "da.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::da::standard_collation_tailoring().begin(),
-            boost::text::data::da::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "da.hpp")
-    );
+    {
+        auto const str = boost::text::data::da::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "da.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::da::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "da.hpp")
+        );
+    }
 
 
     // From de.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::de::phonebook_collation_tailoring().begin(),
-            boost::text::data::de::phonebook_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "de.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::de::search_collation_tailoring().begin(),
-            boost::text::data::de::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "de.hpp")
-    );
+    {
+        auto const str = boost::text::data::de::phonebook_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "de.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::de::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "de.hpp")
+        );
+    }
 
 
     // From de_AT.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::de_AT::phonebook_collation_tailoring().begin(),
-            boost::text::data::de_AT::phonebook_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "de_AT.hpp")
-    );
+    {
+        auto const str = boost::text::data::de_AT::phonebook_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "de_AT.hpp")
+        );
+    }
 
 
     // From dsb.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::dsb::standard_collation_tailoring().begin(),
-            boost::text::data::dsb::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "dsb.hpp")
-    );
+    {
+        auto const str = boost::text::data::dsb::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "dsb.hpp")
+        );
+    }
 
 
     // From ee.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ee::standard_collation_tailoring().begin(),
-            boost::text::data::ee::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ee.hpp")
-    );
+    {
+        auto const str = boost::text::data::ee::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ee.hpp")
+        );
+    }
 
 
     // From el.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::el::standard_collation_tailoring().begin(),
-            boost::text::data::el::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "el.hpp")
-    );
+    {
+        auto const str = boost::text::data::el::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "el.hpp")
+        );
+    }
 
 
     // From en_US_POSIX.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::en_US_POSIX::standard_collation_tailoring().begin(),
-            boost::text::data::en_US_POSIX::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "en_US_POSIX.hpp")
-    );
+    {
+        auto const str = boost::text::data::en_US_POSIX::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "en_US_POSIX.hpp")
+        );
+    }
 
 
     // From eo.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::eo::standard_collation_tailoring().begin(),
-            boost::text::data::eo::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "eo.hpp")
-    );
+    {
+        auto const str = boost::text::data::eo::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "eo.hpp")
+        );
+    }
 
 
     // From es.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::es::search_collation_tailoring().begin(),
-            boost::text::data::es::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "es.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::es::standard_collation_tailoring().begin(),
-            boost::text::data::es::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "es.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::es::traditional_collation_tailoring().begin(),
-            boost::text::data::es::traditional_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "es.hpp")
-    );
+    {
+        auto const str = boost::text::data::es::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "es.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::es::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "es.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::es::traditional_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "es.hpp")
+        );
+    }
 
 
     // From et.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::et::standard_collation_tailoring().begin(),
-            boost::text::data::et::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "et.hpp")
-    );
+    {
+        auto const str = boost::text::data::et::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "et.hpp")
+        );
+    }
 
 
     // From fa.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fa::standard_collation_tailoring().begin(),
-            boost::text::data::fa::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fa.hpp")
-    );
+    {
+        auto const str = boost::text::data::fa::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fa.hpp")
+        );
+    }
 
 
     // From fa_AF.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fa_AF::standard_collation_tailoring().begin(),
-            boost::text::data::fa_AF::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fa_AF.hpp")
-    );
+    {
+        auto const str = boost::text::data::fa_AF::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fa_AF.hpp")
+        );
+    }
 
 
     // From fi.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fi::search_collation_tailoring().begin(),
-            boost::text::data::fi::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fi.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fi::standard_collation_tailoring().begin(),
-            boost::text::data::fi::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fi.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fi::traditional_collation_tailoring().begin(),
-            boost::text::data::fi::traditional_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fi.hpp")
-    );
+    {
+        auto const str = boost::text::data::fi::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fi.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::fi::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fi.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::fi::traditional_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fi.hpp")
+        );
+    }
 
 
     // From fil.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fil::standard_collation_tailoring().begin(),
-            boost::text::data::fil::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fil.hpp")
-    );
+    {
+        auto const str = boost::text::data::fil::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fil.hpp")
+        );
+    }
 
 
     // From fo.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fo::search_collation_tailoring().begin(),
-            boost::text::data::fo::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fo.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fo::standard_collation_tailoring().begin(),
-            boost::text::data::fo::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fo.hpp")
-    );
+    {
+        auto const str = boost::text::data::fo::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fo.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::fo::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fo.hpp")
+        );
+    }
 
 
     // From fr_CA.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::fr_CA::standard_collation_tailoring().begin(),
-            boost::text::data::fr_CA::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "fr_CA.hpp")
-    );
+    {
+        auto const str = boost::text::data::fr_CA::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "fr_CA.hpp")
+        );
+    }
 
 
     // From gl.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::gl::search_collation_tailoring().begin(),
-            boost::text::data::gl::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "gl.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::gl::standard_collation_tailoring().begin(),
-            boost::text::data::gl::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "gl.hpp")
-    );
+    {
+        auto const str = boost::text::data::gl::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "gl.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::gl::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "gl.hpp")
+        );
+    }
 
 
     // From gu.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::gu::standard_collation_tailoring().begin(),
-            boost::text::data::gu::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "gu.hpp")
-    );
+    {
+        auto const str = boost::text::data::gu::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "gu.hpp")
+        );
+    }
 
 
     // From ha.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ha::standard_collation_tailoring().begin(),
-            boost::text::data::ha::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ha.hpp")
-    );
+    {
+        auto const str = boost::text::data::ha::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ha.hpp")
+        );
+    }
 
 
     // From haw.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::haw::standard_collation_tailoring().begin(),
-            boost::text::data::haw::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "haw.hpp")
-    );
+    {
+        auto const str = boost::text::data::haw::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "haw.hpp")
+        );
+    }
 
 
     // From he.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::he::search_collation_tailoring().begin(),
-            boost::text::data::he::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "he.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::he::standard_collation_tailoring().begin(),
-            boost::text::data::he::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "he.hpp")
-    );
+    {
+        auto const str = boost::text::data::he::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "he.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::he::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "he.hpp")
+        );
+    }
 
 
     // From hi.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::hi::standard_collation_tailoring().begin(),
-            boost::text::data::hi::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "hi.hpp")
-    );
+    {
+        auto const str = boost::text::data::hi::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "hi.hpp")
+        );
+    }
 
 
     // From hr.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::hr::search_collation_tailoring().begin(),
-            boost::text::data::hr::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "hr.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::hr::standard_collation_tailoring().begin(),
-            boost::text::data::hr::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "hr.hpp")
-    );
+    {
+        auto const str = boost::text::data::hr::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "hr.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::hr::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "hr.hpp")
+        );
+    }
 
 
     // From hsb.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::hsb::standard_collation_tailoring().begin(),
-            boost::text::data::hsb::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "hsb.hpp")
-    );
+    {
+        auto const str = boost::text::data::hsb::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "hsb.hpp")
+        );
+    }
 
 
     // From hu.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::hu::standard_collation_tailoring().begin(),
-            boost::text::data::hu::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "hu.hpp")
-    );
+    {
+        auto const str = boost::text::data::hu::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "hu.hpp")
+        );
+    }
 
 
     // From hy.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::hy::standard_collation_tailoring().begin(),
-            boost::text::data::hy::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "hy.hpp")
-    );
+    {
+        auto const str = boost::text::data::hy::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "hy.hpp")
+        );
+    }
 
 
     // From ig.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ig::standard_collation_tailoring().begin(),
-            boost::text::data::ig::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ig.hpp")
-    );
+    {
+        auto const str = boost::text::data::ig::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ig.hpp")
+        );
+    }
 
 
     // From is.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::is::search_collation_tailoring().begin(),
-            boost::text::data::is::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "is.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::is::standard_collation_tailoring().begin(),
-            boost::text::data::is::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "is.hpp")
-    );
+    {
+        auto const str = boost::text::data::is::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "is.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::is::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "is.hpp")
+        );
+    }
 
 
     // From ja.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ja::standard_collation_tailoring().begin(),
-            boost::text::data::ja::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ja.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ja::unihan_collation_tailoring().begin(),
-            boost::text::data::ja::unihan_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ja.hpp")
-    );
+    {
+        auto const str = boost::text::data::ja::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ja.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::ja::unihan_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ja.hpp")
+        );
+    }
 
 
     // From ka.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ka::standard_collation_tailoring().begin(),
-            boost::text::data::ka::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ka.hpp")
-    );
+    {
+        auto const str = boost::text::data::ka::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ka.hpp")
+        );
+    }
 
 
     // From kk.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::kk::standard_collation_tailoring().begin(),
-            boost::text::data::kk::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "kk.hpp")
-    );
+    {
+        auto const str = boost::text::data::kk::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "kk.hpp")
+        );
+    }
 
 
     // From kl.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::kl::search_collation_tailoring().begin(),
-            boost::text::data::kl::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "kl.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::kl::standard_collation_tailoring().begin(),
-            boost::text::data::kl::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "kl.hpp")
-    );
+    {
+        auto const str = boost::text::data::kl::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "kl.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::kl::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "kl.hpp")
+        );
+    }
 
 
     // From km.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::km::standard_collation_tailoring().begin(),
-            boost::text::data::km::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "km.hpp")
-    );
+    {
+        auto const str = boost::text::data::km::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "km.hpp")
+        );
+    }
 
 
     // From kn.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::kn::standard_collation_tailoring().begin(),
-            boost::text::data::kn::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "kn.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::kn::traditional_collation_tailoring().begin(),
-            boost::text::data::kn::traditional_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "kn.hpp")
-    );
+    {
+        auto const str = boost::text::data::kn::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "kn.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::kn::traditional_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "kn.hpp")
+        );
+    }
 
 
     // From ko.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ko::search_collation_tailoring().begin(),
-            boost::text::data::ko::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ko.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ko::searchjl_collation_tailoring().begin(),
-            boost::text::data::ko::searchjl_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ko.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ko::standard_collation_tailoring().begin(),
-            boost::text::data::ko::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ko.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ko::unihan_collation_tailoring().begin(),
-            boost::text::data::ko::unihan_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ko.hpp")
-    );
+    {
+        auto const str = boost::text::data::ko::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ko.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::ko::searchjl_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ko.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::ko::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ko.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::ko::unihan_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ko.hpp")
+        );
+    }
 
 
     // From kok.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::kok::standard_collation_tailoring().begin(),
-            boost::text::data::kok::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "kok.hpp")
-    );
+    {
+        auto const str = boost::text::data::kok::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "kok.hpp")
+        );
+    }
 
 
     // From ky.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ky::standard_collation_tailoring().begin(),
-            boost::text::data::ky::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ky.hpp")
-    );
+    {
+        auto const str = boost::text::data::ky::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ky.hpp")
+        );
+    }
 
 
     // From lkt.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::lkt::standard_collation_tailoring().begin(),
-            boost::text::data::lkt::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "lkt.hpp")
-    );
+    {
+        auto const str = boost::text::data::lkt::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "lkt.hpp")
+        );
+    }
 
 
     // From ln.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ln::phonetic_collation_tailoring().begin(),
-            boost::text::data::ln::phonetic_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ln.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ln::standard_collation_tailoring().begin(),
-            boost::text::data::ln::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ln.hpp")
-    );
+    {
+        auto const str = boost::text::data::ln::phonetic_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ln.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::ln::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ln.hpp")
+        );
+    }
 
 
     // From lo.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::lo::standard_collation_tailoring().begin(),
-            boost::text::data::lo::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "lo.hpp")
-    );
+    {
+        auto const str = boost::text::data::lo::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "lo.hpp")
+        );
+    }
 
 
     // From lt.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::lt::standard_collation_tailoring().begin(),
-            boost::text::data::lt::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "lt.hpp")
-    );
+    {
+        auto const str = boost::text::data::lt::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "lt.hpp")
+        );
+    }
 
 
     // From lv.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::lv::standard_collation_tailoring().begin(),
-            boost::text::data::lv::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "lv.hpp")
-    );
+    {
+        auto const str = boost::text::data::lv::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "lv.hpp")
+        );
+    }
 
 
     // From mk.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::mk::standard_collation_tailoring().begin(),
-            boost::text::data::mk::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "mk.hpp")
-    );
+    {
+        auto const str = boost::text::data::mk::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "mk.hpp")
+        );
+    }
 
 
     // From ml.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ml::standard_collation_tailoring().begin(),
-            boost::text::data::ml::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ml.hpp")
-    );
+    {
+        auto const str = boost::text::data::ml::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ml.hpp")
+        );
+    }
 
 
     // From mn.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::mn::standard_collation_tailoring().begin(),
-            boost::text::data::mn::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "mn.hpp")
-    );
+    {
+        auto const str = boost::text::data::mn::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "mn.hpp")
+        );
+    }
 
 
     // From mr.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::mr::standard_collation_tailoring().begin(),
-            boost::text::data::mr::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "mr.hpp")
-    );
+    {
+        auto const str = boost::text::data::mr::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "mr.hpp")
+        );
+    }
 
 
     // From mt.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::mt::standard_collation_tailoring().begin(),
-            boost::text::data::mt::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "mt.hpp")
-    );
+    {
+        auto const str = boost::text::data::mt::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "mt.hpp")
+        );
+    }
 
 
     // From my.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::my::standard_collation_tailoring().begin(),
-            boost::text::data::my::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "my.hpp")
-    );
+    {
+        auto const str = boost::text::data::my::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "my.hpp")
+        );
+    }
 
 
     // From nb.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::nb::search_collation_tailoring().begin(),
-            boost::text::data::nb::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "nb.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::nb::standard_collation_tailoring().begin(),
-            boost::text::data::nb::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "nb.hpp")
-    );
+    {
+        auto const str = boost::text::data::nb::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "nb.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::nb::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "nb.hpp")
+        );
+    }
 
 
     // From ne.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ne::standard_collation_tailoring().begin(),
-            boost::text::data::ne::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ne.hpp")
-    );
+    {
+        auto const str = boost::text::data::ne::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ne.hpp")
+        );
+    }
 
 
     // From nn.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::nn::search_collation_tailoring().begin(),
-            boost::text::data::nn::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "nn.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::nn::standard_collation_tailoring().begin(),
-            boost::text::data::nn::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "nn.hpp")
-    );
+    {
+        auto const str = boost::text::data::nn::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "nn.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::nn::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "nn.hpp")
+        );
+    }
 
 
     // From om.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::om::standard_collation_tailoring().begin(),
-            boost::text::data::om::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "om.hpp")
-    );
+    {
+        auto const str = boost::text::data::om::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "om.hpp")
+        );
+    }
 
 
     // From or.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::or_::standard_collation_tailoring().begin(),
-            boost::text::data::or_::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "or.hpp")
-    );
+    {
+        auto const str = boost::text::data::or_::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "or.hpp")
+        );
+    }
 
 
     // From pa.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::pa::standard_collation_tailoring().begin(),
-            boost::text::data::pa::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "pa.hpp")
-    );
+    {
+        auto const str = boost::text::data::pa::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "pa.hpp")
+        );
+    }
 
 
     // From pl.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::pl::standard_collation_tailoring().begin(),
-            boost::text::data::pl::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "pl.hpp")
-    );
+    {
+        auto const str = boost::text::data::pl::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "pl.hpp")
+        );
+    }
 
 
     // From ps.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ps::standard_collation_tailoring().begin(),
-            boost::text::data::ps::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ps.hpp")
-    );
+    {
+        auto const str = boost::text::data::ps::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ps.hpp")
+        );
+    }
 
 
     // From ro.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ro::standard_collation_tailoring().begin(),
-            boost::text::data::ro::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ro.hpp")
-    );
+    {
+        auto const str = boost::text::data::ro::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ro.hpp")
+        );
+    }
 
 
     // From ru.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ru::standard_collation_tailoring().begin(),
-            boost::text::data::ru::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ru.hpp")
-    );
+    {
+        auto const str = boost::text::data::ru::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ru.hpp")
+        );
+    }
 
 
     // From se.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::se::search_collation_tailoring().begin(),
-            boost::text::data::se::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "se.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::se::standard_collation_tailoring().begin(),
-            boost::text::data::se::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "se.hpp")
-    );
+    {
+        auto const str = boost::text::data::se::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "se.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::se::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "se.hpp")
+        );
+    }
 
 
     // From si.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::si::dictionary_collation_tailoring().begin(),
-            boost::text::data::si::dictionary_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "si.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::si::standard_collation_tailoring().begin(),
-            boost::text::data::si::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "si.hpp")
-    );
+    {
+        auto const str = boost::text::data::si::dictionary_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "si.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::si::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "si.hpp")
+        );
+    }
 
 
     // From sk.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sk::search_collation_tailoring().begin(),
-            boost::text::data::sk::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sk.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sk::standard_collation_tailoring().begin(),
-            boost::text::data::sk::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sk.hpp")
-    );
+    {
+        auto const str = boost::text::data::sk::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sk.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::sk::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sk.hpp")
+        );
+    }
 
 
     // From sl.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sl::standard_collation_tailoring().begin(),
-            boost::text::data::sl::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sl.hpp")
-    );
+    {
+        auto const str = boost::text::data::sl::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sl.hpp")
+        );
+    }
 
 
     // From smn.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::smn::search_collation_tailoring().begin(),
-            boost::text::data::smn::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "smn.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::smn::standard_collation_tailoring().begin(),
-            boost::text::data::smn::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "smn.hpp")
-    );
+    {
+        auto const str = boost::text::data::smn::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "smn.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::smn::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "smn.hpp")
+        );
+    }
 
 
     // From sq.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sq::standard_collation_tailoring().begin(),
-            boost::text::data::sq::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sq.hpp")
-    );
+    {
+        auto const str = boost::text::data::sq::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sq.hpp")
+        );
+    }
 
 
     // From sr.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sr::standard_collation_tailoring().begin(),
-            boost::text::data::sr::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sr.hpp")
-    );
+    {
+        auto const str = boost::text::data::sr::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sr.hpp")
+        );
+    }
 
 
     // From sr_Latn.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sr_Latn::search_collation_tailoring().begin(),
-            boost::text::data::sr_Latn::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sr_Latn.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sr_Latn::standard_collation_tailoring().begin(),
-            boost::text::data::sr_Latn::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sr_Latn.hpp")
-    );
+    {
+        auto const str = boost::text::data::sr_Latn::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sr_Latn.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::sr_Latn::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sr_Latn.hpp")
+        );
+    }
 
 
     // From sv.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sv::reformed_collation_tailoring().begin(),
-            boost::text::data::sv::reformed_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sv.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sv::search_collation_tailoring().begin(),
-            boost::text::data::sv::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sv.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::sv::standard_collation_tailoring().begin(),
-            boost::text::data::sv::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "sv.hpp")
-    );
+    {
+        auto const str = boost::text::data::sv::reformed_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sv.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::sv::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sv.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::sv::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "sv.hpp")
+        );
+    }
 
 
     // From ta.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ta::standard_collation_tailoring().begin(),
-            boost::text::data::ta::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ta.hpp")
-    );
+    {
+        auto const str = boost::text::data::ta::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ta.hpp")
+        );
+    }
 
 
     // From te.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::te::standard_collation_tailoring().begin(),
-            boost::text::data::te::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "te.hpp")
-    );
+    {
+        auto const str = boost::text::data::te::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "te.hpp")
+        );
+    }
 
 
     // From th.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::th::standard_collation_tailoring().begin(),
-            boost::text::data::th::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "th.hpp")
-    );
+    {
+        auto const str = boost::text::data::th::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "th.hpp")
+        );
+    }
 
 
     // From to.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::to::standard_collation_tailoring().begin(),
-            boost::text::data::to::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "to.hpp")
-    );
+    {
+        auto const str = boost::text::data::to::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "to.hpp")
+        );
+    }
 
 
     // From tr.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::tr::search_collation_tailoring().begin(),
-            boost::text::data::tr::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "tr.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::tr::standard_collation_tailoring().begin(),
-            boost::text::data::tr::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "tr.hpp")
-    );
+    {
+        auto const str = boost::text::data::tr::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "tr.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::tr::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "tr.hpp")
+        );
+    }
 
 
     // From ug.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ug::standard_collation_tailoring().begin(),
-            boost::text::data::ug::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ug.hpp")
-    );
+    {
+        auto const str = boost::text::data::ug::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ug.hpp")
+        );
+    }
 
 
     // From uk.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::uk::standard_collation_tailoring().begin(),
-            boost::text::data::uk::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "uk.hpp")
-    );
+    {
+        auto const str = boost::text::data::uk::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "uk.hpp")
+        );
+    }
 
 
     // From und.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::und::emoji_collation_tailoring().begin(),
-            boost::text::data::und::emoji_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "und.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::und::eor_collation_tailoring().begin(),
-            boost::text::data::und::eor_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "und.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::und::search_collation_tailoring().begin(),
-            boost::text::data::und::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "und.hpp")
-    );
+    {
+        auto const str = boost::text::data::und::emoji_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "und.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::und::eor_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "und.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::und::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "und.hpp")
+        );
+    }
 
 
     // From ur.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::ur::standard_collation_tailoring().begin(),
-            boost::text::data::ur::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "ur.hpp")
-    );
+    {
+        auto const str = boost::text::data::ur::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "ur.hpp")
+        );
+    }
 
 
     // From uz.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::uz::standard_collation_tailoring().begin(),
-            boost::text::data::uz::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "uz.hpp")
-    );
+    {
+        auto const str = boost::text::data::uz::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "uz.hpp")
+        );
+    }
 
 
     // From vi.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::vi::standard_collation_tailoring().begin(),
-            boost::text::data::vi::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "vi.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::vi::traditional_collation_tailoring().begin(),
-            boost::text::data::vi::traditional_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "vi.hpp")
-    );
+    {
+        auto const str = boost::text::data::vi::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "vi.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::vi::traditional_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "vi.hpp")
+        );
+    }
 
 
     // From wo.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::wo::standard_collation_tailoring().begin(),
-            boost::text::data::wo::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "wo.hpp")
-    );
+    {
+        auto const str = boost::text::data::wo::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "wo.hpp")
+        );
+    }
 
 
     // From yi.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::yi::search_collation_tailoring().begin(),
-            boost::text::data::yi::search_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "yi.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::yi::standard_collation_tailoring().begin(),
-            boost::text::data::yi::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "yi.hpp")
-    );
+    {
+        auto const str = boost::text::data::yi::search_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "yi.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::yi::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "yi.hpp")
+        );
+    }
 
 
     // From yo.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::yo::standard_collation_tailoring().begin(),
-            boost::text::data::yo::standard_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "yo.hpp")
-    );
+    {
+        auto const str = boost::text::data::yo::standard_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "yo.hpp")
+        );
+    }
 
 
     // From zh.txt:
 
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::zh::big5han_collation_tailoring().begin(),
-            boost::text::data::zh::big5han_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "zh.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::zh::gb2312han_collation_tailoring().begin(),
-            boost::text::data::zh::gb2312han_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "zh.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::zh::pinyin_collation_tailoring().begin(),
-            boost::text::data::zh::pinyin_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "zh.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::zh::stroke_collation_tailoring().begin(),
-            boost::text::data::zh::stroke_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "zh.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::zh::unihan_collation_tailoring().begin(),
-            boost::text::data::zh::unihan_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "zh.hpp")
-    );
-    EXPECT_NO_THROW(
-        boost::text::detail::lex(
-            boost::text::data::zh::zhuyin_collation_tailoring().begin(),
-            boost::text::data::zh::zhuyin_collation_tailoring().end(),
-            [](boost::text::string const & s) {
-                std::cout << s << std::endl;
-                throw std::runtime_error("Lexer produced an error!");
-            },
-            "zh.hpp")
-    );
+    {
+        auto const str = boost::text::data::zh::big5han_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "zh.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::zh::gb2312han_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "zh.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::zh::pinyin_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "zh.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::zh::stroke_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "zh.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::zh::unihan_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "zh.hpp")
+        );
+    }
+    {
+        auto const str = boost::text::data::zh::zhuyin_collation_tailoring();
+        EXPECT_NO_THROW(
+            boost::text::detail::lex(
+                str.begin(),
+                str.end(),
+                [](boost::text::string const & s) {
+                    std::cout << s << std::endl;
+                    throw std::runtime_error("Lexer produced an error!");
+                },
+                "zh.hpp")
+        );
+    }
 
 
 
