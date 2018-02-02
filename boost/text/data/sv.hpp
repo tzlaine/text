@@ -25,7 +25,7 @@ inline string_view search_collation_tailoring()
 u8R"(  
   
 [normalization on]
-[suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\\u19B5-\\u19B7\\u19BA]]
+[suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
 &'='<'≠'
 &ا
   <<<ﺎ<<<ﺍ

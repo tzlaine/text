@@ -11,8 +11,8 @@ inline string_view standard_collation_tailoring()
 {
     return string_view(
 u8R"(  
-&A<*'\\u0020'-'/'<*0-'@'<*ABCDEFGHIJKLMNOPQRSTUVWXYZ<*'['-'`'<*abcdefghijklmnopqrstuvwxyz
-  <*'{'-'\\u007F'
+&A<*'\u0020'-'/'<*0-'@'<*ABCDEFGHIJKLMNOPQRSTUVWXYZ<*'['-'`'<*abcdefghijklmnopqrstuvwxyz
+  <*'{'-'\u007F'
   )");
 }
 

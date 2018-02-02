@@ -391,17 +391,17 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                         chunked_lines.append('u8"' + lines[i][chunks * chunk_size + offset:])
             if k0 == 'zh':
                 chunked_lines = map(escape_chars, chunked_lines)
-            if len(v) < 1 << 13:
+            if len(v) < (1 << 13) and k0 != 'zh':
                 chunked_lines = map(lambda x: x[3:-3], chunked_lines)
-                lines = 'u8R"(' + '\n'.join(chunked_lines) + ')"'
-                tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
-            elif len(v) < 1 << 15:
+                lines = 'u8R"(' + '\n'.join(chunked_lines).replace('\\\\', '\\') + ')"'
+                tailorings += single_tailoring_form.format(k, lines)
+            elif len(v) < (1 << 15) and k0 != 'zh':
                 lines = '\n'.join(chunked_lines)
-                tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
+                tailorings += single_tailoring_form.format(k, lines)
             else:
                 lines = map(lambda x: '    str += {};'.format(x), chunked_lines)
                 lines = '\n'.join(lines)
-                tailorings += very_long_single_tailoring_form.format(k.replace('-', '_'), lines)
+                tailorings += very_long_single_tailoring_form.format(k, lines)
 
         groups = []
         for match in reorder_regex.finditer(v):

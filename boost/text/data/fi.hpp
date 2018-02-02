@@ -13,7 +13,7 @@ inline string_view search_collation_tailoring()
 u8R"(  
   
 [normalization on]
-[suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\\u19B5-\\u19B7\\u19BA]]
+[suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
 &'='<'≠'
 &ا
   <<<ﺎ<<<ﺍ
@@ -142,12 +142,12 @@ inline string_view standard_collation_tailoring()
 {
     return string_view(
 u8R"(  
-&D\\u0335<<đ<<<Đ
-&G\\u0335<<ǥ<<<Ǥ
-&N\\u0335<<ŋ<<<Ŋ
-&T\\u0335<<ŧ<<<Ŧ
+&D\u0335<<đ<<<Đ
+&G\u0335<<ǥ<<<Ǥ
+&N\u0335<<ŋ<<<Ŋ
+&T\u0335<<ŧ<<<Ŧ
 &Y<<ü<<<Ü
-&Z\\u0335<<ʒ<<<Ʒ
+&Z\u0335<<ʒ<<<Ʒ
 &[before 1]ǀ<å<<<Å<ä<<<Ä<<æ<<<Æ<ö<<<Ö<<ø<<<Ø
   )");
 }

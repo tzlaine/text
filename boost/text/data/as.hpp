@@ -14,7 +14,7 @@ u8R"(
 [normalization on]
 [reorder Beng Deva Guru Gujr Orya Taml Telu Knda Mlym Sinh]
 &ঔ<ং<ঁ<ঃ
-&[before 1]ত<ৎ=ত্\\u200D
+&[before 1]ত<ৎ=ত্\u200D
 &হ<ক্ষ
   )");
 }

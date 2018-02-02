@@ -13,7 +13,7 @@ inline string_view standard_collation_tailoring()
 u8R"(  
 [reorder Cyrl]
 &Г<ґ<<<Ґ
-&ꙇ<ї<<<\\uA676<<<Ї
+&ꙇ<ї<<<\uA676<<<Ї
   )");
 }
 

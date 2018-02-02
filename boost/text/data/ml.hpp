@@ -13,13 +13,13 @@ inline string_view standard_collation_tailoring()
 u8R"(  
 [reorder Mlym Latn Deva Arab Taml Knda Telu Beng Guru Gujr Orya Sinh]
 &ഃ<<ഽ
-&\\u0D4C<<\\u0D57
-&ക്<<ക്\\u200D<<<ൿ
-&ണ്<<ണ്\\u200D<<<ൺ
-&ന്<<ന്\\u200D<<<ൻ
-&ര്<<ര്\\u200D<<<ർ
-&ല്<<ല്\\u200D<<<ൽ
-&ള്<<ള്\\u200D<<<ൾ
+&\u0D4C<<\u0D57
+&ക്<<ക്\u200D<<<ൿ
+&ണ്<<ണ്\u200D<<<ൺ
+&ന്<<ന്\u200D<<<ൻ
+&ര്<<ര്\u200D<<<ർ
+&ല്<<ല്\u200D<<<ൽ
+&ള്<<ള്\u200D<<<ൾ
 &മ്<<ം
 &ന്<<<ൻ്
   )");

@@ -13,7 +13,7 @@ inline string_view standard_collation_tailoring()
 u8R"(  
 [normalization on]
 [reorder Khmr]
-&[last tertiary ignorable]=\\u17b4=\\u17b5
+&[last tertiary ignorable]=\u17b4=\u17b5
 &។ល។<<<៘
 &ៈ<<៎<<៏<<៑<<័<<ៈ<<៝<<់<<៉<<៊<<៍
 &រ<ឫ<ឬ
