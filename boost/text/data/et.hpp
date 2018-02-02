@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_ET_HPP
 #define BOOST_TEXT_DATA_ET_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace et {
@@ -11,8 +11,8 @@ inline string_view standard_collation_tailoring()
 {
     return string_view(
 "  \n"
-"&[before 1]T<š<<<Š<z<<<Z<ž<<<Ž\n"
-"&[before 1]X<õ<<<Õ<ä<<<Ä<ö<<<Ö<ü<<<Ü\n"
+"&[before 1]T<\xc5\xa1<<<\xc5\xa0<z<<<Z<\xc5\xbe<<<\xc5\xbd\n"
+"&[before 1]X<\xc3\xb5<<<\xc3\x95<\xc3\xa4<<<\xc3\x84<\xc3\xb6<<<\xc3\x96<\xc3\xbc<<<\xc3\x9c\n"
 "  \n");
 }
 

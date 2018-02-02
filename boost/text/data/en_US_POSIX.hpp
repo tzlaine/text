@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_EN_US_POSIX_HPP
 #define BOOST_TEXT_DATA_EN_US_POSIX_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace en_US_POSIX {

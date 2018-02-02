@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_ML_HPP
 #define BOOST_TEXT_DATA_ML_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace ml {
@@ -12,16 +12,16 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[reorder Mlym Latn Deva Arab Taml Knda Telu Beng Guru Gujr Orya Sinh]\n"
-"&ഃ<<ഽ\n"
+"&\xe0\xb4\x83<<\xe0\xb4\xbd\n"
 "&\\u0D4C<<\\u0D57\n"
-"&ക്<<ക്\\u200D<<<ൿ\n"
-"&ണ്<<ണ്\\u200D<<<ൺ\n"
-"&ന്<<ന്\\u200D<<<ൻ\n"
-"&ര്<<ര്\\u200D<<<ർ\n"
-"&ല്<<ല്\\u200D<<<ൽ\n"
-"&ള്<<ള്\\u200D<<<ൾ\n"
-"&മ്<<ം\n"
-"&ന്<<<ൻ്\n"
+"&\xe0\xb4\x95\xe0\xb5\x8d<<\xe0\xb4\x95\xe0\xb5\x8d\\u200D<<<\xe0\xb5\xbf\n"
+"&\xe0\xb4\xa3\xe0\xb5\x8d<<\xe0\xb4\xa3\xe0\xb5\x8d\\u200D<<<\xe0\xb5\xba\n"
+"&\xe0\xb4\xa8\xe0\xb5\x8d<<\xe0\xb4\xa8\xe0\xb5\x8d\\u200D<<<\xe0\xb5\xbb\n"
+"&\xe0\xb4\xb0\xe0\xb5\x8d<<\xe0\xb4\xb0\xe0\xb5\x8d\\u200D<<<\xe0\xb5\xbc\n"
+"&\xe0\xb4\xb2\xe0\xb5\x8d<<\xe0\xb4\xb2\xe0\xb5\x8d\\u200D<<<\xe0\xb5\xbd\n"
+"&\xe0\xb4\xb3\xe0\xb5\x8d<<\xe0\xb4\xb3\xe0\xb5\x8d\\u200D<<<\xe0\xb5\xbe\n"
+"&\xe0\xb4\xae\xe0\xb5\x8d<<\xe0\xb4\x82\n"
+"&\xe0\xb4\xa8\xe0\xb5\x8d<<<\xe0\xb5\xbb\xe0\xb5\x8d\n"
 "  \n");
 }
 

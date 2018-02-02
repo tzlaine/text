@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_SR_HPP
 #define BOOST_TEXT_DATA_SR_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace sr {
@@ -12,7 +12,7 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[reorder Cyrl]\n"
-"[suppressContractions [Ии]]\n"
+"[suppressContractions [\xd0\x98\xd0\xb8]]\n"
 "  \n");
 }
 

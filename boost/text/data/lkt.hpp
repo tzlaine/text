@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_LKT_HPP
 #define BOOST_TEXT_DATA_LKT_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace lkt {
@@ -11,11 +11,11 @@ inline string_view standard_collation_tailoring()
 {
     return string_view(
 "  \n"
-"&C<č<<<Č\n"
-"&G<ǧ<<<Ǧ\n"
-"&H<ȟ<<<Ȟ\n"
-"&S<š<<<Š\n"
-"&Z<ž<<<Ž\n"
+"&C<c\xcc\x8c<<<C\xcc\x8c\n"
+"&G<\xc7\xa7<<<\xc7\xa6\n"
+"&H<\xc8\x9f<<<\xc8\x9e\n"
+"&S<s\xcc\x8c<<<S\xcc\x8c\n"
+"&Z<z\xcc\x8c<<<Z\xcc\x8c\n"
 "  \n");
 }
 

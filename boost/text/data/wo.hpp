@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_WO_HPP
 #define BOOST_TEXT_DATA_WO_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace wo {
@@ -12,10 +12,10 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[normalization on]\n"
-"&A<à<<<À\n"
-"&E<é<<<É<ë<<<Ë\n"
-"&N<ñ<<<Ñ<ŋ<<<Ŋ\n"
-"&O<ó<<<Ó\n"
+"&A<\xc3\xa0<<<\xc3\x80\n"
+"&E<\xc3\xa9<<<\xc3\x89<\xc3\xab<<<\xc3\x8b\n"
+"&N<\xc3\xb1<<<\xc3\x91<\xc5\x8b<<<\xc5\x8a\n"
+"&O<\xc3\xb3<<<\xc3\x93\n"
 "  \n");
 }
 

@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_AM_HPP
 #define BOOST_TEXT_DATA_AM_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace am {

@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_SQ_HPP
 #define BOOST_TEXT_DATA_SQ_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace sq {
@@ -11,9 +11,9 @@ inline string_view standard_collation_tailoring()
 {
     return string_view(
 "  \n"
-"&[before 1]D<ç<<<Ç\n"
+"&[before 1]D<\xc3\xa7<<<\xc3\x87\n"
 "&[before 1]E<dh<<<Dh<<<DH\n"
-"&[before 1]F<ë<<<Ë\n"
+"&[before 1]F<\xc3\xab<<<\xc3\x8b\n"
 "&[before 1]H<gj<<<Gj<<<GJ\n"
 "&[before 1]M<ll<<<Ll<<<LL\n"
 "&[before 1]O<nj<<<Nj<<<NJ\n"
@@ -21,7 +21,7 @@ inline string_view standard_collation_tailoring()
 "&[before 1]T<sh<<<Sh<<<SH\n"
 "&[before 1]U<th<<<Th<<<TH\n"
 "&[before 1]Y<xh<<<Xh<<<XH\n"
-"&[before 1]Ʒ<zh<<<Zh<<<ZH\n"
+"&[before 1]\xc6\xb7<zh<<<Zh<<<ZH\n"
 "  \n");
 }
 

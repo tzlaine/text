@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_KOK_HPP
 #define BOOST_TEXT_DATA_KOK_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace kok {
@@ -13,9 +13,9 @@ inline string_view standard_collation_tailoring()
 "  \n"
 "[normalization on]\n"
 "[reorder Deva Beng Guru Gujr Orya Taml Telu Knda Mlym Sinh]\n"
-"&ॐ<ं<<ँ<ः\n"
-"&ह<ळ\n"
-"  <क्ष\n"
+"&\xe0\xa5\x90<\xe0\xa4\x82<<\xe0\xa4\x81<\xe0\xa4\x83\n"
+"&\xe0\xa4\xb9<\xe0\xa4\xb3\n"
+"  <\xe0\xa4\x95\xe0\xa5\x8d\xe0\xa4\xb7\n"
 "  \n");
 }
 

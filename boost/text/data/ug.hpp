@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_UG_HPP
 #define BOOST_TEXT_DATA_UG_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace ug {
@@ -12,9 +12,9 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[reorder Arab]\n"
-"&ا<ە<ب\n"
-"&ك<گ<ڭ<ل\n"
-"&ھ<و<ۇ<ۆ<ۈ<ۋ<ې<ى<ي\n"
+"&\xd8\xa7<\xdb\x95<\xd8\xa8\n"
+"&\xd9\x83<\xda\xaf<\xda\xad<\xd9\x84\n"
+"&\xda\xbe<\xd9\x88<\xdb\x87<\xdb\x86<\xdb\x88<\xdb\x8b<\xdb\x90<\xd9\x89<\xd9\x8a\n"
 "  \n");
 }
 

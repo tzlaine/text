@@ -121,19 +121,19 @@ group_cps = {
     'Hani': [0x2F00, 0x3280, 0x2F88F, 0x2FA1D],
     'Laoo': [0x0EDE, 0x0E81, 0x0EC3, 0x0EC4],
     'Cher': [0xAB70, 0x13A0, 0x13FD, 0x13F5],
-    'Ethi': [0x1200, 0x1201, 0x2DDD, 0x2DDE], # .., .., .., [66 9B 7D, 05, 05]
+    'Ethi': [0x1200, 0x1201, 0x2DDD, 0x2DDE],
     'Mong': [0x1880, 0x1881, 0x18AA, 0x18A9],
     'Hebr': [0x05D0, 0x2135, 0xFB28, 0xFB4A],
     'Bopo': [0x3105, 0x31A0, 0x3129, 0x312D],
     'Geor': [0x10D0, 0x2D00, 0x10FE, 0x10FF],
-    'Deva': [0x0950, 0xA8FD, 0x094C, 0x094D], # [67 06, 05, 05]
-    'Cyrl': [0x0430, 0x2DF6, 0x04CF, 0x04C0], # [60 06, 05, 05], ..
+    'Deva': [0x0950, 0xA8FD, 0x094C, 0x094D],
+    'Cyrl': [0x0430, 0x2DF6, 0x04CF, 0x04C0],
     'Arab': [0x0621, 0x077A, 0x077B],
     'Mymr': [0x1000, 0x1075, 0xAA75, 0xAA76],
     'Khmr': [0x1780, 0x1781, 0x17C5, 0x17D2],
     'Sinh': [0x0D85, 0x0D86, 0x0DDE, 0x0DCA],
     'Thai': [0x0E01, 0x0E02, 0x0E43, 0x0E44],
-    'Grek': [0x03B1, 0x1D6C2, 0x03F8, 0x03F7], # .., .., [5F 5E, 05, 05] [5F 5E, 05, A0]
+    'Grek': [0x03B1, 0x1D6C2, 0x03F8, 0x03F7],
     'Beng': [0x0980, 0x0985, 0x09D7, 0x09FC],
     'Guru': [0x0A74, 0x0A73, 0x0A4B, 0x0A4C],
     'Gujr': [0x0AD0, 0x0A85, 0x0ACC, 0x0ACD],
@@ -309,6 +309,16 @@ int main()
 }}
 '''
 
+def escape_chars(s):
+    retval = ''
+    for c in s:
+        value = ord(c)
+        if value < 0x80:
+            retval += c
+        else:
+            retval += '\\x' + hex(value)[2:]
+    return retval
+
 
 reordering_tailoring_tests = ''
 tailoring_string_strings = ''
@@ -360,6 +370,7 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                         chunked_lines.append(line)
                     if remainder != 0 or offset != 0:
                         chunked_lines.append('"' + lines[i][chunks * chunk_size + offset:])
+            chunked_lines = map(escape_chars, chunked_lines)
             lines = '\n'.join(chunked_lines)
             tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
 

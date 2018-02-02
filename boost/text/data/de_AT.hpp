@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_DE_AT_HPP
 #define BOOST_TEXT_DATA_DE_AT_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace de_AT {
@@ -11,10 +11,10 @@ inline string_view phonebook_collation_tailoring()
 {
     return string_view(
 "  \n"
-"&a<ä<<<Ä\n"
-"&o<ö<<<Ö\n"
-"&u<ü<<<Ü\n"
-"&ss<ß<<<ẞ\n"
+"&a<\xc3\xa4<<<\xc3\x84\n"
+"&o<\xc3\xb6<<<\xc3\x96\n"
+"&u<\xc3\xbc<<<\xc3\x9c\n"
+"&ss<\xc3\x9f<<<\xe1\xba\x9e\n"
 "  \n");
 }
 

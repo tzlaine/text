@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_AF_HPP
 #define BOOST_TEXT_DATA_AF_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace af {
@@ -10,7 +10,7 @@ namespace boost { namespace text { namespace data { namespace af {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"&N<<<ŉ\n");
+"&N<<<\xc5\x89\n");
 }
 
 

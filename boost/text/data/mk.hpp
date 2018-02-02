@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_MK_HPP
 #define BOOST_TEXT_DATA_MK_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace mk {
@@ -12,9 +12,9 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[reorder Cyrl]\n"
-"[suppressContractions [Ии]]\n"
-"&ԃ<ѓ<<<Ѓ\n"
-"&ћ<ќ<<<Ќ\n"
+"[suppressContractions [\xd0\x98\xd0\xb8]]\n"
+"&\xd4\x83<\xd1\x93<<<\xd0\x83\n"
+"&\xd1\x9b<\xd1\x9c<<<\xd0\x8c\n"
 "  \n");
 }
 

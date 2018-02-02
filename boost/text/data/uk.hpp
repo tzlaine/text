@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_UK_HPP
 #define BOOST_TEXT_DATA_UK_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace uk {
@@ -12,8 +12,8 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[reorder Cyrl]\n"
-"&Г<ґ<<<Ґ\n"
-"&ꙇ<ї<<<\\uA676<<<Ї\n"
+"&\xd0\x93<\xd2\x91<<<\xd2\x90\n"
+"&\xea\x99\x87<\xd1\x97<<<\\uA676<<<\xd0\x87\n"
 "  \n");
 }
 

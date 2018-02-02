@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_SI_HPP
 #define BOOST_TEXT_DATA_SI_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace si {
@@ -13,8 +13,8 @@ inline string_view dictionary_collation_tailoring()
 "  \n"
 "[normalization on]\n"
 "[reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]\n"
-"&ඖ<ං<ඃ\n"
-"&ජ්ඤ<<ඥ\n"
+"&\xe0\xb6\x96<\xe0\xb6\x82<\xe0\xb6\x83\n"
+"&\xe0\xb6\xa2\xe0\xb7\x8a\xe0\xb6\xa4<<\xe0\xb6\xa5\n"
 "  \n");
 }
 
@@ -24,8 +24,8 @@ inline string_view standard_collation_tailoring()
 "  \n"
 "[normalization on]\n"
 "[reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]\n"
-"&ඖ<ං<ඃ\n"
-"&ඥ<ඤ\n"
+"&\xe0\xb6\x96<\xe0\xb6\x82<\xe0\xb6\x83\n"
+"&\xe0\xb6\xa5<\xe0\xb6\xa4\n"
 "  \n");
 }
 

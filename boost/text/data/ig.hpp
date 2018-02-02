@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_IG_HPP
 #define BOOST_TEXT_DATA_IG_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace ig {
@@ -14,12 +14,12 @@ inline string_view standard_collation_tailoring()
 "[normalization on]\n"
 "&B<ch<<<Ch<<<CH\n"
 "&G<gb<<<Gb<<<GB<gh<<<Gh<<<GH<gw<<<Gw<<<GW\n"
-"&I<ị<<<Ị\n"
+"&I<\xe1\xbb\x8b<<<\xe1\xbb\x8a\n"
 "&K<kp<<<Kp<<<KP<kw<<<Kw<<<KW\n"
-"&N<ṅ<<<Ṅ<nw<<<Nw<<<NW<ny<<<Ny<<<NY\n"
-"&O<ọ<<<Ọ\n"
+"&N<\xe1\xb9\x85<<<\xe1\xb9\x84<nw<<<Nw<<<NW<ny<<<Ny<<<NY\n"
+"&O<\xe1\xbb\x8d<<<\xe1\xbb\x8c\n"
 "&S<sh<<<Sh<<<SH\n"
-"&U<ụ<<<Ụ\n"
+"&U<\xe1\xbb\xa5<<<\xe1\xbb\xa4\n"
 "  \n");
 }
 

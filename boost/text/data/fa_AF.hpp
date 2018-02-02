@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_FA_AF_HPP
 #define BOOST_TEXT_DATA_FA_AF_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace fa_AF {
@@ -13,21 +13,21 @@ inline string_view standard_collation_tailoring()
 "  \n"
 "[normalization on]\n"
 "[reorder Arab]\n"
-"&َ<<ِ<<ُ<<ً<<ٍ<<ٌ\n"
-"&[before 1]ا<آ\n"
-"&ا<<أ<<ٲ<<ٱ<<إ<<ٳ<ء\n"
-"&ت<ټ<<ٹ\n"
-"&ج<ځ<<حٔ\n"
-"&چ<څ\n"
-"&د<ډ<<ڈ\n"
-"&ر<ړ<<ڑ\n"
-"&ژ<ږ\n"
-"&ک<<*ڪك\n"
-"&ګ<<گ\n"
-"&ڼ<<ڻ\n"
-"&و<<ؤ<<ۇ<<ۉ\n"
-"&ه<<<ۀ<<<هٔ<<*ەہھةۃ\n"
-"&ی<<*ىےيېۍ<<یٔ<<<ىٔ<<<ئ\n"
+"&\xd9\x8e<<\xd9\x90<<\xd9\x8f<<\xd9\x8b<<\xd9\x8d<<\xd9\x8c\n"
+"&[before 1]\xd8\xa7<\xd8\xa2\n"
+"&\xd8\xa7<<\xd8\xa3<<\xd9\xb2<<\xd9\xb1<<\xd8\xa5<<\xd9\xb3<\xd8\xa1\n"
+"&\xd8\xaa<\xd9\xbc<<\xd9\xb9\n"
+"&\xd8\xac<\xda\x81<<\xd8\xad\xd9\x94\n"
+"&\xda\x86<\xda\x85\n"
+"&\xd8\xaf<\xda\x89<<\xda\x88\n"
+"&\xd8\xb1<\xda\x93<<\xda\x91\n"
+"&\xda\x98<\xda\x96\n"
+"&\xda\xa9<<*\xda\xaa\xd9\x83\n"
+"&\xda\xab<<\xda\xaf\n"
+"&\xda\xbc<<\xda\xbb\n"
+"&\xd9\x88<<\xd8\xa4<<\xdb\x87<<\xdb\x89\n"
+"&\xd9\x87<<<\xdb\x80<<<\xd9\x87\xd9\x94<<*\xdb\x95\xdb\x81\xda\xbe\xd8\xa9\xdb\x83\n"
+"&\xdb\x8c<<*\xd9\x89\xdb\x92\xd9\x8a\xdb\x90\xdb\x8d<<\xdb\x8c\xd9\x94<<<\xd9\x89\xd9\x94<<<\xd8\xa6\n"
 "&\\u00A0<<\\u200C<<\\u200D\n"
 "  \n");
 }

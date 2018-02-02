@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_HY_HPP
 #define BOOST_TEXT_DATA_HY_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace hy {
@@ -12,7 +12,7 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[reorder Armn]\n"
-"&ք<և<<<Եւ\n"
+"&\xd6\x84<\xd6\x87<<<\xd4\xb5\xd6\x82\n"
 "  \n");
 }
 

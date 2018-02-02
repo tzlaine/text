@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_YO_HPP
 #define BOOST_TEXT_DATA_YO_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace yo {
@@ -12,10 +12,10 @@ inline string_view standard_collation_tailoring()
     return string_view(
 "  \n"
 "[normalization on]\n"
-"&E<ẹ<<<Ẹ\n"
+"&E<\xe1\xba\xb9<<<\xe1\xba\xb8\n"
 "&G<gb<<<Gb<<<GB\n"
-"&O<ọ<<<Ọ\n"
-"&S<ṣ<<<Ṣ\n"
+"&O<\xe1\xbb\x8d<<<\xe1\xbb\x8c\n"
+"&S<\xe1\xb9\xa3<<<\xe1\xb9\xa2\n"
 "  \n");
 }
 

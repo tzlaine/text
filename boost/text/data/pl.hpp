@@ -2,7 +2,7 @@
 #ifndef BOOST_TEXT_DATA_PL_HPP
 #define BOOST_TEXT_DATA_PL_HPP
 
-#include<boost/text/string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 
 namespace boost { namespace text { namespace data { namespace pl {
@@ -11,14 +11,14 @@ inline string_view standard_collation_tailoring()
 {
     return string_view(
 "  \n"
-"&A<ą<<<Ą\n"
-"&C<ć<<<Ć\n"
-"&E<ę<<<Ę\n"
-"&L<ł<<<Ł\n"
-"&N<ń<<<Ń\n"
-"&O<ó<<<Ó\n"
-"&S<ś<<<Ś\n"
-"&Z<ź<<<Ź<ż<<<Ż\n"
+"&A<\xc4\x85<<<\xc4\x84\n"
+"&C<\xc4\x87<<<\xc4\x86\n"
+"&E<\xc4\x99<<<\xc4\x98\n"
+"&L<\xc5\x82<<<\xc5\x81\n"
+"&N<\xc5\x84<<<\xc5\x83\n"
+"&O<\xc3\xb3<<<\xc3\x93\n"
+"&S<\xc5\x9b<<<\xc5\x9a\n"
+"&Z<\xc5\xba<<<\xc5\xb9<\xc5\xbc<<<\xc5\xbb\n"
 "  \n");
 }
 
