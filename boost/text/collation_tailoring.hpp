@@ -41,7 +41,6 @@ namespace boost { namespace text {
             nonsimple_reorders_t const & nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders) noexcept
         {
-            // TODO: lower_bound?
             auto const it = std::find_if(
                 nonsimple_reorders.begin(),
                 nonsimple_reorders.end(),
@@ -636,13 +635,75 @@ namespace boost { namespace text {
             return true;
         }
 
+        inline void adjust_case_bits(
+            temp_table_element::ces_t const & initial_relation_ces,
+            temp_table_element::ces_t & reset_ces)
+        {
+            // TODO
+        }
+
+        // TODO: Audit the FDD0/FDD1 situation in the collation data ,and the
+        // tailoring data.
+
         inline void update_key_ces(
             temp_table_element::ces_t const & ces,
             logical_positions_t & logical_positions,
             tailoring_state_t & tailoring_state)
         {
-            // TODO: Update logical_positions with ces
-            // TODO: Update tailoring_state with ces
+            // Update logical_positions.
+            {
+                auto const strength = ce_strength(ces[0]);
+                if (strength == collation_strength::primary) {
+                    if (ces < logical_positions[first_variable]) {
+                        assert(
+                            (ces[0].l1_ & 0xff000000) ==
+                            (logical_positions[first_variable][0].l1_ &
+                             0xff000000));
+                        logical_positions[first_variable] = ces;
+                    } else if (logical_positions[first_regular] < ces) {
+                        if ((ces[0].l1_ & 0xff000000) ==
+                            (logical_positions[last_variable][0].l1_ &
+                             0xff000000)) {
+                            logical_positions[last_variable] = ces;
+                        } else {
+                            logical_positions[first_regular] = ces;
+                        }
+                    } else if (logical_positions[last_regular] < ces) {
+                        logical_positions[last_regular] = ces;
+                    }
+                } else if (strength == collation_strength::secondary) {
+                    if (ces < logical_positions[first_primary_ignorable])
+                        logical_positions[first_primary_ignorable] = ces;
+                    else if (logical_positions[last_primary_ignorable] < ces)
+                        logical_positions[last_primary_ignorable] = ces;
+                } else if (strength == collation_strength::tertiary) {
+                    if (ces < logical_positions[first_secondary_ignorable])
+                        logical_positions[first_secondary_ignorable] = ces;
+                    else if (logical_positions[last_secondary_ignorable] < ces)
+                        logical_positions[last_secondary_ignorable] = ces;
+                } else if (strength == collation_strength::quaternary) {
+                    if (ces < logical_positions[first_tertiary_ignorable])
+                        logical_positions[first_tertiary_ignorable] = ces;
+                    else if (logical_positions[last_tertiary_ignorable] < ces)
+                        logical_positions[last_tertiary_ignorable] = ces;
+                }
+            }
+
+            // Update tailoring_state.
+            for (auto ce : ces) {
+                auto const strength = ce_strength(ce);
+                if (strength == collation_strength::primary) {
+                    if (tailoring_state.last_secondary_in_primary_ < ce.l2_)
+                        tailoring_state.last_secondary_in_primary_ = ce.l2_;
+                } else if (strength == collation_strength::secondary) {
+                    if ((tailoring_state.last_tertiary_in_secondary_masked_ &
+                         disable_case_level_mask) <
+                        (ce.l3_ & disable_case_level_mask)) {
+                        tailoring_state.last_tertiary_in_secondary_masked_ =
+                            ce.l3_;
+                    }
+                }
+            }
         }
 
         // http://www.unicode.org/reports/tr35/tr35-collation.html#Orderings
@@ -753,7 +814,7 @@ namespace boost { namespace text {
                     prev_it->ces_.end());
             }
 
-            // TODO: Adjust reset_ces case bits here.
+            adjust_case_bits(initial_relation_ces, reset_ces);
 
             if (extension) {
                 auto const extension_ces = get_ces(*extension, table);
