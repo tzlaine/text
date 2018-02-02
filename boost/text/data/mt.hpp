@@ -10,14 +10,14 @@ namespace boost { namespace text { namespace data { namespace mt {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[caseFirst upper]\n"
-u8"&[before 1]c<ċ<<<Ċ\n"
-u8"&[before 1]g<ġ<<<Ġ\n"
-u8"&[before 1]h<għ<<<gĦ<<<Għ<<<GĦ\n"
-u8"&[before 1]i<ħ<<<Ħ\n"
-u8"&[before 1]z<ż<<<Ż\n"
-u8"  \n");
+u8R"(  
+[caseFirst upper]
+&[before 1]c<ċ<<<Ċ
+&[before 1]g<ġ<<<Ġ
+&[before 1]h<għ<<<gĦ<<<Għ<<<GĦ
+&[before 1]i<ħ<<<Ħ
+&[before 1]z<ż<<<Ż
+  )");
 }
 
 

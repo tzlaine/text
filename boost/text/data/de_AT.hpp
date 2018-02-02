@@ -10,12 +10,12 @@ namespace boost { namespace text { namespace data { namespace de_AT {
 inline string_view phonebook_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"&a<ä<<<Ä\n"
-u8"&o<ö<<<Ö\n"
-u8"&u<ü<<<Ü\n"
-u8"&ss<ß<<<ẞ\n"
-u8"  \n");
+u8R"(  
+&a<ä<<<Ä
+&o<ö<<<Ö
+&u<ü<<<Ü
+&ss<ß<<<ẞ
+  )");
 }
 
 

@@ -10,13 +10,13 @@ namespace boost { namespace text { namespace data { namespace wo {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[normalization on]\n"
-u8"&A<à<<<À\n"
-u8"&E<é<<<É<ë<<<Ë\n"
-u8"&N<ñ<<<Ñ<ŋ<<<Ŋ\n"
-u8"&O<ó<<<Ó\n"
-u8"  \n");
+u8R"(  
+[normalization on]
+&A<à<<<À
+&E<é<<<É<ë<<<Ë
+&N<ñ<<<Ñ<ŋ<<<Ŋ
+&O<ó<<<Ó
+  )");
 }
 
 

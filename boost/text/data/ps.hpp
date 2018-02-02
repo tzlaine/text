@@ -10,26 +10,26 @@ namespace boost { namespace text { namespace data { namespace ps {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[normalization on]\n"
-u8"[reorder Arab]\n"
-u8"&َ<<ِ<<ُ<<ً<<ٍ<<ٌ\n"
-u8"&[before 1]ا<آ\n"
-u8"&ا<<أ<<ٲ<<ٱ<<إ<<ٳ<ء\n"
-u8"&ت<ټ<<ٹ\n"
-u8"&ج<ځ<<حٔ\n"
-u8"&چ<څ\n"
-u8"&د<ډ<<ڈ\n"
-u8"&ر<ړ<<ڑ\n"
-u8"&ژ<ږ\n"
-u8"&ک<<*ڪك\n"
-u8"&ګ<<گ\n"
-u8"&ڼ<<ڻ\n"
-u8"&و<<ؤ<<ۇ<<ۉ\n"
-u8"&ه<<<ۀ<<<هٔ<<*ەہھةۃ\n"
-u8"&ی<<*ىےيېۍ<<یٔ<<<ىٔ<<<ئ\n"
-u8"&\\u00A0<<\\u200C<<\\u200D\n"
-u8"  \n");
+u8R"(  
+[normalization on]
+[reorder Arab]
+&َ<<ِ<<ُ<<ً<<ٍ<<ٌ
+&[before 1]ا<آ
+&ا<<أ<<ٲ<<ٱ<<إ<<ٳ<ء
+&ت<ټ<<ٹ
+&ج<ځ<<حٔ
+&چ<څ
+&د<ډ<<ڈ
+&ر<ړ<<ڑ
+&ژ<ږ
+&ک<<*ڪك
+&ګ<<گ
+&ڼ<<ڻ
+&و<<ؤ<<ۇ<<ۉ
+&ه<<<ۀ<<<هٔ<<*ەہھةۃ
+&ی<<*ىےيېۍ<<یٔ<<<ىٔ<<<ئ
+&\\u00A0<<\\u200C<<\\u200D
+  )");
 }
 
 

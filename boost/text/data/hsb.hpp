@@ -10,15 +10,15 @@ namespace boost { namespace text { namespace data { namespace hsb {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"&C<č<<<Č<ć<<<Ć\n"
-u8"&E<ě<<<Ě\n"
-u8"&H<ch<<<cH<<<Ch<<<CH\n"
-u8"&[before 1] L<ł<<<Ł\n"
-u8"&R<ř<<<Ř\n"
-u8"&S<š<<<Š\n"
-u8"&Z<ž<<<Ž<ź<<<Ź\n"
-u8"  \n");
+u8R"(  
+&C<č<<<Č<ć<<<Ć
+&E<ě<<<Ě
+&H<ch<<<cH<<<Ch<<<CH
+&[before 1] L<ł<<<Ł
+&R<ř<<<Ř
+&S<š<<<Š
+&Z<ž<<<Ž<ź<<<Ź
+  )");
 }
 
 

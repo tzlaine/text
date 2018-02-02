@@ -10,36 +10,36 @@ namespace boost { namespace text { namespace data { namespace vi {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[normalization on]\n"
-u8"&̀<<̉<<̃<<́<<̣\n"
-u8"&a<ă<<<Ă<â<<<Â\n"
-u8"&d<đ<<<Đ\n"
-u8"&e<ê<<<Ê\n"
-u8"&o<ô<<<Ô<ơ<<<Ơ\n"
-u8"&u<ư<<<Ư\n"
-u8"  \n");
+u8R"(  
+[normalization on]
+&̀<<̉<<̃<<́<<̣
+&a<ă<<<Ă<â<<<Â
+&d<đ<<<Đ
+&e<ê<<<Ê
+&o<ô<<<Ô<ơ<<<Ơ
+&u<ư<<<Ư
+  )");
 }
 
 inline string_view traditional_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[normalization on]\n"
-u8"&̀<<̉<<̃<<́<<̣\n"
-u8"&a<ă<<<Ă<â<<<Â\n"
-u8"&C<ch<<<Ch<<<CH\n"
-u8"&d<đ<<<Đ\n"
-u8"&e<ê<<<Ê\n"
-u8"&G<gh<<<Gh<<<GH<gi<<<Gi<<<GI\n"
-u8"&K<kh<<<Kh<<<KH\n"
-u8"&N<nh<<<Nh<<<NH<ng<<<Ng<<<NG<ngh<<<Ngh<<<NGh<<<NGH\n"
-u8"&o<ô<<<Ô<ơ<<<Ơ\n"
-u8"&P<ph<<<Ph<<<PH\n"
-u8"&Q<qu<<<Qu<<<QU\n"
-u8"&T<th<<<Th<<<TH<tr<<<Tr<<<TR\n"
-u8"&u<ư<<<Ư\n"
-u8"  \n");
+u8R"(  
+[normalization on]
+&̀<<̉<<̃<<́<<̣
+&a<ă<<<Ă<â<<<Â
+&C<ch<<<Ch<<<CH
+&d<đ<<<Đ
+&e<ê<<<Ê
+&G<gh<<<Gh<<<GH<gi<<<Gi<<<GI
+&K<kh<<<Kh<<<KH
+&N<nh<<<Nh<<<NH<ng<<<Ng<<<NG<ngh<<<Ngh<<<NGh<<<NGH
+&o<ô<<<Ô<ơ<<<Ơ
+&P<ph<<<Ph<<<PH
+&Q<qu<<<Qu<<<QU
+&T<th<<<Th<<<TH<tr<<<Tr<<<TR
+&u<ư<<<Ư
+  )");
 }
 
 

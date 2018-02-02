@@ -10,16 +10,16 @@ namespace boost { namespace text { namespace data { namespace pl {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"&A<ą<<<Ą\n"
-u8"&C<ć<<<Ć\n"
-u8"&E<ę<<<Ę\n"
-u8"&L<ł<<<Ł\n"
-u8"&N<ń<<<Ń\n"
-u8"&O<ó<<<Ó\n"
-u8"&S<ś<<<Ś\n"
-u8"&Z<ź<<<Ź<ż<<<Ż\n"
-u8"  \n");
+u8R"(  
+&A<ą<<<Ą
+&C<ć<<<Ć
+&E<ę<<<Ę
+&L<ł<<<Ł
+&N<ń<<<Ń
+&O<ó<<<Ó
+&S<ś<<<Ś
+&Z<ź<<<Ź<ż<<<Ż
+  )");
 }
 
 

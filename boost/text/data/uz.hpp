@@ -10,12 +10,12 @@ namespace boost { namespace text { namespace data { namespace uz {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"&[before 1]ʒ<oʻ=o‘=o''<<<Oʻ=O‘=O''\n"
-u8"  <gʻ=g‘=g''<<<Gʻ=G‘=G''\n"
-u8"  <sh<<<Sh<<<SH\n"
-u8"  <ch<<<Ch<<<CH\n"
-u8"  \n");
+u8R"(  
+&[before 1]ʒ<oʻ=o‘=o''<<<Oʻ=O‘=O''
+  <gʻ=g‘=g''<<<Gʻ=G‘=G''
+  <sh<<<Sh<<<SH
+  <ch<<<Ch<<<CH
+  )");
 }
 
 

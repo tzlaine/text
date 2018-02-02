@@ -235,9 +235,7 @@ very_long_single_tailoring_form = '''\
 inline string {0}_collation_tailoring()
 {{
     string str;
-    if (str.empty()) {{
 {1}
-    }}
     return str;
 }}
 
@@ -385,11 +383,15 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                         chunked_lines.append('u8"' + lines[i][chunks * chunk_size + offset:])
             if k0 == 'zh':
                 chunked_lines = map(escape_chars, chunked_lines)
-            if len(v) < 1 << 15:
+            if len(v) < 1 << 13:
+                chunked_lines = map(lambda x: x[3:-3], chunked_lines)
+                lines = 'u8R"(' + '\n'.join(chunked_lines) + ')"'
+                tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
+            elif len(v) < 1 << 15:
                 lines = '\n'.join(chunked_lines)
                 tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
             else:
-                lines = map(lambda x: '        str += {};'.format(x), chunked_lines)
+                lines = map(lambda x: '    str += {};'.format(x), chunked_lines)
                 lines = '\n'.join(lines)
                 tailorings += very_long_single_tailoring_form.format(k.replace('-', '_'), lines)
 

@@ -10,23 +10,23 @@ namespace boost { namespace text { namespace data { namespace si {
 inline string_view dictionary_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[normalization on]\n"
-u8"[reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]\n"
-u8"&ඖ<ං<ඃ\n"
-u8"&ජ්ඤ<<ඥ\n"
-u8"  \n");
+u8R"(  
+[normalization on]
+[reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]
+&ඖ<ං<ඃ
+&ජ්ඤ<<ඥ
+  )");
 }
 
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[normalization on]\n"
-u8"[reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]\n"
-u8"&ඖ<ං<ඃ\n"
-u8"&ඥ<ඤ\n"
-u8"  \n");
+u8R"(  
+[normalization on]
+[reorder Sinh Deva Beng Guru Gujr Orya Taml Telu Knda Mlym]
+&ඖ<ං<ඃ
+&ඥ<ඤ
+  )");
 }
 
 

@@ -10,10 +10,10 @@ namespace boost { namespace text { namespace data { namespace en_US_POSIX {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"&A<*'\\u0020'-'/'<*0-'@'<*ABCDEFGHIJKLMNOPQRSTUVWXYZ<*'['-'`'<*abcdefghijklmnopqrstuvwxyz\n"
-u8"  <*'{'-'\\u007F'\n"
-u8"  \n");
+u8R"(  
+&A<*'\\u0020'-'/'<*0-'@'<*ABCDEFGHIJKLMNOPQRSTUVWXYZ<*'['-'`'<*abcdefghijklmnopqrstuvwxyz
+  <*'{'-'\\u007F'
+  )");
 }
 
 

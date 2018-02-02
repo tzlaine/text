@@ -10,11 +10,11 @@ namespace boost { namespace text { namespace data { namespace ar {
 inline string_view compat_collation_tailoring()
 {
     return string_view(
-u8"  \n"
-u8"[reorder Arab]\n"
-u8"&ت<<ة<<<ﺔ<<<ﺓ\n"
-u8"&ي<<ى<<<ﯨ<<<ﯩ<<<ﻰ<<<ﻯ<<<ﲐ<<<ﱝ\n"
-u8"  \n");
+u8R"(  
+[reorder Arab]
+&ت<<ة<<<ﺔ<<<ﺓ
+&ي<<ى<<<ﯨ<<<ﯩ<<<ﻰ<<<ﻯ<<<ﲐ<<<ﱝ
+  )");
 }
 
 inline string_view standard_collation_tailoring()
