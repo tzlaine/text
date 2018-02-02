@@ -342,7 +342,7 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                 v = v.replace(v[match.start(0):match.end(0)], replacement)
         if not k.startswith('private'):
             lines = v.replace('\\', '\\\\').splitlines()
-            lines = map(lambda x: '"' + x + '\\n"', lines)
+            lines = map(lambda x: 'u8"' + x + '\\n"', lines)
             chunked_lines = []
             for i in range(len(lines)):
                 chunk_size = 4096
@@ -363,14 +363,15 @@ for k0,v0 in sorted(tailorings_by_file.items()):
                             except UnicodeDecodeError:
                                 offset -= 1
                         prev_offset = offset
-                        if not line.startswith('"'):
-                            line = '"' + line
+                        if not line.startswith('u8"'):
+                            line = 'u8"' + line
                         if not line.endswith('"'):
                             line += '"'
                         chunked_lines.append(line)
                     if remainder != 0 or offset != 0:
-                        chunked_lines.append('"' + lines[i][chunks * chunk_size + offset:])
-            chunked_lines = map(escape_chars, chunked_lines)
+                        chunked_lines.append('u8"' + lines[i][chunks * chunk_size + offset:])
+            if k0 == 'zh':
+                chunked_lines = map(escape_chars, chunked_lines)
             lines = '\n'.join(chunked_lines)
             tailorings += single_tailoring_form.format(k.replace('-', '_'), lines)
 

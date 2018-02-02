@@ -10,7 +10,7 @@ namespace boost { namespace text { namespace data { namespace bg {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"[reorder Cyrl]\n");
+u8"[reorder Cyrl]\n");
 }
 
 

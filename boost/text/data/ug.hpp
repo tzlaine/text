@@ -10,12 +10,12 @@ namespace boost { namespace text { namespace data { namespace ug {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[reorder Arab]\n"
-"&\xd8\xa7<\xdb\x95<\xd8\xa8\n"
-"&\xd9\x83<\xda\xaf<\xda\xad<\xd9\x84\n"
-"&\xda\xbe<\xd9\x88<\xdb\x87<\xdb\x86<\xdb\x88<\xdb\x8b<\xdb\x90<\xd9\x89<\xd9\x8a\n"
-"  \n");
+u8"  \n"
+u8"[reorder Arab]\n"
+u8"&ا<ە<ب\n"
+u8"&ك<گ<ڭ<ل\n"
+u8"&ھ<و<ۇ<ۆ<ۈ<ۋ<ې<ى<ي\n"
+u8"  \n");
 }
 
 

@@ -10,7 +10,7 @@ namespace boost { namespace text { namespace data { namespace af {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"&N<<<\xc5\x89\n");
+u8"&N<<<ŉ\n");
 }
 
 

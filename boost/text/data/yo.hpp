@@ -10,13 +10,13 @@ namespace boost { namespace text { namespace data { namespace yo {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[normalization on]\n"
-"&E<\xe1\xba\xb9<<<\xe1\xba\xb8\n"
-"&G<gb<<<Gb<<<GB\n"
-"&O<\xe1\xbb\x8d<<<\xe1\xbb\x8c\n"
-"&S<\xe1\xb9\xa3<<<\xe1\xb9\xa2\n"
-"  \n");
+u8"  \n"
+u8"[normalization on]\n"
+u8"&E<ẹ<<<Ẹ\n"
+u8"&G<gb<<<Gb<<<GB\n"
+u8"&O<ọ<<<Ọ\n"
+u8"&S<ṣ<<<Ṣ\n"
+u8"  \n");
 }
 
 

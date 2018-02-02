@@ -10,18 +10,18 @@ namespace boost { namespace text { namespace data { namespace fa {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[normalization on]\n"
-"[reorder Arab]\n"
-"&\xd9\x8e<<\xd9\x90<<\xd9\x8f<<\xd9\x8b<<\xd9\x8d<<\xd9\x8c\n"
-"&[before 1]\xd8\xa7<\xd8\xa2\n"
-"&\xd8\xa7<<\xd9\xb1<\xd8\xa1\n"
-"  <<\xd8\xa3<<\xd9\xb2<<\xd8\xa5<<\xd9\xb3<<\xd8\xa4\n"
-"  <<\xdb\x8c\xd9\x94<<<\xd9\x89\xd9\x94<<<\xd8\xa6\n"
-"&\xda\xa9<<*\xda\xaa\xda\xab\xd9\x83\xda\xac\xda\xad\xda\xae\n"
-"&\xdb\x8f<\xd9\x87<<\xdb\x95<<\xdb\x81<<\xd8\xa9<<\xdb\x83<<\xdb\x80<<\xda\xbe\n"
-"&\xdb\x8c<<*\xd9\x89\xdb\x92\xd9\x8a\xdb\x90\xdb\x91\xdb\x8d\xdb\x8e\n"
-"  \n");
+u8"  \n"
+u8"[normalization on]\n"
+u8"[reorder Arab]\n"
+u8"&َ<<ِ<<ُ<<ً<<ٍ<<ٌ\n"
+u8"&[before 1]ا<آ\n"
+u8"&ا<<ٱ<ء\n"
+u8"  <<أ<<ٲ<<إ<<ٳ<<ؤ\n"
+u8"  <<یٔ<<<ىٔ<<<ئ\n"
+u8"&ک<<*ڪګكڬڭڮ\n"
+u8"&ۏ<ه<<ە<<ہ<<ة<<ۃ<<ۀ<<ھ\n"
+u8"&ی<<*ىےيېۑۍێ\n"
+u8"  \n");
 }
 
 

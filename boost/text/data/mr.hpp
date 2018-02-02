@@ -10,14 +10,14 @@ namespace boost { namespace text { namespace data { namespace mr {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[normalization on]\n"
-"[reorder Deva Beng Guru Gujr Orya Taml Telu Knda Mlym Sinh]\n"
-"&\xe0\xa5\x90<\xe0\xa4\x82<<\xe0\xa4\x81<\xe0\xa4\x83\n"
-"&\xe0\xa4\xb9<\xe0\xa4\xb3\n"
-"  <\xe0\xa4\x95\xe0\xa5\x8d\xe0\xa4\xb7\n"
-"  <\xe0\xa4\x9c\xe0\xa5\x8d\xe0\xa4\x9e\n"
-"  \n");
+u8"  \n"
+u8"[normalization on]\n"
+u8"[reorder Deva Beng Guru Gujr Orya Taml Telu Knda Mlym Sinh]\n"
+u8"&ॐ<ं<<ँ<ः\n"
+u8"&ह<ळ\n"
+u8"  <क्ष\n"
+u8"  <ज्ञ\n"
+u8"  \n");
 }
 
 

@@ -10,19 +10,19 @@ namespace boost { namespace text { namespace data { namespace th {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[normalization on]\n"
-"[alternate shifted]\n"
-"[reorder Thai]\n"
-"&[before 1]\xe0\xb9\x9a<\xe0\xb8\xaf\n"
-"&\xe0\xb9\x9b<\xe0\xb9\x86\n"
-"&\xe0\xb9\x8e<<\xe0\xb9\x8c\n"
-"&[before 1]\xe0\xb8\xb0<\xe0\xb9\x8d\n"
-"&\xe0\xb8\xb2<<<\xe0\xb9\x85\n"
-"&\xe0\xb8\xb2\xe0\xb9\x8d<<<\xe0\xb9\x8d\xe0\xb8\xb2<<<\xe0\xb8\xb3\n"
-"&\xe0\xb9\x85\xe0\xb9\x8d<<<\xe0\xb9\x8d\xe0\xb9\x85\n"
-"&\xe0\xb9\x84<\xe0\xb8\xba\n"
-"  \n");
+u8"  \n"
+u8"[normalization on]\n"
+u8"[alternate shifted]\n"
+u8"[reorder Thai]\n"
+u8"&[before 1]๚<ฯ\n"
+u8"&๛<ๆ\n"
+u8"&๎<<์\n"
+u8"&[before 1]ะ<ํ\n"
+u8"&า<<<ๅ\n"
+u8"&าํ<<<ํา<<<ำ\n"
+u8"&ๅํ<<<ํๅ\n"
+u8"&ไ<ฺ\n"
+u8"  \n");
 }
 
 

@@ -10,10 +10,10 @@ namespace boost { namespace text { namespace data { namespace bs_Cyrl {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[reorder Cyrl]\n"
-"[suppressContractions [\xd0\x98\xd0\xb8]]\n"
-"  \n");
+u8"  \n"
+u8"[reorder Cyrl]\n"
+u8"[suppressContractions [Ии]]\n"
+u8"  \n");
 }
 
 

@@ -10,12 +10,12 @@ namespace boost { namespace text { namespace data { namespace ro {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"&A<\xc4\x83<<<\xc4\x82<\xc3\xa2<<<\xc3\x82\n"
-"&I<\xc3\xae<<<\xc3\x8e\n"
-"&S<\xc5\x9f=\xc8\x99<<<\xc5\x9e=\xc8\x98\n"
-"&T<\xc5\xa3=\xc8\x9b<<<\xc5\xa2=\xc8\x9a\n"
-"  \n");
+u8"  \n"
+u8"&A<ă<<<Ă<â<<<Â\n"
+u8"&I<î<<<Î\n"
+u8"&S<ş=ș<<<Ş=Ș\n"
+u8"&T<ţ=ț<<<Ţ=Ț\n"
+u8"  \n");
 }
 
 

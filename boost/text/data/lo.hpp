@@ -10,7 +10,7 @@ namespace boost { namespace text { namespace data { namespace lo {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"[reorder Laoo]\n");
+u8"[reorder Laoo]\n");
 }
 
 

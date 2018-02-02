@@ -10,11 +10,11 @@ namespace boost { namespace text { namespace data { namespace uk {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[reorder Cyrl]\n"
-"&\xd0\x93<\xd2\x91<<<\xd2\x90\n"
-"&\xea\x99\x87<\xd1\x97<<<\\uA676<<<\xd0\x87\n"
-"  \n");
+u8"  \n"
+u8"[reorder Cyrl]\n"
+u8"&Г<ґ<<<Ґ\n"
+u8"&ꙇ<ї<<<\\uA676<<<Ї\n"
+u8"  \n");
 }
 
 

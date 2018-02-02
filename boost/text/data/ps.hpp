@@ -10,26 +10,26 @@ namespace boost { namespace text { namespace data { namespace ps {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[normalization on]\n"
-"[reorder Arab]\n"
-"&\xd9\x8e<<\xd9\x90<<\xd9\x8f<<\xd9\x8b<<\xd9\x8d<<\xd9\x8c\n"
-"&[before 1]\xd8\xa7<\xd8\xa2\n"
-"&\xd8\xa7<<\xd8\xa3<<\xd9\xb2<<\xd9\xb1<<\xd8\xa5<<\xd9\xb3<\xd8\xa1\n"
-"&\xd8\xaa<\xd9\xbc<<\xd9\xb9\n"
-"&\xd8\xac<\xda\x81<<\xd8\xad\xd9\x94\n"
-"&\xda\x86<\xda\x85\n"
-"&\xd8\xaf<\xda\x89<<\xda\x88\n"
-"&\xd8\xb1<\xda\x93<<\xda\x91\n"
-"&\xda\x98<\xda\x96\n"
-"&\xda\xa9<<*\xda\xaa\xd9\x83\n"
-"&\xda\xab<<\xda\xaf\n"
-"&\xda\xbc<<\xda\xbb\n"
-"&\xd9\x88<<\xd8\xa4<<\xdb\x87<<\xdb\x89\n"
-"&\xd9\x87<<<\xdb\x80<<<\xd9\x87\xd9\x94<<*\xdb\x95\xdb\x81\xda\xbe\xd8\xa9\xdb\x83\n"
-"&\xdb\x8c<<*\xd9\x89\xdb\x92\xd9\x8a\xdb\x90\xdb\x8d<<\xdb\x8c\xd9\x94<<<\xd9\x89\xd9\x94<<<\xd8\xa6\n"
-"&\\u00A0<<\\u200C<<\\u200D\n"
-"  \n");
+u8"  \n"
+u8"[normalization on]\n"
+u8"[reorder Arab]\n"
+u8"&َ<<ِ<<ُ<<ً<<ٍ<<ٌ\n"
+u8"&[before 1]ا<آ\n"
+u8"&ا<<أ<<ٲ<<ٱ<<إ<<ٳ<ء\n"
+u8"&ت<ټ<<ٹ\n"
+u8"&ج<ځ<<حٔ\n"
+u8"&چ<څ\n"
+u8"&د<ډ<<ڈ\n"
+u8"&ر<ړ<<ڑ\n"
+u8"&ژ<ږ\n"
+u8"&ک<<*ڪك\n"
+u8"&ګ<<گ\n"
+u8"&ڼ<<ڻ\n"
+u8"&و<<ؤ<<ۇ<<ۉ\n"
+u8"&ه<<<ۀ<<<هٔ<<*ەہھةۃ\n"
+u8"&ی<<*ىےيېۍ<<یٔ<<<ىٔ<<<ئ\n"
+u8"&\\u00A0<<\\u200C<<\\u200D\n"
+u8"  \n");
 }
 
 

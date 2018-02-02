@@ -10,10 +10,10 @@ namespace boost { namespace text { namespace data { namespace el {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[normalization on]\n"
-"[reorder Grek]\n"
-"  \n");
+u8"  \n"
+u8"[normalization on]\n"
+u8"[reorder Grek]\n"
+u8"  \n");
 }
 
 

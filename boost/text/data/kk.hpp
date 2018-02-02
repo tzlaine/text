@@ -10,12 +10,12 @@ namespace boost { namespace text { namespace data { namespace kk {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[reorder Cyrl]\n"
-"&\xd0\x95<\xd1\x91<<<\xd0\x81\n"
-"&\xd2\xb0<\xd2\xaf<<<\xd2\xae\n"
-"&[before 1]\xd1\x8c<\xd1\x96<<<\xd0\x86\n"
-"  \n");
+u8"  \n"
+u8"[reorder Cyrl]\n"
+u8"&Е<ё<<<Ё\n"
+u8"&Ұ<ү<<<Ү\n"
+u8"&[before 1]ь<і<<<І\n"
+u8"  \n");
 }
 
 

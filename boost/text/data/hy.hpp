@@ -10,10 +10,10 @@ namespace boost { namespace text { namespace data { namespace hy {
 inline string_view standard_collation_tailoring()
 {
     return string_view(
-"  \n"
-"[reorder Armn]\n"
-"&\xd6\x84<\xd6\x87<<<\xd4\xb5\xd6\x82\n"
-"  \n");
+u8"  \n"
+u8"[reorder Armn]\n"
+u8"&ք<և<<<Եւ\n"
+u8"  \n");
 }
 
 
