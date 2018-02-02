@@ -847,14 +847,27 @@ namespace boost { namespace text {
 
             // Remove the previous instance of relation from the table, if
             // there was one.
-            temp_table_element::ces_t const relation_ces =
-                get_ces(relation, table);
-            auto remove_it = std::lower_bound(
-                temp_table.begin(), temp_table.end(), relation_ces);
-            if (remove_it != temp_table.end() && remove_it->cps_ == relation) {
-                if (remove_it <= table_target_it)
-                    --table_target_it;
-                temp_table.erase(remove_it);
+            if (table.trie_.contains(relation) ||
+                g_default_collation_trie.contains(relation)) {
+                temp_table_element::ces_t const relation_ces =
+                    get_ces(relation, table);
+                auto remove_it = std::lower_bound(
+                    temp_table.begin(), temp_table.end(), relation_ces);
+                if (remove_it == temp_table.end() ||
+                    remove_it->cps_ != relation) {
+                    remove_it = std::find_if(
+                        temp_table.begin(),
+                        temp_table.end(),
+                        [&](temp_table_element const & element) {
+                            return element.cps_ == relation;
+                        });
+                }
+                if (remove_it != temp_table.end() &&
+                    remove_it->cps_ == relation) {
+                    if (remove_it < table_target_it)
+                        --table_target_it;
+                    temp_table.erase(remove_it);
+                }
             }
 
             table.add_temp_tailoring(relation, reset_ces);
