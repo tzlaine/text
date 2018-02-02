@@ -4,6 +4,8 @@
 
 #include <gtest/gtest.h>
 
+#include <fstream>
+
 
 using namespace boost;
 
@@ -114,9 +116,6 @@ TEST(tailoring, reordering)
         }
     } while (std::next_permutation(reorderings.begin(), reorderings.end()));
 }
-
-// TODO: Create a tailoring for each of the strings priovided by #include
-// <boost/text/data/all.hpp> to make sure they're at least stable.
 
 TEST(tailoring, de)
 {
@@ -1011,8 +1010,31 @@ TEST(tailoring, th)
             [](text::string const & s) { std::cout << s; },
             [](text::string const & s) { std::cout << s; });
 
-    // TODO: Read riwords.txt, check that each line collates as <= the next
-    // (tertiary).
+    std::ifstream ifs("test/riwords.txt");
+    std::vector<text::string> lines;
+    while (ifs) {
+        text::string line;
+        char c;
+        while (ifs.get(c)) {
+            if (c != '\r')
+                line += c;
+            if (c == '\n')
+                break;
+        }
+        if (line.empty() || line[0] == '#')
+            continue;
+        lines.push_back(line);
+    }
+
+    for (int i = 0, end = int(lines.size()) - 1; i < end; ++i) {
+        EXPECT_LE(
+            text::collate(
+                text::utf32_range(lines[i]),
+                text::utf32_range(lines[i + 1]),
+                table,
+                text::collation_strength::tertiary),
+            0);
+    }
 
     {
         int const cases = 13;
