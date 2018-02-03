@@ -60,7 +60,7 @@ bool g_just_after_reset = false;
 
 string g_curr_file;
 string g_curr_tailoring;
-string_view g_tailoring;
+string g_tailoring;
 std::ofstream g_ofs;
 
 std::map<int, int> const g_logical_positions{
