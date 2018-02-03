@@ -73,6 +73,7 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
+    extern int const g_num_collation_elements;
     extern collation_element const * g_collation_elements_first;
 
     struct collation_elements
@@ -155,7 +156,10 @@ namespace boost { namespace text { namespace detail {
     using trie_match_t = collation_trie_t::match_result;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
-    extern collation_trie_t const g_default_collation_trie;
+    extern int const g_num_trie_elements;
+    extern collation_trie_key<3> const * g_trie_keys_first;
+    extern collation_elements const * g_trie_values_first;
+    extern int const * g_trie_element_original_order_first;
 
     struct reorder_group
     {

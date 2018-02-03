@@ -2,7 +2,7 @@
 #define BOOST_TEXT_COLLATE_HPP
 
 #include <boost/text/collation_fwd.hpp>
-#include <boost/text/collation_tailoring.hpp>
+#include <boost/text/collation_table.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
@@ -81,12 +81,18 @@ namespace boost { namespace text {
             uint32_t cp,
             variable_weighting weighting,
             OutIter out,
-            tailored_collation_element_table const * table)
+            collation_table const & table,
+            retain_case_bits_t retain_case_bits)
         {
             if (hangul_syllable(cp)) {
                 auto cps = decompose_hangul_syllable<3>(cp);
                 container::small_vector<collation_element, 1024> ces;
-                s2(cps.begin(), cps.end(), weighting, ces, table);
+                s2(cps.begin(),
+                   cps.end(),
+                   weighting,
+                   ces,
+                   table,
+                   retain_case_bits);
                 return std::copy(ces.begin(), ces.end(), out);
             }
 
@@ -175,8 +181,7 @@ namespace boost { namespace text {
                                              bytes[2] << 8 | bytes[3] << 0;
                     collation_element ce{primary, 0x0500, 0x05, 0x0};
 
-                    if (table)
-                        ce.l1_ = replace_lead_byte(ce.l1_, table->lead_byte(ce));
+                    ce.l1_ = replace_lead_byte(ce.l1_, table.lead_byte(ce));
 
                     *out++ = ce;
                     return out;
@@ -296,7 +301,7 @@ namespace boost { namespace text {
            Iter last,
            variable_weighting weighting,
            container::small_vector<collation_element, 1024> & ces,
-           tailored_collation_element_table const * table,
+           collation_table const & table,
            retain_case_bits_t retain_case_bits)
         {
             bool after_variable = false;
@@ -304,20 +309,16 @@ namespace boost { namespace text {
                 // S2.1 Find longest prefix that results in a collation
                 // table match.
                 trie_match_t collation_;
-                bool in_table = false;
-                if (table)
-                    collation_ = table->trie().longest_match(first, last);
-                if (!collation_.match) {
-                    collation_ =
-                        g_default_collation_trie.longest_match(first, last);
-                } else {
-                    in_table = true;
-                }
+                collation_ = table.trie().longest_match(first, last);
                 if (!collation_.match) {
                     // S2.2
                     collation_element derived_ces[32];
                     auto const derived_ces_end = add_derived_elements(
-                        *first++, weighting, derived_ces, table);
+                        *first++,
+                        weighting,
+                        derived_ces,
+                        table,
+                        retain_case_bits);
                     after_variable = s2_3(
                         derived_ces,
                         derived_ces_end,
@@ -349,11 +350,7 @@ namespace boost { namespace text {
                         ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first);
                     if (unblocked) {
                         auto const cp = *nonstarter_first;
-                        auto coll =
-                            in_table
-                                ? table->trie().extend_match(collation_, cp)
-                                : g_default_collation_trie.extend_match(
-                                      collation_, cp);
+                        auto coll = table.trie().extend_match(collation_, cp);
                         // S2.1.3
                         if (collation_.size < coll.size) {
                             std::copy_backward(
@@ -366,23 +363,15 @@ namespace boost { namespace text {
                 }
 
                 collation_element const * collation_elements_first =
-                    in_table ? table->collation_elements_begin()
-                             : g_collation_elements_first;
+                    table.collation_elements_begin();
 
                 auto const collation_it = const_trie_iterator_t(collation_);
 
                 // S2.4
-                std::transform(
+                ces.insert(
+                    ces.end(),
                     collation_it->value.begin(collation_elements_first),
-                    collation_it->value.end(collation_elements_first),
-                    std::back_inserter(ces),
-                    [table](collation_element ce) {
-                        if (table) {
-                            ce.l1_ =
-                                replace_lead_byte(ce.l1_, table->lead_byte(ce));
-                        }
-                        return ce;
-                    });
+                    collation_it->value.end(collation_elements_first));
 
                 // S2.3
                 after_variable = s2_3(
@@ -495,15 +484,15 @@ namespace boost { namespace text {
             collation_strength strength,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            tailored_collation_element_table const * table)
+            collation_table const & table)
         {
             std::vector<uint32_t> bytes;
             container::small_vector<collation_element, 1024> ces;
 
-            if (table && table->weighting())
-                weighting = *table->weighting();
-            if (table && table->l2_order())
-                l2_order = *table->l2_order();
+            if (table.weighting())
+                weighting = *table.weighting();
+            if (table.l2_order())
+                l2_order = *table.l2_order();
 
             // TODO: Try tuning this buffer size for perf.
             std::array<uint32_t, 256> buffer;
@@ -534,7 +523,12 @@ namespace boost { namespace text {
                 }
 
                 auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-                s2(buffer.begin(), s2_it, weighting, ces, table);
+                s2(buffer.begin(),
+                   s2_it,
+                   weighting,
+                   ces,
+                   table,
+                   retain_case_bits_t::no); // TODO
                 s3(ces.begin(),
                    ces.end(),
                    ces.size(),
@@ -560,7 +554,7 @@ namespace boost { namespace text {
             collation_strength strength,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            tailored_collation_element_table const * table)
+            collation_table const & table)
         {
             // TODO: Do this incrementally, and bail early once the answer
             // is certain.
@@ -579,47 +573,20 @@ namespace boost { namespace text {
     text_sort_key collation_sort_key(
         Iter first,
         Iter last,
+        collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         return detail::collation_sort_key(
-            first, last, strength, weighting, l2_order, nullptr);
-    }
-
-    /** TODO */
-    template<typename Iter>
-    text_sort_key collation_sort_key(
-        Iter first,
-        Iter last,
-        tailored_collation_element_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
-    {
-        return detail::collation_sort_key(
-            first, last, strength, weighting, l2_order, &table);
+            first, last, strength, weighting, l2_order, table);
     }
 
     /** TODO */
     template<typename CodePointRange>
     text_sort_key collation_sort_key(
         CodePointRange const & r,
-        collation_strength strength = collation_strength::tertiary,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
-    {
-        using std::begin;
-        using std::end;
-        return collation_sort_key(
-            begin(r), end(r), strength, weighting, l2_order);
-    }
-
-    /** TODO */
-    template<typename CodePointRange>
-    text_sort_key collation_sort_key(
-        CodePointRange const & r,
-        tailored_collation_element_table const & table,
+        collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
@@ -637,6 +604,7 @@ namespace boost { namespace text {
         Iter1 lhs_last,
         Iter2 rhs_first,
         Iter2 rhs_last,
+        collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
@@ -649,30 +617,7 @@ namespace boost { namespace text {
             strength,
             weighting,
             l2_order,
-            nullptr);
-    }
-
-    /** TODO */
-    template<typename Iter1, typename Iter2>
-    int collate(
-        Iter1 lhs_first,
-        Iter1 lhs_last,
-        Iter2 rhs_first,
-        Iter2 rhs_last,
-        tailored_collation_element_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
-    {
-        return detail::collate(
-            lhs_first,
-            lhs_last,
-            rhs_first,
-            rhs_last,
-            strength,
-            weighting,
-            l2_order,
-            &table);
+            table);
     }
 
     /** TODO */
@@ -680,28 +625,7 @@ namespace boost { namespace text {
     int collate(
         CodePointRange1 const & r1,
         CodePointRange2 const & r2,
-        collation_strength strength = collation_strength::tertiary,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
-    {
-        using std::begin;
-        using std::end;
-        return collate(
-            begin(r1),
-            end(r1),
-            begin(r2),
-            end(r2),
-            strength,
-            weighting,
-            l2_order);
-    }
-
-    /** TODO */
-    template<typename CodePointRange1, typename CodePointRange2>
-    int collate(
-        CodePointRange1 const & r1,
-        CodePointRange2 const & r2,
-        tailored_collation_element_table const & table,
+        collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)

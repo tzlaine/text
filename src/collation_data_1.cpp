@@ -77490,42 +77490,9 @@ namespace detail {
         {32783, 32784},
 
         }};
-
-        struct key_and_index_t
-        {
-            std::array<uint32_t, 3> cps_ = {{0, 0, 0}};
-            int index_;
-
-            friend bool operator<(key_and_index_t lhs, key_and_index_t rhs)
-            {
-                return lhs.cps_ < rhs.cps_;
-            }
-        };
-
-        collation_trie_t make_trie()
-        {
-            std::vector<key_and_index_t> key_and_indices;
-            {
-                key_and_indices.resize(g_trie_keys.size());
-                int i = 0;
-                for (auto key : g_trie_keys) {
-                    auto & kai = key_and_indices[i];
-                    std::copy(key.begin(), key.end(), kai.cps_.begin());
-                    kai.index_ = i++;
-                }
-                std::sort(key_and_indices.begin(), key_and_indices.end());
-            }
-            collation_trie_t retval;
-            for (auto kai : key_and_indices) {
-                retval.insert(
-                    g_trie_keys[kai.index_], g_trie_values[kai.index_]);
-            }
-            return retval;
-        }
     }
 
-    collation_trie_t const g_default_collation_trie = make_trie();
-
+    int const g_num_trie_elements = int(g_trie_keys.size());
     collation_trie_key<3> const * g_trie_keys_first = &g_trie_keys[0];
     collation_elements const * g_trie_values_first = &g_trie_values[0];
 }

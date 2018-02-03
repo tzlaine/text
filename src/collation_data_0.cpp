@@ -39571,6 +39571,7 @@ std::array<collation_element, 39402> const g_collation_elements = {{
 
 }};
 
+int const g_num_collation_elements = int(g_collation_elements.size());
 collation_element const * g_collation_elements_first =
     g_collation_elements.data();
 

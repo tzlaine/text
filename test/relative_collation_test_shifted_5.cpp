@@ -37,6 +37,7 @@ TEST(collation, relative_shifted_5)
 
         curr_key = boost::text::collation_sort_key(
             curr_cps,
+            table(),
             boost::text::collation_strength::identical,
             boost::text::variable_weighting::shifted);
 

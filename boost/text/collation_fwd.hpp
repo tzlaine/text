@@ -27,7 +27,7 @@ namespace boost { namespace text {
     /** TODO */
     enum class case_first_t { upper, lower, off };
 
-    struct tailored_collation_element_table;
+    struct collation_table;
 
     namespace detail {
 
@@ -40,7 +40,8 @@ namespace boost { namespace text {
             uint32_t cp,
             variable_weighting weighting,
             OutIter out,
-            tailored_collation_element_table const * table);
+            collation_table const & table,
+            retain_case_bits_t retain_case_bits);
 
         template<typename Iter>
         void
@@ -48,8 +49,8 @@ namespace boost { namespace text {
            Iter last,
            variable_weighting weighting,
            container::small_vector<collation_element, 1024> & ces,
-           tailored_collation_element_table const * table,
-           retain_case_bits_t retain_case_bits = retain_case_bits_t::no);
+           collation_table const & table,
+           retain_case_bits_t retain_case_bits);
 
         template<typename CEIter, typename CPIter, typename Container>
         void
