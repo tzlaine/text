@@ -16,7 +16,6 @@
 #endif
 
 
-// TODO: Rename file to collation_table.hpp.
 namespace boost { namespace text {
 
     struct collation_table;
@@ -627,7 +626,7 @@ namespace boost { namespace text {
             // TODO
         }
 
-        // TODO: Audit the FDD0/FDD1 situation in the collation data ,and the
+        // TODO: Audit the FDD0/FDD1 situation in the collation data, and the
         // tailoring data.
 
         inline void update_key_ces(
@@ -923,21 +922,6 @@ namespace boost { namespace text {
             element.tailored_ = true;
 
             temp_table.insert(table_target_it, std::move(element));
-
-            // http://www.unicode.org/reports/tr10/#WF5 "If a table contains a
-            // contraction consisting of a sequence of N code points, with N > 2
-            // and the last code point being a non-starter, then the table must
-            // also contain a contraction consisting of the sequence of the
-            // first N-1 code points."
-            // TODO: For any contraction of length N, add its N-1 prefixes based
-            // on the current state.  This enforces WF5, and ensures that the
-            // in-tailored-table and in-default-table longest matches are
-            // disjoint.
-
-            // TODO: If we add anything to this table that is a prefix of
-            // something in the default table, add those suffixes to the new
-            // table.  This also ensures that the in-tailored-table and
-            // in-default-table longest matches are disjoint.
         }
 
         // TODO: Drop support for this?  No! Just add table entries for any
@@ -978,32 +962,6 @@ namespace std {
 namespace boost { namespace text {
 
     namespace detail {
-
-        inline void finalize_table(
-            temp_table_t const & temp_table,
-            nonsimple_reorders_t && nonsimple_reorders,
-            std::array<uint32_t, 256> const & simple_reorders,
-            optional<collation_strength> strength_override,
-            optional<variable_weighting> weighting_override,
-            optional<l2_weight_order> l2_order_override,
-            optional<case_level_t> case_level_override,
-            optional<case_first_t> case_first_override,
-            collation_table_data & table)
-        {
-            table.strength_ = strength_override;
-            table.weighting_ = weighting_override;
-            table.l2_order_ = l2_order_override;
-            table.case_level_ = case_level_override;
-            table.case_first_ = case_first_override;
-
-            for (auto & ce : table.collation_element_vec_) {
-                ce.l1_ = replace_lead_byte(
-                    ce.l1_, lead_byte(ce, nonsimple_reorders, simple_reorders));
-            }
-
-            table.nonsimple_reorders_ = std::move(nonsimple_reorders);
-            table.simple_reorders_ = simple_reorders;
-        }
 
         struct cp_rng
         {
@@ -1065,18 +1023,6 @@ namespace boost { namespace text {
             parser_diagnostic_callback())
     {
         detail::temp_table_t temp_table = detail::make_temp_table();
-
-        optional<collation_strength> strength_override;
-        optional<variable_weighting> weighting_override;
-        optional<l2_weight_order> l2_order_override;
-        optional<case_level_t> case_level_override;
-        optional<case_first_t> case_first_override;
-
-        detail::cp_seq_t suppressions;
-
-        detail::nonsimple_reorders_t nonsimple_reorders;
-        std::array<uint32_t, 256> simple_reorders;
-        std::iota(simple_reorders.begin(), simple_reorders.end(), 0);
 
         collation_table table;
         table.data_->trie_ = detail::make_default_trie();
@@ -1158,18 +1104,21 @@ namespace boost { namespace text {
                 curr_reset = rel.cps_;
                 reset_is_before = false;
             },
-            [&](collation_strength strength) { strength_override = strength; },
-            [&](variable_weighting weighting) {
-                weighting_override = weighting;
+            [&](collation_strength strength) {
+                table.data_->strength_ = strength;
             },
-            [&](l2_weight_order l2_order) { l2_order_override = l2_order; },
-            [&](case_level_t cl) { case_level_override = cl; },
-            [&](case_first_t cf) { case_first_override = cf; },
+            [&](variable_weighting weighting) {
+                table.data_->weighting_ = weighting;
+            },
+            [&](l2_weight_order l2_order) {
+                table.data_->l2_order_ = l2_order;
+            },
+            [&](case_level_t cl) { table.data_->case_level_ = cl; },
+            [&](case_first_t cf) { table.data_->case_first_ = cf; },
             [&](detail::cp_seq_t const & suppressions_) {
-                std::copy(
-                    suppressions_.begin(),
-                    suppressions_.end(),
-                    std::back_inserter(suppressions));
+                for (auto cp : suppressions_) {
+                    detail::suppress(temp_table, cp);
+                }
             },
             [&](std::vector<detail::reorder_group> const & reorder_groups) {
                 uint32_t curr_reorder_lead_byte =
@@ -1236,18 +1185,19 @@ namespace boost { namespace text {
                              byte < (detail::implicit_weights_final_lead_byte
                                      << 24);
                              byte += 0x01000000) {
-                            simple_reorders[byte >> 24] =
+                            table.data_->simple_reorders_[byte >> 24] =
                                 curr_reorder_lead_byte >> 24;
                             curr_reorder_lead_byte += 0x01000000;
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
-                            std::cerr << " simple reorder " << (byte >> 24)
-                                      << " -> " << simple_reorders[byte >> 24]
-                                      << "\n";
+                            std::cerr
+                                << " simple reorder " << (byte >> 24) << " -> "
+                                << table.data_->simple_reorders_[byte >> 24]
+                                << "\n";
 #endif
                         }
                         curr_reorder_lead_byte -= 0x01000000;
                     } else {
-                        nonsimple_reorders.push_back(
+                        table.data_->nonsimple_reorders_.push_back(
                             detail::nonsimple_script_reorder{
                                 group.first_,
                                 group.last_,
@@ -1278,20 +1228,14 @@ namespace boost { namespace text {
         detail::parse(
             tailoring.begin(), tailoring.end(), callbacks, tailoring_filename);
 
-        for (auto cp : suppressions) {
-            detail::suppress(temp_table, cp);
+        for (auto & ce : table.data_->collation_element_vec_) {
+            ce.l1_ = detail::replace_lead_byte(
+                ce.l1_,
+                detail::lead_byte(
+                    ce,
+                    table.data_->nonsimple_reorders_,
+                    table.data_->simple_reorders_));
         }
-
-        finalize_table(
-            temp_table,
-            std::move(nonsimple_reorders),
-            simple_reorders,
-            strength_override,
-            weighting_override,
-            l2_order_override,
-            case_level_override,
-            case_first_override,
-            *table.data_);
 
         return table;
     }

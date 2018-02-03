@@ -34,7 +34,7 @@ namespace boost { namespace text {
         std::vector<uint32_t> storage_;
     };
 
-#define BOOST_TEXT_COLLATE_INSTRUMENTATION 0
+#define BOOST_TEXT_COLLATE_INSTRUMENTATION 1
 #if BOOST_TEXT_COLLATE_INSTRUMENTATION
     std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
     {
