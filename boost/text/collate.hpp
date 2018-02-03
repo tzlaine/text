@@ -179,7 +179,7 @@ namespace boost { namespace text {
                         (primary_weight_low_bits >> 0) & 0x3f};
                     uint32_t const primary = bytes[0] << 24 | bytes[1] << 16 |
                                              bytes[2] << 8 | bytes[3] << 0;
-                    collation_element ce{primary, 0x0500, 0x05, 0x0};
+                    collation_element ce{primary, 0x0500, 0x0500, 0x0};
 
                     ce.l1_ = replace_lead_byte(ce.l1_, table.lead_byte(ce));
 
@@ -192,7 +192,7 @@ namespace boost { namespace text {
             *out++ = collation_element{
                 (implicit_weights_final_lead_byte << 24) | (cp & 0xffffff),
                 0x0500,
-                0x05,
+                0x0500,
                 0x0};
             return out;
         }
