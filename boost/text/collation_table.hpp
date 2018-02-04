@@ -166,6 +166,7 @@ namespace boost { namespace text {
     }
 
     /** TODO */
+    // TODO: Serialization.
     struct collation_table
     {
         template<typename Iter>
