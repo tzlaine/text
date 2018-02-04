@@ -385,7 +385,9 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
             after_top_bytes = True
         if 'HOMELESS COLLATION ELEMENTS' in line:
             before_homeless_ces = False
-        if not line.startswith('#') and not line.startswith('@') and len(line) != 0:
+        if not line.startswith('#') and not line.startswith('@') and \
+           not line.startswith('FDD0 ') and not line.startswith('FDD1 ') \
+           and len(line) != 0:
             if after_top_bytes and before_homeless_ces:
                 comment_start = line.find('#')
                 comment = ''

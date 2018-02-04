@@ -516,9 +516,6 @@ namespace boost { namespace text {
             // TODO
         }
 
-        // TODO: Audit the FDD0/FDD1 situation in the collation data, and the
-        // tailoring data.
-
         inline void update_key_ces(
             temp_table_element::ces_t const & ces,
             logical_positions_t & logical_positions,
