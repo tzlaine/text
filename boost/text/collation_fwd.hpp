@@ -33,16 +33,11 @@ namespace boost { namespace text {
 
         enum class retain_case_bits_t { no, yes };
 
-#if 0
-        template<typename Iter>
-        text_sort_key collation_sort_key(
-            Iter first,
-            Iter last,
-            collation_strength strength,
-            variable_weighting weighting,
-            l2_weight_order l2_order,
-            collation_table const & table);
-#endif
+        enum case_bits : uint16_t {
+            lower_case_bits = 0x0000,
+            mixed_case_bits = 0x8000,
+            upper_case_bits = 0x4000
+        };
 
         inline uint32_t
         replace_lead_byte(uint32_t l1_weight, uint32_t new_lead_byte)

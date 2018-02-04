@@ -453,7 +453,8 @@ namespace boost { namespace text {
         inline bool well_formed_1(temp_table_element::ces_t const & ces)
         {
             for (auto ce : ces) {
-                bool higher_level_zero = !ce.l3_;
+                bool higher_level_zero =
+                    (ce.l3_ & disable_case_level_mask) == 0;
                 if (ce.l2_) {
                     if (higher_level_zero) {
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -509,11 +510,77 @@ namespace boost { namespace text {
             return true;
         }
 
+        // Variable naming follows
+        // http://www.unicode.org/reports/tr35/tr35-collation.html#Case_Tailored
         inline void adjust_case_bits(
             temp_table_element::ces_t const & initial_relation_ces,
             temp_table_element::ces_t & reset_ces)
         {
-            // TODO
+            container::small_vector<uint16_t, 64> initial_case_bits;
+            for (auto ce : initial_relation_ces) {
+                if (ce.l1_)
+                    initial_case_bits.push_back(ce.l3_ & case_level_bits_mask);
+            }
+
+            auto const N = std::ptrdiff_t(initial_case_bits.size());
+            auto const M = std::count_if(
+                reset_ces.begin(), reset_ces.end(), [](collation_element ce) {
+                    return ce_strength(ce) == collation_strength::primary;
+                });
+
+            if (N <= M) {
+                auto it = initial_case_bits.begin();
+                for (std::ptrdiff_t i = 0; i < M; ++i) {
+                    auto & ce = reset_ces[i];
+                    if (ce.l1_) {
+                        ce.l3_ &= disable_case_level_mask;
+                        if (it != initial_case_bits.end())
+                            ce.l3_ |= *it++;
+                    }
+                }
+            } else {
+                auto it = initial_case_bits.begin();
+                for (std::ptrdiff_t i = 0; i < M; ++i) {
+                    auto & ce = reset_ces[i];
+                    if (ce.l1_) {
+                        ce.l3_ &= disable_case_level_mask;
+                        if (i < M - 1) {
+                            ce.l3_ |= *it++;
+                        } else {
+                            if (std::all_of(
+                                    it,
+                                    initial_case_bits.end(),
+                                    [](uint16_t bits) {
+                                        return bits == upper_case_bits;
+                                    })) {
+                                ce.l3_ |= upper_case_bits;
+                            } else if (std::all_of(
+                                           it,
+                                           initial_case_bits.end(),
+                                           [](uint16_t bits) {
+                                               return bits == lower_case_bits;
+                                           })) {
+                                ce.l3_ |= lower_case_bits;
+                            } else {
+                                ce.l3_ |= mixed_case_bits;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (auto & ce : reset_ces) {
+                auto const strength = ce_strength(ce);
+                if (strength == collation_strength::secondary) {
+                    ce.l3_ &= disable_case_level_mask;
+                } else if (strength == collation_strength::tertiary) {
+                    ce.l3_ &= disable_case_level_mask;
+                    ce.l3_ |= upper_case_bits;
+                } else if (strength == collation_strength::quaternary) {
+                    ce.l3_ &= disable_case_level_mask;
+                    ce.l3_ |= lower_case_bits;
+                }
+            }
         }
 
         inline void update_key_ces(
