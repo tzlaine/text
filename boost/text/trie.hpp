@@ -237,9 +237,35 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
 
         template<typename KeyIter>
-        match_result longest_match(KeyIter first, KeyIter last) const noexcept
+        match_result longest_subsequence(KeyIter first, KeyIter last) const
+            noexcept
         {
             return longest_match_impl(first, last);
+        }
+
+        template<typename KeyRange>
+        match_result longest_subsequence(KeyRange const & key) const noexcept
+        {
+            using std::begin;
+            using std::end;
+            return longest_subsequence(begin(key), end(key));
+        }
+
+        BOOST_TRIE_C_STR_OVERLOAD(
+            match_result, longest_subsequence, const noexcept)
+
+        template<typename KeyIter>
+        match_result longest_match(KeyIter first, KeyIter last) const noexcept
+        {
+            auto retval = longest_match_impl(first, last);
+            auto node = to_node_ptr(retval.node);
+            while (node->parent() && !node->value()) {
+                retval.node = node = node->parent();
+                --retval.size;
+            }
+            if (!!node->value())
+                retval.match = true;
+            return retval;
         }
 
         template<typename KeyRange>
@@ -253,19 +279,20 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
 
         template<typename KeyElementT>
-        match_result extend_match(match_result prev, KeyElementT e) const
+        match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
         {
             auto e_ptr = &e;
-            return extend_match_impl(match_result{prev}, e_ptr, e_ptr + 1);
+            return extend_subsequence_impl(
+                match_result{prev}, e_ptr, e_ptr + 1);
         }
 
         template<typename KeyIter>
         match_result
-        extend_match(match_result prev, KeyIter first, KeyIter last) const
+        extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
             noexcept
         {
-            return extend_match_impl(match_result{prev}, first, last);
+            return extend_subsequence_impl(match_result{prev}, first, last);
         }
 
         template<typename OutIter>
@@ -429,12 +456,12 @@ namespace boost { namespace trie {
         match_result longest_match_impl(KeyIter & first, KeyIter last) const
             noexcept
         {
-            return extend_match_impl(
+            return extend_subsequence_impl(
                 match_result{&header_, 0, false, true}, first, last);
         }
 
         template<typename KeyIter>
-        match_result extend_match_impl(
+        match_result extend_subsequence_impl(
             match_result prev, KeyIter & first, KeyIter last) const noexcept
         {
             if (to_node_ptr(prev.node) == &header_) {

@@ -168,6 +168,22 @@ namespace boost { namespace trie {
         BOOST_TRIE_SET_C_STR_OVERLOAD(const_range, equal_range, const noexcept)
 
         template<typename KeyIter>
+        match_result longest_subsequence(KeyIter first, KeyIter last) const
+            noexcept
+        {
+            return trie_.longest_subsequence(first, last);
+        }
+
+        template<typename KeyRange>
+        match_result longest_subsequence(KeyRange const & key) const noexcept
+        {
+            return trie_.longest_subsequence(key);
+        }
+
+        BOOST_TRIE_SET_C_STR_OVERLOAD(
+            match_result, longest_subsequence, const noexcept)
+
+        template<typename KeyIter>
         match_result longest_match(KeyIter first, KeyIter last) const noexcept
         {
             return trie_.longest_match(first, last);
@@ -183,18 +199,18 @@ namespace boost { namespace trie {
             match_result, longest_match, const noexcept)
 
         template<typename KeyElementT>
-        match_result extend_match(match_result prev, KeyElementT e) const
+        match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
         {
-            return trie_.extend_match(prev, e);
+            return trie_.extend_subsequence(prev, e);
         }
 
         template<typename KeyIter>
         match_result
-        extend_match(match_result prev, KeyIter first, KeyIter last) const
+        extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
             noexcept
         {
-            return trie_.extend_match(prev, first, last);
+            return trie_.extend_subsequence(prev, first, last);
         }
 
         template<typename OutIter>
@@ -596,10 +612,7 @@ namespace boost { namespace trie {
             return retval;
         }
 
-        const_trie_set_iterator<Key> base() const noexcept
-        {
-            return it_;
-        }
+        const_trie_set_iterator<Key> base() const noexcept { return it_; }
 
         friend bool operator==(
             const_reverse_trie_set_iterator lhs,

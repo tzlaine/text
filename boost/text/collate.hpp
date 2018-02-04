@@ -350,9 +350,10 @@ namespace boost { namespace text {
                         ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first);
                     if (unblocked) {
                         auto const cp = *nonstarter_first;
-                        auto coll = table.trie().extend_match(collation_, cp);
+                        auto coll =
+                            table.trie().extend_subsequence(collation_, cp);
                         // S2.1.3
-                        if (collation_.size < coll.size) {
+                        if (coll.match && collation_.size < coll.size) {
                             std::copy_backward(
                                 first, nonstarter_first, nonstarter_first + 1);
                             *first++ = cp;

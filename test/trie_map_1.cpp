@@ -41,7 +41,7 @@ TEST(trie_map1, const_access)
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "");
 
-        auto const match = trie.longest_match("whatever");
+        auto const match = trie.longest_subsequence("whatever");
         EXPECT_TRUE(match.node != nullptr);
         EXPECT_EQ(match.size, 0);
         EXPECT_EQ(match.match, true);
@@ -52,7 +52,7 @@ TEST(trie_map1, const_access)
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, L"");
 
-        auto const match = trie.longest_match(L"whatever");
+        auto const match = trie.longest_subsequence(L"whatever");
         EXPECT_TRUE(match.node != nullptr);
         EXPECT_EQ(match.size, 0);
         EXPECT_EQ(match.match, true);
@@ -63,7 +63,7 @@ TEST(trie_map1, const_access)
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
 
-        auto const match = trie.longest_match("whatever");
+        auto const match = trie.longest_subsequence("whatever");
         EXPECT_TRUE(match.node != nullptr);
         EXPECT_EQ(match.size, 1);
         EXPECT_EQ(match.match, true);
@@ -198,36 +198,36 @@ TEST(trie_map1, const_access)
         }
 
         {
-            auto const _match = trie.longest_match("");
+            auto const _match = trie.longest_subsequence("");
             EXPECT_TRUE(_match.node != nullptr);
             EXPECT_EQ(_match.size, 0);
             EXPECT_EQ(_match.match, true);
 
-            auto const _0_match = trie.extend_match(_match, 0);
+            auto const _0_match = trie.extend_subsequence(_match, 0);
             EXPECT_EQ(_0_match, _match);
 
-            auto const f_match = trie.extend_match(_match, 'f');
+            auto const f_match = trie.extend_subsequence(_match, 'f');
             EXPECT_TRUE(f_match.node != nullptr);
             EXPECT_EQ(f_match.size, 1);
             EXPECT_EQ(f_match.match, false);
         }
 
         {
-            auto const fo_match = trie.longest_match("fo");
+            auto const fo_match = trie.longest_subsequence("fo");
             EXPECT_TRUE(fo_match.node != nullptr);
             EXPECT_EQ(fo_match.size, 2);
             EXPECT_EQ(fo_match.match, false);
         }
 
         {
-            auto const fa_match = trie.longest_match("fa");
+            auto const fa_match = trie.longest_subsequence("fa");
             EXPECT_TRUE(fa_match.node != nullptr);
             EXPECT_EQ(fa_match.size, 1);
             EXPECT_EQ(fa_match.match, false);
         }
 
         {
-            auto const bart_match = trie.longest_match("bart");
+            auto const bart_match = trie.longest_subsequence("bart");
             EXPECT_TRUE(bart_match.node != nullptr);
             EXPECT_EQ(bart_match.size, 3);
             EXPECT_EQ(bart_match.match, true);
@@ -265,7 +265,7 @@ TEST(trie_map1, mutable_access)
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "");
 
-        auto const match = trie.longest_match("whatever");
+        auto const match = trie.longest_subsequence("whatever");
         EXPECT_TRUE(match.node != nullptr);
         EXPECT_EQ(match.size, 0);
         EXPECT_EQ(match.match, true);
@@ -276,7 +276,7 @@ TEST(trie_map1, mutable_access)
         auto const _it = trie.begin();
         EXPECT_EQ(_it->key, "w");
 
-        auto const match = trie.longest_match("whatever");
+        auto const match = trie.longest_subsequence("whatever");
         EXPECT_TRUE(match.node != nullptr);
         EXPECT_EQ(match.size, 1);
         EXPECT_EQ(match.match, true);
@@ -411,36 +411,36 @@ TEST(trie_map1, mutable_access)
         }
 
         {
-            auto const _match = trie.longest_match("");
+            auto const _match = trie.longest_subsequence("");
             EXPECT_TRUE(_match.node != nullptr);
             EXPECT_EQ(_match.size, 0);
             EXPECT_EQ(_match.match, true);
 
-            auto const _0_match = trie.extend_match(_match, 0);
+            auto const _0_match = trie.extend_subsequence(_match, 0);
             EXPECT_EQ(_0_match, _match);
 
-            auto const f_match = trie.extend_match(_match, 'f');
+            auto const f_match = trie.extend_subsequence(_match, 'f');
             EXPECT_TRUE(f_match.node != nullptr);
             EXPECT_EQ(f_match.size, 1);
             EXPECT_EQ(f_match.match, false);
         }
 
         {
-            auto const fo_match = trie.longest_match("fo");
+            auto const fo_match = trie.longest_subsequence("fo");
             EXPECT_TRUE(fo_match.node != nullptr);
             EXPECT_EQ(fo_match.size, 2);
             EXPECT_EQ(fo_match.match, false);
         }
 
         {
-            auto const fa_match = trie.longest_match("fa");
+            auto const fa_match = trie.longest_subsequence("fa");
             EXPECT_TRUE(fa_match.node != nullptr);
             EXPECT_EQ(fa_match.size, 1);
             EXPECT_EQ(fa_match.match, false);
         }
 
         {
-            auto const bart_match = trie.longest_match("bart");
+            auto const bart_match = trie.longest_subsequence("bart");
             EXPECT_TRUE(bart_match.node != nullptr);
             EXPECT_EQ(bart_match.size, 3);
             EXPECT_EQ(bart_match.match, true);
