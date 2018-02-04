@@ -58,13 +58,7 @@ std::vector<uint32_t> collate_for_tests(
 
     boost::container::small_vector<boost::text::detail::collation_element, 1024>
         ces;
-    boost::text::detail::s2(
-        first,
-        last,
-        weighting,
-        ces,
-        table(),
-        boost::text::detail::retain_case_bits_t::no);
+    table().collation_elements(first, last, ces, weighting);
 
     std::vector<uint32_t> retval;
     boost::text::detail::s3(

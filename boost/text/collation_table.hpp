@@ -1,7 +1,6 @@
 #ifndef BOOST_TEXT_COLLATION_TAILORING_HPP
 #define BOOST_TEXT_COLLATION_TAILORING_HPP
 
-#include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/segmented_vector.hpp>
 #include <boost/text/detail/collation_data.hpp>
@@ -17,8 +16,6 @@
 
 
 namespace boost { namespace text {
-
-    struct collation_table;
 
     namespace detail {
 
@@ -59,48 +56,9 @@ namespace boost { namespace text {
             bool tailored_ = false;
         };
 
-        inline bool less(
+        bool less(
             temp_table_element::ces_t const & lhs,
-            temp_table_element::ces_t const & rhs) noexcept
-        {
-            container::static_vector<uint32_t, 256> lhs_bytes;
-            container::static_vector<uint32_t, 256> rhs_bytes;
-
-            uint32_t const * cps = nullptr;
-            s3(lhs.begin(),
-               lhs.end(),
-               lhs.size(),
-               collation_strength::quaternary,
-               l2_weight_order::forward,
-               cps,
-               cps,
-               0,
-               lhs_bytes);
-            s3(rhs.begin(),
-               rhs.end(),
-               rhs.size(),
-               collation_strength::quaternary,
-               l2_weight_order::forward,
-               cps,
-               cps,
-               0,
-               rhs_bytes);
-
-            auto const pair = algorithm::mismatch(
-                lhs_bytes.begin(),
-                lhs_bytes.end(),
-                rhs_bytes.begin(),
-                rhs_bytes.end());
-            if (pair.first == lhs_bytes.end()) {
-                if (pair.second == rhs_bytes.end())
-                    return false;
-                return true;
-            } else {
-                if (pair.second == rhs_bytes.end())
-                    return false;
-                return *pair.first < *pair.second;
-            }
-        }
+            temp_table_element::ces_t const & rhs) noexcept;
 
         inline bool less_equal(
             temp_table_element::ces_t const & lhs,
@@ -210,31 +168,33 @@ namespace boost { namespace text {
     /** TODO */
     struct collation_table
     {
-#if 0 // TODO: Give this a user facing interface:
-        template<typename Iter>
-        text_sort_key collation_sort_key () const
-        {
-            return detail::collation_sort_key(
-                first, last, strength, weighting, l2_order, *this);
-        }
-
         template<typename Iter>
         void collation_elements(
             Iter first,
             Iter last,
-            variable_weighting weighting,
-            container::small_vector<collation_element, 1024> & ces,
-            detail::retain_case_bits_t retain_case_bits) const
-        {
-            return detail::s2(
-                first, last, weighting, ces, *this, retain_case_bits);
-        }
-#endif
+            container::small_vector<detail::collation_element, 1024> & ces,
+            variable_weighting weighting) const;
 
-        detail::collation_trie_t const & trie() const noexcept
+        template<typename CodePointRange>
+        void collation_elements(
+            CodePointRange const & r,
+            container::small_vector<detail::collation_element, 1024> & ces,
+            variable_weighting weighting) const
         {
-            return data_->trie_;
+            using std::begin;
+            using std::end;
+            collation_elements(begin(r), end(r), ces, weighting);
         }
+
+        optional<l2_weight_order> l2_order() const noexcept
+        {
+            return data_->l2_order_;
+        }
+
+    private:
+        collation_table() :
+            data_(std::make_shared<detail::collation_table_data>())
+        {}
 
         detail::collation_element const * collation_elements_begin() const
             noexcept
@@ -243,38 +203,6 @@ namespace boost { namespace text {
                        ? data_->collation_elements_
                        : &data_->collation_element_vec_[0];
         }
-
-        uint32_t lead_byte(detail::collation_element cce) const noexcept
-        {
-            return detail::lead_byte(
-                cce, data_->nonsimple_reorders_, data_->simple_reorders_);
-        }
-
-        optional<collation_strength> strength() const noexcept
-        {
-            return data_->strength_;
-        }
-        optional<variable_weighting> weighting() const noexcept
-        {
-            return data_->weighting_;
-        }
-        optional<l2_weight_order> l2_order() const noexcept
-        {
-            return data_->l2_order_;
-        }
-        optional<case_level_t> case_level() const noexcept
-        {
-            return data_->case_level_;
-        }
-        optional<case_first_t> case_first() const noexcept
-        {
-            return data_->case_first_;
-        }
-
-    private:
-        collation_table() :
-            data_(std::make_shared<detail::collation_table_data>())
-        {}
 
         std::shared_ptr<detail::collation_table_data> data_;
 
@@ -340,45 +268,7 @@ namespace boost { namespace text {
         }
 
         inline temp_table_element::ces_t
-        get_ces(cp_seq_t cps, collation_table const & table) noexcept
-        {
-            temp_table_element::ces_t retval;
-
-            container::small_vector<collation_element, 1024> ces;
-            s2(cps.begin(),
-               cps.end(),
-               variable_weighting::non_ignorable,
-               ces,
-               table,
-               retain_case_bits_t::yes);
-
-#if BOOST_TEXT_TAILORING_INSTRUMENTATION
-            {
-                bool first = true;
-                for (auto cp : cps) {
-                    if (!first)
-                        std::cerr << " ";
-                    std::cerr << std::hex << std::setw(8) << std::setfill('0')
-                              << cp;
-                    first = false;
-                }
-                std::cerr << "\n";
-            }
-            std::cerr << "++++++++++\n";
-            for (auto ce : ces) {
-                std::cerr << "[" << std::hex << std::setw(8)
-                          << std::setfill('0') << ce.l1_ << " " << std::setw(4)
-                          << ce.l2_ << " " << std::setw(2) << std::setfill('0')
-                          << ce.l3_ << "] ";
-            }
-            std::cerr << "\n++++++++++\n";
-#endif
-
-            retval.resize(ces.size());
-            std::copy(ces.begin(), ces.end(), retval.begin());
-
-            return retval;
-        }
+        get_ces(cp_seq_t cps, collation_table_data const & table);
 
         template<typename Iter>
         Iter last_ce_at_least_strength(
@@ -692,7 +582,6 @@ namespace boost { namespace text {
 
         // http://www.unicode.org/reports/tr35/tr35-collation.html#Orderings
         inline void modify_table(
-            collation_table const & table_proper,
             collation_table_data & table,
             temp_table_t & temp_table,
             logical_positions_t & logical_positions,
@@ -710,7 +599,7 @@ namespace boost { namespace text {
                 reset[0] <= detail::first_implicit) {
                 reset_ces = logical_positions[reset[0]];
             } else {
-                reset_ces = detail::get_ces(reset, table_proper);
+                reset_ces = detail::get_ces(reset, table);
             }
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -746,7 +635,7 @@ namespace boost { namespace text {
             std::cerr << "\n";
 #endif
             temp_table_element::ces_t const initial_relation_ces =
-                get_ces(initial_relation, table_proper);
+                get_ces(initial_relation, table);
 
             cp_seq_t relation = initial_relation;
 
@@ -802,7 +691,7 @@ namespace boost { namespace text {
             adjust_case_bits(initial_relation_ces, reset_ces);
 
             if (extension) {
-                auto const extension_ces = get_ces(*extension, table_proper);
+                auto const extension_ces = get_ces(*extension, table);
                 reset_ces.insert(
                     reset_ces.end(),
                     extension_ces.begin(),
@@ -895,7 +784,7 @@ namespace boost { namespace text {
             // there was one.
             if (table.trie_.contains(relation)) {
                 temp_table_element::ces_t const relation_ces =
-                    get_ces(relation, table_proper);
+                    get_ces(relation, table);
                 auto remove_it = std::lower_bound(
                     temp_table.begin(), temp_table.end(), relation_ces);
                 if (remove_it == temp_table.end() ||
@@ -1015,12 +904,47 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    inline collation_table tailored_collation_table(
+    collation_table tailored_collation_table(
         string_view tailoring,
         string_view tailoring_filename = "",
         parser_diagnostic_callback report_errors = parser_diagnostic_callback(),
         parser_diagnostic_callback report_warnings =
-            parser_diagnostic_callback())
+            parser_diagnostic_callback());
+
+}}
+
+#include <boost/text/collate.hpp>
+
+namespace boost { namespace text {
+
+    template<typename Iter>
+    void collation_table::collation_elements(
+        Iter first,
+        Iter last,
+        container::small_vector<detail::collation_element, 1024> & ces,
+        variable_weighting weighting) const
+    {
+        if (data_->weighting_)
+            weighting = *data_->weighting_;
+        detail::s2(
+            first,
+            last,
+            ces,
+            data_->trie_,
+            collation_elements_begin(),
+            [&](detail::collation_element ce) {
+                return detail::lead_byte(
+                    ce, data_->nonsimple_reorders_, data_->simple_reorders_);
+            },
+            weighting,
+            detail::retain_case_bits_t::no); // TODO: Other case params.
+    }
+
+    inline collation_table tailored_collation_table(
+        string_view tailoring,
+        string_view tailoring_filename,
+        parser_diagnostic_callback report_errors,
+        parser_diagnostic_callback report_warnings)
     {
         detail::temp_table_t temp_table = detail::make_temp_table();
 
@@ -1049,7 +973,7 @@ namespace boost { namespace text {
             auto lookup_and_assign = [&](uint32_t symbol) {
                 auto const cp =
                     symbol_lookup[symbol - detail::first_tertiary_ignorable];
-                auto const elems = table.trie()[detail::cp_rng{cp}];
+                auto const elems = table.data_->trie_[detail::cp_rng{cp}];
                 logical_positions[symbol].assign(
                     elems->begin(detail::g_collation_elements_first),
                     elems->end(detail::g_collation_elements_first));
@@ -1074,7 +998,14 @@ namespace boost { namespace text {
                     [detail::first_implicit - detail::first_tertiary_ignorable],
                 variable_weighting::non_ignorable,
                 std::back_inserter(logical_positions[detail::first_implicit]),
-                table,
+                table.data_->trie_,
+                table.collation_elements_begin(),
+                [&table](detail::collation_element ce) {
+                    return detail::lead_byte(
+                        ce,
+                        table.data_->nonsimple_reorders_,
+                        table.data_->simple_reorders_);
+                },
                 detail::retain_case_bits_t::yes);
         }
 
@@ -1090,7 +1021,6 @@ namespace boost { namespace text {
             },
             [&](detail::relation_t const & rel) {
                 detail::modify_table(
-                    table,
                     *table.data_,
                     temp_table,
                     logical_positions,
@@ -1238,6 +1168,100 @@ namespace boost { namespace text {
         }
 
         return table;
+    }
+
+    namespace detail {
+
+        inline bool less(
+            temp_table_element::ces_t const & lhs,
+            temp_table_element::ces_t const & rhs) noexcept
+        {
+            container::static_vector<uint32_t, 256> lhs_bytes;
+            container::static_vector<uint32_t, 256> rhs_bytes;
+
+            uint32_t const * cps = nullptr;
+            s3(lhs.begin(),
+               lhs.end(),
+               lhs.size(),
+               collation_strength::quaternary,
+               l2_weight_order::forward,
+               cps,
+               cps,
+               0,
+               lhs_bytes);
+            s3(rhs.begin(),
+               rhs.end(),
+               rhs.size(),
+               collation_strength::quaternary,
+               l2_weight_order::forward,
+               cps,
+               cps,
+               0,
+               rhs_bytes);
+
+            auto const pair = algorithm::mismatch(
+                lhs_bytes.begin(),
+                lhs_bytes.end(),
+                rhs_bytes.begin(),
+                rhs_bytes.end());
+            if (pair.first == lhs_bytes.end()) {
+                if (pair.second == rhs_bytes.end())
+                    return false;
+                return true;
+            } else {
+                if (pair.second == rhs_bytes.end())
+                    return false;
+                return *pair.first < *pair.second;
+            }
+        }
+
+        inline temp_table_element::ces_t
+        get_ces(cp_seq_t cps, collation_table_data const & table)
+        {
+            temp_table_element::ces_t retval;
+
+            container::small_vector<collation_element, 1024> ces;
+            detail::s2(
+                cps.begin(),
+                cps.end(),
+                ces,
+                table.trie_,
+                table.collation_elements_ ? table.collation_elements_
+                                          : &table.collation_element_vec_[0],
+                [&table](detail::collation_element ce) {
+                    return detail::lead_byte(
+                        ce, table.nonsimple_reorders_, table.simple_reorders_);
+                },
+                variable_weighting::non_ignorable,
+                detail::retain_case_bits_t::yes);
+
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            {
+                bool first = true;
+                for (auto cp : cps) {
+                    if (!first)
+                        std::cerr << " ";
+                    std::cerr << std::hex << std::setw(8) << std::setfill('0')
+                              << cp;
+                    first = false;
+                }
+                std::cerr << "\n";
+            }
+            std::cerr << "++++++++++\n";
+            for (auto ce : retval) {
+                std::cerr << "[" << std::hex << std::setw(8)
+                          << std::setfill('0') << ce.l1_ << " " << std::setw(4)
+                          << ce.l2_ << " " << std::setw(2) << std::setfill('0')
+                          << ce.l3_ << "] ";
+            }
+            std::cerr << "\n++++++++++\n";
+#endif
+
+            retval.resize(ces.size());
+            std::copy(ces.begin(), ces.end(), retval.begin());
+
+            return retval;
+        }
     }
 
 }}

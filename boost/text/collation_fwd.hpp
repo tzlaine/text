@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_COLLATION_FWD_HPP
 #define BOOST_TEXT_COLLATION_FWD_HPP
 
-#include <boost/container/small_vector.hpp>
+#include <cstdint>
 
 
 namespace boost { namespace text {
@@ -31,38 +31,18 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        struct collation_element;
-
         enum class retain_case_bits_t { no, yes };
 
-        template<typename OutIter>
-        inline OutIter add_derived_elements(
-            uint32_t cp,
-            variable_weighting weighting,
-            OutIter out,
-            collation_table const & table,
-            retain_case_bits_t retain_case_bits);
-
+#if 0
         template<typename Iter>
-        void
-        s2(Iter first,
-           Iter last,
-           variable_weighting weighting,
-           container::small_vector<collation_element, 1024> & ces,
-           collation_table const & table,
-           retain_case_bits_t retain_case_bits);
-
-        template<typename CEIter, typename CPIter, typename Container>
-        void
-        s3(CEIter ces_first,
-           CEIter ces_last,
-           int ces_size,
-           collation_strength strength,
-           l2_weight_order l2_order,
-           CPIter cps_first,
-           CPIter cps_last,
-           int cps_size,
-           Container & bytes);
+        text_sort_key collation_sort_key(
+            Iter first,
+            Iter last,
+            collation_strength strength,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table);
+#endif
 
         inline uint32_t
         replace_lead_byte(uint32_t l1_weight, uint32_t new_lead_byte)

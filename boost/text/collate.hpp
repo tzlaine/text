@@ -2,15 +2,16 @@
 #define BOOST_TEXT_COLLATE_HPP
 
 #include <boost/text/collation_fwd.hpp>
-#include <boost/text/collation_table.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
+#include <boost/algorithm/cxx14/mismatch.hpp>
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
-#include <boost/algorithm/cxx14/mismatch.hpp>
+
+#include <vector>
 
 
 namespace boost { namespace text {
@@ -76,12 +77,14 @@ namespace boost { namespace text {
     namespace detail {
 
         // http://www.unicode.org/reports/tr10/#Derived_Collation_Elements
-        template<typename OutIter>
+        template<typename OutIter, typename LeadByteFunc>
         inline OutIter add_derived_elements(
             uint32_t cp,
             variable_weighting weighting,
             OutIter out,
-            collation_table const & table,
+            detail::collation_trie_t const & trie,
+            collation_element const * collation_elements_first,
+            LeadByteFunc const & lead_byte,
             retain_case_bits_t retain_case_bits)
         {
             if (hangul_syllable(cp)) {
@@ -89,9 +92,11 @@ namespace boost { namespace text {
                 container::small_vector<collation_element, 1024> ces;
                 s2(cps.begin(),
                    cps.end(),
-                   weighting,
                    ces,
-                   table,
+                   trie,
+                   collation_elements_first,
+                   lead_byte,
+                   weighting,
                    retain_case_bits);
                 return std::copy(ces.begin(), ces.end(), out);
             }
@@ -181,14 +186,14 @@ namespace boost { namespace text {
                                              bytes[2] << 8 | bytes[3] << 0;
                     collation_element ce{primary, 0x0500, 0x0500, 0x0};
 
-                    ce.l1_ = replace_lead_byte(ce.l1_, table.lead_byte(ce));
+                    ce.l1_ = replace_lead_byte(ce.l1_, lead_byte(ce));
 
                     *out++ = ce;
                     return out;
                 }
             }
 
-            // This is not tailorable, so we won't use table here.
+            // This is not tailorable, so we won't use lead_byte here.
             *out++ = collation_element{
                 (implicit_weights_final_lead_byte << 24) | (cp & 0xffffff),
                 0x0500,
@@ -295,21 +300,23 @@ namespace boost { namespace text {
             return after_variable;
         }
 
-        template<typename Iter>
+        template<typename Iter, typename LeadByteFunc>
         void
         s2(Iter first,
            Iter last,
-           variable_weighting weighting,
            container::small_vector<collation_element, 1024> & ces,
-           collation_table const & table,
+           detail::collation_trie_t const & trie,
+           collation_element const * collation_elements_first,
+           LeadByteFunc const & lead_byte,
+           variable_weighting weighting,
            retain_case_bits_t retain_case_bits)
         {
             bool after_variable = false;
             while (first != last) {
-                // S2.1 Find longest prefix that results in a collation
-                // table match.
+                // S2.1 Find longest prefix that results in a collation trie
+                // match.
                 trie_match_t collation_;
-                collation_ = table.trie().longest_match(first, last);
+                collation_ = trie.longest_match(first, last);
                 if (!collation_.match) {
                     // S2.2
                     collation_element derived_ces[32];
@@ -317,7 +324,9 @@ namespace boost { namespace text {
                         *first++,
                         weighting,
                         derived_ces,
-                        table,
+                        trie,
+                        collation_elements_first,
+                        lead_byte,
                         retain_case_bits);
                     after_variable = s2_3(
                         derived_ces,
@@ -350,8 +359,7 @@ namespace boost { namespace text {
                         ccc(*(nonstarter_first - 1)) < ccc(*nonstarter_first);
                     if (unblocked) {
                         auto const cp = *nonstarter_first;
-                        auto coll =
-                            table.trie().extend_subsequence(collation_, cp);
+                        auto coll = trie.extend_subsequence(collation_, cp);
                         // S2.1.3
                         if (coll.match && collation_.size < coll.size) {
                             std::copy_backward(
@@ -362,9 +370,6 @@ namespace boost { namespace text {
                     }
                     ++nonstarter_first;
                 }
-
-                collation_element const * collation_elements_first =
-                    table.collation_elements_begin();
 
                 auto const collation_it = const_trie_iterator_t(collation_);
 
@@ -485,66 +490,7 @@ namespace boost { namespace text {
             collation_strength strength,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            collation_table const & table)
-        {
-            std::vector<uint32_t> bytes;
-            container::small_vector<collation_element, 1024> ces;
-
-            if (table.weighting())
-                weighting = *table.weighting();
-            if (table.l2_order())
-                l2_order = *table.l2_order();
-
-            // TODO: Try tuning this buffer size for perf.
-            std::array<uint32_t, 256> buffer;
-            auto buf_it = buffer.begin();
-            auto it = first;
-            while (it != last) {
-                for (; it != last && buf_it != buffer.end(); ++buf_it, ++it) {
-                    *buf_it = *it;
-                }
-
-                // The chunk we pass to S2 should end at the earliest
-                // contiguous starter (ccc == 0) we find searching backward
-                // from the end.  This is because 1) we don't want to cut off
-                // trailing combining characters that may participate in
-                // longest-match determination in S2.1, and 2) in S2.3 we need
-                // to know if earlier CPs are variable-weighted or not.
-                auto s2_it = buf_it;
-                if (s2_it == buffer.end()) {
-                    while (s2_it != buffer.begin()) {
-                        if (ccc(*--s2_it))
-                            break;
-                    }
-                    while (s2_it != buffer.begin()) {
-                        if (!ccc(*--s2_it))
-                            break;
-                    }
-                    ++s2_it;
-                }
-
-                auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-                s2(buffer.begin(),
-                   s2_it,
-                   weighting,
-                   ces,
-                   table,
-                   retain_case_bits_t::no); // TODO
-                s3(ces.begin(),
-                   ces.end(),
-                   ces.size(),
-                   strength,
-                   l2_order,
-                   first,
-                   end_of_raw_input,
-                   s2_it - buffer.begin(),
-                   bytes);
-                ces.clear();
-                buf_it = std::copy(s2_it, buf_it, buffer.begin());
-                first = end_of_raw_input;
-            }
-            return text_sort_key(std::move(bytes));
-        }
+            collation_table const & table);
 
         template<typename Iter1, typename Iter2>
         int collate(
@@ -598,6 +544,7 @@ namespace boost { namespace text {
             begin(r), end(r), table, strength, weighting, l2_order);
     }
 
+
     /** TODO */
     template<typename Iter1, typename Iter2>
     int collate(
@@ -645,5 +592,72 @@ namespace boost { namespace text {
     }
 
 }}
+
+#include <boost/text/collation_table.hpp>
+
+namespace boost { namespace text { namespace detail {
+
+    template<typename Iter>
+    text_sort_key collation_sort_key(
+        Iter first,
+        Iter last,
+        collation_strength strength,
+        variable_weighting weighting,
+        l2_weight_order l2_order,
+        collation_table const & table)
+    {
+        std::vector<uint32_t> bytes;
+        container::small_vector<collation_element, 1024> ces;
+
+        if (table.l2_order())
+            l2_order = *table.l2_order();
+
+        // TODO: Try tuning this buffer size for perf.
+        std::array<uint32_t, 256> buffer;
+        auto buf_it = buffer.begin();
+        auto it = first;
+        while (it != last) {
+            for (; it != last && buf_it != buffer.end(); ++buf_it, ++it) {
+                *buf_it = *it;
+            }
+
+            // The chunk we pass to S2 should end at the earliest
+            // contiguous starter (ccc == 0) we find searching backward
+            // from the end.  This is because 1) we don't want to cut off
+            // trailing combining characters that may participate in
+            // longest-match determination in S2.1, and 2) in S2.3 we need
+            // to know if earlier CPs are variable-weighted or not.
+            auto s2_it = buf_it;
+            if (s2_it == buffer.end()) {
+                while (s2_it != buffer.begin()) {
+                    if (ccc(*--s2_it))
+                        break;
+                }
+                while (s2_it != buffer.begin()) {
+                    if (!ccc(*--s2_it))
+                        break;
+                }
+                ++s2_it;
+            }
+
+            auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
+            table.collation_elements(buffer.begin(), s2_it, ces, weighting);
+            s3(ces.begin(),
+               ces.end(),
+               ces.size(),
+               strength,
+               l2_order,
+               first,
+               end_of_raw_input,
+               s2_it - buffer.begin(),
+               bytes);
+            ces.clear();
+            buf_it = std::copy(s2_it, buf_it, buffer.begin());
+            first = end_of_raw_input;
+        }
+        return text_sort_key(std::move(bytes));
+    }
+
+}}}
 
 #endif
