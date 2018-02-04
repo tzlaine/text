@@ -34,9 +34,9 @@ namespace boost { namespace text {
         std::vector<uint32_t> storage_;
     };
 
-#define BOOST_TEXT_COLLATE_INSTRUMENTATION 1
+#define BOOST_TEXT_COLLATE_INSTRUMENTATION 0
 #if BOOST_TEXT_COLLATE_INSTRUMENTATION
-    std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
+    inline std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
     {
         os << std::hex << "[";
         for (auto x : k) {

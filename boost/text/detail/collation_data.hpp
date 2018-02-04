@@ -24,6 +24,15 @@ namespace boost { namespace text { namespace detail {
         uint32_t l4_;
     };
 
+#define BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION 0
+#if BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION
+    inline std::ostream & operator<<(std::ostream & os, collation_element ce)
+    {
+        return os << std::hex << "[" << ce.l1_ << " " << ce.l2_ << " " << ce.l3_
+                  << " " << ce.l4_ << "]" << std::dec;
+    }
+#endif
+
     inline bool
     operator==(collation_element lhs, collation_element rhs) noexcept
     {
