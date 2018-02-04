@@ -517,7 +517,7 @@ namespace boost { namespace trie {
             using const_iterator = typename children_t::const_iterator;
             using key_element = typename Key::value_type;
             using keys_t = std::vector<key_element>;
-            using key_iterator = typename keys_t::iterator;
+            using key_iterator = typename keys_t::const_iterator;
 
             trie_node_t() : parent_(nullptr) {}
             trie_node_t(trie_node_t * parent) : parent_(parent) {}
@@ -591,6 +591,9 @@ namespace boost { namespace trie {
             const_iterator begin() const noexcept { return children_.begin(); }
             const_iterator end() const noexcept { return children_.end(); }
 
+            key_iterator key_begin() const noexcept { return keys_.begin(); }
+            key_iterator key_end() const noexcept { return keys_.end(); }
+
             std::size_t index_within_parent() const noexcept
             {
                 return index_within_parent_.value();
@@ -662,9 +665,6 @@ namespace boost { namespace trie {
 
             iterator begin() noexcept { return children_.begin(); }
             iterator end() noexcept { return children_.end(); }
-
-            key_iterator key_begin() noexcept { return keys_.begin(); }
-            key_iterator key_end() noexcept { return keys_.end(); }
 
             template<typename Compare>
             iterator insert(

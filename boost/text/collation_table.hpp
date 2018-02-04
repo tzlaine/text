@@ -813,12 +813,31 @@ namespace boost { namespace text {
             temp_table.insert(table_target_it, std::move(element));
         }
 
-        // TODO: Drop support for this?  No! Just add table entries for any
-        // key that starts with cp that consists of all the CEs that the key
-        // would have had generated without the contraction.
-        inline void suppress(temp_table_t & table, uint32_t cp)
+        inline void suppress_impl(
+            collation_table_data & table,
+            collation_trie_t::match_result subseq,
+            bool first)
         {
-            // TODO
+            if (subseq.match && !first)
+                table.trie_.erase(trie_iterator_t(subseq));
+            if (!subseq.leaf) {
+                container::small_vector<uint32_t, 256> next_cps;
+                table.trie_.copy_next_key_elements(
+                    subseq, std::back_inserter(next_cps));
+                for (auto next_cp : next_cps) {
+                    suppress_impl(
+                        table,
+                        table.trie_.extend_subsequence(subseq, next_cp),
+                        false);
+                }
+            }
+        }
+
+        inline void suppress(collation_table_data & table, uint32_t cp)
+        {
+            auto const first_cp_subseq =
+                table.trie_.longest_subsequence(&cp, &cp + 1);
+            suppress_impl(table, first_cp_subseq, true);
         }
     }
 }}
@@ -1047,7 +1066,7 @@ namespace boost { namespace text {
             [&](case_first_t cf) { table.data_->case_first_ = cf; },
             [&](detail::cp_seq_t const & suppressions_) {
                 for (auto cp : suppressions_) {
-                    detail::suppress(temp_table, cp);
+                    detail::suppress(*table.data_, cp);
                 }
             },
             [&](std::vector<detail::reorder_group> const & reorder_groups) {

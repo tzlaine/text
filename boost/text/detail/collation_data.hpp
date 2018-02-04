@@ -163,6 +163,7 @@ namespace boost { namespace text { namespace detail {
     using collation_trie_t =
         trie::trie_map<collation_trie_key<32>, collation_elements>;
     using trie_match_t = collation_trie_t::match_result;
+    using trie_iterator_t = collation_trie_t::iterator;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
     extern int const g_num_trie_elements;

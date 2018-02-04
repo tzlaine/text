@@ -399,12 +399,14 @@ TEST(tailoring, {0}_{1}_suppressions)
             {2}
         }};
         container::small_vector<text::detail::collation_element, 1024> result;
-        text::detail::s2(
-            cps, cps + {1}, text::variable_weighting::non_ignorable,
-            result, &table, text::detail::retain_case_bits_t::yes);
+        table.collation_elements(
+            cps, cps + {1}, result, text::variable_weighting::non_ignorable);
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
-        for (auto & ce : ces) {{ ce.l1_ &= 0x00ffffff; }}
+        for (auto & ce : ces) {{
+            ce.l1_ &= 0x00ffffff;
+            ce.l3_ &= text::detail::disable_case_level_mask;
+        }}
         for (auto & ce : result) {{ ce.l1_ &= 0x00ffffff; }}
         EXPECT_EQ(result, ces);
     }}

@@ -194,7 +194,9 @@ namespace boost { namespace trie {
         }
 
         template<typename Key, typename Value>
-        Key reconstruct_key(trie_iterator_state_t<Key, Value> state)
+        Key reconstruct_key(trie_iterator_state_t<Key, Value> state) noexcept(
+            noexcept(std::declval<Key &>().insert(
+                std::declval<Key &>().end(), state.parent_->key(state.index_))))
         {
             Key retval;
             while (state.parent_->parent()) {
@@ -869,13 +871,14 @@ namespace boost { namespace trie {
             state_.index_ = node->index_within_parent();
         }
 
-        reference operator*() const noexcept
+        reference operator*() const
+            noexcept(noexcept(detail::reconstruct_key(state_)))
         {
             return reference{detail::reconstruct_key(state_),
                              state_.parent_->child_value(state_.index_)};
         }
 
-        pointer operator->() const noexcept
+        pointer operator->() const noexcept(noexcept(**this))
         {
             reference && deref_result = **this;
             return pointer(std::move(deref_result.key), deref_result.value);
@@ -998,16 +1001,21 @@ namespace boost { namespace trie {
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
-        trie_map_iterator() {}
+        trie_map_iterator() noexcept {}
 
-        reference operator*() const noexcept
+        trie_map_iterator(trie_match_result match_result) noexcept :
+            trie_map_iterator(const_trie_map_iterator<Key, Value>(match_result))
+        {}
+
+        reference operator*() const
+            noexcept(noexcept(detail::reconstruct_key(it_.state_)))
         {
             return reference{
                 detail::reconstruct_key(it_.state_),
                 it_.state_.parent_->child_value(it_.state_.index_)};
         };
 
-        pointer operator->() const noexcept
+        pointer operator->() const noexcept(noexcept(**this))
         {
             reference && deref_result = **this;
             return pointer(std::move(deref_result.key), deref_result.value);
@@ -1079,9 +1087,13 @@ namespace boost { namespace trie {
             it_(it)
         {}
 
-        reference operator*() const noexcept { return *std::prev(it_); }
+        reference operator*() const noexcept(noexcept(*std::prev(it_)))
+        {
+            return *std::prev(it_);
+        }
 
-        pointer operator->() const noexcept
+        pointer operator->() const
+            noexcept(noexcept(std::prev(it_).operator->()))
         {
             return std::prev(it_).operator->();
         }
@@ -1147,9 +1159,13 @@ namespace boost { namespace trie {
             it_(it.it_)
         {}
 
-        reference operator*() const noexcept { return *std::prev(it_); }
+        reference operator*() const noexcept(noexcept(*std::prev(it_)))
+        {
+            return *std::prev(it_);
+        }
 
-        pointer operator->() const noexcept
+        pointer operator->() const
+            noexcept(noexcept(std::prev(it_).operator->()))
         {
             return std::prev(it_).operator->();
         }
