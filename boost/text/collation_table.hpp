@@ -170,21 +170,23 @@ namespace boost { namespace text {
     struct collation_table
     {
         template<typename Iter>
-        void collation_elements(
+        container::small_vector<detail::collation_element, 1024>
+        collation_elements(
             Iter first,
             Iter last,
-            container::small_vector<detail::collation_element, 1024> & ces,
-            variable_weighting weighting) const;
+            variable_weighting weighting =
+                variable_weighting::non_ignorable) const;
 
         template<typename CodePointRange>
-        void collation_elements(
-            CodePointRange const & r,
-            container::small_vector<detail::collation_element, 1024> & ces,
-            variable_weighting weighting) const
+        container::small_vector<detail::collation_element, 1024>
+        collation_elements(
+            CodePointRange & r,
+            variable_weighting weighting =
+                variable_weighting::non_ignorable) const
         {
             using std::begin;
             using std::end;
-            collation_elements(begin(r), end(r), ces, weighting);
+            return collation_elements(begin(r), end(r), weighting);
         }
 
         optional<l2_weight_order> l2_order() const noexcept
@@ -1002,18 +1004,17 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     template<typename Iter>
-    void collation_table::collation_elements(
-        Iter first,
-        Iter last,
-        container::small_vector<detail::collation_element, 1024> & ces,
-        variable_weighting weighting) const
+    container::small_vector<detail::collation_element, 1024>
+    collation_table::collation_elements(
+        Iter first, Iter last, variable_weighting weighting) const
     {
         if (data_->weighting_)
             weighting = *data_->weighting_;
+        container::small_vector<detail::collation_element, 1024> retval;
         detail::s2(
             first,
             last,
-            ces,
+            retval,
             data_->trie_,
             collation_elements_begin(),
             [&](detail::collation_element ce) {
@@ -1022,6 +1023,7 @@ namespace boost { namespace text {
             },
             weighting,
             detail::retain_case_bits_t::no); // TODO: Other case params.
+        return retval;
     }
 
     inline collation_table tailored_collation_table(

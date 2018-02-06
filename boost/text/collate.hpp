@@ -607,7 +607,6 @@ namespace boost { namespace text { namespace detail {
         collation_table const & table)
     {
         std::vector<uint32_t> bytes;
-        container::small_vector<collation_element, 1024> ces;
 
         if (table.l2_order())
             l2_order = *table.l2_order();
@@ -641,7 +640,8 @@ namespace boost { namespace text { namespace detail {
             }
 
             auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-            table.collation_elements(buffer.begin(), s2_it, ces, weighting);
+            container::small_vector<collation_element, 1024> const ces =
+                table.collation_elements(buffer.begin(), s2_it, weighting);
             s3(ces.begin(),
                ces.end(),
                ces.size(),
@@ -651,7 +651,6 @@ namespace boost { namespace text { namespace detail {
                end_of_raw_input,
                s2_it - buffer.begin(),
                bytes);
-            ces.clear();
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
         }
