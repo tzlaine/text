@@ -64,20 +64,6 @@ namespace boost { namespace text {
             assert(0 <= len);
         }
 
-        /** Constructs a string_view from an array of char.  The UTF-8 encoding
-            is checked only at the beginning and end of the string, to prevent
-            slicing of code points.  To fully check the encoding, use
-            checked_encoding().
-
-            This function is constexpr in C++14 and later.
-
-            \throw std::invalid_argument if the ends of the string are not valid
-           UTF-8. \pre len >= 0 \post data() == c_str && size() == len */
-        template<int N>
-        BOOST_TEXT_CXX14_CONSTEXPR string_view(char const (&c_str)[N]) :
-            string_view(c_str, N)
-        {}
-
         /** Constructs a string_view from a string.
 
             \post data() == t.begin() && size() == t.size() */
