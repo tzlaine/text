@@ -392,7 +392,7 @@ namespace boost { namespace text {
                     ce.l3_ = common_l3_weight_compressed;
                 break;
             case collation_strength::tertiary:
-                if ((((ce.l3_ & 0xff00) + 0x0100) & case_level_bits_mask) == 0)
+                if ((((ce.l3_ & 0x3f00) + 0x0100) & case_level_bits_mask) == 0)
                     ce.l3_ += 0x0100;
                 else
                     ++ce.l3_;
@@ -738,7 +738,8 @@ namespace boost { namespace text {
                         break;
                     } else if (
                         collation_strength::tertiary <= strength &&
-                        curr_ce.l3_ != ce.l3_) {
+                        (curr_ce.l3_ & disable_case_level_mask) !=
+                            (ce.l3_ & disable_case_level_mask)) {
                         prev_it = it;
                         break;
                     }
@@ -1274,7 +1275,8 @@ namespace boost { namespace text {
                cps,
                cps,
                0,
-               lhs_bytes);
+               lhs_bytes,
+               retain_case_bits_t::no);
             s3(rhs.begin(),
                rhs.end(),
                rhs.size(),
@@ -1283,7 +1285,8 @@ namespace boost { namespace text {
                cps,
                cps,
                0,
-               rhs_bytes);
+               rhs_bytes,
+               retain_case_bits_t::no);
 
             auto const pair = algorithm::mismatch(
                 lhs_bytes.begin(),

@@ -69,7 +69,8 @@ std::vector<uint32_t> collate_for_tests(
         first,
         last,
         last - first,
-        retval);
+        retval,
+        boost::text::detail::retain_case_bits_t::no);
 
     return retval;
 }

@@ -402,8 +402,14 @@ namespace boost { namespace text {
            CPIter cps_first,
            CPIter cps_last,
            int cps_size,
-           Container & bytes)
+           Container & bytes,
+           retain_case_bits_t retain_case_bits)
         {
+            uint16_t const case_mask =
+                retain_case_bits == retain_case_bits_t::yes
+                    ? 0xffff
+                    : disable_case_level_mask;
+
             container::small_vector<uint32_t, 256> l1;
             container::small_vector<uint32_t, 256> l2;
             container::small_vector<uint32_t, 256> l3;
@@ -426,8 +432,8 @@ namespace boost { namespace text {
                     if (ce.l2_)
                         l2.push_back(ce.l2_);
                     if (collation_strength::secondary < strength) {
-                        if (ce.l3_)
-                            l3.push_back(ce.l3_);
+                        if (ce.l3_ & case_mask)
+                            l3.push_back(ce.l3_ & case_mask);
                         if (collation_strength::tertiary < strength) {
                             if (ce.l4_)
                                 l4.push_back(ce.l4_);
@@ -653,7 +659,8 @@ namespace boost { namespace text { namespace detail {
                first,
                end_of_raw_input,
                s2_it - buffer.begin(),
-               bytes);
+               bytes,
+               retain_case_bits_t::yes);
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
         }
