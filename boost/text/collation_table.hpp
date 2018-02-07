@@ -384,7 +384,7 @@ namespace boost { namespace text {
                 }
                 break;
             case collation_strength::secondary:
-                if (ce.l2_ & 0xff)
+                if (ce.l2_ & 0xff00)
                     ce.l2_ += 1;
                 else
                     ce.l2_ += 0x0100;
@@ -404,8 +404,63 @@ namespace boost { namespace text {
             }
         }
 
-        inline void
-        bump_ces(temp_table_element::ces_t & ces, collation_strength strength)
+        inline bool well_formed_1(collation_element ce)
+        {
+            bool higher_level_zero = (ce.l3_ & disable_case_level_mask) == 0;
+            if (ce.l2_) {
+                if (higher_level_zero) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                    std::cerr << "0x" << std::hex << std::setfill('0')
+                              << std::setw(8) << ce.l1_ << " " << std::setw(4)
+                              << ce.l2_ << " " << std::setw(2) << ce.l3_ << " "
+                              << std::setw(8) << ce.l4_
+                              << " WF1 violation for L2\n";
+#endif
+                    return false;
+                }
+            } else {
+                higher_level_zero = true;
+            }
+            if (ce.l1_) {
+                if (higher_level_zero) {
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                    std::cerr << "0x" << std::hex << std::setfill('0')
+                              << std::setw(8) << ce.l1_ << " " << std::setw(4)
+                              << ce.l2_ << " " << std::setw(2) << ce.l3_ << " "
+                              << std::setw(8) << ce.l4_
+                              << " WF1 violation for L1\n";
+#endif
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        inline bool well_formed_2(
+            collation_element ce,
+            tailoring_state_t const & tailoring_state)
+        {
+            switch (ce_strength(ce)) {
+            case collation_strength::secondary:
+                if (ce.l2_ <= tailoring_state.last_secondary_in_primary_)
+                    return false;
+                break;
+            case collation_strength::tertiary:
+                if ((ce.l3_ & disable_case_level_mask) <=
+                    (tailoring_state.last_tertiary_in_secondary_masked_ &
+                     disable_case_level_mask)) {
+                    return false;
+                }
+                break;
+            default: break;
+            }
+            return true;
+        }
+
+        inline bool bump_ces(
+            temp_table_element::ces_t & ces,
+            collation_strength strength,
+            tailoring_state_t const & tailoring_state)
         {
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
             std::cerr << "bump_ces()\n";
@@ -451,66 +506,52 @@ namespace boost { namespace text {
             // strength of the operator. For example, for << increment the
             // secondary weight."
             increment_ce(ce, strength, true);
+
+            if (!well_formed_2(ce, tailoring_state)) {
+                auto const s = ce_strength(ce);
+                if (s == collation_strength::secondary) {
+                    ce.l2_ = tailoring_state.last_secondary_in_primary_;
+                } else if (s == collation_strength::tertiary) {
+                    ce.l3_ =
+                        tailoring_state.last_tertiary_in_secondary_masked_;
+                }
+                increment_ce(ce, strength, true);
+                return true;
+            }
+
+            if (!well_formed_1(ce)) {
+                if (ce.l1_) {
+                    if (!ce.l2_)
+                        ce.l2_ = common_l2_weight_compressed;
+                    if (!ce.l3_)
+                        ce.l3_ = common_l3_weight_compressed;
+                }
+                if (ce.l2_) {
+                    if (!ce.l3_)
+                        ce.l3_ = common_l3_weight_compressed;
+                }
+                return true;
+            }
+
+            return false;
         }
 
         inline bool well_formed_1(temp_table_element::ces_t const & ces)
         {
-            for (auto ce : ces) {
-                bool higher_level_zero =
-                    (ce.l3_ & disable_case_level_mask) == 0;
-                if (ce.l2_) {
-                    if (higher_level_zero) {
-#if BOOST_TEXT_TAILORING_INSTRUMENTATION
-                        std::cerr << "0x" << std::hex << std::setfill('0')
-                                  << std::setw(8) << ce.l1_ << " "
-                                  << std::setw(4) << ce.l2_ << " "
-                                  << std::setw(2) << ce.l3_ << " "
-                                  << std::setw(8) << ce.l4_
-                                  << " WF1 violation for L2\n";
-#endif
-                        return false;
-                    }
-                } else {
-                    higher_level_zero = true;
-                }
-                if (ce.l1_) {
-                    if (higher_level_zero) {
-#if BOOST_TEXT_TAILORING_INSTRUMENTATION
-                        std::cerr << "0x" << std::hex << std::setfill('0')
-                                  << std::setw(8) << ce.l1_ << " "
-                                  << std::setw(4) << ce.l2_ << " "
-                                  << std::setw(2) << ce.l3_ << " "
-                                  << std::setw(8) << ce.l4_
-                                  << " WF1 violation for L1\n";
-#endif
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return std::all_of(
+                ces.begin(), ces.end(), [](collation_element ce) {
+                    return well_formed_1(ce);
+                });
         }
 
         inline bool well_formed_2(
             temp_table_element::ces_t const & ces,
             tailoring_state_t const & tailoring_state)
         {
-            for (auto ce : ces) {
-                switch (ce_strength(ce)) {
-                case collation_strength::secondary:
-                    if (ce.l2_ <= tailoring_state.last_secondary_in_primary_)
-                        return false;
-                    break;
-                case collation_strength::tertiary:
-                    if ((ce.l3_ & disable_case_level_mask) <=
-                        (tailoring_state.last_tertiary_in_secondary_masked_ &
-                         disable_case_level_mask)) {
-                        return false;
-                    }
-                    break;
-                default: break;
-                }
-            }
-            return true;
+            return std::all_of(
+                ces.begin(), ces.end(), [&](collation_element ce) {
+                    return well_formed_2(ce, tailoring_state);
+                });
         }
 
         // Variable naming follows
@@ -809,7 +850,10 @@ namespace boost { namespace text {
                 }
                 std::cerr << "\n";
 #endif
-                bump_ces(reset_ces, strength);
+                if (bump_ces(reset_ces, strength, tailoring_state)) {
+                    table_target_it = std::upper_bound(
+                        temp_table.begin(), temp_table.end(), reset_ces);
+                }
 
                 // "Weights must be allocated in accordance with the UCA
                 // well-formedness conditions."
