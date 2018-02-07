@@ -404,9 +404,6 @@ namespace boost { namespace text {
            int cps_size,
            Container & bytes)
         {
-            // TODO: Provide an API for passing in scratch space so that l[1-4]
-            // are not repeatedly realloacted.  (Same with the NFD string
-            // above.)
             container::small_vector<uint32_t, 256> l1;
             container::small_vector<uint32_t, 256> l2;
             container::small_vector<uint32_t, 256> l3;
@@ -438,6 +435,9 @@ namespace boost { namespace text {
                     }
                 }
             }
+
+            if (l1.empty() && l2.empty() && l3.empty() && l4.empty())
+                return;
 
             // TODO: Needs to change under certain compression schemes.
             int const separators = static_cast<int>(strength);
