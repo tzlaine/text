@@ -749,11 +749,29 @@ namespace boost { namespace text {
                         "Could not find the collation table element before the "
                         "one requested here");
                 }
-                reset_ces.clear();
-                reset_ces.insert(
-                    reset_ces.end(),
+                reset_ces.assign(
                     prev_it->ces_.begin(),
                     prev_it->ces_.end());
+
+                if (reset.size() == 1u && reset[0] == first_variable) {
+                    // Note: Special case: If the found CEs are < first
+                    // variable, we need to set the lead byte to be the same
+                    // as the first variable.
+                    auto const lead_byte =
+                        logical_positions[first_variable][0].l1_ & 0xff000000;
+                    reset_ces[0].l1_ =
+                        replace_lead_byte(reset_ces[0].l1_, lead_byte);
+                }
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+                std::cerr << "========== before ces -> ";
+                for (auto ce : reset_ces) {
+                    std::cerr << "[" << std::hex << std::setw(8)
+                              << std::setfill('0') << ce.l1_ << " "
+                              << std::setw(4) << ce.l2_ << " " << std::setw(2)
+                              << std::setfill('0') << ce.l3_ << "] ";
+                }
+                std::cerr << "\n";
+#endif
             }
 
             adjust_case_bits(initial_relation_ces, reset_ces);
