@@ -287,9 +287,22 @@ TEST(collation_and_tailoring, data_file_test_{1})
 }}
 '''
 
+def string_view(s, rules):
+    if rules:
+        retval = 'text::string_view(u8R"({})"'.format(s)
+    else:
+        retval = 'text::string_view(u8"{}"'.format(s)
+    if 'x00' in s:
+        if rules:
+            retval += ', {}'.format(len(s))
+        else:
+            retval += ', {}'.format(len(eval("'" + s + "'")))
+    retval += ')'
+    return retval
+
 def comparison_tests(compares, test_strength):
     retval = ''
-    prev = '\x01' # Produces a sequence of one ignorable CE.
+    prev = ''
     for c in compares:
         (compare, curr) = filter(lambda x: len(x) != 0, c[0].split(' '))
         if compare == '=':
@@ -313,12 +326,12 @@ def comparison_tests(compares, test_strength):
 
     // {0} # {1}
     EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"{2}")),
-        text::utf32_range(text::string_view(u8"{3}")),
+        text::utf32_range({2}),
+        text::utf32_range({3}),
         table,
         text::collation_strength::{4}),
         {5});
-'''.format(c[0], c[1], prev, curr, strength, result)
+'''.format(c[0], c[1], string_view(prev, False), string_view(curr, False), strength, result)
         prev = curr
     return retval
 
@@ -339,7 +352,6 @@ def generate_datafile_collation_tests(lines):
             continue
         elif line.startswith('** test'):
             test_comment = line[len('** test:'):]
-            rules = ''
             strength = 'tertiary'
             line_idx += 1
             skip_test = False
@@ -416,14 +428,18 @@ def generate_datafile_collation_tests(lines):
                     break
                 line = lines[line_idx].strip()
             table = 'text::default_collation_table()'
+            if '\\ud800' in rules.lower() \
+              or '\\udb' in rules.lower() or '\\udc' in rules.lower() \
+              or '\\udf' in rules.lower():
+              continue
             if rules != 'default' and rules != '':
                 table = '''text::tailored_collation_table(
-        "{0}",
+        {0},
         "rules", error, warning)'''.format(
-            rules.replace('\\', '\\\\').replace(';', '<<').replace(',', '<<<')
+            string_view(rules.replace(';', '<<').replace(',', '<<<'), True)
         )
             test_lines += single_data_file_test_form.format(
-                test_comment, line_idx, table, comparison_tests(compares, strength)
+                test_comment, test_idx, table, comparison_tests(compares, strength)
             )
             test_idx += 1
         else:
