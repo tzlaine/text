@@ -5039,54 +5039,6 @@ TEST(collation_and_tailoring, data_file_test_84)
 // adjust special reset positions according to previous rules, CLDR ticket 6070
 TEST(collation_and_tailoring, data_file_test_85)
 {
-    auto const table = text::default_collation_table();
-
-
-    // <1 ? # some punctuation
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"?")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 x # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"?")),
-        text::utf32_range(text::string_view(u8"x")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 y # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"x")),
-        text::utf32_range(text::string_view(u8"y")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 z # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"y")),
-        text::utf32_range(text::string_view(u8"z")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 $ # some symbol
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"z")),
-        text::utf32_range(text::string_view(u8"$")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
-// adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_86)
-{
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[last primary ignorable]<<x<<<y &[last primary ignorable]<<z )"),
         "rules", error, warning);
@@ -5135,7 +5087,7 @@ TEST(collation_and_tailoring, data_file_test_86)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_87)
+TEST(collation_and_tailoring, data_file_test_86)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[last secondary ignorable]<<<x &[last secondary ignorable]<<<y )"),
@@ -5169,7 +5121,7 @@ TEST(collation_and_tailoring, data_file_test_87)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_88)
+TEST(collation_and_tailoring, data_file_test_87)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 2][first variable]<<z &[before 2][first variable]<<y &[before 3][first variable]<<<x &[before 3][first variable]<<<w &[before 1][first variable]<v &[before 2][first variable]<<u &[before 3][first variable]<<<t &[before 2]\uFDD1\xA0<<s )"),
@@ -5267,7 +5219,7 @@ TEST(collation_and_tailoring, data_file_test_88)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_89)
+TEST(collation_and_tailoring, data_file_test_88)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 2][first regular]<<z &[before 3][first regular]<<<y &[before 1][first regular]<x &[before 3][first regular]<<<w &[before 2]\uFDD1\u263A<<v &[before 3][first regular]<<<u &[before 1][first regular]<p &[before 3][first regular]<<<t &[last variable]<q )"),
@@ -5365,7 +5317,7 @@ TEST(collation_and_tailoring, data_file_test_89)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_90)
+TEST(collation_and_tailoring, data_file_test_89)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 2][first regular]<<z &[before 3][first regular]<<<y &[before 1][first regular]<x &[before 3][first regular]<<<w &[before 2]\uFDD1\u263A<<v &[before 3][first regular]<<<u &[before 1][first regular]<p &[before 3][first regular]<<<t &[last variable]<q [alternate shifted])"),
@@ -5463,7 +5415,7 @@ TEST(collation_and_tailoring, data_file_test_90)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_91)
+TEST(collation_and_tailoring, data_file_test_90)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 2][first trailing]<<z &[before 1][first trailing]<y &[before 3][first trailing]<<<x )"),
@@ -5521,7 +5473,7 @@ TEST(collation_and_tailoring, data_file_test_91)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_92)
+TEST(collation_and_tailoring, data_file_test_91)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 2][first primary ignorable]<<z &[before 2][first primary ignorable]<<y &[before 3][first primary ignorable]<<<x &[before 3][first primary ignorable]<<<w )"),
@@ -5579,7 +5531,7 @@ TEST(collation_and_tailoring, data_file_test_92)
 }
 
 // adjust special reset positions according to previous rules, CLDR ticket 6070
-TEST(collation_and_tailoring, data_file_test_93)
+TEST(collation_and_tailoring, data_file_test_92)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 3][first secondary ignorable]<<<y &[before 3][first secondary ignorable]<<<x )"),
@@ -5621,7 +5573,7 @@ TEST(collation_and_tailoring, data_file_test_93)
 }
 
 // canonical closure
-TEST(collation_and_tailoring, data_file_test_94)
+TEST(collation_and_tailoring, data_file_test_93)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&X=A &U=Â )"),
@@ -5743,7 +5695,7 @@ TEST(collation_and_tailoring, data_file_test_94)
 }
 
 // canonical closure
-TEST(collation_and_tailoring, data_file_test_95)
+TEST(collation_and_tailoring, data_file_test_94)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=\u5140\u55C0 )"),
@@ -5801,7 +5753,7 @@ TEST(collation_and_tailoring, data_file_test_95)
 }
 
 // canonical closure
-TEST(collation_and_tailoring, data_file_test_96)
+TEST(collation_and_tailoring, data_file_test_95)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=ä|ŝ )"),
@@ -5867,7 +5819,7 @@ TEST(collation_and_tailoring, data_file_test_96)
 }
 
 // conjoining Jamo map to expansions
-TEST(collation_and_tailoring, data_file_test_97)
+TEST(collation_and_tailoring, data_file_test_96)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&gg=\u1101 &nj=\u11AC )"),
@@ -5925,7 +5877,7 @@ TEST(collation_and_tailoring, data_file_test_97)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_98)
+TEST(collation_and_tailoring, data_file_test_97)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<â )"),
@@ -5991,7 +5943,7 @@ TEST(collation_and_tailoring, data_file_test_98)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_99)
+TEST(collation_and_tailoring, data_file_test_98)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<ạ )"),
@@ -6057,7 +6009,7 @@ TEST(collation_and_tailoring, data_file_test_99)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_100)
+TEST(collation_and_tailoring, data_file_test_99)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<\u5140|câ    &x=\u5140|ca )"),
@@ -6195,7 +6147,7 @@ TEST(collation_and_tailoring, data_file_test_100)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_101)
+TEST(collation_and_tailoring, data_file_test_100)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<\u5140|câ )"),
@@ -6317,7 +6269,7 @@ TEST(collation_and_tailoring, data_file_test_101)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_102)
+TEST(collation_and_tailoring, data_file_test_101)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<cạ )"),
@@ -6383,7 +6335,7 @@ TEST(collation_and_tailoring, data_file_test_102)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_103)
+TEST(collation_and_tailoring, data_file_test_102)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&δ=αῳ    &ε=αω )"),
@@ -6489,7 +6441,7 @@ TEST(collation_and_tailoring, data_file_test_103)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_104)
+TEST(collation_and_tailoring, data_file_test_103)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&δ=αῳ )"),
@@ -6579,7 +6531,7 @@ TEST(collation_and_tailoring, data_file_test_104)
 }
 
 // canonical tail closure, ICU ticket 5913
-TEST(collation_and_tailoring, data_file_test_105)
+TEST(collation_and_tailoring, data_file_test_104)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&δ=αὼ\u0315 )"),
@@ -6661,7 +6613,7 @@ TEST(collation_and_tailoring, data_file_test_105)
 }
 
 // danish a+a vs. a-umlaut, ICU ticket 9319
-TEST(collation_and_tailoring, data_file_test_106)
+TEST(collation_and_tailoring, data_file_test_105)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&z<aa )"),
@@ -6703,7 +6655,7 @@ TEST(collation_and_tailoring, data_file_test_106)
 }
 
 // Jamo L with and in prefix
-TEST(collation_and_tailoring, data_file_test_107)
+TEST(collation_and_tailoring, data_file_test_106)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"( &[last primary ignorable]<<\u1100|\u1100=\u1101|\u1100  &\u1100\u1100=\u1101      )"),
@@ -6801,7 +6753,7 @@ TEST(collation_and_tailoring, data_file_test_107)
 }
 
 // proposed Korean "searchjl" tailoring with prefixes, CLDR ticket 6546
-TEST(collation_and_tailoring, data_file_test_108)
+TEST(collation_and_tailoring, data_file_test_107)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(  &\u0332 <<\u1161<<\u1162      &\u0313 =\u1100|\u1100 =\u1103|\u1103 =\u1107|\u1107 =\u1109|\u1109 =\u110C|\u110C   &\u1100\u0313=\u1101<<<\u3132 &\u1103\u0313=\u1104<<<\u3138 &\u1107\u0313=\u1108<<<\u3143 &\u1109\u0313=\u110A<<<\u3146 &\u110C\u0313=\u110D<<<\u3149  )"),
@@ -6883,7 +6835,7 @@ TEST(collation_and_tailoring, data_file_test_108)
 }
 
 // Hangul syllables in prefix & in the interior of a contraction
-TEST(collation_and_tailoring, data_file_test_109)
+TEST(collation_and_tailoring, data_file_test_108)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=\u1100\u1161|a\u1102\u1162z )"),
@@ -6932,914 +6884,8 @@ TEST(collation_and_tailoring, data_file_test_109)
 
 }
 
-// simple locale data test
-TEST(collation_and_tailoring, data_file_test_110)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 a # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"a")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"a")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <1 ae # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ä")),
-        text::utf32_range(text::string_view(u8"ae")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 æ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ae")),
-        text::utf32_range(text::string_view(u8"æ")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// simple locale data test
-TEST(collation_and_tailoring, data_file_test_111)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 a # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"a")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ae # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"a")),
-        text::utf32_range(text::string_view(u8"ae")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ae")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <2 æ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ä")),
-        text::utf32_range(text::string_view(u8"æ")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestMorePinyin
-TEST(collation_and_tailoring, data_file_test_112)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"([strength 1])"),
-        "rules", error, warning);
-
-
-    // < lā # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"lā")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // = lĀ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lā")),
-        text::utf32_range(text::string_view(u8"lĀ")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // = Lā # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lĀ")),
-        text::utf32_range(text::string_view(u8"Lā")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // = LĀ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"Lā")),
-        text::utf32_range(text::string_view(u8"LĀ")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // < lān # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"LĀ")),
-        text::utf32_range(text::string_view(u8"lān")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // = lĀn # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lān")),
-        text::utf32_range(text::string_view(u8"lĀn")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // < lē # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lĀn")),
-        text::utf32_range(text::string_view(u8"lē")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // = lĒ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lē")),
-        text::utf32_range(text::string_view(u8"lĒ")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // = Lē # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lĒ")),
-        text::utf32_range(text::string_view(u8"Lē")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // = LĒ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"Lē")),
-        text::utf32_range(text::string_view(u8"LĒ")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // < lēn # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"LĒ")),
-        text::utf32_range(text::string_view(u8"lēn")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // = lĒn # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lēn")),
-        text::utf32_range(text::string_view(u8"lĒn")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-}
-
-// DataDrivenCollationTest/TestLithuanian
-TEST(collation_and_tailoring, data_file_test_113)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"([strength 1])"),
-        "rules", error, warning);
-
-
-    // < cz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"cz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < č # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"cz")),
-        text::utf32_range(text::string_view(u8"č")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < d # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"č")),
-        text::utf32_range(text::string_view(u8"d")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < iz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"d")),
-        text::utf32_range(text::string_view(u8"iz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < j # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"iz")),
-        text::utf32_range(text::string_view(u8"j")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < sz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"j")),
-        text::utf32_range(text::string_view(u8"sz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < š # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"sz")),
-        text::utf32_range(text::string_view(u8"š")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < t # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"š")),
-        text::utf32_range(text::string_view(u8"t")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < zz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"t")),
-        text::utf32_range(text::string_view(u8"zz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ž # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"zz")),
-        text::utf32_range(text::string_view(u8"ž")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestLatvian
-TEST(collation_and_tailoring, data_file_test_114)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"([strength 1])"),
-        "rules", error, warning);
-
-
-    // < cz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"cz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < č # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"cz")),
-        text::utf32_range(text::string_view(u8"č")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < d # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"č")),
-        text::utf32_range(text::string_view(u8"d")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < gz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"d")),
-        text::utf32_range(text::string_view(u8"gz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ģ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"gz")),
-        text::utf32_range(text::string_view(u8"ģ")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < h # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ģ")),
-        text::utf32_range(text::string_view(u8"h")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < iz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"h")),
-        text::utf32_range(text::string_view(u8"iz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < j # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"iz")),
-        text::utf32_range(text::string_view(u8"j")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < kz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"j")),
-        text::utf32_range(text::string_view(u8"kz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ķ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"kz")),
-        text::utf32_range(text::string_view(u8"ķ")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < l # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ķ")),
-        text::utf32_range(text::string_view(u8"l")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < lz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"l")),
-        text::utf32_range(text::string_view(u8"lz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ļ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lz")),
-        text::utf32_range(text::string_view(u8"ļ")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < m # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ļ")),
-        text::utf32_range(text::string_view(u8"m")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < nz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"m")),
-        text::utf32_range(text::string_view(u8"nz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ņ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"nz")),
-        text::utf32_range(text::string_view(u8"ņ")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < o # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ņ")),
-        text::utf32_range(text::string_view(u8"o")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < rz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"o")),
-        text::utf32_range(text::string_view(u8"rz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ŗ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"rz")),
-        text::utf32_range(text::string_view(u8"ŗ")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < s # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ŗ")),
-        text::utf32_range(text::string_view(u8"s")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < sz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"s")),
-        text::utf32_range(text::string_view(u8"sz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < š # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"sz")),
-        text::utf32_range(text::string_view(u8"š")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < t # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"š")),
-        text::utf32_range(text::string_view(u8"t")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < zz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"t")),
-        text::utf32_range(text::string_view(u8"zz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ž # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"zz")),
-        text::utf32_range(text::string_view(u8"ž")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestEstonian
-TEST(collation_and_tailoring, data_file_test_115)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"([strength 1])"),
-        "rules", error, warning);
-
-
-    // < sy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"sy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < š # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"sy")),
-        text::utf32_range(text::string_view(u8"š")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < šy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"š")),
-        text::utf32_range(text::string_view(u8"šy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < z # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"šy")),
-        text::utf32_range(text::string_view(u8"z")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < zy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"z")),
-        text::utf32_range(text::string_view(u8"zy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ž # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"zy")),
-        text::utf32_range(text::string_view(u8"ž")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < v # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ž")),
-        text::utf32_range(text::string_view(u8"v")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < va # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"v")),
-        text::utf32_range(text::string_view(u8"va")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < w # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"va")),
-        text::utf32_range(text::string_view(u8"w")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < õ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"w")),
-        text::utf32_range(text::string_view(u8"õ")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < õy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"õ")),
-        text::utf32_range(text::string_view(u8"õy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"õy")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < äy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ä")),
-        text::utf32_range(text::string_view(u8"äy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ö # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"äy")),
-        text::utf32_range(text::string_view(u8"ö")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < öy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ö")),
-        text::utf32_range(text::string_view(u8"öy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ü # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"öy")),
-        text::utf32_range(text::string_view(u8"ü")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < üy # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ü")),
-        text::utf32_range(text::string_view(u8"üy")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < x # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"üy")),
-        text::utf32_range(text::string_view(u8"x")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestAlbanian
-TEST(collation_and_tailoring, data_file_test_116)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"([strength 1])"),
-        "rules", error, warning);
-
-
-    // < cz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"cz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ç # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"cz")),
-        text::utf32_range(text::string_view(u8"ç")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < d # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ç")),
-        text::utf32_range(text::string_view(u8"d")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < dz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"d")),
-        text::utf32_range(text::string_view(u8"dz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < dh # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"dz")),
-        text::utf32_range(text::string_view(u8"dh")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < e # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"dh")),
-        text::utf32_range(text::string_view(u8"e")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ez # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"e")),
-        text::utf32_range(text::string_view(u8"ez")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ë # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ez")),
-        text::utf32_range(text::string_view(u8"ë")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < f # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ë")),
-        text::utf32_range(text::string_view(u8"f")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < gz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"f")),
-        text::utf32_range(text::string_view(u8"gz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < gj # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"gz")),
-        text::utf32_range(text::string_view(u8"gj")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < h # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"gj")),
-        text::utf32_range(text::string_view(u8"h")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < lz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"h")),
-        text::utf32_range(text::string_view(u8"lz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < ll # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"lz")),
-        text::utf32_range(text::string_view(u8"ll")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < m # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ll")),
-        text::utf32_range(text::string_view(u8"m")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < nz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"m")),
-        text::utf32_range(text::string_view(u8"nz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < nj # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"nz")),
-        text::utf32_range(text::string_view(u8"nj")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < o # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"nj")),
-        text::utf32_range(text::string_view(u8"o")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < rz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"o")),
-        text::utf32_range(text::string_view(u8"rz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < rr # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"rz")),
-        text::utf32_range(text::string_view(u8"rr")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < s # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"rr")),
-        text::utf32_range(text::string_view(u8"s")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < sz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"s")),
-        text::utf32_range(text::string_view(u8"sz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < sh # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"sz")),
-        text::utf32_range(text::string_view(u8"sh")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < t # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"sh")),
-        text::utf32_range(text::string_view(u8"t")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < tz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"t")),
-        text::utf32_range(text::string_view(u8"tz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < th # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"tz")),
-        text::utf32_range(text::string_view(u8"th")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < u # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"th")),
-        text::utf32_range(text::string_view(u8"u")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < xz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"u")),
-        text::utf32_range(text::string_view(u8"xz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < xh # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"xz")),
-        text::utf32_range(text::string_view(u8"xh")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < y # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"xh")),
-        text::utf32_range(text::string_view(u8"y")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < zz # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"y")),
-        text::utf32_range(text::string_view(u8"zz")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < zh # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"zz")),
-        text::utf32_range(text::string_view(u8"zh")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
 // DataDrivenCollationTest/TestSimplifiedChineseOrder
-TEST(collation_and_tailoring, data_file_test_117)
+TEST(collation_and_tailoring, data_file_test_109)
 {
     auto const table = text::default_collation_table();
 
@@ -7863,7 +6909,7 @@ TEST(collation_and_tailoring, data_file_test_117)
 }
 
 // DataDrivenCollationTest/TestTibetanNormalizedIterativeCrash
-TEST(collation_and_tailoring, data_file_test_118)
+TEST(collation_and_tailoring, data_file_test_110)
 {
     auto const table = text::default_collation_table();
 
@@ -7886,128 +6932,8 @@ TEST(collation_and_tailoring, data_file_test_118)
 
 }
 
-// DataDrivenCollationTest/TestThaiPartialSortKeyProblems
-TEST(collation_and_tailoring, data_file_test_119)
-{
-    auto const table = text::default_collation_table();
-
-
-    // < \u0E01\u0E01\u0E38\u0E18\u0E20\u0E31\u0E13\u0E11\u0E4C # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E01\u0E38\u0E18\u0E20\u0E31\u0E13\u0E11\u0E4C")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < \u0E01\u0E01\u0E38\u0E2A\u0E31\u0E19\u0E42\u0E18 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0E01\u0E01\u0E38\u0E18\u0E20\u0E31\u0E13\u0E11\u0E4C")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E01\u0E38\u0E2A\u0E31\u0E19\u0E42\u0E18")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestThaiPartialSortKeyProblems
-TEST(collation_and_tailoring, data_file_test_120)
-{
-    auto const table = text::default_collation_table();
-
-
-    // < \u0E01\u0E07\u0E01\u0E32\u0E23 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E07\u0E01\u0E32\u0E23")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < \u0E01\u0E07\u0E42\u0E01\u0E49 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0E01\u0E07\u0E01\u0E32\u0E23")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E07\u0E42\u0E01\u0E49")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestThaiPartialSortKeyProblems
-TEST(collation_and_tailoring, data_file_test_121)
-{
-    auto const table = text::default_collation_table();
-
-
-    // < \u0E01\u0E23\u0E19\u0E17\u0E32 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E19\u0E17\u0E32")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < \u0E01\u0E23\u0E19\u0E19\u0E40\u0E0A\u0E49\u0E32 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E19\u0E17\u0E32")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E19\u0E19\u0E40\u0E0A\u0E49\u0E32")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestThaiPartialSortKeyProblems
-TEST(collation_and_tailoring, data_file_test_122)
-{
-    auto const table = text::default_collation_table();
-
-
-    // < \u0E01\u0E23\u0E30\u0E40\u0E08\u0E35\u0E22\u0E27 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E30\u0E40\u0E08\u0E35\u0E22\u0E27")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < \u0E01\u0E23\u0E30\u0E40\u0E08\u0E35\u0E4A\u0E22\u0E27 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E30\u0E40\u0E08\u0E35\u0E22\u0E27")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E30\u0E40\u0E08\u0E35\u0E4A\u0E22\u0E27")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// DataDrivenCollationTest/TestThaiPartialSortKeyProblems
-TEST(collation_and_tailoring, data_file_test_123)
-{
-    auto const table = text::default_collation_table();
-
-
-    // < \u0E01\u0E23\u0E23\u0E40\u0E0A\u0E2D # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E23\u0E40\u0E0A\u0E2D")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-    // < \u0E01\u0E23\u0E23\u0E40\u0E0A\u0E49\u0E32 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E23\u0E40\u0E0A\u0E2D")),
-        text::utf32_range(text::string_view(u8"\u0E01\u0E23\u0E23\u0E40\u0E0A\u0E49\u0E32")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
 // DataDrivenCollationTest/TestJavaStyleRule
-TEST(collation_and_tailoring, data_file_test_124)
+TEST(collation_and_tailoring, data_file_test_111)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&\u0001=equal<<<z<<x<<<w &[first tertiary ignorable]=a &[first primary ignorable]=b )"),
@@ -8065,7 +6991,7 @@ TEST(collation_and_tailoring, data_file_test_124)
 }
 
 // DataDrivenCollationTest/TestShiftedIgnorable
-TEST(collation_and_tailoring, data_file_test_125)
+TEST(collation_and_tailoring, data_file_test_112)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"([alternate shifted][strength 4])"),
@@ -8203,7 +7129,7 @@ TEST(collation_and_tailoring, data_file_test_125)
 }
 
 // DataDrivenCollationTest/TestNShiftedIgnorable
-TEST(collation_and_tailoring, data_file_test_126)
+TEST(collation_and_tailoring, data_file_test_113)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"([alternate non-ignorable][strength 3])"),
@@ -8341,7 +7267,7 @@ TEST(collation_and_tailoring, data_file_test_126)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_127)
+TEST(collation_and_tailoring, data_file_test_114)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a < b < c < d& [before 1] c < m )"),
@@ -8391,7 +7317,7 @@ TEST(collation_and_tailoring, data_file_test_127)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_128)
+TEST(collation_and_tailoring, data_file_test_115)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a < b <<< c << d <<< e& [before 3] e <<< x )"),
@@ -8449,7 +7375,7 @@ TEST(collation_and_tailoring, data_file_test_128)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_129)
+TEST(collation_and_tailoring, data_file_test_116)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a < b <<< c << d <<< e <<< f < g& [before 1] g < x )"),
@@ -8523,7 +7449,7 @@ TEST(collation_and_tailoring, data_file_test_129)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_130)
+TEST(collation_and_tailoring, data_file_test_117)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a <<< b << c < d& a < m )"),
@@ -8573,7 +7499,7 @@ TEST(collation_and_tailoring, data_file_test_130)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_131)
+TEST(collation_and_tailoring, data_file_test_118)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<b<<b\u0301 &z<b )"),
@@ -8615,7 +7541,7 @@ TEST(collation_and_tailoring, data_file_test_131)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_132)
+TEST(collation_and_tailoring, data_file_test_119)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&z<m<<<q<<<m )"),
@@ -8649,7 +7575,7 @@ TEST(collation_and_tailoring, data_file_test_132)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_133)
+TEST(collation_and_tailoring, data_file_test_120)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&z<<<m<q<<<m )"),
@@ -8683,7 +7609,7 @@ TEST(collation_and_tailoring, data_file_test_133)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_134)
+TEST(collation_and_tailoring, data_file_test_121)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a < b < c < d& r < c )"),
@@ -8733,7 +7659,7 @@ TEST(collation_and_tailoring, data_file_test_134)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_135)
+TEST(collation_and_tailoring, data_file_test_122)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a < b < c < d& c < m )"),
@@ -8783,7 +7709,7 @@ TEST(collation_and_tailoring, data_file_test_135)
 }
 
 // was ICU 52 cmsccoll/TestRedundantRules
-TEST(collation_and_tailoring, data_file_test_136)
+TEST(collation_and_tailoring, data_file_test_123)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(& a < b < c < d& a < m )"),
@@ -8833,7 +7759,7 @@ TEST(collation_and_tailoring, data_file_test_136)
 }
 
 // was ICU 52 cmsccoll/TestExpansionSyntax
-TEST(collation_and_tailoring, data_file_test_137)
+TEST(collation_and_tailoring, data_file_test_124)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&AE <<< a << b <<< c &d <<< f )"),
@@ -8891,7 +7817,7 @@ TEST(collation_and_tailoring, data_file_test_137)
 }
 
 // was ICU 52 cmsccoll/TestExpansionSyntax
-TEST(collation_and_tailoring, data_file_test_138)
+TEST(collation_and_tailoring, data_file_test_125)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&A <<< a / E << b / E <<< c /E  &d <<< f )"),
@@ -8949,7 +7875,7 @@ TEST(collation_and_tailoring, data_file_test_138)
 }
 
 // was ICU 52 cmsccoll/TestExpansionSyntax
-TEST(collation_and_tailoring, data_file_test_139)
+TEST(collation_and_tailoring, data_file_test_126)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&AE <<< a <<< b << c << d < e < f <<< g )"),
@@ -9023,7 +7949,7 @@ TEST(collation_and_tailoring, data_file_test_139)
 }
 
 // was ICU 52 cmsccoll/TestExpansionSyntax
-TEST(collation_and_tailoring, data_file_test_140)
+TEST(collation_and_tailoring, data_file_test_127)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&A <<< a / E <<< b / E << c / E << d / E < e < f <<< g )"),
@@ -9097,7 +8023,7 @@ TEST(collation_and_tailoring, data_file_test_140)
 }
 
 // was ICU 52 cmsccoll/TestExpansionSyntax
-TEST(collation_and_tailoring, data_file_test_141)
+TEST(collation_and_tailoring, data_file_test_128)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&AE <<< B <<< C / D <<< F )"),
@@ -9147,7 +8073,7 @@ TEST(collation_and_tailoring, data_file_test_141)
 }
 
 // was ICU 52 cmsccoll/TestExpansionSyntax
-TEST(collation_and_tailoring, data_file_test_142)
+TEST(collation_and_tailoring, data_file_test_129)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&A <<< B / E <<< C / ED <<< F / E )"),
@@ -9197,7 +8123,7 @@ TEST(collation_and_tailoring, data_file_test_142)
 }
 
 // never reorder trailing primaries
-TEST(collation_and_tailoring, data_file_test_143)
+TEST(collation_and_tailoring, data_file_test_130)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"([reorder Zzzz Grek])"),
@@ -9247,7 +8173,7 @@ TEST(collation_and_tailoring, data_file_test_143)
 }
 
 // fall back to mappings with shorter prefixes, not immediately to ones with no prefixes
-TEST(collation_and_tailoring, data_file_test_144)
+TEST(collation_and_tailoring, data_file_test_131)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&u=ab|cd &v=b|ce )"),
@@ -9313,7 +8239,7 @@ TEST(collation_and_tailoring, data_file_test_144)
 }
 
 // fall back to mappings with shorter prefixes, not immediately to ones with no prefixes
-TEST(collation_and_tailoring, data_file_test_145)
+TEST(collation_and_tailoring, data_file_test_132)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=op|ĉ &y=p|ç )"),
@@ -9403,7 +8329,7 @@ TEST(collation_and_tailoring, data_file_test_145)
 }
 
 // fall back to mappings with shorter prefixes, not immediately to ones with no prefixes
-TEST(collation_and_tailoring, data_file_test_146)
+TEST(collation_and_tailoring, data_file_test_133)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&❶=d &❷=de &❸=def &①=c|d &②=c|de &③=c|def &④=bc|d &⑤=bc|de &⑥=bc|def &⑦=abc|d &⑧=abc|de &⑨=abc|def )"),
@@ -9605,7 +8531,7 @@ TEST(collation_and_tailoring, data_file_test_146)
 }
 
 // prefix + discontiguous contraction with missing prefix contraction
-TEST(collation_and_tailoring, data_file_test_147)
+TEST(collation_and_tailoring, data_file_test_134)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=p|e &y=p|ê &z=op|ê     )"),
@@ -9671,7 +8597,7 @@ TEST(collation_and_tailoring, data_file_test_147)
 }
 
 // prefix + discontiguous contraction with missing prefix contraction
-TEST(collation_and_tailoring, data_file_test_148)
+TEST(collation_and_tailoring, data_file_test_135)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=p|e &z=op|ê )"),
@@ -9737,7 +8663,7 @@ TEST(collation_and_tailoring, data_file_test_148)
 }
 
 // prefix + discontiguous contraction with missing prefix contraction
-TEST(collation_and_tailoring, data_file_test_149)
+TEST(collation_and_tailoring, data_file_test_136)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x=e &z=op|ê )"),
@@ -9810,64 +8736,8 @@ TEST(collation_and_tailoring, data_file_test_149)
 
 }
 
-// maxVariable via rules
-TEST(collation_and_tailoring, data_file_test_150)
-{
-    auto const table = text::default_collation_table();
-
-
-    // =  \u0020 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0020")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // =  \u000A # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0020")),
-        text::utf32_range(text::string_view(u8"\u000A")),
-        table,
-        text::collation_strength::quaternary),
-        0);
-
-    // <1 . # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u000A")),
-        text::utf32_range(text::string_view(u8".")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ° # degree sign
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8".")),
-        text::utf32_range(text::string_view(u8"°")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 $ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"°")),
-        text::utf32_range(text::string_view(u8"$")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 0 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"$")),
-        text::utf32_range(text::string_view(u8"0")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
 // ICU4J CollationMiscTest/TestContractionClosure (ää)
-TEST(collation_and_tailoring, data_file_test_151)
+TEST(collation_and_tailoring, data_file_test_137)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&b=\u00e4\u00e4 )"),
@@ -9941,7 +8811,7 @@ TEST(collation_and_tailoring, data_file_test_151)
 }
 
 // ICU4J CollationMiscTest/TestContractionClosure (Å)
-TEST(collation_and_tailoring, data_file_test_152)
+TEST(collation_and_tailoring, data_file_test_138)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&b=\u00C5 )"),
@@ -9999,7 +8869,7 @@ TEST(collation_and_tailoring, data_file_test_152)
 }
 
 // reset-before on already-tailored characters, ICU ticket 10108
-TEST(collation_and_tailoring, data_file_test_153)
+TEST(collation_and_tailoring, data_file_test_139)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<w<<x &[before 2]x<<y )"),
@@ -10041,7 +8911,7 @@ TEST(collation_and_tailoring, data_file_test_153)
 }
 
 // reset-before on already-tailored characters, ICU ticket 10108
-TEST(collation_and_tailoring, data_file_test_154)
+TEST(collation_and_tailoring, data_file_test_140)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<<w<<<x &[before 2]x<<y )"),
@@ -10083,7 +8953,7 @@ TEST(collation_and_tailoring, data_file_test_154)
 }
 
 // reset-before on already-tailored characters, ICU ticket 10108
-TEST(collation_and_tailoring, data_file_test_155)
+TEST(collation_and_tailoring, data_file_test_141)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<w<x &[before 2]x<<y )"),
@@ -10125,7 +8995,7 @@ TEST(collation_and_tailoring, data_file_test_155)
 }
 
 // reset-before on already-tailored characters, ICU ticket 10108
-TEST(collation_and_tailoring, data_file_test_156)
+TEST(collation_and_tailoring, data_file_test_142)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&a<w<<<x &[before 2]x<<y )"),
@@ -10166,130 +9036,8 @@ TEST(collation_and_tailoring, data_file_test_156)
 
 }
 
-// collation type fallback from unsupported type, ICU ticket 10149
-TEST(collation_and_tailoring, data_file_test_157)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 cote # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"cote")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 côte # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"cote")),
-        text::utf32_range(text::string_view(u8"côte")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <2 coté # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"côte")),
-        text::utf32_range(text::string_view(u8"coté")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <2 côté # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"coté")),
-        text::utf32_range(text::string_view(u8"côté")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// @ is equivalent to [backwards 2], ICU ticket 9956
-TEST(collation_and_tailoring, data_file_test_158)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&b<a @ &v<<w )"),
-        "rules", error, warning);
-
-
-    // <1 b # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"b")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 a # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"b")),
-        text::utf32_range(text::string_view(u8"a")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 cote # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"a")),
-        text::utf32_range(text::string_view(u8"cote")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 côte # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"cote")),
-        text::utf32_range(text::string_view(u8"côte")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <2 coté # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"côte")),
-        text::utf32_range(text::string_view(u8"coté")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <2 côté # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"coté")),
-        text::utf32_range(text::string_view(u8"côté")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <1 v # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"côté")),
-        text::utf32_range(text::string_view(u8"v")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 w # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"v")),
-        text::utf32_range(text::string_view(u8"w")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <1 x # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"w")),
-        text::utf32_range(text::string_view(u8"x")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
 // shifted+reordering, ICU ticket 9507
-TEST(collation_and_tailoring, data_file_test_159)
+TEST(collation_and_tailoring, data_file_test_143)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"([reorder Grek punct space][alternate shifted][strength 4])"),
@@ -10443,7 +9191,7 @@ TEST(collation_and_tailoring, data_file_test_159)
 }
 
 // "uppercase first" could sort a string before its prefix, ICU ticket 9351
-TEST(collation_and_tailoring, data_file_test_160)
+TEST(collation_and_tailoring, data_file_test_144)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&\u0001<<<b<<<B [caseFirst upper])"),
@@ -10469,7 +9217,7 @@ TEST(collation_and_tailoring, data_file_test_160)
 }
 
 // secondary+case ignores secondary ignorables, ICU ticket 9355
-TEST(collation_and_tailoring, data_file_test_161)
+TEST(collation_and_tailoring, data_file_test_145)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&\u0001<<<b<<<B [strength 2][caseLevel on])"),
@@ -10503,7 +9251,7 @@ TEST(collation_and_tailoring, data_file_test_161)
 }
 
 // custom collation rules involving tail of a contraction in Malayalam, ICU ticket 6328
-TEST(collation_and_tailoring, data_file_test_162)
+TEST(collation_and_tailoring, data_file_test_146)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 2] ൌ << ൗ )"),
@@ -10545,7 +9293,7 @@ TEST(collation_and_tailoring, data_file_test_162)
 }
 
 // quoted apostrophe in compact syntax, ICU ticket 8204
-TEST(collation_and_tailoring, data_file_test_163)
+TEST(collation_and_tailoring, data_file_test_147)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&q<<*a''c )"),
@@ -10610,498 +9358,8 @@ TEST(collation_and_tailoring, data_file_test_163)
 
 }
 
-// locale -u- with collation keywords, ICU ticket 8260
-TEST(collation_and_tailoring, data_file_test_164)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&q<<*a''c )"),
-        "rules", error, warning);
-
-
-    // <4 \u0020 # space is shifted, strength=quaternary
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0020")),
-        table,
-        text::collation_strength::quaternary),
-        -1);
-
-    // <1 ! # punctuation is regular
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0020")),
-        text::utf32_range(text::string_view(u8"!")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 2 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"!")),
-        text::utf32_range(text::string_view(u8"2")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 12 # numeric sorting
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"2")),
-        text::utf32_range(text::string_view(u8"12")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 B # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"12")),
-        text::utf32_range(text::string_view(u8"B")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <c b # uppercase first on case level
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"B")),
-        text::utf32_range(text::string_view(u8"b")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 x\u0301\u0308 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"b")),
-        text::utf32_range(text::string_view(u8"x\u0301\u0308")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 x\u0308\u0301 # normalization off
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"x\u0301\u0308")),
-        text::utf32_range(text::string_view(u8"x\u0308\u0301")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// locale @ with collation keywords, ICU ticket 8260
-TEST(collation_and_tailoring, data_file_test_165)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&q<<*a''c )"),
-        "rules", error, warning);
-
-
-    // <4 $ # currency symbols are shifted, strength=quaternary
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"$")),
-        table,
-        text::collation_strength::quaternary),
-        -1);
-
-    // <1 àla # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"$")),
-        text::utf32_range(text::string_view(u8"àla")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 alà # backwards secondary level
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"àla")),
-        text::utf32_range(text::string_view(u8"alà")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// locale -u- with script reordering, ICU ticket 8260
-TEST(collation_and_tailoring, data_file_test_166)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&q<<*a''c )"),
-        "rules", error, warning);
-
-
-    // <1 \u0020 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"\u0020")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 あ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"\u0020")),
-        text::utf32_range(text::string_view(u8"あ")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ☂ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"あ")),
-        text::utf32_range(text::string_view(u8"☂")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 Ω # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"☂")),
-        text::utf32_range(text::string_view(u8"Ω")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 丂 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"Ω")),
-        text::utf32_range(text::string_view(u8"丂")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ж # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"丂")),
-        text::utf32_range(text::string_view(u8"ж")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 L # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ж")),
-        text::utf32_range(text::string_view(u8"L")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 4 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"L")),
-        text::utf32_range(text::string_view(u8"4")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 Ձ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"4")),
-        text::utf32_range(text::string_view(u8"Ձ")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 अ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"Ձ")),
-        text::utf32_range(text::string_view(u8"अ")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ሄ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"अ")),
-        text::utf32_range(text::string_view(u8"ሄ")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ฉ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ሄ")),
-        text::utf32_range(text::string_view(u8"ฉ")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
-// locale @collation=type should be case-insensitive
-TEST(collation_and_tailoring, data_file_test_167)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&q<<*a''c )"),
-        "rules", error, warning);
-
-
-    // <1 ae # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"ae")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ae")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-    // <3 Ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ä")),
-        text::utf32_range(text::string_view(u8"Ä")),
-        table,
-        text::collation_strength::tertiary),
-        -1);
-
-}
-
-// import root search rules plus German phonebook rules, ICU ticket 8962
-TEST(collation_and_tailoring, data_file_test_168)
-{
-    auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&q<<*a''c )"),
-        "rules", error, warning);
-
-
-    // <1 = # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"=")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ≠ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"=")),
-        text::utf32_range(text::string_view(u8"≠")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 a # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"≠")),
-        text::utf32_range(text::string_view(u8"a")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ae # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"a")),
-        text::utf32_range(text::string_view(u8"ae")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ae")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// import root search rules plus German phonebook rules, ICU ticket 8962
-TEST(collation_and_tailoring, data_file_test_169)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 = # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"=")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ≠ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"=")),
-        text::utf32_range(text::string_view(u8"≠")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 a # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"≠")),
-        text::utf32_range(text::string_view(u8"a")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ae # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"a")),
-        text::utf32_range(text::string_view(u8"ae")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ae")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// import root search rules plus German phonebook rules, ICU ticket 8962
-TEST(collation_and_tailoring, data_file_test_170)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 = # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"=")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ≠ # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"=")),
-        text::utf32_range(text::string_view(u8"≠")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 a # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"≠")),
-        text::utf32_range(text::string_view(u8"a")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 ae # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"a")),
-        text::utf32_range(text::string_view(u8"ae")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <2 ä # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"ae")),
-        text::utf32_range(text::string_view(u8"ä")),
-        table,
-        text::collation_strength::secondary),
-        -1);
-
-}
-
-// import rules from a language with non-Latin native script, and reset the reordering, ICU ticket 10998
-TEST(collation_and_tailoring, data_file_test_171)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 4 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"4")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 Ω # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"4")),
-        text::utf32_range(text::string_view(u8"Ω")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 L # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"Ω")),
-        text::utf32_range(text::string_view(u8"L")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
-// import rules from a language with non-Latin native script, and reset the reordering, ICU ticket 10998
-TEST(collation_and_tailoring, data_file_test_172)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 4 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"4")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 L # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"4")),
-        text::utf32_range(text::string_view(u8"L")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 Ω # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"L")),
-        text::utf32_range(text::string_view(u8"Ω")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
-// import rules from a language with non-Latin native script, and reset the reordering, ICU ticket 10998
-TEST(collation_and_tailoring, data_file_test_173)
-{
-    auto const table = text::default_collation_table();
-
-
-    // <1 4 # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"")),
-        text::utf32_range(text::string_view(u8"4")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 L # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"4")),
-        text::utf32_range(text::string_view(u8"L")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-    // <1 Ω # 
-    EXPECT_EQ(text::collate(
-        text::utf32_range(text::string_view(u8"L")),
-        text::utf32_range(text::string_view(u8"Ω")),
-        table,
-        text::collation_strength::primary),
-        -1);
-
-}
-
 // regression test for CollationFastLatinBuilder, ICU ticket 11388
-TEST(collation_and_tailoring, data_file_test_174)
+TEST(collation_and_tailoring, data_file_test_148)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x<<aa<<<Aa<<<AA [strength 2])"),
@@ -11135,7 +9393,7 @@ TEST(collation_and_tailoring, data_file_test_174)
 }
 
 // regression test for CollationFastLatinBuilder, ICU ticket 11388
-TEST(collation_and_tailoring, data_file_test_175)
+TEST(collation_and_tailoring, data_file_test_149)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&x<<aa<<<Aa<<<AA [strength 2])"),
@@ -11161,7 +9419,7 @@ TEST(collation_and_tailoring, data_file_test_175)
 }
 
 // tailor tertiary-after a common tertiary where there is a lower one
-TEST(collation_and_tailoring, data_file_test_176)
+TEST(collation_and_tailoring, data_file_test_150)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&あ<<<x<<<y<<<z )"),
@@ -11227,7 +9485,7 @@ TEST(collation_and_tailoring, data_file_test_176)
 }
 
 // tailor tertiary-after a below-common tertiary
-TEST(collation_and_tailoring, data_file_test_177)
+TEST(collation_and_tailoring, data_file_test_151)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&ぁ<<<x<<<y<<<z )"),
@@ -11293,7 +9551,7 @@ TEST(collation_and_tailoring, data_file_test_177)
 }
 
 // tailor tertiary-before a common tertiary where there is a lower one
-TEST(collation_and_tailoring, data_file_test_178)
+TEST(collation_and_tailoring, data_file_test_152)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 3]あ<<<x<<<y<<<z )"),
@@ -11359,7 +9617,7 @@ TEST(collation_and_tailoring, data_file_test_178)
 }
 
 // tailor tertiary-before a below-common tertiary
-TEST(collation_and_tailoring, data_file_test_179)
+TEST(collation_and_tailoring, data_file_test_153)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"(&[before 3]ぁ<<<x<<<y<<<z )"),
@@ -11425,7 +9683,7 @@ TEST(collation_and_tailoring, data_file_test_179)
 }
 
 // reorder single scripts not groups, ICU ticket 11449
-TEST(collation_and_tailoring, data_file_test_180)
+TEST(collation_and_tailoring, data_file_test_154)
 {
     auto const table = text::tailored_collation_table(
         text::string_view(u8R"([reorder Goth Latn])"),

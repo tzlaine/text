@@ -344,7 +344,7 @@ def generate_datafile_collation_tests(lines):
     rules = ''
     strength = 'tertiary'
     compares = []
-    skip_test = False
+    skip_rules = False
     while line_idx < len(lines):
         line = lines[line_idx].strip()
         if line.startswith('#') or len(line) == 0:
@@ -354,13 +354,14 @@ def generate_datafile_collation_tests(lines):
             test_comment = line[len('** test:'):]
             strength = 'tertiary'
             line_idx += 1
-            skip_test = False
-        elif skip_test:
-            line_idx += 1
         elif line.startswith('@ root'):
+            print 'de-skip @ root'
+            skip_rules = False
             rules = 'default'
             line_idx += 1
         elif line.startswith('@ rules'):
+            print 'de-skip @ rules'
+            skip_rules = False
             rules = ''
             line_idx += 1
             line = lines[line_idx].strip()
@@ -376,8 +377,13 @@ def generate_datafile_collation_tests(lines):
                     break
                 line = lines[line_idx].strip()
             if 'import' in rules or '[reorder others]' in rules or \
-                'maxVariable' in rules:
+                'maxVariable' in rules or '@' in rules:
                 rules = ''
+                skip_rules = True
+        elif line.startswith('@ locale'):
+            print 'stray @:',line_idx,line
+            line_idx += 1
+            skip_rules = True
         elif line.startswith('% '):
             if line[2:].startswith('reorder '):
                 if 'default' in line:
@@ -406,9 +412,9 @@ def generate_datafile_collation_tests(lines):
                 else:
                     rules += '[' + line[2:].replace('=', ' ') + ']'
             line_idx += 1
-            if 'numeric' in rules or 'maxVariable' in rules:
+            if 'numeric' in rules or 'maxVariable' in rules or 'import' in rules:
                 rules = ''
-                skip_test = True
+                skip_rules = True
         elif line.startswith('* compare'):
             line_idx += 1
             compares = []
@@ -428,9 +434,10 @@ def generate_datafile_collation_tests(lines):
                     break
                 line = lines[line_idx].strip()
             table = 'text::default_collation_table()'
-            if '\\ud800' in rules.lower() \
+            if skip_rules or '\\ud800' in rules.lower() \
               or '\\udb' in rules.lower() or '\\udc' in rules.lower() \
               or '\\udf' in rules.lower():
+              print 'skipping compare:',line_idx
               continue
             if rules != 'default' and rules != '':
                 table = '''text::tailored_collation_table(
@@ -441,6 +448,7 @@ def generate_datafile_collation_tests(lines):
             test_lines += single_data_file_test_form.format(
                 test_comment, test_idx, table, comparison_tests(compares, strength)
             )
+            print 'adding compare:',test_comment
             test_idx += 1
         else:
             line_idx += 1
