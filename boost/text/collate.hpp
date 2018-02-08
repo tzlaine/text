@@ -507,10 +507,6 @@ namespace boost { namespace text {
             l2_weight_order l2_order,
             collation_table const & table)
         {
-            // TODO: Do this incrementally, and bail early once the answer
-            // is certain.
-            // TODO: Do this into stack buffers to avoid allocation for
-            // small enough strings.
             text_sort_key const lhs_sk = collation_sort_key(
                 lhs_first, lhs_last, strength, weighting, l2_order, table);
             text_sort_key const rhs_sk = collation_sort_key(
@@ -615,7 +611,6 @@ namespace boost { namespace text { namespace detail {
         if (table.l2_order())
             l2_order = *table.l2_order();
 
-        // TODO: Try tuning this buffer size for perf.
         std::array<uint32_t, 256> buffer;
         auto buf_it = buffer.begin();
         auto it = first;
