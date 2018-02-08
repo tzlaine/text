@@ -152,14 +152,6 @@ TEST(parser, exceptions)
     }
 
     {
-        text::string_view sv = "& [first trailing] < b";
-        EXPECT_THROW(
-            text::detail::parse(
-                sv.begin(), sv.end(), callbacks, "<test-string>"),
-            text::parse_error);
-    }
-
-    {
         text::string_view sv = "& [last trailing] < b";
         EXPECT_THROW(
             text::detail::parse(

@@ -283,10 +283,7 @@ namespace boost { namespace text { namespace detail {
                 open_bracket_it,
                 end);
         else if (require(it, end, "first", "trailing"))
-            throw one_token_parse_error(
-                "Logical position [first trailing] is not supported",
-                open_bracket_it,
-                end);
+            position = first_trailing;
         else if (require(it, end, "last", "trailing"))
             throw one_token_parse_error(
                 "Logical position [last trailing] is not supported",

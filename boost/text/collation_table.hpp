@@ -507,6 +507,7 @@ namespace boost { namespace text {
             // secondary weight."
             increment_ce(ce, strength, true);
 
+            bool retval = false;
             if (!well_formed_2(ce, tailoring_state)) {
                 auto const s = ce_strength(ce);
                 if (s == collation_strength::secondary) {
@@ -516,7 +517,7 @@ namespace boost { namespace text {
                         tailoring_state.last_tertiary_in_secondary_masked_;
                 }
                 increment_ce(ce, strength, true);
-                return true;
+                retval = true;
             }
 
             if (!well_formed_1(ce)) {
@@ -530,10 +531,21 @@ namespace boost { namespace text {
                     if (!ce.l3_)
                         ce.l3_ = common_l3_weight_compressed;
                 }
-                return true;
+                retval = true;
             }
 
-            return false;
+#if BOOST_TEXT_TAILORING_INSTRUMENTATION
+            std::cerr << "final ces: ";
+            for (auto ce : ces) {
+                std::cerr << "[" << std::setw(8) << std::setfill('0') << ce.l1_
+                          << " " << std::setw(4) << ce.l2_ << " "
+                          << std::setw(2) << std::setfill('0') << ce.l3_ << "] "
+                    /*<< std::setw(8) << std::setfill('0') << ce.l4_ << " "*/;
+            }
+            std::cerr << "\n";
+#endif
+
+            return retval;
         }
 
         inline bool well_formed_1(temp_table_element::ces_t const & ces)
@@ -1115,7 +1127,8 @@ namespace boost { namespace text {
             detail::initial_last_variable,
             detail::initial_first_regular,
             detail::initial_last_regular,
-            detail::initial_first_implicit};
+            detail::initial_first_implicit,
+            detail::initial_first_trailing};
 
         detail::logical_positions_t logical_positions;
         {
@@ -1156,6 +1169,8 @@ namespace boost { namespace text {
                         table.data_->simple_reorders_);
                 },
                 detail::retain_case_bits_t::yes);
+
+            lookup_and_assign(detail::first_trailing);
         }
 
         detail::tailoring_state_t tailoring_state;
