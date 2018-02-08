@@ -1403,6 +1403,7 @@ namespace detail {
         { collation_trie_key<3>::storage_t{ 0x6c, 0xb7 }, 2 },
         { collation_trie_key<3>::storage_t{ 0x4c, 0x387 }, 2 },
         { collation_trie_key<3>::storage_t{ 0x6c, 0x387 }, 2 },
+        { collation_trie_key<3>::storage_t{ 0xfffe }, 1 },
         { collation_trie_key<3>::storage_t{ 0x9 }, 1 },
         { collation_trie_key<3>::storage_t{ 0xa }, 1 },
         { collation_trie_key<3>::storage_t{ 0xb }, 1 },
@@ -38598,7 +38599,6 @@ namespace detail {
         { collation_trie_key<3>::storage_t{ 0x2f88f }, 1 },
         { collation_trie_key<3>::storage_t{ 0x2fa1d }, 1 },
         { collation_trie_key<3>::storage_t{ 0xfffd }, 1 },
-        { collation_trie_key<3>::storage_t{ 0xfffe }, 1 },
         { collation_trie_key<3>::storage_t{ 0xffff }, 1 },
 
         }};
@@ -39999,6 +39999,7 @@ namespace detail {
         {10318, 10320},
         {2383, 2385},
         {10318, 10320},
+        {8098, 8099},
         {4954, 4955},
         {29629, 29630},
         {15096, 15097},
@@ -77194,7 +77195,6 @@ namespace detail {
         {38471, 38472},
         {36845, 36846},
         {22575, 22576},
-        {8098, 8099},
         {32669, 32670},
 
         }};

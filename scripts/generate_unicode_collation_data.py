@@ -374,6 +374,7 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
     in_top_bytes = False
     after_top_bytes = False
     before_homeless_ces = True
+    fffe_placed = False
     for line in lines:
         line = line[:-1]
         if '[top_byte' in line:
@@ -405,6 +406,13 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
                 ces = tuple(ces)
                 if '|' in before_semicolon:
                     deferred[key] = (ces, original_cet_position)
+                if not fffe_placed and ces[0][0][0] == '03':
+                    ce = (('02',), ('05',), ('05',))
+                    cet[(0xfffe,)] = ((ce,), original_cet_position)
+                    original_cet_position += 1
+                    fffe_placed = True
+                if ces[0][0][0] == '02':
+                    continue
                 cet[key] = (ces, original_cet_position)
                 original_cet_position += 1
 
