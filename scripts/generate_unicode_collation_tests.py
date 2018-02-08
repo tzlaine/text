@@ -306,7 +306,7 @@ def comparison_tests(compares, test_strength):
     for c in compares:
         (compare, curr) = filter(lambda x: len(x) != 0, c[0].split(' '))
         if compare == '=':
-            strength = 'quaternary'
+            strength = test_strength
             result = 0
         else:
             result = -1
@@ -347,20 +347,20 @@ def generate_datafile_collation_tests(lines):
     skip_rules = False
     while line_idx < len(lines):
         line = lines[line_idx].strip()
+        if line.startswith('@'):
+            strength = 'tertiary'
+
         if line.startswith('#') or len(line) == 0:
             line_idx += 1
             continue
         elif line.startswith('** test'):
             test_comment = line[len('** test:'):]
-            strength = 'tertiary'
             line_idx += 1
         elif line.startswith('@ root'):
-            print 'de-skip @ root'
             skip_rules = False
             rules = 'default'
             line_idx += 1
         elif line.startswith('@ rules'):
-            print 'de-skip @ rules'
             skip_rules = False
             rules = ''
             line_idx += 1
@@ -381,7 +381,6 @@ def generate_datafile_collation_tests(lines):
                 rules = ''
                 skip_rules = True
         elif line.startswith('@ locale'):
-            print 'stray @:',line_idx,line
             line_idx += 1
             skip_rules = True
         elif line.startswith('% '):
@@ -392,21 +391,24 @@ def generate_datafile_collation_tests(lines):
                     if rules == 'default':
                         rules = ''
                     rules += '[' + line[2:] + ']'
-            elif line.startswith('strength='):
-                strength = line[len('strength='):]
             else:
                 if rules == 'default':
                     rules = ''
                 if 'strength=primary' in line:
                     rules += '[strength 1]'
+                    strength = 'primary'
                 elif 'strength=secondary' in line:
                     rules += '[strength 2]'
+                    strength = 'secondary'
                 elif 'strength=tertiary' in line:
                     rules += '[strength 3]'
+                    strength = 'tertiary'
                 elif 'strength=quaternary' in line:
                     rules += '[strength 4]'
+                    strength = 'quaternary'
                 elif 'strength=identical' in line:
                     rules += '[strength I]'
+                    strength = 'identical'
                 elif 'backwards=on' in line:
                     rules += '[backwards 2]'
                 else:
@@ -426,6 +428,7 @@ def generate_datafile_collation_tests(lines):
                     comment = line[comment_start + 1:].strip()
                     line = line[:comment_start].strip()
                 if line != '' and '\\ud800' not in line.lower() \
+                  and '\\ufff' not in line.lower() \
                   and '\\udb' not in line.lower() and '\\udc' not in line.lower() \
                   and '\\udf' not in line.lower():
                     compares.append((line, comment))
@@ -434,10 +437,11 @@ def generate_datafile_collation_tests(lines):
                     break
                 line = lines[line_idx].strip()
             table = 'text::default_collation_table()'
-            if skip_rules or '\\ud800' in rules.lower() \
+            if len(compares) == 0:
+                test_idx += 1 # TODO
+            if skip_rules or len(compares) == 0 or '\\ud800' in rules.lower() \
               or '\\udb' in rules.lower() or '\\udc' in rules.lower() \
               or '\\udf' in rules.lower():
-              print 'skipping compare:',line_idx
               continue
             if rules != 'default' and rules != '':
                 table = '''text::tailored_collation_table(
@@ -448,7 +452,6 @@ def generate_datafile_collation_tests(lines):
             test_lines += single_data_file_test_form.format(
                 test_comment, test_idx, table, comparison_tests(compares, strength)
             )
-            print 'adding compare:',test_comment
             test_idx += 1
         else:
             line_idx += 1
