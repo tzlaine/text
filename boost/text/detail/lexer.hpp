@@ -96,7 +96,7 @@ namespace boost { namespace text { namespace detail {
     };
 
 #ifndef NDEBUG
-    std::ostream &
+    inline std::ostream &
     dump(std::ostream & os, lines_and_tokens const & lat, string_view str)
     {
         auto tok_it = lat.tokens_.begin();

@@ -33,7 +33,7 @@ namespace boost { namespace text {
         using nonsimple_reorders_t = container::
             static_vector<nonsimple_script_reorder, g_reorder_groups.size()>;
 
-        uint32_t lead_byte(
+        inline uint32_t lead_byte(
             collation_element cce,
             nonsimple_reorders_t const & nonsimple_reorders,
             std::array<uint32_t, 256> const & simple_reorders) noexcept
@@ -60,7 +60,7 @@ namespace boost { namespace text {
             bool tailored_ = false;
         };
 
-        bool less(
+        inline bool less(
             temp_table_element::ces_t const & lhs,
             temp_table_element::ces_t const & rhs) noexcept;
 
@@ -73,20 +73,20 @@ namespace boost { namespace text {
             return less(lhs, rhs);
         }
 
-        bool operator<(
+        inline bool operator<(
             temp_table_element const & lhs, temp_table_element const & rhs)
         {
             return less(lhs.ces_, rhs.ces_);
         }
 
-        bool operator<(
+        inline bool operator<(
             temp_table_element::ces_t const & lhs,
             temp_table_element const & rhs)
         {
             return less(lhs, rhs.ces_);
         }
 
-        bool operator<(
+        inline bool operator<(
             temp_table_element const & lhs,
             temp_table_element::ces_t const & rhs)
         {
@@ -1073,7 +1073,7 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    collation_table tailored_collation_table(
+    inline collation_table tailored_collation_table(
         string_view tailoring,
         string_view tailoring_filename = "",
         parser_diagnostic_callback report_errors = parser_diagnostic_callback(),
