@@ -606,16 +606,19 @@ namespace boost { namespace text { namespace detail {
         l2_weight_order l2_order,
         collation_table const & table)
     {
-        std::vector<uint32_t> bytes;
+        auto const initial_first = first;
 
         if (table.l2_order())
             l2_order = *table.l2_order();
 
+        container::small_vector<collation_element, 1024> ces;
         std::array<uint32_t, 256> buffer;
         auto buf_it = buffer.begin();
         auto it = first;
+        int cps = 0;
         while (it != last) {
-            for (; it != last && buf_it != buffer.end(); ++buf_it, ++it) {
+            for (; it != last && buf_it != buffer.end();
+                 ++buf_it, ++it, ++cps) {
                 *buf_it = *it;
             }
 
@@ -639,21 +642,25 @@ namespace boost { namespace text { namespace detail {
             }
 
             auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-            container::small_vector<collation_element, 1024> const ces =
+            container::small_vector<collation_element, 1024> const temp =
                 table.collation_elements(buffer.begin(), s2_it, weighting);
-            s3(ces.begin(),
-               ces.end(),
-               ces.size(),
-               strength,
-               l2_order,
-               first,
-               end_of_raw_input,
-               s2_it - buffer.begin(),
-               bytes,
-               retain_case_bits_t::yes);
+            ces.insert(ces.end(), temp.begin(), temp.end());
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
         }
+
+        std::vector<uint32_t> bytes;
+        s3(ces.begin(),
+           ces.end(),
+           ces.size(),
+           strength,
+           l2_order,
+           initial_first,
+           last,
+           cps,
+           bytes,
+           retain_case_bits_t::no);
+
         return text_sort_key(std::move(bytes));
     }
 
