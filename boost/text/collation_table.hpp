@@ -15,6 +15,10 @@
 #endif
 
 
+namespace boost { namespace filesystem {
+    class path;
+}}
+
 namespace boost { namespace text {
 
     namespace detail {
@@ -216,6 +220,10 @@ namespace boost { namespace text {
             string_view tailoring_filename,
             parser_diagnostic_callback report_errors,
             parser_diagnostic_callback report_warnings);
+
+        friend void save_table(
+            collation_table const & table, filesystem::path const & path);
+        friend collation_table load_table(filesystem::path const & path);
     };
 
     namespace detail {
