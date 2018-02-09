@@ -851,6 +851,11 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct const_trie_map_iterator
     {
+    private:
+        using state_t = detail::trie_iterator_state_t<Key, Value>;
+        state_t state_;
+
+    public:
         using value_type = trie_map_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value const>;
         using reference = trie_map_element<Key, Value const &>;
@@ -878,7 +883,8 @@ namespace boost { namespace trie {
                              state_.parent_->child_value(state_.index_)};
         }
 
-        pointer operator->() const noexcept(noexcept(**this))
+        pointer operator->() const
+            noexcept(noexcept(detail::reconstruct_key(state_)))
         {
             reference && deref_result = **this;
             return pointer(std::move(deref_result.key), deref_result.value);
@@ -976,11 +982,7 @@ namespace boost { namespace trie {
         }
 
     private:
-        using state_t = detail::trie_iterator_state_t<Key, Value>;
-
         explicit const_trie_map_iterator(state_t state) : state_(state) {}
-
-        state_t state_;
 
         template<typename KeyT, typename ValueT, typename Compare>
         friend struct trie_map;
@@ -995,6 +997,10 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct trie_map_iterator
     {
+    private:
+        const_trie_map_iterator<Key, Value> it_;
+
+    public:
         using value_type = trie_map_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value>;
         using reference = trie_map_element<Key, Value &>;
@@ -1015,7 +1021,8 @@ namespace boost { namespace trie {
                 it_.state_.parent_->child_value(it_.state_.index_)};
         };
 
-        pointer operator->() const noexcept(noexcept(**this))
+        pointer operator->() const
+            noexcept(noexcept(detail::reconstruct_key(it_.state_)))
         {
             reference && deref_result = **this;
             return pointer(std::move(deref_result.key), deref_result.value);
@@ -1064,8 +1071,6 @@ namespace boost { namespace trie {
             it_(it)
         {}
 
-        const_trie_map_iterator<Key, Value> it_;
-
         template<typename KeyT, typename ValueT, typename Compare>
         friend struct trie_map;
         template<typename KeyT, typename Compare>
@@ -1075,6 +1080,10 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct reverse_trie_map_iterator
     {
+    private:
+        trie_map_iterator<Key, Value> it_;
+
+    public:
         using value_type = trie_map_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value>;
         using reference = trie_map_element<Key, Value &>;
@@ -1135,14 +1144,15 @@ namespace boost { namespace trie {
         {
             return lhs.it_ != rhs.it_;
         }
-
-    private:
-        trie_map_iterator<Key, Value> it_;
     };
 
     template<typename Key, typename Value>
     struct const_reverse_trie_map_iterator
     {
+    private:
+        const_trie_map_iterator<Key, Value> it_;
+
+    public:
         using value_type = trie_map_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value const>;
         using reference = trie_map_element<Key, Value const &>;
@@ -1210,9 +1220,6 @@ namespace boost { namespace trie {
         {
             return lhs.it_ != rhs.it_;
         }
-
-    private:
-        const_trie_map_iterator<Key, Value> it_;
     };
 
 }}
