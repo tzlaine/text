@@ -5,6 +5,8 @@
 #include <boost/text/table_serialization.hpp>
 #include <boost/text/data/all.hpp>
 
+#include <boost/filesystem.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace boost::text;
@@ -14,12 +16,14 @@ auto const warning = [](string const & s) {};
 
 collation_table make_save_load_table()
 {
-    collation_table table =
-        tailored_collation_table(
+    if (!exists(boost::filesystem::path("km_standard.table"))) {
+        collation_table table = tailored_collation_table(
             data::km::standard_collation_tailoring(),
             "km::standard_collation_tailoring()", error, warning);
-    save_table(table, "table.bin");
-    return load_table("table.bin");
+        save_table(table, "km_standard.table.0");
+        boost::filesystem::rename("km_standard.table.0", "km_standard.table");
+    }
+    return load_table("km_standard.table");
 }
 collation_table const & table()
 {
@@ -52,12 +56,14 @@ TEST(tailoring, km_standard_000_001)
         std::vector<uint32_t>(1, 0x17d8),
         table(), collation_strength::secondary),
         0);
+#if 0 // 0x17c8 reordered by a later rule.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x17c8),
         std::vector<uint32_t>(1, 0x17ce),
         table(), collation_strength::secondary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x17c8),

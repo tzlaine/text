@@ -5,6 +5,8 @@
 #include <boost/text/table_serialization.hpp>
 #include <boost/text/data/all.hpp>
 
+#include <boost/filesystem.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace boost::text;
@@ -14,12 +16,14 @@ auto const warning = [](string const & s) {};
 
 collation_table make_save_load_table()
 {
-    collation_table table =
-        tailored_collation_table(
+    if (!exists(boost::filesystem::path("und_emoji.table"))) {
+        collation_table table = tailored_collation_table(
             data::und::emoji_collation_tailoring(),
             "und::emoji_collation_tailoring()", error, warning);
-    save_table(table, "table.bin");
-    return load_table("table.bin");
+        save_table(table, "und_emoji.table.2");
+        boost::filesystem::rename("und_emoji.table.2", "und_emoji.table");
+    }
+    return load_table("und_emoji.table");
 }
 collation_table const & table()
 {

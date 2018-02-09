@@ -85,6 +85,8 @@ void write_file_prefix(string const & this_test)
 #include <boost/text/table_serialization.hpp>
 #include <boost/text/data/all.hpp>
 
+#include <boost/filesystem.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace boost::text;
@@ -94,17 +96,20 @@ auto const warning = [](string const & s) {};
 )";
 
     string const this_tailoring = string(g_curr_file) + "::" + g_curr_tailoring;
+    string const table_name = string(g_curr_file) + "_" + g_curr_tailoring;
 
     g_ofs << header << R"Q(
 collation_table make_save_load_table()
 {
-    collation_table table =
-        tailored_collation_table(
+    if (!exists(boost::filesystem::path(")Q" << table_name << R"Q(.table"))) {
+        collation_table table = tailored_collation_table(
             data::)Q" << this_tailoring << R"Q(_collation_tailoring(),
             ")Q"
           << this_tailoring << R"Q(_collation_tailoring()", error, warning);
-    save_table(table, "table.bin");
-    return load_table("table.bin");
+        save_table(table, ")Q" << table_name << ".table." << g_test_subfile_count << R"Q(");
+        boost::filesystem::rename(")Q" << table_name << ".table." << g_test_subfile_count << "\", \"" << table_name << ".table" << R"Q(");
+    }
+    return load_table(")Q" << table_name << R"Q(.table");
 }
 collation_table const & table()
 {

@@ -5,6 +5,8 @@
 #include <boost/text/table_serialization.hpp>
 #include <boost/text/data/all.hpp>
 
+#include <boost/filesystem.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace boost::text;
@@ -14,12 +16,14 @@ auto const warning = [](string const & s) {};
 
 collation_table make_save_load_table()
 {
-    collation_table table =
-        tailored_collation_table(
+    if (!exists(boost::filesystem::path("en_US_POSIX_standard.table"))) {
+        collation_table table = tailored_collation_table(
             data::en_US_POSIX::standard_collation_tailoring(),
             "en_US_POSIX::standard_collation_tailoring()", error, warning);
-    save_table(table, "table.bin");
-    return load_table("table.bin");
+        save_table(table, "en_US_POSIX_standard.table.0");
+        boost::filesystem::rename("en_US_POSIX_standard.table.0", "en_US_POSIX_standard.table");
+    }
+    return load_table("en_US_POSIX_standard.table");
 }
 collation_table const & table()
 {
@@ -28,12 +32,14 @@ collation_table const & table()
 }
 TEST(tailoring, en_US_POSIX_standard_000_001)
 {
+#if 0 // 'A' actaully gets moved to later in the tailoring later in the rule.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0041),
         std::vector<uint32_t>(1, 0x0020),
         table(), collation_strength::primary),
         -1);
+#endif
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0020),

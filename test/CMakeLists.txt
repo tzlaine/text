@@ -4,7 +4,11 @@ include(CTest)
 
 enable_testing()
 
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR})
+add_custom_target(
+    check
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/*.table
+    COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR}
+)
 
 set(warnings_flag)
 if (NOT MSVC)

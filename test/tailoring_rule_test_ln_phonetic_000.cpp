@@ -5,6 +5,8 @@
 #include <boost/text/table_serialization.hpp>
 #include <boost/text/data/all.hpp>
 
+#include <boost/filesystem.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace boost::text;
@@ -14,12 +16,14 @@ auto const warning = [](string const & s) {};
 
 collation_table make_save_load_table()
 {
-    collation_table table =
-        tailored_collation_table(
+    if (!exists(boost::filesystem::path("ln_phonetic.table"))) {
+        collation_table table = tailored_collation_table(
             data::ln::phonetic_collation_tailoring(),
             "ln::phonetic_collation_tailoring()", error, warning);
-    save_table(table, "table.bin");
-    return load_table("table.bin");
+        save_table(table, "ln_phonetic.table.0");
+        boost::filesystem::rename("ln_phonetic.table.0", "ln_phonetic.table");
+    }
+    return load_table("ln_phonetic.table");
 }
 collation_table const & table()
 {
