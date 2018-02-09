@@ -173,6 +173,19 @@ namespace boost { namespace text { namespace detail {
 
         storage_t cps_;
         int size_;
+
+        friend bool operator==(collation_trie_key lhs, collation_trie_key rhs)
+        {
+            return lhs.size_ == rhs.size_ && std::equal(
+                                                 lhs.cps_.values_,
+                                                 lhs.cps_.values_ + lhs.size_,
+                                                 rhs.cps_.values_);
+        }
+
+        friend bool operator!=(collation_trie_key lhs, collation_trie_key rhs)
+        {
+            return !(lhs == rhs);
+        }
     };
 
     using collation_trie_t =

@@ -30,6 +30,19 @@ namespace boost { namespace text {
             uint32_t lead_byte_;
         };
 
+        inline bool
+        operator==(nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
+        {
+            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_ &&
+                   lhs.lead_byte_ == rhs.lead_byte_;
+        }
+
+        inline bool
+        operator!=(nonsimple_script_reorder lhs, nonsimple_script_reorder rhs)
+        {
+            return !(lhs == rhs);
+        }
+
         using nonsimple_reorders_t = container::
             static_vector<nonsimple_script_reorder, g_reorder_groups.size()>;
 
@@ -135,6 +148,27 @@ namespace boost { namespace text {
             optional<case_first_t> case_first_;
         };
 
+        inline bool operator==(
+            collation_table_data const & lhs, collation_table_data const & rhs)
+        {
+            return lhs.collation_element_vec_ == rhs.collation_element_vec_ &&
+                   lhs.collation_elements_ == rhs.collation_elements_ &&
+                   lhs.trie_ == rhs.trie_ &&
+                   lhs.nonsimple_reorders_ == rhs.nonsimple_reorders_ &&
+                   lhs.simple_reorders_ == rhs.simple_reorders_ &&
+                   lhs.strength_ == rhs.strength_ &&
+                   lhs.weighting_ == rhs.weighting_ &&
+                   lhs.l2_order_ == rhs.l2_order_ &&
+                   lhs.case_level_ == rhs.case_level_ &&
+                   lhs.case_first_ == rhs.case_first_;
+        }
+
+        inline bool operator!=(
+            collation_table_data const & lhs, collation_table_data const & rhs)
+        {
+            return !(lhs == rhs);
+        }
+
         inline void add_temp_tailoring(
             collation_table_data & table,
             detail::cp_seq_t const & cps,
@@ -196,6 +230,18 @@ namespace boost { namespace text {
         optional<l2_weight_order> l2_order() const noexcept
         {
             return data_->l2_order_;
+        }
+
+        friend bool
+        operator==(collation_table const & lhs, collation_table const & rhs)
+        {
+            return *lhs.data_ == *lhs.data_;
+        }
+
+        friend bool
+        operator!=(collation_table const & lhs, collation_table const & rhs)
+        {
+            return !(lhs == rhs);
         }
 
     private:
