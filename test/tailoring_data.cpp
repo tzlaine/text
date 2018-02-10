@@ -13,7 +13,6 @@ auto const error = [](text::string const & s) { std::cout << s; };
 auto const warning = [](text::string const & s) {};
 
 
-#if 0
 // simple CEs & expansions
 TEST(collation_and_tailoring, data_file_test_0)
 {
@@ -2096,7 +2095,6 @@ TEST(collation_and_tailoring, data_file_test_43)
         -1);
 
 }
-#endif
 
 // secondary tailoring gaps, ICU ticket 9362
 TEST(collation_and_tailoring, data_file_test_44)
