@@ -622,6 +622,8 @@ namespace boost { namespace text { namespace detail {
 
         if (table.l2_order())
             l2_order = *table.l2_order();
+        if (table.weighting())
+            weighting = *table.weighting();
 
         container::small_vector<collation_element, 1024> ces;
         std::array<uint32_t, 256> buffer;
