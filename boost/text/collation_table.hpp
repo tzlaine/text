@@ -212,6 +212,7 @@ namespace boost { namespace text {
         collation_elements(
             Iter first,
             Iter last,
+            collation_strength strength = collation_strength::tertiary,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const;
 
@@ -219,17 +220,23 @@ namespace boost { namespace text {
         container::small_vector<detail::collation_element, 1024>
         collation_elements(
             CodePointRange & r,
+            collation_strength strength = collation_strength::tertiary,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const
         {
             using std::begin;
             using std::end;
-            return collation_elements(begin(r), end(r), weighting);
+            return collation_elements(begin(r), end(r), strength, weighting);
         }
 
         optional<l2_weight_order> l2_order() const noexcept
         {
             return data_->l2_order_;
+        }
+
+        optional<variable_weighting> weighting() const noexcept
+        {
+            return data_->weighting_;
         }
 
         friend bool
@@ -1138,7 +1145,10 @@ namespace boost { namespace text {
     template<typename Iter>
     container::small_vector<detail::collation_element, 1024>
     collation_table::collation_elements(
-        Iter first, Iter last, variable_weighting weighting) const
+        Iter first,
+        Iter last,
+        collation_strength strength,
+        variable_weighting weighting) const
     {
         if (data_->weighting_)
             weighting = *data_->weighting_;
@@ -1153,6 +1163,7 @@ namespace boost { namespace text {
                 return detail::lead_byte(
                     ce, data_->nonsimple_reorders_, data_->simple_reorders_);
             },
+            strength,
             weighting,
             detail::retain_case_bits_t::no); // TODO: Other case params.
         return retval;
@@ -1225,6 +1236,7 @@ namespace boost { namespace text {
                         table.data_->nonsimple_reorders_,
                         table.data_->simple_reorders_);
                 },
+                collation_strength::tertiary,
                 detail::retain_case_bits_t::yes);
 
             lookup_and_assign(detail::first_trailing);
@@ -1455,6 +1467,7 @@ namespace boost { namespace text {
                     return detail::lead_byte(
                         ce, table.nonsimple_reorders_, table.simple_reorders_);
                 },
+                collation_strength::tertiary,
                 variable_weighting::non_ignorable,
                 detail::retain_case_bits_t::yes);
 

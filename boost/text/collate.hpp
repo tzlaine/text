@@ -88,6 +88,7 @@ namespace boost { namespace text {
             detail::collation_trie_t const & trie,
             collation_element const * collation_elements_first,
             LeadByteFunc const & lead_byte,
+            collation_strength strength,
             retain_case_bits_t retain_case_bits)
         {
             if (hangul_syllable(cp)) {
@@ -99,6 +100,7 @@ namespace boost { namespace text {
                    trie,
                    collation_elements_first,
                    lead_byte,
+                   strength,
                    weighting,
                    retain_case_bits);
                 return std::copy(ces.begin(), ces.end(), out);
@@ -221,6 +223,7 @@ namespace boost { namespace text {
         inline bool s2_3(
             collation_element * first,
             collation_element * last,
+            collation_strength strength,
             variable_weighting weighting,
             bool after_variable,
             retain_case_bits_t retain_case_bits)
@@ -241,6 +244,9 @@ namespace boost { namespace text {
             }
 
             if (weighting == variable_weighting::non_ignorable)
+                return after_variable;
+
+            if (strength == collation_strength::primary)
                 return after_variable;
 
             // http://www.unicode.org/reports/tr10/#Implicit_Weights says: "If
@@ -311,6 +317,7 @@ namespace boost { namespace text {
            detail::collation_trie_t const & trie,
            collation_element const * collation_elements_first,
            LeadByteFunc const & lead_byte,
+           collation_strength strength,
            variable_weighting weighting,
            retain_case_bits_t retain_case_bits)
         {
@@ -330,10 +337,12 @@ namespace boost { namespace text {
                         trie,
                         collation_elements_first,
                         lead_byte,
+                        strength,
                         retain_case_bits);
                     after_variable = s2_3(
                         derived_ces,
                         derived_ces_end,
+                        strength,
                         weighting,
                         after_variable,
                         retain_case_bits);
@@ -381,6 +390,7 @@ namespace boost { namespace text {
                 after_variable = s2_3(
                     &*(ces.end() - collation_it->value.size()),
                     &*ces.end(),
+                    strength,
                     weighting,
                     after_variable,
                     retain_case_bits);
@@ -645,7 +655,8 @@ namespace boost { namespace text { namespace detail {
 
             auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
             container::small_vector<collation_element, 1024> const temp =
-                table.collation_elements(buffer.begin(), s2_it, weighting);
+                table.collation_elements(
+                    buffer.begin(), s2_it, strength, weighting);
             ces.insert(ces.end(), temp.begin(), temp.end());
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
