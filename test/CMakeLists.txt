@@ -121,7 +121,7 @@ add_test_executable(parser_data)
 add_test_executable(tailoring riwords.txt)
 add_test_executable(tailoring_reorderings)
 add_test_executable(tailoring_suppressions)
-# TODO add_test_executable(tailoring_data)
+add_test_executable(tailoring_data)
 
 # TODO: A totally different approach is required for word breaks.  Word break
 # parsing is LL(*).
