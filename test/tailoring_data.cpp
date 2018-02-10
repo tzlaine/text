@@ -9209,7 +9209,7 @@ TEST(collation_and_tailoring, data_file_test_145)
 TEST(collation_and_tailoring, data_file_test_146)
 {
     auto const table = text::tailored_collation_table(
-        text::string_view(u8R"(&[before 2] ൌ << ൗ )"),
+        text::string_view(u8R"(&[before 2] \u0D4C << ൗ )"),
         "rules", error, warning);
 
 
