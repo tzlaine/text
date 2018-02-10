@@ -1130,31 +1130,25 @@ TEST(tailoring, ko_searchjl_000_002)
         0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0332),
-        std::vector<uint32_t>{0x1100, 0x1100},
-        table(), collation_strength::quaternary),
-        0);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x1100),
+        std::vector<uint32_t>{0x1103, 0x1100},
         std::vector<uint32_t>{0x1103, 0x1103},
         table(), collation_strength::quaternary),
         0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x1103),
+        std::vector<uint32_t>{0x1107, 0x1103},
         std::vector<uint32_t>{0x1107, 0x1107},
         table(), collation_strength::quaternary),
         0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x1107),
+        std::vector<uint32_t>{0x1109, 0x1107},
         std::vector<uint32_t>{0x1109, 0x1109},
         table(), collation_strength::quaternary),
         0);
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x1109),
+        std::vector<uint32_t>{0x110c, 0x1109},
         std::vector<uint32_t>{0x110c, 0x110c},
         table(), collation_strength::quaternary),
         0);

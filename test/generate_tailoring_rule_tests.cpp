@@ -149,20 +149,23 @@ void print_rule_test(
     detail::optional_cp_seq_t prefix,
     detail::optional_cp_seq_t extension)
 {
-    auto secondary_ignorable = [](uint32_t cp) {
+    auto symbolic_ignorable = [](uint32_t cp) {
         return cp == detail::first_secondary_ignorable ||
-               cp == detail::last_secondary_ignorable;
+               cp == detail::last_secondary_ignorable ||
+               cp == detail::first_primary_ignorable;
     };
     if (std::any_of(
-            g_curr_reset.begin(), g_curr_reset.end(), secondary_ignorable) ||
-        std::any_of(relation.begin(), relation.end(), secondary_ignorable))
+            g_curr_reset.begin(), g_curr_reset.end(), symbolic_ignorable) ||
+        std::any_of(relation.begin(), relation.end(), symbolic_ignorable))
         return;
 
-    if (prefix)
+    auto curr_reset = g_curr_reset;
+    if (prefix) {
+        curr_reset.insert(curr_reset.begin(), relation.begin(), relation.end());
         relation.insert(relation.end(), prefix->begin(), prefix->end());
+    }
 
     {
-        auto curr_reset = g_curr_reset;
         if (extension) {
             curr_reset.insert(
                 curr_reset.end(), extension->begin(), extension->end());
@@ -182,7 +185,7 @@ void print_rule_test(
     }
 
     if (g_before &&
-        !std::any_of(g_reset.begin(), g_reset.end(), secondary_ignorable)) {
+        !std::any_of(g_reset.begin(), g_reset.end(), symbolic_ignorable)) {
         auto reset = g_reset;
         if (extension) {
             reset.insert(reset.end(), extension->begin(), extension->end());
@@ -240,7 +243,9 @@ detail::collation_tailoring_interface g_callbacks = {
                 rel.prefix_and_extension_.prefix_,
                 rel.prefix_and_extension_.extension_);
         }
-        g_curr_reset = rel.cps_;
+        g_curr_reset = rel.prefix_and_extension_.prefix_
+                           ? *rel.prefix_and_extension_.prefix_
+                           : rel.cps_;
         g_just_after_reset = false;
         ++g_count;
     },

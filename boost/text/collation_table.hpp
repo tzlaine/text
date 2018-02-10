@@ -820,8 +820,16 @@ namespace boost { namespace text {
 
             cp_seq_t relation = initial_relation;
 
-            if (prefix)
+            // "Prefix" is an odd name.  When we see a prefix, it means that
+            // the "prefix", which actually comes second, is the relation, and
+            // the relation, which comes first, is actually the prefix. Sigh.
+            if (prefix) {
+                reset_ces.insert(
+                    reset_ces.begin(),
+                    initial_relation_ces.begin(),
+                    initial_relation_ces.end());
                 relation.insert(relation.end(), prefix->begin(), prefix->end());
+            }
 
             if (before) {
                 auto ces_it = last_ce_at_least_strength(
@@ -1264,7 +1272,9 @@ namespace boost { namespace text {
                     rel.cps_,
                     rel.prefix_and_extension_.prefix_,
                     rel.prefix_and_extension_.extension_);
-                curr_reset = rel.cps_;
+                curr_reset = rel.prefix_and_extension_.prefix_
+                                 ? *rel.prefix_and_extension_.prefix_
+                                 : rel.cps_;
                 reset_is_before = false;
             },
             [&](collation_strength strength) {
