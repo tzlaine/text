@@ -114,7 +114,7 @@ namespace boost { namespace text {
             {
                 return cces_[symbolic - first_tertiary_ignorable];
             }
-            std::array<temp_table_element::ces_t, 11> cces_;
+            std::array<temp_table_element::ces_t, 12> cces_;
         };
 
         struct tailoring_state_t
