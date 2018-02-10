@@ -172,6 +172,7 @@ namespace boost { namespace text { namespace detail {
         T const & deref() const
         {
             switch (leaf_->which_) {
+            default: assert(!"unhandled leaf node case");
             case leaf_node_t<T>::which::vec: {
                 std::vector<T> const * v =
                     static_cast<std::vector<T> *>(leaf_->buf_ptr_);
@@ -184,7 +185,6 @@ namespace boost { namespace text { namespace detail {
                     ref->vec_.as_leaf()->as_vec().begin() + ref->lo_ +
                     (n_ - leaf_start_));
             }
-            default: assert(!"unhandled leaf node case"); break;
             }
         }
 
