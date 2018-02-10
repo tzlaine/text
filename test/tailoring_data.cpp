@@ -2406,7 +2406,7 @@ TEST(collation_and_tailoring, data_file_test_46)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <2 u # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"r")),
@@ -2466,7 +2466,7 @@ TEST(collation_and_tailoring, data_file_test_47)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <1 r # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"m")),
@@ -2550,7 +2550,7 @@ TEST(collation_and_tailoring, data_file_test_48)
         text::collation_strength::tertiary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <2 u # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"r")),
@@ -2592,7 +2592,7 @@ TEST(collation_and_tailoring, data_file_test_48)
         text::collation_strength::tertiary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <2 s # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"x")),
@@ -4574,7 +4574,7 @@ TEST(collation_and_tailoring, data_file_test_82)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <1 r # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"a")),
@@ -4656,7 +4656,7 @@ TEST(collation_and_tailoring, data_file_test_82)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <1 t # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"y")),
@@ -4732,7 +4732,7 @@ TEST(collation_and_tailoring, data_file_test_83)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO!  (Not sure if I really care about fixing this one.)
+#if 0 // [WONTFIX 1] Not sure if I really care about fixing this one.
     // <1 l· # primary difference, not secondary, because l|· was suppressed
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"l")),
@@ -5057,7 +5057,7 @@ TEST(collation_and_tailoring, data_file_test_87)
         text::collation_strength::secondary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <1 w # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"v")),
@@ -5333,7 +5333,7 @@ TEST(collation_and_tailoring, data_file_test_90)
         -1);
 #endif
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <3 y # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"x")),
@@ -5341,7 +5341,9 @@ TEST(collation_and_tailoring, data_file_test_90)
         table,
         text::collation_strength::tertiary),
         -1);
+#endif
 
+#if 0 // TODO!
     // <1 z # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"y")),
@@ -5376,7 +5378,9 @@ TEST(collation_and_tailoring, data_file_test_91)
         table,
         text::collation_strength::secondary),
         -1);
+#endif
 
+#if 0 // [WONTFIX 0]
     // <3 x # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"w")),
@@ -5394,7 +5398,7 @@ TEST(collation_and_tailoring, data_file_test_91)
         text::collation_strength::tertiary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0]
     // <2 z # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"y")),
@@ -5820,7 +5824,6 @@ TEST(collation_and_tailoring, data_file_test_97)
         table,
         text::collation_strength::tertiary),
         0);
-#endif
 
     // =  ậ # equivalent
     EXPECT_EQ(text::collate(
@@ -5829,6 +5832,7 @@ TEST(collation_and_tailoring, data_file_test_97)
         table,
         text::collation_strength::tertiary),
         0);
+#endif
 
     // <1 b # 
     EXPECT_EQ(text::collate(
@@ -8922,8 +8926,7 @@ TEST(collation_and_tailoring, data_file_test_141)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO! Maybe [before N] implies a decrement instead of a search-before
-      // and an increment?
+#if 0 // [WONTFIX 0]
     // <1 y # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"w")),
@@ -8959,7 +8962,10 @@ TEST(collation_and_tailoring, data_file_test_142)
         text::collation_strength::primary),
         -1);
 
-#if 0 // TODO!
+#if 0 // [WONTFIX 0] For this to pass, the tailoring above must be equivalent to
+      // "&a<y<<w<<<x", which is inconsistent with
+      // https://www.unicode.org/reports/tr35/tr35-collation.html#Placing_Characters_Before_Others
+      // and http://userguide.icu-project.org/collation/customization both.
     // <1 y # 
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"a")),
@@ -9019,7 +9025,9 @@ TEST(collation_and_tailoring, data_file_test_143)
         text::collation_strength::quaternary),
         -1);
 
-#if 0 // TODO!
+#if 0 // 3.13.1 Interpretation of a reordering list says: "If any core code is
+      // not present, then it is inserted at the front of the list".  "symbol"
+      // is never mentioned, so it's supposed to come first.
     // <1 ` # symbol
     EXPECT_EQ(text::collate(
         text::utf32_range(text::string_view(u8"\u0020")),
