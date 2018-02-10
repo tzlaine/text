@@ -549,7 +549,7 @@ namespace boost { namespace text { namespace detail {
         };
 
         string_view const expected_msg =
-            "Expected one 'strength', 'alternate', backwards', 'reorder', "
+            "Expected one of 'strength', 'alternate', backwards', 'reorder', "
             "'import', 'caseLevel', 'caseFirst', 'optimize', or "
             "'suppressContractions' here";
 
