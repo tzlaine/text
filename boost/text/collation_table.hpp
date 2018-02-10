@@ -1000,6 +1000,9 @@ namespace boost { namespace text {
                 }
             }
 
+            // TODO: Call add_temp_tailoring() for all prefixes of relation,
+            // when relation.size() > 2, for WF5.
+
             add_temp_tailoring(table, relation, reset_ces);
             temp_table_element element;
             element.cps_ = std::move(relation);

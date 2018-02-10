@@ -515,6 +515,8 @@ namespace boost { namespace text {
         }
     }
 
+    // TODO: Versions of the functions below that do not assume FCC.
+
     /** TODO */
     template<typename Iter>
     text_sort_key collation_sort_key(
