@@ -885,7 +885,15 @@ namespace boost { namespace text {
                         replace_lead_byte(reset_ces[0].l1_, lead_byte);
                 }
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
-                std::cerr << "========== before ces -> ";
+                std::cerr << "========== before -> "
+                          << text::to_string(
+                                 prev_it->cps_.begin(), prev_it->cps_.end());
+                std::cerr << " ";
+                for (auto cp : prev_it->cps_) {
+                    std::cerr << std::hex << std::setw(8) << std::setfill('0')
+                              << cp << " ";
+                }
+                std::cerr << " ";
                 for (auto ce : reset_ces) {
                     std::cerr << "[" << std::hex << std::setw(8)
                               << std::setfill('0') << ce.l1_ << " "
