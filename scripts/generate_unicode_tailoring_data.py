@@ -308,6 +308,8 @@ TEST(tailoring, {0}_{1}_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " {0}::{1}_collation_tailoring() "

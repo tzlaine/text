@@ -40,6 +40,58 @@ namespace std {
     }
 }
 
+TEST(tailoring, case_modifications)
+{
+    std::array<std::array<uint32_t, 3>, 4> const default_ordering = {{
+        {{0x61, 0x62, 0x63}}, // "abc"
+        {{0x61, 0x62, 0x43}}, // "abC"
+        {{0x61, 0x42, 0x63}}, // "aBc"
+        {{0x41, 0x62, 0x63}}, // "Abc"
+    }};
+
+    text::collation_table const default_table = text::default_collation_table();
+
+    {
+        auto this_ordering = default_ordering;
+        std::sort(
+            this_ordering.begin(),
+            this_ordering.end(),
+            default_table.compare());
+        EXPECT_EQ(this_ordering, default_ordering);
+    }
+
+    {
+        text::collation_table const case_first_off =
+            text::tailored_collation_table(
+                "[caseFirst off]",
+                "case",
+                [](text::string const & s) { std::cout << s; },
+                [](text::string const & s) { std::cout << s; });
+
+        auto this_ordering = default_ordering;
+        std::sort(
+            this_ordering.begin(),
+            this_ordering.end(),
+            case_first_off.compare());
+        EXPECT_EQ(this_ordering, default_ordering);
+    }
+
+    {
+        text::collation_table const lower_first = text::tailored_collation_table(
+            "[caseFirst lower]",
+            "case",
+            [](text::string const & s) { std::cout << s; },
+            [](text::string const & s) { std::cout << s; });
+
+        auto this_ordering = default_ordering;
+        std::sort(
+            this_ordering.begin(),
+            this_ordering.end(),
+            lower_first.compare());
+        EXPECT_EQ(this_ordering, default_ordering);
+    }
+}
+
 // First two and last two of each reorder group, and a sampling of implicits.
 constexpr std::array<uint32_t, 1> space[4] = {
     {{0x0009}}, {{0x000A}}, {{0x2007}}, {{0x202F}}};
@@ -109,6 +161,8 @@ TEST(tailoring, reordering)
                     cps[i + 1],
                     table,
                     text::collation_strength::primary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 0)
                 << reordering_str << " " << cps[i] << " " << cps[i + 1];
@@ -164,6 +218,8 @@ TEST(tailoring, de)
                 rhs[i],
                 table,
                 text::collation_strength::primary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             primary_result[i])
             << "CASE " << i << "\n"
@@ -175,6 +231,8 @@ TEST(tailoring, de)
                 rhs[i],
                 table,
                 text::collation_strength::tertiary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             tertiary_result[i])
             << "CASE " << i << "\n"
@@ -425,6 +483,8 @@ TEST(tailoring, en)
                     rhs[i],
                     table,
                     text::collation_strength::primary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 result[i])
                 << "CASE " << i << "\n"
@@ -438,6 +498,8 @@ TEST(tailoring, en)
                     rhs[i],
                     table,
                     text::collation_strength::secondary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 result[i])
                 << "CASE " << i << "\n"
@@ -451,6 +513,8 @@ TEST(tailoring, en)
                     rhs[i],
                     table,
                     text::collation_strength::tertiary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 result[i])
                 << "CASE " << i << "\n"
@@ -481,6 +545,8 @@ TEST(tailoring, en)
                         primary_less[j],
                         table,
                         text::collation_strength::tertiary,
+                        text::case_first_t::off,
+                        text::case_level_t::off,
                         text::variable_weighting::non_ignorable),
                     -1)
                     << "CASE " << i << "\n"
@@ -515,6 +581,8 @@ TEST(tailoring, en)
                         strings[j],
                         table,
                         text::collation_strength::tertiary,
+                        text::case_first_t::off,
+                        text::case_level_t::off,
                         text::variable_weighting::non_ignorable),
                     expected)
                     << "CASE " << i << "\n"
@@ -566,6 +634,8 @@ TEST(tailoring, en)
                         strings[j],
                         table,
                         text::collation_strength::secondary,
+                        text::case_first_t::off,
+                        text::case_level_t::off,
                         text::variable_weighting::non_ignorable),
                     expected)
                     << "CASE " << i << "\n"
@@ -618,6 +688,8 @@ TEST(tailoring, es)
                 rhs[i],
                 table,
                 text::collation_strength::tertiary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             result[i])
             << "CASE " << i << "\n"
@@ -632,6 +704,8 @@ TEST(tailoring, es)
                 rhs[i],
                 table,
                 text::collation_strength::primary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             result[i])
             << "CASE " << i << "\n"
@@ -672,6 +746,8 @@ TEST(tailoring, fi)
                 rhs[i],
                 table,
                 text::collation_strength::tertiary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             tertiary_result[i])
             << "CASE " << i << "\n"
@@ -685,6 +761,8 @@ TEST(tailoring, fi)
             rhs[4],
             table,
             text::collation_strength::primary,
+            text::case_first_t::off,
+            text::case_level_t::off,
             text::variable_weighting::non_ignorable),
         tertiary_result[4])
         << "CASE " << 4 << "\n"
@@ -740,6 +818,8 @@ TEST(tailoring, fr)
                     rhs[i],
                     table,
                     text::collation_strength::tertiary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::shifted,
                     text::l2_weight_order::backward),
                 tertiary_result[i])
@@ -771,6 +851,8 @@ TEST(tailoring, fr)
                         tertiary_less[j],
                         table,
                         text::collation_strength::tertiary,
+                        text::case_first_t::off,
+                        text::case_level_t::off,
                         text::variable_weighting::non_ignorable),
                     -1)
                     << "CASE " << i << "\n"
@@ -823,6 +905,8 @@ TEST(tailoring, fr)
                         strings[j],
                         table,
                         text::collation_strength::secondary,
+                        text::case_first_t::off,
+                        text::case_level_t::off,
                         text::variable_weighting::shifted,
                         text::l2_weight_order::backward),
                     expected)
@@ -873,6 +957,8 @@ TEST(tailoring, ja)
                     rhs[i],
                     table,
                     text::collation_strength::tertiary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 tertiary_result[i])
                 << "CASE " << i << "\n"
@@ -894,6 +980,8 @@ TEST(tailoring, ja)
                     primary_less[i + 1],
                     table,
                     text::collation_strength::primary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 -1)
                 << "CASE " << i << "\n"
@@ -917,6 +1005,8 @@ TEST(tailoring, ja)
                     secondary_less[i + 1],
                     table,
                     text::collation_strength::secondary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 -1)
                 << "CASE " << i << "\n"
@@ -941,6 +1031,8 @@ TEST(tailoring, ja)
                     tertiary_less[i + 1],
                     table,
                     text::collation_strength::tertiary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 -1)
                 << "CASE " << i << "\n"
@@ -966,6 +1058,8 @@ TEST(tailoring, ja)
                     quaternary_less[i + 1],
                     table,
                     text::collation_strength::quaternary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 -1)
                 << "CASE " << i << "\n"
@@ -998,6 +1092,8 @@ TEST(tailoring, ja)
                     quaternary_less[i + 1],
                     table,
                     text::collation_strength::quaternary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 -1)
                 << "CASE " << i << "\n"
@@ -1083,6 +1179,8 @@ TEST(tailoring, th)
                     text::utf32_range(rhs[i]),
                     table,
                     text::collation_strength::tertiary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 tertiary_result[i])
                 << "CASE " << i << "\n"
@@ -1150,6 +1248,8 @@ TEST(tailoring, th)
                     text::utf32_range(rhs[i]),
                     table,
                     text::collation_strength::secondary,
+                    text::case_first_t::off,
+                    text::case_level_t::off,
                     text::variable_weighting::non_ignorable),
                 secondary_result[i])
                 << "CASE " << i << "\n"
@@ -1172,6 +1272,8 @@ TEST(tailoring, th)
                 text::string("\u0e41c"),
                 custom_table,
                 text::collation_strength::tertiary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             1);
     }
@@ -1222,6 +1324,8 @@ TEST(tailoring, tr)
                 rhs[i],
                 table,
                 text::collation_strength::tertiary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             tertiary_result[i])
             << "CASE " << i << "\n"
@@ -1235,6 +1339,8 @@ TEST(tailoring, tr)
                 rhs[i],
                 table,
                 text::collation_strength::primary,
+                text::case_first_t::off,
+                text::case_level_t::off,
                 text::variable_weighting::non_ignorable),
             tertiary_result[i])
             << "CASE " << i << "\n"

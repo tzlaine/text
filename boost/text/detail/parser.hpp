@@ -667,17 +667,6 @@ namespace boost { namespace text { namespace detail {
                     "Expected 'on' or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
             tailoring.case_level_(case_level);
-
-            if (tailoring.warnings_) {
-                tailoring.warnings_(parse_diagnostic(
-                    diag_kind::warning,
-                    "[caseLevel ...] is not yet supported; ignoring...",
-                    open_bracket_it->line(),
-                    open_bracket_it->column(),
-                    string_view(first, last - first),
-                    line_starts,
-                    filename));
-            }
         } else if (*identifier == "caseFirst") {
             auto case_first = case_first_t::off;
             if (require(it, end, "upper"))
@@ -691,17 +680,6 @@ namespace boost { namespace text { namespace detail {
                     "Expected 'upper', 'lower', or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
             tailoring.case_first_(case_first);
-
-            if (tailoring.warnings_) {
-                tailoring.warnings_(parse_diagnostic(
-                    diag_kind::warning,
-                    "[caseFirst ...] is not yet supported; ignoring...",
-                    open_bracket_it->line(),
-                    open_bracket_it->column(),
-                    string_view(first, last - first),
-                    line_starts,
-                    filename));
-            }
         } else if (*identifier == "normalization") {
             it = std::find_if(it, end, [](token const & t) {
                 return t.kind() == token_kind::close_bracket;

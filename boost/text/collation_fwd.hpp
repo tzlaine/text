@@ -35,8 +35,8 @@ namespace boost { namespace text {
 
         enum case_bits : uint16_t {
             lower_case_bits = 0x0000,
-            mixed_case_bits = 0x8000,
-            upper_case_bits = 0x4000
+            mixed_case_bits = 0x4000,
+            upper_case_bits = 0x8000
         };
 
         inline uint32_t

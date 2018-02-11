@@ -75,6 +75,8 @@ TEST(collation, relative_{4}_{5})
             curr_cps,
             table(),
             boost::text::collation_strength::identical,
+            boost::text::case_first_t::off,
+            boost::text::case_level_t::off,
             boost::text::variable_weighting::{4});
 
         if (!first) {{
@@ -197,7 +199,7 @@ void BM_collation_{0:03}(benchmark::State & state)
     while (state.KeepRunning()) {{
 '''.format(i, ', '.join(map(lambda x: type(x) == str and '0x' + x or hex(x), cps)), len(cps))
         lines += '''\
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_{0:03}, cps_{0:03} + {2}, table(), boost::text::collation_strength::quaternary, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_{0:03}, cps_{0:03} + {2}, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
 '''.format(i, cp_ranges[0][0], cp_ranges[-1][1])
         lines += '''\
     }}

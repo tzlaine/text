@@ -397,28 +397,78 @@ namespace boost { namespace text {
             }
         }
 
+        // https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Weights
+        inline collation_element modify_for_case(
+            collation_element ce,
+            collation_strength strength,
+            case_first_t case_first,
+            case_level_t case_level) noexcept
+        {
+            if (case_first == case_first_t::off &&
+                case_level == case_level_t::off) {
+                ce.l3_ &= disable_case_level_mask;
+                return ce;
+            }
+
+            uint16_t c = 0; // Set 1, 2, or 3 below.
+            auto const case_bits = ce.l3_ & case_level_bits_mask;
+
+            if (case_first == case_first_t::upper) {
+                c = (case_bits == upper_case_bits)
+                        ? 1
+                        : ((case_bits == mixed_case_bits) ? 2 : 3);
+            } else {
+                c = (case_bits == upper_case_bits)
+                        ? 3
+                        : ((case_bits == mixed_case_bits) ? 2 : 1);
+            }
+
+            if (case_level == case_level_t::on) {
+                if (strength == collation_strength::primary) {
+                    if (!ce.l1_)
+                        ce.l2_ = 0;
+                    else
+                        ce.l2_ = c << 8; // Shift bits into lead L2 byte.
+                    ce.l3_ = 0;
+                } else {
+                    ce.l4_ = ce.l3_ & disable_case_level_mask;
+                    if (!ce.l1_ && !ce.l2_)
+                        ce.l3_ = 0;
+                    else
+                        ce.l3_ = c << 8; // Shift into L3 lead byte.
+                }
+            } else {
+                ce.l3_ &= disable_case_level_mask;
+                if (ce.l2_)
+                    ce.l3_ |= c << 14; // Shift into high 2 bits of L3.
+                else if (ce.l3_)
+                    ce.l3_ |= 3 << 14; // Shift into high 2 bits of L3.
+            }
+
+            return ce;
+        }
+
         template<typename CEIter, typename CPIter, typename Container>
         void
         s3(CEIter ces_first,
            CEIter ces_last,
            int ces_size,
            collation_strength strength,
+           case_first_t case_first,
+           case_level_t case_level,
            l2_weight_order l2_order,
            CPIter cps_first,
            CPIter cps_last,
            int cps_size,
-           Container & bytes,
-           retain_case_bits_t retain_case_bits)
+           Container & bytes)
         {
-            uint16_t const case_mask =
-                retain_case_bits == retain_case_bits_t::yes
-                    ? 0xffff
-                    : disable_case_level_mask;
-
             container::small_vector<uint32_t, 256> l1;
             container::small_vector<uint32_t, 256> l2;
             container::small_vector<uint32_t, 256> l3;
             container::small_vector<uint32_t, 256> l4;
+            // For when case level bumps L4.
+            container::small_vector<uint32_t, 256> l4_overflow;
+#if 0 // Superfluous!  We already reserved 256 elements by using a small_vector.
             l1.reserve(ces_size);
             if (collation_strength::primary < strength) {
                 l2.reserve(ces_size);
@@ -428,46 +478,62 @@ namespace boost { namespace text {
                         l4.reserve(ces_size);
                 }
             }
+#endif
 
+            auto const strength_for_copies =
+                case_level == case_level_t::on
+                    ? collation_strength(static_cast<int>(strength) + 1)
+                    : strength;
             for (; ces_first != ces_last; ++ces_first) {
                 auto ce = *ces_first;
+                ce = modify_for_case(ce, strength, case_first, case_level);
                 if (ce.l1_)
                     l1.push_back(ce.l1_);
-                if (collation_strength::primary < strength) {
+                if (collation_strength::secondary <= strength_for_copies) {
                     if (ce.l2_)
                         l2.push_back(ce.l2_);
-                    if (collation_strength::secondary < strength) {
-                        if (ce.l3_ & case_mask)
-                            l3.push_back(ce.l3_ & case_mask);
-                        if (collation_strength::tertiary < strength) {
-                            if (ce.l4_)
+                    if (collation_strength::tertiary <= strength_for_copies) {
+                        if (ce.l3_)
+                            l3.push_back(ce.l3_);
+                        if (collation_strength::quaternary <=
+                            strength_for_copies) {
+                            if (ce.l4_) {
                                 l4.push_back(ce.l4_);
+                                if (ces_first->l4_)
+                                    l4_overflow.push_back(ces_first->l4_);
+                            }
                         }
                     }
                 }
             }
 
-            if (l1.empty() && l2.empty() && l3.empty() && l4.empty())
+            if (l1.empty() && l2.empty() && l3.empty() && l4.empty() &&
+                l4_overflow.empty()) {
                 return;
+           }
 
-            // TODO: Needs to change under certain compression schemes.
-            int const separators = static_cast<int>(strength);
+           // TODO: Needs to change under certain compression schemes.
+           int const separators = static_cast<int>(strength_for_copies);
 
-            container::small_vector<uint32_t, 256> nfd;
-            if (collation_strength::quaternary < strength)
-                normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
+           container::small_vector<uint32_t, 256> nfd;
+           if (collation_strength::quaternary < strength)
+               normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
 
-            int size = l1.size();
-            if (collation_strength::primary < strength) {
-                size += l2.size();
-                if (collation_strength::secondary < strength) {
-                    size += l3.size();
-                    if (collation_strength::tertiary < strength) {
-                        size += l4.size();
-                        if (collation_strength::quaternary < strength)
-                            size += nfd.size();
-                    }
-                }
+           int size = l1.size();
+           if (collation_strength::primary < strength_for_copies) {
+               size += l2.size();
+               if (collation_strength::secondary < strength_for_copies) {
+                   size += l3.size();
+                   if (collation_strength::tertiary < strength_for_copies) {
+                       size += l4.size();
+                       if (!l4_overflow.empty()) {
+                           ++size;
+                           size += l4_overflow.size();
+                       }
+                       if (collation_strength::quaternary < strength_for_copies)
+                           size += nfd.size();
+                   }
+               }
             }
             size += separators;
 
@@ -475,19 +541,25 @@ namespace boost { namespace text {
 
             auto it = bytes.end() - size;
             it = std::copy(l1.begin(), l1.end(), it);
-            if (collation_strength::primary < strength) {
+            if (collation_strength::primary < strength_for_copies) {
                 *it++ = 0x0000;
                 if (l2_order == l2_weight_order::forward)
                     it = std::copy(l2.begin(), l2.end(), it);
                 else
                     it = std::copy(l2.rbegin(), l2.rend(), it);
-                if (collation_strength::secondary < strength) {
+                if (collation_strength::secondary < strength_for_copies) {
                     *it++ = 0x0000;
                     it = std::copy(l3.begin(), l3.end(), it);
-                    if (collation_strength::tertiary < strength) {
+                    if (collation_strength::tertiary < strength_for_copies) {
                         *it++ = 0x0000;
                         it = std::copy(l4.begin(), l4.end(), it);
-                        if (collation_strength::quaternary < strength) {
+                        if (!l4_overflow.empty()) {
+                            *it++ = 0x0000;
+                            it = std::copy(
+                                l4_overflow.begin(), l4_overflow.end(), it);
+                        }
+                        if (collation_strength::quaternary <
+                            strength_for_copies) {
                             *it++ = 0x0000;
                             it = std::copy(nfd.begin(), nfd.end(), it);
                         }
@@ -502,6 +574,8 @@ namespace boost { namespace text {
             Iter first,
             Iter last,
             collation_strength strength,
+            case_first_t case_first,
+            case_level_t case_level,
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table);
@@ -513,14 +587,30 @@ namespace boost { namespace text {
             Iter2 rhs_first,
             Iter2 rhs_last,
             collation_strength strength,
+            case_first_t case_first,
+            case_level_t case_level,
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table)
         {
             text_sort_key const lhs_sk = collation_sort_key(
-                lhs_first, lhs_last, strength, weighting, l2_order, table);
+                lhs_first,
+                lhs_last,
+                strength,
+                case_first,
+                case_level,
+                weighting,
+                l2_order,
+                table);
             text_sort_key const rhs_sk = collation_sort_key(
-                rhs_first, rhs_last, strength, weighting, l2_order, table);
+                rhs_first,
+                rhs_last,
+                strength,
+                case_first,
+                case_level,
+                weighting,
+                l2_order,
+                table);
             return compare(lhs_sk, rhs_sk);
         }
     }
@@ -534,11 +624,20 @@ namespace boost { namespace text {
         Iter last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
+        case_first_t case_first = case_first_t::off,
+        case_level_t case_level = case_level_t::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         return detail::collation_sort_key(
-            first, last, strength, weighting, l2_order, table);
+            first,
+            last,
+            strength,
+            case_first,
+            case_level,
+            weighting,
+            l2_order,
+            table);
     }
 
     /** TODO */
@@ -547,13 +646,22 @@ namespace boost { namespace text {
         CodePointRange const & r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
+        case_first_t case_first = case_first_t::off,
+        case_level_t case_level = case_level_t::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
         using std::begin;
         using std::end;
         return collation_sort_key(
-            begin(r), end(r), table, strength, weighting, l2_order);
+            begin(r),
+            end(r),
+            table,
+            strength,
+            case_first,
+            case_level,
+            weighting,
+            l2_order);
     }
 
 
@@ -566,6 +674,8 @@ namespace boost { namespace text {
         Iter2 rhs_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
+        case_first_t case_first = case_first_t::off,
+        case_level_t case_level = case_level_t::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
@@ -575,6 +685,8 @@ namespace boost { namespace text {
             rhs_first,
             rhs_last,
             strength,
+            case_first,
+            case_level,
             weighting,
             l2_order,
             table);
@@ -587,6 +699,8 @@ namespace boost { namespace text {
         CodePointRange2 const & r2,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
+        case_first_t case_first = case_first_t::off,
+        case_level_t case_level = case_level_t::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
@@ -599,6 +713,8 @@ namespace boost { namespace text {
             end(r2),
             table,
             strength,
+            case_first,
+            case_level,
             weighting,
             l2_order);
     }
@@ -614,6 +730,8 @@ namespace boost { namespace text { namespace detail {
         Iter first,
         Iter last,
         collation_strength strength,
+        case_first_t case_first,
+        case_level_t case_level,
         variable_weighting weighting,
         l2_weight_order l2_order,
         collation_table const & table)
@@ -624,6 +742,10 @@ namespace boost { namespace text { namespace detail {
             l2_order = *table.l2_order();
         if (table.weighting())
             weighting = *table.weighting();
+        if (table.case_first())
+            case_first = *table.case_first();
+        if (table.case_level())
+            case_level = *table.case_level();
 
         container::small_vector<collation_element, 1024> ces;
         std::array<uint32_t, 256> buffer;
@@ -658,7 +780,12 @@ namespace boost { namespace text { namespace detail {
             auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
             container::small_vector<collation_element, 1024> const temp =
                 table.collation_elements(
-                    buffer.begin(), s2_it, strength, weighting);
+                    buffer.begin(),
+                    s2_it,
+                    strength,
+                    case_first,
+                    case_level,
+                    weighting);
             ces.insert(ces.end(), temp.begin(), temp.end());
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
@@ -669,12 +796,13 @@ namespace boost { namespace text { namespace detail {
            ces.end(),
            ces.size(),
            strength,
+           case_first,
+           case_level,
            l2_order,
            initial_first,
            last,
            cps,
-           bytes,
-           retain_case_bits_t::no);
+           bytes);
 
         return text_sort_key(std::move(bytes));
     }

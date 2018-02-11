@@ -213,6 +213,8 @@ namespace boost { namespace text {
             Iter first,
             Iter last,
             collation_strength strength = collation_strength::tertiary,
+            case_first_t case_first = case_first_t::off,
+            case_level_t case_level = case_level_t::off,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const;
 
@@ -221,17 +223,30 @@ namespace boost { namespace text {
         collation_elements(
             CodePointRange & r,
             collation_strength strength = collation_strength::tertiary,
+            case_first_t case_first = case_first_t::off,
+            case_level_t case_level = case_level_t::off,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const
         {
             using std::begin;
             using std::end;
-            return collation_elements(begin(r), end(r), strength, weighting);
+            return collation_elements(
+                begin(r), end(r), strength, case_first, case_level, weighting);
         }
 
         optional<l2_weight_order> l2_order() const noexcept
         {
             return data_->l2_order_;
+        }
+
+        optional<case_first_t> case_first() const noexcept
+        {
+            return data_->case_first_;
+        }
+
+        optional<case_level_t> case_level() const noexcept
+        {
+            return data_->case_level_;
         }
 
         optional<variable_weighting> weighting() const noexcept
@@ -1164,10 +1179,20 @@ namespace boost { namespace text {
         Iter first,
         Iter last,
         collation_strength strength,
+        case_first_t case_first,
+        case_level_t case_level,
         variable_weighting weighting) const
     {
         if (data_->weighting_)
             weighting = *data_->weighting_;
+        if (data_->case_first_)
+            case_first = *data_->case_first_;
+        if (data_->case_level_)
+            case_level = *data_->case_level_;
+        auto const retain_case_bits =
+            case_first != case_first_t::off || case_level != case_level_t::off
+                ? detail::retain_case_bits_t::yes
+                : detail::retain_case_bits_t::no;
         container::small_vector<detail::collation_element, 1024> retval;
         detail::s2(
             first,
@@ -1181,7 +1206,7 @@ namespace boost { namespace text {
             },
             strength,
             weighting,
-            detail::retain_case_bits_t::no); // TODO: Other case params.
+            retain_case_bits);
         return retval;
     }
 
@@ -1435,22 +1460,24 @@ namespace boost { namespace text {
                lhs.end(),
                lhs.size(),
                collation_strength::quaternary,
+               case_first_t::off,
+               case_level_t::off,
                l2_weight_order::forward,
                cps,
                cps,
                0,
-               lhs_bytes,
-               retain_case_bits_t::no);
+               lhs_bytes);
             s3(rhs.begin(),
                rhs.end(),
                rhs.size(),
                collation_strength::quaternary,
+               case_first_t::off,
+               case_level_t::off,
                l2_weight_order::forward,
                cps,
                cps,
                0,
-               rhs_bytes,
-               retain_case_bits_t::no);
+               rhs_bytes);
 
             auto const pair = algorithm::mismatch(
                 lhs_bytes.begin(),

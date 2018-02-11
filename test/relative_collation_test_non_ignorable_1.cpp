@@ -39,6 +39,8 @@ TEST(collation, relative_non_ignorable_1)
             curr_cps,
             table(),
             boost::text::collation_strength::identical,
+            boost::text::case_first_t::off,
+            boost::text::case_level_t::off,
             boost::text::variable_weighting::non_ignorable);
 
         if (!first) {

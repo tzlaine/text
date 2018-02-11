@@ -44,12 +44,14 @@ TEST(tailoring, da_standard_000_001)
         std::vector<uint32_t>(1, 0x0111),
         table(), collation_strength::primary),
         0);
+#if 0 // Now that caseFirst is implemented, this is too simplistic.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0111),
         std::vector<uint32_t>(1, 0x0110),
         table(), collation_strength::tertiary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0111),
@@ -68,12 +70,14 @@ TEST(tailoring, da_standard_000_001)
         std::vector<uint32_t>(1, 0x00f0),
         table(), collation_strength::primary),
         0);
+#if 0 // Now that caseFirst is implemented, this is too simplistic.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x00f0),
         std::vector<uint32_t>(1, 0x00d0),
         table(), collation_strength::tertiary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x00f0),
@@ -116,12 +120,14 @@ TEST(tailoring, da_standard_000_001)
         std::vector<uint32_t>{0x0075, 0x0308},
         table(), collation_strength::primary),
         0);
+#if 0 // Now that caseFirst is implemented, this is too simplistic.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0075, 0x0308},
         std::vector<uint32_t>{0x0055, 0x0308},
         table(), collation_strength::tertiary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0075, 0x0308},
@@ -140,12 +146,14 @@ TEST(tailoring, da_standard_000_001)
         std::vector<uint32_t>{0x0075, 0x030b},
         table(), collation_strength::primary),
         0);
+#if 0 // Now that caseFirst is implemented, this is too simplistic.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0075, 0x030b},
         std::vector<uint32_t>{0x0055, 0x030b},
         table(), collation_strength::tertiary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x0075, 0x030b},
@@ -164,12 +172,14 @@ TEST(tailoring, da_standard_000_001)
         std::vector<uint32_t>(1, 0x0153),
         table(), collation_strength::primary),
         0);
+#if 0 // Now that caseFirst is implemented, this is too simplistic.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0153),
         std::vector<uint32_t>(1, 0x0152),
         table(), collation_strength::tertiary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0153),
