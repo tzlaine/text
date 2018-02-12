@@ -40,7 +40,7 @@ namespace std {
     }
 }
 
-TEST(tailoring, case_modifications)
+TEST(tailoring, case_first)
 {
     std::array<std::array<uint32_t, 3>, 4> const default_ordering = {{
         {{0x61, 0x62, 0x63}}, // "abc"
@@ -62,11 +62,7 @@ TEST(tailoring, case_modifications)
 
     {
         text::collation_table const case_first_off =
-            text::tailored_collation_table(
-                "[caseFirst off]",
-                "case",
-                [](text::string const & s) { std::cout << s; },
-                [](text::string const & s) { std::cout << s; });
+            text::tailored_collation_table("[caseFirst off]");
 
         auto this_ordering = default_ordering;
         std::sort(
@@ -77,11 +73,8 @@ TEST(tailoring, case_modifications)
     }
 
     {
-        text::collation_table const lower_first = text::tailored_collation_table(
-            "[caseFirst lower]",
-            "case",
-            [](text::string const & s) { std::cout << s; },
-            [](text::string const & s) { std::cout << s; });
+        text::collation_table const lower_first =
+            text::tailored_collation_table("[caseFirst lower]");
 
         auto this_ordering = default_ordering;
         std::sort(
@@ -90,6 +83,55 @@ TEST(tailoring, case_modifications)
             lower_first.compare());
         EXPECT_EQ(this_ordering, default_ordering);
     }
+
+    {
+        text::collation_table const upper_first =
+            text::tailored_collation_table("[caseFirst upper]");
+
+        auto this_ordering = default_ordering;
+        std::sort(
+            this_ordering.begin(),
+            this_ordering.end(),
+            upper_first.compare());
+        EXPECT_NE(this_ordering, default_ordering);
+        std::reverse(this_ordering.begin(), this_ordering.end());
+        EXPECT_EQ(this_ordering, default_ordering);
+    }
+
+#if 0
+    {
+        text::collation_table const lower_first =
+            text::tailored_collation_table("[caseFirst lower]");
+        text::collation_table const upper_first =
+            text::tailored_collation_table("[caseFirst upper]");
+
+        auto lower_ordering = default_ordering;
+        std::sort(
+            lower_ordering.begin(),
+            lower_ordering.end(),
+            lower_first.compare());
+        auto upper_ordering = default_ordering;
+        std::sort(
+            upper_ordering.begin(),
+            upper_ordering.end(),
+            upper_first.compare());
+
+        std::cout << "\n\n\n\n";
+        for (auto str : lower_ordering) {
+            std::cout << "\"";
+            for (auto cp : str)
+                std::cout << (char)cp;
+            std::cout << "\" " << text::collation_sort_key(str, lower_first) << "\n";
+        }
+        std::cout << "\n";
+        for (auto str : upper_ordering) {
+            std::cout << "\"";
+            for (auto cp : str)
+                std::cout << (char)cp;
+            std::cout << "\" " << text::collation_sort_key(str, upper_first) << "\n";
+        }
+    }
+#endif
 }
 
 // First two and last two of each reorder group, and a sampling of implicits.
