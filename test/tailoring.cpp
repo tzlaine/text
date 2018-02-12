@@ -97,41 +97,82 @@ TEST(tailoring, case_first)
         std::reverse(this_ordering.begin(), this_ordering.end());
         EXPECT_EQ(this_ordering, default_ordering);
     }
+}
 
-#if 0
+TEST(tailoring, case_level)
+{
+    // Default collation indicates: role <2 rôle <3 Rôle
+    std::array<std::array<uint32_t, 4>, 4> const strings = {{
+        {{0x72, 0x6f, 0x6c, 0x65}}, // "role"
+        {{0x72, 0xf4, 0x6c, 0x65}}, // "rôle"
+        {{0x52, 0xf4, 0x6c, 0x65}}, // "Rôle"
+        {{0x52, 0x6f, 0x6c, 0x65}}, // "Role"
+    }};
+
+    text::collation_table const default_table = text::default_collation_table();
+
     {
-        text::collation_table const lower_first =
-            text::tailored_collation_table("[caseFirst lower]");
-        text::collation_table const upper_first =
-            text::tailored_collation_table("[caseFirst upper]");
-
-        auto lower_ordering = default_ordering;
-        std::sort(
-            lower_ordering.begin(),
-            lower_ordering.end(),
-            lower_first.compare());
-        auto upper_ordering = default_ordering;
-        std::sort(
-            upper_ordering.begin(),
-            upper_ordering.end(),
-            upper_first.compare());
-
-        std::cout << "\n\n\n\n";
-        for (auto str : lower_ordering) {
-            std::cout << "\"";
-            for (auto cp : str)
-                std::cout << (char)cp;
-            std::cout << "\" " << text::collation_sort_key(str, lower_first) << "\n";
-        }
-        std::cout << "\n";
-        for (auto str : upper_ordering) {
-            std::cout << "\"";
-            for (auto cp : str)
-                std::cout << (char)cp;
-            std::cout << "\" " << text::collation_sort_key(str, upper_first) << "\n";
-        }
+        auto const primary_less =
+            default_table.compare(text::collation_strength::primary);
+        EXPECT_FALSE(primary_less(strings[0], strings[1]));
+        EXPECT_FALSE(primary_less(strings[1], strings[0]));
+        EXPECT_FALSE(primary_less(strings[0], strings[2]));
+        EXPECT_FALSE(primary_less(strings[2], strings[0]));
+        EXPECT_FALSE(primary_less(strings[0], strings[3]));
+        EXPECT_FALSE(primary_less(strings[3], strings[0]));
+        auto const secondary_less =
+            default_table.compare(text::collation_strength::secondary);
+        EXPECT_TRUE(secondary_less(strings[0], strings[1]));
+        EXPECT_FALSE(secondary_less(strings[1], strings[2]));
+        auto const tertiary_less =
+            default_table.compare(text::collation_strength::tertiary);
+        EXPECT_TRUE(tertiary_less(strings[0], strings[2]));
+        EXPECT_TRUE(tertiary_less(strings[1], strings[2]));
     }
-#endif
+
+    {
+        text::collation_table const case_level_off =
+            text::tailored_collation_table("[caseLevel off]");
+
+        auto const primary_less =
+            case_level_off.compare(text::collation_strength::primary);
+        EXPECT_FALSE(primary_less(strings[0], strings[1]));
+        EXPECT_FALSE(primary_less(strings[1], strings[0]));
+        EXPECT_FALSE(primary_less(strings[0], strings[2]));
+        EXPECT_FALSE(primary_less(strings[2], strings[0]));
+        EXPECT_FALSE(primary_less(strings[0], strings[3]));
+        EXPECT_FALSE(primary_less(strings[3], strings[0]));
+        auto const secondary_less =
+            case_level_off.compare(text::collation_strength::secondary);
+        EXPECT_TRUE(secondary_less(strings[0], strings[1]));
+        EXPECT_FALSE(secondary_less(strings[1], strings[2]));
+        auto const tertiary_less =
+            case_level_off.compare(text::collation_strength::tertiary);
+        EXPECT_TRUE(tertiary_less(strings[0], strings[2]));
+        EXPECT_TRUE(tertiary_less(strings[1], strings[2]));
+    }
+
+    {
+        text::collation_table const case_level_on =
+            text::tailored_collation_table("[caseLevel on]");
+
+        auto const primary_less =
+            case_level_on.compare(text::collation_strength::primary);
+        EXPECT_FALSE(primary_less(strings[0], strings[1]));
+        EXPECT_FALSE(primary_less(strings[1], strings[0]));
+        EXPECT_TRUE(primary_less(strings[0], strings[2]));
+        EXPECT_FALSE(primary_less(strings[2], strings[0]));
+        EXPECT_TRUE(primary_less(strings[0], strings[3]));
+        EXPECT_FALSE(primary_less(strings[3], strings[0]));
+        auto const secondary_less =
+            case_level_on.compare(text::collation_strength::secondary);
+        EXPECT_TRUE(secondary_less(strings[0], strings[1]));
+        EXPECT_TRUE(secondary_less(strings[1], strings[2]));
+        auto const tertiary_less =
+            case_level_on.compare(text::collation_strength::tertiary);
+        EXPECT_TRUE(tertiary_less(strings[0], strings[2]));
+        EXPECT_TRUE(tertiary_less(strings[1], strings[2]));
+    }
 }
 
 // First two and last two of each reorder group, and a sampling of implicits.
