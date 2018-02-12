@@ -203,10 +203,19 @@ namespace boost { namespace text {
         }
     }
 
+    struct collation_compare;
+
     /** TODO */
     // TODO: Serialization.
     struct collation_table
     {
+        collation_compare compare(
+            collation_strength strength = collation_strength::tertiary,
+            case_first_t case_first = case_first_t::off,
+            case_level_t case_level = case_level_t::off,
+            variable_weighting weighting = variable_weighting::non_ignorable,
+            l2_weight_order l2_order = l2_weight_order::forward) const;
+
         template<typename Iter>
         container::small_vector<detail::collation_element, 1024>
         collation_elements(
@@ -292,6 +301,37 @@ namespace boost { namespace text {
         friend void save_table(
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);
+    };
+
+    /** TODO */
+    struct collation_compare
+    {
+        collation_compare(
+            collation_table table,
+            collation_strength strength,
+            case_first_t case_first = case_first_t::off,
+            case_level_t case_level = case_level_t::off,
+            variable_weighting weighting = variable_weighting::non_ignorable,
+            l2_weight_order l2_order = l2_weight_order::forward) :
+            table_(std::move(table)),
+            strength_(strength),
+            case_first_(case_first),
+            case_level_(case_level),
+            weighting_(weighting),
+            l2_order_(l2_order)
+        {}
+
+        template<typename CodePointRange1, typename CodePointRange2>
+        bool operator()(
+            CodePointRange1 const & r1, CodePointRange2 const & r2) const;
+
+    private:
+        collation_table table_;
+        collation_strength strength_;
+        case_first_t case_first_;
+        case_level_t case_level_;
+        variable_weighting weighting_;
+        l2_weight_order l2_order_;
     };
 
     namespace detail {
@@ -1173,6 +1213,17 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
+    inline collation_compare collation_table::compare(
+        collation_strength strength,
+        case_first_t case_first,
+        case_level_t case_level,
+        variable_weighting weighting,
+        l2_weight_order l2_order) const
+    {
+        return collation_compare(
+            *this, strength, case_first, case_level, weighting, l2_order);
+    }
+
     template<typename Iter>
     container::small_vector<detail::collation_element, 1024>
     collation_table::collation_elements(
@@ -1208,6 +1259,21 @@ namespace boost { namespace text {
             weighting,
             retain_case_bits);
         return retval;
+    }
+
+    template<typename CodePointRange1, typename CodePointRange2>
+    bool collation_compare::
+    operator()(CodePointRange1 const & r1, CodePointRange2 const & r2) const
+    {
+        return collate(
+                   r1,
+                   r2,
+                   table_,
+                   strength_,
+                   case_first_,
+                   case_level_,
+                   weighting_,
+                   l2_order_) < 0;
     }
 
     inline collation_table tailored_collation_table(
