@@ -496,7 +496,8 @@ namespace boost { namespace text {
                 ce.l1_ = increment_32_bit(ce.l1_, true);
                 if (initial_bump) {
                     ce.l2_ = common_l2_weight_compressed;
-                    ce.l3_ = common_l3_weight_compressed;
+                    auto const case_bits = ce.l3_ & case_level_bits_mask;
+                    ce.l3_ = common_l3_weight_compressed | case_bits;
                 }
                 break;
             case collation_strength::secondary:
@@ -504,8 +505,10 @@ namespace boost { namespace text {
                     ce.l2_ += 1;
                 else
                     ce.l2_ += 0x0100;
-                if (initial_bump)
-                    ce.l3_ = common_l3_weight_compressed;
+                if (initial_bump) {
+                    auto const case_bits = ce.l3_ & case_level_bits_mask;
+                    ce.l3_ = common_l3_weight_compressed | case_bits;
+                }
                 break;
             case collation_strength::tertiary:
                 if ((((ce.l3_ & 0x3f00) + 0x0100) & case_level_bits_mask) == 0)
