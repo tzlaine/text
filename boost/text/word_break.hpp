@@ -7,6 +7,7 @@
 
 namespace boost { namespace text {
 
+    /** The word properties outlined in Unicode 10. */
     enum class word_prop_t {
         Other,
         CR,
@@ -197,8 +198,11 @@ namespace boost { namespace text {
         word_break_fsm fsm_;
     };
 
+    /** Returns the word property associated with code point \a cp. */
     word_prop_t word_prop(uint32_t cp) noexcept;
 
+    /** Returns true if and only if the table from the Unicode Character
+        Database indicates a break between \a lhs and \a rhs. */
     inline word_break_t
     word_break(word_break_fsm fsm, word_prop_t prev_prop, word_prop_t prop, uint32_t cp) noexcept
     {

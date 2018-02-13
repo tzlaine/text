@@ -31,7 +31,7 @@ namespace boost { namespace text {
         E_Base_GAZ
     };
 
-    /** A state machine used in the detction of extended grapheme clusters.
+    /** A state machine used in the detection of extended grapheme clusters.
         Only suitable for detection in the forward direction. */
     struct grapheme_break_fsm
     {
