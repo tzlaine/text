@@ -28,6 +28,9 @@ namespace boost { namespace text {
         Extend
     };
 
+    /** Returns the sentence property associated with code point \a cp. */
+    sentence_prop_t sentence_prop(uint32_t cp) noexcept;
+
     /** Returns true if and only if the table from the Unicode Character
         Database indicates a break between \a lhs and \a rhs. */
     inline bool

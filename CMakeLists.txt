@@ -58,6 +58,8 @@ include(dependencies)
 add_library(text
     src/grapheme_break.cpp
     src/word_break.cpp
+    src/sentence_break.cpp
+    src/line_break.cpp
     src/normalization_data_cp_props.cpp
     src/normalization_data_compose.cpp
     src/collation_data_0.cpp

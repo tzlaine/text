@@ -68,7 +68,8 @@ def extract_break_properties(filename, prop_):
             else:
                 cp = int(code_points, 16)
                 interval = (cp, cp + 1, prop)
-            intervals.append(interval)
+            if 'line' not in prop_ or 'SG' not in interval[2]: # Skip surrogates.
+                intervals.append(interval)
 
     intervals = sorted(intervals)
     intervals_list = ''
@@ -97,4 +98,12 @@ cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, gra
 cpp_file = open('word_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', word_break_intervals_map))
 
-# TODO: Add sentence breaks?
+(sentence_break_intervals, num_sentence_intervals, sentence_break_intervals_map) = \
+    extract_break_properties('SentenceBreakProperty.txt', 'sentence_prop')
+cpp_file = open('sentence_break.cpp', 'w')
+cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', sentence_break_intervals_map))
+
+(line_break_intervals, num_line_intervals, line_break_intervals_map) = \
+    extract_break_properties('LineBreak.txt', 'line_prop')
+cpp_file = open('line_break.cpp', 'w')
+cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map))

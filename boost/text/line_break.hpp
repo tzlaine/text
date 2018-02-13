@@ -56,6 +56,9 @@ namespace boost { namespace text {
         Other
     };
 
+    /** Returns the line property associated with code point \a cp. */
+    line_prop_t line_prop(uint32_t cp) noexcept;
+
     /** Returns true if and only if the table from the Unicode Character
         Database indicates a break between \a lhs and \a rhs. */
     inline bool line_table_break(line_prop_t lhs, line_prop_t rhs) noexcept
