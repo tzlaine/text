@@ -158,8 +158,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     /** Searches backward to find the start of the grapheme in which \a
         current is found, without searching before \a first or after \a
         last. */
-    template<typename Iter, typename Sentinel>
-    Iter find_grapheme_start(Iter first, Iter current, Sentinel last) noexcept
+    template<typename CPIter, typename Sentinel>
+    CPIter find_grapheme_start(CPIter first, CPIter current, Sentinel last) noexcept
     {
         assert(current != last);
 

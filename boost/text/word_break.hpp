@@ -37,6 +37,12 @@ namespace boost { namespace text {
     word_prop_t word_prop(uint32_t cp) noexcept;
 
     namespace detail {
+        inline bool skippable(word_prop_t prop) noexcept
+        {
+            return prop == word_prop_t::Extend || prop == word_prop_t::Format ||
+                   prop == word_prop_t::ZWJ;
+        }
+
         inline bool linebreak(word_prop_t prop) noexcept
         {
             return prop == word_prop_t::CR || prop == word_prop_t::LF ||
@@ -65,19 +71,55 @@ namespace boost { namespace text {
                    prop == word_prop_t::Single_Quote;
         }
 
-        enum class state_t {
-            use_table,
-            emoji_flag     // WB15, WB16
+        // Used in WB15, WB16
+        enum class word_break_emoji_state_t {
+            none,
+            first_emoji, // Indicates that prop points to an odd-count emoji.
+            second_emoji // Indicates that prop points to an even-count emoji.
         };
-    }
 
-    template<typename CPIter>
-    inline CPIter next_word_break(CPIter first, CPIter it, CPIter last) noexcept
-    {
-        if (it == last)
-            return last;
+        template<typename CPIter>
+        struct word_break_state
+        {
+            CPIter it;
+            bool it_points_to_prev = false;
 
-        // clang-format off
+            word_prop_t prev_prev_prop;
+            word_prop_t prev_prop;
+            word_prop_t prop;
+            word_prop_t next_prop;
+            word_prop_t next_next_prop;
+
+            word_break_emoji_state_t emoji_state;
+        };
+
+        template<typename CPIter>
+        word_break_state<CPIter> next(word_break_state<CPIter> state)
+        {
+            ++state.it;
+            state.prev_prev_prop = state.prev_prop;
+            state.prev_prop = state.prop;
+            state.prop = state.next_prop;
+            state.next_prop = state.next_next_prop;
+            return state;
+        }
+
+        template<typename CPIter>
+        word_break_state<CPIter> prev(word_break_state<CPIter> state)
+        {
+            if (!state.it_points_to_prev)
+                --state.it;
+            state.it_points_to_prev = false;
+            state.next_next_prop = state.next_prop;
+            state.next_prop = state.prop;
+            state.prop = state.prev_prop;
+            state.prev_prop = state.prev_prev_prop;
+            return state;
+        }
+
+        inline bool table_word_break(word_prop_t lhs, word_prop_t rhs)
+        {
+            // clang-format off
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/WordBreakTest.html.
 constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 //  Other CR LF NL Ktk AL ML MN MNL Num ENL RI HL DQ SQ E_Bse E_Mod GAZ EBG Fmt Extd ZWJ
@@ -111,125 +153,394 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                                                                                      
     {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    0,  0,  0,  0,   0}}, // ZWJ
 }};
-        // clang-format on
+            // clang-format on
+            auto const lhs_int = static_cast<int>(lhs);
+            auto const rhs_int = static_cast<int>(rhs);
+            return word_breaks[lhs_int][rhs_int];
+        }
+    }
 
-        auto prev_prev_prop = word_prop_t::Other;
-        if (it != first)
-            prev_prev_prop = word_prop(*std::prev(it));
-        auto prev_prop = word_prop(*it);
-        auto prop = word_prop(*++it);
+    // TODO: Sentinels!  Also, audit elsewhere for places that can use them.
 
-        auto state = detail::state_t::use_table;
+    // TODO: Consolidate symmetrical break blocking rules like WB6,WB7 by
+    // advancing past them once they are detected, as an optimization.
 
-        // Back up to the first RI so we can see what state we're supposed to
-        // be in here.
-        if (prop == word_prop_t::Regional_Indicator) {
-            auto ri_it = it;
-            int ris_before = 0;
-            while (ri_it != first) {
-                if (word_prop(--ri_it) == word_prop_t::Regional_Indicator)
-                    ++ris_before;
-                else
-                    break;
-            }
-            if (ris_before % 2 == 1)
-                state = detail::state_t::emoji_flag;
+    /** Finds the next word break before <code>it</code>.  If <code>it ==
+        first</code>, that is returned.  Otherwise, the first code point of
+        the current word is returned (even if <coe>it</code> is already at the
+        first code point of a word.
+
+        \pre <code>it</code> is at the beginning of a word.*/
+    template<typename CPIter>
+    inline CPIter
+    prev_word_break(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        if (it == first)
+            return it;
+
+        if (it == last && --it == first)
+            return it;
+
+        detail::word_break_state<CPIter> state;
+
+        state.it = it;
+
+        // b word_break.hpp:237
+        // b word_break_07.cpp:60
+
+        state.prev_prev_prop = word_prop_t::Other;
+        if (std::prev(state.it) != first)
+            state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
+        state.prev_prop = word_prop(*std::prev(state.it));
+        state.prop = word_prop(*state.it);
+        state.next_prop = word_prop_t::Other;
+        state.next_next_prop = word_prop_t::Other;
+        if (std::next(state.it) != last) {
+            state.next_prop = word_prop(*std::next(state.it));
+            if (std::next(state.it, 2) != last)
+                state.next_next_prop = word_prop(*std::next(state.it, 2));
         }
 
-        for (; it != last; prev_prev_prop = prev_prop,
-                           prev_prop = prop,
-                           prop = word_prop(*++it)) {
+        state.emoji_state = detail::word_break_emoji_state_t::none;
+
+        // WB4: Except after line breaks, ignore/skip (Extend | Format |
+        // ZWJ)*
+        auto skip = [](detail::word_break_state<CPIter> state, CPIter first) {
+            if (detail::skippable(state.prev_prop)) {
+                auto temp_it = state.it;
+                auto temp_prev_prop = word_prop(*--temp_it);
+                while (temp_it != first) {
+                    temp_prev_prop = word_prop(*--temp_it);
+                    if (!detail::skippable(temp_prev_prop))
+                        break;
+                }
+                if (!detail::linebreak(temp_prev_prop) &&
+                    !detail::table_word_break(temp_prev_prop, state.prop)) {
+                    state.it = temp_it;
+                    state.it_points_to_prev = true;
+                    state.prev_prop = temp_prev_prop;
+                    auto temp_prev_prev_prop = word_prop(*std::prev(temp_it));
+                    state.prev_prev_prop = temp_prev_prev_prop;
+                }
+            }
+            return state;
+        };
+
+        for (; state.it != first; state = prev(state)) {
+            if (std::prev(state.it) != first)
+                state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
+            else
+                state.prev_prev_prop = word_prop_t::Other;
+
+            // When we see an RI, back up to the first RI so we can see what
+            // emoji state we're supposed to be in here.
+            if (state.emoji_state == detail::word_break_emoji_state_t::none &&
+                state.prop == word_prop_t::Regional_Indicator) {
+                auto temp_state = state;
+                int ris_before = 0;
+                while (temp_state.it != first) {
+                    temp_state = skip(temp_state, first);
+                    if (temp_state.it == first)
+                        break;
+                    if (temp_state.prev_prop ==
+                        word_prop_t::Regional_Indicator) {
+                        temp_state = prev(temp_state);
+                        if (std::prev(temp_state.it) != first)
+                            temp_state.prev_prev_prop =
+                                word_prop(*std::prev(temp_state.it, 2));
+                        else
+                            temp_state.prev_prev_prop = word_prop_t::Other;
+                        ++ris_before;
+                    } else {
+                        break;
+                    }
+                }
+                state.emoji_state =
+                    (ris_before % 2 == 0)
+                        ? detail::word_break_emoji_state_t::first_emoji
+                        : detail::word_break_emoji_state_t::second_emoji;
+            }
+
             // WB3
-            if (prev_prop == word_prop_t::CR && prop == word_prop_t::LF)
+            if (state.prev_prop == word_prop_t::CR &&
+                state.prop == word_prop_t::LF) {
                 continue;
+            }
 
             // WB3a
-            if (prev_prop == word_prop_t::CR || prev_prop == word_prop_t::LF ||
-                prev_prop == word_prop_t::Newline) {
-                return it;
+            if (state.prev_prop == word_prop_t::CR ||
+                state.prev_prop == word_prop_t::LF ||
+                state.prev_prop == word_prop_t::Newline) {
+                return state.it;
             }
 
             // WB3b
-            if (prop == word_prop_t::CR || prop == word_prop_t::LF ||
-                prop == word_prop_t::Newline) {
-                return it;
+            if (state.prop == word_prop_t::CR ||
+                state.prop == word_prop_t::LF ||
+                state.prop == word_prop_t::Newline) {
+                return state.it;
             }
 
             // WB3c
-            if (prev_prop == word_prop_t::ZWJ &&
-                (prop == word_prop_t::Glue_After_Zwj ||
-                 prop == word_prop_t::E_Base_GAZ)) {
+            if (state.prev_prop == word_prop_t::ZWJ &&
+                (state.prop == word_prop_t::Glue_After_Zwj ||
+                 state.prop == word_prop_t::E_Base_GAZ)) {
                 continue;
             }
 
-            // WB4: Except after line breaks, ignore/skip (Extend | Format |
-            // ZWJ)*
-            if (!linebreak(prev_prop)) {
-                while (it != last && (prop == word_prop_t::Extend ||
-                                      prop == word_prop_t::Format ||
-                                      prop == word_prop_t::ZWJ)) {
-                    prop = word_prop(*++it);
-                }
-                if (it == last)
-                    return last;
-            }
+            // Puting this here means not having to do it explicitly below
+            // between prev_prop and prop (and transitively, between prop and
+            // next_prop).
+            state = skip(state, first);
 
             // WB6
-            if (std::next(it) != last) {
-                auto next_prop = word_prop(*std::next(it));
-                if (detail::ah_letter(prev_prop) && detail::mid_ah(prop) &&
-                    detail::ah_letter(next_prop)) {
-                    continue;
-                }
+            if (detail::ah_letter(state.prev_prop) &&
+                detail::mid_ah(state.prop) &&
+                detail::ah_letter(state.next_prop)) {
+                continue;
             }
 
             // WB7
-            if (detail::ah_letter(prev_prev_prop) &&
-                detail::mid_ah(prev_prop) && detail::ah_letter(prop)) {
+            if (detail::mid_ah(state.prev_prop) &&
+                detail::ah_letter(state.prop) && state.it != first) {
+                auto const temp_state = skip(prev(state), first);
+                if (detail::ah_letter(temp_state.prev_prop))
+                    continue;
+            }
+
+            // WB7b
+            if (state.prev_prop == word_prop_t::Hebrew_Letter &&
+                state.prop == word_prop_t::Double_Quote &&
+                state.next_prop == word_prop_t::Hebrew_Letter) {
                 continue;
             }
 
             // WB7c
-            if (prev_prev_prop == word_prop_t::Hebrew_Letter &&
-                prev_prop == word_prop_t::Double_Quote &&
-                prop == word_prop_t::Hebrew_Letter) {
+            if (state.prev_prop == word_prop_t::Double_Quote &&
+                state.prop == word_prop_t::Hebrew_Letter && state.it != first) {
+                auto const temp_state = skip(prev(state), first);
+                if (temp_state.prev_prop == word_prop_t::Hebrew_Letter)
+                    continue;
+            }
+
+            // WB11
+            if (detail::mid_num(state.prev_prop) &&
+                state.prop == word_prop_t::Numeric && state.it != first) {
+                auto const temp_state = skip(prev(state), first);
+                if (temp_state.prev_prop == word_prop_t::Numeric)
+                    continue;
+            }
+
+            // WB12
+            if (state.prev_prop == word_prop_t::Numeric &&
+                detail::mid_num(state.prop) &&
+                state.next_prop == word_prop_t::Numeric) {
+                continue;
+            }
+
+            if (state.emoji_state ==
+                detail::word_break_emoji_state_t::first_emoji) {
+                if (state.prev_prop == word_prop_t::Regional_Indicator) {
+                    state.emoji_state =
+                        detail::word_break_emoji_state_t::second_emoji;
+                } else {
+                    state.emoji_state = detail::word_break_emoji_state_t::none;
+                }
+            } else if (
+                state.emoji_state ==
+                    detail::word_break_emoji_state_t::second_emoji &&
+                state.prev_prop == word_prop_t::Regional_Indicator) {
+                state.emoji_state =
+                    detail::word_break_emoji_state_t::first_emoji;
+                continue;
+            }
+
+            if (detail::table_word_break(state.prev_prop, state.prop))
+                return state.it;
+        }
+
+        return first;
+    }
+
+    /** Finds the next word break after <code>it</code>.  This will be the
+        first code point after the current word, or <code>last</code> if no
+        next word exists.
+
+        \pre <code>it</code> is at the beginning of a word.*/
+    template<typename CPIter>
+    inline CPIter next_word_break(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        if (it == last)
+            return last;
+
+        if (++it == last)
+            return last;
+
+        detail::word_break_state<CPIter> state;
+
+        state.it = it;
+
+        state.prev_prev_prop = word_prop_t::Other;
+        state.prev_prop = word_prop_t::Other;
+        if (state.it != first) {
+            state.prev_prop = word_prop(*std::prev(state.it));
+            if (std::prev(state.it) != first)
+                state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
+        }
+        state.prop = word_prop(*state.it);
+        state.next_prop = word_prop_t::Other;
+        state.next_next_prop = word_prop_t::Other;
+        if (std::next(state.it) != last) {
+            state.next_prop = word_prop(*std::next(state.it));
+            if (std::next(state.it, 2) != last)
+                state.next_next_prop = word_prop(*std::next(state.it, 2));
+        }
+
+        state.emoji_state = state.prev_prop == word_prop_t::Regional_Indicator
+                                ? detail::word_break_emoji_state_t::first_emoji
+                                : detail::word_break_emoji_state_t::none;
+
+        // WB4: Except after line breaks, ignore/skip (Extend | Format |
+        // ZWJ)*
+        auto skip = [](detail::word_break_state<CPIter> state, CPIter last) {
+            if (detail::skippable(state.prop)) {
+                auto temp_it = state.it;
+                while (std::next(temp_it) != last) {
+                    auto temp_next_prop = word_prop(*++temp_it);
+                    if (!detail::skippable(temp_next_prop))
+                        break;
+                }
+                if (temp_it == last) {
+                    state.it = last;
+                } else {
+                    auto const temp_prop = word_prop(*temp_it);
+                    if (!detail::linebreak(temp_prop)) {
+                        state.it = temp_it;
+                        state.prop = temp_prop;
+                        state.next_prop = word_prop_t::Other;
+                        state.next_next_prop = word_prop_t::Other;
+                        if (std::next(state.it) != last) {
+                            state.next_prop = word_prop(*std::next(state.it));
+                            if (std::next(state.it, 2) != last) {
+                                state.next_next_prop =
+                                    word_prop(*std::next(state.it, 2));
+                            }
+                        }
+                    }
+                }
+            }
+            return state;
+        };
+
+        for (; state.it != last; state = next(state)) {
+            if (std::next(state.it) != last && std::next(state.it, 2) != last)
+                state.next_next_prop = word_prop(*std::next(state.it, 2));
+            else
+                state.next_next_prop = word_prop_t::Other;
+
+            // WB3
+            if (state.prev_prop == word_prop_t::CR &&
+                state.prop == word_prop_t::LF) {
+                continue;
+            }
+
+            // WB3a
+            if (state.prev_prop == word_prop_t::CR ||
+                state.prev_prop == word_prop_t::LF ||
+                state.prev_prop == word_prop_t::Newline) {
+                return state.it;
+            }
+
+            // WB3b
+            if (state.prop == word_prop_t::CR ||
+                state.prop == word_prop_t::LF ||
+                state.prop == word_prop_t::Newline) {
+                return state.it;
+            }
+
+            // WB3c
+            if (state.prev_prop == word_prop_t::ZWJ &&
+                (state.prop == word_prop_t::Glue_After_Zwj ||
+                 state.prop == word_prop_t::E_Base_GAZ)) {
+                continue;
+            }
+
+            // Puting this here means not having to do it explicitly below
+            // between prop and next_prop (and transitively, between prev_prop
+            // and prop).
+            state = skip(state, last);
+            if (state.it == last)
+                return last;
+
+            // WB6
+            if (detail::ah_letter(state.prev_prop) &&
+                detail::mid_ah(state.prop) && std::next(state.it) != last) {
+                auto const temp_state = skip(next(state), last);
+                if (temp_state.it == last)
+                    return last;
+                if (detail::ah_letter(temp_state.prop))
+                    continue;
+            }
+
+            // WB7
+            if (detail::ah_letter(state.prev_prev_prop) &&
+                detail::mid_ah(state.prev_prop) &&
+                detail::ah_letter(state.prop)) {
+                continue;
+            }
+
+            // WB7b
+            if (state.prev_prop == word_prop_t::Hebrew_Letter &&
+                state.prop == word_prop_t::Double_Quote &&
+                std::next(state.it) != last) {
+                auto const temp_state = skip(next(state), last);
+                if (temp_state.it == last)
+                    return last;
+                if (temp_state.prop == word_prop_t::Hebrew_Letter)
+                    continue;
+            }
+
+            // WB7c
+            if (state.prev_prev_prop == word_prop_t::Hebrew_Letter &&
+                state.prev_prop == word_prop_t::Double_Quote &&
+                state.prop == word_prop_t::Hebrew_Letter) {
                 continue;
             }
 
             // WB11
-            if (prev_prev_prop == word_prop_t::Numeric &&
-                detail::mid_num(prev_prop) && prop == word_prop_t::Numeric) {
+            if (state.prev_prev_prop == word_prop_t::Numeric &&
+                detail::mid_num(state.prev_prop) &&
+                state.prop == word_prop_t::Numeric) {
                 continue;
             }
 
             // WB12
-            if (std::next(it) != last) {
-                auto next_prop = word_prop(*std::next(it));
-                if (prev_prop == word_prop_t::Numeric &&
-                    detail::mid_num(prop) &&
-                    next_prop == word_prop_t::Numeric) {
+            if (state.prev_prop == word_prop_t::Numeric &&
+                detail::mid_num(state.prop) && std::next(state.it) != last) {
+                auto const temp_state = skip(next(state), last);
+                if (temp_state.it == last)
+                    return last;
+                if (temp_state.prop == word_prop_t::Numeric)
                     continue;
-                }
             }
 
-            if (state == detail::state_t::emoji_flag) {
-                if (prop == word_prop_t::Regional_Indicator) {
-                    state = detail::state_t::use_table;
+            if (state.emoji_state ==
+                detail::word_break_emoji_state_t::first_emoji) {
+                if (state.prop == word_prop_t::Regional_Indicator) {
+                    state.emoji_state = detail::word_break_emoji_state_t::none;
                     continue;
                 } else {
-                    state = detail::state_t::use_table;
+                    state.emoji_state = detail::word_break_emoji_state_t::none;
                 }
-            } else if (prop == word_prop_t::Regional_Indicator) {
-                state = detail::state_t::emoji_flag;
+            } else if (state.prop == word_prop_t::Regional_Indicator) {
+                state.emoji_state =
+                    detail::word_break_emoji_state_t::first_emoji;
             }
 
-            if (state == detail::state_t::use_table) {
-                auto const prev_prop_int = static_cast<int>(prev_prop);
-                auto const prop_int = static_cast<int>(prop);
-                if (word_breaks[prev_prop_int][prop_int])
-                    return it;
-            }
+            if (detail::table_word_break(state.prev_prop, state.prop))
+                return state.it;
         }
+        return last;
     }
 
 }}

@@ -166,6 +166,34 @@ def generate_break_tests(cps_and_breaks, prop_):
         cpp_file = open('{}_break_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(break_test_form.format(prop_, break_tests, i))
 
+def generate_break_tests_2(cps_and_breaks, prop_):
+    for i in range(len(cps_and_breaks)):
+        break_tests = ''
+        chunk = cps_and_breaks[i]
+        for elem in chunk:
+            (cps, line, comment) = elem
+            comment_fields = comment.split(' ')
+            break_tests += '''
+    // {0}
+    // {1}
+    {{
+        std::array<uint32_t, {3}> cps = {{{{ {2} }}}};
+'''.format(line, comment, ', '.join(map(lambda x: hex(int(x[0], 16)), cps)), len(cps))
+            for j in range(len(cps) + 1):
+                prev_break = j
+                while prev_break == len(cps) or prev_break != 0 and not cps[prev_break][1]:
+                    prev_break -= 1
+                next_break = min(j + 1, len(cps))
+                while next_break != len(cps) and not cps[next_break][1]:
+                    next_break += 1
+                break_tests += '''\
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
+        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + {1}, cps.end()) - cps.begin(), {2});
+'''.format(j, prev_break, next_break)
+            break_tests += '    }\n\n'
+        cpp_file = open('{}_break_{:02}.cpp'.format(prop_, i), 'w')
+        cpp_file.write(break_test_form.format(prop_, break_tests, i))
+
 def contains_surrogate(cps):
     for cp in cps:
         if int(cp[0], 16) == 0xD800:
@@ -388,6 +416,6 @@ word_prop_names = {
 
 word_cps_and_breaks = extract_cps_and_breaks('WordBreakTest.txt')
 generate_prop_lookup_tests(word_cps_and_breaks, 'word', word_prop_names)
-generate_break_tests(word_cps_and_breaks, 'word')
+generate_break_tests_2(word_cps_and_breaks, 'word')
 
 # TODO: Add sentence breaks?

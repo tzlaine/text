@@ -84,10 +84,12 @@ if (NOT LIMIT_TESTING_FOR_TRAVIS)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
     file(GLOB tailoring_rule_tests tailoring_rule_test_*.cpp)
 endif()
+file(GLOB word_break_tests word_break_??.cpp)  
 set(globbed_tests
     ${prop_lookup_tests}
     ${grapheme_break_tests}
     ${grapheme_iterator_tests}
+    ${word_break_tests}
     ${normalize_to_nfd_tests}
     ${normalize_to_nfkd_tests}
     ${normalize_to_nfc_tests}
@@ -125,10 +127,6 @@ add_test_executable(tailoring riwords.txt)
 add_test_executable(tailoring_reorderings)
 add_test_executable(tailoring_suppressions)
 add_test_executable(tailoring_data)
-
-# TODO: A totally different approach is required for word breaks.  Word break
-# parsing is LL(*).
-#file(GLOB word_break_tests word_break_??.cpp)  
 
 if (BUILD_COVERAGE AND UNIX)
     if (APPLE)
