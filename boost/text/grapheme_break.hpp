@@ -101,11 +101,13 @@ namespace boost { namespace text {
 
     /** Returns true if and only if the table from the Unicode Character
         Database indicates a break between \a lhs and \a rhs. */
-    inline bool grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs) noexcept
+    inline bool
+    grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs) noexcept
     {
         // Note that RI.RI was changed to '1' since that case is handled in
         // the grapheme break FSM.
 
+        // clang-format off
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html.
 constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 //  Other CR LF Ctrl Ext Pre SpcMk L  V  T  LV LVT RI E_Bse E_Mod ZWJ GAZ EBG
@@ -133,6 +135,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Glue_After_Zwj
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    0,    0,  1,  1}}, // E_Base_GAZ
 }};
+        // clang-format on
         auto const lhs_int = static_cast<int>(lhs);
         auto const rhs_int = static_cast<int>(rhs);
         return grapheme_breaks[lhs_int][rhs_int];
@@ -140,8 +143,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
     /** Returns a \c grapheme_break_t that indicates whether a grapheme break
         was detected and that contains the current break-detection state. */
-    inline grapheme_break_t
-    grapheme_break(grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp) noexcept
+    inline grapheme_break_t grapheme_break(
+        grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp) noexcept
     {
         auto const cp_prop = grapheme_prop(cp);
         if (fsm.no_break(cp_prop)) {
