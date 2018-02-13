@@ -298,6 +298,12 @@ namespace boost { namespace text {
             parser_diagnostic_callback report_errors,
             parser_diagnostic_callback report_warnings);
 
+        template<typename CharIter>
+        friend CharIter
+        write_table(collation_table const & table, CharIter out) noexcept;
+        template<typename CharIter>
+        friend read_table_result<CharIter> read_table(CharIter it);
+
         friend void save_table(
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);

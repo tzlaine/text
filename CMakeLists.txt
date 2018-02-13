@@ -77,26 +77,6 @@ endif ()
 
 
 ##################################################
-# text_serialization library
-##################################################
-add_library(text_serialization
-    src/table_serialization.cpp
-)
-
-target_include_directories(text_serialization PRIVATE ${Boost_INCLUDE_DIR})
-target_link_libraries(text_serialization PUBLIC text)
-target_link_libraries(text_serialization PRIVATE boost_filesystem boost_system)
-set_property(TARGET text_serialization PROPERTY CXX_STANDARD ${CXX_STD})
-#if (link_flags)
-#    target_link_libraries(text_serialization PUBLIC ${link_flags})
-#    target_compile_options(text_serialization PUBLIC ${compile_flags})
-#endif ()
-if (NOT MSVC)
-    target_compile_options(text_serialization PRIVATE -Wall)
-endif ()
-
-
-##################################################
 # Tests and examples
 ##################################################
 # Built conditionally, because it relies on TSan.

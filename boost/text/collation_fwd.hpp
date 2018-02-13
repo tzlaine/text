@@ -27,6 +27,10 @@ namespace boost { namespace text {
     /** TODO */
     enum class case_first_t { upper, lower, off };
 
+    /** TODO */
+    template<typename CharIter>
+    struct read_table_result;
+
     struct collation_table;
 
     namespace detail {
