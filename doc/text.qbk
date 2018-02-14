@@ -26,8 +26,8 @@
 
 [import ../example/utf8_guarantee.cpp]
 [import ../example/slicing.cpp]
-[import ../example/text_view_snippets.cpp]
-[import ../example/text_snippets.cpp]
+[import ../example/string_view_snippets.cpp]
+[import ../example/string_snippets.cpp]
 [import ../example/hello_world.cpp]
 [import ../example/encoding.cpp]
 [import ../example/param_conventions.cpp]
