@@ -385,7 +385,6 @@ grapheme_cps_and_breaks = extract_cps_and_breaks('GraphemeBreakTest.txt')
 if '--perf' in sys.argv:
     generate_prop_lookup_perf_tests(grapheme_cps_and_breaks, 'grapheme')
     exit(0)
-generate_prop_lookup_tests(grapheme_cps_and_breaks, 'grapheme', grapheme_prop_names)
 generate_break_tests(grapheme_cps_and_breaks, 'grapheme')
 generate_iterator_tests(grapheme_cps_and_breaks, 'grapheme')
 
@@ -415,7 +414,4 @@ word_prop_names = {
 }
 
 word_cps_and_breaks = extract_cps_and_breaks('WordBreakTest.txt')
-generate_prop_lookup_tests(word_cps_and_breaks, 'word', word_prop_names)
 generate_break_tests_2(word_cps_and_breaks, 'word')
-
-# TODO: Add sentence breaks?

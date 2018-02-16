@@ -75,18 +75,16 @@ add_test_executable(trie_map_1)
 
 set(LIMIT_TESTING_FOR_TRAVIS false CACHE BOOL "Travis kinda sucks, so...")
 if (NOT LIMIT_TESTING_FOR_TRAVIS)
-    file(GLOB prop_lookup_tests *_prop_lookup_??.cpp)
     file(GLOB grapheme_break_tests grapheme_break_??.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_??.cpp)
+    file(GLOB word_break_tests word_break_??.cpp)  
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_???.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_???.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_???.cpp)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
     file(GLOB tailoring_rule_tests tailoring_rule_test_*.cpp)
 endif()
-file(GLOB word_break_tests word_break_??.cpp)  
 set(globbed_tests
-    ${prop_lookup_tests}
     ${grapheme_break_tests}
     ${grapheme_iterator_tests}
     ${word_break_tests}
