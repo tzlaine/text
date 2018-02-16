@@ -163,9 +163,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         // ZWJ)*
         template<typename CPIter>
         word_break_state<CPIter>
-        skip_forward(word_break_state<CPIter> state, CPIter last)
+        skip_forward(word_break_state<CPIter> state, CPIter first, CPIter last)
         {
-            if (skippable(state.prop)) {
+            if (state.it != first && !skippable(state.prev_prop) &&
+                skippable(state.prop)) {
                 auto temp_it = state.it;
                 while (std::next(temp_it) != last) {
                     auto temp_next_prop = word_prop(*++temp_it);
@@ -219,15 +220,27 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         state.it = it;
 
-        // b word_break.hpp:243
-        // b word_break.hpp:301
-        // b word_break_30.cpp:40
+        state.prop = word_prop(*state.it);
+
+        // Special case: If state.prop is skippable, we need to skip backward
+        // until we find a non-skippable.
+        if (detail::skippable(state.prop)) {
+            while (state.it != first && detail::skippable(state.prop)) {
+                state.next_prop = state.prop;
+                state.prop = word_prop(*--state.it);
+            }
+            // If we end up on a non-skippable that should break before the
+            // skippable(s) we just moved over, break on the last skippable.
+            if (!detail::skippable(state.prop) &&
+                detail::table_word_break(state.prop, state.next_prop)) {
+                return ++state.it;
+            }
+        }
 
         state.prev_prev_prop = word_prop_t::Other;
         if (std::prev(state.it) != first)
             state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
         state.prev_prop = word_prop(*std::prev(state.it));
-        state.prop = word_prop(*state.it);
         state.next_prop = word_prop_t::Other;
         state.next_next_prop = word_prop_t::Other;
         if (std::next(state.it) != last) {
@@ -243,7 +256,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (std::next(state.it) != last) {
                 auto temp_state = state;
                 temp_state = next(temp_state);
-                temp_state = detail::skip_forward(temp_state, last);
+                temp_state = detail::skip_forward(temp_state, first, last);
                 if (temp_state.it == last) {
                     state.next_prop = word_prop_t::Other;
                     state.next_next_prop = word_prop_t::Other;
@@ -251,7 +264,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     state.next_prop = temp_state.prop;
                     if (std::next(temp_state.it) != last) {
                         temp_state = next(temp_state);
-                        temp_state = detail::skip_forward(temp_state, last);
+                        temp_state =
+                            detail::skip_forward(temp_state, first, last);
                         if (temp_state.it == last)
                             state.next_next_prop = word_prop_t::Other;
                         else
@@ -272,6 +286,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 while (temp_it != first && detail::skippable(temp_prev_prop)) {
                     temp_prev_prop = word_prop(*--temp_it);
                 }
+                if (temp_it == first && detail::skippable(temp_prev_prop))
+                    return state;
                 if (!detail::linebreak(temp_prev_prop)) {
                     state.it = temp_it;
                     state.it_points_to_prev = true;
@@ -297,8 +313,13 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 int ris_before = 0;
                 while (temp_state.it != first) {
                     temp_state = skip(temp_state, first);
-                    if (temp_state.it == first)
+                    if (temp_state.it == first) {
+                        if (temp_state.prev_prop ==
+                            word_prop_t::Regional_Indicator) {
+                            ++ris_before;
+                        }
                         break;
+                    }
                     if (temp_state.prev_prop ==
                         word_prop_t::Regional_Indicator) {
                         temp_state = prev(temp_state);
@@ -345,9 +366,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 continue;
             }
 
-            // If we end up breaking here, we wnt the break to show up after
-            // the skip, so that the skippable CPs go with the CP before them.
-            // This is to maintain symmetry with next_word_break().
+            // If we end up breaking durign this iteration, we want the break
+            // to show up after the skip, so that the skippable CPs go with
+            // the CP before them.  This is to maintain symmetry with
+            // next_word_break().
             auto after_skip_it = state.it;
 
             // Puting this here means not having to do it explicitly below
@@ -405,6 +427,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 if (state.prev_prop == word_prop_t::Regional_Indicator) {
                     state.emoji_state =
                         detail::word_break_emoji_state_t::second_emoji;
+                    return after_skip_it;
                 } else {
                     state.emoji_state = detail::word_break_emoji_state_t::none;
                 }
@@ -498,14 +521,15 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             // Puting this here means not having to do it explicitly below
             // between prop and next_prop (and transitively, between prev_prop
             // and prop).
-            state = detail::skip_forward(state, last);
+            state = detail::skip_forward(state, first, last);
             if (state.it == last)
                 return last;
 
             // WB6
             if (detail::ah_letter(state.prev_prop) &&
                 detail::mid_ah(state.prop) && std::next(state.it) != last) {
-                auto const temp_state = detail::skip_forward(next(state), last);
+                auto const temp_state =
+                    detail::skip_forward(next(state), first, last);
                 if (temp_state.it == last)
                     return last;
                 if (detail::ah_letter(temp_state.prop))
@@ -523,7 +547,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (state.prev_prop == word_prop_t::Hebrew_Letter &&
                 state.prop == word_prop_t::Double_Quote &&
                 std::next(state.it) != last) {
-                auto const temp_state = detail::skip_forward(next(state), last);
+                auto const temp_state =
+                    detail::skip_forward(next(state), first, last);
                 if (temp_state.it == last)
                     return last;
                 if (temp_state.prop == word_prop_t::Hebrew_Letter)
@@ -547,7 +572,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             // WB12
             if (state.prev_prop == word_prop_t::Numeric &&
                 detail::mid_num(state.prop) && std::next(state.it) != last) {
-                auto const temp_state = detail::skip_forward(next(state), last);
+                auto const temp_state =
+                    detail::skip_forward(next(state), first, last);
                 if (temp_state.it == last)
                     return last;
                 if (temp_state.prop == word_prop_t::Numeric)
@@ -565,6 +591,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             } else if (state.prop == word_prop_t::Regional_Indicator) {
                 state.emoji_state =
                     detail::word_break_emoji_state_t::first_emoji;
+                return state.it;
             }
 
             if (detail::table_word_break(state.prev_prop, state.prop))
