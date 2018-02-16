@@ -201,9 +201,6 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
     // TODO: Sentinels!  Also, audit elsewhere for places that can use them.
 
-    // TODO: Consolidate symmetrical break blocking rules like WB6,WB7 by
-    // advancing past them once they are detected, as an optimization.
-
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word <code>it</code> is within is returned (even if
