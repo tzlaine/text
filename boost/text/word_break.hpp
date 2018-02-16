@@ -179,17 +179,15 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     state.it = last;
                 } else {
                     auto const temp_prop = word_prop(*temp_it);
-                    if (!linebreak(temp_prop)) {
-                        state.it = temp_it;
-                        state.prop = temp_prop;
-                        state.next_prop = word_prop_t::Other;
-                        state.next_next_prop = word_prop_t::Other;
-                        if (std::next(state.it) != last) {
-                            state.next_prop = word_prop(*std::next(state.it));
-                            if (std::next(state.it, 2) != last) {
-                                state.next_next_prop =
-                                    word_prop(*std::next(state.it, 2));
-                            }
+                    state.it = temp_it;
+                    state.prop = temp_prop;
+                    state.next_prop = word_prop_t::Other;
+                    state.next_next_prop = word_prop_t::Other;
+                    if (std::next(state.it) != last) {
+                        state.next_prop = word_prop(*std::next(state.it));
+                        if (std::next(state.it, 2) != last) {
+                            state.next_next_prop =
+                                word_prop(*std::next(state.it, 2));
                         }
                     }
                 }
@@ -204,7 +202,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word <code>it</code> is within is returned (even if
-        <coe>it</code> is already at the first code point of a word. */
+        <code>it</code> is already at the first code point of a word. */
     template<typename CPIter>
     inline CPIter
     prev_word_break(CPIter first, CPIter it, CPIter last) noexcept
@@ -450,7 +448,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         first code point after the current word, or <code>last</code> if no
         next word exists.
 
-        \pre <code>it</code> is at the beginning of a word.*/
+        \pre <code>it</code> is at the beginning of a word. */
     template<typename CPIter>
     inline CPIter next_word_break(CPIter first, CPIter it, CPIter last) noexcept
     {
@@ -599,7 +597,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return last;
     }
 
-    /** Returns the bounds of the word that it lies within. */
+    /** Returns the bounds of the word that <code>it</code> lies within. */
     template<typename CPIter>
     inline cp_range<CPIter>
     word_range(CPIter first, CPIter it, CPIter last) noexcept

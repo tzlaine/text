@@ -187,9 +187,9 @@ def generate_break_tests_2(cps_and_breaks, prop_):
                 while next_break != len(cps) and not cps[next_break][1]:
                     next_break += 1
                 break_tests += '''\
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + {1}, cps.end()) - cps.begin(), {2});
-'''.format(j, prev_break, next_break)
+        //EXPECT_EQ(boost::text::prev_{3}_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
+        EXPECT_EQ(boost::text::next_{3}_break(cps.begin(), cps.begin() + {1}, cps.end()) - cps.begin(), {2});
+'''.format(j, prev_break, next_break, prop_)
             break_tests += '    }\n\n'
         cpp_file = open('{}_break_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(break_test_form.format(prop_, break_tests, i))
@@ -415,3 +415,6 @@ word_prop_names = {
 
 word_cps_and_breaks = extract_cps_and_breaks('WordBreakTest.txt')
 generate_break_tests_2(word_cps_and_breaks, 'word')
+
+sentence_cps_and_breaks = extract_cps_and_breaks('SentenceBreakTest.txt')
+generate_break_tests_2(sentence_cps_and_breaks, 'sentence')
