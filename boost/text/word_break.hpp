@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_WORD_BREAK_HPP
 #define BOOST_TEXT_WORD_BREAK_HPP
 
+#include <boost/text/utility.hpp>
+
 #include <array>
 
 #include <stdint.h>
@@ -598,6 +600,16 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 return state.it;
         }
         return last;
+    }
+
+    /** Returns the bounds of the word that it lies within. */
+    template<typename CPIter>
+    inline cp_range<CPIter>
+    word_range(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        cp_range<CPIter> retval{prev_word_break(first, it, last)};
+        retval.last = next_word_break(first, retval.first, last);
+        return retval;
     }
 
 }}

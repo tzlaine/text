@@ -50,6 +50,30 @@ namespace boost { namespace text {
         iterator last_;
     };
 
+    /** TODO */
+    template<typename CPIter>
+    struct cp_range
+    {
+        using iterator = CPIter;
+
+        bool empty() const noexcept { return first == last; }
+
+        iterator begin() const { return first; }
+        iterator end() const { return last; }
+
+        friend bool operator==(cp_range lhs, cp_range rhs)
+        {
+            return lhs.first == rhs.first && lhs.last == rhs.last;
+        }
+        friend bool operator!=(cp_range lhs, cp_range rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        CPIter first;
+        CPIter last;
+    };
+
 }}
 
 #endif
