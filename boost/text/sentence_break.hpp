@@ -158,6 +158,38 @@ namespace boost { namespace text {
             return state;
         }
 
+        inline bool
+        table_sentence_break(sentence_prop_t lhs, sentence_prop_t rhs) noexcept
+        {
+            // clang-format off
+// See chart at http://www.unicode.org/Public/10.0.0/ucd/auxiliary/SentenceBreakTest.html
+constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
+//  Other CR LF Sep Sp Lwr Upr OLet Num ATrm STrm Cls SCont Fmt Ext
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Other
+    {1,   1, 0, 1,  1, 1,  1,  1,   1,  1,   1,   1,  1,    1,  1}, // CR
+    {1,   1, 1, 1,  1, 1,  1,  1,   1,  1,   1,   1,  1,    1,  1}, // LF
+
+    {1,   1, 1, 1,  1, 1,  1,  1,   1,  1,   1,   1,  1,    1,  1}, // Sep
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Sp
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Lower
+
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Upper
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // OLetter
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Number
+
+    {1,   0, 0, 0,  0, 0,  1,  1,   0,  0,   0,   0,  0,    0,  0}, // ATerm
+    {1,   0, 0, 0,  0, 1,  1,  1,   1,  0,   0,   0,  0,    0,  0}, // STerm
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Close
+
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // SContinue
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Format
+    {0,   0, 0, 0,  0, 0,  0,  0,   0,  0,   0,   0,  0,    0,  0}, // Extend
+}};
+            // clang-format on
+            auto const lhs_int = static_cast<int>(lhs);
+            auto const rhs_int = static_cast<int>(rhs);
+            return sentence_breaks[lhs_int][rhs_int];
+        }
     }
 
     /** Finds the nearest sentence break at or before before <code>it</code>.
@@ -188,14 +220,12 @@ namespace boost { namespace text {
                 state.next_prop = state.prop;
                 state.prop = sentence_prop(*--state.it);
             }
-#if 0 // TODO
             // If we end up on a non-skippable that should break before the
             // skippable(s) we just moved over, break on the last skippable.
             if (!detail::skippable(state.prop) &&
                 detail::table_sentence_break(state.prop, state.next_prop)) {
                 return ++state.it;
             }
-#endif
         }
 
         state.prev_prev_prop = sentence_prop_t::Other;
@@ -236,8 +266,7 @@ namespace boost { namespace text {
             }
         }
 
-        // WB4: Except after line breaks, ignore/skip (Extend | Format |
-        // ZWJ)*
+        // SB5: Except after ParaSep, ignore/skip (Extend | Format)*
         auto skip = [](detail::sentence_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.prev_prop)) {
                 auto temp_it = state.it;
@@ -279,6 +308,7 @@ namespace boost { namespace text {
             // Puting this here means not having to do it explicitly below
             // between prop and next_prop (and transitively, between prev_prop
             // and prop).
+            auto const after_skip_it = state.it;
             state = skip(state, first);
             if (state.it == last)
                 return last;
@@ -290,11 +320,12 @@ namespace boost { namespace text {
             }
 
             // SB7
-            if ((state.prev_prev_prop == sentence_prop_t::Upper ||
-                 state.prev_prev_prop == sentence_prop_t::Lower) &&
-                state.prev_prop == sentence_prop_t::ATerm &&
+            if (state.prev_prop == sentence_prop_t::ATerm &&
                 state.prop == sentence_prop_t::Upper) {
-                continue;
+                auto const temp_state = skip(prev(state), first);
+                if (temp_state.prev_prop == sentence_prop_t::Upper ||
+                    temp_state.prev_prop == sentence_prop_t::Lower)
+                    continue;
             }
 
             // SB8
@@ -304,11 +335,11 @@ namespace boost { namespace text {
                 (detail::sb8_not(state.prop) ||
                  state.prop == sentence_prop_t::Lower)) {
                 bool const aterm = detail::before_close_sp(
-                    state.it, first, true, [](sentence_prop_t prop) {
+                    after_skip_it, first, true, [](sentence_prop_t prop) {
                         return prop == sentence_prop_t::ATerm;
                     });
                 if (aterm) {
-                    auto it = state.it;
+                    auto it = after_skip_it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
                         ++it;
                         while (it != last &&
@@ -330,7 +361,7 @@ namespace boost { namespace text {
                 (state.prop == sentence_prop_t::SContinue ||
                  detail::sa_term(state.prop))) {
                 if (detail::before_close_sp(
-                        state.it, first, true, [](sentence_prop_t prop) {
+                        after_skip_it, first, true, [](sentence_prop_t prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -344,7 +375,7 @@ namespace boost { namespace text {
                  state.prop == sentence_prop_t::Sp ||
                  detail::para_sep(state.prop))) {
                 if (detail::before_close_sp(
-                        state.it, first, false, [](sentence_prop_t prop) {
+                        after_skip_it, first, false, [](sentence_prop_t prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -358,7 +389,7 @@ namespace boost { namespace text {
                 (state.prop == sentence_prop_t::Sp ||
                  detail::para_sep(state.prop))) {
                 if (detail::before_close_sp(
-                        state.it, first, true, [](sentence_prop_t prop) {
+                        after_skip_it, first, true, [](sentence_prop_t prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -371,7 +402,7 @@ namespace boost { namespace text {
                  state.prev_prop == sentence_prop_t::Sp ||
                  detail::para_sep(state.prev_prop)) &&
                 !detail::skippable(state.prop)) {
-                auto it = state.it;
+                auto it = after_skip_it;
                 if (detail::para_sep(state.prev_prop))
                     --it;
                 if (it != first &&
@@ -379,16 +410,13 @@ namespace boost { namespace text {
                         it, first, true, [](sentence_prop_t prop) {
                             return detail::sa_term(prop);
                         })) {
-                    return state.it;
+                    return after_skip_it;
                 }
             }
         }
 
         return first;
     }
-
-    // b sentence_break.hpp:215
-    // b sentence_break_09.cpp:414
 
     /** Finds the next sentence break after <code>it</code>.  This will be the
         first code point after the current sentence, or <code>last</code> if
