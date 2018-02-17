@@ -232,6 +232,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 detail::table_word_break(state.prop, state.next_prop)) {
                 return ++state.it;
             }
+            if (state.it == first)
+                return first;
         }
 
         state.prev_prev_prop = word_prop_t::Other;
@@ -289,8 +291,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     state.it = temp_it;
                     state.it_points_to_prev = true;
                     state.prev_prop = temp_prev_prop;
-                    auto temp_prev_prev_prop = word_prop(*std::prev(temp_it));
-                    state.prev_prev_prop = temp_prev_prev_prop;
+                    if (temp_it == first)
+                        state.prev_prev_prop = word_prop_t::Other;
+                    else
+                        state.prev_prev_prop = word_prop(*std::prev(temp_it));
                 }
             }
             return state;
