@@ -29,10 +29,10 @@ endif ()
 macro(add_test_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
-    target_link_libraries(
-        ${name}
-        text boost_system boost_filesystem gtest gtest_main
-    )
+    target_link_libraries(${name} text gtest gtest_main)
+    if (NOT MSVC) # Boost auto-linking handles this with MSVC.
+        target_link_libraries(${name} boost_system boost_filesystem)
+    endif ()
     set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
     add_test(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name} --gtest_catch_exceptions=1)
     if (clang_on_linux)
@@ -77,13 +77,14 @@ set(LIMIT_TESTING_FOR_TRAVIS false CACHE BOOL "Travis kinda sucks, so...")
 if (NOT LIMIT_TESTING_FOR_TRAVIS)
     file(GLOB grapheme_break_tests grapheme_break_??.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_??.cpp)
-    file(GLOB word_break_tests word_break_??.cpp)  
+    file(GLOB word_break_tests word_break_??.cpp)
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_???.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_???.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_???.cpp)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
     file(GLOB tailoring_rule_tests tailoring_rule_test_*.cpp)
 endif()
+file(GLOB word_break_tests word_break_??.cpp)
 file(GLOB sentence_break_tests sentence_break_??.cpp)
 set(globbed_tests
     ${grapheme_break_tests}
