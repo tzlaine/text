@@ -599,8 +599,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
     template<typename CPIter>
-    inline cp_range<CPIter>
-    word_range(CPIter first, CPIter it, CPIter last) noexcept
+    inline cp_range<CPIter> word(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_word_break(first, it, last)};
         retval.last = next_word_break(first, retval.first, last);

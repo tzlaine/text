@@ -582,7 +582,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         within. */
     template<typename CPIter>
     inline cp_range<CPIter>
-    sentence_range(CPIter first, CPIter it, CPIter last) noexcept
+    sentence(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_sentence_break(first, it, last)};
         retval.last = next_sentence_break(first, retval.first, last);
