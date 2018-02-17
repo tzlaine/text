@@ -66,7 +66,7 @@ add_library(text
     src/collation_data_1.cpp
 )
 
-target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(text PUBLIC boost)
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
 if (link_flags)

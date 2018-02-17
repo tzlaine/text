@@ -39,7 +39,7 @@ doxygen text_reference
 
 }
 
-run_doxygen [ glob ../boost/text/*.hpp ] : "Reference" ;
+run_doxygen [ glob ../include/boost/text/*.hpp ] : "Reference" ;
 
 xml text
     :
