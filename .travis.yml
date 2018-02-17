@@ -103,42 +103,42 @@ matrix:
 #          compiler: clang
 
         # Gcc
-        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-4.8
-          addons: &gcc48
-            apt:
-              packages:
-                - g++-4.8
-                - valgrind
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release JOBS=2
-          os: linux
-          compiler: gcc-4.8
-          addons: &gcc48
-            apt:
-              packages:
-                - g++-4.8
-                - valgrind
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
-
-        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Debug JOBS=4
-          os: linux
-          compiler: gcc-4.8
-          addons: &gcc48
-            apt:
-              packages:
-                - g++-4.8
-                - libboost-filesystem-dev
-                - libboost-system-dev
-              sources:
-                - ubuntu-toolchain-r-test
+#        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Debug JOBS=4
+#          os: linux
+#          compiler: gcc-4.8
+#          addons: &gcc48
+#            apt:
+#              packages:
+#                - g++-4.8
+#                - valgrind
+#                - libboost-filesystem-dev
+#                - libboost-system-dev
+#              sources:
+#                - ubuntu-toolchain-r-test
+#        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release JOBS=2
+#          os: linux
+#          compiler: gcc-4.8
+#          addons: &gcc48
+#            apt:
+#              packages:
+#                - g++-4.8
+#                - valgrind
+#                - libboost-filesystem-dev
+#                - libboost-system-dev
+#              sources:
+#                - ubuntu-toolchain-r-test
+#
+#        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Debug JOBS=4
+#          os: linux
+#          compiler: gcc-4.8
+#          addons: &gcc48
+#            apt:
+#              packages:
+#                - g++-4.8
+#                - libboost-filesystem-dev
+#                - libboost-system-dev
+#              sources:
+#                - ubuntu-toolchain-r-test
 #        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Release JOBS=4
 #          os: linux
 #          compiler: gcc-4.8
