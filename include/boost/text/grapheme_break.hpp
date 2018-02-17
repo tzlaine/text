@@ -155,6 +155,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         }
     }
 
+    // TODO: Consistency with the {word,sentence,paragraph} break functions.
+
     /** Searches backward to find the start of the grapheme in which \a
         current is found, without searching before \a first or after \a
         last. */
