@@ -187,7 +187,7 @@ def generate_break_tests_2(cps_and_breaks, prop_):
                 while next_break != len(cps) and not cps[next_break][1]:
                     next_break += 1
                 break_tests += '''\
-        //EXPECT_EQ(boost::text::prev_{3}_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
+        EXPECT_EQ(boost::text::prev_{3}_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
         EXPECT_EQ(boost::text::next_{3}_break(cps.begin(), cps.begin() + {1}, cps.end()) - cps.begin(), {2});
 '''.format(j, prev_break, next_break, prop_)
             break_tests += '    }\n\n'

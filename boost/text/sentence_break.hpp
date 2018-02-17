@@ -169,8 +169,222 @@ namespace boost { namespace text {
     inline CPIter
     prev_sentence_break(CPIter first, CPIter it, CPIter last) noexcept
     {
-        // TODO
-        return it;
+        if (it == first)
+            return it;
+
+        if (it == last && --it == first)
+            return it;
+
+        detail::sentence_break_state<CPIter> state;
+
+        state.it = it;
+
+        state.prop = sentence_prop(*state.it);
+
+        // Special case: If state.prop is skippable, we need to skip backward
+        // until we find a non-skippable.
+        if (detail::skippable(state.prop)) {
+            while (state.it != first && detail::skippable(state.prop)) {
+                state.next_prop = state.prop;
+                state.prop = sentence_prop(*--state.it);
+            }
+#if 0 // TODO
+            // If we end up on a non-skippable that should break before the
+            // skippable(s) we just moved over, break on the last skippable.
+            if (!detail::skippable(state.prop) &&
+                detail::table_sentence_break(state.prop, state.next_prop)) {
+                return ++state.it;
+            }
+#endif
+        }
+
+        state.prev_prev_prop = sentence_prop_t::Other;
+        if (std::prev(state.it) != first)
+            state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
+        state.prev_prop = sentence_prop(*std::prev(state.it));
+        state.next_prop = sentence_prop_t::Other;
+        state.next_next_prop = sentence_prop_t::Other;
+        if (std::next(state.it) != last) {
+            state.next_prop = sentence_prop(*std::next(state.it));
+            if (std::next(state.it, 2) != last)
+                state.next_next_prop = sentence_prop(*std::next(state.it, 2));
+        }
+
+        // Since 'it' may be anywhere within the sentence in which it sits, we
+        // need to look forward to make sure that next_prop and next_next_prop
+        // don't point to skippables.
+        {
+            if (std::next(state.it) != last) {
+                auto temp_state = state;
+                temp_state = next(temp_state);
+                temp_state = detail::skip_forward(temp_state, first, last);
+                if (temp_state.it == last) {
+                    state.next_prop = sentence_prop_t::Other;
+                    state.next_next_prop = sentence_prop_t::Other;
+                } else {
+                    state.next_prop = temp_state.prop;
+                    if (std::next(temp_state.it) != last) {
+                        temp_state = next(temp_state);
+                        temp_state =
+                            detail::skip_forward(temp_state, first, last);
+                        if (temp_state.it == last)
+                            state.next_next_prop = sentence_prop_t::Other;
+                        else
+                            state.next_next_prop = temp_state.prop;
+                    }
+                }
+            }
+        }
+
+        // WB4: Except after line breaks, ignore/skip (Extend | Format |
+        // ZWJ)*
+        auto skip = [](detail::sentence_break_state<CPIter> state, CPIter first) {
+            if (detail::skippable(state.prev_prop)) {
+                auto temp_it = state.it;
+                auto temp_prev_prop = sentence_prop(*--temp_it);
+                while (temp_it != first && detail::skippable(temp_prev_prop)) {
+                    temp_prev_prop = sentence_prop(*--temp_it);
+                }
+                if (temp_it == first && detail::skippable(temp_prev_prop))
+                    return state;
+                if (!detail::para_sep(temp_prev_prop)) {
+                    state.it = temp_it;
+                    state.it_points_to_prev = true;
+                    state.prev_prop = temp_prev_prop;
+                    auto temp_prev_prev_prop = sentence_prop(*std::prev(temp_it));
+                    state.prev_prev_prop = temp_prev_prev_prop;
+                }
+            }
+            return state;
+        };
+
+        for (; state.it != first; state = prev(state)) {
+            if (std::prev(state.it) != first)
+                state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
+            else
+                state.prev_prev_prop = sentence_prop_t::Other;
+
+            // TODO: Everything below this line!
+
+            // SB3
+            if (state.prev_prop == sentence_prop_t::CR &&
+                state.prop == sentence_prop_t::LF) {
+                continue;
+            }
+
+            // SB4
+            if (detail::para_sep(state.prev_prop))
+                return state.it;
+
+            // Puting this here means not having to do it explicitly below
+            // between prop and next_prop (and transitively, between prev_prop
+            // and prop).
+            state = skip(state, first);
+            if (state.it == last)
+                return last;
+
+            // SB6
+            if (state.prev_prop == sentence_prop_t::ATerm &&
+                state.prop == sentence_prop_t::Numeric) {
+                continue;
+            }
+
+            // SB7
+            if ((state.prev_prev_prop == sentence_prop_t::Upper ||
+                 state.prev_prev_prop == sentence_prop_t::Lower) &&
+                state.prev_prop == sentence_prop_t::ATerm &&
+                state.prop == sentence_prop_t::Upper) {
+                continue;
+            }
+
+            // SB8
+            if ((state.prev_prop == sentence_prop_t::ATerm ||
+                 state.prev_prop == sentence_prop_t::Close ||
+                 state.prev_prop == sentence_prop_t::Sp) &&
+                (detail::sb8_not(state.prop) ||
+                 state.prop == sentence_prop_t::Lower)) {
+                bool const aterm = detail::before_close_sp(
+                    state.it, first, true, [](sentence_prop_t prop) {
+                        return prop == sentence_prop_t::ATerm;
+                    });
+                if (aterm) {
+                    auto it = state.it;
+                    while (it != last && detail::sb8_not(sentence_prop(*it))) {
+                        ++it;
+                        while (it != last &&
+                               detail::skippable(sentence_prop(*it))) {
+                            ++it;
+                        }
+                    }
+                    if (it != last &&
+                        sentence_prop(*it) == sentence_prop_t::Lower) {
+                        continue;
+                    }
+                }
+            }
+
+            // SB8a
+            if ((detail::sa_term(state.prev_prop) ||
+                 state.prev_prop == sentence_prop_t::Close ||
+                 state.prev_prop == sentence_prop_t::Sp) &&
+                (state.prop == sentence_prop_t::SContinue ||
+                 detail::sa_term(state.prop))) {
+                if (detail::before_close_sp(
+                        state.it, first, true, [](sentence_prop_t prop) {
+                            return detail::sa_term(prop);
+                        })) {
+                    continue;
+                }
+            }
+
+            // SB9
+            if ((detail::sa_term(state.prev_prop) ||
+                 state.prev_prop == sentence_prop_t::Close) &&
+                (state.prop == sentence_prop_t::Close ||
+                 state.prop == sentence_prop_t::Sp ||
+                 detail::para_sep(state.prop))) {
+                if (detail::before_close_sp(
+                        state.it, first, false, [](sentence_prop_t prop) {
+                            return detail::sa_term(prop);
+                        })) {
+                    continue;
+                }
+            }
+
+            // SB10
+            if ((detail::sa_term(state.prev_prop) ||
+                 state.prev_prop == sentence_prop_t::Close ||
+                 state.prev_prop == sentence_prop_t::Sp) &&
+                (state.prop == sentence_prop_t::Sp ||
+                 detail::para_sep(state.prop))) {
+                if (detail::before_close_sp(
+                        state.it, first, true, [](sentence_prop_t prop) {
+                            return detail::sa_term(prop);
+                        })) {
+                    continue;
+                }
+            }
+
+            // SB11
+            if ((detail::sa_term(state.prev_prop) ||
+                 state.prev_prop == sentence_prop_t::Close ||
+                 state.prev_prop == sentence_prop_t::Sp ||
+                 detail::para_sep(state.prev_prop)) &&
+                !detail::skippable(state.prop)) {
+                auto it = state.it;
+                if (detail::para_sep(state.prev_prop))
+                    --it;
+                if (it != first &&
+                    detail::before_close_sp(
+                        it, first, true, [](sentence_prop_t prop) {
+                            return detail::sa_term(prop);
+                        })) {
+                    return state.it;
+                }
+            }
+        }
+
+        return first;
     }
 
     // b sentence_break.hpp:215
@@ -320,7 +534,6 @@ namespace boost { namespace text {
                  state.prev_prop == sentence_prop_t::Close ||
                  state.prev_prop == sentence_prop_t::Sp ||
                  detail::para_sep(state.prev_prop)) &&
-                //!detail::para_sep(state.prop) &&
                 !detail::skippable(state.prop)) {
                 auto it = state.it;
                 if (detail::para_sep(state.prev_prop))
