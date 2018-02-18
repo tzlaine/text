@@ -324,11 +324,13 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     if (temp_state.prev_prop ==
                         word_prop_t::Regional_Indicator) {
                         temp_state = prev(temp_state);
-                        if (std::prev(temp_state.it) != first)
+                        if (temp_state.it != first &&
+                            std::prev(temp_state.it) != first) {
                             temp_state.prev_prev_prop =
                                 word_prop(*std::prev(temp_state.it, 2));
-                        else
+                        } else {
                             temp_state.prev_prev_prop = word_prop_t::Other;
+                        }
                         ++ris_before;
                     } else {
                         break;
