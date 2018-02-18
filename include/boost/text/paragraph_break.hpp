@@ -24,8 +24,7 @@ namespace boost { namespace text {
         (even if <code>it</code> is already at the first code point of a
         paragraph. */
     template<typename CPIter>
-    inline CPIter
-    prev_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
+    CPIter prev_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
     {
         while (it != first) {
             if (detail::paragraph_break(*--it)) {
@@ -42,7 +41,7 @@ namespace boost { namespace text {
 
         \pre <code>it</code> is at the beginning of a paragraph. */
     template<typename CPIter>
-    inline CPIter next_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
+    CPIter next_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
     {
         if (it == last)
             return last;
@@ -62,8 +61,7 @@ namespace boost { namespace text {
     /** Returns the bounds of the paragraph that <code>it</code> lies
         within. */
     template<typename CPIter>
-    inline cp_range<CPIter>
-    paragraph(CPIter first, CPIter it, CPIter last) noexcept
+    cp_range<CPIter> paragraph(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_paragraph_break(first, it, last)};
         retval.last = next_paragraph_break(first, retval.first, last);
