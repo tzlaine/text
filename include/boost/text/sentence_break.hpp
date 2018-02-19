@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_SENTENCE_BREAK_HPP
 #define BOOST_TEXT_SENTENCE_BREAK_HPP
 
-#include <boost/text/utility.hpp>
+#include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
 
@@ -124,7 +124,6 @@ namespace boost { namespace text {
             return state;
         }
 
-        // TODO: Attempt to consildate with word skip_forward()
         // SB5: Except after line breaks, ignore/skip (Extend | Format)*
         template<typename CPIter>
         sentence_break_state<CPIter> skip_forward(
@@ -296,8 +295,6 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
             else
                 state.prev_prev_prop = sentence_prop_t::Other;
-
-            // TODO: Everything below this line!
 
             // SB3
             if (state.prev_prop == sentence_prop_t::CR &&
@@ -582,6 +579,17 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return last;
     }
 
+    namespace detail {
+        template<typename CPIter>
+        struct next_sentence_callable
+        {
+            CPIter operator()(CPIter first, CPIter it, CPIter last) noexcept
+            {
+                return next_sentence_break(first, it, last);
+            }
+        };
+    }
+
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
     template<typename CPIter>
@@ -591,6 +599,15 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         cp_range<CPIter> retval{prev_sentence_break(first, it, last)};
         retval.last = next_sentence_break(first, retval.first, last);
         return retval;
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting sentences in
+        <code>[first, last]</code>. */
+    template<typename CPIter>
+    lazy_segment_range<CPIter, detail::next_sentence_callable<CPIter>>
+    sentences(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        return {{first, it, last}, {last, last, last}};
     }
 
 }}

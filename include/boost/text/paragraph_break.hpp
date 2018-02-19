@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_PARAGRAPH_BREAK_HPP
 #define BOOST_TEXT_PARAGRAPH_BREAK_HPP
 
+#include <boost/text/lazy_segment_range.hpp>
+
 
 namespace boost { namespace text {
 
@@ -58,6 +60,17 @@ namespace boost { namespace text {
         return it;
     }
 
+    namespace detail {
+        template<typename CPIter>
+        struct next_paragraph_callable
+        {
+            CPIter operator()(CPIter first, CPIter it, CPIter last) noexcept
+            {
+                return next_paragraph_break(first, it, last);
+            }
+        };
+    }
+
     /** Returns the bounds of the paragraph that <code>it</code> lies
         within. */
     template<typename CPIter>
@@ -66,6 +79,15 @@ namespace boost { namespace text {
         cp_range<CPIter> retval{prev_paragraph_break(first, it, last)};
         retval.last = next_paragraph_break(first, retval.first, last);
         return retval;
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting paragraphs in
+        <code>[first, last]</code>. */
+    template<typename CPIter>
+    lazy_segment_range<CPIter, detail::next_paragraph_callable<CPIter>>
+    paragraphs(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        return {{first, it, last}, {last, last, last}};
     }
 
 }}

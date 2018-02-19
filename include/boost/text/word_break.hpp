@@ -1,11 +1,12 @@
 #ifndef BOOST_TEXT_WORD_BREAK_HPP
 #define BOOST_TEXT_WORD_BREAK_HPP
 
-#include <boost/text/utility.hpp>
+#include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
 
 #include <stdint.h>
+
 
 namespace boost { namespace text {
 
@@ -603,6 +604,17 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return last;
     }
 
+    namespace detail {
+        template<typename CPIter>
+        struct next_word_callable
+        {
+            CPIter operator()(CPIter first, CPIter it, CPIter last) noexcept
+            {
+                return next_word_break(first, it, last);
+            }
+        };
+    }
+
     /** Returns the bounds of the word that <code>it</code> lies within. */
     template<typename CPIter>
     inline cp_range<CPIter> word(CPIter first, CPIter it, CPIter last) noexcept
@@ -610,6 +622,15 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         cp_range<CPIter> retval{prev_word_break(first, it, last)};
         retval.last = next_word_break(first, retval.first, last);
         return retval;
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>[first, last]</code>. */
+    template<typename CPIter>
+    lazy_segment_range<CPIter, detail::next_word_callable<CPIter>>
+    words(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        return {{first, it, last}, {last, last, last}};
     }
 
 }}
