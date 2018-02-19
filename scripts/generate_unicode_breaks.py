@@ -37,7 +37,7 @@ static const std::unordered_map<uint32_t, {0}_t> g_{0}_map = {{
                                           g_{0}_intervals.end(),
                                           {0}_interval{{cp, cp + 1}});
         if (it2 == g_{0}_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
-            return {0}_t::Other;
+            return {0}_t::{5};
         return it2->prop_;
     }}
     return it->second;
@@ -91,19 +91,24 @@ def extract_break_properties(filename, prop_):
 (grapheme_break_intervals, num_grapheme_intervals, grapheme_break_intervals_map) = \
     extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop')
 cpp_file = open('grapheme_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', grapheme_break_intervals_map))
+cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', grapheme_break_intervals_map, 'Other'))
 
 (word_break_intervals, num_word_intervals, word_break_intervals_map) = \
     extract_break_properties('WordBreakProperty.txt', 'word_prop')
 cpp_file = open('word_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', word_break_intervals_map))
+cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', word_break_intervals_map, 'Other'))
 
 (sentence_break_intervals, num_sentence_intervals, sentence_break_intervals_map) = \
     extract_break_properties('SentenceBreakProperty.txt', 'sentence_prop')
 cpp_file = open('sentence_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', sentence_break_intervals_map))
+cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', sentence_break_intervals_map, 'Other'))
 
 (line_break_intervals, num_line_intervals, line_break_intervals_map) = \
     extract_break_properties('LineBreak.txt', 'line_prop')
 cpp_file = open('line_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map))
+cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map, 'Other'))
+
+(bidi_intervals, num_bidi_intervals, bidi_intervals_map) = \
+    extract_break_properties('DerivedBidiClass.txt', 'bidi_prop')
+cpp_file = open('bidi.cpp', 'w')
+cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_intervals, 'bidirectional', bidi_intervals_map, 'L'))
