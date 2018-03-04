@@ -37,10 +37,10 @@ matrix:
           os: osx
           osx_image: xcode7.3
           compiler: clang
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-          os: osx
-          osx_image: xcode7.3
-          compiler: clang
+#        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
+#          os: osx
+#          osx_image: xcode7.3
+#          compiler: clang
 
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
