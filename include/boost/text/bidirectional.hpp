@@ -550,6 +550,52 @@ namespace boost { namespace text {
         {
             w2_w7_impl(seq, bidi_prop_t::L, bidi_prop_t::L);
         }
+
+        struct bracket_pair
+        {
+            using iterator = props_and_embeddings_t::iterator;
+            using const_iterator = props_and_embeddings_t::const_iterator;
+
+            bool empty() const noexcept { return first_ == last_; }
+
+            const_iterator begin() const noexcept { return first_; }
+            const_iterator end() const noexcept { return last_; }
+
+            iterator begin() noexcept { return first_; }
+            iterator end() noexcept { return last_; }
+
+            int embedding() const noexcept { return first_->embedding_; }
+
+            friend bool operator<(bracket_pair lhs, bracket_pair rhs)
+            {
+                return lhs.first_ < rhs.first_;
+            }
+
+            iterator first_;
+            iterator last_;
+        };
+
+        using bracket_pairs_t = container::small_vector<bracket_pair, 64>;
+        struct bracket_stack_element_t
+        {
+            props_and_embeddings_t::iterator it_;
+            uint32_t cp_;
+        };
+
+        // https://unicode.org/reports/tr9/#BD16
+        inline bracket_pairs_t find_bracket_pairs(run_sequence_t & seq)
+        {
+            bracket_pairs_t retval;
+
+            using vec_t = container::static_vector<bracket_stack_element_t, 63>;
+            using stack_t = std::stack<bracket_stack_element_t, vec_t>;
+            stack_t stack;
+
+            // TODO
+
+            std::sort(retval.begin(), retval.end());
+            return retval;
+        }
     }
 
     // value_type of out below, TBD.
