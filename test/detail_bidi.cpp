@@ -1142,7 +1142,6 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
 
-        auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 0);
     }
     {
@@ -1159,7 +1158,6 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
 
-        auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 0);
     }
     {
@@ -1178,8 +1176,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->first_ - paes.begin(), 1);
-        EXPECT_EQ(it->last_ - paes.begin(), 3);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 1);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 3);
     }
     {
         props_and_embeddings_t paes = {
@@ -1200,8 +1198,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->first_ - paes.begin(), 1);
-        EXPECT_EQ(it->last_ - paes.begin(), 5);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 1);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
         props_and_embeddings_t paes = {
@@ -1221,8 +1219,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->first_ - paes.begin(), 1);
-        EXPECT_EQ(it->last_ - paes.begin(), 5);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 1);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
         props_and_embeddings_t paes = {
@@ -1242,8 +1240,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->first_ - paes.begin(), 1);
-        EXPECT_EQ(it->last_ - paes.begin(), 3);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 1);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 3);
     }
     {
         props_and_embeddings_t paes = {
@@ -1263,8 +1261,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 1);
-        EXPECT_EQ(it->first_ - paes.begin(), 3);
-        EXPECT_EQ(it->last_ - paes.begin(), 5);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 3);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
         props_and_embeddings_t paes = {
@@ -1285,11 +1283,11 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 2);
-        EXPECT_EQ(it->first_ - paes.begin(), 1);
-        EXPECT_EQ(it->last_ - paes.begin(), 7);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 1);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 7);
         ++it;
-        EXPECT_EQ(it->first_ - paes.begin(), 3);
-        EXPECT_EQ(it->last_ - paes.begin(), 5);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 3);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
         props_and_embeddings_t paes = {
@@ -1310,11 +1308,335 @@ TEST(detail_bidi, find_bracket_pairs_)
 
         auto it = bracket_pairs.begin();
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 2);
-        EXPECT_EQ(it->first_ - paes.begin(), 1);
-        EXPECT_EQ(it->last_ - paes.begin(), 7);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 1);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 7);
         ++it;
-        EXPECT_EQ(it->first_ - paes.begin(), 3);
-        EXPECT_EQ(it->last_ - paes.begin(), 5);
+        EXPECT_EQ(it->first_.base() - paes.begin(), 3);
+        EXPECT_EQ(it->last_.base() - paes.begin(), 5);
+    }
+}
+
+TEST(detail_bidi, n0_)
+{
+    {
+        props_and_embeddings_t paes = {
+            {'A', 1, bidi_prop_t::R, false},
+            {'B', 1, bidi_prop_t::R, false},
+            {'(', 1, bidi_prop_t::ON, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {'D', 1, bidi_prop_t::R, false},
+            {'[', 1, bidi_prop_t::ON, false},
+            {'&', 1, bidi_prop_t::ON, false},
+            {'e', 1, bidi_prop_t::L, false},
+            {'f', 1, bidi_prop_t::L, false},
+            {']', 1, bidi_prop_t::ON, false},
+            {'!', 1, bidi_prop_t::ON, false},
+            {')', 1, bidi_prop_t::ON, false},
+            {'g', 1, bidi_prop_t::L, false},
+            {'h', 1, bidi_prop_t::L, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
+        n0(run_sequences[0], bracket_pairs);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()),
+            14);
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::ON);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::ON);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {'s', 1, bidi_prop_t::L, false},
+            {'m', 1, bidi_prop_t::L, false},
+            {'i', 1, bidi_prop_t::L, false},
+            {'t', 1, bidi_prop_t::L, false},
+            {'h', 1, bidi_prop_t::L, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'(', 1, bidi_prop_t::ON, false},
+            {'f', 1, bidi_prop_t::L, false},
+            {'a', 1, bidi_prop_t::L, false},
+            {'b', 1, bidi_prop_t::L, false},
+            {'r', 1, bidi_prop_t::L, false},
+            {'i', 1, bidi_prop_t::L, false},
+            {'k', 1, bidi_prop_t::L, false},
+            {'a', 1, bidi_prop_t::L, false},
+            {'m', 1, bidi_prop_t::L, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'B', 1, bidi_prop_t::R, false},
+            {'I', 1, bidi_prop_t::R, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {')', 1, bidi_prop_t::ON, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'H', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'B', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'W', 1, bidi_prop_t::R, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
+        n0(run_sequences[0], bracket_pairs);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()),
+            30);
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {'s', 1, bidi_prop_t::L, false},
+            {'m', 1, bidi_prop_t::L, false},
+            {'i', 1, bidi_prop_t::L, false},
+            {'t', 1, bidi_prop_t::L, false},
+            {'h', 1, bidi_prop_t::L, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'(', 1, bidi_prop_t::ON, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'B', 1, bidi_prop_t::R, false},
+            {'I', 1, bidi_prop_t::R, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'f', 1, bidi_prop_t::L, false},
+            {'a', 1, bidi_prop_t::L, false},
+            {'b', 1, bidi_prop_t::L, false},
+            {'r', 1, bidi_prop_t::L, false},
+            {'i', 1, bidi_prop_t::L, false},
+            {'k', 1, bidi_prop_t::L, false},
+            {'a', 1, bidi_prop_t::L, false},
+            {'m', 1, bidi_prop_t::L, false},
+            {')', 1, bidi_prop_t::ON, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'H', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'B', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'W', 1, bidi_prop_t::R, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
+        n0(run_sequences[0], bracket_pairs);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()),
+            30);
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {'A', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'B', 1, bidi_prop_t::R, false},
+            {'I', 1, bidi_prop_t::R, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'b', 1, bidi_prop_t::L, false},
+            {'o', 1, bidi_prop_t::L, false},
+            {'o', 1, bidi_prop_t::L, false},
+            {'k', 1, bidi_prop_t::L, false},
+            {'(', 1, bidi_prop_t::ON, false},
+            {'s', 1, bidi_prop_t::L, false},
+            {')', 1, bidi_prop_t::ON, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
+        n0(run_sequences[0], bracket_pairs);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()),
+            14);
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::WS);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
     }
 }
 

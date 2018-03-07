@@ -30,6 +30,7 @@ namespace boost { namespace text {
             int embedding_;
             bidi_prop_t prop_;
             bool unmatched_pdi_;
+            bool originally_nsm_;
         };
 
         inline bidi_prop_t bidi_prop(prop_and_embedding_t pae) noexcept
@@ -231,12 +232,14 @@ namespace boost { namespace text {
 
         struct run_sequence_t
         {
-            run_seq_iter begin() noexcept
+            using iterator = run_seq_iter;
+
+            iterator begin() noexcept
             {
                 return run_seq_iter{
                     runs_.begin()->first_, runs_.begin(), runs_.end()};
             }
-            run_seq_iter end() noexcept
+            iterator end() noexcept
             {
                 return run_seq_iter{
                     std::prev(runs_.end())->last_, runs_.begin(), runs_.end()};
@@ -313,6 +316,7 @@ namespace boost { namespace text {
         }
 
         inline bool odd(int x) { return x & 0x1; }
+        inline bool even(int x) { return !odd(x); }
 
         inline void find_sos_eos(
             run_sequences_t & run_sequences, int paragraph_embedding_level)
@@ -350,6 +354,7 @@ namespace boost { namespace text {
                                          isolate_initiator(prev_prop)
                                      ? bidi_prop_t::ON
                                      : prev_prop;
+                    elem.originally_nsm_ = true;
                     prop = elem.prop_;
                 }
                 prev_prop = prop;
@@ -474,6 +479,21 @@ namespace boost { namespace text {
             }
         }
 
+        struct set_prop_func_t
+        {
+            prop_and_embedding_t operator()(prop_and_embedding_t pae) noexcept
+            {
+                pae.prop_ = prop_;
+                return pae;
+            }
+            bidi_prop_t prop_;
+        };
+
+        inline set_prop_func_t set_prop(bidi_prop_t prop) noexcept
+        {
+            return set_prop_func_t{prop};
+        }
+
         // https://unicode.org/reports/tr9/#W5
         inline void w5(run_sequence_t & seq) noexcept
         {
@@ -483,11 +503,7 @@ namespace boost { namespace text {
             auto en = [](prop_and_embedding_t pae) {
                 return pae.prop_ == bidi_prop_t::EN;
             };
-            auto to_en = [](prop_and_embedding_t pae) {
-                pae.prop_ = bidi_prop_t::EN;
-                return pae;
-            };
-            replace_adjacents_with(seq, et, en, to_en);
+            replace_adjacents_with(seq, et, en, set_prop(bidi_prop_t::EN));
         }
 
         // https://unicode.org/reports/tr9/#W6
@@ -502,11 +518,8 @@ namespace boost { namespace text {
                        pae.prop_ == bidi_prop_t::ES ||
                        pae.prop_ == bidi_prop_t::CS;
             };
-            auto to_on = [](prop_and_embedding_t pae) {
-                pae.prop_ = bidi_prop_t::ON;
-                return pae;
-            };
-            replace_adjacents_with(seq, bn, et_es_cs, to_on);
+            replace_adjacents_with(
+                seq, bn, et_es_cs, set_prop(bidi_prop_t::ON));
 
             std::transform(
                 seq.begin(),
@@ -530,22 +543,17 @@ namespace boost { namespace text {
 
         struct bracket_pair
         {
-            using iterator = props_and_embeddings_t::iterator;
-            using const_iterator = props_and_embeddings_t::const_iterator;
+            using iterator = run_sequence_t::iterator;
 
-            bool empty() const noexcept { return first_ == last_; }
-
-            const_iterator begin() const noexcept { return first_; }
-            const_iterator end() const noexcept { return last_; }
+            iterator begin() const noexcept { return first_; }
+            iterator end() const noexcept { return last_; }
 
             iterator begin() noexcept { return first_; }
             iterator end() noexcept { return last_; }
 
-            int embedding() const noexcept { return first_->embedding_; }
-
             friend bool operator<(bracket_pair lhs, bracket_pair rhs)
             {
-                return lhs.first_ < rhs.first_;
+                return lhs.first_.base() < rhs.first_.base();
             }
 
             iterator first_;
@@ -555,7 +563,7 @@ namespace boost { namespace text {
         using bracket_pairs_t = container::small_vector<bracket_pair, 64>;
         struct bracket_stack_element_t
         {
-            props_and_embeddings_t::iterator it_;
+            run_sequence_t::iterator it_;
             uint32_t paired_bracket_;
         };
 
@@ -575,9 +583,10 @@ namespace boost { namespace text {
                 if (bracket && bracket.type_ == bidi_bracket_type::open) {
                     if (stack.size() == stack.capacity())
                         break;
-                    stack.push_back(bracket_stack_element_t{
-                        it.base(), bracket.paired_bracket_});
-                } else if (bracket && bracket.type_ == bidi_bracket_type::close) {
+                    stack.push_back(
+                        bracket_stack_element_t{it, bracket.paired_bracket_});
+                } else if (
+                    bracket && bracket.type_ == bidi_bracket_type::close) {
                     if (stack.empty())
                         continue;
                     // TODO: Also compare canonical equivalents?
@@ -588,15 +597,75 @@ namespace boost { namespace text {
                             return it->cp_ == elem.paired_bracket_;
                         });
                     if (match_rit != stack.rend()) {
-                        retval.push_back(
-                            bracket_pair{match_rit->it_, it.base()});
-                        stack.erase(--match_rit.base(), stack.end());
+                        auto const match_it = --match_rit.base();
+                        retval.push_back(bracket_pair{match_it->it_, it});
+                        stack.erase(match_it, stack.end());
                     }
                 }
             }
 
             std::sort(retval.begin(), retval.end());
             return retval;
+        }
+
+        // https://unicode.org/reports/tr9/#N0
+        inline void
+        n0(run_sequence_t & seq, bracket_pairs_t const & bracket_pairs) noexcept
+        {
+            auto set_props = [](bracket_pair pair,
+                                run_sequence_t::iterator end,
+                                bidi_prop_t prop) {
+                pair.first_->prop_ = prop;
+                auto transform_end = std::find_if(
+                    std::next(pair.last_), end, [](prop_and_embedding_t pae) {
+                        return !pae.originally_nsm_;
+                    });
+                std::transform(
+                    pair.last_, transform_end, pair.last_, set_prop(prop));
+            };
+
+            auto bracket_it = bracket_pairs.begin();
+            auto prev_strong_prop = seq.sos_;
+            for (auto it = seq.begin(), end = seq.end();
+                 it != end && bracket_it != bracket_pairs.end();
+                 ++it) {
+                if (strong(it->prop_))
+                    prev_strong_prop = it->prop_;
+                if (it == bracket_it->first_) {
+                    auto pair = *bracket_it++;
+                    bool strong_found = false;
+                    auto same_direction_strong_it = std::find_if(
+                        std::next(pair.first_),
+                        pair.last_,
+                        [&seq, &strong_found](prop_and_embedding_t pae) {
+                            bool const strong_ = strong(pae.prop_);
+                            if (!strong_)
+                                return false;
+                            strong_found = true;
+                            assert(
+                                pae.prop_ == bidi_prop_t::L ||
+                                pae.prop_ == bidi_prop_t::R);
+                            auto const strong_embedding =
+                                pae.prop_ == bidi_prop_t::L ? 0 : 1;
+                            return even(seq.embedding_ + strong_embedding);
+                        });
+                    if (same_direction_strong_it != pair.last_) {
+                        set_props(
+                            pair, seq.end(), same_direction_strong_it->prop_);
+                    } else if (strong_found) {
+                        auto const prev_strong_embedding =
+                            prev_strong_prop == bidi_prop_t::L ? 0 : 1;
+                        if (odd(seq.embedding_ + prev_strong_embedding)) {
+                            set_props(pair, seq.end(), prev_strong_prop);
+                        } else {
+                            auto const seq_embedding_prop =
+                                even(seq.embedding_) ? bidi_prop_t::L
+                                                     : bidi_prop_t::R;
+                            set_props(pair, seq.end(), seq_embedding_prop);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -621,7 +690,7 @@ namespace boost { namespace text {
 
         auto next_odd = [](stack_t const & stack) {
             auto retval = stack.top().embedding_ + 1;
-            if (!detail::odd(retval))
+            if (detail::even(retval))
                 ++retval;
             return retval;
         };
@@ -710,7 +779,7 @@ namespace boost { namespace text {
                 // indicates that the embedding level should always be
                 // whatever the top of stack's embedding level is.
                 props_and_embeddings.push_back(prop_and_embedding_t{
-                    *it, stack.top().embedding_, prop, false});
+                    *it, stack.top().embedding_, prop, false, false});
 
                 // https://unicode.org/reports/tr9/#X2
                 switch (prop) {
@@ -884,15 +953,16 @@ namespace boost { namespace text {
 
                 detail::find_sos_eos(run_sequences, paragraph_embedding_level);
                 for (auto & run_sequence : run_sequences) {
-                    w1(run_sequence);
-                    w2(run_sequence);
-                    w3(run_sequence);
-                    w4(run_sequence);
-                    w5(run_sequence);
-                    w6(run_sequence);
-                    w7(run_sequence);
+                    detail::w1(run_sequence);
+                    detail::w2(run_sequence);
+                    detail::w3(run_sequence);
+                    detail::w4(run_sequence);
+                    detail::w5(run_sequence);
+                    detail::w6(run_sequence);
+                    detail::w7(run_sequence);
 
-                    auto bracket_pairs = find_bracket_pairs(run_sequence);
+                    auto const bracket_pairs = find_bracket_pairs(run_sequence);
+                    detail::n0(run_sequence, bracket_pairs);
 
                     // TODO
                 }
