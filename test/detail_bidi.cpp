@@ -17,32 +17,32 @@ TEST(detail_bidi, compute_run_sequences)
     {
         props_and_embeddings_t paes = {
             // text1
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
 
-            {bidi_prop_t::RLE, false, 0},
+            {0, 0, bidi_prop_t::RLE, false},
 
             // text2
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDF, false, 1},
+            {0, 1, bidi_prop_t::PDF, false},
 
-            {bidi_prop_t::RLE, false, 1},
+            {0, 1, bidi_prop_t::RLE, false},
 
             // text3
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDF, false, 1},
+            {0, 1, bidi_prop_t::PDF, false},
 
             // text4
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
         };
 
         auto const runs = find_all_runs(paes);
@@ -70,32 +70,32 @@ TEST(detail_bidi, compute_run_sequences)
     {
         props_and_embeddings_t paes = {
             // text1
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
 
-            {bidi_prop_t::RLI, false, 0},
+            {0, 0, bidi_prop_t::RLI, false},
 
             // text2
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDI, false, 0},
+            {0, 0, bidi_prop_t::PDI, false},
 
-            {bidi_prop_t::RLI, false, 0},
+            {0, 0, bidi_prop_t::RLI, false},
 
             // text3
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDI, false, 0},
+            {0, 0, bidi_prop_t::PDI, false},
 
             // text4
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
         };
 
         auto const runs = find_all_runs(paes);
@@ -131,51 +131,51 @@ TEST(detail_bidi, compute_run_sequences)
     {
         props_and_embeddings_t paes = {
             // text1
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
 
-            {bidi_prop_t::RLI, false, 0},
+            {0, 0, bidi_prop_t::RLI, false},
 
             // text2
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
 
-            {bidi_prop_t::LRI, false, 1},
+            {0, 1, bidi_prop_t::LRI, false},
 
             // text3
-            {bidi_prop_t::L, false, 2},
-            {bidi_prop_t::L, false, 2},
-            {bidi_prop_t::L, false, 2},
+            {0, 2, bidi_prop_t::L, false},
+            {0, 2, bidi_prop_t::L, false},
+            {0, 2, bidi_prop_t::L, false},
 
-            {bidi_prop_t::RLE, false, 2},
+            {0, 2, bidi_prop_t::RLE, false},
 
             // text4
-            {bidi_prop_t::L, false, 3},
-            {bidi_prop_t::L, false, 3},
-            {bidi_prop_t::L, false, 3},
+            {0, 3, bidi_prop_t::L, false},
+            {0, 3, bidi_prop_t::L, false},
+            {0, 3, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDF, false, 3},
+            {0, 3, bidi_prop_t::PDF, false},
 
             // text5
-            {bidi_prop_t::L, false, 2},
-            {bidi_prop_t::L, false, 2},
-            {bidi_prop_t::L, false, 2},
+            {0, 2, bidi_prop_t::L, false},
+            {0, 2, bidi_prop_t::L, false},
+            {0, 2, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDI, false, 1},
+            {0, 1, bidi_prop_t::PDI, false},
 
             // text6
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
-            {bidi_prop_t::L, false, 1},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
+            {0, 1, bidi_prop_t::L, false},
 
-            {bidi_prop_t::PDI, false, 0},
+            {0, 0, bidi_prop_t::PDI, false},
 
             // text7
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::L, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::L, false},
         };
 
         auto const runs = find_all_runs(paes);
@@ -222,9 +222,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     // W1
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AL, false, 0},
-            {bidi_prop_t::NSM, false, 0},
-            {bidi_prop_t::NSM, false, 0},
+            {0, 0, bidi_prop_t::AL, false},
+            {0, 0, bidi_prop_t::NSM, false},
+            {0, 0, bidi_prop_t::NSM, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -244,7 +244,7 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::NSM, false, 0},
+            {0, 0, bidi_prop_t::NSM, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -260,8 +260,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::LRI, false, 0},
-            {bidi_prop_t::NSM, false, 0},
+            {0, 0, bidi_prop_t::LRI, false},
+            {0, 0, bidi_prop_t::NSM, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -279,8 +279,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::PDI, true, 0},
-            {bidi_prop_t::NSM, false, 0},
+            {0, 0, bidi_prop_t::PDI, true},
+            {0, 0, bidi_prop_t::NSM, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -298,11 +298,11 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AL, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::NSM, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::NSM, false, 0},
+            {0, 0, bidi_prop_t::AL, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::NSM, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::NSM, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -326,8 +326,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::NSM, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::NSM, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -347,8 +347,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     // W2
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AL, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::AL, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -366,9 +366,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AL, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::AL, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -388,8 +388,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -407,9 +407,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -429,9 +429,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::R, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::R, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -453,9 +453,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     // W4
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::ES, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::ES, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -475,9 +475,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::CS, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::CS, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -497,9 +497,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::CS, false, 0},
-            {bidi_prop_t::AN, false, 0},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::CS, false},
+            {0, 0, bidi_prop_t::AN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -519,14 +519,14 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::ES, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::ES, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -556,13 +556,13 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::CS, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::CS, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -590,14 +590,14 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::CS, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::BN, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::CS, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::BN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -629,9 +629,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     // W5
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -651,9 +651,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::ET, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::ET, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -673,9 +673,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -695,9 +695,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -717,9 +717,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::ET, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::ET, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -739,9 +739,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::ET, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::ET, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -761,11 +761,11 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -789,12 +789,12 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::BN, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::BN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -822,8 +822,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     // W6
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::ET, false, 0},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::ET, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -841,9 +841,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::ES, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::ES, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -863,9 +863,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::CS, false, 0},
-            {bidi_prop_t::AN, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::CS, false},
+            {0, 0, bidi_prop_t::AN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -885,8 +885,8 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::AN, false, 0},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::AN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -905,10 +905,10 @@ TEST(detail_bidi, steps_W1_through_W7)
 
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::ET, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::ET, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -930,11 +930,11 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::ES, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::ES, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -958,10 +958,10 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::EN, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::CS, false, 0},
-            {bidi_prop_t::AN, false, 0},
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::CS, false},
+            {0, 0, bidi_prop_t::AN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -983,9 +983,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::AN, false, 0},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::AN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -1005,10 +1005,10 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::ET, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::AN, false, 0},
-            {bidi_prop_t::BN, false, 0},
+            {0, 0, bidi_prop_t::ET, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::BN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -1032,9 +1032,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     // W7
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -1054,9 +1054,9 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::R, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::R, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -1076,10 +1076,10 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::L, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);
@@ -1101,10 +1101,10 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
     {
         props_and_embeddings_t paes = {
-            {bidi_prop_t::R, false, 0},
-            {bidi_prop_t::B, false, 0},
-            {bidi_prop_t::BN, false, 0},
-            {bidi_prop_t::EN, false, 0},
+            {0, 0, bidi_prop_t::R, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::BN, false},
+            {0, 0, bidi_prop_t::EN, false},
         };
 
         auto run_sequences = find_run_sequences(paes);

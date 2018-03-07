@@ -26,9 +26,10 @@ namespace boost { namespace text {
 
         struct prop_and_embedding_t
         {
+            uint32_t cp_;
+            int embedding_;
             bidi_prop_t prop_;
             bool unmatched_pdi_;
-            int embedding_;
         };
 
         inline bidi_prop_t bidi_prop(prop_and_embedding_t pae) noexcept
@@ -211,6 +212,8 @@ namespace boost { namespace text {
 
             reference operator*() noexcept { return *it_; }
             pointer operator->() noexcept { return &*it_; }
+
+            level_run::iterator base() const { return it_; }
 
             friend bool operator==(run_seq_iter lhs, run_seq_iter rhs)
             {
@@ -553,7 +556,7 @@ namespace boost { namespace text {
         struct bracket_stack_element_t
         {
             props_and_embeddings_t::iterator it_;
-            uint32_t cp_;
+            uint32_t paired_bracket_;
         };
 
         // https://unicode.org/reports/tr9/#BD16
@@ -561,11 +564,35 @@ namespace boost { namespace text {
         {
             bracket_pairs_t retval;
 
-            using vec_t = container::static_vector<bracket_stack_element_t, 63>;
-            using stack_t = std::stack<bracket_stack_element_t, vec_t>;
+            using stack_t =
+                container::static_vector<bracket_stack_element_t, 63>;
             stack_t stack;
 
-            // TODO
+            for (auto it = seq.begin(), end = seq.end(); it != end; ++it) {
+                if (it->prop_ != bidi_prop_t::ON)
+                    continue;
+                auto const bracket = bidi_bracket(it->cp_);
+                if (bracket && bracket.type_ == bidi_bracket_type::open) {
+                    if (stack.size() == stack.capacity())
+                        break;
+                    stack.push_back(bracket_stack_element_t{
+                        it.base(), bracket.paired_bracket_});
+                } else if (bracket && bracket.type_ == bidi_bracket_type::close) {
+                    if (stack.empty())
+                        continue;
+                    for (auto stack_it = stack.rbegin(),
+                              stack_end = stack.rend();
+                         stack_it != stack_end;
+                         ++stack_it) {
+                        // TODO: Also compare canonical equivalents?
+                        if (it->cp_ == stack_it->paired_bracket_) {
+                            retval.push_back(
+                                bracket_pair{stack_it->it_, it.base()});
+                            stack.erase(stack_it.base(), stack.end());
+                        }
+                    }
+                }
+            }
 
             std::sort(retval.begin(), retval.end());
             return retval;
@@ -681,8 +708,8 @@ namespace boost { namespace text {
                 // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
                 // indicates that the embedding level should always be
                 // whatever the top of stack's embedding level is.
-                props_and_embeddings.push_back(
-                    prop_and_embedding_t{prop, false, stack.top().embedding_});
+                props_and_embeddings.push_back(prop_and_embedding_t{
+                    *it, stack.top().embedding_, prop, false});
 
                 // https://unicode.org/reports/tr9/#X2
                 switch (prop) {

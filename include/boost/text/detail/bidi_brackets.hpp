@@ -23,7 +23,7 @@ struct bidi_bracket_data
 
     uint32_t cp_;
     uint32_t paired_bracket_;
-    bidi_bracket_type paired_bracket_type_;
+    bidi_bracket_type type_;
 };
 
 inline bidi_bracket_data bidi_bracket(uint32_t cp) noexcept
