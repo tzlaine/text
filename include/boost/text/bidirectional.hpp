@@ -1,7 +1,9 @@
 #ifndef BOOST_TEXT_BIDIRECTIONAL_HPP
 #define BOOST_TEXT_BIDIRECTIONAL_HPP
 
+#include <boost/text/bidirectional_fwd.hpp>
 #include <boost/text/paragraph_break.hpp>
+#include <boost/text/detail/bidi_brackets.hpp>
 
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
@@ -10,34 +12,6 @@
 
 
 namespace boost { namespace text {
-
-    /** The bidirectional algorithm character properties outlined in Unicode
-        10. */
-    enum class bidi_prop_t {
-        L,
-        R,
-        EN,
-        ES,
-        ET,
-        AN,
-        CS,
-        B,
-        S,
-        WS,
-        ON,
-        BN,
-        NSM,
-        AL,
-        LRO,
-        RLO,
-        LRE,
-        RLE,
-        PDF,
-        LRI,
-        RLI,
-        FSI,
-        PDI
-    };
 
     /** Returns the bidirectional algorithm character property associated with
         code point \a cp. */
