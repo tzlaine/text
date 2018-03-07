@@ -199,14 +199,6 @@ namespace boost { namespace text {
                        prop == bidi_prop_t::PDF || prop == bidi_prop_t::BN;
             };
 
-            first = std::find_if(
-                first, last, [skippable](prop_and_embedding_t pae) {
-                    return !skippable(pae.prop_);
-                });
-
-            if (first == last)
-                return level_run{last, last, false};
-
             auto const initial_level = first->embedding_;
             return level_run{
                 first,
@@ -373,6 +365,9 @@ namespace boost { namespace text {
             auto prev_prop = seq.sos_;
             for (auto & elem : seq) {
                 auto prop = elem.prop_;
+                // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
+                if (prop == bidi_prop_t::BN)
+                    continue;
                 if (prop == bidi_prop_t::NSM) {
                     elem.prop_ = prev_prop == bidi_prop_t::PDI ||
                                          isolate_initiator(prev_prop)
@@ -426,13 +421,25 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#W4
         inline void w4(run_sequence_t & seq) noexcept
         {
-            auto prev_it = seq.begin();
-            auto it = std::next(prev_it);
+            auto const end = seq.end();
+
+            // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
+            auto not_bn = [](prop_and_embedding_t pae) {
+                return pae.prop_ != bidi_prop_t::BN;
+            };
+
+            auto prev_it = std::find_if(seq.begin(), end, not_bn);
+            if (prev_it == seq.end())
+                return;
+            auto it = std::find_if(std::next(prev_it), end, not_bn);
             if (it == seq.end())
                 return;
-            auto next_it = std::next(it);
-            auto const end = seq.end();
-            for (; next_it != end; prev_it = it, it = next_it, ++next_it) {
+            auto next_it = std::find_if(std::next(it), end, not_bn);
+
+            for (; next_it != end;
+                 prev_it = it,
+                 it = next_it,
+                 next_it = std::find_if(std::next(next_it), end, not_bn)) {
                 if (prev_it->prop_ == bidi_prop_t::EN &&
                     it->prop_ == bidi_prop_t::ES &&
                     next_it->prop_ == bidi_prop_t::EN) {
@@ -447,52 +454,83 @@ namespace boost { namespace text {
             }
         }
 
-        // https://unicode.org/reports/tr9/#W5
-        inline void w5(run_sequence_t & seq) noexcept
+        // Find props matching \a changeable_prop that are adjacent to props
+        // matching \a adjacent_prop, and replace them using \a replace.
+        template<
+            typename ChangeablePropPred,
+            typename AdjacentPropPred,
+            typename ReplaceFn>
+        void replace_adjacents_with(
+            run_sequence_t & seq,
+            ChangeablePropPred changeable_prop,
+            AdjacentPropPred adjacent_prop,
+            ReplaceFn replace) noexcept
         {
+            auto changeable = [changeable_prop](prop_and_embedding_t pae) {
+                // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
+                return changeable_prop(pae) || pae.prop_ == bidi_prop_t::BN;
+            };
+
             auto it = seq.begin();
             auto const end = seq.end();
             while (it != end) {
-                it = std::find_if(it, end, [](prop_and_embedding_t pae) {
-                    return pae.prop_ == bidi_prop_t::ET ||
-                           pae.prop_ == bidi_prop_t::EN;
-                });
+                it = std::find_if(
+                    it,
+                    end,
+                    [changeable, adjacent_prop](prop_and_embedding_t pae) {
+                        return changeable(pae) || adjacent_prop(pae);
+                    });
                 if (it == end)
                     break;
-                if (it->prop_ == bidi_prop_t::ET) {
-                    auto next_it =
-                        std::find_if(it, end, [](prop_and_embedding_t pae) {
-                            return pae.prop_ != bidi_prop_t::ET;
-                        });
-                    if (next_it != end && next_it->prop_ == bidi_prop_t::EN) {
-                        std::transform(
-                            it, next_it, it, [](prop_and_embedding_t pae) {
-                                pae.prop_ = bidi_prop_t::EN;
-                                return pae;
-                            });
+                if (changeable(*it)) {
+                    auto next_it = std::find_if_not(it, end, changeable);
+                    if (next_it != end && adjacent_prop(*next_it)) {
+                        std::transform(it, next_it, it, replace);
                     }
                     it = next_it;
                 } else {
-                    it = std::find_if(it, end, [](prop_and_embedding_t pae) {
-                        return pae.prop_ != bidi_prop_t::EN;
-                    });
-                    auto next_it =
-                        std::find_if(it, end, [](prop_and_embedding_t pae) {
-                            return pae.prop_ != bidi_prop_t::ET;
-                        });
-                    std::transform(
-                        it, next_it, it, [](prop_and_embedding_t pae) {
-                            pae.prop_ = bidi_prop_t::EN;
-                            return pae;
-                        });
+                    it = std::find_if_not(it, end, adjacent_prop);
+                    auto next_it = std::find_if_not(it, end, changeable);
+                    std::transform(it, next_it, it, replace);
                     it = next_it;
                 }
             }
         }
 
+        // https://unicode.org/reports/tr9/#W5
+        inline void w5(run_sequence_t & seq) noexcept
+        {
+            auto et = [](prop_and_embedding_t pae) {
+                return pae.prop_ == bidi_prop_t::ET;
+            };
+            auto en = [](prop_and_embedding_t pae) {
+                return pae.prop_ == bidi_prop_t::EN;
+            };
+            auto to_en = [](prop_and_embedding_t pae) {
+                pae.prop_ = bidi_prop_t::EN;
+                return pae;
+            };
+            replace_adjacents_with(seq, et, en, to_en);
+        }
+
         // https://unicode.org/reports/tr9/#W6
         inline void w6(run_sequence_t & seq) noexcept
         {
+            // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
+            auto bn = [](prop_and_embedding_t pae) {
+                return false; // BN is covered in replace_adjacents_with().
+            };
+            auto et_es_cs = [](prop_and_embedding_t pae) {
+                return pae.prop_ == bidi_prop_t::ET ||
+                       pae.prop_ == bidi_prop_t::ES ||
+                       pae.prop_ == bidi_prop_t::CS;
+            };
+            auto to_on = [](prop_and_embedding_t pae) {
+                pae.prop_ = bidi_prop_t::ON;
+                return pae;
+            };
+            replace_adjacents_with(seq, bn, et_es_cs, to_on);
+
             std::transform(
                 seq.begin(),
                 seq.end(),
