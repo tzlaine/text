@@ -580,16 +580,17 @@ namespace boost { namespace text {
                 } else if (bracket && bracket.type_ == bidi_bracket_type::close) {
                     if (stack.empty())
                         continue;
-                    for (auto stack_it = stack.rbegin(),
-                              stack_end = stack.rend();
-                         stack_it != stack_end;
-                         ++stack_it) {
-                        // TODO: Also compare canonical equivalents?
-                        if (it->cp_ == stack_it->paired_bracket_) {
-                            retval.push_back(
-                                bracket_pair{stack_it->it_, it.base()});
-                            stack.erase(stack_it.base(), stack.end());
-                        }
+                    // TODO: Also compare canonical equivalents?
+                    auto match_rit = std::find_if(
+                        stack.rbegin(),
+                        stack.rend(),
+                        [&it](bracket_stack_element_t elem) {
+                            return it->cp_ == elem.paired_bracket_;
+                        });
+                    if (match_rit != stack.rend()) {
+                        retval.push_back(
+                            bracket_pair{match_rit->it_, it.base()});
+                        stack.erase(--match_rit.base(), stack.end());
                     }
                 }
             }
@@ -890,9 +891,11 @@ namespace boost { namespace text {
                     w5(run_sequence);
                     w6(run_sequence);
                     w7(run_sequence);
-                }
 
-                // TODO
+                    auto bracket_pairs = find_bracket_pairs(run_sequence);
+
+                    // TODO
+                }
             }
         }
         return out;
