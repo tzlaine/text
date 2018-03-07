@@ -68,6 +68,7 @@ namespace boost { namespace text {
             if (it == last)
                 return last;
 
+            using ::boost::text::bidi_prop;
             assert(isolate_initiator(bidi_prop(*it)));
 
             int iis = 1;
@@ -144,6 +145,7 @@ namespace boost { namespace text {
             {
                 auto it = para_it;
                 while (it != para_last) {
+                    using ::boost::text::bidi_prop;
                     auto const prop = bidi_prop(*it);
                     if (isolate_initiator(prop)) {
                         it = matching_pdi(it, para_last);
@@ -184,7 +186,7 @@ namespace boost { namespace text {
             bool used_;
         };
 
-        level_run next_level_run(
+        inline level_run next_level_run(
             props_and_embeddings_t::iterator first,
             props_and_embeddings_t::iterator last) noexcept
         {
@@ -279,7 +281,7 @@ namespace boost { namespace text {
 
         using run_sequences_t = container::small_vector<run_sequence_t, 32>;
 
-        container::small_vector<level_run, 1024>
+        inline container::small_vector<level_run, 1024>
         find_all_runs(props_and_embeddings_t & pae)
         {
             container::small_vector<level_run, 1024> retval;
@@ -298,7 +300,7 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#BD13
-        run_sequences_t find_run_sequences(props_and_embeddings_t & pae)
+        inline run_sequences_t find_run_sequences(props_and_embeddings_t & pae)
         {
             run_sequences_t retval;
             if (pae.empty())
@@ -341,9 +343,9 @@ namespace boost { namespace text {
             return retval;
         }
 
-        bool odd(int x) { return x & 0x1; }
+        inline bool odd(int x) { return x & 0x1; }
 
-        void find_sos_eos(
+        inline void find_sos_eos(
             run_sequences_t & run_sequences, int paragraph_embedding_level)
         {
             auto prev_embedding = paragraph_embedding_level;
@@ -366,7 +368,7 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W1
-        void w1(run_sequence_t & seq) noexcept
+        inline void w1(run_sequence_t & seq) noexcept
         {
             auto prev_prop = seq.sos_;
             for (auto & elem : seq) {
@@ -382,14 +384,14 @@ namespace boost { namespace text {
             }
         }
 
-        bool strong(bidi_prop_t prop) noexcept
+        inline bool strong(bidi_prop_t prop) noexcept
         {
             return prop == bidi_prop_t::R || prop == bidi_prop_t::L ||
                    prop == bidi_prop_t::AL;
         }
 
         // This works for W7 because all ALs are removed in W3.
-        void w2_w7_impl(
+        inline void w2_w7_impl(
             run_sequence_t & seq,
             bidi_prop_t trigger,
             bidi_prop_t replacement) noexcept
@@ -407,13 +409,13 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W2
-        void w2(run_sequence_t & seq) noexcept
+        inline void w2(run_sequence_t & seq) noexcept
         {
             w2_w7_impl(seq, bidi_prop_t::AL, bidi_prop_t::AN);
         }
 
         // https://unicode.org/reports/tr9/#W3
-        void w3(run_sequence_t & seq) noexcept
+        inline void w3(run_sequence_t & seq) noexcept
         {
             for (auto & elem : seq) {
                 if (elem.prop_ == bidi_prop_t::AL)
@@ -422,7 +424,7 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W4
-        void w4(run_sequence_t & seq) noexcept
+        inline void w4(run_sequence_t & seq) noexcept
         {
             auto prev_it = seq.begin();
             auto it = std::next(prev_it);
@@ -446,7 +448,7 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W5
-        void w5(run_sequence_t & seq) noexcept
+        inline void w5(run_sequence_t & seq) noexcept
         {
             auto it = seq.begin();
             auto const end = seq.end();
@@ -489,7 +491,7 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W6
-        void w6(run_sequence_t & seq) noexcept
+        inline void w6(run_sequence_t & seq) noexcept
         {
             std::transform(
                 seq.begin(),
@@ -506,7 +508,7 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W7
-        void w7(run_sequence_t & seq) noexcept
+        inline void w7(run_sequence_t & seq) noexcept
         {
             w2_w7_impl(seq, bidi_prop_t::L, bidi_prop_t::L);
         }
@@ -775,17 +777,20 @@ namespace boost { namespace text {
 
                 // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
                 // https://unicode.org/reports/tr9/#X9
-                std::replace_if(
+                std::transform(
                     props_and_embeddings.begin(),
                     props_and_embeddings.end(),
+                    props_and_embeddings.begin(),
                     [](prop_and_embedding_t pae) {
-                        return pae.prop_ == bidi_prop_t::RLE ||
-                               pae.prop_ == bidi_prop_t::LRE ||
-                               pae.prop_ == bidi_prop_t::RLO ||
-                               pae.prop_ == bidi_prop_t::LRO ||
-                               pae.prop_ == bidi_prop_t::PDF;
-                    },
-                    bidi_prop_t::BN);
+                        if (pae.prop_ == bidi_prop_t::RLE ||
+                            pae.prop_ == bidi_prop_t::LRE ||
+                            pae.prop_ == bidi_prop_t::RLO ||
+                            pae.prop_ == bidi_prop_t::LRO ||
+                            pae.prop_ == bidi_prop_t::PDF) {
+                            pae.prop_ = bidi_prop_t::BN;
+                        }
+                        return pae;
+                    });
 
                 // https://unicode.org/reports/tr9/#X10
                 auto run_sequences =

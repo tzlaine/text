@@ -735,3 +735,12 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_prop_t::EN);
     }
 }
+
+// TODO: This is just here for early-stage testing.  Remove once an actual
+// test exists for this function.
+TEST(detail_bidi, bidirectional_order_instantiation)
+{
+    std::array<uint32_t, 1> str = {'a'};
+    bidirectional_order(
+        str.begin(), str.end(), TODO<std::array<uint32_t, 1>::iterator>{});
+}
