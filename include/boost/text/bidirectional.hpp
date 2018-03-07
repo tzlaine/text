@@ -166,12 +166,16 @@ namespace boost { namespace text {
 
         struct level_run
         {
-            using iterator = props_and_embeddings_t::const_iterator;
+            using iterator = props_and_embeddings_t::iterator;
+            using const_iterator = props_and_embeddings_t::const_iterator;
 
             bool empty() const noexcept { return first_ == last_; }
 
-            iterator begin() const noexcept { return first_; }
-            iterator end() const noexcept { return last_; }
+            const_iterator begin() const noexcept { return first_; }
+            const_iterator end() const noexcept { return last_; }
+
+            iterator begin() noexcept { return first_; }
+            iterator end() noexcept { return last_; }
 
             int embedding() const noexcept { return first_->embedding_; }
 
@@ -181,8 +185,8 @@ namespace boost { namespace text {
         };
 
         level_run next_level_run(
-            props_and_embeddings_t::const_iterator first,
-            props_and_embeddings_t::const_iterator last) noexcept
+            props_and_embeddings_t::iterator first,
+            props_and_embeddings_t::iterator last) noexcept
         {
             if (first == last)
                 return level_run{last, last, false};
@@ -213,9 +217,61 @@ namespace boost { namespace text {
                 false};
         }
 
+        using run_seq_runs_t = container::small_vector<level_run, 32>;
+
+        struct run_seq_iter
+        {
+            using value_type = prop_and_embedding_t;
+            using pointer = prop_and_embedding_t *;
+            using reference = prop_and_embedding_t &;
+            using difference_type = std::ptrdiff_t;
+            using iterator_category = std::forward_iterator_tag;
+
+            run_seq_iter & operator++() noexcept
+            {
+                if (++it_ == runs_it_->last_) {
+                    auto const next_runs_it = std::next(runs_it_);
+                    if (next_runs_it == runs_end_) {
+                        it_ = runs_it_->last_;
+                    } else {
+                        runs_it_ = next_runs_it;
+                        it_ = runs_it_->first_;
+                    }
+                }
+                return *this;
+            }
+
+            reference operator*() noexcept { return *it_; }
+            pointer operator->() noexcept { return &*it_; }
+
+            friend bool operator==(run_seq_iter lhs, run_seq_iter rhs)
+            {
+                return lhs.it_ == rhs.it_;
+            }
+            friend bool operator!=(run_seq_iter lhs, run_seq_iter rhs)
+            {
+                return lhs.it_ != rhs.it_;
+            }
+
+            level_run::iterator it_;
+            run_seq_runs_t::iterator runs_it_;
+            run_seq_runs_t::iterator runs_end_;
+        };
+
         struct run_sequence_t
         {
-            container::small_vector<level_run, 32> runs_;
+            run_seq_iter begin() noexcept
+            {
+                return run_seq_iter{
+                    runs_.begin()->first_, runs_.begin(), runs_.end()};
+            }
+            run_seq_iter end() noexcept
+            {
+                return run_seq_iter{
+                    std::prev(runs_.end())->last_, runs_.begin(), runs_.end()};
+            }
+
+            run_seq_runs_t runs_;
             int embedding_;
             bidi_prop_t sos_; // L or R
             bidi_prop_t eos_; // L or R
@@ -224,7 +280,7 @@ namespace boost { namespace text {
         using run_sequences_t = container::small_vector<run_sequence_t, 32>;
 
         container::small_vector<level_run, 1024>
-        find_all_runs(props_and_embeddings_t const & pae)
+        find_all_runs(props_and_embeddings_t & pae)
         {
             container::small_vector<level_run, 1024> retval;
             {
@@ -248,7 +304,7 @@ namespace boost { namespace text {
             if (pae.empty())
                 return retval;
 
-            auto const end = pae.cend();
+            auto const end = pae.end();
             auto all_runs = find_all_runs(pae);
 
             for (auto & run : all_runs) {
@@ -284,6 +340,176 @@ namespace boost { namespace text {
 
             return retval;
         }
+
+        bool odd(int x) { return x & 0x1; }
+
+        void find_sos_eos(
+            run_sequences_t & run_sequences, int paragraph_embedding_level)
+        {
+            auto prev_embedding = paragraph_embedding_level;
+            auto embedding = run_sequences[0].embedding_;
+            auto next_embedding = run_sequences.size() < 2
+                                      ? paragraph_embedding_level
+                                      : run_sequences[1].embedding_;
+            for (int i = 0, end = (int)run_sequences.size(); i != end; ++i) {
+                run_sequences[i].sos_ =
+                    odd((std::max)(prev_embedding, embedding)) ? bidi_prop_t::R
+                                                               : bidi_prop_t::L;
+                run_sequences[i].eos_ =
+                    odd((std::max)(embedding, next_embedding)) ? bidi_prop_t::R
+                                                               : bidi_prop_t::L;
+                prev_embedding = embedding;
+                embedding = next_embedding;
+                if (i < (int)run_sequences.size() - 1)
+                    next_embedding = run_sequences[i + 1].embedding_;
+            }
+        }
+
+        // https://unicode.org/reports/tr9/#W1
+        void w1(run_sequence_t & seq) noexcept
+        {
+            auto prev_prop = seq.sos_;
+            for (auto & elem : seq) {
+                auto prop = elem.prop_;
+                if (prop == bidi_prop_t::NSM) {
+                    elem.prop_ = prev_prop == bidi_prop_t::PDI ||
+                                         isolate_initiator(prev_prop)
+                                     ? bidi_prop_t::ON
+                                     : prev_prop;
+                    prop = elem.prop_;
+                }
+                prev_prop = prop;
+            }
+        }
+
+        bool strong(bidi_prop_t prop) noexcept
+        {
+            return prop == bidi_prop_t::R || prop == bidi_prop_t::L ||
+                   prop == bidi_prop_t::AL;
+        }
+
+        // This works for W7 because all ALs are removed in W3.
+        void w2_w7_impl(
+            run_sequence_t & seq,
+            bidi_prop_t trigger,
+            bidi_prop_t replacement) noexcept
+        {
+            auto curr_strong_prop = seq.sos_;
+            for (auto & elem : seq) {
+                if (strong(elem.prop_)) {
+                    curr_strong_prop = elem.prop_;
+                } else if (
+                    elem.prop_ == bidi_prop_t::EN &&
+                    curr_strong_prop == trigger) {
+                    elem.prop_ = replacement;
+                }
+            }
+        }
+
+        // https://unicode.org/reports/tr9/#W2
+        void w2(run_sequence_t & seq) noexcept
+        {
+            w2_w7_impl(seq, bidi_prop_t::AL, bidi_prop_t::AN);
+        }
+
+        // https://unicode.org/reports/tr9/#W3
+        void w3(run_sequence_t & seq) noexcept
+        {
+            for (auto & elem : seq) {
+                if (elem.prop_ == bidi_prop_t::AL)
+                    elem.prop_ = bidi_prop_t::R;
+            }
+        }
+
+        // https://unicode.org/reports/tr9/#W4
+        void w4(run_sequence_t & seq) noexcept
+        {
+            auto prev_it = seq.begin();
+            auto it = std::next(prev_it);
+            if (it == seq.end())
+                return;
+            auto next_it = std::next(it);
+            auto const end = seq.end();
+            for (; next_it != end; prev_it = it, it = next_it, ++next_it) {
+                if (prev_it->prop_ == bidi_prop_t::EN &&
+                    it->prop_ == bidi_prop_t::ES &&
+                    next_it->prop_ == bidi_prop_t::EN) {
+                    it->prop_ = bidi_prop_t::EN;
+                } else if (
+                    it->prop_ == bidi_prop_t::CS &&
+                    prev_it->prop_ == next_it->prop_ &&
+                    (prev_it->prop_ == bidi_prop_t::EN ||
+                     prev_it->prop_ == bidi_prop_t::AN)) {
+                    it->prop_ = prev_it->prop_;
+                }
+            }
+        }
+
+        // https://unicode.org/reports/tr9/#W5
+        void w5(run_sequence_t & seq) noexcept
+        {
+            auto it = seq.begin();
+            auto const end = seq.end();
+            while (it != end) {
+                it = std::find_if(it, end, [](prop_and_embedding_t pae) {
+                    return pae.prop_ == bidi_prop_t::ET ||
+                           pae.prop_ == bidi_prop_t::EN;
+                });
+                if (it == end)
+                    break;
+                if (it->prop_ == bidi_prop_t::ET) {
+                    auto next_it =
+                        std::find_if(it, end, [](prop_and_embedding_t pae) {
+                            return pae.prop_ != bidi_prop_t::ET;
+                        });
+                    if (next_it != end && next_it->prop_ == bidi_prop_t::EN) {
+                        std::transform(
+                            it, next_it, it, [](prop_and_embedding_t pae) {
+                                pae.prop_ = bidi_prop_t::EN;
+                                return pae;
+                            });
+                    }
+                    it = next_it;
+                } else {
+                    it = std::find_if(it, end, [](prop_and_embedding_t pae) {
+                        return pae.prop_ != bidi_prop_t::EN;
+                    });
+                    auto next_it =
+                        std::find_if(it, end, [](prop_and_embedding_t pae) {
+                            return pae.prop_ != bidi_prop_t::ET;
+                        });
+                    std::transform(
+                        it, next_it, it, [](prop_and_embedding_t pae) {
+                            pae.prop_ = bidi_prop_t::EN;
+                            return pae;
+                        });
+                    it = next_it;
+                }
+            }
+        }
+
+        // https://unicode.org/reports/tr9/#W6
+        void w6(run_sequence_t & seq) noexcept
+        {
+            std::transform(
+                seq.begin(),
+                seq.end(),
+                seq.begin(),
+                [](prop_and_embedding_t pae) {
+                    if (pae.prop_ == bidi_prop_t::ES ||
+                        pae.prop_ == bidi_prop_t::CS ||
+                        pae.prop_ == bidi_prop_t::ET) {
+                        pae.prop_ = bidi_prop_t::ON;
+                    }
+                    return pae;
+                });
+        }
+
+        // https://unicode.org/reports/tr9/#W7
+        void w7(run_sequence_t & seq) noexcept
+        {
+            w2_w7_impl(seq, bidi_prop_t::L, bidi_prop_t::L);
+        }
     }
 
     // value_type of out below, TBD.
@@ -305,17 +531,15 @@ namespace boost { namespace text {
             static_vector<detail::bidi_state_t, detail::bidi_max_depth + 2>;
         using stack_t = std::stack<detail::bidi_state_t, vec_t>;
 
-        auto is_odd = [](int x) { return x & 0x1; };
-
-        auto next_odd = [is_odd](stack_t const & stack) {
+        auto next_odd = [](stack_t const & stack) {
             auto retval = stack.top().embedding_ + 1;
-            if (!is_odd(retval))
+            if (!detail::odd(retval))
                 ++retval;
             return retval;
         };
-        auto next_even = [is_odd](stack_t const & stack) {
+        auto next_even = [](stack_t const & stack) {
             auto retval = stack.top().embedding_ + 1;
-            if (is_odd(retval))
+            if (detail::odd(retval))
                 ++retval;
             return retval;
         };
@@ -567,29 +791,15 @@ namespace boost { namespace text {
                 auto run_sequences =
                     detail::find_run_sequences(props_and_embeddings);
 
-                {
-                    auto prev_embedding = paragraph_embedding_level;
-                    auto embedding = run_sequences[0].embedding_;
-                    auto next_embedding = run_sequences.size() < 2
-                                              ? paragraph_embedding_level
-                                              : run_sequences[1].embedding_;
-                    for (int i = 0, end = (int)run_sequences.size(); i != end;
-                         ++i) {
-                        run_sequences[i].sos_ =
-                            is_odd((std::max)(prev_embedding, embedding))
-                                ? bidi_prop_t::R
-                                : bidi_prop_t::L;
-                        run_sequences[i].eos_ =
-                            is_odd((std::max)(embedding, next_embedding))
-                                ? bidi_prop_t::R
-                                : bidi_prop_t::L;
-                        prev_embedding = embedding;
-                        embedding = next_embedding;
-                        if (i == (int)run_sequences.size() - 1)
-                            next_embedding = paragraph_embedding_level;
-                        else
-                            next_embedding = run_sequences[i + 1].embedding_;
-                    }
+                detail::find_sos_eos(run_sequences, paragraph_embedding_level);
+                for (auto & run_sequence : run_sequences) {
+                    w1(run_sequence);
+                    w2(run_sequence);
+                    w3(run_sequence);
+                    w4(run_sequence);
+                    w5(run_sequence);
+                    w6(run_sequence);
+                    w7(run_sequence);
                 }
 
                 // TODO
