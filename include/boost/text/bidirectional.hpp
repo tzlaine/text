@@ -3,7 +3,7 @@
 
 #include <boost/text/bidirectional_fwd.hpp>
 #include <boost/text/paragraph_break.hpp>
-#include <boost/text/detail/bidi_brackets.hpp>
+#include <boost/text/detail/bidirectional.hpp>
 
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
