@@ -68,42 +68,12 @@ namespace boost { namespace text {
                    prop == bidi_prop_t::LRO || prop == bidi_prop_t::RLO;
         }
 
-        // TODO: Needed?
-        template<typename CPIter>
-        CPIter matching_pdf(CPIter it, CPIter last) noexcept
-        {
-            if (it == last)
-                return last;
-
-            assert(embedding_initiator(bidi_prop(*it)));
-
-            int eis = 1;
-            while (++it != last) {
-                auto prop = bidi_prop(*it);
-                if (isolate_initiator(prop)) {
-                    it = matching_pdi(it, last);
-                    if (it != last)
-                        prop = bidi_prop(*it);
-                }
-                if (embedding_initiator(prop)) {
-                    ++eis;
-                } else if (prop == bidi_prop_t::PDF) {
-                    --eis;
-                    if (!eis)
-                        break;
-                }
-            }
-
-            return it;
-        }
-
         enum class directional_override_t {
             neutral,
             right_to_left,
             left_to_right
         };
 
-        // TODO
         struct bidi_state_t
         {
             int embedding_;
