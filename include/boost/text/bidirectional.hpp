@@ -195,7 +195,7 @@ namespace boost { namespace text {
             using pointer = prop_and_embedding_t *;
             using reference = prop_and_embedding_t &;
             using difference_type = std::ptrdiff_t;
-            using iterator_category = std::forward_iterator_tag;
+            using iterator_category = std::bidirectional_iterator_tag;
 
             run_seq_iter & operator++() noexcept
             {
@@ -208,6 +208,16 @@ namespace boost { namespace text {
                         it_ = runs_it_->first_;
                     }
                 }
+                return *this;
+            }
+
+            run_seq_iter & operator--() noexcept
+            {
+                if (it_ == runs_it_->first_) {
+                    --runs_it_;
+                    it_ = runs_it_->last_;
+                }
+                --it_;
                 return *this;
             }
 
@@ -400,16 +410,17 @@ namespace boost { namespace text {
             }
         }
 
+        inline bool not_bn(prop_and_embedding_t pae) noexcept
+        {
+            return pae.prop_ != bidi_prop_t::BN;
+        }
+
         // https://unicode.org/reports/tr9/#W4
         inline void w4(run_sequence_t & seq) noexcept
         {
             auto const end = seq.end();
 
             // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-            auto not_bn = [](prop_and_embedding_t pae) {
-                return pae.prop_ != bidi_prop_t::BN;
-            };
-
             auto prev_it = std::find_if(seq.begin(), end, not_bn);
             if (prev_it == seq.end())
                 return;
@@ -665,6 +676,74 @@ namespace boost { namespace text {
                         }
                     }
                 }
+            }
+        }
+
+        inline bool neutral_or_isolate(prop_and_embedding_t pae) noexcept
+        {
+            // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
+            return pae.prop_ == bidi_prop_t::BN ||
+                   pae.prop_ == bidi_prop_t::B || pae.prop_ == bidi_prop_t::S ||
+                   pae.prop_ == bidi_prop_t::WS ||
+                   pae.prop_ == bidi_prop_t::ON ||
+                   pae.prop_ == bidi_prop_t::FSI ||
+                   pae.prop_ == bidi_prop_t::LRI ||
+                   pae.prop_ == bidi_prop_t::RLI ||
+                   pae.prop_ == bidi_prop_t::PDI;
+        }
+
+        // https://unicode.org/reports/tr9/#N1
+        inline void n1(run_sequence_t & seq) noexcept
+        {
+            auto num_to_r = [](prop_and_embedding_t pae) {
+                if (pae.prop_ == bidi_prop_t::EN ||
+                    pae.prop_ == bidi_prop_t::AN)
+                    return bidi_prop_t::R;
+                return pae.prop_;
+            };
+
+            auto const begin = seq.begin();
+            auto const end = seq.end();
+            auto it = begin;
+            while (it != end) {
+                auto next_it = std::find_if(it, end, neutral_or_isolate);
+                bool only_bns = true;
+                auto next_next_it = std::find_if(
+                    next_it, end, [&only_bns](prop_and_embedding_t pae) {
+                        if (pae.prop_ != bidi_prop_t::BN)
+                            only_bns = false;
+                        return !neutral_or_isolate(pae);
+                    });
+                if (next_next_it == it || only_bns) {
+                    ++it;
+                    continue;
+                }
+
+                auto prev_prop = seq.sos_;
+                if (next_it != begin || next_it != end)
+                    prev_prop = num_to_r(*std::prev(next_it));
+                auto next_prop = seq.eos_;
+                if (next_next_it != end)
+                    next_prop = num_to_r(*next_next_it);
+
+                if (prev_prop == bidi_prop_t::L &&
+                    next_prop == bidi_prop_t::L) {
+                    std::transform(
+                        next_it,
+                        next_next_it,
+                        next_it,
+                        set_prop(bidi_prop_t::L));
+                } else if (
+                    prev_prop == bidi_prop_t::R &&
+                    next_prop == bidi_prop_t::R) {
+                    std::transform(
+                        next_it,
+                        next_next_it,
+                        next_it,
+                        set_prop(bidi_prop_t::R));
+                }
+
+                it = next_next_it;
             }
         }
     }

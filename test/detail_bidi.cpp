@@ -1640,6 +1640,220 @@ TEST(detail_bidi, n0_)
     }
 }
 
+TEST(detail_bidi, n1_)
+{
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::L, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::L, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::L);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::R, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::R, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::R, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::AN, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::AN);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::R, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::EN);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::R, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::AN);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::AN, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::AN);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::AN);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::AN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::AN);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::EN);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::R, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::EN);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::AN, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::EN);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::AN);
+    }
+    {
+        props_and_embeddings_t paes = {
+            {0, 0, bidi_prop_t::EN, false},
+            {0, 0, bidi_prop_t::B, false},
+            {0, 0, bidi_prop_t::EN, false},
+        };
+
+        auto run_sequences = find_run_sequences(paes);
+        EXPECT_EQ(run_sequences.size(), 1u);
+
+        n1(run_sequences[0]);
+
+        auto it = run_sequences[0].begin();
+        EXPECT_EQ(
+            std::distance(run_sequences[0].begin(), run_sequences[0].end()), 3);
+        EXPECT_EQ(it->prop_, bidi_prop_t::EN);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::R);
+        ++it;
+        EXPECT_EQ(it->prop_, bidi_prop_t::EN);
+    }
+}
+
 // TODO: This is just here for early-stage testing.  Remove once an actual
 // test exists for this function.
 TEST(detail_bidi, bidirectional_order_instantiation)
