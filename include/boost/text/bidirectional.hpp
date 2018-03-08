@@ -746,6 +746,45 @@ namespace boost { namespace text {
                 it = next_next_it;
             }
         }
+
+        // https://unicode.org/reports/tr9/#N2
+        inline void n2(run_sequence_t & seq) noexcept
+        {
+            auto const seq_embedding_prop =
+                even(seq.embedding_) ? bidi_prop_t::L : bidi_prop_t::R;
+            std::transform(
+                seq.begin(),
+                seq.end(),
+                seq.begin(),
+                [seq_embedding_prop](prop_and_embedding_t pae) {
+                    if (neutral_or_isolate(pae))
+                        pae.prop_ = seq_embedding_prop;
+                    return pae;
+                });
+        }
+
+        // https://unicode.org/reports/tr9/#I1
+        // https://unicode.org/reports/tr9/#I2
+        inline void i1_i2(run_sequence_t & seq) noexcept
+        {
+            bool const even_ = even(seq.embedding_);
+            for (auto & elem : seq) {
+                if (even_) {
+                    if (elem.prop_ == bidi_prop_t::R) {
+                        elem.embedding_ += 1;
+                    } else if (
+                        elem.prop_ == bidi_prop_t::EN ||
+                        elem.prop_ == bidi_prop_t::AN) {
+                        elem.embedding_ += 2;
+                    }
+                } else if (
+                    elem.prop_ == bidi_prop_t::L ||
+                    elem.prop_ == bidi_prop_t::EN ||
+                    elem.prop_ == bidi_prop_t::AN) {
+                    elem.embedding_ += 1;
+                }
+            }
+        }
     }
 
     // value_type of out below, TBD.
@@ -1042,8 +1081,10 @@ namespace boost { namespace text {
 
                     auto const bracket_pairs = find_bracket_pairs(run_sequence);
                     detail::n0(run_sequence, bracket_pairs);
+                    detail::n1(run_sequence);
+                    detail::n2(run_sequence);
 
-                    // TODO
+                    detail::i1_i2(run_sequence);
                 }
             }
         }
