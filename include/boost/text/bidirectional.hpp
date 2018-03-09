@@ -192,7 +192,7 @@ namespace boost { namespace text {
             }
 
             reference operator*() noexcept { return *it_; }
-            pointer operator->() noexcept { return &*it_; }
+            pointer operator->() noexcept { return std::addressof(*it_); }
 
             level_run::iterator base() const { return it_; }
 
@@ -231,10 +231,10 @@ namespace boost { namespace text {
             bidi_prop_t eos_; // L or R
         };
 
+        using all_runs_t = container::small_vector<level_run, 1024>;
         using run_sequences_t = container::small_vector<run_sequence_t, 32>;
 
-        inline container::small_vector<level_run, 1024>
-        find_all_runs(props_and_embeddings_t & pae)
+        inline all_runs_t find_all_runs(props_and_embeddings_t & pae)
         {
             container::small_vector<level_run, 1024> retval;
             {
@@ -252,15 +252,14 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#BD13
-        inline run_sequences_t find_run_sequences(props_and_embeddings_t & pae)
+        inline run_sequences_t
+        find_run_sequences(props_and_embeddings_t & pae, all_runs_t & all_runs)
         {
             run_sequences_t retval;
             if (pae.empty())
                 return retval;
 
             auto const end = pae.end();
-            auto all_runs = find_all_runs(pae);
-
             for (auto & run : all_runs) {
                 if (!run.used_ && (run.first_->prop_ != bidi_prop_t::PDI ||
                                    run.first_->unmatched_pdi_)) {
@@ -755,18 +754,164 @@ namespace boost { namespace text {
                 }
             }
         }
+
+        // TODO: L1, L2, L3, L4
+
+        template<typename CPIter>
+        struct fwd_rev_cp_iter
+        {
+            using value_type =
+                typename std::iterator_traits<CPIter>::value_type;
+            using pointer = typename std::iterator_traits<CPIter>::pointer;
+            using reference = typename std::iterator_traits<CPIter>::reference;
+            using difference_type =
+                typename std::iterator_traits<CPIter>::difference_type;
+            using iterator_category =
+                typename std::iterator_traits<CPIter>::iterator_category;
+
+            fwd_rev_cp_iter() noexcept : reverse_(false) {}
+            fwd_rev_cp_iter(CPIter it) noexcept : reverse_(false)
+            {
+                new (&it_) CPIter(std::move(it));
+            }
+            fwd_rev_cp_iter(std::reverse_iterator<CPIter> rit) noexcept :
+                reverse_(true)
+            {
+                new (&rit_) std::reverse_iterator<CPIter>(std::move(rit));
+            }
+
+            fwd_rev_cp_iter(fwd_rev_cp_iter const & other) noexcept :
+                reverse_(other.reverse_)
+            {
+                if (reverse_)
+                    new (&rit_) std::reverse_iterator<CPIter>(other.rit_);
+                else
+                    new (&it_) CPIter(other.it_);
+            }
+            fwd_rev_cp_iter(fwd_rev_cp_iter && other) noexcept :
+                reverse_(other.reverse_)
+            {
+                if (reverse_) {
+                    new (&rit_)
+                        std::reverse_iterator<CPIter>(std::move(other.rit_));
+                } else {
+                    new (&it_) CPIter(std::move(other.it_));
+                }
+            }
+            fwd_rev_cp_iter &
+            operator=(fwd_rev_cp_iter const & other) noexcept
+            {
+                fwd_rev_cp_iter tmp(other);
+                std::swap(*this, tmp);
+                return *this;
+            }
+            fwd_rev_cp_iter &
+            operator=(fwd_rev_cp_iter && other) noexcept
+            {
+                fwd_rev_cp_iter tmp(std::move(other));
+                std::swap(*this, tmp);
+                return *this;
+            }
+            ~fwd_rev_cp_iter()
+            {
+                using reverse_iterator_t = std::reverse_iterator<CPIter>;
+                if (reverse_)
+                    rit_.~reverse_iterator_t();
+                else
+                    it_.~CPIter();
+            }
+
+            fwd_rev_cp_iter & operator++() noexcept
+            {
+                if (reverse_)
+                    ++rit_;
+                else
+                    ++it_;
+                return *this;
+            }
+            fwd_rev_cp_iter operator++(int) noexcept
+            {
+                fwd_rev_cp_iter retval = *this;
+                ++*this;
+                return retval;
+            }
+
+            fwd_rev_cp_iter & operator--() noexcept
+            {
+                if (reverse_)
+                    --rit_;
+                else
+                    --it_;
+                return *this;
+            }
+            fwd_rev_cp_iter operator--(int) noexcept
+            {
+                fwd_rev_cp_iter retval = *this;
+                --*this;
+                return retval;
+            }
+
+            reference operator*() noexcept { return reverse_ ? *rit_ : *it_; }
+            pointer operator->() noexcept
+            {
+                return reverse_ ? rit_.operator->() : it_.operator->();
+            }
+
+            friend bool operator==(
+                fwd_rev_cp_iter const & lhs,
+                fwd_rev_cp_iter const & rhs) noexcept
+            {
+                assert(lhs.reverse_ == rhs.reverse_);
+                return lhs.reverse_ ? lhs.rit_ == rhs.rit_ : lhs.it_ == rhs.it_;
+            }
+            friend bool operator!=(
+                fwd_rev_cp_iter const & lhs,
+                fwd_rev_cp_iter const & rhs) noexcept
+            {
+                return !(lhs == rhs);
+            }
+
+        private:
+            union {
+                CPIter it_;
+                std::reverse_iterator<CPIter> rit_;
+            };
+            bool reverse_;
+        };
     }
 
-    // value_type of out below, TBD.
+    /** TODO */
     template<typename CPIter>
-    struct TODO
+    struct bidirectional_subrange
     {
+        using iterator = detail::fwd_rev_cp_iter<CPIter>;
+
+        bidirectional_subrange() noexcept {}
+        bidirectional_subrange(iterator first, iterator last) noexcept :
+            first_(first),
+            last_(last)
+        {}
+
+        iterator begin() const noexcept { return first_; }
+        iterator end() const noexcept { return last_; }
+
+    private:
+        iterator first_;
+        iterator last_;
     };
 
-    /** TODO */
+    /** TODO
+        TODO: Document that CPIter must be bidirectional.
+    */
     template<typename CPIter, typename OutIter>
     OutIter bidirectional_order(CPIter first, CPIter last, OutIter out)
     {
+        static_assert(
+            std::is_same<
+                typename std::iterator_traits<OutIter>::value_type,
+                bidirectional_subrange<CPIter>>::value,
+            "OutIter::value_type must be bidirectional_subrange<CPIter>");
+
         // https://unicode.org/reports/tr9/#Basic_Display_Algorithm
 
         using prop_and_embedding_t = detail::prop_and_embedding_t;
@@ -1036,8 +1181,9 @@ namespace boost { namespace text {
                     });
 
                 // https://unicode.org/reports/tr9/#X10
+                auto all_runs = detail::find_all_runs(props_and_embeddings);
                 auto run_sequences =
-                    detail::find_run_sequences(props_and_embeddings);
+                    detail::find_run_sequences(props_and_embeddings, all_runs);
 
                 detail::find_sos_eos(run_sequences, paragraph_embedding_level);
                 for (auto & run_sequence : run_sequences) {

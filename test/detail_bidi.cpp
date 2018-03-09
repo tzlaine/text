@@ -45,7 +45,7 @@ TEST(detail_bidi, find_run_sequences_)
             {0, 0, bidi_prop_t::L, false},
         };
 
-        auto const runs = find_all_runs(paes);
+        auto runs = find_all_runs(paes);
 
         EXPECT_EQ(runs.size(), 3u);
         EXPECT_TRUE(std::none_of(runs.begin(), runs.end(), run_used));
@@ -56,7 +56,7 @@ TEST(detail_bidi, find_run_sequences_)
         EXPECT_EQ(runs[2].first_ - paes.begin(), 13);
         EXPECT_EQ(runs[2].last_ - paes.begin(), 16);
 
-        auto const run_sequences = find_run_sequences(paes);
+        auto const run_sequences = find_run_sequences(paes, runs);
 
         EXPECT_EQ(run_sequences.size(), 3u);
         EXPECT_EQ(run_sequences[0].runs_[0].first_ - paes.begin(), 0);
@@ -98,7 +98,7 @@ TEST(detail_bidi, find_run_sequences_)
             {0, 0, bidi_prop_t::L, false},
         };
 
-        auto const runs = find_all_runs(paes);
+        auto runs = find_all_runs(paes);
 
         EXPECT_EQ(runs.size(), 5u);
         EXPECT_TRUE(std::none_of(runs.begin(), runs.end(), run_used));
@@ -113,7 +113,7 @@ TEST(detail_bidi, find_run_sequences_)
         EXPECT_EQ(runs[4].first_ - paes.begin(), 12);
         EXPECT_EQ(runs[4].last_ - paes.begin(), 16);
 
-        auto const run_sequences = find_run_sequences(paes);
+        auto const run_sequences = find_run_sequences(paes, runs);
 
         EXPECT_EQ(run_sequences.size(), 3u);
         EXPECT_EQ(run_sequences[0].runs_[0].first_ - paes.begin(), 0);
@@ -178,7 +178,7 @@ TEST(detail_bidi, find_run_sequences_)
             {0, 0, bidi_prop_t::L, false},
         };
 
-        auto const runs = find_all_runs(paes);
+        auto runs = find_all_runs(paes);
 
         EXPECT_EQ(runs.size(), 7u);
         EXPECT_TRUE(std::none_of(runs.begin(), runs.end(), run_used));
@@ -197,7 +197,7 @@ TEST(detail_bidi, find_run_sequences_)
         EXPECT_EQ(runs[6].first_ - paes.begin(), 23);
         EXPECT_EQ(runs[6].last_ - paes.begin(), 27);
 
-        auto const run_sequences = find_run_sequences(paes);
+        auto const run_sequences = find_run_sequences(paes, runs);
 
         EXPECT_EQ(run_sequences.size(), 5u);
         EXPECT_EQ(run_sequences[0].runs_[0].first_ - paes.begin(), 0);
@@ -227,7 +227,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::NSM, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -247,7 +248,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::NSM, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -264,7 +266,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::NSM, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -283,7 +286,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::NSM, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -305,7 +309,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::NSM, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -330,7 +335,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::NSM, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -351,7 +357,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -371,7 +378,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -392,7 +400,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -412,7 +421,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -434,7 +444,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -458,7 +469,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -480,7 +492,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -502,7 +515,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -529,7 +543,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::BN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -565,7 +580,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::BN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -600,7 +616,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::BN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -634,7 +651,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -656,7 +674,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::ET, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -678,7 +697,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -700,7 +720,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -722,7 +743,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::ET, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -744,7 +766,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::ET, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -768,7 +791,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -797,7 +821,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::BN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -826,7 +851,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::ET, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -846,7 +872,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -868,7 +895,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -889,7 +917,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -911,7 +940,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::ET, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -937,7 +967,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::BN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -964,7 +995,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -988,7 +1020,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -1011,7 +1044,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::BN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -1037,7 +1071,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -1059,7 +1094,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -1082,7 +1118,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -1107,7 +1144,8 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         find_sos_eos(run_sequences, 1); // 1 implies sos==R
@@ -1137,7 +1175,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {'c', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1153,7 +1192,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {'c', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1169,7 +1209,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {'c', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1191,7 +1232,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {']', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1212,7 +1254,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {'d', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1233,7 +1276,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {'d', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1254,7 +1298,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {'d', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1276,7 +1321,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {')', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1301,7 +1347,8 @@ TEST(detail_bidi, find_bracket_pairs_)
             {')', 0, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1336,7 +1383,8 @@ TEST(detail_bidi, n0_)
             {'h', 1, bidi_prop_t::L, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1408,7 +1456,8 @@ TEST(detail_bidi, n0_)
             {'W', 1, bidi_prop_t::R, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1512,7 +1561,8 @@ TEST(detail_bidi, n0_)
             {'W', 1, bidi_prop_t::R, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1600,7 +1650,8 @@ TEST(detail_bidi, n0_)
             {')', 1, bidi_prop_t::ON, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         auto const bracket_pairs = find_bracket_pairs(run_sequences[0]);
@@ -1649,7 +1700,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::L, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1670,7 +1722,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::R, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1691,7 +1744,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1712,7 +1766,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1733,7 +1788,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::R, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1754,7 +1810,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1775,7 +1832,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1796,7 +1854,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::R, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1817,7 +1876,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::AN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1838,7 +1898,8 @@ TEST(detail_bidi, n1_)
             {0, 0, bidi_prop_t::EN, false},
         };
 
-        auto run_sequences = find_run_sequences(paes);
+        auto runs = find_all_runs(paes);
+        auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
         n1(run_sequences[0]);
@@ -1859,6 +1920,7 @@ TEST(detail_bidi, n1_)
 TEST(detail_bidi, bidirectional_order_instantiation)
 {
     std::array<uint32_t, 1> str = {'a'};
-    bidirectional_order(
-        str.begin(), str.end(), TODO<std::array<uint32_t, 1>::iterator>{});
+    std::array<bidirectional_subrange<std::array<uint32_t, 1>::iterator>, 1024>
+        subranges;
+    bidirectional_order(str.begin(), str.end(), subranges.begin());
 }
