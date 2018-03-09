@@ -161,6 +161,81 @@ def extract_break_properties(filename, prop_):
     return (intervals_list, num_intervals, intervals_map)
 
 
+def extract_line_break_properties(filename, prop_):
+    # https://unicode.org/reports/tr14/#BreakingRules
+    # LB1 defines this mapping as the first step of line breaking.  We're
+    # doing it in data generation instead.
+    # Resolved  Original    General_Category
+    # AL        AI, SG, XX  Any
+    # CM        SA          Only Mn or Mc
+    # AL        SA          Any except Mn and Mc
+    # NS        CJ          Any
+
+    unicode_data_lines = open('UnicodeData.txt', 'r').readlines()
+    gen_category = {} # code point -> General_Category
+    for line in unicode_data_lines:
+        tokens = line.split(';')
+        gen_category[int(tokens[0], 16)] = tokens[2]
+
+    intervals = []
+    prop_enum = prop_ + '_t'
+    break_prop_lines = open(filename, 'r').readlines()
+    for line in break_prop_lines:
+        line = line[:-1]
+        if not line.startswith('#') and len(line) != 0:
+            comment_start = line.find('#')
+            comment = ''
+            if comment_start != -1:
+                comment = line[comment_start + 1:].strip()
+                line = line[:comment_start]
+            fields = map(lambda x: x.strip(), line.split(';'))
+            prop = fields[1]
+            if prop == 'AI' or prop == 'SG' or prop == 'XX':
+                prop = 'AL'
+            if prop == 'CJ':
+                prop = 'NS'
+            code_points = fields[0]
+            if '..' in code_points:
+                cps = code_points.split('.')
+                cps[0] = int(cps[0], 16)
+                cps[2] = int(cps[2], 16)
+                if prop == 'SA':
+                    if gen_category[cps[0]] != gen_category[cps[2]]:
+                        raise Exception('Oops!  Not all CPs in this range have the same General_Category.')
+                    if gen_category[cps[0]] in ['Mn', 'Mc']:
+                        prop = 'CM'
+                    else:
+                        prop = 'AL'
+                interval = (cps[0], cps[2] + 1, prop)
+            else:
+                cp = int(code_points, 16)
+                if prop == 'SA':
+                    if gen_category[cp] in ['Mn', 'Mc']:
+                        prop = 'CM'
+                    else:
+                        prop = 'AL'
+                interval = (cp, cp + 1, prop)
+            if 'line' not in prop_ or 'SG' not in interval[2]: # Skip surrogates.
+                intervals.append(interval)
+
+    intervals = sorted(intervals)
+    intervals_list = ''
+    intervals_map = ''
+    num_intervals = 0
+    for interval in intervals:
+        if 128 < interval[1] - interval[0]:
+            num_intervals += 1
+            intervals_list += '    {}_interval{{{}, {}, {}::{}}},\n'.format(
+                prop_, hex(interval[0]), hex(interval[1]), prop_enum, interval[2]
+            )
+        else:
+            for i in range(interval[0], interval[1]):
+                intervals_map += '    {{ {}, {}::{} }},\n'.format(
+                    hex(i), prop_enum, interval[2]
+                )
+    return (intervals_list, num_intervals, intervals_map)
+
+
 def extract_bidi_bracket_properties(filename):
     retval = []
     bidi_brackets_lines = open(filename, 'r').readlines()
@@ -207,9 +282,9 @@ cpp_file = open('sentence_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', sentence_break_intervals_map, 'Other'))
 
 (line_break_intervals, num_line_intervals, line_break_intervals_map) = \
-    extract_break_properties('LineBreak.txt', 'line_prop')
+    extract_line_break_properties('LineBreak.txt', 'line_prop')
 cpp_file = open('line_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map, 'Other'))
+cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map, 'AL')) # AL in place of XX, due to Rule LB1
 
 (bidi_intervals, num_bidi_intervals, bidi_intervals_map) = \
     extract_break_properties('DerivedBidiClass.txt', 'bidi_prop')
