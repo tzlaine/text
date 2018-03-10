@@ -61,28 +61,25 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter, typename Func>
-        bool before_close_sp(CPIter it, CPIter first, bool skip_sps, Func func)
+        bool before_close_sp(CPIter it_, CPIter first, bool skip_sps, Func func)
         {
-            --it;
-            while (it != first && detail::skippable(sentence_prop(*it))) {
-                --it;
-            }
+            std::reverse_iterator<CPIter> it(std::next(it_));
+            std::reverse_iterator<CPIter> last(first);
+            it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
+                return skippable(sentence_prop(cp));
+            });
             if (skip_sps) {
-                while (it != first &&
+                while (it != last &&
                        sentence_prop(*it) == sentence_prop_t::Sp) {
-                    --it;
-                    while (it != first &&
-                           detail::skippable(sentence_prop(*it))) {
-                        --it;
-                    }
+                    it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
+                        return skippable(sentence_prop(cp));
+                    });
                 }
             }
-            while (it != first &&
-                   sentence_prop(*it) == sentence_prop_t::Close) {
-                --it;
-                while (it != first && detail::skippable(sentence_prop(*it))) {
-                    --it;
-                }
+            while (it != last && sentence_prop(*it) == sentence_prop_t::Close) {
+                it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
+                    return skippable(sentence_prop(cp));
+                });
             }
             return func(sentence_prop(*it));
         }
@@ -131,12 +128,10 @@ namespace boost { namespace text {
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 skippable(state.prop)) {
-                auto temp_it = state.it;
-                while (std::next(temp_it) != last) {
-                    auto temp_next_prop = sentence_prop(*++temp_it);
-                    if (!skippable(temp_next_prop))
-                        break;
-                }
+                auto temp_it = std::find_if_not(
+                    std::next(state.it), last, [](uint32_t cp) {
+                        return skippable(sentence_prop(cp));
+                    });
                 if (temp_it == last) {
                     state.it = last;
                 } else {
@@ -342,11 +337,10 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 if (aterm) {
                     auto it = after_skip_it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        ++it;
-                        while (it != last &&
-                               detail::skippable(sentence_prop(*it))) {
-                            ++it;
-                        }
+                        it = std::find_if_not(
+                            std::next(it), last, [](uint32_t cp) {
+                                return detail::skippable(sentence_prop(cp));
+                            });
                     }
                     if (it != last &&
                         sentence_prop(*it) == sentence_prop_t::Lower) {
@@ -419,31 +413,25 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return first;
     }
 
-    /** Finds the next sentence break after <code>it</code>.  This will be the
-        first code point after the current sentence, or <code>last</code> if
-        no next sentence exists.
+    /** Finds the next sentence break after <code>first</code>.  This will be
+        the first code point after the current sentence, or <code>last</code>
+        if no next sentence exists.
 
-        \pre <code>it</code> is at the beginning of a sentence. */
+        \pre <code>first</code> is at the beginning of a sentence. */
     template<typename CPIter>
-    inline CPIter next_sentence_break(CPIter first, CPIter it, CPIter last) noexcept
+    inline CPIter next_sentence_break(CPIter first, CPIter last) noexcept
     {
-        if (it == last)
-            return last;
-
-        if (++it == last)
+        if (first == last)
             return last;
 
         detail::sentence_break_state<CPIter> state;
+        state.it = first;
 
-        state.it = it;
+        if (++state.it == last)
+            return last;
 
         state.prev_prev_prop = sentence_prop_t::Other;
-        state.prev_prop = sentence_prop_t::Other;
-        if (state.it != first) {
-            state.prev_prop = sentence_prop(*std::prev(state.it));
-            if (std::prev(state.it) != first)
-                state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
-        }
+        state.prev_prop = sentence_prop(*first);
         state.prop = sentence_prop(*state.it);
         state.next_prop = sentence_prop_t::Other;
         state.next_next_prop = sentence_prop_t::Other;
@@ -503,11 +491,10 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 if (aterm) {
                     auto it = state.it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        ++it;
-                        while (it != last &&
-                               detail::skippable(sentence_prop(*it))) {
-                            ++it;
-                        }
+                        it = std::find_if_not(
+                            std::next(it), last, [](uint32_t cp) {
+                                return detail::skippable(sentence_prop(cp));
+                            });
                     }
                     if (it != last &&
                         sentence_prop(*it) == sentence_prop_t::Lower) {
@@ -605,9 +592,9 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         <code>[first, last]</code>. */
     template<typename CPIter>
     lazy_segment_range<CPIter, detail::next_sentence_callable<CPIter>>
-    sentences(CPIter first, CPIter it, CPIter last) noexcept
+    sentences(CPIter first, CPIter last) noexcept
     {
-        return {{first, it, last}, {last, last, last}};
+        return {{first, first, last}, {first, last, last}};
     }
 
 }}
