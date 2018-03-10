@@ -13,11 +13,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x1 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -26,13 +26,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x1 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -41,11 +41,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0xd }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -54,13 +54,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0xd }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -69,11 +69,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0xa }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -82,13 +82,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0xa }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -97,11 +97,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0xb }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -110,13 +110,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0xb }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -125,11 +125,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x3031 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -138,13 +138,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x3031 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -153,11 +153,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x41 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -166,13 +166,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x41 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -181,11 +181,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -194,13 +194,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -209,11 +209,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -222,13 +222,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -237,11 +237,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x2e }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -250,13 +250,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x2e }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -265,11 +265,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x30 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -278,13 +278,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x30 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -293,11 +293,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x5f }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -306,13 +306,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x5f }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -321,11 +321,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -334,13 +334,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -349,11 +349,11 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 2> cps = {{ 0x1, 0x5d0 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -362,13 +362,13 @@ TEST(word, breaks_0)
     {
         std::array<uint32_t, 3> cps = {{ 0x1, 0x308, 0x5d0 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 

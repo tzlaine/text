@@ -451,31 +451,25 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return first;
     }
 
-    /** Finds the next word break after <code>it</code>.  This will be the
+    /** Finds the next word break after <code>first</code>.  This will be the
         first code point after the current word, or <code>last</code> if no
         next word exists.
 
-        \pre <code>it</code> is at the beginning of a word. */
+        \pre <code>first</code> is at the beginning of a word. */
     template<typename CPIter>
-    inline CPIter next_word_break(CPIter first, CPIter it, CPIter last) noexcept
+    inline CPIter next_word_break(CPIter first, CPIter last) noexcept
     {
-        if (it == last)
-            return last;
-
-        if (++it == last)
+        if (first == last)
             return last;
 
         detail::word_break_state<CPIter> state;
+        state.it = first;
 
-        state.it = it;
+        if (++state.it == last)
+            return last;
 
         state.prev_prev_prop = word_prop_t::Other;
-        state.prev_prop = word_prop_t::Other;
-        if (state.it != first) {
-            state.prev_prop = word_prop(*std::prev(state.it));
-            if (std::prev(state.it) != first)
-                state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
-        }
+        state.prev_prop = word_prop(*std::prev(state.it));
         state.prop = word_prop(*state.it);
         state.next_prop = word_prop_t::Other;
         state.next_next_prop = word_prop_t::Other;
@@ -628,9 +622,9 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         <code>[first, last]</code>. */
     template<typename CPIter>
     lazy_segment_range<CPIter, detail::next_word_callable<CPIter>>
-    words(CPIter first, CPIter it, CPIter last) noexcept
+    words(CPIter first, CPIter last) noexcept
     {
-        return {{first, it, last}, {last, last, last}};
+        return {{first, first, last}, {first, last, last}};
     }
 
 }}
