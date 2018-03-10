@@ -13,13 +13,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x1f1e6 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -28,15 +28,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x1f1e6 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -45,11 +45,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x261d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -58,13 +58,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x261d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -73,13 +73,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x261d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -88,15 +88,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x261d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -105,11 +105,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x1f3fb }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -118,13 +118,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x1f3fb }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -133,13 +133,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x1f3fb }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -148,15 +148,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x1f3fb }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -165,11 +165,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x1 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -178,13 +178,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x1 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -193,13 +193,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x1 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -208,15 +208,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x1 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -225,11 +225,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x200d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -238,13 +238,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x200d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -253,13 +253,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x200d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -268,15 +268,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x200d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -285,11 +285,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0xa7 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -298,13 +298,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xa7 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -313,13 +313,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xa7 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -328,15 +328,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xa7 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -345,11 +345,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x50005 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -358,13 +358,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x50005 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -373,13 +373,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x50005 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -388,15 +388,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x50005 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -405,11 +405,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0xe01 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -418,13 +418,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0xe01 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -433,13 +433,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xe01 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -448,15 +448,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0xe01 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -465,11 +465,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -478,13 +478,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x20, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -493,13 +493,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -508,15 +508,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x3041, 0x308, 0x20, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -525,17 +525,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0xd, 0xa, 0x61, 0xa, 0x308 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -544,11 +544,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x61, 0x308 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -557,13 +557,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x20, 0x200d, 0x646 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -572,13 +572,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x646, 0x200d, 0x20 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -587,11 +587,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0xb, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -600,11 +600,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0xd, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -613,11 +613,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x85, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -626,11 +626,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x200d, 0x261d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -639,11 +639,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x2060 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -652,11 +652,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x2060, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -665,13 +665,13 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 3> cps = {{ 0x3041, 0x308, 0xa0 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -680,11 +680,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x200d, 0xa0 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -693,11 +693,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x200d, 0x2f }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -706,11 +706,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x2014, 0x2014 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -719,11 +719,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0xfffc }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -732,11 +732,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0xfffc, 0x3041 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -745,11 +745,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x2d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -758,11 +758,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0xe01, 0x2024 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -771,11 +771,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x21, 0x2024 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -784,11 +784,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x2024, 0x2024 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -797,11 +797,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x30, 0x2024 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -810,11 +810,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x261d, 0x25 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -823,11 +823,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0xe01, 0x30 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -836,11 +836,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x261d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -849,11 +849,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0xe01 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -862,11 +862,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x25, 0xe01 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -875,11 +875,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x1100, 0x1160 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -888,11 +888,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x1160 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -901,11 +901,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x11a8, 0x11a8 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -914,11 +914,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x2024 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -927,11 +927,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x25 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -940,11 +940,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x1160 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -953,11 +953,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x261d, 0x1f3fb }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -966,17 +966,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x66, 0x69, 0x6e, 0x61, 0x6c }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -985,17 +985,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x63, 0x61, 0x6e, 0x27, 0x74 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -1004,17 +1004,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x63, 0x61, 0x6e, 0x2019, 0x74 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -1023,25 +1023,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x27, 0x63, 0x61, 0x6e, 0x27, 0x20, 0x6e, 0x6f, 0x74 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1050,25 +1050,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x63, 0x61, 0x6e, 0x20, 0x27, 0x6e, 0x6f, 0x74, 0x27 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1077,29 +1077,29 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 11> cps = {{ 0x62, 0x75, 0x67, 0x28, 0x73, 0x29, 0x20, 0x20, 0x20, 0x20, 0x20 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
     }
 
 
@@ -1108,31 +1108,31 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 12> cps = {{ 0x62, 0x75, 0x67, 0x28, 0x73, 0x29, 0xa0, 0x20, 0x20, 0x20, 0x20, 0x20 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
     }
 
 
@@ -1141,29 +1141,29 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 11> cps = {{ 0x2e, 0x2e, 0x307e, 0x3059, 0x3002, 0x58, 0x4d, 0x4c, 0x306e, 0x2e, 0x2e }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
     }
 
 
@@ -1172,17 +1172,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x61, 0x62, 0xad, 0x62, 0x79 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -1191,11 +1191,11 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 2> cps = {{ 0x2d, 0x33 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
     }
 
 
@@ -1204,15 +1204,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x65, 0x2e, 0x67, 0x2e }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -1221,15 +1221,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x4e00, 0x2e, 0x4e00, 0x2e }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -1238,15 +1238,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x61, 0x20, 0x20, 0x62 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -1255,17 +1255,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x61, 0x20, 0x20, 0x200b, 0x62 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -1274,15 +1274,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x61, 0x20, 0x308, 0x62 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -1291,27 +1291,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x31, 0x308, 0x62, 0x28, 0x61, 0x29, 0x2d, 0x28, 0x62, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1320,33 +1320,33 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 13> cps = {{ 0x67, 0x69, 0x76, 0x65, 0x20, 0x62, 0x6f, 0x6f, 0x6b, 0x28, 0x73, 0x29, 0x2e }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
     }
 
 
@@ -1355,15 +1355,15 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 4> cps = {{ 0x307e, 0x28, 0x3059, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
     }
 
 
@@ -1372,25 +1372,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x66, 0x69, 0x6e, 0x64, 0x20, 0x2e, 0x63, 0x6f, 0x6d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1399,39 +1399,39 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 16> cps = {{ 0x65, 0x71, 0x75, 0x61, 0x6c, 0x73, 0x20, 0x2e, 0x33, 0x35, 0x20, 0x63, 0x65, 0x6e, 0x74, 0x73 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
     }
 
 
@@ -1440,17 +1440,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x28, 0x73, 0x29, 0x68, 0x65 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -1459,17 +1459,17 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 5> cps = {{ 0x7b, 0x73, 0x7d, 0x68, 0x65 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
     }
 
 
@@ -1478,27 +1478,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x2c8, 0x73, 0x49, 0x6c, 0x259, 0x62, 0x28, 0x259, 0x29, 0x6c }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1507,27 +1507,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x2c8, 0x73, 0x49, 0x6c, 0x259, 0x62, 0x7b, 0x259, 0x7d, 0x6c }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1536,23 +1536,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x29, 0x2e }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -1561,23 +1561,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x2e, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -1586,23 +1586,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x29, 0x21 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -1611,23 +1611,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x21, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -1637,26 +1637,26 @@ TEST(line, breaks_47)
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x5c, 0x28, 0x73, 0x5c, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
 #if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 #endif
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1665,25 +1665,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x20, 0x73, 0x20, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1692,21 +1692,21 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 7> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x73, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
     }
 
 
@@ -1715,23 +1715,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x73, 0x7d, 0x2e }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -1740,23 +1740,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x73, 0x7d, 0x21 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -1766,26 +1766,26 @@ TEST(line, breaks_47)
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x5c, 0x7b, 0x73, 0x5c, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
 #if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 #endif
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1794,25 +1794,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x20, 0x73, 0x20, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1821,27 +1821,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x63, 0x6f, 0x64, 0x28, 0x65, 0x29, 0x2026, 0x28, 0x73, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1850,27 +1850,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x64, 0x28, 0x65, 0x29, 0x2026, 0x29, 0x73 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1879,27 +1879,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x63, 0x6f, 0x64, 0x7b, 0x65, 0x7d, 0x2026, 0x7b, 0x73, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1908,27 +1908,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x64, 0x7b, 0x65, 0x7d, 0x2026, 0x7d, 0x73 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1937,27 +1937,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x2d, 0x29, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1966,27 +1966,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0xad, 0x29, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -1995,27 +1995,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x2011, 0x29, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2024,27 +2024,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x29, 0x2d, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2053,27 +2053,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x29, 0xad, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2082,27 +2082,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x29, 0x2011, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2111,27 +2111,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x2d, 0x7d, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2140,27 +2140,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0xad, 0x7d, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2169,27 +2169,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x2011, 0x7d, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2198,27 +2198,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x7d, 0x2d, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2227,27 +2227,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x7d, 0xad, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2256,27 +2256,27 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x7d, 0x2011, 0x6c, 0x61, 0x6e, 0x67 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
     }
 
 
@@ -2285,29 +2285,29 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 11> cps = {{ 0x63, 0x72, 0x65, 0x301, 0x28, 0x65, 0x301, 0x29, 0x28, 0x65, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
     }
 
 
@@ -2316,41 +2316,41 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 17> cps = {{ 0x63, 0x72, 0x65, 0x301, 0x5b, 0x65, 0x72, 0x7c, 0x65, 0x301, 0x28, 0x65, 0x29, 0x28, 0x73, 0x29, 0x5d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
     }
 
 
@@ -2359,41 +2359,41 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 17> cps = {{ 0x63, 0x72, 0x65, 0x301, 0x7b, 0x65, 0x72, 0x7c, 0x65, 0x301, 0x28, 0x65, 0x29, 0x28, 0x73, 0x29, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
     }
 
 
@@ -2402,33 +2402,33 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 13> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x28, 0x308, 0x29, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
     }
 
 
@@ -2437,37 +2437,37 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 15> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x28, 0xab, 0x308, 0xbb, 0x29, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
     }
 
 
@@ -2476,41 +2476,41 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 17> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x28, 0xab, 0x20, 0x308, 0x20, 0xbb, 0x29, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
     }
 
 
@@ -2519,45 +2519,45 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x20, 0x28, 0x20, 0x308, 0x20, 0x29, 0x20, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
     }
 
 
@@ -2566,45 +2566,45 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x202f, 0x28, 0x20, 0x308, 0x20, 0x29, 0x202f, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
     }
 
 
@@ -2613,33 +2613,33 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 13> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x7b, 0x308, 0x7d, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
     }
 
 
@@ -2648,37 +2648,37 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 15> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x7b, 0xab, 0x308, 0xbb, 0x7d, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
     }
 
 
@@ -2687,41 +2687,41 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 17> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x7b, 0xab, 0x20, 0x308, 0x20, 0xbb, 0x7d, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
     }
 
 
@@ -2730,45 +2730,45 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x20, 0x7b, 0x20, 0x308, 0x20, 0x7d, 0x20, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
     }
 
 
@@ -2777,45 +2777,45 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x202f, 0x7b, 0x20, 0x308, 0x20, 0x7d, 0x202f, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
     }
 
 
@@ -2824,49 +2824,49 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 21> cps = {{ 0x28, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x2011, 0x29, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
     }
 
 
@@ -2875,49 +2875,49 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 21> cps = {{ 0x28, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x29, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
     }
 
 
@@ -2926,49 +2926,49 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 21> cps = {{ 0x28, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0x29, 0xad, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
     }
 
 
@@ -2977,49 +2977,49 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 21> cps = {{ 0x7b, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x2011, 0x7d, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
     }
 
 
@@ -3028,49 +3028,49 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 21> cps = {{ 0x7b, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x7d, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
     }
 
 
@@ -3079,49 +3079,49 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 21> cps = {{ 0x7b, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0x7d, 0xad, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
     }
 
 
@@ -3130,35 +3130,35 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 14> cps = {{ 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x5b, 0x5d, 0x28, 0x30, 0x29, 0x3b }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
     }
 
 
@@ -3167,35 +3167,35 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 14> cps = {{ 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x5b, 0x5d, 0x28, 0x29, 0x7b, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 14);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 14);
     }
 
 
@@ -3204,19 +3204,19 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 6> cps = {{ 0x672c, 0x28, 0x3092, 0x29, 0x8aad, 0x3080 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
     }
 
 
@@ -3225,23 +3225,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x28, 0x300c, 0x3092, 0x300d, 0x29, 0x8aad, 0x3080 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -3250,23 +3250,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x300c, 0x28, 0x3092, 0x29, 0x300d, 0x8aad, 0x3080 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -3275,19 +3275,19 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 6> cps = {{ 0x672c, 0x7b, 0x3092, 0x7d, 0x8aad, 0x3080 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
     }
 
 
@@ -3296,23 +3296,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x7b, 0x300c, 0x3092, 0x300d, 0x7d, 0x8aad, 0x3080 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -3321,23 +3321,23 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x5b, 0x28, 0x3092, 0x29, 0x5d, 0x8aad, 0x3080 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
     }
 
 
@@ -3346,25 +3346,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x28, 0x30cb, 0x30e5, 0x30fc, 0x30fb, 0x29, 0x30e8, 0x30fc, 0x30af }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -3373,25 +3373,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x28, 0x30cb, 0x30e5, 0x30fc, 0x29, 0x30fb, 0x30e8, 0x30fc, 0x30af }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -3400,25 +3400,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x7b, 0x30cb, 0x30e5, 0x30fc, 0x30fb, 0x7d, 0x30e8, 0x30fc, 0x30af }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -3427,25 +3427,25 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 9> cps = {{ 0x7b, 0x30cb, 0x30e5, 0x30fc, 0x7d, 0x30fb, 0x30e8, 0x30fc, 0x30af }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -3454,33 +3454,33 @@ TEST(line, breaks_47)
     {
         std::array<uint32_t, 13> cps = {{ 0x28, 0x1850, 0x1846, 0x1851, 0x1846, 0x1806, 0x29, 0x182a, 0x1822, 0x1834, 0x1822, 0x182d, 0x180c }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
     }
 
 
